@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{03480F4F-F423-4144-90C6-CBDA68269374}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SoulMemory</RootNamespace>
+    <AssemblyName>SoulMemory</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\LiveSplit\LiveSplit\bin\Debug\Components\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Keystone.Net, Version=0.9.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\keystoneengine.csharp.0.9.1.1\lib\netstandard2.0\Keystone.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DarkSouls1\Area.cs" />
+    <Compile Include="DarkSouls1\Bonfires.cs" />
+    <Compile Include="DarkSouls1\CheatType.cs" />
+    <Compile Include="DarkSouls1\CovenantType.cs" />
+    <Compile Include="DarkSouls1\Internal\AssemblyHelper.cs" />
+    <Compile Include="DarkSouls1\Internal\BaseMemoryReaderWriter.cs" />
+    <Compile Include="DarkSouls1\BossType.cs" />
+    <Compile Include="DarkSouls1\DarkSouls1.cs" />
+    <Compile Include="DarkSouls1\Internal\DarkSoulsPtde.cs" />
+    <Compile Include="DarkSouls1\Internal\DarkSoulsRemastered.cs" />
+    <Compile Include="DarkSouls1\Internal\Extensions.cs" />
+    <Compile Include="DarkSouls1\ForcedAnimation.cs" />
+    <Compile Include="DarkSouls1\Internal\IDarkSouls.cs" />
+    <Compile Include="DarkSouls1\Internal\ItemReader.cs" />
+    <Compile Include="DarkSouls2\BossType.cs" />
+    <Compile Include="DarkSouls2\DarkSouls2.cs" />
+    <Compile Include="DarkSouls2\Data.cs" />
+    <Compile Include="DarkSouls2\IDarkSouls2.cs" />
+    <Compile Include="DarkSouls2\Sotfs\DS2SAssembly.cs" />
+    <Compile Include="DarkSouls2\Sotfs\DS2SClass.cs" />
+    <Compile Include="DarkSouls2\Sotfs\DS2SCovenant.cs" />
+    <Compile Include="DarkSouls2\Sotfs\DS2SInfusion.cs" />
+    <Compile Include="DarkSouls2\Sotfs\DS2SItem.cs" />
+    <Compile Include="DarkSouls2\Sotfs\DS2SOffsets.cs" />
+    <Compile Include="DarkSouls2\Vanilla\DS2Class.cs" />
+    <Compile Include="DarkSouls2\Vanilla\DS2Covenant.cs" />
+    <Compile Include="DarkSouls2\Vanilla\DS2Infusion.cs" />
+    <Compile Include="DarkSouls2\Vanilla\DS2Item.cs" />
+    <Compile Include="DarkSouls2\Vanilla\DS2Offsets.cs" />
+    <Compile Include="DarkSouls2\WarpType.cs" />
+    <Compile Include="EldenRing\EldenRing.cs" />
+    <Compile Include="Memory\Extensions.cs" />
+    <Compile Include="Memory\PatternScanner.cs" />
+    <Compile Include="DarkSouls1\Item.cs" />
+    <Compile Include="DarkSouls1\ItemPrompt.cs" />
+    <Compile Include="Memory\PointerFactory.cs" />
+    <Compile Include="Native\Kernel32.cs" />
+    <Compile Include="DarkSouls1\MenuPrompt.cs" />
+    <Compile Include="Memory\Pointer.cs" />
+    <Compile Include="Native\User32.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Native\MemoryRegion.cs" />
+    <Compile Include="Vector3f.cs" />
+    <Compile Include="DarkSouls1\WarpType.cs" />
+    <Compile Include="DarkSouls1\ZoneType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PropertyHook\PropertyHook\PropertyHook.csproj">
+      <Project>{18eff8d2-c4d5-4e18-9a31-38e106ba1cf7}</Project>
+      <Name>PropertyHook</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\keystoneengine.csharp.0.9.1.1\build\keystoneengine.csharp.targets" Condition="Exists('..\..\packages\keystoneengine.csharp.0.9.1.1\build\keystoneengine.csharp.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\keystoneengine.csharp.0.9.1.1\build\keystoneengine.csharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\keystoneengine.csharp.0.9.1.1\build\keystoneengine.csharp.targets'))" />
+  </Target>
+</Project>

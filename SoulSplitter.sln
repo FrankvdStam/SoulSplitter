@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cli", "src\cli\cli.csproj", "{93CF6900-8F5C-4364-9EAF-8992B883361B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulMemory", "src\SoulMemory\SoulMemory.csproj", "{03480F4F-F423-4144-90C6-CBDA68269374}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulMemory.Tests", "src\SoulMemory.Tests\SoulMemory.Tests.csproj", "{8E761529-D49C-4854-9434-42E2EE97471F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulSplitter", "src\SoulSplitter\SoulSplitter.csproj", "{A30986D1-6B5A-415D-A737-AE0D9EF4CE9C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9ECE037E-3DA0-484A-9DF9-3057906A03C9}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93CF6900-8F5C-4364-9EAF-8992B883361B}.Debug|x64.ActiveCfg = Debug|x64
+		{93CF6900-8F5C-4364-9EAF-8992B883361B}.Debug|x64.Build.0 = Debug|x64
+		{93CF6900-8F5C-4364-9EAF-8992B883361B}.Release|x64.ActiveCfg = Release|x64
+		{93CF6900-8F5C-4364-9EAF-8992B883361B}.Release|x64.Build.0 = Release|x64
+		{03480F4F-F423-4144-90C6-CBDA68269374}.Debug|x64.ActiveCfg = Debug|x64
+		{03480F4F-F423-4144-90C6-CBDA68269374}.Debug|x64.Build.0 = Debug|x64
+		{03480F4F-F423-4144-90C6-CBDA68269374}.Release|x64.ActiveCfg = Release|x64
+		{03480F4F-F423-4144-90C6-CBDA68269374}.Release|x64.Build.0 = Release|x64
+		{8E761529-D49C-4854-9434-42E2EE97471F}.Debug|x64.ActiveCfg = Debug|x64
+		{8E761529-D49C-4854-9434-42E2EE97471F}.Debug|x64.Build.0 = Debug|x64
+		{8E761529-D49C-4854-9434-42E2EE97471F}.Release|x64.ActiveCfg = Release|x64
+		{8E761529-D49C-4854-9434-42E2EE97471F}.Release|x64.Build.0 = Release|x64
+		{A30986D1-6B5A-415D-A737-AE0D9EF4CE9C}.Debug|x64.ActiveCfg = Debug|x64
+		{A30986D1-6B5A-415D-A737-AE0D9EF4CE9C}.Debug|x64.Build.0 = Debug|x64
+		{A30986D1-6B5A-415D-A737-AE0D9EF4CE9C}.Release|x64.ActiveCfg = Release|x64
+		{A30986D1-6B5A-415D-A737-AE0D9EF4CE9C}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{93CF6900-8F5C-4364-9EAF-8992B883361B} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
+		{03480F4F-F423-4144-90C6-CBDA68269374} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
+		{8E761529-D49C-4854-9434-42E2EE97471F} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
+		{A30986D1-6B5A-415D-A737-AE0D9EF4CE9C} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C356BE2C-9585-4CCF-A852-29C6DFCCD5A5}
+	EndGlobalSection
+EndGlobal
