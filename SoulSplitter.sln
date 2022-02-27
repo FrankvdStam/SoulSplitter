@@ -17,7 +17,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		LICENSE = LICENSE
+		Components\MaterialDesignColors.dll = Components\MaterialDesignColors.dll
 		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{622B105C-C5BF-49B3-BEBD-FC5845B27CA0}"
+	ProjectSection(SolutionItems) = preProject
+		Components\MaterialDesignColors.dll = Components\MaterialDesignColors.dll
+		Components\MaterialDesignThemes.Wpf.dll = Components\MaterialDesignThemes.Wpf.dll
+		Components\MaterialDesignThemes.Wpf.xml = Components\MaterialDesignThemes.Wpf.xml
+		Components\SoulMemory.dll = Components\SoulMemory.dll
+		Components\SoulSplitter.dll = Components\SoulSplitter.dll
+		Components\Updates.xml = Components\Updates.xml
 	EndProjectSection
 EndProject
 Global
