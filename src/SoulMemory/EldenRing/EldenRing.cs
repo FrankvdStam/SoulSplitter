@@ -11,9 +11,11 @@ namespace SoulMemory.EldenRing
 {
     public class EldenRing
     {
+        public Exception PointerScanException;
         private Process _process = null;
         private Pointer _igt;
         private Pointer _playerIns;
+        
 
         public EldenRing()
         {
@@ -30,14 +32,23 @@ namespace SoulMemory.EldenRing
         }
 
 
-        private void InitPointers()
+        private bool InitPointers()
         {
-            
-            _process.ScanPatternRelative("48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
-                .CreatePointer(out _igt, 0, 0xa0);
-                                        
-            _process.ScanPatternRelative("48 8b 0d ? ? ? ? 48 85 c9 48 89 6c 24 f8 48 8d 64 24 f8 e9 b6 e1 00 00", 3, 7)
-                .CreatePointer(out _playerIns, 0, 0x18468);
+            try
+            {
+                _process.ScanPatternRelative("48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
+                    .CreatePointer(out _igt, 0, 0xa0);
+
+                _process.ScanPatternRelative("48 8b 0d ? ? ? ? 48 85 c9 48 89 6c 24 f8 48 8d 64 24 f8 e9 b6 e1 00 00", 3, 7)
+                    .CreatePointer(out _playerIns, 0, 0x18468);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                PointerScanException = ex;
+                return false;
+            }
         }
 
         public bool IsPlayerLoaded()
@@ -58,7 +69,10 @@ namespace SoulMemory.EldenRing
                 _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("eldenring"));
                 if (_process != null)
                 {
-                    InitPointers();
+                    if (!InitPointers())
+                    {
+                        _process = null;
+                    }
                 }
             }
             else
