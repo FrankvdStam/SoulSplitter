@@ -32,18 +32,19 @@ namespace SoulMemory.EldenRing
 
         private void InitPointers()
         {
-            _process.ScanPatternRelative("48 8b 05 ? ? ? ? 44 8b c1 48 8b 48 08 48 85 c9 74 5e 45 85 c0 74 32 41 83 f8 01 75 53 0f b6 81 01 01 00 00", 3, 7)
+            
+            _process.ScanPatternRelative("48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
                 .CreatePointer(out _igt, 0, 0xa0);
-
-            _process.ScanPatternRelative("48 8b 0d ? ? ? ? 48 85 c9 0f 85 12 09 45 fb e9 df 08 45 fb 48 89 04 24 48 8b 5c 24 10", 3, 7)
-                .CreatePointer(out _playerIns, 0, 0x18468, 0x178, 0x10);
+                                        
+            _process.ScanPatternRelative("48 8b 0d ? ? ? ? 48 85 c9 48 89 6c 24 f8 48 8d 64 24 f8 e9 b6 e1 00 00", 3, 7)
+                .CreatePointer(out _playerIns, 0, 0x18468);
         }
 
         public bool IsPlayerLoaded()
         {
             if (_playerIns != null)
             {
-                var player = _playerIns.ReadInt32();
+                var player = _playerIns.ReadInt64();
                 return player != 0;
             }
             return false;

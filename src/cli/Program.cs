@@ -27,7 +27,7 @@ namespace cli
             for (; ; )
             {
                 Console.Clear();
-                Console.WriteLine(er.IsPlayerLoaded());
+                Console.WriteLine(er.IsPlayerLoaded() + " " + er.GetIngameTimeMilliseconds());
                 Thread.Sleep(500);
 
                 er.Refresh();
