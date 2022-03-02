@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <updates>
+	<update version="0.0.3">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+		</files>
+		<changelog>
+			<change>Fixed a bug that would make the library not load when a pattern scan failed</change>
+		</changelog>
+	</update>
 	<update version="0.0.2">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />
