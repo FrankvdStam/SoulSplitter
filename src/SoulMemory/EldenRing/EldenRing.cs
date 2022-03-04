@@ -39,7 +39,7 @@ namespace SoulMemory.EldenRing
                 _process.ScanPatternRelative("48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
                     .CreatePointer(out _igt, 0, 0xa0);
 
-                _process.ScanPatternRelative("48 8b 0d ? ? ? ? 48 85 c9 48 89 6c 24 f8 48 8d 64 24 f8 e9 b6 e1 00 00", 3, 7)
+                _process.ScanPatternRelative("48 8b 05 ? ? ? ? 48 89 98 70 84 01 00 4c 89 ab 74 06 00 00 4c 89 ab 7c 06 00 00 44 88 ab 84 06 00 00 41 83 7f 4c 00", 3, 7)
                     .CreatePointer(out _playerIns, 0, 0x18468);
 
                 return true;
