@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SoulMemory.DarkSouls1;
+using SoulMemory.DarkSouls3;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulMemory.Shared;
@@ -20,7 +21,7 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            //Testy2();
+            Testy2();
             //TestUi();
 
 
@@ -39,13 +40,13 @@ namespace cli
 
         private static void Testy2()
         {
-            var er = new DarkSouls1();
+            var er = new DarkSouls3();
 
             for (; ; )
             {
-                Console.Clear();
-                Console.WriteLine(er.IsBossDefeated(BossType.AsylumDemon));
-                Thread.Sleep(500);
+                //Console.Clear();
+                Console.WriteLine(er.IsInGame() + " " + er.GetInGameTimeMilliseconds());
+                Thread.Sleep(50);
 
                 er.Refresh();
             }
