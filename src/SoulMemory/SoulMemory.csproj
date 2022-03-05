@@ -82,6 +82,7 @@
     <Compile Include="DarkSouls2\Vanilla\DS2Offsets.cs" />
     <Compile Include="DarkSouls2\WarpType.cs" />
     <Compile Include="EldenRing\EldenRing.cs" />
+    <Compile Include="EldenRing\ScreenState.cs" />
     <Compile Include="Memory\Extensions.cs" />
     <Compile Include="Memory\PatternScanner.cs" />
     <Compile Include="DarkSouls1\Item.cs" />

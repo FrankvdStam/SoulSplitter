@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SoulMemory.DarkSouls1;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulMemory.Shared;
@@ -19,20 +20,37 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            //Testy2();
             //TestUi();
 
 
             var er = new EldenRing();
 
-            for (; ; )
+            for (;;)
             {
                 Console.Clear();
-                Console.WriteLine(er.IsPlayerLoaded() + " " + er.GetIngameTimeMilliseconds());
+                Console.WriteLine(er.GetScreenState() + " " + er.GetIngameTimeMilliseconds());
                 Thread.Sleep(500);
 
                 er.Refresh();
             }
         }
+
+
+        private static void Testy2()
+        {
+            var er = new DarkSouls1();
+
+            for (; ; )
+            {
+                Console.Clear();
+                Console.WriteLine(er.IsBossDefeated(BossType.AsylumDemon));
+                Thread.Sleep(500);
+
+                er.Refresh();
+            }
+        }
+
 
         private static void Testy()
         {
