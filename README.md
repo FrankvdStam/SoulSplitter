@@ -3,7 +3,8 @@
 IGT and autostart for eldenring. More to come soon.
 
 # Installation
-Copy all DLLs from a release to livesplit's component folder.
+Livesplit veteran? Just copy the files into livesplit's components folder and add SoulSplitter to your layout (it's under controls).
+Not a veteran? You can find detailed installation instructions with screenshots here: https://github.com/FrankvdStam/SoulSplitter/wiki/Installation
 
 
 # libraries
