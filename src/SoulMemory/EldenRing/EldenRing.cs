@@ -10,10 +10,11 @@ using SoulMemory.Shared;
 
 namespace SoulMemory.EldenRing
 {
-    public class EldenRing
+    public class EldenRing : ITimeable
     {
         public Exception PointerScanException;
         private Process _process = null;
+
         private Pointer _igt;
         private Pointer _playerIns;
         private Pointer _menuManIns;
@@ -22,15 +23,6 @@ namespace SoulMemory.EldenRing
         public EldenRing()
         {
             Refresh();
-        }
-
-        public int GetIngameTimeMilliseconds()
-        {
-            if (_igt != null)
-            {
-                return _igt.ReadInt32();
-            }
-            return 0;
         }
 
 
@@ -57,6 +49,13 @@ namespace SoulMemory.EldenRing
             }
         }
 
+        private void ResetPointers()
+        {
+            _igt = null;
+            _playerIns = null;
+            _menuManIns = null;
+        }
+
         public bool IsPlayerLoaded()
         {
             if (_playerIns != null)
@@ -67,7 +66,10 @@ namespace SoulMemory.EldenRing
             return false;
         }
 
-
+        /// <summary>
+        /// Returns the screen state. Will falsely report InGame when the game is starting up.
+        /// </summary>
+        /// <returns></returns>
         public ScreenState GetScreenState()
         {
             if (_menuManIns != null)
@@ -100,8 +102,28 @@ namespace SoulMemory.EldenRing
                 if (_process.HasExited)
                 {
                     _process = null;
+                    ResetPointers();
                 }
             }
         }
+
+
+        #region Timeable
+        public int GetInGameTimeMilliseconds()
+        {
+            return _igt?.ReadInt32() ?? 0;
+        }
+
+        public bool IsInGame()
+        {
+            return IsPlayerLoaded() && GetScreenState() == ScreenState.InGame;
+        }
+
+        public bool StartAutomatically()
+        {
+            var igt = GetInGameTimeMilliseconds();
+            return igt > 0 && igt < 150;
+        }
+        #endregion
     }
 }

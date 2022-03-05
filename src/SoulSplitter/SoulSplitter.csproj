@@ -107,6 +107,8 @@
     <Compile Include="UI\DarkSouls2\SplitsDataTemplateSelector.cs" />
     <Compile Include="UI\DarkSouls2\SplitViewModel.cs" />
     <Compile Include="UI\EnumDisplayNameConverter.cs" />
+    <Compile Include="UI\Timer.cs" />
+    <Compile Include="UI\TimingMethod.cs" />
     <Compile Include="XmlSerializableWrapper.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -13,18 +13,31 @@ namespace SoulSplitter.UI.ViewModel
 {
     public class EldenRingViewModel : INotifyPropertyChanged
     {
-        public bool UseInGameTime
+        public static ObservableCollection<TimingMethod> TimingMethods { get; set; } = new ObservableCollection<TimingMethod>(Enum.GetValues(typeof(TimingMethod)).Cast<TimingMethod>());
+
+
+        private bool _startAutomatically = true;
+        public bool StartAutomatically
         {
-            get => _useInGameTime;
+            get => _startAutomatically;
             set
             {
-                _useInGameTime = value;
+                _startAutomatically = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool _useInGameTime = true;
 
+        private TimingMethod _timingMethod = TimingMethod.RtaWithLoadRemoval;
+        public TimingMethod TimingMethod
+        {
+            get => _timingMethod;
+            set
+            {
+                _timingMethod = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

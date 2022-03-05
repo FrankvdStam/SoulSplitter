@@ -19,6 +19,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
 
+                <ResourceDictionary>
+                    <ui:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter"/>
+                </ResourceDictionary>
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -29,10 +33,31 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <CheckBox Content="Use in game time" IsChecked="{Binding UseInGameTime}"/>
+        <ComboBox
+            Grid.Row="0"
+            Margin="5"
+            HorizontalAlignment="Left"
+            Width="150"
+            Height="30"
+            ItemsSource="{Binding TimingMethods}"
+            SelectedItem="{Binding TimingMethod}"
+            materialDesign:HintAssist.HelperText="Timing method"
+            >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
+        <CheckBox
+            Grid.Row="1"
+            Margin="5"
+            Content="Start automatically" 
+            IsChecked="{Binding StartAutomatically}"/>
     </Grid>
 </UserControl>

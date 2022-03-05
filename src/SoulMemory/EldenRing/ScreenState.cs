@@ -8,9 +8,9 @@ namespace SoulMemory.EldenRing
 {
     public enum ScreenState
     {
-        Unknown,
         InGame = 0,
         Loading = 1,
         MainMenu = 256,
+        Unknown
     }
 }

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="0.0.5">
+		<files>
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+		</files>
+		<changelog>
+			<change>Fixed memory scan for 1.02.3 - backwards compatible with .2. Hopefully also forwards compatible when the time comes.</change>
+		</changelog>
+	</update>
 	<update version="0.0.4">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />
