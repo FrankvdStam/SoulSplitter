@@ -18,5 +18,10 @@ namespace SoulMemory
         public float X { get; set; }
         public float Y { get; set; }
         public float Z { get; set; }
+
+        public override string ToString()
+        {
+            return $"{X:N2}, {Y:N2}, {Z:N2}";
+        }
     }
 }

@@ -21,16 +21,13 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            Testy2();
-            //TestUi();
-
 
             var er = new EldenRing();
 
             for (;;)
             {
-                //Console.Clear();
-                Console.WriteLine(er.GetScreenState());
+                Console.Clear();
+                Console.WriteLine(er.GetPosition());
                 Thread.Sleep(50);
 
                 er.Refresh();

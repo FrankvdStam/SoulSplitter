@@ -114,8 +114,9 @@ namespace SoulMemory.Shared
             {
                 offsetsCopy.Add(offset.Value);
             }
-            
-            Kernel32.ReadProcessMemory(Process.Handle, (IntPtr)ResolveOffsets(offsetsCopy), buffer, length, ref bytesRead);
+
+            var address = (IntPtr)ResolveOffsets(offsetsCopy);
+            Kernel32.ReadProcessMemory(Process.Handle, address, buffer, length, ref bytesRead);
             return buffer;
         }
 
@@ -140,31 +141,29 @@ namespace SoulMemory.Shared
         #region Read
         public int ReadInt32(long? offset = null)
         {
-
-
             return BitConverter.ToInt32(ReadMemory(offset, 4), 0);
         }
 
-        public long ReadInt64(long offset = 0)
+        public long ReadInt64(long? offset = null)
         {
             return BitConverter.ToInt64(ReadMemory(offset, 8), 0);
         }
 
-        public bool ReadBool(long offset = 0)
+        public bool ReadBool(long? offset = null)
         {
             return BitConverter.ToBoolean(ReadMemory(offset, 1), 0);
         }
-        public byte ReadByte(long offset = 0)
+        public byte ReadByte(long? offset = null)
         {
             return ReadMemory(offset, 1)[0];
         }
 
-        public byte[] ReadBytes(long offset, int size)
+        public byte[] ReadBytes(int size, long? offset = null)
         {
             return ReadMemory(offset, size);
         }
 
-        public float ReadFloat(long offset = 0)
+        public float ReadFloat(long? offset = null)
         {
             return BitConverter.ToSingle(ReadMemory(offset, 4), 0);
         }

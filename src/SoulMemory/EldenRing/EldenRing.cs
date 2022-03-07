@@ -12,11 +12,13 @@ namespace SoulMemory.EldenRing
 {
     public class EldenRing : ITimeable
     {
-        public Exception PointerScanException;
+        public Exception Exception;
+        
         private Process _process = null;
 
         private Pointer _igt;
         private Pointer _playerIns;
+        private Pointer _playerChrPhysicsModule;
         private Pointer _menuManIns;
         
 
@@ -34,7 +36,8 @@ namespace SoulMemory.EldenRing
                     .CreatePointer(out _igt, 0, 0xa0);
 
                 _process.ScanPatternRelative("48 8b 05 ? ? ? ? 48 89 98 70 84 01 00 4c 89 ab 74 06 00 00 4c 89 ab 7c 06 00 00 44 88 ab 84 06 00 00 41 83 7f 4c 00", 3, 7)
-                    .CreatePointer(out _playerIns, 0, 0x18468);
+                    .CreatePointer(out _playerIns, 0, 0x18468)
+                    .CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xf68);
 
                 //CSMenuManIns
                 _process.ScanPatternRelative("48 8b 0d ? ? ? ? 4c 8b bc 24 90 00 00 00 4c 8b b4 24 98 00 00 00 4c 8b a4 24 a0 00 00 00 48 8b b4 24 d0 00 00 00 48 8b 9c 24 c8 00 00 00", 3, 7)
@@ -44,7 +47,7 @@ namespace SoulMemory.EldenRing
             }
             catch (Exception ex)
             {
-                PointerScanException = ex;
+                Exception = ex;
                 return false;
             }
         }
@@ -66,6 +69,24 @@ namespace SoulMemory.EldenRing
             return false;
         }
 
+        public Vector3f GetPosition()
+        {
+            if (_playerChrPhysicsModule != null)
+            {
+                return new Vector3f(_playerChrPhysicsModule.ReadFloat(0x70), _playerChrPhysicsModule.ReadFloat(0x74), _playerChrPhysicsModule.ReadFloat(0x78));
+            }
+            return new Vector3f(0, 0, 0);
+        }
+
+        public float GetAngle()
+        {
+            if (_playerChrPhysicsModule != null)
+            {
+                return _playerChrPhysicsModule.ReadFloat(0x54);
+            }
+            return 0f;
+        }
+
         /// <summary>
         /// Returns the screen state. Will falsely report InGame when the game is starting up.
         /// </summary>
@@ -82,8 +103,7 @@ namespace SoulMemory.EldenRing
             }
             return ScreenState.Unknown;
         }
-
-
+        
         public void Refresh()
         {
             if (_process == null)
@@ -91,10 +111,7 @@ namespace SoulMemory.EldenRing
                 _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("eldenring"));
                 if (_process != null)
                 {
-                    if (!InitPointers())
-                    {
-                        _process = null;
-                    }
+                    InitPointers();
                 }
             }
             else
