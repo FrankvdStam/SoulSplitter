@@ -136,14 +136,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Components\DarkSoulsMemory.dll" />
-    <Content Include="Components\LiveSplit.DarkSouls2.dll" />
-    <Content Include="Components\MaterialDesignColors.dll" />
-    <Content Include="Components\MaterialDesignThemes.Wpf.dll" />
-    <Content Include="Components\MaterialDesignThemes.Wpf.xml" />
-    <Content Include="Components\Updates.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SoulMemory\SoulMemory.csproj">
       <Project>{03480f4f-f423-4144-90c6-cbda68269374}</Project>
       <Name>SoulMemory</Name>

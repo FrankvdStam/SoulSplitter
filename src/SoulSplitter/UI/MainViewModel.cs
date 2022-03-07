@@ -14,6 +14,16 @@ namespace SoulSplitter.UI
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        public void Update(MainViewModel mainViewModel)
+        {
+            SelectedGameIndex = mainViewModel.SelectedGameIndex;
+            EldenRingViewModel = mainViewModel.EldenRingViewModel;
+            DarkSouls1ViewModel = mainViewModel.DarkSouls1ViewModel;
+            DarkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
+        }
+
+
+
         public int SelectedGameIndex
         {
             get => _selectedGameIndex;
@@ -66,7 +76,6 @@ namespace SoulSplitter.UI
         }
 
         private DarkSouls2ViewModel _darkSouls2ViewModel = new DarkSouls2ViewModel();
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;

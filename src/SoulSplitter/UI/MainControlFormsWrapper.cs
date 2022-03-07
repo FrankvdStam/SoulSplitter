@@ -31,16 +31,12 @@ namespace SoulSplitter.UI
             ResumeLayout(false);
         }
 
-        public MainViewModel GetMainViewModel()
+        public MainViewModel MainViewModel
         {
-            return _mainControl.GetMainViewModel();
+            get => _mainControl.MainViewModel;
+            set => _mainControl.MainViewModel = value;
         }
-
-        public void SetMainViewModel(MainViewModel vm)
-        {
-            _mainControl.SetMainViewModel(vm);
-        }
-
+        
         private ElementHost _elementHost;
         private UI.MainControl _mainControl;
     }

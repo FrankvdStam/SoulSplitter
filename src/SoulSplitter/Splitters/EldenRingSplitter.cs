@@ -14,29 +14,27 @@ namespace SoulSplitter.Splitters
     {
         private SplitterState _splitterState;
         private EldenRing _eldenRing;
-        private EldenRingViewModel _eldenRingViewModel;
         private LiveSplitState _liveSplitState;
         private Timer _timer;
 
-        public EldenRingSplitter(LiveSplitState state, EldenRingViewModel eldenRingViewModel)
+        public EldenRingSplitter(LiveSplitState state)
         {
+            _liveSplitState = state;
             _splitterState = SplitterState.WaitForStart;
             _eldenRing = new EldenRing();
-            _eldenRingViewModel = eldenRingViewModel;
-
             _timer = new Timer(_eldenRing, state);
         }
 
-
-        public void Update(LiveSplitState state)
+        public void Update(object eldenRingViewModel)
         {
-            _liveSplitState = state;
+            //Settings from the UI
+            var viewModel = (EldenRingViewModel)eldenRingViewModel;
 
             //Refresh attachment to ER process
             _eldenRing.Refresh();
 
             //Update the timer
-            _timer.Update(_eldenRingViewModel.TimingMethod, _eldenRingViewModel.StartAutomatically);
+            _timer.Update(viewModel.TimingMethod, viewModel.StartAutomatically);
 
             //TODO: run auto splitter state machine
         }

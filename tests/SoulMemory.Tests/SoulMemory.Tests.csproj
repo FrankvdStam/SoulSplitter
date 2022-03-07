@@ -87,7 +87,7 @@
     <Folder Include="Saves\DarkSouls2\Vanilla\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoulMemory\SoulMemory.csproj">
+    <ProjectReference Include="..\..\src\SoulMemory\SoulMemory.csproj">
       <Project>{03480f4f-f423-4144-90c6-cbda68269374}</Project>
       <Name>SoulMemory</Name>
     </ProjectReference>

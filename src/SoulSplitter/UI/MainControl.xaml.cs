@@ -26,20 +26,12 @@ namespace SoulSplitter.UI
         public MainControl()
         {
             InitializeComponent();
-
-            _mainViewModel = (MainViewModel)DataContext;
         }
-
-        private MainViewModel _mainViewModel;
-
-        public MainViewModel GetMainViewModel()
+        
+        public MainViewModel MainViewModel
         {
-            return _mainViewModel;
-        }
-
-        public void SetMainViewModel(MainViewModel vm)
-        {
-            _mainViewModel = vm;
+            get => (MainViewModel)DataContext;
+            set => ((MainViewModel)DataContext).Update(value);
         }
     }
 }

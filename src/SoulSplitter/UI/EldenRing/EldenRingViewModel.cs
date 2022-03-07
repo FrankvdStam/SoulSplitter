@@ -13,6 +13,11 @@ namespace SoulSplitter.UI.ViewModel
 {
     public class EldenRingViewModel : INotifyPropertyChanged
     {
+        public EldenRingViewModel()
+        {
+
+        }
+
         public static ObservableCollection<TimingMethod> TimingMethods { get; set; } = new ObservableCollection<TimingMethod>(Enum.GetValues(typeof(TimingMethod)).Cast<TimingMethod>());
 
 

@@ -12,9 +12,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using LiveSplit.Web;
 using SoulSplitter.Splits;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
+using SoulSplitter.UI.ViewModel;
 
 namespace SoulSplitter
 {
@@ -25,17 +27,17 @@ namespace SoulSplitter
         public IDictionary<string, Action> ContextMenuControls => null;
 
         private LiveSplitState _liveSplitState;
-        private ISplitter _splitter;
+        private readonly EldenRingSplitter _splitter;
 
         public SoulComponent(LiveSplitState state = null)
         {           
             _liveSplitState = state;
-            _splitter = new EldenRingSplitter(state, _mainControlFormsWrapper.GetMainViewModel().EldenRingViewModel);
+            _splitter = new EldenRingSplitter(state);
         }
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
-            _splitter.Update(state);
+            _splitter.Update(MainControlFormsWrapper.MainViewModel.EldenRingViewModel);
 
             HorizontalWidth = width;
             //VerticalHeight = height;
@@ -109,32 +111,7 @@ namespace SoulSplitter
         #region Xml settings ==============================================================================================================
         public XmlNode GetSettings(XmlDocument document)
         {
-            //TODO
-            return document.CreateTextNode("settings");
-
-            var viewModel = _mainControlFormsWrapper.GetMainViewModel();
-
-
-            //var splits = _mainControlFormsWrapper.GetSplits();
-            //var wrapper = new List<XmlSerializableWrapper<ISplit>>();
-            //foreach (var split in splits)
-            //{
-            //    switch (split.SplitType)
-            //    {
-            //        case SplitType.Boss:
-            //            wrapper.Add(new XmlSerializableWrapper<ISplit>((BossSplit)split));
-            //            break;
-            //
-            //        case SplitType.Item:
-            //            wrapper.Add(new XmlSerializableWrapper<ISplit>((ItemSplit)split));
-            //            break;
-            //
-            //        case SplitType.Box:
-            //            wrapper.Add(new XmlSerializableWrapper<ISplit>((BoxSplit)split));
-            //            break;
-            //    }
-            //}
-
+            var viewModel = MainControlFormsWrapper.MainViewModel;
             var settings = new XmlWriterSettings()
             {
                 OmitXmlDeclaration = true,
@@ -145,7 +122,6 @@ namespace SoulSplitter
             using (var stream = new StringWriter())
             using (var writer = XmlWriter.Create(stream, settings))
             {
-                //Since splits is a list of interfaces, we need to explicitly specify the extra possible types so that the serializer knows what to expect
                 var serializer = new XmlSerializer(viewModel.GetType());
                 serializer.Serialize(writer, viewModel);
                 xml = stream.ToString();
@@ -161,14 +137,17 @@ namespace SoulSplitter
 
         public void SetSettings(XmlNode settings)
         {
-            //var vm = settings.InnerXml.DeserializeXml<MainViewModel>();
-            //_mainControlFormsWrapper.SetMainViewModel(vm);
+            var vm = settings.InnerXml.DeserializeXml<MainViewModel>();
+            if (vm != null)
+            {
+                MainControlFormsWrapper.MainViewModel = vm;
+            }
         }
 
-        private MainControlFormsWrapper _mainControlFormsWrapper = new MainControlFormsWrapper();
+        public MainControlFormsWrapper MainControlFormsWrapper = new MainControlFormsWrapper();
         public System.Windows.Forms.Control GetSettingsControl(LayoutMode mode)
         {
-            return _mainControlFormsWrapper;
+            return MainControlFormsWrapper;
         }
         #endregion
     }

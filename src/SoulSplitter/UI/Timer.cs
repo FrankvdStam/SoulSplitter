@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using LiveSplit.Model;
 using SoulMemory;
@@ -23,9 +24,10 @@ namespace SoulSplitter.UI
     {
         private ITimeable _timeable;
         private LiveSplitState _liveSplitState;
-        private TimerModel _timerModel;
+        private readonly TimerModel _timerModel;
         private int _inGameTime;
         private TimerState _timerState = TimerState.WaitForStart;
+        private readonly Stopwatch _rtaStopwatch = new Stopwatch();
 
         public Timer(ITimeable timeable, LiveSplitState state)
         {
@@ -38,7 +40,29 @@ namespace SoulSplitter.UI
 
             _timerModel = new TimerModel();
             _timerModel.CurrentState = _liveSplitState;
+
+            InitStopwatch();
         }
+
+        private void InitStopwatch()
+        {
+            try
+            {
+                //https://www.codeproject.com/Articles/61964/Performance-Tests-Precise-Run-Time-Measurements-wi
+
+                // Uses the second Core or Processor for the Test
+                Process.GetCurrentProcess().ProcessorAffinity = new IntPtr(2);
+                // Prevents "Normal" processes 
+                // from interrupting Threads
+                Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;      
+               
+                // Prevents "Normal" Threads 
+                // from interrupting this thread
+                Thread.CurrentThread.Priority = ThreadPriority.Highest;
+            }
+            catch{}
+        }
+
 
         public void Split()
         {
@@ -47,13 +71,13 @@ namespace SoulSplitter.UI
 
         private void OnStart(object sender, EventArgs e)
         {
+            //Set the state of the timer to running, but only start the RTA stopwatch if we're in game
+            //IGT will automatically stop if we're no in game
             _timerState = TimerState.Running;
             _previousIsInGame = _timeable.IsInGame();
-            
-            //If the timer is started manually, on a loading screen, IsInGame will return false. Need to pause the timer in that case.
-            if (!_previousIsInGame)
+            if (_previousIsInGame)
             {
-                _timerModel.Pause();
+                _rtaStopwatch.Start();
             }
         }
 
@@ -61,9 +85,9 @@ namespace SoulSplitter.UI
         {
             _timerState = TimerState.WaitForStart;
             _inGameTime = 0;
+            _rtaStopwatch.Reset();
         }
         
-
         private TimingMethod _timingMethod;
         private bool _startAutomatically;
         public void Update(TimingMethod timingMethod, bool startAutomatically)
@@ -90,8 +114,6 @@ namespace SoulSplitter.UI
             }
         }
 
-
-
         private bool _previousIsInGame = false;
         private void UpdateTimer()
         {
@@ -100,82 +122,33 @@ namespace SoulSplitter.UI
                 return;
             }
 
-            //Always update IGT, for comparison. Might move this back into its own state later.
-            if (_timeable.IsInGame())
-            {
-                _inGameTime = _timeable.GetInGameTimeMilliseconds();
-                _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
-            }
-
-
-            //Always update RTA, for comparison. Might move this back into its own state later.
-            var currentIsInGame = _timeable.IsInGame();
-            if (_previousIsInGame != currentIsInGame)
-            {
-                //Calling Pause() when the timer is paused resumes it. Would rather have an explicit Resume().
-                //Because there is no explicit resume, calling pause can cause issues.
-                //For instance, starting the timer during a loading screen would cause RTA to be counting loading screens instead of time spent in game.
-                //Hence we have to check for the timer's state.
-
-                if (currentIsInGame)
-                {
-                    if (_timerModel.CurrentState.CurrentPhase != TimerPhase.Running)
-                    {
-                        _timerModel.Pause();
-                    }
-                }
-                else
-                {
-                    if (_timerModel.CurrentState.CurrentPhase != TimerPhase.Paused)
-                    {
-                        _timerModel.Pause();
-                    }
-                }
-
-            }
-            _previousIsInGame = currentIsInGame;
-
-            
-
-
-
-
-
-
-
-
             switch (_timingMethod)
             {
-                //case TimingMethod.Igt:
-                //    if (_timeable.IsInGame())
-                //    {
-                //        _inGameTime = _timeable.GetInGameTimeMilliseconds(); 
-                //        _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
-                //    }
-                //    break;
+                case TimingMethod.Igt:
+                    if (_timeable.IsInGame())
+                    {
+                        _inGameTime = _timeable.GetInGameTimeMilliseconds();
+                        _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
+                    }
+                    break;
 
+                case TimingMethod.RtaWithLoadRemoval:
+                    var currentIsInGame = _timeable.IsInGame();
+                    if (_previousIsInGame != currentIsInGame)
+                    {
+                        if (currentIsInGame)
+                        {
+                            _rtaStopwatch.Start();
+                        }
+                        else
+                        {
+                            _rtaStopwatch.Stop();
+                        }
+                    }
+                    _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_rtaStopwatch.ElapsedMilliseconds));
+                    _previousIsInGame = currentIsInGame;
+                    break;
 
-
-                //case TimingMethod.RtaWithLoadRemoval:
-                //    //Detect a change
-                //    var currentIsInGame = _timeable.IsInGame();
-                //    if (_previousIsInGame != currentIsInGame)
-                //    {
-                //        //Calling Pause() when the timer is paused resumes it. Would rather have an explicit Resume().
-                //        //Theoretically, there could be an issue here when for whatever reason the IsInGame gets desynced with the timerModel's pause state, and it would only count the time of loading screens..
-                //        
-                //        if (currentIsInGame)
-                //        {
-                //            _timerModel.Pause();
-                //        }
-                //        else
-                //        {
-                //            _timerModel.Pause();
-                //        }
-                //
-                //    }
-                //    _previousIsInGame = currentIsInGame;
-                //    break;
             }
         }
     }

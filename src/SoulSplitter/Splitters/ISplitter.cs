@@ -9,6 +9,6 @@ namespace SoulSplitter.Splitters
 {
     internal interface ISplitter
     {
-        void Update(LiveSplitState state);
+        void Update(object settings);
     }
 }
