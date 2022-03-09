@@ -39,7 +39,7 @@ namespace SoulSplitter
         {
             _splitter.Update(MainControlFormsWrapper.MainViewModel.EldenRingViewModel);
 
-            HorizontalWidth = width;
+            //HorizontalWidth = width;
             //VerticalHeight = height;
             _liveSplitState = state;
 

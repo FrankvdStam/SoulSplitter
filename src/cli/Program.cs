@@ -21,6 +21,7 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            Testy2();
 
             var er = new EldenRing();
 
@@ -43,7 +44,7 @@ namespace cli
             {
                 //Console.Clear();
                 Console.WriteLine(er.IsInGame() + " " + er.GetInGameTimeMilliseconds());
-                Thread.Sleep(50);
+                Thread.Sleep(10);
 
                 er.Refresh();
             }
