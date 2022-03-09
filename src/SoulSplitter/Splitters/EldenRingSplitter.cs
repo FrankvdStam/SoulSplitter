@@ -12,6 +12,8 @@ namespace SoulSplitter.Splitters
 {
     internal class EldenRingSplitter : ISplitter
     {
+        public Exception Exception;
+
         private SplitterState _splitterState;
         private EldenRing _eldenRing;
         private LiveSplitState _liveSplitState;
@@ -31,12 +33,42 @@ namespace SoulSplitter.Splitters
             var viewModel = (EldenRingViewModel)eldenRingViewModel;
 
             //Refresh attachment to ER process
-            _eldenRing.Refresh();
+            RefreshEldenRing();
 
             //Update the timer
             _timer.Update(viewModel.TimingMethod, viewModel.StartAutomatically);
 
             //TODO: run auto splitter state machine
+        }
+
+        public void RefreshEldenRing()
+        {
+            try
+            {
+                if (!_eldenRing.Refresh())
+                {
+                    if (!_eldenRing.Attached)
+                    {
+                        Exception = new Exception("eldenring.exe not running");
+                    }
+                    else if (_eldenRing.Exception != null)
+                    {
+                        Exception = _eldenRing.Exception;
+                    }
+                    else
+                    {
+                        Exception = new Exception("unable to refresh eldenring");
+                    }
+                }
+                else
+                {
+                    Exception = null;
+                }
+            }
+            catch (Exception e)
+            {
+                Exception = e;
+            }
         }
     }
 }

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="0.0.7">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>Fixed horizontal layout</change>
+			<change>Added error output to help diagnose problems</change>
+			<change>Changed auto update URL</change>
+		</changelog>
+	</update>
 	<update version="0.0.6">
 		<files>
 			<file path="Components/SoulSplitter.dll"			 status="changed" />

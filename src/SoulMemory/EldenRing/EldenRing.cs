@@ -15,6 +15,7 @@ namespace SoulMemory.EldenRing
         public Exception Exception;
         
         private Process _process = null;
+        
 
         private Pointer _igt;
         private Pointer _playerIns;
@@ -45,9 +46,9 @@ namespace SoulMemory.EldenRing
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Exception = ex;
+                Exception = e;
                 return false;
             }
         }
@@ -103,27 +104,43 @@ namespace SoulMemory.EldenRing
             }
             return ScreenState.Unknown;
         }
-        
-        public void Refresh()
+
+        private bool _pointersInitialized = false;
+        public bool Refresh()
         {
             if (_process == null)
             {
                 _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("eldenring"));
                 if (_process != null)
                 {
-                    InitPointers();
+                    if (InitPointers())
+                    {
+                        _pointersInitialized = true;
+                        return true;
+                    }
+                    else
+                    {
+                        var pointerScanException = new Exception($"Pointer scan failed.\nIs EAC disabled?\n{Exception.Message}", Exception);
+                        Exception = pointerScanException;
+                    }
                 }
+
+                return false;
             }
             else
             {
                 if (_process.HasExited)
                 {
                     _process = null;
+                    _pointersInitialized = false;
                     ResetPointers();
                 }
+
+                return _pointersInitialized;
             }
         }
 
+        public bool Attached => _process != null;
 
         #region Timeable
         public int GetInGameTimeMilliseconds()

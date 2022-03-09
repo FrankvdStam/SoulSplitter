@@ -10,6 +10,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 using LiveSplit.Web;
@@ -17,6 +19,7 @@ using SoulSplitter.Splits;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.ViewModel;
+using Brushes = System.Drawing.Brushes;
 
 namespace SoulSplitter
 {
@@ -37,15 +40,42 @@ namespace SoulSplitter
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
-            _splitter.Update(MainControlFormsWrapper.MainViewModel.EldenRingViewModel);
-
-            //HorizontalWidth = width;
-            //VerticalHeight = height;
-            _liveSplitState = state;
-
-            if (_redraw)
+            try
             {
-                invalidator?.Invalidate(0, 0, width, height);
+                _splitter.Update(MainControlFormsWrapper.MainViewModel.EldenRingViewModel);
+
+                //HorizontalWidth = width;
+                //VerticalHeight = height;
+                //if (mode == LayoutMode.Vertical)
+                //{
+                //    HorizontalWidth = width;
+                //    VerticalHeight = 0;
+                //}
+                //else
+                //{
+                //    HorizontalWidth = 0;
+                //    VerticalHeight = height;
+                //}
+
+                _liveSplitState = state;
+
+                if (_splitter.Exception != null)
+                {
+                    WriteDebug(_splitter.Exception.Message);
+                }
+                else
+                {
+                    WriteDebug("");
+                }
+
+                if (_redraw)
+                {
+                    invalidator?.Invalidate(0, 0, 1, 1);
+                }
+            }
+            catch (Exception e)
+            {
+                WriteDebug(e.Message);
             }
         }
 
@@ -62,39 +92,45 @@ namespace SoulSplitter
         {
             Draw(g);
         }
-
-        private readonly SimpleLabel _label = new SimpleLabel()
-        {
-            IsMonospaced = true,
-            Brush = Brushes.Crimson,
-            HorizontalAlignment = StringAlignment.Near,
-        };
-
+        
         private void WriteDebug(string s)
         {
-            _redraw = true;
-            _debugOutput = s;
-
+            if (_debugOutput != s)
+            {
+                _redraw = true;
+                _debugOutput = s;
+            }
         }
 
-        private string _debugOutput = " ";
+        private string _debugOutput = "";
         private bool _redraw = true;
+
+        private DispatcherTimer _clearDebugOutputTimer = new DispatcherTimer();
+
         public void Draw(Graphics g)
         {
-            VerticalHeight = g.MeasureString(_debugOutput, _liveSplitState.LayoutSettings.TextFont).Height;
-            DrawBackground(g);
-            _label.Text = _debugOutput;
-            _label.Brush = new SolidBrush(_liveSplitState.LayoutSettings.TextColor);
-            _label.Font = _liveSplitState.LayoutSettings.TextFont;
-            _label.Width = HorizontalWidth;
-            _label.Height = VerticalHeight;
-            _label.Draw(g);
-        }
+            if (string.IsNullOrWhiteSpace(_debugOutput))
+            {
+                VerticalHeight = 0;
+                HorizontalWidth = 0;
+            }
+            else
+            {
+                VerticalHeight = g.MeasureString(_debugOutput, _liveSplitState.LayoutSettings.TextFont).Height + 2 * InternalPadding;
 
-        private void DrawBackground(Graphics g)
-        {
-            g.FillRectangle(new SolidBrush(_liveSplitState.LayoutSettings.BackgroundColor), 0, 0, HorizontalWidth, VerticalHeight);
+                //Get longest string to base the width on
+                var longestStr = _debugOutput.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList().OrderByDescending(i => i.Length).FirstOrDefault();
+                HorizontalWidth = g.MeasureString(longestStr, _liveSplitState.LayoutSettings.TextFont).Width + 2 * InternalPadding;
+
+                g.FillRectangle(new SolidBrush(_liveSplitState.LayoutSettings.BackgroundColor), 0, 0, HorizontalWidth, VerticalHeight);
+                g.DrawString(_debugOutput, _liveSplitState.LayoutSettings.TextFont, Brushes.Crimson, InternalPadding, InternalPadding);
+            }
+            
+            _redraw = false;
         }
+        
+
+        private const float InternalPadding = 7f;
 
         public string ComponentName => Name;
         public float HorizontalWidth { get; private set; } = 0;
