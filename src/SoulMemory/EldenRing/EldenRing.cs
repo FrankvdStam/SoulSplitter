@@ -110,7 +110,9 @@ namespace SoulMemory.EldenRing
         {
             if (_process == null)
             {
-                _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("eldenring"));
+                //EAC bypass methods differ. In some, people rename eldenring.exe to start_protected_game.exe
+                _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("eldenring")) ?? Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("start_protected_game"));
+                
                 if (_process != null)
                 {
                     if (InitPointers())

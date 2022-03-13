@@ -49,7 +49,7 @@ namespace SoulSplitter.Splitters
                 {
                     if (!_eldenRing.Attached)
                     {
-                        Exception = new Exception("eldenring.exe not running");
+                        Exception = new Exception("Game not running");
                     }
                     else if (_eldenRing.Exception != null)
                     {
