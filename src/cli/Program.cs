@@ -21,9 +21,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            Testy2();
-
             var er = new EldenRing();
+            return;
 
             for (;;)
             {

@@ -25,7 +25,7 @@ namespace SoulSplitter.UI
         private ITimeable _timeable;
         private LiveSplitState _liveSplitState;
         private readonly TimerModel _timerModel;
-        private int _inGameTime;
+        private long _inGameTime;
         private TimerState _timerState = TimerState.WaitForStart;
         private readonly Stopwatch _rtaStopwatch = new Stopwatch();
 
@@ -128,7 +128,7 @@ namespace SoulSplitter.UI
                     if (_timeable.IsInGame())
                     {
                         _inGameTime = _timeable.GetInGameTimeMilliseconds();
-                        _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
+                        //_timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
                     }
                     break;
 
@@ -145,11 +145,13 @@ namespace SoulSplitter.UI
                             _rtaStopwatch.Stop();
                         }
                     }
-                    _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_rtaStopwatch.ElapsedMilliseconds));
+                    //_timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_rtaStopwatch.ElapsedMilliseconds));
+                    _inGameTime = _rtaStopwatch.ElapsedMilliseconds;
                     _previousIsInGame = currentIsInGame;
                     break;
-
             }
+
+            _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
         }
     }
 }

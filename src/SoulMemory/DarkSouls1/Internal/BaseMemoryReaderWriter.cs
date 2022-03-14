@@ -203,14 +203,12 @@ namespace SoulMemory.DarkSouls1.Internal
 
         internal void Write(IntPtr address, uint value)
         {
-            uint bytesWritten = 0;
-
-            Kernel32.WriteProcessMemory(_process.Handle, address, BitConverter.GetBytes(value), 4, bytesWritten);
+            Kernel32.WriteProcessMemory(_process.Handle, address, BitConverter.GetBytes(value), 4, out _);
         }
 
         internal void Write(IntPtr address, byte[] bytes)
         {
-            Kernel32.WriteProcessMemory(_process.Handle, address, bytes, (uint)bytes.Length, 0);
+            Kernel32.WriteProcessMemory(_process.Handle, address, bytes, (uint)bytes.Length, out _);
         }
 
         internal void WriteInt32(IntPtr address, int value)

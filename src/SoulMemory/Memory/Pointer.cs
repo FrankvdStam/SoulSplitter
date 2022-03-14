@@ -125,7 +125,7 @@ namespace SoulMemory.Shared
             var offsetsCopy = Offsets.ToList();
             offsetsCopy.Add(offset);
 
-            Kernel32.WriteProcessMemory(Process.Handle, (IntPtr)(ResolveOffsets(offsetsCopy)), bytes, (uint)bytes.Length, 0);
+            Kernel32.WriteProcessMemory(Process.Handle, (IntPtr)(ResolveOffsets(offsetsCopy)), bytes, (uint)bytes.Length, out _);
         }
 
         public bool IsNullPtr()
@@ -254,7 +254,7 @@ namespace SoulMemory.Shared
         public uint Execute(byte[] bytes, uint timeout = 0xFFFFFFFF)
         {
             IntPtr address = Allocate((uint)bytes.Length, Kernel32.PAGE_EXECUTE_READWRITE);
-            Kernel32.WriteProcessMemory(Process.Handle, address, bytes, (uint)bytes.Length, 0);
+            Kernel32.WriteProcessMemory(Process.Handle, address, bytes, (uint)bytes.Length, out _);
             uint result = Execute(address, timeout);
             Free(address);
             return result;
