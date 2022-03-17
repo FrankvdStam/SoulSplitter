@@ -22,12 +22,11 @@ namespace cli
         static void Main(string[] args)
         {
             var er = new EldenRing();
-            return;
 
             for (;;)
             {
                 Console.Clear();
-                Console.WriteLine(er.GetPosition());
+                Console.WriteLine(er.GetScreenState());
                 Thread.Sleep(50);
 
                 er.Refresh();

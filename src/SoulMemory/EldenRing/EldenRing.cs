@@ -58,6 +58,7 @@ namespace SoulMemory.EldenRing
                 return false;
             }
         }
+        
 
         private void ResetPointers()
         {
@@ -102,7 +103,7 @@ namespace SoulMemory.EldenRing
         {
             if (_menuManIns != null)
             {
-                var screenState = _menuManIns.ReadInt32(0x718);
+                var screenState = _process.MainModule.ModuleMemorySize == 92119040 ? _menuManIns.ReadInt32(0x728) : _menuManIns.ReadInt32(0x718);
                 if (screenState.TryParseEnum(out ScreenState s))
                 {
                     return s;
