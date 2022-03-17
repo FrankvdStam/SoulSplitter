@@ -42,13 +42,13 @@ namespace SoulMemory.EldenRing
                     .CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xf68);
 
                 //CSMenuManIns
-                _process.ScanPatternRelative("48 8b 0d ? ? ? ? 4c 8b bc 24 90 00 00 00 4c 8b b4 24 98 00 00 00 4c 8b a4 24 a0 00 00 00 48 8b b4 24 d0 00 00 00 48 8b 9c 24 c8 00 00 00", 3, 7)
+                _process.ScanPatternRelative("48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
                     .CreatePointer(out _menuManIns, 0);
 
-                if (!ApplyIgtFix())
-                {
-                    Exception = new Exception("MIGT code injection failed");
-                }
+                //if (!ApplyIgtFix())
+                //{
+                //    Exception = new Exception("MIGT code injection failed");
+                //}
 
                 return true;
             }
@@ -128,7 +128,7 @@ namespace SoulMemory.EldenRing
                     }
                     else
                     {
-                        var pointerScanException = new Exception($"Pointer scan failed.\nIs EAC disabled?\n{Exception.Message}", Exception);
+                        var pointerScanException = new Exception($"Pattern scan failed.\nIs EAC disabled?\n{Exception.Message}", Exception);
                         Exception = pointerScanException;
                     }
                 }

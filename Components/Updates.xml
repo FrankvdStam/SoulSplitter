@@ -6,6 +6,15 @@
 			<file path="Components/SoulSplitter.dll"			 status="changed" />
 		</files>
 		<changelog>
+			<change>Fix pattern scan for 1.03.</change>
+		</changelog>
+	</update>
+	<update version="0.0.8">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
 			<change>SoulSplitter now scans for both eldenring.exe and start_protected_game.exe, to support both EAC bypass methods.</change>
 		</changelog>
 	</update>
