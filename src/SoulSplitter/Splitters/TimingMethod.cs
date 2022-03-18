@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.Splitters
 {
     public enum TimingMethod
     {

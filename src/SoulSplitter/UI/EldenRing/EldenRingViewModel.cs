@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SoulSplitter.Splits;
 using SoulSplitter.Splits.DarkSouls2;
+using SoulSplitter.Splitters;
 
 namespace SoulSplitter.UI.ViewModel
 {

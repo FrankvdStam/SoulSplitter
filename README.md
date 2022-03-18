@@ -13,8 +13,9 @@ Find me on discord, on the speedsouls server, or by user wasted#2747 if you have
 
 # libraries
 
-Uses the excellent material design library by James Willock: https://materialdesigninxaml.net/
+Special thanks to B3, for writing the initial MIGT code injection for Elden Ring.
 
+Uses the excellent material design library by James Willock: https://materialdesigninxaml.net/
 
 Contains code from Nordergaren's DS2(S)-meta tool (although disabled for now), which can be found here:
 https://github.com/Nordgaren/DS2S-META

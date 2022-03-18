@@ -120,10 +120,13 @@ namespace SoulMemory.Shared
             return buffer;
         }
 
-        private void WriteMemory(long offset, byte[] bytes)
+        private void WriteMemory(long? offset, byte[] bytes)
         {
             var offsetsCopy = Offsets.ToList();
-            offsetsCopy.Add(offset);
+            if (offset.HasValue)
+            {
+                offsetsCopy.Add(offset.Value);
+            }
 
             Kernel32.WriteProcessMemory(Process.Handle, (IntPtr)(ResolveOffsets(offsetsCopy)), bytes, (uint)bytes.Length, out _);
         }
@@ -171,60 +174,35 @@ namespace SoulMemory.Shared
 
         #region Write
 
-        public void WriteInt32(int value)
-        {
-            WriteInt32(0, value);
-        }
+        public void WriteInt32(int value) => WriteInt32(null, value);
+        
 
-        public void WriteInt32(long offset, int value)
+        public void WriteInt32(long? offset, int value)
         {
             WriteMemory(offset, BitConverter.GetBytes(value));
         }
 
-        public void WriteInt64(long value)
-        {
-            WriteInt64(0, value);
-        }
-        public void WriteInt64(long offset, long value)
+        public void WriteInt64(long? offset, long value)
         {
             WriteMemory(offset, BitConverter.GetBytes(value));
         }
 
-        public void WriteBool(bool value)
+        public void WriteBool(long? offset, bool value)
         {
-            WriteBool(0, value);
+            WriteMemory(offset, BitConverter.GetBytes(value));
         }
-        public void WriteBool(long offset, bool value)
+        
+        public void WriteByte(long? offset, byte value)
         {
             WriteMemory(offset, BitConverter.GetBytes(value));
         }
 
-        public void WriteByte(byte value)
-        {
-            WriteByte(0, value);
-        }
-
-        public void WriteByte( long offset, byte value)
-        {
-            WriteMemory(offset, BitConverter.GetBytes(value));
-        }
-
-        public void WriteBytes(byte[] value)
-        {
-            WriteBytes(0, value);
-        }
-
-        public void WriteBytes(long offset, byte[] value)
+        public void WriteBytes(long? offset, byte[] value)
         {
             WriteMemory(offset, value);
         }
 
-        public void WriteFloat(float value)
-        {
-            WriteFloat(0, value);
-        }
-
-        public void WriteFloat(long offset, float value)
+        public void WriteFloat(long? offset, float value)
         {
             WriteMemory(offset, BitConverter.GetBytes(value));
         }

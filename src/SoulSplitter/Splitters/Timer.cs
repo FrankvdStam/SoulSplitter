@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using LiveSplit.Model;
 using SoulMemory;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.Splitters
 {
     internal enum TimerState
     {
@@ -50,8 +50,8 @@ namespace SoulSplitter.UI
             {
                 //https://www.codeproject.com/Articles/61964/Performance-Tests-Precise-Run-Time-Measurements-wi
 
-                // Uses the second Core or Processor for the Test
-                Process.GetCurrentProcess().ProcessorAffinity = new IntPtr(2);
+                //// Uses the second Core or Processor for the Test
+                //Process.GetCurrentProcess().ProcessorAffinity = new IntPtr(2);
                 // Prevents "Normal" processes 
                 // from interrupting Threads
                 Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;      
@@ -60,7 +60,10 @@ namespace SoulSplitter.UI
                 // from interrupting this thread
                 Thread.CurrentThread.Priority = ThreadPriority.Highest;
             }
-            catch{}
+            catch
+            {
+                // ignored
+            }
         }
 
 
@@ -85,11 +88,13 @@ namespace SoulSplitter.UI
         {
             _timerState = TimerState.WaitForStart;
             _inGameTime = 0;
+            _timerStarted = false;
             _rtaStopwatch.Reset();
         }
         
         private TimingMethod _timingMethod;
         private bool _startAutomatically;
+        private bool _timerStarted;
         public void Update(TimingMethod timingMethod, bool startAutomatically)
         {
             //Allow updates from the UI only when a run isn't in progress
@@ -102,9 +107,19 @@ namespace SoulSplitter.UI
             switch (_timerState)
             {
                 case TimerState.WaitForStart:
-                    if (_startAutomatically && _timeable.StartAutomatically())
+                    if (_startAutomatically)
                     {
-                        _timerModel.Start();
+                        if (!_timerStarted)
+                        {
+                            var igt = _timeable.GetInGameTimeMilliseconds();
+                            _timerStarted = igt > 0 && igt < 150;
+                        }
+
+                        if (_timerStarted && _timeable.InitialLoadRemoval())
+                        {
+                            _timeable.ResetIgt();
+                            _timerModel.Start();
+                        }
                     }
                     break;
 
