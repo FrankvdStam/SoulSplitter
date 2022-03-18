@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="0.0.11">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>Bugfix screen state offset for 1.03.1 - caused timer to not run.</change>
+		</changelog>
+	</update>
 	<update version="0.0.10">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />

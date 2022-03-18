@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using SoulMemory.DarkSouls1.Internal;
@@ -95,6 +96,30 @@ namespace SoulMemory.EldenRing
             return 0f;
         }
 
+        public enum EldenRingVersion
+        {
+            v102,
+            v103,
+            unknown,
+        };
+
+        public EldenRingVersion GetVersion()
+        {
+            if (_process != null)
+            {
+                switch (_process.MainModule.ModuleMemorySize)
+                {
+                    default:
+                        return EldenRingVersion.v102;
+
+                    case 92119040: //1.03
+                    case 92141568: //1.03.1
+                        return EldenRingVersion.v103;
+                }
+            }
+            return EldenRingVersion.unknown;
+        }
+
         /// <summary>
         /// Returns the screen state. Will falsely report InGame when the game is starting up.
         /// </summary>
@@ -103,7 +128,15 @@ namespace SoulMemory.EldenRing
         {
             if (_menuManIns != null)
             {
-                var screenState = _process.MainModule.ModuleMemorySize == 92119040 ? _menuManIns.ReadInt32(0x728) : _menuManIns.ReadInt32(0x718);
+                var version = GetVersion();
+                var offset = 0x728;
+                
+                if(version == EldenRingVersion.v102)
+                {
+                    offset = 0x718;
+                }
+
+                var screenState = _menuManIns.ReadInt32(offset);
                 if (screenState.TryParseEnum(out ScreenState s))
                 {
                     return s;
