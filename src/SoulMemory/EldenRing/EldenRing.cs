@@ -46,10 +46,10 @@ namespace SoulMemory.EldenRing
                 _process.ScanPatternRelative("48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
                     .CreatePointer(out _menuManIns, 0);
 
-                //if (!ApplyIgtFix())
-                //{
-                //    Exception = new Exception("MIGT code injection failed");
-                //}
+                if (!ApplyIgtFix())
+                {
+                    Exception = new Exception("MIGT code injection failed");
+                }
 
                 return true;
             }
@@ -145,6 +145,20 @@ namespace SoulMemory.EldenRing
             return ScreenState.Unknown;
         }
 
+        private bool NoCutsceneOrBlackscreen()
+        {
+            var version = GetVersion();
+            var offset = 0x72c;
+
+            if (version == EldenRingVersion.v102)
+            {
+                offset = 0x71c;
+            }
+
+            var flag = _menuManIns?.ReadInt32(offset);
+            return flag.HasValue && flag.Value == 16;
+        }
+
         private bool _pointersInitialized = false;
         public bool Refresh()
         {
@@ -171,13 +185,22 @@ namespace SoulMemory.EldenRing
             }
             else
             {
-                if (_process.HasExited)
+                try
+                {
+                    if (_process.HasExited)
+                    {
+                        _process = null;
+                        _pointersInitialized = false;
+                        ResetPointers();
+                    }
+                }
+                catch
                 {
                     _process = null;
                     _pointersInitialized = false;
                     ResetPointers();
                 }
-
+                
                 return _pointersInitialized;
             }
         }
@@ -194,11 +217,12 @@ namespace SoulMemory.EldenRing
         {
             return IsPlayerLoaded() && GetScreenState() == ScreenState.InGame;
         }
+        
+        public bool InitialLoadRemoval() => NoCutsceneOrBlackscreen();
 
-        public bool StartAutomatically()
+        public void ResetIgt()
         {
-            var igt = GetInGameTimeMilliseconds();
-            return igt > 0 && igt < 150;
+            _igt?.WriteInt32(0);
         }
         #endregion
 

@@ -99,9 +99,13 @@ namespace SoulMemory.DarkSouls3
             return _igt?.ReadInt32(0xa4) ?? 0;
         }
 
+        public bool InitialLoadRemoval()
+        {
+            return true;
+        }
 
 
-        
+
         public bool IsInGame()
         {
             //0651740C
@@ -123,6 +127,12 @@ namespace SoulMemory.DarkSouls3
         {
             var igt = GetInGameTimeMilliseconds();
             return igt > 0 && igt < 150;
+        }
+
+
+        public void ResetIgt()
+        {
+            //No initial load to remove from DS3.
         }
         #endregion
     }

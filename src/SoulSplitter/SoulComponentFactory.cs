@@ -22,7 +22,7 @@ namespace SoulSplitter
 
         public string UpdateURL => "https://raw.githubusercontent.com/FrankvdStam/SoulSplitter/main/";
 
-        public Version Version => new Version(0, 0, 11);
+        public Version Version => new Version(0, 0, 12);
 
         public IComponent Create(LiveSplitState state)
         {

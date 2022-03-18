@@ -20,10 +20,21 @@ namespace SoulMemory
         /// <returns></returns>
         bool IsInGame();
 
+        ///// <summary>
+        ///// Returns true when the auto start conditions for a specific game are detected
+        ///// </summary>
+        ///// <returns></returns>
+        //bool StartAutomatically();
+
         /// <summary>
-        /// Returns true when the auto start conditions for a specific game are detected
+        /// Returns true when initial load removal conditions have been met
         /// </summary>
         /// <returns></returns>
-        bool StartAutomatically();
+        bool InitialLoadRemoval();
+
+        /// <summary>
+        /// Reset IGT for initial load removal
+        /// </summary>
+        void ResetIgt();
     }
 }

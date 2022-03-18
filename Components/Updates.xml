@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="0.0.12">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>IGT is now modified IGT - framerate issues will not affect IGT and IGT will be consistent for every runner. Made possible by B3.</change>
+			<change>IGT is now reset to 0 after the initial cutscene + hardware dependent blackscreen, starting the timer at 0 when you gain control of the player.</change>
+		</changelog>
+	</update>
 	<update version="0.0.11">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />

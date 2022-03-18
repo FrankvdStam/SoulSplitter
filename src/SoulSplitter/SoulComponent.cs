@@ -104,9 +104,6 @@ namespace SoulSplitter
 
         private string _debugOutput = "";
         private bool _redraw = true;
-
-        private DispatcherTimer _clearDebugOutputTimer = new DispatcherTimer();
-
         public void Draw(Graphics g)
         {
             if (string.IsNullOrWhiteSpace(_debugOutput))
