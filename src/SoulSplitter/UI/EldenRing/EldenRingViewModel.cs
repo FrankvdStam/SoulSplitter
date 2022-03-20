@@ -34,7 +34,7 @@ namespace SoulSplitter.UI.ViewModel
         }
 
 
-        private TimingMethod _timingMethod = TimingMethod.RtaWithLoadRemoval;
+        private TimingMethod _timingMethod = TimingMethod.Igt;
         public TimingMethod TimingMethod
         {
             get => _timingMethod;

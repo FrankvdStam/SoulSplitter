@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using SoulSplitter.Splits;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.ViewModel;
@@ -22,7 +23,19 @@ namespace SoulSplitter.UI
             DarkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
         }
 
+        [XmlIgnore]
+        public string Error
+        {
+            get => _error;
+            set
+            {
+                _error = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _error;
 
+        public string Version { get; set; } = VersionHelper.Version.ToString();
 
         public int SelectedGameIndex
         {

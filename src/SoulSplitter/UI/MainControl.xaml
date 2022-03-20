@@ -3,18 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
-             xmlns:Local="clr-namespace:SoulSplitter.Splits"
              xmlns:ui="clr-namespace:SoulSplitter.UI"
-             xmlns:viewModel="clr-namespace:SoulSplitter.UI.ViewModel"
-             mc:Ignorable="d" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
              xmlns:darkSouls1="clr-namespace:SoulSplitter.UI.DarkSouls1"
              xmlns:darkSouls2="clr-namespace:SoulSplitter.UI.DarkSouls2"
              xmlns:eldenRing="clr-namespace:SoulSplitter.UI.EldenRing"
-             Width="460"
-             Height="524" 
-             >
+             Width="451"
+             Height="497">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -34,20 +29,34 @@
         <ui:MainViewModel/>
     </UserControl.DataContext>
 
-    <TabControl 
-        SelectedIndex="{Binding SelectedGameIndex}">
-        <TabItem Header="Dark Souls 1" IsEnabled="False">
-            <darkSouls1:DarkSouls1Control DataContext="{Binding DarkSouls1ViewModel}"/>
-        </TabItem>
-        <!-- DataContext="{Binding DarkSouls2ViewModel}" -->
-        <TabItem Header="Dark Souls 2" IsEnabled="False">
-            <darkSouls2:DarkSouls2Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls2ViewModel}"/>
-        </TabItem>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <TabItem Header="Elden Ring">
-            <eldenRing:EldenRingControl DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.EldenRingViewModel}"/>
-        </TabItem>
-    </TabControl>
+        <StackPanel 
+            Orientation="Horizontal">
+            <TextBlock Text="SoulSplitter version "/>
+            <TextBlock Text="{Binding Version}"/>
 
-    
+            <TextBlock Text="{Binding Error}" Margin="10,0,0,0" Foreground="Red"/>
+        </StackPanel>
+
+        <TabControl 
+            Grid.Row="1"
+            SelectedIndex="{Binding SelectedGameIndex}">
+            <TabItem Header="Dark Souls 1" IsEnabled="False">
+                <darkSouls1:DarkSouls1Control DataContext="{Binding DarkSouls1ViewModel}"/>
+            </TabItem>
+            <!-- DataContext="{Binding DarkSouls2ViewModel}" -->
+            <TabItem Header="Dark Souls 2" IsEnabled="False">
+                <darkSouls2:DarkSouls2Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls2ViewModel}"/>
+            </TabItem>
+
+            <TabItem Header="Elden Ring">
+                <eldenRing:EldenRingControl DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.EldenRingViewModel}"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </UserControl>

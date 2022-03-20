@@ -176,7 +176,7 @@ namespace SoulMemory.EldenRing
                     }
                     else
                     {
-                        var pointerScanException = new Exception($"Pattern scan failed.\nIs EAC disabled?\n{Exception.Message}", Exception);
+                        var pointerScanException = new Exception($"Pattern scan failed, is EAC disabled? {Exception.Message}", Exception);
                         Exception = pointerScanException;
                     }
                 }

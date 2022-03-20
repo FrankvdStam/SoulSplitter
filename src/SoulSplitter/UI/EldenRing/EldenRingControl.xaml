@@ -57,7 +57,7 @@
         <CheckBox
             Grid.Row="1"
             Margin="5"
-            Content="Start automatically" 
+            Content="Start automatically with initial black screen removal" 
             IsChecked="{Binding StartAutomatically}"/>
     </Grid>
 </UserControl>

@@ -109,6 +109,7 @@
     <Compile Include="UI\EnumDisplayNameConverter.cs" />
     <Compile Include="Splitters\Timer.cs" />
     <Compile Include="Splitters\TimingMethod.cs" />
+    <Compile Include="VersionHelper.cs" />
     <Compile Include="XmlSerializableWrapper.cs" />
   </ItemGroup>
   <ItemGroup>

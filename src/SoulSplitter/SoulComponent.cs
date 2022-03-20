@@ -19,7 +19,6 @@ using SoulSplitter.Splits;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.ViewModel;
-using Brushes = System.Drawing.Brushes;
 
 namespace SoulSplitter
 {
@@ -43,91 +42,34 @@ namespace SoulSplitter
             try
             {
                 _splitter.Update(MainControlFormsWrapper.MainViewModel.EldenRingViewModel);
-
-                //HorizontalWidth = width;
-                //VerticalHeight = height;
-                //if (mode == LayoutMode.Vertical)
-                //{
-                //    HorizontalWidth = width;
-                //    VerticalHeight = 0;
-                //}
-                //else
-                //{
-                //    HorizontalWidth = 0;
-                //    VerticalHeight = height;
-                //}
-
+                
                 _liveSplitState = state;
+
 
                 if (_splitter.Exception != null)
                 {
-                    WriteDebug(_splitter.Exception.Message);
+                    MainControlFormsWrapper.MainViewModel.Error = _splitter.Exception.Message;
                 }
                 else
                 {
-                    WriteDebug("");
-                }
-
-                if (_redraw)
-                {
-                    invalidator?.Invalidate(0, 0, 1, 1);
+                    MainControlFormsWrapper.MainViewModel.Error = "";
                 }
             }
             catch (Exception e)
             {
-                WriteDebug(e.Message);
+                MainControlFormsWrapper.MainViewModel.Error = e.Message;
             }
         }
-
-
 
         #region drawing ===================================================================================================================
 
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
         {
-            Draw(g);
         }
 
         public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion)
         {
-            Draw(g);
         }
-        
-        private void WriteDebug(string s)
-        {
-            if (_debugOutput != s)
-            {
-                _redraw = true;
-                _debugOutput = s;
-            }
-        }
-
-        private string _debugOutput = "";
-        private bool _redraw = true;
-        public void Draw(Graphics g)
-        {
-            if (string.IsNullOrWhiteSpace(_debugOutput))
-            {
-                VerticalHeight = 0;
-                HorizontalWidth = 0;
-            }
-            else
-            {
-                VerticalHeight = g.MeasureString(_debugOutput, _liveSplitState.LayoutSettings.TextFont).Height + 2 * InternalPadding;
-
-                //Get longest string to base the width on
-                var longestStr = _debugOutput.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList().OrderByDescending(i => i.Length).FirstOrDefault();
-                HorizontalWidth = g.MeasureString(longestStr, _liveSplitState.LayoutSettings.TextFont).Width + 2 * InternalPadding;
-
-                g.FillRectangle(new SolidBrush(_liveSplitState.LayoutSettings.BackgroundColor), 0, 0, HorizontalWidth, VerticalHeight);
-                g.DrawString(_debugOutput, _liveSplitState.LayoutSettings.TextFont, Brushes.Crimson, InternalPadding, InternalPadding);
-            }
-            
-            _redraw = false;
-        }
-        
-
-        private const float InternalPadding = 7f;
 
         public string ComponentName => Name;
         public float HorizontalWidth { get; private set; } = 0;

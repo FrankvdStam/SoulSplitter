@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="0.0.13">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>Changed default timing method from RTA to IGT.</change>
+			<change>Clarified in the UI that the initial black screen removal will only work if you let SoulSplitter auto-start.</change>
+			<change>Moved SoulSplitter's errors into it's UI instead of it being visible in livesplit's UI. Also added the version there for reference.</change>
+			<change>Couple more small UI fixes</change>
+		</changelog>
+	</update>
 	<update version="0.0.12">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />
