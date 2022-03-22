@@ -1,5 +1,7 @@
 # SoulSplitter
 
+![build](https://github.com/FrankvdStam/SoulSplitter/actions/workflows/build.yml/badge.svg)
+
 IGT/RTA with load removal, both with autostart for Elden Ring. More to come soon.   
 For Elden Ring specific information, see https://github.com/FrankvdStam/SoulSplitter/wiki/Elden-Ring
 
