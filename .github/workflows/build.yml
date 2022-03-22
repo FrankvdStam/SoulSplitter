@@ -1,0 +1,24 @@
+name: build
+on:  push
+jobs:
+  build:
+    name: Build
+    runs-on: windows-2019
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+        
+      #- uses: nuget/setup-nuget@v1
+      #- run: nuget restore NWWI.ValidationPlatform\NWWI.ValidationPlatform.sln
+    
+      - name: setup-msbuild
+        uses: microsoft/setup-msbuild@v1.1
+        
+      - name: run msbuild
+        run: msbuild SoulSplitter.sln -t:rebuild -property:Configuration=Debug /p:OutputPath=build
+        
+      - name: run NUnit tests
+        shell: powershell
+        run: packages\NUnit.ConsoleRunner.3.15.0\tools\nunit3-console.exe tests\SoulSplitter.Tests\build\SoulSplitter.Tests.dll

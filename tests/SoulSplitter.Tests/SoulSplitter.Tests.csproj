@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\NUnit3TestAdapter.4.2.1\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\..\packages\NUnit3TestAdapter.4.2.1\build\net35\NUnit3TestAdapter.props')" />
   <Import Project="..\..\packages\NUnit.3.13.2\build\NUnit.props" Condition="Exists('..\..\packages\NUnit.3.13.2\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -37,8 +38,9 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="LiveSplit.Core">
-      <HintPath>..\..\..\LiveSplit\LiveSplit\bin\Release\LiveSplit.Core.dll</HintPath>
+    <Reference Include="LiveSplit.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\LiveSplit.Core.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.4.3, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MaterialDesignColors.2.0.4\lib\net452\MaterialDesignColors.dll</HintPath>
@@ -77,6 +79,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\SoulMemory\SoulMemory.csproj">
+      <Project>{03480f4f-f423-4144-90c6-cbda68269374}</Project>
+      <Name>SoulMemory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\SoulSplitter\SoulSplitter.csproj">
       <Project>{a30986d1-6b5a-415d-a737-ae0d9ef4ce9c}</Project>
       <Name>SoulSplitter</Name>
@@ -89,6 +95,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\NUnit.3.13.2\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit.3.13.2\build\NUnit.props'))" />
     <Error Condition="!Exists('..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets'))" />
+    <Error Condition="!Exists('..\..\packages\NUnit3TestAdapter.4.2.1\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit3TestAdapter.4.2.1\build\net35\NUnit3TestAdapter.props'))" />
   </Target>
   <Import Project="..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
 </Project>
