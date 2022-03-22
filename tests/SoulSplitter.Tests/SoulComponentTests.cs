@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using LiveSplit.Model;
 using Moq;
 using NUnit.Framework;
 using SoulSplitter.UI;
-using TimingMethod = SoulSplitter.UI.TimingMethod;
 
 namespace SoulSplitter.Tests
 {
@@ -34,7 +28,7 @@ namespace SoulSplitter.Tests
         {
             var viewModel = new MainViewModel();
             viewModel.EldenRingViewModel.StartAutomatically = false;
-            viewModel.EldenRingViewModel.TimingMethod = TimingMethod.Igt;
+            viewModel.EldenRingViewModel.TimingMethod = SoulSplitter.Splitters.TimingMethod.Igt; 
 
             var xml = MainViewModelToXml(viewModel);
 
@@ -45,7 +39,7 @@ namespace SoulSplitter.Tests
             var component = new SoulComponent(liveSplitStateMock.Object);
             component.SetSettings(doc);
 
-            var componentViewModel = component.MainControlFormsWrapper.GetMainViewModel();
+            var componentViewModel = component.MainControlFormsWrapper.MainViewModel;
 
             Assert.AreEqual(viewModel.EldenRingViewModel.StartAutomatically, componentViewModel.EldenRingViewModel.StartAutomatically);
             Assert.AreEqual(viewModel.EldenRingViewModel.TimingMethod      , componentViewModel.EldenRingViewModel.TimingMethod      );

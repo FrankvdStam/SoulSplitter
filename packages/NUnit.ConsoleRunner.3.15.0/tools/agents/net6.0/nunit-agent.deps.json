@@ -1,0 +1,66 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "nunit-agent/3.15.0": {
+        "dependencies": {
+          "nunit.engine.api": "3.15.0",
+          "nunit.engine.core": "3.15.0"
+        },
+        "runtime": {
+          "nunit-agent.dll": {}
+        }
+      },
+      "TestCentric.Metadata/1.7.1": {
+        "runtime": {
+          "lib/netstandard2.0/testcentric.engine.metadata.dll": {
+            "assemblyVersion": "1.7.1.0",
+            "fileVersion": "1.7.1.0"
+          }
+        }
+      },
+      "nunit.engine.api/3.15.0": {
+        "runtime": {
+          "nunit.engine.api.dll": {}
+        }
+      },
+      "nunit.engine.core/3.15.0": {
+        "dependencies": {
+          "TestCentric.Metadata": "1.7.1",
+          "nunit.engine.api": "3.15.0"
+        },
+        "runtime": {
+          "nunit.engine.core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "nunit-agent/3.15.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TestCentric.Metadata/1.7.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QjdwsUJXJbGmFKNiTZbWeRpwhqRcEAtgb+dwR4YVK8xUBBEfXfrFV074f1DBtnrOfAIT+LnZCeVVeg/fYUlAEA==",
+      "path": "testcentric.metadata/1.7.1",
+      "hashPath": "testcentric.metadata.1.7.1.nupkg.sha512"
+    },
+    "nunit.engine.api/3.15.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "nunit.engine.core/3.15.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
