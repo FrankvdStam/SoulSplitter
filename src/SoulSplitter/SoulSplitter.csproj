@@ -34,8 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LiveSplit.Core">
-      <HintPath>..\..\..\LiveSplit\LiveSplit\bin\Release\LiveSplit.Core.dll</HintPath>
+    <Reference Include="LiveSplit.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\LiveSplit.Core.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.4.3, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MaterialDesignColors.2.0.4\lib\net452\MaterialDesignColors.dll</HintPath>
@@ -60,7 +61,7 @@
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UpdateManager, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\LiveSplit\LiveSplit\bin\Release\UpdateManager.dll</HintPath>
+      <HintPath>..\..\packages\UpdateManager.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
