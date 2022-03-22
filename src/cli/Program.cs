@@ -21,14 +21,16 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+
+            //Testy2();
             var er = new EldenRing();
 
             for (;;)
             {
                 Console.Clear();
-                Console.WriteLine(er.GetScreenState());
-                Thread.Sleep(50);
-
+                Console.WriteLine(er.GetTestValue());
+                
+                Thread.Sleep(100);
                 er.Refresh();
             }
         }
@@ -36,16 +38,20 @@ namespace cli
 
         private static void Testy2()
         {
-            var er = new DarkSouls3();
+            var er = new DarkSouls1();
+            er.Refresh();
 
-            for (; ; )
-            {
-                //Console.Clear();
-                Console.WriteLine(er.IsInGame() + " " + er.GetInGameTimeMilliseconds());
-                Thread.Sleep(10);
+            var isKill = er.IsBossDefeated(BossType.AsylumDemon);
 
-                er.Refresh();
-            }
+
+            //for (; ; )
+            //{
+            //    //Console.Clear();
+            //    Console.WriteLine(er.IsInGame() + " " + er.GetInGameTimeMilliseconds());
+            //    Thread.Sleep(10);
+            //
+            //    er.Refresh();
+            //}
         }
 
 

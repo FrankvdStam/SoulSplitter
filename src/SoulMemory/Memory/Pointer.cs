@@ -105,7 +105,7 @@ namespace SoulMemory.Shared
         #region Read/write memory
 
         private byte[] ReadMemory(long? offset, int length)
-        {
+        { 
             int bytesRead = 0;
             byte[] buffer = new byte[length];
 
@@ -201,6 +201,8 @@ namespace SoulMemory.Shared
         {
             WriteMemory(offset, value);
         }
+
+        public void WriteFloat(float value) => WriteFloat(null, value);
 
         public void WriteFloat(long? offset, float value)
         {

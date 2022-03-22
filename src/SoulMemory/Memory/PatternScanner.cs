@@ -16,7 +16,7 @@ namespace SoulMemory.Shared
         private static Dictionary<string, byte[]> _memoryCache = new Dictionary<string, byte[]>();
         private static byte[] GetCodeMemory(Process p)
         {
-            var name = p.ProcessName;
+            var name = p.ProcessName + p.MainModule.FileName + p.MainModule.FileVersionInfo.ProductVersion + p.MainModule.ModuleMemorySize;
             byte[] buffer;
 
             if (!_memoryCache.TryGetValue(name, out buffer))

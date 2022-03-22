@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using SoulMemory.DarkSouls1.Internal;
 using SoulMemory.Memory;
@@ -17,38 +18,70 @@ namespace SoulMemory.EldenRing
         public Exception Exception;
         
         private Process _process = null;
-        
 
         private Pointer _igt;
         private Pointer _playerIns;
         private Pointer _playerChrPhysicsModule;
         private Pointer _menuManIns;
-        
+
+        private long _screenStateOffset;
+        private long _blackScreenOffset;
 
         public EldenRing()
         {
             Refresh();
         }
-
-
-        private bool InitPointers()
+        
+        private bool Init()
         {
             try
             {
+                //Arrange version specific offsets
+                if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
+                {
+                    Exception = new Exception("Failed to determine game version");
+                    return false;
+                }
+                
+                var version = GetVersion(v);
+                switch (version)
+                { 
+                    default:
+                    case EldenRingVersion.Unknown:
+                        _screenStateOffset = 0x728;
+                        _blackScreenOffset = 0x72c;
+                        break;
+
+                    case EldenRingVersion.V102:
+                        _screenStateOffset = 0x718;
+                        _blackScreenOffset = 0x71c;
+                        break;
+
+                    case EldenRingVersion.V103:
+                        _screenStateOffset = 0x728;
+                        _blackScreenOffset = 0x72c;
+                        break;
+                }
+
+                //FD4Time
                 _process.ScanPatternRelative("48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
                     .CreatePointer(out _igt, 0, 0xa0);
 
+                //WorldChrManImp
                 _process.ScanPatternRelative("48 8b 05 ? ? ? ? 48 89 98 70 84 01 00 4c 89 ab 74 06 00 00 4c 89 ab 7c 06 00 00 44 88 ab 84 06 00 00 41 83 7f 4c 00", 3, 7)
                     .CreatePointer(out _playerIns, 0, 0x18468)
-                    .CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xf68);
+                    .CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68);
 
                 //CSMenuManIns
                 _process.ScanPatternRelative("48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
                     .CreatePointer(out _menuManIns, 0);
 
+                //GameMan 48 8b 15 . . . . 41 b0 01 48 8b 0d . . . . 48 81 c2 10 0e 00 00
+
                 if (!ApplyIgtFix())
                 {
                     Exception = new Exception("MIGT code injection failed");
+                    return false;
                 }
 
                 return true;
@@ -59,12 +92,41 @@ namespace SoulMemory.EldenRing
                 return false;
             }
         }
-        
+
+        public enum EldenRingVersion
+        {
+            V102,
+            V103,
+            Unknown,
+        };
+
+        public static EldenRingVersion GetVersion(Version v)
+        {
+            switch (v.Major)
+            {
+                default:
+                    return EldenRingVersion.Unknown;
+
+                case 1:
+                    switch (v.Minor)
+                    {
+                        default:
+                            return EldenRingVersion.Unknown;
+
+                        case 2:
+                            return EldenRingVersion.V102;
+                        case 3:
+                            return EldenRingVersion.V103;
+                    }
+            }
+        }
+
 
         private void ResetPointers()
         {
             _igt = null;
             _playerIns = null;
+            _playerChrPhysicsModule = null;
             _menuManIns = null;
         }
 
@@ -95,67 +157,20 @@ namespace SoulMemory.EldenRing
             }
             return 0f;
         }
-
-        public enum EldenRingVersion
-        {
-            v102,
-            v103,
-            unknown,
-        };
-
-        public EldenRingVersion GetVersion()
-        {
-            if (_process != null)
-            {
-                switch (_process.MainModule.ModuleMemorySize)
-                {
-                    default:
-                        return EldenRingVersion.v102;
-
-                    case 92119040: //1.03
-                    case 92141568: //1.03.1
-                        return EldenRingVersion.v103;
-                }
-            }
-            return EldenRingVersion.unknown;
-        }
-
-        /// <summary>
-        /// Returns the screen state. Will falsely report InGame when the game is starting up.
-        /// </summary>
-        /// <returns></returns>
+        
         public ScreenState GetScreenState()
         {
-            if (_menuManIns != null)
+            var screenState = _menuManIns?.ReadInt32(_screenStateOffset) ?? (int)ScreenState.Unknown;
+            if (screenState.TryParseEnum(out ScreenState s))
             {
-                var version = GetVersion();
-                var offset = 0x728;
-                
-                if(version == EldenRingVersion.v102)
-                {
-                    offset = 0x718;
-                }
-
-                var screenState = _menuManIns.ReadInt32(offset);
-                if (screenState.TryParseEnum(out ScreenState s))
-                {
-                    return s;
-                }
+                return s;
             }
             return ScreenState.Unknown;
         }
 
         private bool NoCutsceneOrBlackscreen()
         {
-            var version = GetVersion();
-            var offset = 0x72c;
-
-            if (version == EldenRingVersion.v102)
-            {
-                offset = 0x71c;
-            }
-
-            var flag = _menuManIns?.ReadInt32(offset);
+            var flag = _menuManIns?.ReadInt32(_blackScreenOffset);
             return flag.HasValue && flag.Value == 16;
         }
 
@@ -169,7 +184,7 @@ namespace SoulMemory.EldenRing
                 
                 if (_process != null)
                 {
-                    if (InitPointers())
+                    if (Init())
                     {
                         _pointersInitialized = true;
                         return true;
@@ -203,6 +218,11 @@ namespace SoulMemory.EldenRing
                 
                 return _pointersInitialized;
             }
+        }
+
+        public int GetTestValue()
+        {
+            return _menuManIns?.ReadInt32(_blackScreenOffset) ?? 0;
         }
 
         public bool Attached => _process != null;
