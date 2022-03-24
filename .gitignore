@@ -351,3 +351,8 @@ MigrationBackup/
 
 
 Components/*.zip
+
+# Added by cargo
+
+/target
+Cargo.lock

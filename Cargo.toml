@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/rust_memory",
+    "src/cli_rust",
+]
