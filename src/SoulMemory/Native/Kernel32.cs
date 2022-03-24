@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SoulMemory.Native
 {
-    internal static class Kernel32
+    public static class Kernel32
     {
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
