@@ -23,6 +23,8 @@ namespace SoulMemory.EldenRing
         private Pointer _playerIns;
         private Pointer _playerChrPhysicsModule;
         private Pointer _menuManIns;
+        private Pointer _igtFix;
+        private Pointer _igtCodeCave;
 
         private long _screenStateOffset;
         private long _blackScreenOffset;
@@ -36,6 +38,11 @@ namespace SoulMemory.EldenRing
         {
             try
             {
+                if (_process.HasExited)
+                {
+                    return false;
+                }
+
                 //Arrange version specific offsets
                 if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
                 {
@@ -45,7 +52,7 @@ namespace SoulMemory.EldenRing
                 
                 var version = GetVersion(v);
                 switch (version)
-                { 
+                {
                     default:
                     case EldenRingVersion.Unknown:
                         _screenStateOffset = 0x728;
@@ -63,20 +70,31 @@ namespace SoulMemory.EldenRing
                         break;
                 }
 
-                //FD4Time
-                _process.ScanPatternRelative("48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
-                    .CreatePointer(out _igt, 0, 0xa0);
 
-                //WorldChrManImp
-                _process.ScanPatternRelative("48 8b 05 ? ? ? ? 48 89 98 70 84 01 00 4c 89 ab 74 06 00 00 4c 89 ab 7c 06 00 00 44 88 ab 84 06 00 00 41 83 7f 4c 00", 3, 7)
-                    .CreatePointer(out _playerIns, 0, 0x18468)
-                    .CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68);
+                _process.ScanCache()
+                    //FD4Time
+                    .ScanRelative("48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
+                        .CreatePointer(out _igt, 0, 0xa0)
+                    
+                    //WorldChrManImp
+                    .ScanRelative("48 8b 05 ? ? ? ? 48 89 98 70 84 01 00 4c 89 ab 74 06 00 00 4c 89 ab 7c 06 00 00 44 88 ab 84 06 00 00 41 83 7f 4c 00", 3, 7)
+                        .CreatePointer(out _playerIns, 0, 0x18468)
+                        .CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
 
-                //CSMenuManIns
-                _process.ScanPatternRelative("48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
-                    .CreatePointer(out _menuManIns, 0);
+                    //CSMenuManIns
+                    .ScanRelative("48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
+                        .CreatePointer(out _menuManIns, 0)
+                    
+                    //IGT fix detour address
+                    .ScanAbsolute("48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
+                        .CreatePointer(out _igtFix)
+                     //IGT code cave
+                    .ScanAbsolute("48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20")
+                        .CreatePointer(out _igtCodeCave)
+                ;
 
                 //GameMan 48 8b 15 . . . . 41 b0 01 48 8b 0d . . . . 48 81 c2 10 0e 00 00
+                //EventFlagUsageParamManagerImp 48 8b 05 . . . . 48 85 c0 75 12 88 . . . . . e8 20 ec ff ff 48 89 05 . . . .
 
                 if (!ApplyIgtFix())
                 {
@@ -128,6 +146,8 @@ namespace SoulMemory.EldenRing
             _playerIns = null;
             _playerChrPhysicsModule = null;
             _menuManIns = null;
+            _igtFix = null;
+            _igtCodeCave = null;
         }
 
         public bool IsPlayerLoaded()
@@ -175,6 +195,8 @@ namespace SoulMemory.EldenRing
         }
 
         private bool _pointersInitialized = false;
+        private DateTime _requestInit;
+        private readonly TimeSpan _initDelay = TimeSpan.FromSeconds(5);
         public bool Refresh()
         {
             if (_process == null)
@@ -182,7 +204,17 @@ namespace SoulMemory.EldenRing
                 //EAC bypass methods differ. In some, people rename eldenring.exe to start_protected_game.exe
                 _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("eldenring")) ?? Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("start_protected_game"));
                 
-                if (_process != null)
+                if (_process != null && !_process.HasExited)
+                {
+                    _requestInit = DateTime.Now.Add(_initDelay);
+                    return false;
+                }
+
+                return false;
+            }
+            else
+            {
+                if (!_pointersInitialized && _requestInit < DateTime.Now)
                 {
                     if (Init())
                     {
@@ -191,15 +223,11 @@ namespace SoulMemory.EldenRing
                     }
                     else
                     {
-                        var pointerScanException = new Exception($"Pattern scan failed, is EAC disabled? {Exception.Message}", Exception);
+                        var pointerScanException = new Exception($"Pattern scan failed, is EAC disabled? {Exception?.Message}", Exception);
                         Exception = pointerScanException;
                     }
                 }
 
-                return false;
-            }
-            else
-            {
                 try
                 {
                     if (_process.HasExited)
@@ -272,10 +300,8 @@ namespace SoulMemory.EldenRing
                 return false;
             }
 
-            //eldenring.exe+250377 - F3 48 0F2C C1         - cvttss2si rax,xmm1
-
-            //Scan for the code before detour address
-            var igtFixEntryPoint = _process.MainModule.BaseAddress.ToInt64() + PatternScanner.Scan(_process, "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?") + 35;
+            long igtFixEntryPoint = _igtFix.GetAddress();
+            long codeCave = _igtCodeCave.GetAddress();
 
             //Check if the byte at the injection address is a jmp instruction
             var readBuffer = new byte[1];
@@ -286,10 +312,7 @@ namespace SoulMemory.EldenRing
                 return true; //code already injected. Return.
             }
 
-
             //The location used as code cave here is the constructor of the network test title screen. This code would never run under normal circumstances so we can overwrite it.
-            var codeCave = _process.MainModule.BaseAddress.ToInt64() + PatternScanner.Scan(_process, "48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20");
-
             //fix detour
             var igtFixDetourCode = new List<byte>() { 0xE9 };
             int detourTarget = (int)(codeCave - (igtFixEntryPoint + 5));
@@ -348,19 +371,10 @@ namespace SoulMemory.EldenRing
             var jumpFromAddress = codeCave + igtFixCode.Count - 1;//minus jmp instruction
             var testything = (igtFixEntryPoint + 9) - (jumpFromAddress + 9);
             igtFixCode.AddRange(BitConverter.GetBytes(testything));
-
-
-            //var asd = BitConverter.GetBytes(testything);
-
-            //int jmpTarget = (int)((igtFixEntryPoint + 5) - (codeCave + 149 + 5));
-            //igtFixCode.AddRange(BitConverter.GetBytes(jmpTarget));
-            //
-            //var test = ByteArrayToString(igtFixCode.ToArray());
-
+            
             //Write fixes to game memory
             Ntdll.NtSuspendProcess(_process.Handle);
-
-            //No broken timer
+            
             var result = Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)codeCave, igtFixCode.ToArray(), (uint)igtFixCode.Count, out uint bytesWritten);
             result &= Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)igtFixEntryPoint, igtFixDetourCode.ToArray(), (uint)igtFixDetourCode.Count, out bytesWritten);
 
@@ -376,7 +390,6 @@ namespace SoulMemory.EldenRing
                 hex.AppendFormat("{0:x2} ", b);
             return hex.ToString();
         }
-
 
         #endregion
     }

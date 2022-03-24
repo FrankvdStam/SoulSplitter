@@ -25,29 +25,29 @@ namespace SoulMemory.DarkSouls1.Internal
         {
             Attach();
 
-            _process.ScanPatternRelative(new byte?[] { 0x48, 0x8d, 0x0d, null, null, null, null, 0x48, 0x89, 0x8a, 0x38, 0x0a, 0x00, 0x00 }, 3, 7)
-                .CreatePointer(out _menuPrompt);
-            
-            //GameDataMan
-            _process.ScanPatternRelative(new byte?[] { 0x48, 0x8B, 0x05, null, null, null, null, 0x45, 0x33, 0xED, 0x48, 0x8B, 0xF1, 0x48, 0x85, 0xC0 }, 3, 7)
-                .CreatePointer(out _gameDataManIns, 0)
-                //Path: GameDataMan->hostPlayerGameData->equipGameData
-                .CreatePointer(out _hostPlayerGameData, 0, 16)
+            _process.ScanCache()
+                .ScanRelative(new byte?[] { 0x48, 0x8d, 0x0d, null, null, null, null, 0x48, 0x89, 0x8a, 0x38, 0x0a, 0x00, 0x00 }, 3, 7)
+                    .CreatePointer(out _menuPrompt)
+
+                //GameDataMan
+                .ScanRelative(new byte?[] { 0x48, 0x8B, 0x05, null, null, null, null, 0x45, 0x33, 0xED, 0x48, 0x8B, 0xF1, 0x48, 0x85, 0xC0 }, 3, 7)
+                    .CreatePointer(out _gameDataManIns, 0)
+                    //Path: GameDataMan->hostPlayerGameData->equipGameData
+                    .CreatePointer(out _hostPlayerGameData, 0, 16)
+                    
+
+                //World progression
+                .ScanRelative(new byte?[] { 0x48, 0x8B, 0x0D, null, null, null, null, 0x41, 0xB8, 0x01, 0x00, 0x00, 0x00, 0x44 }, 3, 7)
+                    .CreatePointer(out _worldProgression, 0, 0)
+
+                //GameDataMan
+                .ScanRelative(new byte?[] { 0x48, 0x8B, 0x05, null, null, null, null, 0x45, 0x33, 0xED, 0x48, 0x8B, 0xF1, 0x48, 0x85, 0xC0 }, 3, 7)
+                    .CreatePointer(out _gameDataManIns, 0)
+
+                .ScanRelative(new byte?[]{ 0x48, 0x8b, 0x05, null, null, null, null, 0x48, 0x05, 0x08, 0x0a, 0x00, 0x00, 0x48, 0x89, 0x44, 0x24, 0x50, 0xe8, 0x34, 0xfc, 0xfd, 0xff }, 3, 7)
+                    .CreatePointer(out _bonfireState, 0, 2920, 0x28, 0)
                 ;
             
-            //World progression
-            _process.ScanPatternRelative(new byte?[] { 0x48, 0x8B, 0x0D, null, null, null, null, 0x41, 0xB8, 0x01, 0x00, 0x00, 0x00, 0x44 }, 3, 7)
-                .CreatePointer(out _worldProgression, 0, 0);
-
-            //GameDataMan
-            _process.ScanPatternRelative(new byte?[] { 0x48, 0x8B, 0x05, null, null, null, null, 0x45, 0x33, 0xED, 0x48, 0x8B, 0xF1, 0x48, 0x85, 0xC0 }, 3, 7)
-                .CreatePointer(out _gameDataManIns, 0);
-
-            _process.ScanPatternRelative(new byte?[]{ 0x48, 0x8b, 0x05, null, null, null, null, 0x48, 0x05, 0x08, 0x0a, 0x00, 0x00, 0x48, 0x89, 0x44, 0x24, 0x50, 0xe8, 0x34, 0xfc, 0xfd, 0xff }, 3, 7)
-                .CreatePointer(out _bonfireState, 0, 2920, 0x28, 0)
-                ;
-            
-
             InitNetManImp();
             InitFlags();
         }

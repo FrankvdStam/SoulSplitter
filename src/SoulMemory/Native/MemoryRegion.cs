@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SoulMemory.Native
 {
     [StructLayout(LayoutKind.Sequential)]
-    internal struct MemoryRegion
+    public struct MemoryRegion
     {
         public IntPtr BaseAddress;
         public IntPtr AllocationBase;
