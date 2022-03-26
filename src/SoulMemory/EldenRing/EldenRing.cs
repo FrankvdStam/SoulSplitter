@@ -22,7 +22,7 @@ namespace SoulMemory.EldenRing
         private Pointer _igt;
         private Pointer _playerIns;
         private Pointer _playerChrPhysicsModule;
-        private Pointer _menuManIns;
+        private Pointer _menuManImp;
         private Pointer _igtFix;
         private Pointer _igtCodeCave;
 
@@ -81,9 +81,9 @@ namespace SoulMemory.EldenRing
                         .CreatePointer(out _playerIns, 0, 0x18468)
                         .CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
 
-                    //CSMenuManIns
+                    //CSMenuManImp
                     .ScanRelative("48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
-                        .CreatePointer(out _menuManIns, 0)
+                        .CreatePointer(out _menuManImp, 0)
                     
                     //IGT fix detour address
                     .ScanAbsolute("48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
@@ -145,7 +145,7 @@ namespace SoulMemory.EldenRing
             _igt = null;
             _playerIns = null;
             _playerChrPhysicsModule = null;
-            _menuManIns = null;
+            _menuManImp = null;
             _igtFix = null;
             _igtCodeCave = null;
         }
@@ -180,7 +180,7 @@ namespace SoulMemory.EldenRing
         
         public ScreenState GetScreenState()
         {
-            var screenState = _menuManIns?.ReadInt32(_screenStateOffset) ?? (int)ScreenState.Unknown;
+            var screenState = _menuManImp?.ReadInt32(_screenStateOffset) ?? (int)ScreenState.Unknown;
             if (screenState.TryParseEnum(out ScreenState s))
             {
                 return s;
@@ -190,7 +190,7 @@ namespace SoulMemory.EldenRing
 
         private bool NoCutsceneOrBlackscreen()
         {
-            var flag = _menuManIns?.ReadInt32(_blackScreenOffset);
+            var flag = _menuManImp?.ReadInt32(_blackScreenOffset);
             return flag.HasValue && flag.Value == 16;
         }
 
@@ -250,7 +250,7 @@ namespace SoulMemory.EldenRing
 
         public int GetTestValue()
         {
-            return _menuManIns?.ReadInt32(_blackScreenOffset) ?? 0;
+            return _menuManImp?.ReadInt32(_blackScreenOffset) ?? 0;
         }
 
         public bool Attached => _process != null;

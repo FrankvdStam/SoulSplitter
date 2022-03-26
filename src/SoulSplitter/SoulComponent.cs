@@ -112,10 +112,17 @@ namespace SoulSplitter
 
         public void SetSettings(XmlNode settings)
         {
-            var vm = settings.InnerXml.DeserializeXml<MainViewModel>();
-            if (vm != null)
+            try
             {
-                MainControlFormsWrapper.MainViewModel = vm;
+                var vm = settings.InnerXml.DeserializeXml<MainViewModel>();
+                if (vm != null)
+                {
+                    MainControlFormsWrapper.MainViewModel = vm;
+                }
+            }
+            catch
+            {
+                MainControlFormsWrapper.MainViewModel = new MainViewModel();
             }
         }
 
