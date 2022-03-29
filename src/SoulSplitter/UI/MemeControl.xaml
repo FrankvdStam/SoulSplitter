@@ -1,0 +1,29 @@
+﻿<Window x:Class="SoulSplitter.UI.MemeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SoulSplitter"
+             mc:Ignorable="d" 
+             Title="SoulSplitter"
+             Background="White"
+             Width="614" Height="526">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="460"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="390"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            Width="614" Height="526" Source="{Binding Image}"/>
+        <Button 
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="100" Height="30" Content="Go away" Click="ButtonBase_OnClick"/>
+    </Grid>
+</Window>

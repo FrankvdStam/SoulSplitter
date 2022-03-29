@@ -8,6 +8,7 @@
              xmlns:darkSouls1="clr-namespace:SoulSplitter.UI.DarkSouls1"
              xmlns:darkSouls2="clr-namespace:SoulSplitter.UI.DarkSouls2"
              xmlns:eldenRing="clr-namespace:SoulSplitter.UI.EldenRing"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              Width="451"
              Height="497">
 
@@ -35,13 +36,24 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel 
-            Orientation="Horizontal">
-            <TextBlock Text="SoulSplitter version "/>
-            <TextBlock Text="{Binding Version}"/>
-
-            <TextBlock Text="{Binding Error}" Margin="10,0,0,0" Foreground="Red"/>
-        </StackPanel>
+        <DockPanel >
+            <TextBlock Text="SoulSplitter version " DockPanel.Dock="Left"/>
+            <TextBlock Text="{Binding Version}" DockPanel.Dock="Left"/>
+            <TextBlock Text="{Binding Error}" Margin="10,0,0,0" Foreground="Red" DockPanel.Dock="Left"/>
+            <Button
+                DockPanel.Dock="Right"
+                HorizontalAlignment="Right"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                Width="25"
+                Height="25"
+                ToolTip="Troubleshooting"
+                Click="Troubleshooting_OnClick">
+                <materialDesign:PackIcon
+                    Kind="InformationOutline"
+                    Height="15"
+                    Width="15" />
+            </Button>
+        </DockPanel>
 
         <TabControl 
             Grid.Row="1"

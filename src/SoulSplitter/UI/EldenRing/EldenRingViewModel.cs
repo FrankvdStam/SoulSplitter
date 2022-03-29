@@ -19,9 +19,6 @@ namespace SoulSplitter.UI.ViewModel
 
         }
 
-        public static ObservableCollection<TimingMethod> TimingMethods { get; set; } = new ObservableCollection<TimingMethod>(Enum.GetValues(typeof(TimingMethod)).Cast<TimingMethod>());
-
-
         private bool _startAutomatically = true;
         public bool StartAutomatically
         {
@@ -32,19 +29,6 @@ namespace SoulSplitter.UI.ViewModel
                 OnPropertyChanged();
             }
         }
-
-
-        private TimingMethod _timingMethod = TimingMethod.Igt;
-        public TimingMethod TimingMethod
-        {
-            get => _timingMethod;
-            set
-            {
-                _timingMethod = value;
-                OnPropertyChanged();
-            }
-        }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

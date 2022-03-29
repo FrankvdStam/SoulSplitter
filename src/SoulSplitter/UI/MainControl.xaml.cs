@@ -33,5 +33,10 @@ namespace SoulSplitter.UI
             get => (MainViewModel)DataContext;
             set => ((MainViewModel)DataContext).Update(value);
         }
+        
+        private void Troubleshooting_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting");
+        }
     }
 }

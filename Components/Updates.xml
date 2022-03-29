@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="0.0.17">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>Removed RTA. MIGT is not always active</change>
+			<change>Added button to the troubleshooting wiki page</change>
+		</changelog>
+	</update>
 	<update version="0.0.16">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />

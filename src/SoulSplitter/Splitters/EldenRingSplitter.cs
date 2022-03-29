@@ -36,7 +36,7 @@ namespace SoulSplitter.Splitters
             RefreshEldenRing();
 
             //Update the timer
-            _timer.Update(viewModel.TimingMethod, viewModel.StartAutomatically);
+            _timer.Update(TimingMethod.Igt, viewModel.StartAutomatically);
 
             //TODO: run auto splitter state machine
         }
