@@ -7,8 +7,7 @@ For Elden Ring specific information, see https://github.com/FrankvdStam/SoulSpli
 
 
 # Installation
-Livesplit veteran? Just copy the files into livesplit's components folder and add SoulSplitter to your layout (it's under controls).  
-Not a veteran? You can find detailed installation instructions with screenshots here: https://github.com/FrankvdStam/SoulSplitter/wiki/Installation
+You can find detailed installation instructions with screenshots here: https://github.com/FrankvdStam/SoulSplitter/wiki/Installation
 
 # Contact
 Find me on discord, on the speedsouls server, or by user wasted#2747 if you have trouble setting this up or have any other questions.
