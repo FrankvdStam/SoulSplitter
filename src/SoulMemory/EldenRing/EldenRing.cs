@@ -93,11 +93,6 @@ namespace SoulMemory.EldenRing
                         .CreatePointer(out _igtCodeCave)
                 ;
 
-                var cache = _process.ScanCache()
-                    .ScanRelative(
-                        "48 8b 05 ? ? ? ? 48 89 98 70 84 01 00 4c 89 ab 74 06 00 00 4c 89 ab 7c 06 00 00 44 88 ab 84 06 00 00 41 83 7f 4c 00",
-                        3, 7);
-
                 //GameMan 48 8b 15 . . . . 41 b0 01 48 8b 0d . . . . 48 81 c2 10 0e 00 00
                 //EventFlagUsageParamManagerImp 48 8b 05 . . . . 48 85 c0 75 12 88 . . . . . e8 20 ec ff ff 48 89 05 . . . .
 
@@ -185,7 +180,6 @@ namespace SoulMemory.EldenRing
         
         public ScreenState GetScreenState()
         {
-            long testy = (long)_process.MainModule.BaseAddress;
             var screenState = _menuManImp?.ReadInt32(_screenStateOffset) ?? (int)ScreenState.Unknown;
             if (screenState.TryParseEnum(out ScreenState s))
             {
