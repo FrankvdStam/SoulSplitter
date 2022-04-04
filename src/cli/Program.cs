@@ -28,7 +28,7 @@ namespace cli
             for (;;)
             {
                 Console.Clear();
-                Console.WriteLine(er.GetInGameTimeMilliseconds());
+                Console.WriteLine(er.GetScreenState());
                 Thread.Sleep(100);
                 er.Refresh();
             }

@@ -1,5 +1,10 @@
-pub fn scan(code: &[u8], pattern: &[Option<u8>]) -> i64
+pub fn scan(code: &[u8], pattern: &[Option<u8>]) -> Option<i64>
 {
+    if code.len() == 0
+    {
+        return None;
+    }
+
     for i in 0..code.len() - pattern.len()
     {
         let mut found = true;
@@ -16,10 +21,10 @@ pub fn scan(code: &[u8], pattern: &[Option<u8>]) -> i64
         }
         if found
         {
-            return i as i64;
+            return Some(i as i64);
         }
     }
-    return 0;
+    return None;
 }
 
 

@@ -5,7 +5,7 @@ pub trait Process
     fn read_memory(&self, address: i64, buffer: &mut [u8])-> bool;
     fn write_memory(&self, address: i64, buffer: &[u8]) -> bool;
     fn get_code(&mut self) -> Vec<u8>;
-
+    fn get_base_address(&self) -> i64;
 
     ///Read an i32 from the given address
     fn read_i32(&self, address: i64) -> i32

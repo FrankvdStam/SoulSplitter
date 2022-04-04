@@ -1,12 +1,11 @@
 use winapi::um::memoryapi::{ReadProcessMemory, WriteProcessMemory};
 use winapi::um::processthreadsapi::OpenProcess;
 use winapi::um::winnt::{PROCESS_VM_READ, PROCESS_QUERY_INFORMATION, PROCESS_VM_WRITE, CHAR};
-use winapi::um::tlhelp32::{CreateToolhelp32Snapshot, LPMODULEENTRY32, MAX_MODULE_NAME32, Module32First, Module32Next, MODULEENTRY32, TH32CS_SNAPMODULE};
+use winapi::um::tlhelp32::{CreateToolhelp32Snapshot, Module32First, Module32Next, MODULEENTRY32, TH32CS_SNAPMODULE};
 
 use sysinfo::{Pid, PidExt, System, SystemExt, ProcessExt, RefreshKind, ProcessRefreshKind};
 
-use std::ffi::{c_void, CStr, CString};
-use std::mem;
+use std::ffi::{c_void, CStr};
 use std::mem::{MaybeUninit, size_of};
 use winapi::shared::minwindef::DWORD;
 use winapi::um::handleapi::{CloseHandle, INVALID_HANDLE_VALUE};
@@ -110,24 +109,29 @@ impl Process for WindowsProcess
 
     fn get_code(&mut self) -> Vec<u8>
     {
-        unsafe
+        if self.pid.is_some()
         {
-            if self.pid.is_some()
+            let mut module_size = 0;
+            let mut base_address = 0;
+
+            if get_module(self.pid.expect("pid none"), &self.process_names, &mut module_size, &mut base_address)
             {
-                let mut module_size = 0;
-                let mut base_address = 0;
-
-                if get_module(self.pid.expect("pid none"), &self.process_names, &mut module_size, &mut base_address)
-                {
-                    self.base_address = Some(base_address);
-                    let mut buffer: Vec<u8> = vec![0; module_size as usize];
-                    self.read_memory(base_address, buffer.as_mut_slice());
-                    return buffer;
-                }
+                self.base_address = Some(base_address);
+                let mut buffer: Vec<u8> = vec![0; module_size as usize];
+                self.read_memory(base_address, buffer.as_mut_slice());
+                return buffer;
             }
-
-            return Vec::new();
         }
+        return Vec::new();
+    }
+
+    fn get_base_address(&self) -> i64
+    {
+        if let Some(a) = self.base_address
+        {
+            return a;
+        }
+        return 0;
     }
 }
 
