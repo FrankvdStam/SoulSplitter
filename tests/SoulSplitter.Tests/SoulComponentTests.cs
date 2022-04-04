@@ -28,7 +28,6 @@ namespace SoulSplitter.Tests
         {
             var viewModel = new MainViewModel();
             viewModel.EldenRingViewModel.StartAutomatically = false;
-            viewModel.EldenRingViewModel.TimingMethod = SoulSplitter.Splitters.TimingMethod.Igt; 
 
             var xml = MainViewModelToXml(viewModel);
 
@@ -42,7 +41,6 @@ namespace SoulSplitter.Tests
             var componentViewModel = component.MainControlFormsWrapper.MainViewModel;
 
             Assert.AreEqual(viewModel.EldenRingViewModel.StartAutomatically, componentViewModel.EldenRingViewModel.StartAutomatically);
-            Assert.AreEqual(viewModel.EldenRingViewModel.TimingMethod      , componentViewModel.EldenRingViewModel.TimingMethod      );
         }
 
 

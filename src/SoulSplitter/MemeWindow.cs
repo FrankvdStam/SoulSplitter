@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoulSplitter
 {
-    internal static class VersionHelper
+    internal class MemeWindow
     {
-        public static Version Version => new Version(0, 0, 17);
     }
 }

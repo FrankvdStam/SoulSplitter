@@ -33,10 +33,11 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+           <!-- <RowDefinition Height="40"/> -->
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
+        <!--
         <ComboBox
             Grid.Row="0"
             Margin="5"
@@ -53,9 +54,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-
+-->
         <CheckBox
-            Grid.Row="1"
+            Grid.Row="0"
             Margin="5"
             Content="Start automatically with initial black screen removal" 
             IsChecked="{Binding StartAutomatically}"/>

@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="0.0.17">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>Removed RTA. MIGT is not always active</change>
+			<change>Added button to the troubleshooting wiki page</change>
+		</changelog>
+	</update>
+	<update version="0.0.16">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>If a splits file has settings from another livesplit plugin, soulsplitter will ignore it and initialize with default settings, instead of reading it as it's own settings.</change>
+		</changelog>
+	</update>
+	<update version="0.0.15">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>Removed pattern scan cache altogether, hopefully fixes a crash loop</change>
+		</changelog>
+	</update>
 	<update version="0.0.14">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />

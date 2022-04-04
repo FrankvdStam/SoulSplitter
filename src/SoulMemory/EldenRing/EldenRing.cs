@@ -22,7 +22,7 @@ namespace SoulMemory.EldenRing
         private Pointer _igt;
         private Pointer _playerIns;
         private Pointer _playerChrPhysicsModule;
-        private Pointer _menuManIns;
+        private Pointer _menuManImp;
         private Pointer _igtFix;
         private Pointer _igtCodeCave;
 
@@ -38,14 +38,10 @@ namespace SoulMemory.EldenRing
         {
             try
             {
-                //Potentially, the game has just started. Give it a couple seconds to decrypt itself in memory
-                //TODO: make this non-blocking
-                Thread.Sleep(5000);
                 if (_process.HasExited)
                 {
                     return false;
                 }
-
 
                 //Arrange version specific offsets
                 if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
@@ -85,9 +81,9 @@ namespace SoulMemory.EldenRing
                         .CreatePointer(out _playerIns, 0, 0x18468)
                         .CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
 
-                    //CSMenuManIns
+                    //CSMenuManImp
                     .ScanRelative("48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
-                        .CreatePointer(out _menuManIns, 0)
+                        .CreatePointer(out _menuManImp, 0)
                     
                     //IGT fix detour address
                     .ScanAbsolute("48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
@@ -149,7 +145,7 @@ namespace SoulMemory.EldenRing
             _igt = null;
             _playerIns = null;
             _playerChrPhysicsModule = null;
-            _menuManIns = null;
+            _menuManImp = null;
             _igtFix = null;
             _igtCodeCave = null;
         }
@@ -184,7 +180,7 @@ namespace SoulMemory.EldenRing
         
         public ScreenState GetScreenState()
         {
-            var screenState = _menuManIns?.ReadInt32(_screenStateOffset) ?? (int)ScreenState.Unknown;
+            var screenState = _menuManImp?.ReadInt32(_screenStateOffset) ?? (int)ScreenState.Unknown;
             if (screenState.TryParseEnum(out ScreenState s))
             {
                 return s;
@@ -194,11 +190,13 @@ namespace SoulMemory.EldenRing
 
         private bool NoCutsceneOrBlackscreen()
         {
-            var flag = _menuManIns?.ReadInt32(_blackScreenOffset);
+            var flag = _menuManImp?.ReadInt32(_blackScreenOffset);
             return flag.HasValue && flag.Value == 16;
         }
 
         private bool _pointersInitialized = false;
+        private DateTime _requestInit;
+        private readonly TimeSpan _initDelay = TimeSpan.FromSeconds(5);
         public bool Refresh()
         {
             if (_process == null)
@@ -208,6 +206,16 @@ namespace SoulMemory.EldenRing
                 
                 if (_process != null && !_process.HasExited)
                 {
+                    _requestInit = DateTime.Now.Add(_initDelay);
+                    return false;
+                }
+
+                return false;
+            }
+            else
+            {
+                if (!_pointersInitialized && _requestInit < DateTime.Now)
+                {
                     if (Init())
                     {
                         _pointersInitialized = true;
@@ -215,15 +223,11 @@ namespace SoulMemory.EldenRing
                     }
                     else
                     {
-                        var pointerScanException = new Exception($"Pattern scan failed, is EAC disabled? {Exception.Message}", Exception);
+                        var pointerScanException = new Exception($"Pattern scan failed, is EAC disabled? {Exception?.Message}", Exception);
                         Exception = pointerScanException;
                     }
                 }
 
-                return false;
-            }
-            else
-            {
                 try
                 {
                     if (_process.HasExited)
@@ -246,7 +250,7 @@ namespace SoulMemory.EldenRing
 
         public int GetTestValue()
         {
-            return _menuManIns?.ReadInt32(_blackScreenOffset) ?? 0;
+            return _menuManImp?.ReadInt32(_blackScreenOffset) ?? 0;
         }
 
         public bool Attached => _process != null;
@@ -299,11 +303,6 @@ namespace SoulMemory.EldenRing
             long igtFixEntryPoint = _igtFix.GetAddress();
             long codeCave = _igtCodeCave.GetAddress();
 
-            //eldenring.exe+250377 - F3 48 0F2C C1         - cvttss2si rax,xmm1
-
-            //Scan for the code before detour address
-            //var igtFixEntryPoint = _process.MainModule.BaseAddress.ToInt64() + PatternScanner.Scan(_process, "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?") + 35;
-
             //Check if the byte at the injection address is a jmp instruction
             var readBuffer = new byte[1];
             int readBytes = 0;
@@ -313,10 +312,7 @@ namespace SoulMemory.EldenRing
                 return true; //code already injected. Return.
             }
 
-
             //The location used as code cave here is the constructor of the network test title screen. This code would never run under normal circumstances so we can overwrite it.
-            //var codeCave = _process.MainModule.BaseAddress.ToInt64() + PatternScanner.Scan(_process, "48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20");
-
             //fix detour
             var igtFixDetourCode = new List<byte>() { 0xE9 };
             int detourTarget = (int)(codeCave - (igtFixEntryPoint + 5));
@@ -375,19 +371,10 @@ namespace SoulMemory.EldenRing
             var jumpFromAddress = codeCave + igtFixCode.Count - 1;//minus jmp instruction
             var testything = (igtFixEntryPoint + 9) - (jumpFromAddress + 9);
             igtFixCode.AddRange(BitConverter.GetBytes(testything));
-
-
-            //var asd = BitConverter.GetBytes(testything);
-
-            //int jmpTarget = (int)((igtFixEntryPoint + 5) - (codeCave + 149 + 5));
-            //igtFixCode.AddRange(BitConverter.GetBytes(jmpTarget));
-            //
-            //var test = ByteArrayToString(igtFixCode.ToArray());
-
+            
             //Write fixes to game memory
             Ntdll.NtSuspendProcess(_process.Handle);
-
-            //No broken timer
+            
             var result = Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)codeCave, igtFixCode.ToArray(), (uint)igtFixCode.Count, out uint bytesWritten);
             result &= Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)igtFixEntryPoint, igtFixDetourCode.ToArray(), (uint)igtFixDetourCode.Count, out bytesWritten);
 
@@ -402,82 +389,6 @@ namespace SoulMemory.EldenRing
             foreach (byte b in ba)
                 hex.AppendFormat("{0:x2} ", b);
             return hex.ToString();
-        }
-
-        #endregion
-
-        #region Event flags
-
-        
-
-
-        private static Dictionary<string, int> eventFlagGroups = new Dictionary<string, int>()
-        {
-            {"0", 0x00000},
-            {"1", 0x00500},
-            {"5", 0x05F00},
-            {"6", 0x0B900},
-            {"7", 0x11300},
-        };
-
-        private static Dictionary<string, int> eventFlagAreas = new Dictionary<string, int>()
-        {
-            {"000", 00},
-            {"100", 01},
-            {"101", 02},
-            {"102", 03},
-            {"110", 04},
-            {"120", 05},
-            {"121", 06},
-            {"130", 07},
-            {"131", 08},
-            {"132", 09},
-            {"140", 10},
-            {"141", 11},
-            {"150", 12},
-            {"151", 13},
-            {"160", 14},
-            {"170", 15},
-            {"180", 16},
-            {"181", 17},
-        };
-
-        private int getEventFlagOffset(int ID, out uint mask)
-        {
-            string idString = ID.ToString("D8");
-            if (idString.Length == 8)
-            {
-                string group = idString.Substring(0, 1);
-                string area = idString.Substring(1, 3);
-                int section = Int32.Parse(idString.Substring(4, 1));
-                int number = Int32.Parse(idString.Substring(5, 3));
-
-                if (eventFlagGroups.ContainsKey(group) && eventFlagAreas.ContainsKey(area))
-                {
-                    int offset = eventFlagGroups[group];
-                    offset += eventFlagAreas[area] * 0x500;
-                    offset += section * 128;
-                    offset += (number - (number % 32)) / 8;
-
-                    mask = 0x80000000 >> (number % 32);
-                    return offset;
-                }
-            }
-            throw new ArgumentException("Unknown event flag ID: " + ID);
-        }
-
-        public bool ReadEventFlag(int ID)
-        {
-            int offset = getEventFlagOffset(ID, out uint mask);
-            //return EventFlags.ReadFlag32(offset, mask);
-
-            //byte[] bytes = ReadBytes(handle, address, 4);
-            //return BitConverter.ToUInt32(bytes, 0);
-            //
-            //uint flags = ReadUInt32(handle, address);
-            //return (flags & mask) != 0;
-
-            return false;
         }
 
         #endregion

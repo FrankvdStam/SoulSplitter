@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 using System.Xml;
@@ -31,10 +32,27 @@ namespace SoulSplitter
         private LiveSplitState _liveSplitState;
         private readonly EldenRingSplitter _splitter;
 
+        private static MemeControl _memeWindow;
+
         public SoulComponent(LiveSplitState state = null)
         {           
             _liveSplitState = state;
             _splitter = new EldenRingSplitter(state);
+
+            try
+            {
+                if (DateTime.Now.Month == 4 && DateTime.Now.Day == 1)
+                {
+                    if (_memeWindow == null)
+                    {
+                        _memeWindow = new MemeControl();
+                        _memeWindow.Show();
+                    }
+                }
+            }
+            catch
+            {
+            }
         }
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
@@ -112,10 +130,17 @@ namespace SoulSplitter
 
         public void SetSettings(XmlNode settings)
         {
-            var vm = settings.InnerXml.DeserializeXml<MainViewModel>();
-            if (vm != null)
+            try
             {
-                MainControlFormsWrapper.MainViewModel = vm;
+                var vm = settings.InnerXml.DeserializeXml<MainViewModel>();
+                if (vm != null)
+                {
+                    MainControlFormsWrapper.MainViewModel = vm;
+                }
+            }
+            catch
+            {
+                MainControlFormsWrapper.MainViewModel = new MainViewModel();
             }
         }
 
