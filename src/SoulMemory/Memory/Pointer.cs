@@ -27,11 +27,16 @@ namespace SoulMemory.Shared
         /// Creates a new pointer with the address of the old pointer as base address
         /// </summary>
         /// <returns></returns>
-        public Pointer CreatePointerFromAddress(long offset = 0)
+        public Pointer CreatePointerFromAddress(long? offset = null)
         {
             var copy = Copy();
             var offsets = Offsets.ToList();
-            offsets.Add(offset);
+            if (offset.HasValue)
+            {
+                offsets.Add(offset.Value);
+            }
+            offsets.Add(0);
+
             copy.BaseAddress = ResolveOffsets(offsets);
             copy.Offsets.Clear();
             return copy;
@@ -127,8 +132,8 @@ namespace SoulMemory.Shared
             {
                 offsetsCopy.Add(offset.Value);
             }
-
-            Kernel32.WriteProcessMemory(Process.Handle, (IntPtr)(ResolveOffsets(offsetsCopy)), bytes, (uint)bytes.Length, out _);
+            var address = ResolveOffsets(offsetsCopy);
+            Kernel32.WriteProcessMemory(Process.Handle, (IntPtr)address, bytes, (uint)bytes.Length, out uint written);
         }
 
         public bool IsNullPtr()
@@ -194,7 +199,7 @@ namespace SoulMemory.Shared
         
         public void WriteByte(long? offset, byte value)
         {
-            WriteMemory(offset, BitConverter.GetBytes(value));
+            WriteMemory(offset, new byte[]{value});
         }
 
         public void WriteBytes(long? offset, byte[] value)

@@ -1,4 +1,4 @@
-pub fn scan(code: &[u8], pattern: &[Option<u8>]) -> Option<i64>
+pub fn scan(code: &[u8], pattern: &[Option<u8>]) -> Option<usize>
 {
     if code.len() == 0
     {
@@ -21,7 +21,7 @@ pub fn scan(code: &[u8], pattern: &[Option<u8>]) -> Option<i64>
         }
         if found
         {
-            return Some(i as i64);
+            return Some(i);
         }
     }
     return None;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -19,17 +20,46 @@ namespace cli
 {
     internal class Program
     {
+
+
         [STAThread]
         static void Main(string[] args)
         {
+            //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
+            //LogSetEventFlag(EventFlagLogMode.All);
+            //TestAobs();
+            TestUi();
             //Testy2();
-            var er = new EldenRing();
+
+
+            return;
             
+
+            
+
+            Thread.Sleep(10000);
+
+            var er = new EldenRing();
+            er.Refresh();
+            //var discovery = new EventFlagDiscovery(er);
+
             for (;;)
             {
-                Console.Clear();
-                Console.WriteLine(er.GetScreenState());
-                Thread.Sleep(100);
+                var flag = er.ReadEventFlag(1252382438);
+                Console.WriteLine(flag);
+
+                //Console.Clear();
+                //discovery.Update();
+                
+
+
+                //var res = er.MaybeReadEventFlag(10000850);
+
+
+
+                //Console.WriteLine(er.GetScreenState() + $" {res}");
+                
+                Thread.Sleep(500);
                 er.Refresh();
             }
         }
@@ -155,5 +185,112 @@ namespace cli
                 return sb.ToString();
             }
         }
+
+
+
+        private static Dictionary<string, byte[]> _cache = new Dictionary<string, byte[]>();
+
+        public static void TestAobs()
+        {
+            //fd4 alternative 48 8b 0d ? ? ? ? 48 85 c9 74 06 48 8b 59 08
+
+            AobCount("SetEventFlag", "48 89 5c 24 08 44 8b 49 1c 44 8b d2 33 d2 41 8b c2 41 f7 f1 41 8b d8 4c 8b d9"); 
+            AobCount("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00"); 
+
+            AobCount("FD4Time",                 "48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00");
+            AobCount("WorldChrManImp",          "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7");
+            AobCount("CSMenuManImp",            "48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b");
+            AobCount("IGT fix detour address",  "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?");
+            AobCount("IGT code cave",           "48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20");
+            AobCount("gameman",                 "48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03");
+
+            Console.WriteLine("all aob's counted.");
+            Console.ReadKey();
+        }
+
+
+        public static void AobCount(string identifier, string aob)
+        {
+            var path = @"C:\Users\Frank\Desktop\dark souls\runtime dumps\exe";
+            var executabes = Directory.EnumerateFiles(path).ToList();
+
+            var pattern = aob.ToByteArray();
+
+            foreach (var e in executabes)
+            {
+                if (!_cache.TryGetValue(e, out byte[] bytes))
+                {
+                    bytes = File.ReadAllBytes(e);
+                    _cache[e] = bytes;
+                }
+
+                var count = PatternScanner.Count(bytes, pattern);
+                if (count != 1)
+                {
+                    Console.WriteLine($"{Path.GetFileName(e)} {count} {identifier}");
+                }
+            }
+
+            Console.WriteLine($"finished {identifier}");
+        }
+
+
+        public enum EventFlagLogMode
+        {
+            All,
+            OnlyOnce,
+        }
+
+
+        public static void LogSetEventFlag(EventFlagLogMode mode)
+        {
+            var e = new EldenRing(false);
+            e.Init();
+            e.InitEventFlagDetour();
+
+            var previous = new List<uint>();
+
+
+            (long ptr, uint flagId, int unknown) previousValue = (0, 0, 0);
+            while (true)
+            {
+                (long ptr, uint flagId, int unknown) = e.ReadLoggedEventFlag();
+                switch (mode)
+                {
+                    case EventFlagLogMode.All:
+                        if (previousValue.ptr != ptr ||
+                            previousValue.flagId != flagId ||
+                            previousValue.unknown != unknown
+                           )
+                        {
+                            Console.WriteLine($"{DateTime.Now.ToLongTimeString()} 0x{ptr:X2}, {flagId} {unknown}");
+                            previousValue.ptr = ptr;
+                            previousValue.flagId = flagId;
+                            previousValue.unknown = unknown;
+                        }
+                        break;
+
+                    case EventFlagLogMode.OnlyOnce:
+                        if (!previous.Contains(flagId))
+                        {
+                            Console.WriteLine($"{DateTime.Now.ToLongTimeString()} 0x{ptr:X2}, {flagId} {unknown}");
+                            previous.Add(flagId);
+                        }
+                        break;
+                }
+            }
+        }
+
+
+
+#if DEBUG
+        public static void InjectDll(string path)
+        {
+            var er = new EldenRing();
+            er.Init();
+            er.InjectDll(path);
+        }
+#endif
+
     }
 }

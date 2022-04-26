@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using SoulSplitter.UI.ViewModel;
 
 namespace SoulSplitter.UI.EldenRing
 {
@@ -37,5 +24,24 @@ namespace SoulSplitter.UI.EldenRing
             }
         }
         
+
+        private void AddSplit_OnClick(object sender, RoutedEventArgs e)
+        {
+            _EldenRingViewModel.AddSplit();
+        }
+
+        private void RemoveSplit_OnClick(object sender, RoutedEventArgs e)
+        {
+            _EldenRingViewModel.RemoveSplit();
+        }
+
+        private void SplitsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            _EldenRingViewModel.SelectedSplit = null;
+            if (e.NewValue is HierarchicalBossViewModel b)
+            {
+                _EldenRingViewModel.SelectedSplit = b;
+            }
+        }
     }
 }

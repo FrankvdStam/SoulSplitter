@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using SoulSplitter.Splits;
 using SoulSplitter.Splits.DarkSouls2;
 
-namespace SoulSplitter.UI.ViewModel
+namespace SoulSplitter.UI.DarkSouls2
 {
     public class DarkSouls2ViewModel : INotifyPropertyChanged
     {

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
-using SoulSplitter.Splits;
 using SoulSplitter.UI.DarkSouls1;
-using SoulSplitter.UI.ViewModel;
+using SoulSplitter.UI.DarkSouls2;
+using SoulSplitter.UI.EldenRing;
 
 namespace SoulSplitter.UI
 {
@@ -89,6 +85,40 @@ namespace SoulSplitter.UI
         }
 
         private DarkSouls2ViewModel _darkSouls2ViewModel = new DarkSouls2ViewModel();
+
+
+
+        #region Serializing
+
+        public string Serialize()
+        {
+            var settings = new XmlWriterSettings()
+            {
+                OmitXmlDeclaration = true,
+                Indent = true,
+            };
+
+            var xml = "";
+            using (var stream = new StringWriter())
+            using (var writer = XmlWriter.Create(stream, settings))
+            {
+                var serializer = new XmlSerializer(GetType());
+                serializer.Serialize(writer, this);
+                xml = stream.ToString();
+            }
+            return xml;
+        }
+
+        public static MainViewModel Deserialize(string xml)
+        {
+            var vm = xml.DeserializeXml<MainViewModel>();
+            vm.EldenRingViewModel.RestoreHierarchy();
+            return vm;
+        }
+
+
+        #endregion
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ui="clr-namespace:SoulSplitter.UI"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:viewModel="clr-namespace:SoulSplitter.UI.ViewModel"
+             xmlns:soulSplitter="clr-namespace:SoulSplitter"
+             xmlns:eldenRing="clr-namespace:SoulSplitter.UI.EldenRing"
+             xmlns:eldenRingSplits="clr-namespace:SoulSplitter.Splits.EldenRing"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance viewModel:EldenRingViewModel, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance eldenRing:EldenRingViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -21,6 +23,17 @@
 
                 <ResourceDictionary>
                     <ui:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter"/>
+                    <ui:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+                    <eldenRing:SplitsToHierarchicalItemsConverter x:Key="SplitsToHierarchicalItemsConverter"/>
+                </ResourceDictionary>
+
+                <ResourceDictionary>
+                    
+                    <CollectionViewSource x:Key="TreeViewCollectionView" Source="{Binding Splits}">
+                        <CollectionViewSource.GroupDescriptions>
+                            <PropertyGroupDescription PropertyName="TimingType"/>
+                        </CollectionViewSource.GroupDescriptions>
+                    </CollectionViewSource>
                 </ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>
@@ -29,12 +42,18 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
            <!-- <RowDefinition Height="40"/> -->
             <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--
@@ -55,10 +74,172 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 -->
+
+
+
+        <!-- row ============================================================================================================================================================================================== -->
+
         <CheckBox
             Grid.Row="0"
+            Grid.ColumnSpan="3"
             Margin="5"
             Content="Start automatically with initial black screen removal" 
             IsChecked="{Binding StartAutomatically}"/>
+
+        <!-- row ============================================================================================================================================================================================== -->
+<!--
+        <CheckBox
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Margin="5"
+            Content="no logo"
+            IsChecked="{Binding NoLogo}"/>
+        -->
+
+        <!-- row ============================================================================================================================================================================================== -->
+        <Label Grid.Row="1" Grid.Column="0" Content="Automatic splitting"/>
+        <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+
+        <!-- row ============================================================================================================================================================================================== -->
+
+        <ComboBox
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="5"
+            HorizontalAlignment="Left"
+            Width="170"
+            Height="30"
+            SelectedValuePath="Tag"
+            SelectedValue="{Binding NewSplitTimingType}"
+            materialDesign:HintAssist.HelperText="when">
+
+            <ComboBoxItem Content="immediately when">
+                <ComboBoxItem.Tag>
+                    <soulSplitter:TimingType>Immediate</soulSplitter:TimingType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+            <ComboBoxItem Content="when the game is loading after">
+                <ComboBoxItem.Tag>
+                    <soulSplitter:TimingType>OnLoading</soulSplitter:TimingType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+        </ComboBox>
+
+        <ComboBox
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            Width="80"
+            Height="30"
+            SelectedValuePath="Tag"
+            SelectedValue="{Binding NewSplitType}"
+            materialDesign:HintAssist.HelperText="what"
+            IsEnabled="{Binding EnabledSplitType}">
+
+            <ComboBoxItem Content="I kill a boss">
+                <ComboBoxItem.Tag>
+                    <eldenRingSplits:EldenRingSplitType>Boss</eldenRingSplits:EldenRingSplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+        </ComboBox>
+
+        <ComboBox
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="5"
+            HorizontalAlignment="Left"
+            Width="150"
+            ItemsSource="{Binding Bosses}" 
+            SelectedValue="{Binding NewSplitBoss}"
+            materialDesign:HintAssist.HelperText="which"
+            IsEnabled="{Binding EnabledBossSplit}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <!-- row ============================================================================================================================================================================================== -->
+
+        <StackPanel
+            Orientation="Horizontal"
+            Grid.Column="0"
+            Grid.Row="3">
+            <Button
+                Margin="5"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Add a split"
+                Click="AddSplit_OnClick"
+                IsEnabled="{Binding EnabledAddSplit}">
+                <materialDesign:PackIcon
+                    Kind="Plus"
+                    Height="30"
+                    Width="30" />
+            </Button>
+
+            <Button
+                Grid.Column="1"
+                Grid.Row="3"
+                Margin="5"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Remove selected split"
+                Click="RemoveSplit_OnClick"
+                IsEnabled="{Binding EnabledRemoveSplit}">
+                <materialDesign:PackIcon
+                    Kind="Close"
+                    Height="30"
+                    Width="30" />
+            </Button>
+        </StackPanel>
+        
+
+        <!-- row ============================================================================================================================================================================================== -->
+        
+        <TreeView
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Grid.Row="4" 
+            ItemsSource="{Binding Splits}"
+            SelectedItemChanged="SplitsTreeView_OnSelectedItemChanged">
+
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type eldenRing:HierarchicalTimingTypeViewModel}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding TimingType, Converter={StaticResource EnumDisplayNameConverter}}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type eldenRing:HierarchicalSplitTypeViewModel}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding EldenRingSplitType, Converter={StaticResource EnumDisplayNameConverter}}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type eldenRing:HierarchicalBossViewModel}">
+                    <TextBlock Text="{Binding Boss, Converter={StaticResource EnumDisplayNameConverter}}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+
+<!--
+
+        <ListView
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Grid.Row="4"
+            Width="440"
+            Margin="5"
+            HorizontalAlignment="Left"
+            ItemsSource="{Binding Splits}"
+            SelectedItem="{Binding SelectedSplitViewModel}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplateSelector>
+                <eldenRing:EldenRingSplitsDataTemplateSelector 
+                    BossTemplate="{StaticResource BossTemplate}"/>
+            </ListView.ItemTemplateSelector>
+        </ListView>-->
+
     </Grid>
 </UserControl>

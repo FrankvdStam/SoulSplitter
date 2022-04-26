@@ -5,40 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using LiveSplit.Model;
 using SoulMemory.EldenRing;
+using SoulSplitter.Splits.EldenRing;
 using SoulSplitter.UI;
-using SoulSplitter.UI.ViewModel;
+using SoulSplitter.UI.EldenRing;
 
 namespace SoulSplitter.Splitters
 {
     internal class EldenRingSplitter : ISplitter
     {
         public Exception Exception;
-
-        private SplitterState _splitterState;
+        
         private EldenRing _eldenRing;
+        private EldenRingViewModel _eldenRingViewModel;
         private LiveSplitState _liveSplitState;
-        private Timer _timer;
 
         public EldenRingSplitter(LiveSplitState state)
         {
             _liveSplitState = state;
-            _splitterState = SplitterState.WaitForStart;
             _eldenRing = new EldenRing();
-            _timer = new Timer(_eldenRing, state);
-        }
+            
+            _liveSplitState.OnStart += OnStart;
+            _liveSplitState.OnReset += OnReset;
+            _liveSplitState.IsGameTimePaused = true;
 
-        public void Update(object eldenRingViewModel)
-        {
-            //Settings from the UI
-            var viewModel = (EldenRingViewModel)eldenRingViewModel;
-
-            //Refresh attachment to ER process
-            RefreshEldenRing();
-
-            //Update the timer
-            _timer.Update(TimingMethod.Igt, viewModel.StartAutomatically);
-
-            //TODO: run auto splitter state machine
+            _timerModel = new TimerModel();
+            _timerModel.CurrentState = state;
         }
 
         public void RefreshEldenRing()
@@ -70,5 +61,187 @@ namespace SoulSplitter.Splitters
                 Exception = e;
             }
         }
+        
+        public void Update(object settings)
+        {
+            //Settings from the UI
+
+            _eldenRingViewModel = (EldenRingViewModel)settings;
+            _eldenRing.EnableNoLogo = _eldenRingViewModel.NoLogo;
+
+            //Refresh attachment to ER process
+            RefreshEldenRing();
+
+            //Update the timer
+            UpdateTimer(TimingMethod.Igt, _eldenRingViewModel.StartAutomatically);
+
+            UpdateAutoSplitter();
+        }
+
+
+        private void OnStart(object sender, EventArgs e)
+        {
+            StartTimer();
+            StartAutoSplitting(_eldenRingViewModel);
+        }
+
+        private void OnReset(object sender, TimerPhase timerPhase)
+        {
+            ResetTimer();
+            ResetAutoSplitting();
+        }
+
+        #region Timer
+        private readonly TimerModel _timerModel;
+        private long _inGameTime;
+        private TimerState _timerState = TimerState.WaitForStart;
+        private TimingMethod _timingMethod;
+        private bool _startAutomatically;
+        private bool _timerStarted;
+
+        private void StartTimer()
+        {
+            //Set the state of the timer to running, but only start the RTA stopwatch if we're in game
+            //IGT will automatically stop if we're no in game
+            _timerState = TimerState.Running;
+        }
+
+        private void ResetTimer()
+        {
+            _timerState = TimerState.WaitForStart;
+            _inGameTime = 0;
+            _timerStarted = false;
+        }
+
+
+        public void UpdateTimer(TimingMethod timingMethod, bool startAutomatically)
+        {
+            //Allow updates from the UI only when a run isn't in progress
+            if (_timerState == TimerState.WaitForStart)
+            {
+                _startAutomatically = startAutomatically;
+                _timingMethod = timingMethod;
+            }
+
+            switch (_timerState)
+            {
+                case TimerState.WaitForStart:
+                    if (_startAutomatically)
+                    {
+                        if (!_timerStarted)
+                        {
+                            var igt = _eldenRing.GetInGameTimeMilliseconds();
+                            _timerStarted = igt > 0 && igt < 150;
+                        }
+
+                        if (_timerStarted && _eldenRing.InitialLoadRemoval())
+                        {
+                            _eldenRing.ResetIgt();
+                            _timerModel.Start();
+                        }
+                    }
+                    break;
+
+                case TimerState.Running:
+                    WriteTimer();
+                    break;
+            }
+        }
+        
+        private void WriteTimer()
+        {
+            if (_timingMethod == TimingMethod.None)
+            {
+                return;
+            }
+
+            switch (_timingMethod)
+            {
+                case TimingMethod.Igt:
+                    if (_eldenRing.IsInGame())
+                    {
+                        _inGameTime = _eldenRing.GetInGameTimeMilliseconds();
+                    }
+                    break;
+            }
+
+            _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
+        }
+
+        #endregion
+
+        #region Autosplitting
+
+        private List<Split> _splits = new List<Split>();
+
+        public void ResetAutoSplitting()
+        {
+            _splits.Clear();
+        }
+
+        public void StartAutoSplitting(EldenRingViewModel eldenRingViewModel)
+        {
+            _splits = (
+                from timingType in eldenRingViewModel.Splits
+                from splitType in timingType.Children
+                from boss in splitType.Children
+                select new Split
+                {
+                    TimingType = timingType.TimingType,
+                    EldenRingSplitType = splitType.EldenRingSplitType,
+                    Boss = boss.Boss,
+                }).ToList();
+        }
+
+        public void UpdateAutoSplitter()
+        {
+            if (_timerState != TimerState.Running)
+            {
+                return;
+            }
+
+            foreach (var s in _splits)
+            {
+                if (!s.Triggered)
+                {
+                    switch (s.EldenRingSplitType)
+                    {
+                        default:
+                            throw new Exception($"Unsupported split type {s.EldenRingSplitType}");
+
+                        case EldenRingSplitType.Boss:
+                            if (!s.BossDefeated)
+                            {
+                                s.BossDefeated = _eldenRing.ReadEventFlag((uint)s.Boss);
+                            }
+
+                            if (s.BossDefeated)
+                            {
+                                switch (s.TimingType)
+                                {
+                                    default:
+                                        throw new Exception($"Unsupported timing type {s.TimingType}");
+
+                                    case TimingType.Immediate:
+                                        _timerModel.Split();
+                                        s.Triggered = true;
+                                        break;
+
+                                    case TimingType.OnLoading:
+                                        if (_eldenRing.GetScreenState() == ScreenState.Loading)
+                                        {
+                                            _timerModel.Split();
+                                            s.Triggered = true;
+                                        }
+                                        break;
+                                }
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+
+        #endregion
     }
 }

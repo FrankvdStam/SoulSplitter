@@ -81,8 +81,15 @@ namespace SoulMemory.Memory
         /// </summary>
         public static CodeCache ScanAbsolute(this CodeCache cache, byte?[] pattern, long? offset = null)
         {
-            cache.ScanResult = cache.Process.MainModule.BaseAddress.ToInt64() + PatternScanner.Scan(cache.Bytes, pattern);
-            
+            cache.ScanResult =PatternScanner.Scan(cache.Bytes, pattern);
+            if (cache.ScanResult == 0)
+            {
+                throw new Exception($"Pattern scan failed for {cache.Process.ProcessName}, {pattern.ToHexString()}.");
+            }
+
+
+            cache.ScanResult += cache.Process.MainModule.BaseAddress.ToInt64();
+
             if (offset.HasValue)
             {
                 cache.ScanResult += offset.Value;

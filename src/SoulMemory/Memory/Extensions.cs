@@ -30,7 +30,7 @@ namespace SoulMemory.Memory
 
         public static string ToHexString(this byte[] bytes)
         {
-            return BitConverter.ToString(bytes);
+            return BitConverter.ToString(bytes).Replace("-", " ");
         }
 
         public static string ToHexString(this byte?[] bytes)

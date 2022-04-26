@@ -6,11 +6,8 @@ namespace SoulSplitter
     {
         [Display(Name = "immediate")]
         Immediate,
-
-        [Display(Name = "on warp")]
-        OnWarp,
-
-        [Display(Name = "on save/quit")]
-        OnSaveQuit,
+        
+        [Display(Name = "on loading")]
+        OnLoading,
     }
 }

@@ -1,16 +1,17 @@
 mod native;
 mod memory;
 
-pub use crate::memory::pattern_scanner::to_pattern;
-pub use crate::memory::pattern_scanner::scan;
-pub use crate::memory::pointer;
+pub mod detours;
+pub mod elden_ring;
 
-pub use crate::native::create_process;
+pub use crate::memory::*;
+pub use crate::native::*;
+pub use crate::elden_ring::*;
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works()
-    {
-    }
+extern "C"
+{
+     pub fn update_igt_detour(fd4ptr: usize, frame_delta: f32);
 }
+
+#[used] #[no_mangle]
+static USED_UPDATE_IGT_DETOUR: unsafe extern "C" fn(usize, f32) = update_igt_detour;

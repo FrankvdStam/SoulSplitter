@@ -4,22 +4,11 @@ using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Serialization;
-using LiveSplit.Web;
-using SoulSplitter.Splits;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
-using SoulSplitter.UI.ViewModel;
 
 namespace SoulSplitter
 {
@@ -31,28 +20,12 @@ namespace SoulSplitter
 
         private LiveSplitState _liveSplitState;
         private readonly EldenRingSplitter _splitter;
-
-        private static MemeControl _memeWindow;
+        
 
         public SoulComponent(LiveSplitState state = null)
         {           
             _liveSplitState = state;
             _splitter = new EldenRingSplitter(state);
-
-            try
-            {
-                if (DateTime.Now.Month == 4 && DateTime.Now.Day == 1)
-                {
-                    if (_memeWindow == null)
-                    {
-                        _memeWindow = new MemeControl();
-                        _memeWindow.Show();
-                    }
-                }
-            }
-            catch
-            {
-            }
         }
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
@@ -104,22 +77,7 @@ namespace SoulSplitter
         #region Xml settings ==============================================================================================================
         public XmlNode GetSettings(XmlDocument document)
         {
-            var viewModel = MainControlFormsWrapper.MainViewModel;
-            var settings = new XmlWriterSettings()
-            {
-                OmitXmlDeclaration = true,
-                Indent = true,
-            };
-
-            var xml = "";
-            using (var stream = new StringWriter())
-            using (var writer = XmlWriter.Create(stream, settings))
-            {
-                var serializer = new XmlSerializer(viewModel.GetType());
-                serializer.Serialize(writer, viewModel);
-                xml = stream.ToString();
-            }
-
+            var xml = MainControlFormsWrapper.MainViewModel.Serialize();
             XmlDocumentFragment fragment = document.CreateDocumentFragment();
             fragment.InnerXml = xml;
 
@@ -132,7 +90,7 @@ namespace SoulSplitter
         {
             try
             {
-                var vm = settings.InnerXml.DeserializeXml<MainViewModel>();
+                var vm = MainViewModel.Deserialize(settings.InnerXml);
                 if (vm != null)
                 {
                     MainControlFormsWrapper.MainViewModel = vm;

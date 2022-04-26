@@ -17,7 +17,7 @@ pub struct WindowsProcess
     process_names: Vec<String>,
     system_info: System,
 
-    base_address: Option<i64>,
+    base_address: Option<usize>,
     pid: Option<usize>,
     handle: Option<*mut c_void>,
 }
@@ -82,7 +82,7 @@ impl Process for WindowsProcess
         }
     }
 
-    fn read_memory(&self, address: i64, buffer: &mut [u8]) -> bool
+    fn read_memory(&self, address: usize, buffer: &mut [u8]) -> bool
     {
         if self.handle.is_none()
         {
@@ -94,7 +94,7 @@ impl Process for WindowsProcess
         return result != 0 && read_bytes == buffer.len();
     }
 
-    fn write_memory(&self, address: i64, buffer: &[u8]) -> bool
+    fn write_memory(&self, address: usize, buffer: &[u8]) -> bool
     {
         if self.handle.is_none()
         {
@@ -116,16 +116,16 @@ impl Process for WindowsProcess
 
             if get_module(self.pid.expect("pid none"), &self.process_names, &mut module_size, &mut base_address)
             {
-                self.base_address = Some(base_address);
+                self.base_address = Some(base_address as usize);
                 let mut buffer: Vec<u8> = vec![0; module_size as usize];
-                self.read_memory(base_address, buffer.as_mut_slice());
+                self.read_memory(base_address as usize, buffer.as_mut_slice());
                 return buffer;
             }
         }
         return Vec::new();
     }
 
-    fn get_base_address(&self) -> i64
+    fn get_base_address(&self) -> usize
     {
         if let Some(a) = self.base_address
         {

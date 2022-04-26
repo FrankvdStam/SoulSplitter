@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Remoting.Channels;
+using System.Runtime.InteropServices;
+using System.Security.Permissions;
+using System.Security.Policy;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using Keystone;
 using SoulMemory.DarkSouls1.Internal;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using SoulMemory.Shared;
+using Architecture = Keystone.Architecture;
 
 namespace SoulMemory.EldenRing
 {
@@ -25,16 +27,23 @@ namespace SoulMemory.EldenRing
         private Pointer _menuManImp;
         private Pointer _igtFix;
         private Pointer _igtCodeCave;
+        private Pointer _readEventFlag;
+        private Pointer _virtualMemoryFlag;
+        private Pointer _noLogo;
 
         private long _screenStateOffset;
         private long _blackScreenOffset;
-
-        public EldenRing()
+        
+        public EldenRing(bool applyIgtFix = true)
         {
+            _applyIgtFix = applyIgtFix;
             Refresh();
         }
-        
-        private bool Init()
+
+        private bool _applyIgtFix = true;
+
+
+        public bool Init()
         {
             try
             {
@@ -70,8 +79,8 @@ namespace SoulMemory.EldenRing
                         break;
                 }
 
-
-                _process.ScanCache()
+                var scanCache = _process.ScanCache();
+                scanCache
                     //FD4Time
                     .ScanRelative("48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
                         .CreatePointer(out _igt, 0, 0xa0)
@@ -85,23 +94,44 @@ namespace SoulMemory.EldenRing
                     .ScanRelative("48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
                         .CreatePointer(out _menuManImp, 0)
                     
+                    //.ScanRelative("48 83 3d d5 f2 60 03 00 75 46 4c 8b 05 e4 d4 62 03 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
+                    .ScanRelative("48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
+                        .CreatePointer(out _virtualMemoryFlag, 1)
+
                     //IGT fix detour address
                     .ScanAbsolute("48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
                         .CreatePointer(out _igtFix)
+
                      //IGT code cave
                     .ScanAbsolute("48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20")
                         .CreatePointer(out _igtCodeCave)
-                ;
+                    ;
+
+                try
+                {
+                    //If nologo is not applied
+                    scanCache
+                        .ScanAbsolute("74 53 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B C8")
+                        .CreatePointer(out _noLogo);
+                }
+                catch
+                {
+                    //If nologo is already applied
+                    scanCache
+                        .ScanAbsolute("90 90 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B C8")
+                        .CreatePointer(out _noLogo);
+                }
+
 
                 //gameman  48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03
                 //EventFlagUsageParamManagerImp 48 8b 05 . . . . 48 85 c0 75 12 88 . . . . . e8 20 ec ff ff 48 89 05 . . . .
 
-                if (!ApplyIgtFix())
+                if (_applyIgtFix && !ApplyIgtFix())
                 {
                     Exception = new Exception("MIGT code injection failed");
                     return false;
                 }
-
+                
                 return true;
             }
             catch (Exception e)
@@ -148,6 +178,9 @@ namespace SoulMemory.EldenRing
             _menuManImp = null;
             _igtFix = null;
             _igtCodeCave = null;
+            _readEventFlag = null;
+            _virtualMemoryFlag = null;
+            _noLogo = null;
         }
 
         public bool IsPlayerLoaded()
@@ -243,7 +276,16 @@ namespace SoulMemory.EldenRing
                     _pointersInitialized = false;
                     ResetPointers();
                 }
-                
+
+                if (_pointersInitialized)
+                {
+                    if (EnableNoLogo != _previousEnableNoLogo)
+                    {
+                        NoLogo(EnableNoLogo);
+                        _previousEnableNoLogo = EnableNoLogo;
+                    }
+                }
+
                 return _pointersInitialized;
             }
         }
@@ -254,6 +296,270 @@ namespace SoulMemory.EldenRing
         }
 
         public bool Attached => _process != null;
+
+
+        #region Nologo
+
+        private bool _previousEnableNoLogo = false;
+        public bool EnableNoLogo = false;
+        public void NoLogo(bool apply)
+        {
+            if (_noLogo == null)
+            {
+                return;
+            }
+
+            if (apply)
+            {
+                _noLogo.WriteByte(0x0, 0x90);
+                _noLogo.WriteByte(0x1, 0x90);
+            }
+            else
+            {
+                _noLogo.WriteByte(0x0, 0x74);
+                _noLogo.WriteByte(0x1, 0x53);
+            }
+        }
+        
+
+        #endregion
+
+        #region Read event flag
+
+        private IntPtr _virtualMemoryFlagLogAddress;
+
+        public void InitEventFlagDetour()
+        {
+            //Overwrite code cave used by igt with a SetEventFlag detour
+
+            //7ff68671b040 set event
+            //7ff686ab8af0 code cave
+
+
+            _process.ScanCache()
+                .ScanAbsolute("48 89 5c 24 08 44 8b 49 1c 44 8b d2 33 d2 41 8b c2 41 f7 f1 41 8b d8 4c 8b d9")
+                .CreatePointer(out Pointer p);
+
+            
+
+
+            long codeCave = _igtCodeCave.GetAddress();
+            long setEventFlag = p.GetAddress();
+
+            var readBuffer = new byte[1];
+            int readBytes = 0;
+            Kernel32.ReadProcessMemory(_process.Handle, (IntPtr)setEventFlag, readBuffer, readBuffer.Length, ref readBytes);
+            if (readBuffer[0] == 0xE9)
+            {
+                return; //code already injected. Return.
+            }
+
+            //params
+            //1   CSFD4VirtualMemoryFlag* virtualMemoryFlag   RCX: 8
+            //2   uint flagId  EDX: 4
+            //3   int param_3 R8D: 4
+
+
+            //0:  53                      push rbx
+            //1:  48 bb 00 00 d6 c7 b5    movabs rbx,0x1b5c7d60000
+            //8:  01 00 00
+            //b:  48 89 0b                mov QWORD PTR[rbx],rcx
+            //e:  48 bb 08 00 d6 c7 b5    movabs rbx,0x1b5c7d60008
+            //15: 01 00 00
+            //18: 89 13                   mov DWORD PTR[rbx],edx
+            //1a: 48 bb 12 00 60 7d 5c    movabs rbx,0x1b5c7d600012
+            //21: 1b 00 00
+            //24: 44 89 03                mov DWORD PTR[rbx],r8d
+            //27: 5b                      pop    rbx
+
+
+            _virtualMemoryFlagLogAddress = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)sizeof(long) + sizeof(uint) + sizeof(int), Kernel32.MEM_COMMIT, Kernel32.PAGE_EXECUTE_READWRITE);
+
+            var assembly = $@"
+                        push rbx
+                        movabs rbx,0x{_virtualMemoryFlagLogAddress.ToInt64():X2}
+
+                        mov QWORD PTR[rbx],rcx
+                        movabs rbx,0x{_virtualMemoryFlagLogAddress.ToInt64() + sizeof(long):X2}
+
+                        mov DWORD PTR[rbx],edx
+                        movabs rbx,0x{_virtualMemoryFlagLogAddress.ToInt64() + sizeof(long) + sizeof(uint):X2}
+
+                        mov DWORD PTR[rbx],r8d
+                        pop rbx
+
+                        mov    QWORD PTR [rsp+0x8],rbx
+                        ";
+
+            var assembler = new Keystone.Engine(Architecture.X86, Mode.X64);
+            assembler.ThrowOnError = true;
+            var assembleResult = assembler.Assemble(assembly, (ulong)_igtCodeCave.GetAddress()).Buffer.ToList();
+         
+            assembleResult.Add(0xE9);//jmp
+
+            var jumpFromAddress = codeCave + assembleResult.Count;
+            var jmpAddress = (int)(setEventFlag + 9) - (jumpFromAddress + 9) + 1;
+            assembleResult.AddRange(BitConverter.GetBytes((int)jmpAddress));
+
+#if DEBUG
+            var debugHexStr = assembleResult.ToArray().ToHexString();
+            Debug.WriteLine(debugHexStr);
+#endif            
+
+            var detour = new List<byte>() { 0xE9 };
+            int detourTarget = (int)(codeCave - (setEventFlag + 5));
+            detour.AddRange(BitConverter.GetBytes(detourTarget));
+
+            //Write fixes to game memory
+            Ntdll.NtSuspendProcess(_process.Handle);
+            
+            var result = Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)codeCave, assembleResult.ToArray(), (uint)assembleResult.Count, out uint bytesWritten);
+            result &= Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)setEventFlag, detour.ToArray(), (uint)detour.Count, out bytesWritten);
+            
+            Ntdll.NtResumeProcess(_process.Handle);
+        }
+
+
+        public (long, uint, int) ReadLoggedEventFlag()
+        {
+            var buffer = new byte[sizeof(long) + sizeof(uint) + sizeof(int)];
+            var read = 0;
+            Kernel32.ReadProcessMemory(_process.Handle, _virtualMemoryFlagLogAddress, buffer, buffer.Length, ref read);
+
+            return 
+            (
+                BitConverter.ToInt64(buffer, 0),
+                BitConverter.ToUInt32(buffer, 8),
+                BitConverter.ToInt32(buffer, 12)
+            );
+        }
+
+        public bool ReadEventFlag(uint flagId)
+        {
+            if (_virtualMemoryFlag == null)
+            {
+                return false;
+            }
+
+            var divisor = _virtualMemoryFlag.ReadInt32(0x1c);
+            if (divisor == 0)
+            {
+                divisor = 1000;
+            }
+
+            var category = (flagId / divisor);
+            var leastSignificantDigits = flagId - (category * divisor);
+
+            var currentElement = _virtualMemoryFlag.CreatePointerFromAddress(0x38);
+            var currentSubElement = currentElement.CreatePointerFromAddress(0x8);
+            
+            while (currentSubElement.ReadByte(0x19) == '\0')
+            {
+                if (currentSubElement.ReadInt32(0x20) < category)
+                {
+                    currentSubElement = currentSubElement.CreatePointerFromAddress(0x10);
+                }
+                else
+                {
+                    currentElement = currentSubElement;
+                    currentSubElement = currentSubElement.CreatePointerFromAddress(0x0);
+                }
+            }
+
+            if (currentElement.GetAddress() == _virtualMemoryFlag.ReadInt64(0x38) || category < _virtualMemoryFlag.ReadInt32(0x20))
+            {
+                currentElement = _virtualMemoryFlag.CreatePointerFromAddress(0x38);
+            }
+
+            if (currentElement.GetAddress() != _virtualMemoryFlag.ReadInt64(0x38))
+            {
+                var ret = 0;
+                if (currentElement.ReadInt32(0x28) - 1 == 1)
+                {
+                    throw new Exception("flag not supported");
+                    //lVar3 = (ulonglong)(uint)(*(int*)(currentElement + 6) * *(int*)(param_1 + 0x20)) +
+                    //        *(longlong*)(param_1 + 0x28);
+                }
+                else
+                {
+                    //if (currentElement.ReadInt32(0x28) - 1 != 2)
+                    //{
+                    //    return false;
+                    //}
+                    ret = currentElement.ReadInt32(0x30);
+                }
+
+                var ptr = (_virtualMemoryFlag.ReadInt32(0x20) * currentElement.ReadInt32(0x30)) + _virtualMemoryFlag.ReadInt64(0x28);
+                if (ptr != 0)
+                {
+                    var thing = 7 - (leastSignificantDigits & 7);
+                    var anotherThing = 1 << (int)thing;
+                    var shifted = leastSignificantDigits >> 3;
+
+                    var pointer = new Pointer(_process, _virtualMemoryFlag.Is64Bit, ptr + shifted);
+                    var read = pointer.ReadInt32();
+                    if ((read & anotherThing) != 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+
+
+            //uVar3 = param_2 / *(uint*)(param_1 + 0x1c);
+            //uVar8 = param_2 - *(uint*)(param_1 + 0x1c) * uVar3;
+            //puVar2 = *(undefined8**)(param_1 + 0x38);
+            //cVar1 = *(char*)((longlong)(undefined8*)puVar2[1] + 0x19);
+            //puVar7 = puVar2;
+            //puVar6 = (undefined8*)puVar2[1];
+            //while (cVar1 == '\0')
+            //{
+            //    if (*(uint*)(puVar6 + 4) < uVar3)
+            //    {
+            //        puVar5 = (undefined8*)puVar6[2];
+            //        puVar6 = puVar7;
+            //    }
+            //    else
+            //    {
+            //        puVar5 = (undefined8*)*puVar6;
+            //    }
+            //    puVar7 = puVar6;
+            //    puVar6 = puVar5;
+            //    cVar1 = *(char*)((longlong)puVar5 + 0x19);
+            //}
+            //if ((puVar7 == puVar2) || (uVar3 < *(uint*)(puVar7 + 4)))
+            //{
+            //    puVar7 = puVar2;
+            //}
+            //bVar9 = false;
+            //if (puVar7 != puVar2)
+            //{
+            //    if (*(int*)(puVar7 + 5) == 1)
+            //    {
+            //        lVar4 = (ulonglong)(uint)(*(int*)(puVar7 + 6) * *(int*)(param_1 + 0x20)) +
+            //                *(longlong*)(param_1 + 0x28);
+            //    }
+            //    else
+            //    {
+            //        if (*(int*)(puVar7 + 5) != 2)
+            //        {
+            //            return false;
+            //        }
+            //        lVar4 = puVar7[6];
+            //    }
+            //    bVar9 = false;
+            //    if (lVar4 != 0)
+            //    {
+            //        bVar9 = (*(byte*)((ulonglong)(uVar8 >> 3) + lVar4) &
+            //                 (byte)(1 << (7 - ((byte)uVar8 & 7) & 0x1f))) != 0;
+            //    }
+            //}
+            //return bVar9;
+        }
+        
+        #endregion
 
         #region Timeable
         public int GetInGameTimeMilliseconds()
@@ -369,9 +675,11 @@ namespace SoulMemory.EldenRing
             });
 
             var jumpFromAddress = codeCave + igtFixCode.Count - 1;//minus jmp instruction
-            var testything = (igtFixEntryPoint + 9) - (jumpFromAddress + 9);
-            igtFixCode.AddRange(BitConverter.GetBytes(testything));
-            
+            var jmpAddress = (igtFixEntryPoint + 9) - (jumpFromAddress + 9);
+            igtFixCode.AddRange(BitConverter.GetBytes(jmpAddress));
+            var str = igtFixCode.ToArray().ToHexString().Replace("-", " ");
+
+
             //Write fixes to game memory
             Ntdll.NtSuspendProcess(_process.Handle);
             
@@ -392,5 +700,32 @@ namespace SoulMemory.EldenRing
         }
 
         #endregion
+
+        #region Dll injection
+#if DEBUG
+        public void InjectDll(string path)
+        {
+            //Get a process handle
+            IntPtr processHandle = Kernel32.OpenProcess(Kernel32.PROCESS_CREATE_THREAD | 
+                                                        Kernel32.PROCESS_QUERY_INFORMATION | 
+                                                        Kernel32.PROCESS_VM_OPERATION | 
+                                                        Kernel32.PROCESS_VM_WRITE | 
+                                                        Kernel32.PROCESS_VM_READ, false, _process.Id);
+
+            //Allocate a buffer in the target process, copy the path to the target dll into this 
+            IntPtr allocatedDllFileName = Kernel32.VirtualAllocEx(processHandle, IntPtr.Zero, (IntPtr)((path.Length + 1) * Marshal.SizeOf(typeof(char))), Kernel32.MEM_COMMIT | Kernel32.MEM_RESERVE, Kernel32.PAGE_READWRITE);
+            Kernel32.WriteProcessMemory(processHandle, allocatedDllFileName, Encoding.Default.GetBytes(path), (uint)((path.Length + 1) * Marshal.SizeOf(typeof(char))), out uint _);
+
+            //Get handles to library loading related functions
+            IntPtr loadLibraryA     = Kernel32.GetProcAddress(Kernel32.GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+
+            //Load dll by having the target process call loadLibraryA
+            var loadThread = Kernel32.CreateRemoteThread(processHandle, IntPtr.Zero, 0, loadLibraryA, allocatedDllFileName, 0, IntPtr.Zero);
+            Kernel32.WaitForSingleObject(loadThread, 10000);
+
+            Kernel32.VirtualFreeEx(processHandle, allocatedDllFileName, IntPtr.Zero, Kernel32.MEM_RELEASE);
+        }
+#endif
+#endregion
     }
 }

@@ -30,9 +30,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{31DB9D38-D528-412D-AD69-626E6B8764F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulMemory.Tests", "tests\SoulMemory.Tests\SoulMemory.Tests.csproj", "{8E761529-D49C-4854-9434-42E2EE97471F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulMemory.Tests", "src\tests\SoulMemory.Tests\SoulMemory.Tests.csproj", "{8E761529-D49C-4854-9434-42E2EE97471F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulSplitter.Tests", "tests\SoulSplitter.Tests\SoulSplitter.Tests.csproj", "{419572B8-0A5B-4974-922F-DC1ADCE9296E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulSplitter.Tests", "src\tests\SoulSplitter.Tests\SoulSplitter.Tests.csproj", "{419572B8-0A5B-4974-922F-DC1ADCE9296E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

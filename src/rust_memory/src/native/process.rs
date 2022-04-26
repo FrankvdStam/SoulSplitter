@@ -2,13 +2,13 @@
 pub trait Process
 {
     fn refresh(&mut self);
-    fn read_memory(&self, address: i64, buffer: &mut [u8])-> bool;
-    fn write_memory(&self, address: i64, buffer: &[u8]) -> bool;
+    fn read_memory(&self, address: usize, buffer: &mut [u8])-> bool;
+    fn write_memory(&self, address: usize, buffer: &[u8]) -> bool;
     fn get_code(&mut self) -> Vec<u8>;
-    fn get_base_address(&self) -> i64;
+    fn get_base_address(&self) -> usize;
 
     ///Read an i32 from the given address
-    fn read_i32(&self, address: i64) -> i32
+    fn read_i32(&self, address: usize) -> i32
     {
         let mut buffer = [0; 4];
         self.read_memory(address, &mut buffer);
@@ -16,7 +16,7 @@ pub trait Process
     }
 
     ///Read an i64 from the given address
-    fn read_i64(&self, address: i64) -> i64
+    fn read_i64(&self, address: usize) -> i64
     {
         let mut buffer = [0; 8];
         self.read_memory(address, &mut buffer);
@@ -24,7 +24,7 @@ pub trait Process
     }
 
     ///Read an u8 from the given address
-    fn read_u8(&self, address: i64) -> u8
+    fn read_u8(&self, address: usize) -> u8
     {
         let mut buffer = [0; 1];
         self.read_memory(address, &mut buffer);
@@ -32,7 +32,7 @@ pub trait Process
     }
 
     ///Read an u32 from the given address
-    fn read_u32(&self, address: i64) -> u32
+    fn read_u32(&self, address: usize) -> u32
     {
         let mut buffer = [0; 4];
         self.read_memory(address, &mut buffer);
@@ -40,7 +40,7 @@ pub trait Process
     }
 
     ///Read an u64 from the given address
-    fn read_u64(&self, address: i64) -> u64
+    fn read_u64(&self, address: usize) -> u64
     {
         let mut buffer = [0; 8];
         self.read_memory(address, &mut buffer);
@@ -48,7 +48,7 @@ pub trait Process
     }
 
     ///Read an f32 from the given address
-    fn read_f32(&self, address: i64) -> f32
+    fn read_f32(&self, address: usize) -> f32
     {
         let mut buffer = [0; 4];
         self.read_memory(address, &mut buffer);
@@ -56,7 +56,7 @@ pub trait Process
     }
 
     ///Read an f64 from the given address
-    fn read_f64(&self, address: i64) -> f64
+    fn read_f64(&self, address: usize) -> f64
     {
         let mut buffer = [0; 8];
         self.read_memory(address, &mut buffer);
@@ -64,7 +64,7 @@ pub trait Process
     }
 
     ///Read a bool from the given address
-    fn read_bool(&self, address: i64) -> bool
+    fn read_bool(&self, address: usize) -> bool
     {
         let mut buffer = [0; 1];
         self.read_memory(address, &mut buffer);

@@ -1,13 +1,25 @@
-use rust_memory::{scan, to_pattern};
-use rust_memory::pointer::Pointer;
+#![allow(unreachable_code)]
+#![allow(unused_imports)]
 
+
+use detour::GenericDetour;
+
+use rust_memory::pattern_scanner::{scan, to_pattern};
+use rust_memory::pointer::Pointer;
+use rust_memory::scan_cache::scan_absolute;
 
 fn main()
 {
+    //scan_absolute();
+    return;
+
     let elden_ring_names = vec![String::from("eldenring.exe"), String::from("start_protected_game.exe")];
     let mut process = rust_memory::create_process(elden_ring_names);
 
     let code = process.get_code();
+
+
+    //let address = scan(&code, &to_pattern("44 8b 41 1c 44 8b da 33 d2 41 8b c3 41 f7 f0 4c 8b d1 45 33 c9 44 0f af c0 45 2b d8 4c 8b 41 38 49 8b d0 49 8b 48 08 44 38 49 19")));
 
     //println!("{:#08x?}", scan(&code, &to_pattern("48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00")));
     //println!("{:#08x?}", scan(&code, &to_pattern("48 8b 05 ? ? ? ? 48 89 98 70 84 01 00 4c 89 ab 74 06 00 00 4c 89 ab 7c 06 00 00 44 88 ab 84 06 00 00 41 83 7f 4c 00")));

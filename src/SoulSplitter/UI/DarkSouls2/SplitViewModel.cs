@@ -10,7 +10,7 @@ using SoulSplitter.Splits;
 using SoulMemory.DarkSouls2;
 using SoulSplitter.Splits.DarkSouls2;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.UI.DarkSouls2
 {
     public class SplitViewModel : INotifyPropertyChanged
     {

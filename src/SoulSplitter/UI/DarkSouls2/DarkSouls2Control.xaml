@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ui="clr-namespace:SoulSplitter.UI"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:viewModel="clr-namespace:SoulSplitter.UI.ViewModel"
+             xmlns:darkSouls2="clr-namespace:SoulSplitter.UI.DarkSouls2"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance viewModel:DarkSouls2ViewModel, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance darkSouls2:DarkSouls2ViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -22,19 +22,19 @@
                 <ResourceDictionary>
 
                     <ui:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter"/>
-
+<!--
                     <DataTemplate x:Key="TimingComboBox">
                         <ComboBox>
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}"/>
+                                    <TextBlock Text="{Binding TimingType, Converter={StaticResource EnumDisplayNameConverter}}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                    </DataTemplate>
+                    </DataTemplate>-->
 
                     <!-- Split templates -->
-                    <DataTemplate x:Key="BossTemplate" DataType="ui:SplitViewModel">
+                    <DataTemplate x:Key="BossTemplate" DataType="darkSouls2:SplitViewModel">
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <ComboBox
                                 Width="50"
@@ -75,7 +75,7 @@
 
 
 
-                    <DataTemplate x:Key="ItemTemplate" DataType="ui:SplitViewModel">
+                    <DataTemplate x:Key="ItemTemplate" DataType="darkSouls2:SplitViewModel">
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <ComboBox
                                     Width="50"
@@ -85,7 +85,7 @@
                         </StackPanel>
                     </DataTemplate>
 
-                    <DataTemplate x:Key="BoxTemplate" DataType="ui:SplitViewModel">
+                    <DataTemplate x:Key="BoxTemplate" DataType="darkSouls2:SplitViewModel">
                         <Grid Margin="5" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -126,7 +126,7 @@
                                 materialDesign:HintAssist.Hint="y"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
-                            <TextBox 
+                            <TextBox
                                 Grid.Column="4"
                                 Grid.Row="0"
                                 Text="{Binding BoxSplit.LowerZ}"
@@ -213,22 +213,11 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplateSelector>
-                <ui:SplitsDataTemplateSelector 
+                <darkSouls2:DarkSouls2SplitsDataTemplateSelector 
                     BossTemplate="{StaticResource BossTemplate}"
                     ItemTemplate="{StaticResource ItemTemplate}"
                     BoxTemplate="{StaticResource BoxTemplate}"/>
             </ListView.ItemTemplateSelector>
-            <!--
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown"/>
-                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListViewItem_PreviewMouseLeftButtonUp"/>
-                    <EventSetter Event="MouseMove" Handler="ListViewItem_MouseMove"/>
-                    <EventSetter Event="Drop" Handler="ListViewItem_Drop"/>
-                    <EventSetter Event="DragOver" Handler="ListViewItem_DragOver"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            -->
         </ui:ListViewDragOrder>
 
     </Grid>

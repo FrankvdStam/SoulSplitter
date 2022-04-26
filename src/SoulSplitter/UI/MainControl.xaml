@@ -36,10 +36,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <DockPanel >
+        <DockPanel Margin="3" >
             <TextBlock Text="SoulSplitter version " DockPanel.Dock="Left"/>
             <TextBlock Text="{Binding Version}" DockPanel.Dock="Left"/>
             <TextBlock Text="{Binding Error}" Margin="10,0,0,0" Foreground="Red" DockPanel.Dock="Left"/>
+
+
+            <TextBlock
+                DockPanel.Dock="Right"
+                HorizontalAlignment="Right"
+                >           
+                <Hyperlink NavigateUri="https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting" RequestNavigate="Hyperlink_RequestNavigate">
+                    Help
+                </Hyperlink>
+            </TextBlock>
+
+
+<!--
             <Button
                 DockPanel.Dock="Right"
                 HorizontalAlignment="Right"
@@ -52,7 +65,7 @@
                     Kind="InformationOutline"
                     Height="15"
                     Width="15" />
-            </Button>
+            </Button> -->
         </DockPanel>
 
         <TabControl 

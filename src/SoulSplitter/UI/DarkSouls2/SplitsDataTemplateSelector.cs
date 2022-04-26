@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using SoulSplitter.Splits;
 using SoulSplitter.Splits.DarkSouls2;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.UI.DarkSouls2
 {
-    public class SplitsDataTemplateSelector : DataTemplateSelector
+    public class DarkSouls2SplitsDataTemplateSelector : DataTemplateSelector
     {
         public DataTemplate BossTemplate { get; set; }
         public DataTemplate ItemTemplate { get; set; }

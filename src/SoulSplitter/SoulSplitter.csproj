@@ -67,10 +67,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UI\MemeControl.xaml.cs">
-      <DependentUpon>MemeControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MemeWindow.cs" />
+    <Compile Include="Splits\EldenRing\Split.cs" />
+    <Compile Include="Splits\EldenRing\EldenRingSplitType.cs" />
+    <Compile Include="UI\EldenRing\SplitsDataTemplateSelector.cs" />
+    <Compile Include="UI\EldenRing\SplitsToHierarchicalItemsConverter.cs" />
+    <Compile Include="UI\EldenRing\SplitViewModel.cs" />
+    <Compile Include="UI\BoolToVisibilityConverter.cs" />
     <Compile Include="SoulComponent.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Splits\DarkSouls1\ISplit.cs" />
@@ -121,10 +123,6 @@
     <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UI\MemeControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\DarkSouls1\DarkSouls1Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
