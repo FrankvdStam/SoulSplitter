@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Keystone;
 
 #if DEBUG
 using Keystone;
@@ -485,8 +486,7 @@ namespace SoulMemory.DarkSouls1.Internal
         };
 
         #endregion
-
-#if DEBUG
+        
         public int GetTestValue()
         {
             //WorldState = (IntPtr)MemoryTools.ReadInt(handle, (IntPtr)0x13784A0);
@@ -670,6 +670,5 @@ ret";
             Write(charMapDataPtr + 0xc8, bytes);
         }
         
-#endif
     }
 }

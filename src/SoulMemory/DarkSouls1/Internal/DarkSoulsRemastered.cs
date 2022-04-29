@@ -590,8 +590,7 @@ namespace SoulMemory.DarkSouls1.Internal
         };
 
         #endregion
-
-#if DEBUG
+        
         public int GetTestValue()
         {
             var instance = (IntPtr)ReadInt32(_playerIns);
@@ -670,6 +669,5 @@ d:  ba 01 00 00 00          mov    edx,0x1
             var bytes = BitConverter.GetBytes(true);
             Write(playerCtrl + 0x108, bytes);
         }
-#endif
     }
 }

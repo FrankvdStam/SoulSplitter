@@ -272,8 +272,7 @@ namespace SoulMemory.DarkSouls1
 
             return _darkSouls != null;
         }
-
-#if DEBUG
+        
         public int GetTestValue()
         {
             if (_darkSouls == null)
@@ -310,6 +309,5 @@ namespace SoulMemory.DarkSouls1
             }
             _darkSouls.Teleport(position, angle);
         }
-#endif
     }
 }

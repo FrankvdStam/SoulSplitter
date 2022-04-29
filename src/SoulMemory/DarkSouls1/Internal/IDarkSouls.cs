@@ -118,12 +118,10 @@ namespace SoulMemory.DarkSouls1.Internal
         /// </summary>
         bool CheckFlag(int flag);
 
-
-#if DEBUG
+        
         int GetTestValue();
         void SetCheat(CheatType cheatType, bool enabled);
         void BonfireWarp(WarpType warpType);
         void Teleport(Vector3f position, float angle);
-#endif
     }
 }
