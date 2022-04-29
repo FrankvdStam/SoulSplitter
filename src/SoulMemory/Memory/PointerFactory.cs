@@ -48,19 +48,19 @@ namespace SoulMemory.Memory
         /// <summary>
         /// Scan for a pattern to a relative address and resolve the relative addressing
         /// </summary>
-        public static CodeCache ScanRelative(this CodeCache cache, string pattern, int addressOffset, int instructionSize) => ScanRelative(cache, pattern.ToByteArray(), addressOffset, instructionSize);
+        public static CodeCache ScanRelative(this CodeCache cache, string errorName, string pattern, int addressOffset, int instructionSize) => ScanRelative(cache, errorName, pattern.ToByteArray(), addressOffset, instructionSize);
 
 
         /// <summary>
         /// Scan for a pattern to a relative address and resolve the relative addressing
         /// </summary>
-        public static CodeCache ScanRelative(this CodeCache cache, byte?[] pattern, int addressOffset, int instructionSize)
+        public static CodeCache ScanRelative(this CodeCache cache, string errorName, byte?[] pattern, int addressOffset, int instructionSize)
         {
             cache.ScanResult = PatternScanner.Scan(cache.Bytes, pattern);
             
             if (cache.ScanResult == 0)
             {
-                throw new Exception($"Pattern scan failed for {cache.Process.ProcessName}, {pattern.ToHexString()}.");
+                throw new Exception($"scan failed {errorName}");
             }
 
             var address = BitConverter.ToInt32(cache.Bytes, (int)cache.ScanResult + addressOffset);
@@ -74,19 +74,18 @@ namespace SoulMemory.Memory
         /// <summary>
         /// Scan for a pattern to an absolute address
         /// </summary>
-        public static CodeCache ScanAbsolute(this CodeCache cache, string pattern, long? offset = null) => ScanAbsolute(cache, pattern.ToByteArray(), offset);
+        public static CodeCache ScanAbsolute(this CodeCache cache, string errorName, string pattern, long? offset = null) => ScanAbsolute(cache, errorName, pattern.ToByteArray(), offset);
 
         /// <summary>
         /// Scan for a pattern to an absolute address
         /// </summary>
-        public static CodeCache ScanAbsolute(this CodeCache cache, byte?[] pattern, long? offset = null)
+        public static CodeCache ScanAbsolute(this CodeCache cache, string errorName, byte?[] pattern, long? offset = null)
         {
             cache.ScanResult =PatternScanner.Scan(cache.Bytes, pattern);
             if (cache.ScanResult == 0)
             {
-                throw new Exception($"Pattern scan failed for {cache.Process.ProcessName}, {pattern.ToHexString()}.");
+                throw new Exception($"scan failed {errorName}");
             }
-
 
             cache.ScanResult += cache.Process.MainModule.BaseAddress.ToInt64();
 

@@ -15,68 +15,45 @@ namespace cli
             _eldenRing = eldenRing;
             
             var knownBosses = Enum.GetValues(typeof(Boss)).Cast<uint>().ToList();
+            
             foreach (var b in knownBosses)
             {
-                _bossFlags.Remove(b);
+                _flags.Remove(b);
             }
-
-
-            foreach (var f in _bossFlags)
+            
+            foreach (var f in _flags)
             {
                 var val = _eldenRing.ReadEventFlag(f);
                 if (val)
                 {
                     Console.WriteLine($"bossflag {f} enabled during init");
                 }
-                _bossData[f] = val;
+                _dictionary[f] = val;
             }
-
-            //foreach (var f in _bonfires)
-            //{
-            //    var val = _eldenRing.MaybeReadEventFlag(f);
-            //    if (val)
-            //    {
-            //        Console.WriteLine($"bossflag {f} enabled during init");
-            //    }
-            //    _bonfireData[f] = val;
-            //}
         }
 
         public void Update()
         {
-            foreach (var f in _bossFlags)
+            foreach (var f in _flags)
             {
-                var previous = _bossData[f];
+                var previous = _dictionary[f];
                 var current = _eldenRing.ReadEventFlag(f);
-                _bossData[f] = current;
+                _dictionary[f] = current;
 
                 if (previous != current)
                 {
-                    Console.WriteLine($"bossflag {f} went from {previous} to {current}");
+                    Console.WriteLine($"flag {f} went from {previous} to {current}");
                 }
             }
-
-            //foreach (var f in _bonfires)
-            //{
-            //    var previous = _bonfireData[f];
-            //    var current = _eldenRing.MaybeReadEventFlag(f);
-            //    _bonfireData[f] = current;
-            //
-            //    if (previous != current)
-            //    {
-            //        Console.WriteLine($"bonfire {f} went from {previous} to {current}");
-            //    }
-            //}
         }
 
 
 
-        private Dictionary<uint, bool> _bossData = new Dictionary<uint, bool>();
-        private Dictionary<uint, bool> _bonfireData = new Dictionary<uint, bool>();
+        private Dictionary<uint, bool> _dictionary = new Dictionary<uint, bool>();
 
-
-        private List<uint> _bossFlags = new List<uint>()
+        private List<uint> _flags = new List<uint>()
         {
+            //Supposedly bosses
             10000800,
             10000850,
             10010800,
@@ -246,10 +223,11 @@ namespace cli
             1050560800,
             1248550800,
             1048570800,
-        };
 
-        private List<uint> _bonfires = new List<uint>()
-        {
+
+            //Supposedly graces
+             71801,
+
             100000,
             100001,
             100002,

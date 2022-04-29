@@ -26,10 +26,9 @@ namespace SoulMemory.EldenRing
         private Pointer _playerChrPhysicsModule;
         private Pointer _menuManImp;
         private Pointer _igtFix;
-        private Pointer _igtCodeCave;
         private Pointer _readEventFlag;
         private Pointer _virtualMemoryFlag;
-        private Pointer _noLogo;
+        //private Pointer _noLogo;
 
         private long _screenStateOffset;
         private long _blackScreenOffset;
@@ -82,45 +81,42 @@ namespace SoulMemory.EldenRing
                 var scanCache = _process.ScanCache();
                 scanCache
                     //FD4Time
-                    .ScanRelative("48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
+                    .ScanRelative("FD4Time", "48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
                         .CreatePointer(out _igt, 0, 0xa0)
 
                     //WorldChrManImp  
-                    .ScanRelative("48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7", 3, 7)
+                    .ScanRelative("WorldChrManImp", "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7", 3, 7)
                         .CreatePointer(out _playerIns, 0, 0x18468)
                         .CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
 
                     //CSMenuManImp
-                    .ScanRelative("48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
+                    .ScanRelative("MenuManImp", "48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
                         .CreatePointer(out _menuManImp, 0)
                     
                     //.ScanRelative("48 83 3d d5 f2 60 03 00 75 46 4c 8b 05 e4 d4 62 03 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
-                    .ScanRelative("48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
+                    .ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
                         .CreatePointer(out _virtualMemoryFlag, 1)
 
                     //IGT fix detour address
-                    .ScanAbsolute("48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
+                    .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
                         .CreatePointer(out _igtFix)
-
-                     //IGT code cave
-                    .ScanAbsolute("48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20")
-                        .CreatePointer(out _igtCodeCave)
                     ;
 
-                try
-                {
-                    //If nologo is not applied
-                    scanCache
-                        .ScanAbsolute("74 53 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B C8")
-                        .CreatePointer(out _noLogo);
-                }
-                catch
-                {
-                    //If nologo is already applied
-                    scanCache
-                        .ScanAbsolute("90 90 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B C8")
-                        .CreatePointer(out _noLogo);
-                }
+                //try
+                //{
+                //    //If nologo is not applied
+                //    scanCache
+                //        .ScanAbsolute("74 53 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B C8")
+                //        .CreatePointer(out _noLogo);
+                //}
+                //catch
+                //{
+                //
+                //    //If nologo is already applied
+                //    scanCache
+                //        .ScanAbsolute("90 90 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B C8")
+                //        .CreatePointer(out _noLogo);
+                //}
 
 
                 //gameman  48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03
@@ -177,10 +173,9 @@ namespace SoulMemory.EldenRing
             _playerChrPhysicsModule = null;
             _menuManImp = null;
             _igtFix = null;
-            _igtCodeCave = null;
             _readEventFlag = null;
             _virtualMemoryFlag = null;
-            _noLogo = null;
+            //_noLogo = null;
         }
 
         public bool IsPlayerLoaded()
@@ -277,14 +272,14 @@ namespace SoulMemory.EldenRing
                     ResetPointers();
                 }
 
-                if (_pointersInitialized)
-                {
-                    if (EnableNoLogo != _previousEnableNoLogo)
-                    {
-                        NoLogo(EnableNoLogo);
-                        _previousEnableNoLogo = EnableNoLogo;
-                    }
-                }
+                //if (_pointersInitialized)
+                //{
+                //    if (EnableNoLogo != _previousEnableNoLogo)
+                //    {
+                //        NoLogo(EnableNoLogo);
+                //        _previousEnableNoLogo = EnableNoLogo;
+                //    }
+                //}
 
                 return _pointersInitialized;
             }
@@ -298,142 +293,34 @@ namespace SoulMemory.EldenRing
         public bool Attached => _process != null;
 
 
-        #region Nologo
+        //#region Nologo
 
-        private bool _previousEnableNoLogo = false;
-        public bool EnableNoLogo = false;
-        public void NoLogo(bool apply)
-        {
-            if (_noLogo == null)
-            {
-                return;
-            }
+        //        //private bool _previousEnableNoLogo = false;
+        //public bool EnableNoLogo = false;
+        //public void NoLogo(bool apply)
+        //{
+        //    if (_noLogo == null)
+        //    {
+        //        return;
+        //    }
 
-            if (apply)
-            {
-                _noLogo.WriteByte(0x0, 0x90);
-                _noLogo.WriteByte(0x1, 0x90);
-            }
-            else
-            {
-                _noLogo.WriteByte(0x0, 0x74);
-                _noLogo.WriteByte(0x1, 0x53);
-            }
-        }
-        
+        //        //    if (apply)
+        //    {
+        //        _noLogo.WriteByte(0x0, 0x90);
+        //        _noLogo.WriteByte(0x1, 0x90);
+        //    }
+        //    else
+        //    {
+        //        _noLogo.WriteByte(0x0, 0x74);
+        //        _noLogo.WriteByte(0x1, 0x53);
+        //    }
+        //}
+        //
 
-        #endregion
+        //        //#endregion
 
         #region Read event flag
-
-        private IntPtr _virtualMemoryFlagLogAddress;
-
-        public void InitEventFlagDetour()
-        {
-            //Overwrite code cave used by igt with a SetEventFlag detour
-
-            //7ff68671b040 set event
-            //7ff686ab8af0 code cave
-
-
-            _process.ScanCache()
-                .ScanAbsolute("48 89 5c 24 08 44 8b 49 1c 44 8b d2 33 d2 41 8b c2 41 f7 f1 41 8b d8 4c 8b d9")
-                .CreatePointer(out Pointer p);
-
-            
-
-
-            long codeCave = _igtCodeCave.GetAddress();
-            long setEventFlag = p.GetAddress();
-
-            var readBuffer = new byte[1];
-            int readBytes = 0;
-            Kernel32.ReadProcessMemory(_process.Handle, (IntPtr)setEventFlag, readBuffer, readBuffer.Length, ref readBytes);
-            if (readBuffer[0] == 0xE9)
-            {
-                return; //code already injected. Return.
-            }
-
-            //params
-            //1   CSFD4VirtualMemoryFlag* virtualMemoryFlag   RCX: 8
-            //2   uint flagId  EDX: 4
-            //3   int param_3 R8D: 4
-
-
-            //0:  53                      push rbx
-            //1:  48 bb 00 00 d6 c7 b5    movabs rbx,0x1b5c7d60000
-            //8:  01 00 00
-            //b:  48 89 0b                mov QWORD PTR[rbx],rcx
-            //e:  48 bb 08 00 d6 c7 b5    movabs rbx,0x1b5c7d60008
-            //15: 01 00 00
-            //18: 89 13                   mov DWORD PTR[rbx],edx
-            //1a: 48 bb 12 00 60 7d 5c    movabs rbx,0x1b5c7d600012
-            //21: 1b 00 00
-            //24: 44 89 03                mov DWORD PTR[rbx],r8d
-            //27: 5b                      pop    rbx
-
-
-            _virtualMemoryFlagLogAddress = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)sizeof(long) + sizeof(uint) + sizeof(int), Kernel32.MEM_COMMIT, Kernel32.PAGE_EXECUTE_READWRITE);
-
-            var assembly = $@"
-                        push rbx
-                        movabs rbx,0x{_virtualMemoryFlagLogAddress.ToInt64():X2}
-
-                        mov QWORD PTR[rbx],rcx
-                        movabs rbx,0x{_virtualMemoryFlagLogAddress.ToInt64() + sizeof(long):X2}
-
-                        mov DWORD PTR[rbx],edx
-                        movabs rbx,0x{_virtualMemoryFlagLogAddress.ToInt64() + sizeof(long) + sizeof(uint):X2}
-
-                        mov DWORD PTR[rbx],r8d
-                        pop rbx
-
-                        mov    QWORD PTR [rsp+0x8],rbx
-                        ";
-
-            var assembler = new Keystone.Engine(Architecture.X86, Mode.X64);
-            assembler.ThrowOnError = true;
-            var assembleResult = assembler.Assemble(assembly, (ulong)_igtCodeCave.GetAddress()).Buffer.ToList();
-         
-            assembleResult.Add(0xE9);//jmp
-
-            var jumpFromAddress = codeCave + assembleResult.Count;
-            var jmpAddress = (int)(setEventFlag + 9) - (jumpFromAddress + 9) + 1;
-            assembleResult.AddRange(BitConverter.GetBytes((int)jmpAddress));
-
-#if DEBUG
-            var debugHexStr = assembleResult.ToArray().ToHexString();
-            Debug.WriteLine(debugHexStr);
-#endif            
-
-            var detour = new List<byte>() { 0xE9 };
-            int detourTarget = (int)(codeCave - (setEventFlag + 5));
-            detour.AddRange(BitConverter.GetBytes(detourTarget));
-
-            //Write fixes to game memory
-            Ntdll.NtSuspendProcess(_process.Handle);
-            
-            var result = Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)codeCave, assembleResult.ToArray(), (uint)assembleResult.Count, out uint bytesWritten);
-            result &= Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)setEventFlag, detour.ToArray(), (uint)detour.Count, out bytesWritten);
-            
-            Ntdll.NtResumeProcess(_process.Handle);
-        }
-
-
-        public (long, uint, int) ReadLoggedEventFlag()
-        {
-            var buffer = new byte[sizeof(long) + sizeof(uint) + sizeof(int)];
-            var read = 0;
-            Kernel32.ReadProcessMemory(_process.Handle, _virtualMemoryFlagLogAddress, buffer, buffer.Length, ref read);
-
-            return 
-            (
-                BitConverter.ToInt64(buffer, 0),
-                BitConverter.ToUInt32(buffer, 8),
-                BitConverter.ToInt32(buffer, 12)
-            );
-        }
-
+        
         public bool ReadEventFlag(uint flagId)
         {
             if (_virtualMemoryFlag == null)
@@ -607,7 +494,6 @@ namespace SoulMemory.EldenRing
             }
 
             long igtFixEntryPoint = _igtFix.GetAddress();
-            long codeCave = _igtCodeCave.GetAddress();
 
             //Check if the byte at the injection address is a jmp instruction
             var readBuffer = new byte[1];
@@ -617,6 +503,11 @@ namespace SoulMemory.EldenRing
             {
                 return true; //code already injected. Return.
             }
+
+            _process.ScanCache()
+                .ScanAbsolute("igtCodeCave", "48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20")
+                .CreatePointer(out Pointer igtCodeCave);
+            long codeCave = igtCodeCave.GetAddress();
 
             //The location used as code cave here is the constructor of the network test title screen. This code would never run under normal circumstances so we can overwrite it.
             //fix detour

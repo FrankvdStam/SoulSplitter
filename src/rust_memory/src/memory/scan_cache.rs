@@ -1,5 +1,6 @@
 use std::mem::{size_of};
 use std::ffi::{c_void};
+use std::slice;
 use winapi::shared::minwindef::{HINSTANCE, HMODULE, MAX_PATH};
 use winapi::shared::ntdef::{NULL};
 use winapi::um::processthreadsapi::GetCurrentProcess;
@@ -49,12 +50,15 @@ fn init_scan_cache()
                         println!("0x{:x}", module_base);
                         println!("{}", module_size);
 
-                        let result: Vec<u8> = Vec::from_raw_parts(module_base as *mut u8, module_size, module_size);
-                        println!("pattern scan cache size: {}", result.len());
+                        let slice = slice::from_raw_parts(module_base as *mut u8, module_size);
+                        let mut vec = vec![0u8; module_size];
+                        vec.copy_from_slice(slice);
+
+                        println!("pattern scan cache size: {}", vec.len());
 
                         MODULE_BASE = module_base;
                         MODULE_SIZE = module_size;
-                        MODULE_BYTES = result;
+                        MODULE_BYTES = vec;
                         MODULE_INIT = true;
                     }
                 }

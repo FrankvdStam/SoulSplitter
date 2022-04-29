@@ -28,37 +28,26 @@ namespace cli
             //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
             //LogSetEventFlag(EventFlagLogMode.All);
             //TestAobs();
-            TestUi();
+            //TestUi();
             //Testy2();
 
 
-            return;
+            //return;
             
 
             
 
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
 
             var er = new EldenRing();
             er.Refresh();
-            //var discovery = new EventFlagDiscovery(er);
+            er.ReadEventFlag(71801);
+            var discovery = new EventFlagDiscovery(er);
 
             for (;;)
             {
-                var flag = er.ReadEventFlag(1252382438);
-                Console.WriteLine(flag);
+                discovery.Update();
 
-                //Console.Clear();
-                //discovery.Update();
-                
-
-
-                //var res = er.MaybeReadEventFlag(10000850);
-
-
-
-                //Console.WriteLine(er.GetScreenState() + $" {res}");
-                
                 Thread.Sleep(500);
                 er.Refresh();
             }

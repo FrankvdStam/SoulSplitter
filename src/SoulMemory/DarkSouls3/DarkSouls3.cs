@@ -29,16 +29,16 @@ namespace SoulMemory.DarkSouls3
             try
             {
                 _process.ScanCache()
-                    .ScanRelative("48 89 35 ? ? ? ? 48 8b 5c 24 30 48 8b 74  24 38 48 83 c4 20 5f c3 83 c8 ff", 3, 7)
+                    .ScanRelative("menuMan", "48 89 35 ? ? ? ? 48 8b 5c 24 30 48 8b 74  24 38 48 83 c4 20 5f c3 83 c8 ff", 3, 7)
                         .CreatePointer(out _menuMan, 0)
 
-                    .ScanRelative("48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20", 3, 7)
+                    .ScanRelative("IGT", "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20", 3, 7)
                         .CreatePointer(out _igt, 0)
 
-                    .ScanRelative("48 8b 05 ? ? ? ? 48 89 98 88 00 00 00 4c 8b 05 ? ? ? ? 4c 89 44 24 38 ba 08 00 00 00 8d 4a 08", 3, 7)
+                    .ScanRelative("playerIns", "48 8b 05 ? ? ? ? 48 89 98 88 00 00 00 4c 8b 05 ? ? ? ? 4c 89 44 24 38 ba 08 00 00 00 8d 4a 08", 3, 7)
                         .CreatePointer(out _playerIns, 0, 0x80)
 
-                    .ScanRelative("48 8b 05 ? ? ? ? 80 78 4d 00 44 8b 8b d4 00 00 00 44 8b 83 d0 00 00 00 48 8b 93 c8 00 00 00 b9 0a 00 00 00 bf 58 02 00 00 0f 45 f9 48 8d 8b 80 00 00 00", 3, 7)
+                    .ScanRelative("NowLoadingHelperImp", "48 8b 05 ? ? ? ? 80 78 4d 00 44 8b 8b d4 00 00 00 44 8b 83 d0 00 00 00 48 8b 93 c8 00 00 00 b9 0a 00 00 00 bf 58 02 00 00 0f 45 f9 48 8d 8b 80 00 00 00", 3, 7)
                         .CreatePointer(out _nowLoadingHelperImp, 0)
                 ;
 

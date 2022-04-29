@@ -67,7 +67,6 @@ namespace SoulSplitter.Splitters
             //Settings from the UI
 
             _eldenRingViewModel = (EldenRingViewModel)settings;
-            _eldenRing.EnableNoLogo = _eldenRingViewModel.NoLogo;
 
             //Refresh attachment to ER process
             RefreshEldenRing();
