@@ -82,7 +82,7 @@ namespace cli
 
             var process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.StartsWith("DarkSoulsII"));
 
-            process.ScanCache().ScanRelative("48 8B 05 ?? ?? ?? ?? 48 8B 58 38 48 85 DB 74 ?? F6", 3, 7)
+            process.ScanCache().ScanRelative("some aob", "48 8B 05 ?? ?? ?? ?? 48 8B 58 38 48 85 DB 74 ?? F6", 3, 7)
                 .CreatePointer(out bossKillCount, 0x70, 0x28, 0x20, 0x8)
                 .CreatePointer(out AiManager, 0x28)
                 .CreatePointer(out rightHandWeaponMultiplier, 0xd0, 0x378, 0x28, 0x158)
@@ -222,55 +222,6 @@ namespace cli
 
             Console.WriteLine($"finished {identifier}");
         }
-
-
-        public enum EventFlagLogMode
-        {
-            All,
-            OnlyOnce,
-        }
-
-
-        public static void LogSetEventFlag(EventFlagLogMode mode)
-        {
-            var e = new EldenRing(false);
-            e.Init();
-            e.InitEventFlagDetour();
-
-            var previous = new List<uint>();
-
-
-            (long ptr, uint flagId, int unknown) previousValue = (0, 0, 0);
-            while (true)
-            {
-                (long ptr, uint flagId, int unknown) = e.ReadLoggedEventFlag();
-                switch (mode)
-                {
-                    case EventFlagLogMode.All:
-                        if (previousValue.ptr != ptr ||
-                            previousValue.flagId != flagId ||
-                            previousValue.unknown != unknown
-                           )
-                        {
-                            Console.WriteLine($"{DateTime.Now.ToLongTimeString()} 0x{ptr:X2}, {flagId} {unknown}");
-                            previousValue.ptr = ptr;
-                            previousValue.flagId = flagId;
-                            previousValue.unknown = unknown;
-                        }
-                        break;
-
-                    case EventFlagLogMode.OnlyOnce:
-                        if (!previous.Contains(flagId))
-                        {
-                            Console.WriteLine($"{DateTime.Now.ToLongTimeString()} 0x{ptr:X2}, {flagId} {unknown}");
-                            previous.Add(flagId);
-                        }
-                        break;
-                }
-            }
-        }
-
-
 
 #if DEBUG
         public static void InjectDll(string path)

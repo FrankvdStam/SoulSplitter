@@ -32,25 +32,8 @@ pub fn disable_event_flag_detour()
 }
 
 
-static mut FLAGS: Vec<u32> =  vec!{};
-static PRINT_ALL_EVENTS: bool = true;
-
 #[no_mangle]
 fn set_event_flag_detour(_rdx: u64, edx: u32, r8d: i32)
 {
-    if PRINT_ALL_EVENTS
-    {
-        println!("{} {} {}", Local::now().format("%H:%M:%S%.3f"), edx, r8d);
-    }
-    else
-    {
-        unsafe
-            {
-                if !FLAGS.contains(&edx)
-                {
-                    println!("{} {} {}", Local::now().format("%H:%M:%S%.3f"), edx, r8d);
-                    FLAGS.push(edx);
-                }
-            }
-    }
+    println!("{} {} {}", Local::now().format("%H:%M:%S%.3f"), edx, r8d);
 }
