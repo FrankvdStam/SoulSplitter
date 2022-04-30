@@ -40,8 +40,11 @@ namespace cli
             //Thread.Sleep(10000);
 
             var er = new EldenRing();
-            er.Refresh();
-            er.ReadEventFlag(71801);
+            er.Init();
+            //er.ReadEventFlag(71801);
+
+
+
             var discovery = new EventFlagDiscovery(er);
 
             for (;;)

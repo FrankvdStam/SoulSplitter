@@ -11,7 +11,6 @@ using SoulMemory.DarkSouls1.Internal;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using SoulMemory.Shared;
-using Architecture = Keystone.Architecture;
 
 namespace SoulMemory.EldenRing
 {
@@ -329,18 +328,19 @@ namespace SoulMemory.EldenRing
             }
 
             var divisor = _virtualMemoryFlag.ReadInt32(0x1c);
+            //This check does not exist in the games code; reading 0 here means something isn't initialized yet and we should check this flag again later.
             if (divisor == 0)
             {
-                divisor = 1000;
+                return false;
             }
 
-            var category = (flagId / divisor);
-            var leastSignificantDigits = flagId - (category * divisor);
+            var category = (flagId / divisor); //stored in rax after; div r8d
+            var leastSignificantDigits = flagId - (category * divisor);//stored in r11 after; sub r11d,r8d
 
-            var currentElement = _virtualMemoryFlag.CreatePointerFromAddress(0x38);
-            var currentSubElement = currentElement.CreatePointerFromAddress(0x8);
+            var currentElement = _virtualMemoryFlag.CreatePointerFromAddress(0x38); //rdx
+            var currentSubElement = currentElement.CreatePointerFromAddress(0x8);   //rcx
             
-            while (currentSubElement.ReadByte(0x19) == '\0')
+            while (currentSubElement.ReadByte(0x19) == '\0') //cmp [rcx+19],r9l -> r9 get's cleared before this instruction and will always be 0
             {
                 if (currentSubElement.ReadInt32(0x20) < category)
                 {
@@ -353,37 +353,46 @@ namespace SoulMemory.EldenRing
                 }
             }
 
-            if (currentElement.GetAddress() == _virtualMemoryFlag.ReadInt64(0x38) || category < _virtualMemoryFlag.ReadInt32(0x20))
+            if (currentElement.GetAddress() == currentSubElement.GetAddress() || category < currentElement.ReadInt32(0x20))
             {
-                currentElement = _virtualMemoryFlag.CreatePointerFromAddress(0x38);
+                currentElement = currentSubElement;
             }
 
-            if (currentElement.GetAddress() != _virtualMemoryFlag.ReadInt64(0x38))
+            if (currentElement.GetAddress() != currentSubElement.GetAddress())
             {
-                var ret = 0;
-                if (currentElement.ReadInt32(0x28) - 1 == 1)
+                var mysteryValue = currentElement.ReadInt32(0x28) - 1;
+                
+                //These if statements can obviously be optimized in C#. 
+                //They are written out like this explicitly, to match the game's assembly
+
+                long calculatedPointer = 0;
+
+                //jump to caluclate ptr if zero
+                if (mysteryValue != 0)
                 {
-                    throw new Exception("flag not supported");
-                    //lVar3 = (ulonglong)(uint)(*(int*)(currentElement + 6) * *(int*)(param_1 + 0x20)) +
-                    //        *(longlong*)(param_1 + 0x28);
+                    //jnz skip to return, otherwise set calculated ptr
+                    if (mysteryValue != 1)
+                    {
+                        calculatedPointer = currentElement.ReadInt64(0x30);
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    //if (currentElement.ReadInt32(0x28) - 1 != 2)
-                    //{
-                    //    return false;
-                    //}
-                    ret = currentElement.ReadInt32(0x30);
+                    calculatedPointer = (_virtualMemoryFlag.ReadInt32(0x20) * currentElement.ReadInt32(0x30)) + _virtualMemoryFlag.ReadInt64(0x28);
                 }
 
-                var ptr = (_virtualMemoryFlag.ReadInt32(0x20) * currentElement.ReadInt32(0x30)) + _virtualMemoryFlag.ReadInt64(0x28);
-                if (ptr != 0)
+                //var ptr = (_virtualMemoryFlag.ReadInt32(0x20) * currentElement.ReadInt32(0x30)) + _virtualMemoryFlag.ReadInt64(0x28);
+                if (calculatedPointer != 0)
                 {
                     var thing = 7 - (leastSignificantDigits & 7);
                     var anotherThing = 1 << (int)thing;
                     var shifted = leastSignificantDigits >> 3;
 
-                    var pointer = new Pointer(_process, _virtualMemoryFlag.Is64Bit, ptr + shifted);
+                    var pointer = new Pointer(_process, _virtualMemoryFlag.Is64Bit, calculatedPointer + shifted);
                     var read = pointer.ReadInt32();
                     if ((read & anotherThing) != 0)
                     {
@@ -394,58 +403,106 @@ namespace SoulMemory.EldenRing
 
             return false;
 
+            // From Ghidra, elden ring 1.03.2 runtime dump.
+            // param_1 is rcx, holds a pointer to the VirtualMemoryFlag instance
+            // param_2 is edx, holds the event flag ID
 
-            //uVar3 = param_2 / *(uint*)(param_1 + 0x1c);
-            //uVar8 = param_2 - *(uint*)(param_1 + 0x1c) * uVar3;
-            //puVar2 = *(undefined8**)(param_1 + 0x38);
-            //cVar1 = *(char*)((longlong)(undefined8*)puVar2[1] + 0x19);
-            //puVar7 = puVar2;
-            //puVar6 = (undefined8*)puVar2[1];
-            //while (cVar1 == '\0')
-            //{
-            //    if (*(uint*)(puVar6 + 4) < uVar3)
-            //    {
-            //        puVar5 = (undefined8*)puVar6[2];
-            //        puVar6 = puVar7;
-            //    }
-            //    else
-            //    {
-            //        puVar5 = (undefined8*)*puVar6;
-            //    }
-            //    puVar7 = puVar6;
-            //    puVar6 = puVar5;
-            //    cVar1 = *(char*)((longlong)puVar5 + 0x19);
-            //}
-            //if ((puVar7 == puVar2) || (uVar3 < *(uint*)(puVar7 + 4)))
-            //{
-            //    puVar7 = puVar2;
-            //}
-            //bVar9 = false;
-            //if (puVar7 != puVar2)
-            //{
-            //    if (*(int*)(puVar7 + 5) == 1)
-            //    {
-            //        lVar4 = (ulonglong)(uint)(*(int*)(puVar7 + 6) * *(int*)(param_1 + 0x20)) +
-            //                *(longlong*)(param_1 + 0x28);
-            //    }
-            //    else
-            //    {
-            //        if (*(int*)(puVar7 + 5) != 2)
-            //        {
-            //            return false;
-            //        }
-            //        lVar4 = puVar7[6];
-            //    }
-            //    bVar9 = false;
-            //    if (lVar4 != 0)
-            //    {
-            //        bVar9 = (*(byte*)((ulonglong)(uVar8 >> 3) + lVar4) &
-            //                 (byte)(1 << (7 - ((byte)uVar8 & 7) & 0x1f))) != 0;
-            //    }
-            //}
-            //return bVar9;
+            //                         **************************************************************
+            //                         *                                                            *
+            //                         *  FUNCTION                                                  *
+            //                         **************************************************************
+            //                         bool __fastcall ReadEventFlag(longlong param_1, uint par
+            //         bool              AL:1           <RETURN>                                XREF[1]:     7ff743a6a8c4(W)  
+            //         longlong          RCX:8          param_1
+            //         uint              EDX:4          param_2                                 XREF[1]:     7ff743a6a8a4(W)  
+            //         undefined8        RDX:8          currentElement                          XREF[1]:     7ff743a6a8a4(W)  
+            //         undefined8        RAX:8          calculated_pointer                      XREF[1]:     7ff743a6a8c4(W)  
+            //         undefined8        HASH:5ff087e   firstElement
+            //                         ReadEventFlag                                   XREF[8]:     FUN_7ff743a451a0:7ff743a451aa(c), 
+            //                                                                                      FUN_7ff743a451d0:7ff743a45212(c), 
+            //                                                                                      FUN_7ff743a45260:7ff743a452a2(c), 
+            //                                                                                      FUN_7ff743a45580:7ff743a45663(c), 
+            //                                                                                      SetEventFlag:7ff743a45a28(c), 
+            //                                                                                      FUN_7ff743a45ae0:7ff743a45b04(c), 
+            //                                                                                      FUN_7ff743a45ba0:7ff743a45bf0(c), 
+            //                                                                                      FUN_7ff743a45ca0:7ff743a45cf0(c)  
+            //7ff743a6a850 44 8b 41 1c     MOV        R8D,dword ptr [param_1 + 0x1c]
+            //7ff743a6a854 44 8b da        MOV        R11D,param_2
+            //7ff743a6a857 33 d2           XOR        param_2,param_2
+            //7ff743a6a859 41 8b c3        MOV        EAX,R11D
+            //7ff743a6a85c 41 f7 f0        DIV        R8D
+            //7ff743a6a85f 4c 8b d1        MOV        R10,param_1
+            //7ff743a6a862 45 33 c9        XOR        R9D,R9D
+            //7ff743a6a865 44 0f af c0     IMUL       R8D,EAX
+            //7ff743a6a869 45 2b d8        SUB        R11D,R8D
+            //7ff743a6a86c 4c 8b 41 38     MOV        R8,qword ptr [param_1 + 0x38]
+            //7ff743a6a870 49 8b d0        MOV        param_2,R8
+            //7ff743a6a873 49 8b 48 08     MOV        param_1,qword ptr [R8 + 0x8]
+            //7ff743a6a877 44 38 49 19     CMP        byte ptr [param_1 + 0x19],R9B
+            //7ff743a6a87b 75 1a           JNZ        after_element_loop
+            //7ff743a6a87d 0f 1f 00        NOP        dword ptr [RAX]
+
+
+            //                         element_loop                                    XREF[1]:     7ff743a6a895(j)  
+            //7ff743a6a880 39 41 20        CMP        dword ptr [param_1 + 0x20],EAX
+            //7ff743a6a883 73 06           JNC        LAB_7ff743a6a88b
+            //7ff743a6a885 48 8b 49 10     MOV        param_1,qword ptr [param_1 + 0x10]
+            //7ff743a6a889 eb 06           JMP        LAB_7ff743a6a891
+            //                         LAB_7ff743a6a88b                                XREF[1]:     7ff743a6a883(j)  
+            //7ff743a6a88b 48 8b d1        MOV        param_2,param_1
+            //7ff743a6a88e 48 8b 09        MOV        param_1,qword ptr [param_1]
+            //                         LAB_7ff743a6a891                                XREF[1]:     7ff743a6a889(j)  
+            //7ff743a6a891 44 38 49 19     CMP        byte ptr [param_1 + 0x19],R9B
+            //7ff743a6a895 74 e9           JZ         element_loop
+
+
+            //                         after_element_loop                              XREF[1]:     7ff743a6a87b(j)  
+            //7ff743a6a897 49 3b d0        CMP        param_2,R8                                                                  after while loop
+            //7ff743a6a89a 74 05           JZ         LAB_7ff743a6a8a1
+            //7ff743a6a89c 3b 42 20        CMP        EAX,dword ptr [param_2 + 0x20]
+            //7ff743a6a89f 73 03           JNC        LAB_7ff743a6a8a4
+            //                         LAB_7ff743a6a8a1                                XREF[1]:     7ff743a6a89a(j)  
+            //7ff743a6a8a1 49 8b d0        MOV        param_2,R8
+            //                         LAB_7ff743a6a8a4                                XREF[1]:     7ff743a6a89f(j)  
+            //7ff743a6a8a4 49 3b d0        CMP        currentElement,R8                                                           skip to return
+            //7ff743a6a8a7 74 49           JZ         skip_to_return
+            //7ff743a6a8a9 8b 4a 28        MOV        param_1,dword ptr [currentElement + 0x28]                                   Read value from currentElement + 0x28 (usually 1 when debugging)
+            //7ff743a6a8ac 83 e9 01        SUB        param_1,0x1                                                                 subtract 1
+            //7ff743a6a8af 74 0b           JZ         build_pointer                                                               if value is 0, jump to build_pointer
+            //7ff743a6a8b1 83 f9 01        CMP        param_1,0x1                                                                 compare value to 1 - if equal, sets the zero flag
+            //7ff743a6a8b4 75 3c           JNZ        skip_to_return                                                              if zero flag is NOT set, jump to skip_to_return
+            //7ff743a6a8b6 48 8b 42 30     MOV        RAX,qword ptr [currentElement + 0x30]                                       do not build pointer, instead consider [currentElement + 0x30] as the built pointer
+            //7ff743a6a8ba eb 0c           JMP        bitwise_operations
+            //                         build_pointer                                   XREF[1]:     7ff743a6a8af(j)  
+            //7ff743a6a8bc 8b 42 30        MOV        EAX,dword ptr [currentElement + 0x30]
+            //7ff743a6a8bf 41 0f af        IMUL       EAX,dword ptr [R10 + 0x20]
+            //             42 20
+            //7ff743a6a8c4 49 03 42 28     ADD        calculated_pointer,qword ptr [R10 + 0x28]
+
+
+            //                         bitwise_operations                              XREF[1]:     7ff743a6a8ba(j)  
+            //7ff743a6a8c8 48 85 c0        TEST       calculated_pointer,calculated_pointer
+            //7ff743a6a8cb 74 25           JZ         skip_to_return
+            //7ff743a6a8cd b9 07 00        MOV        param_1,0x7
+            //             00 00
+            //7ff743a6a8d2 41 8b d3        MOV        currentElement,R11D
+            //7ff743a6a8d5 83 e2 07        AND        currentElement,0x7
+            //7ff743a6a8d8 41 b8 01        MOV        R8D,0x1
+            //             00 00 00
+            //7ff743a6a8de 2b ca           SUB        param_1,currentElement
+            //7ff743a6a8e0 41 d3 e0        SHL        R8D,param_1
+            //7ff743a6a8e3 41 8b cb        MOV        param_1,R11D
+            //7ff743a6a8e6 48 c1 e9 03     SHR        param_1,0x3
+            //7ff743a6a8ea 44 84 04 01     TEST       byte ptr [param_1 + calculated_pointer*0x1],R8B
+            //7ff743a6a8ee 41 0f 95 c1     SETNZ      R9B
+
+
+            //                         skip_to_return                                  XREF[3]:     7ff743a6a8a7(j), 7ff743a6a8b4(j), 
+            //                                                                                      7ff743a6a8cb(j)  
+            //7ff743a6a8f2 41 8b c1        MOV        calculated_pointer,R9D
+            //7ff743a6a8f5 c3              RET
         }
-        
+
         #endregion
 
         #region Timeable

@@ -26,7 +26,7 @@ namespace cli
                 var val = _eldenRing.ReadEventFlag(f);
                 if (val)
                 {
-                    Console.WriteLine($"bossflag {f} enabled during init");
+                    Console.WriteLine($"event flag {f} enabled during init");
                 }
                 _dictionary[f] = val;
             }
