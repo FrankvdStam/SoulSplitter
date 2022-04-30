@@ -1,3 +1,5 @@
+#![feature(naked_functions)]
+
 mod native;
 mod memory;
 
