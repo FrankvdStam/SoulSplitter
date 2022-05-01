@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Splits\EldenRing\Split.cs" />
     <Compile Include="Splits\EldenRing\EldenRingSplitType.cs" />
+    <Compile Include="UI\EldenRing\SplitObjectToDescriptionConverter.cs" />
     <Compile Include="UI\EldenRing\SplitViewModel.cs" />
     <Compile Include="UI\BoolToVisibilityConverter.cs" />
     <Compile Include="SoulComponent.cs" />

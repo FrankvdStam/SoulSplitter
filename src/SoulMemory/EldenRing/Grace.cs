@@ -2,7 +2,7 @@
 
 namespace SoulMemory.EldenRing
 {
-    public enum Grace
+    public enum Grace : uint
     {
         [Display(Name = "Stranded Graveyard")]
         StrandedGraveyard = 71801,

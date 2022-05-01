@@ -28,11 +28,11 @@ namespace cli
             //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
             //LogSetEventFlag(EventFlagLogMode.All);
             //TestAobs();
-            //TestUi();
+            TestUi();
             //Testy2();
 
 
-            //return;
+           //return;
             
 
             

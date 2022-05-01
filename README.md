@@ -12,12 +12,20 @@ You can find detailed installation instructions with screenshots here: https://g
 # Contact
 Find me on discord, on the speedsouls server, or by user wasted#2747 if you have trouble setting this up or have any other questions.
 
-# libraries
+# Credits
 
-Special thanks to B3, for writing the initial MIGT code injection for Elden Ring.
+Special thanks to B3, for writing the initial MIGT code injection for Elden Ring.  
+Thanks to Pav for the Elden Ring cheat engine table.  
+Thanks [John](https://github.com/veeenu), pretty much always willing to exhange some ideas about tech stuff  
+[Yapped](https://github.com/vawser/Yapped-Rune-Bear) helped speed up mapping event flags to bosses and graces  
+Soulsmodding community: http://soulsmodding.wikidot.com/  
 
 Uses the excellent material design library by James Willock: https://materialdesigninxaml.net/
 
-Contains code from Nordergaren's DS2(S)-meta tool (although disabled for now), which can be found here:
-https://github.com/Nordgaren/DS2S-META
-https://github.com/Nordgaren/DS2-META
+Contains code from Nordergaren's DS2(S)-meta tool, which can be found here:  
+https://github.com/Nordgaren/DS2S-META  
+https://github.com/Nordgaren/DS2-META  
+
+I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
+
+[![Alt jetbrainslogo](./jetbrains/jetbrains.svg)](https://www.jetbrains.com/?from=SoulSplitter)

@@ -10,5 +10,7 @@ namespace SoulSplitter.Splits.EldenRing
     public enum EldenRingSplitType
     {
         Boss,
+        Grace,
+        Flag,
     }
 }

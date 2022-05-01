@@ -183,13 +183,17 @@ namespace SoulSplitter.Splitters
             _splits = (
                 from timingType in eldenRingViewModel.Splits
                 from splitType in timingType.Children
-                from boss in splitType.Children
-                select new Split
-                {
-                    TimingType = timingType.TimingType,
-                    EldenRingSplitType = splitType.EldenRingSplitType,
-                    Boss = boss.Boss,
-                }).ToList();
+                from split in splitType.Children
+                select new Split(timingType.TimingType, splitType.EldenRingSplitType, split.Split)
+                //{
+                //    TimingType = timingType.TimingType,
+                //    EldenRingSplitType = splitType.EldenRingSplitType,
+                //    Boss = splitType.EldenRingSplitType == EldenRingSplitType.Boss ? (Boss)split.Split : Boss.AncestralSpirit,//random default
+                //    Grace = splitType.EldenRingSplitType == EldenRingSplitType.Grace ? (Grace)split.Split : Grace.TheFirstStep,//random default
+                //    Flag = splitType.EldenRingSplitType == EldenRingSplitType.Flag ? (uint)split.Split : 0,
+                //
+                //}
+                ).ToList();
         }
 
         public void UpdateAutoSplitter()
@@ -201,7 +205,7 @@ namespace SoulSplitter.Splitters
 
             foreach (var s in _splits)
             {
-                if (!s.Triggered)
+                if (!s.SplitTriggered)
                 {
                     switch (s.EldenRingSplitType)
                     {
@@ -209,12 +213,14 @@ namespace SoulSplitter.Splitters
                             throw new Exception($"Unsupported split type {s.EldenRingSplitType}");
 
                         case EldenRingSplitType.Boss:
-                            if (!s.BossDefeated)
+                        case EldenRingSplitType.Grace:
+                        case EldenRingSplitType.Flag:
+                            if (!s.SplitConditionMet)
                             {
-                                s.BossDefeated = _eldenRing.ReadEventFlag((uint)s.Boss);
+                                s.SplitConditionMet = _eldenRing.ReadEventFlag(s.Flag);
                             }
 
-                            if (s.BossDefeated)
+                            if (s.SplitConditionMet)
                             {
                                 switch (s.TimingType)
                                 {
@@ -223,14 +229,14 @@ namespace SoulSplitter.Splitters
 
                                     case TimingType.Immediate:
                                         _timerModel.Split();
-                                        s.Triggered = true;
+                                        s.SplitTriggered = true;
                                         break;
 
                                     case TimingType.OnLoading:
                                         if (_eldenRing.GetScreenState() == ScreenState.Loading)
                                         {
                                             _timerModel.Split();
-                                            s.Triggered = true;
+                                            s.SplitTriggered = true;
                                         }
                                         break;
                                 }
@@ -240,7 +246,6 @@ namespace SoulSplitter.Splitters
                 }
             }
         }
-
         #endregion
     }
 }

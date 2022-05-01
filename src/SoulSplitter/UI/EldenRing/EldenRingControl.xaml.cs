@@ -24,7 +24,6 @@ namespace SoulSplitter.UI.EldenRing
             }
         }
         
-
         private void AddSplit_OnClick(object sender, RoutedEventArgs e)
         {
             _EldenRingViewModel.AddSplit();
@@ -38,10 +37,24 @@ namespace SoulSplitter.UI.EldenRing
         private void SplitsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             _EldenRingViewModel.SelectedSplit = null;
-            if (e.NewValue is HierarchicalBossViewModel b)
+            if (e.NewValue is HierarchicalSplitViewModel b)
             {
                 _EldenRingViewModel.SelectedSplit = b;
             }
+        }
+
+        private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                var txt = textBox.Text;
+                if (uint.TryParse(txt, out uint result))
+                {
+                    _EldenRingViewModel.NewSplitFlag = result;
+                    return;
+                }
+            }
+            _EldenRingViewModel.NewSplitFlag = null;
         }
     }
 }

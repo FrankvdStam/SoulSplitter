@@ -55,7 +55,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private EldenRingSplitType _eldenRingSplitType;
 
-        public ObservableCollection<HierarchicalBossViewModel> Children { get; set; } = new ObservableCollection<HierarchicalBossViewModel>();
+        public ObservableCollection<HierarchicalSplitViewModel> Children { get; set; } = new ObservableCollection<HierarchicalSplitViewModel>();
 
         #region INotifyPropertyChanged
 
@@ -76,19 +76,50 @@ namespace SoulSplitter.UI.EldenRing
         #endregion
     }
 
-    public class HierarchicalBossViewModel : INotifyPropertyChanged
+    //public class HierarchicalBossViewModel : INotifyPropertyChanged
+    //{
+    //    [XmlIgnore]
+    //    [NonSerialized]
+    //    public HierarchicalSplitTypeViewModel Parent;
+    //
+    //    public Boss Boss
+    //    {
+    //        get => _boss;
+    //        set => SetField(ref _boss, value);
+    //    }
+    //    private Boss _boss;
+    //    
+    //    #region INotifyPropertyChanged
+    //
+    //    private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+    //    {
+    //        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+    //        field = value;
+    //        OnPropertyChanged(propertyName ?? "");
+    //        return true;
+    //    }
+    //
+    //    public event PropertyChangedEventHandler PropertyChanged;
+    //    private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    //    {
+    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+    //    }
+    //
+    //    #endregion
+    //}
+
+    public class HierarchicalSplitViewModel : INotifyPropertyChanged
     {
         [XmlIgnore]
         [NonSerialized]
         public HierarchicalSplitTypeViewModel Parent;
 
-        public Boss Boss
+        public object Split
         {
-            get => _boss;
-            set => SetField(ref _boss, value);
+            get => _split;
+            set => SetField(ref _split, value);
         }
-        private Boss _boss;
-
+        private object _split;
 
         #region INotifyPropertyChanged
 
@@ -108,7 +139,6 @@ namespace SoulSplitter.UI.EldenRing
 
         #endregion
     }
-
 
 
 

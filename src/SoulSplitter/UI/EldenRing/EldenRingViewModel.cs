@@ -66,19 +66,34 @@ namespace SoulSplitter.UI.EldenRing
             set
             {
                 SetField(ref _newSplitType, value);
-                EnabledBossSplit = NewSplitType.HasValue && NewSplitType.Value == EldenRingSplitType.Boss;
+
+                VisibleBossSplit = false;
+                VisibleGraceSplit = false;
+                VisibleFlagSplit = false;
+
+                switch (NewSplitType)
+                {
+                    default:
+                        throw new Exception($"split type not supported: {NewSplitType}");
+
+                    case null:
+                        break;
+
+                    case EldenRingSplitType.Boss:
+                        VisibleBossSplit = true;
+                        break;
+
+                    case EldenRingSplitType.Grace:
+                        VisibleGraceSplit = true;
+                        break;
+
+                    case EldenRingSplitType.Flag:
+                        VisibleFlagSplit = true;
+                        break;
+                }
             }
         }
-
         private EldenRingSplitType? _newSplitType;
-
-        public bool EnabledBossSplit
-        {
-            get => _enabledBossSplit;
-            set => SetField(ref _enabledBossSplit, value);
-        }
-        private bool _enabledBossSplit;
-
 
         public Boss? NewSplitBoss
         {
@@ -89,8 +104,50 @@ namespace SoulSplitter.UI.EldenRing
                 EnabledAddSplit = NewSplitBoss.HasValue;
             }
         }
-
         private Boss? _newSplitBoss;
+
+        public bool VisibleBossSplit
+        {
+            get => _visibleBossSplit;
+            set => SetField(ref _visibleBossSplit, value);
+        }
+        private bool _visibleBossSplit;
+
+        public Grace? NewSplitGrace
+        {
+            get => _newSplitGrace;
+            set
+            {
+                SetField(ref _newSplitGrace, value);
+                EnabledAddSplit = NewSplitGrace.HasValue;
+            }
+        }
+        private Grace? _newSplitGrace;
+
+        public bool VisibleGraceSplit
+        {
+            get => _visibleGraceSplit;
+            set => SetField(ref _visibleGraceSplit, value);
+        }
+        private bool _visibleGraceSplit;
+
+        public uint? NewSplitFlag
+        {
+            get => _newSplitFlag;
+            set
+            {
+                SetField(ref _newSplitFlag, value);
+                EnabledAddSplit = NewSplitFlag.HasValue;
+            }
+        }
+        private uint? _newSplitFlag;
+
+        public bool VisibleFlagSplit
+        {
+            get => _visibleFlagSplit;
+            set => SetField(ref _visibleFlagSplit, value);
+        }
+        private bool _visibleFlagSplit;
 
         public bool EnabledAddSplit
         {
@@ -98,42 +155,60 @@ namespace SoulSplitter.UI.EldenRing
             set => SetField(ref _enabledAddSplit, value);
         }
         private bool _enabledAddSplit;
-
-
+        
         public void AddSplit()
         {
-            AddSplit(NewSplitTimingType.Value, NewSplitType.Value, NewSplitBoss.Value);
+            if (!NewSplitTimingType.HasValue || !NewSplitType.HasValue)
+            {
+                return;
+            }
+
+            var hierarchicalTimingType = Splits.FirstOrDefault(i => i.TimingType == NewSplitTimingType);
+            if (hierarchicalTimingType == null)
+            {
+                hierarchicalTimingType = new HierarchicalTimingTypeViewModel() { TimingType = NewSplitTimingType.Value };
+                Splits.Add(hierarchicalTimingType);
+            }
+
+            var hierarchicalSplitType = hierarchicalTimingType.Children.FirstOrDefault(i => i.EldenRingSplitType == NewSplitType);
+            if (hierarchicalSplitType == null)
+            {
+                hierarchicalSplitType = new HierarchicalSplitTypeViewModel() { EldenRingSplitType = NewSplitType.Value, Parent = hierarchicalTimingType };
+                hierarchicalTimingType.Children.Add(hierarchicalSplitType);
+            }
+
+            switch (NewSplitType)
+            {
+                default:
+                    throw new Exception($"split type not supported: {NewSplitType}");
+
+                case EldenRingSplitType.Boss:
+                    if (hierarchicalSplitType.Children.All(i => (Boss)i.Split != NewSplitBoss))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitBoss.Value, Parent = hierarchicalSplitType });
+                    }
+                    break;
+
+                case EldenRingSplitType.Grace:
+                    if (hierarchicalSplitType.Children.All(i => (Grace)i.Split != NewSplitGrace))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitGrace.Value, Parent = hierarchicalSplitType });
+                    }
+                    break;
+
+                case EldenRingSplitType.Flag:
+                    if (hierarchicalSplitType.Children.All(i => (uint)i.Split != NewSplitFlag))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitFlag.Value, Parent = hierarchicalSplitType });
+                    }
+                    break;
+            }
 
             NewSplitTimingType = null;
             NewSplitType = null;
             NewSplitBoss = null;
-        }
-
-        private void AddSplit(TimingType timingType, EldenRingSplitType eldenRingSplitType, Boss boss)
-        {
-            var hierarchicalTimingType = Splits.FirstOrDefault(i => i.TimingType == timingType);
-            if (hierarchicalTimingType == null)
-            {
-                hierarchicalTimingType = new HierarchicalTimingTypeViewModel() { TimingType = timingType };
-                Splits.Add(hierarchicalTimingType);
-            }
-
-            var hierarchicalSplitType = hierarchicalTimingType.Children.FirstOrDefault(i => i.EldenRingSplitType == eldenRingSplitType);
-            if (hierarchicalSplitType == null)
-            {
-                hierarchicalSplitType = new HierarchicalSplitTypeViewModel() { EldenRingSplitType = eldenRingSplitType, Parent = hierarchicalTimingType };
-                hierarchicalTimingType.Children.Add(hierarchicalSplitType);
-            }
-
-            switch (eldenRingSplitType)
-            {
-                case EldenRingSplitType.Boss:
-                    if (!hierarchicalSplitType.Children.Any(i => i.Boss == boss))
-                    {
-                        hierarchicalSplitType.Children.Add(new HierarchicalBossViewModel() { Boss = boss, Parent = hierarchicalSplitType });
-                    }
-                    break;
-            }
+            NewSplitGrace = null;
+            NewSplitFlag = null;
         }
 
 
@@ -148,7 +223,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private bool _enabledRemoveSplit;
 
-        public object SelectedSplit
+        public HierarchicalSplitViewModel SelectedSplit
         {
             get => _selectedSplit;
             set
@@ -157,28 +232,25 @@ namespace SoulSplitter.UI.EldenRing
                 EnabledRemoveSplit = SelectedSplit != null;
             }
         }
-        private object _selectedSplit = null;
+        private HierarchicalSplitViewModel _selectedSplit = null;
         
         public void RemoveSplit()
         {
             if (SelectedSplit != null)
             {
-                if (SelectedSplit is HierarchicalBossViewModel b)
+                var parent = SelectedSplit.Parent;
+                parent.Children.Remove(SelectedSplit);
+                if (parent.Children.Count <= 0)
                 {
-                    var parent = b.Parent;
-                    parent.Children.Remove(b);
-                    if (parent.Children.Count <= 0)
+                    var nextParent = parent.Parent;
+                    nextParent.Children.Remove(parent);
+                    if (nextParent.Children.Count <= 0)
                     {
-                        var nextParent = parent.Parent;
-                        nextParent.Children.Remove(parent);
-                        if (nextParent.Children.Count <= 0)
-                        {
-                            Splits.Remove(nextParent);
-                        }
+                        Splits.Remove(nextParent);
                     }
-
-                    SelectedSplit = null;
                 }
+
+                SelectedSplit = null;
             }
         }
         #endregion
@@ -214,6 +286,7 @@ namespace SoulSplitter.UI.EldenRing
 
         //source lists
         public static ObservableCollection<Boss> Bosses { get; set; } = new ObservableCollection<Boss>(Enum.GetValues(typeof(Boss)).Cast<Boss>());
+        public static ObservableCollection<Grace> Graces { get; set; } = new ObservableCollection<Grace>(Enum.GetValues(typeof(Grace)).Cast<Grace>());
         
         #region INotifyPropertyChanged
 
