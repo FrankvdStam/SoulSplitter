@@ -118,9 +118,7 @@
     <Compile Include="VersionHelper.cs" />
     <Compile Include="XmlSerializableWrapper.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\DataSources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="UI\DarkSouls1\DarkSouls1Control.xaml">
       <SubType>Designer</SubType>
