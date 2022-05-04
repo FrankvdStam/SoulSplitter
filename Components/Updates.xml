@@ -8,7 +8,7 @@
 		<changelog>
 			<change>Added autosplitting on most graces on the route</change>
 			<change>Added flag autosplitting - these will support any event flag the game sets</change>
-			<change>WARNING: the boss splits you have configured will be removed when updating, to accomodate the new split types - maybe it is wise to back up your splits in case anything goes wrong</change>
+			<change>WARNING: the boss splits you have configured will be removed when updating, to accommodate the new split types - maybe it is wise to back up your splits in case anything goes wrong</change>
 		</changelog>
 	</update>
 	<update version="0.0.20">
