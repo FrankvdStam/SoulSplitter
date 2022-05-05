@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="1.0.0">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>Added autosplitting for all bosses and all grace</change>
+			<change>Made searching for bosses and graces a little easier</change>
+			<change>WARNING: this will once again require reconfiguring of your splits, sorry for the inconvenience</change>
+		</changelog>
+	</update>
 	<update version="0.0.21">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />

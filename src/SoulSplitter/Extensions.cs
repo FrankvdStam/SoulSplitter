@@ -66,5 +66,21 @@ namespace SoulSplitter
             }
             return displayName;
         }
+
+        public static string GetDisplayDescription(this Enum enumValue)
+        {
+            var displayName = enumValue
+                .GetType()
+                .GetMember(enumValue.ToString())
+                .FirstOrDefault()
+                .GetCustomAttribute<DisplayAttribute>()?
+                .GetDescription();
+
+            if (string.IsNullOrEmpty(displayName))
+            {
+                displayName = enumValue.ToString();
+            }
+            return displayName;
+        }
     }
 }

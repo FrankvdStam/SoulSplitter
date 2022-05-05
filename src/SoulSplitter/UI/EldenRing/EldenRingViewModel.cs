@@ -285,8 +285,8 @@ namespace SoulSplitter.UI.EldenRing
 
 
         //source lists
-        public static ObservableCollection<Boss> Bosses { get; set; } = new ObservableCollection<Boss>(Enum.GetValues(typeof(Boss)).Cast<Boss>());
-        public static ObservableCollection<Grace> Graces { get; set; } = new ObservableCollection<Grace>(Enum.GetValues(typeof(Grace)).Cast<Grace>());
+        public static ObservableCollection<BossViewModel> Bosses { get; set; } = new ObservableCollection<BossViewModel>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new BossViewModel(i)));
+        public static ObservableCollection<GraceViewModel> Graces { get; set; } = new ObservableCollection<GraceViewModel>(Enum.GetValues(typeof(Grace)).Cast<Grace>().Select(i => new GraceViewModel(i)));
         
         #region INotifyPropertyChanged
 
@@ -307,18 +307,47 @@ namespace SoulSplitter.UI.EldenRing
         #endregion
     }
 
-    public class TimingSplitsCollection : INotifyPropertyChanged
+
+    public class BossViewModel
     {
-        public TimingType? TimingType
+        public BossViewModel(Boss b)
         {
-            get => _timingType;
-            set => SetField(ref _timingType, value);
+            Area = b.GetDisplayDescription();
+            Name = b.GetDisplayName();
+            Flag = (uint)b;
+            Boss = b;
         }
-        private TimingType? _timingType;
+
+        public Boss Boss
+        {
+            get => _boss;
+            set => SetField(ref _boss, value);
+        }
+        private Boss _boss;
+
+        public string Area
+        {
+            get => _area;
+            set => SetField(ref _area, value);
+        }
+        private string _area;
+
+        public string Name
+        {
+            get => _name;
+            set => SetField(ref _name, value);
+        }
+        private string _name;
+
+        public uint Flag
+        {
+            get => _flag;
+            set => SetField(ref _flag, value);
+        }
+        private uint _flag;
 
 
 
-        //public TimingType TimingType;
         #region INotifyPropertyChanged
 
         private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
@@ -338,5 +367,64 @@ namespace SoulSplitter.UI.EldenRing
         #endregion
     }
 
-    
+
+    public class GraceViewModel
+    {
+        public GraceViewModel(Grace g)
+        {
+            Area = g.GetDisplayDescription();
+            Name = g.GetDisplayName();
+            Flag = (uint)g;
+            Grace = g;
+        }
+        
+        public Grace Grace
+        {
+            get => _grace;
+            set => SetField(ref _grace, value);
+        }
+        private Grace _grace;
+
+        public string Area
+        {
+            get => _area;
+            set => SetField(ref _area, value);
+        }
+        private string _area;
+
+        public string Name
+        {
+            get => _name;
+            set => SetField(ref _name, value);
+        }
+        private string _name;
+
+        public uint Flag
+        {
+            get => _flag;
+            set => SetField(ref _flag, value);
+        }
+        private uint _flag;
+
+
+
+        #region INotifyPropertyChanged
+
+        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName ?? "");
+            return true;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+        }
+
+        #endregion
+    }
+
 }

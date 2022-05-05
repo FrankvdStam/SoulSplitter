@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,25 +15,29 @@ using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using SoulMemory.Shared;
+using SoulSplitter;
 using SoulSplitter.UI;
 
 namespace cli
 {
     internal class Program
     {
-
-
+        
         [STAThread]
         static void Main(string[] args)
         {
-            //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
-            //LogSetEventFlag(EventFlagLogMode.All);
-            //TestAobs();
-            TestUi();
+            
+
+
+
+        //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
+        //LogSetEventFlag(EventFlagLogMode.All);
+        //TestAobs();
+        //TestUi();
             //Testy2();
 
 
-           //return;
+//           return;
             
 
             
