@@ -24,7 +24,7 @@ namespace SoulSplitter.Splitters
             _liveSplitState = state;
             _eldenRing = new EldenRing();
             
-            _liveSplitState.OnStart += OnStart;
+            //_liveSplitState.OnStart += OnStart;
             _liveSplitState.OnReset += OnReset;
             _liveSplitState.IsGameTimePaused = true;
 
@@ -77,12 +77,15 @@ namespace SoulSplitter.Splitters
             UpdateAutoSplitter();
         }
 
-
-        private void OnStart(object sender, EventArgs e)
-        {
-            StartTimer();
-            StartAutoSplitting(_eldenRingViewModel);
-        }
+        
+        //Starting the timer by calling Start(); on a TimerModel object will trigger more than just SoulSplitter's start event.
+        //It occurred at least twice that another plugin would throw exceptions during the start event, causing SoulSplitter's start event to never be called at all.
+        //That in turn never changed the timer state to running. We can not rely on this event, but I'll leave this code in as documentation.
+        //private void OnStart(object sender, EventArgs e)
+        //{
+        //    StartTimer();
+        //    StartAutoSplitting(_eldenRingViewModel);
+        //}
 
         private void OnReset(object sender, TimerPhase timerPhase)
         {
@@ -136,6 +139,8 @@ namespace SoulSplitter.Splitters
                         if (_timerStarted && _eldenRing.InitialLoadRemoval())
                         {
                             _eldenRing.ResetIgt();
+                            StartTimer();
+                            StartAutoSplitting(_eldenRingViewModel);
                             _timerModel.Start();
                         }
                     }

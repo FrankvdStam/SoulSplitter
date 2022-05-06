@@ -1,8 +1,8 @@
 # SoulSplitter
 
-![build](https://github.com/FrankvdStam/SoulSplitter/actions/workflows/build.yml/badge.svg)
+![build](https://github.com/FrankvdStam/SoulSplitter/actions/workflows/build.yml/badge.svg) ![GitHub all releases](https://img.shields.io/github/downloads/FrankvdStam/SoulSplitter/total) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter)
 
-IGT/RTA with load removal, both with autostart for Elden Ring. More to come soon.   
+MIGT, initial black screen removal and autosplitting for Elden Ring.
 For Elden Ring specific information, see https://github.com/FrankvdStam/SoulSplitter/wiki/Elden-Ring
 
 
@@ -22,10 +22,13 @@ Soulsmodding community: http://soulsmodding.wikidot.com/
 
 Uses the excellent material design library by James Willock: https://materialdesigninxaml.net/
 
-Contains code from Nordergaren's DS2(S)-meta tool, which can be found here:  
+Contains code from Nordgaren's DS2(S)-meta tool, which can be found here:  
 https://github.com/Nordgaren/DS2S-META  
 https://github.com/Nordgaren/DS2-META  
 
 I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
 
 [![Alt jetbrainslogo](./jetbrains/jetbrains.svg)](https://www.jetbrains.com/?from=SoulSplitter)
+
+
+

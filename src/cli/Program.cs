@@ -26,8 +26,17 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            
+            var er = new EldenRing();
+            er.Refresh();
 
+            while (true)
+            {
+                er.ResetIgt();
+                er.Refresh();
+            }
+
+
+            return;
 
 
         //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
@@ -43,8 +52,7 @@ namespace cli
             
 
             //Thread.Sleep(10000);
-
-            var er = new EldenRing();
+            
             er.Init();
             //er.ReadEventFlag(71801);
 
