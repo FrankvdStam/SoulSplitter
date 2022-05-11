@@ -44,9 +44,9 @@ namespace SoulMemory.DarkSouls3
 
                 return true;
             }
-            catch (Exception e)
+            catch
             {
-
+                //ignored
             }
             return false;
         }

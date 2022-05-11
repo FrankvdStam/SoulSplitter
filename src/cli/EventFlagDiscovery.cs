@@ -54,7 +54,9 @@ namespace cli
         private List<uint> _flags = new List<uint>()
         {
             //SONAF pickup
-            1035507900
+            76228,
+            76247,
+
         };
     }
 }

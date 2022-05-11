@@ -56,6 +56,17 @@ namespace SoulMemory.DarkSouls1.Internal
             return false;
         }
 
+        public static bool TryParseEnum<T>(this uint value, out T result)
+        {
+            result = default;
+            if (Enum.IsDefined(typeof(T), value))
+            {
+                result = (T)(object)value;
+                return true;
+            }
+            return false;
+        }
+
 
         public static void InsertSorted<T>(this LinkedList<T> list, T value) where T : IComparable<T>
         {

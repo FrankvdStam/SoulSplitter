@@ -34,7 +34,7 @@ pub unsafe extern "system" fn DllMain(
         println!("Exit");
 
         //exit active detours
-        detours::exit();
+        //detours::exit();
 
         //close console
         winapi::um::wincon::FreeConsole();

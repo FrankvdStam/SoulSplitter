@@ -69,15 +69,17 @@
         </DockPanel>
 
         <TabControl 
-            Grid.Row="1"
+            Grid.Row="1">
+            <!--
             SelectedIndex="{Binding SelectedGameIndex}">
             <TabItem Header="Dark Souls 1" IsEnabled="False">
                 <darkSouls1:DarkSouls1Control DataContext="{Binding DarkSouls1ViewModel}"/>
-            </TabItem>
+            </TabItem>-->
             <!-- DataContext="{Binding DarkSouls2ViewModel}" -->
+            <!--
             <TabItem Header="Dark Souls 2" IsEnabled="False">
                 <darkSouls2:DarkSouls2Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls2ViewModel}"/>
-            </TabItem>
+            </TabItem>-->
 
             <TabItem Header="Elden Ring">
                 <eldenRing:EldenRingControl DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.EldenRingViewModel}"/>

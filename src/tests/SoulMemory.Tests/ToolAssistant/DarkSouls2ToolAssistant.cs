@@ -59,7 +59,9 @@ namespace Testing.Tas
             User32.SendKeyDown(User32.KeyCode.KEY_W, User32.ScanCode.W);
         }
 
+#pragma warning disable CS0414
         private bool _backward = false;
+#pragma warning restore CS0414
         public void Backward()
         {
             Focus();
@@ -206,42 +208,7 @@ namespace Testing.Tas
         {
             Keypress(User32.KeyCode.KEY_E, User32.ScanCode.E);
         }
-
-        public void SaveQuit()
-        {
-            Focus();
-
-            while (true)
-            {
-                Thread.Sleep(2000);
-                MenuLeft();
-            }
-
-
-            //Clear any items/okay messages
-            for (int i = 0; i < 3; i++)
-            {
-                Interact();
-                Thread.Sleep(400);
-            }
-
-            Keypress(User32.KeyCode.ESC, User32.ScanCode.ESC);
-            Thread.Sleep(1000);
-
-            MenuLeft();
-            Thread.Sleep(600);
-
-            MenuUp();
-            Thread.Sleep(600);
-
-            MenuConfirm();
-            Thread.Sleep(600);
-
-            MenuLeft();
-            Thread.Sleep(600);
-
-            MenuConfirm();
-        }
+        
 
         #endregion
 

@@ -75,39 +75,7 @@ namespace SoulSplitter.UI.EldenRing
 
         #endregion
     }
-
-    //public class HierarchicalBossViewModel : INotifyPropertyChanged
-    //{
-    //    [XmlIgnore]
-    //    [NonSerialized]
-    //    public HierarchicalSplitTypeViewModel Parent;
-    //
-    //    public Boss Boss
-    //    {
-    //        get => _boss;
-    //        set => SetField(ref _boss, value);
-    //    }
-    //    private Boss _boss;
-    //    
-    //    #region INotifyPropertyChanged
-    //
-    //    private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-    //    {
-    //        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-    //        field = value;
-    //        OnPropertyChanged(propertyName ?? "");
-    //        return true;
-    //    }
-    //
-    //    public event PropertyChangedEventHandler PropertyChanged;
-    //    private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    //    {
-    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-    //    }
-    //
-    //    #endregion
-    //}
-
+    
     public class HierarchicalSplitViewModel : INotifyPropertyChanged
     {
         [XmlIgnore]
@@ -139,62 +107,4 @@ namespace SoulSplitter.UI.EldenRing
 
         #endregion
     }
-
-
-
-
-
-    /*
-
-    public class SplitViewModel : INotifyPropertyChanged
-    {
-        public TimingType TimingType
-        {
-            get => _timingType;
-            set => SetField(ref _timingType, value);
-        }
-        private TimingType _timingType;
-
-        public SplitType SplitType
-        {
-            get => _splitType;
-            set => SetField(ref _splitType, value);
-        }
-        private SplitType _splitType;
-
-        public Boss? Boss
-        {
-            get => _boss;
-            set => SetField(ref _boss, value);
-        }
-        private Boss? _boss;
-        
-        public bool Selected
-        {
-            get => _selected;
-            set => SetField(ref _selected, value);
-        }
-        private bool _selected;
-
-
-
-        #region INotifyPropertyChanged
-
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
-        #endregion
-    }
-    */
 }

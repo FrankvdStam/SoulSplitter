@@ -101,6 +101,7 @@
       <DependentUpon>EldenRingControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\EldenRing\EldenRingViewModel.cs" />
+    <Compile Include="UI\FilteredComboBox.cs" />
     <Compile Include="UI\ListViewDragOrder.cs" />
     <Compile Include="UI\MainControl.xaml.cs">
       <DependentUpon>MainControl.xaml</DependentUpon>

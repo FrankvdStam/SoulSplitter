@@ -1,4 +1,6 @@
 #![feature(naked_functions)]
+#![feature(const_mut_refs)]
+#![feature(once_cell)]
 
 mod native;
 mod memory;

@@ -61,7 +61,9 @@ namespace Testing.Tas
             User32.SendKeyDown(User32.KeyCode.KEY_W, User32.ScanCode.W);
         }
 
+#pragma warning disable CS0414
         private bool _backward = false;
+#pragma warning restore CS0414
         public void Backward()
         {
             Focus();

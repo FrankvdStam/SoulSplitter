@@ -638,8 +638,8 @@ namespace SoulMemory.EldenRing
         [Display(Name = "The Four Belfries", Description = "Liurnia of the Lakes")]
         TheFourBelfries = 76227,
 
-        //[Display(Name = "Ranni's Chamber", Description = "Liurnia of the Lakes")]
-        //RannisChamber = 76228,
+        [Display(Name = "Ranni's Rise", Description = "Liurnia of the Lakes")]
+        RannisRise = 76228,
 
         [Display(Name = "Ravine-Veiled Village", Description = "Liurnia of the Lakes")]
         RavineVeiledVillage = 76229,
@@ -686,8 +686,8 @@ namespace SoulMemory.EldenRing
         [Display(Name = "Jarburg", Description = "Liurnia of the Lakes")]
         Jarburg = 76245,
 
-        //[Display(Name = "Ranni's Chamber", Description = "Liurnia of the Lakes")]
-        //RannisChamber = 76247,
+        [Display(Name = "Ranni's Chamber", Description = "Liurnia of the Lakes")]
+        RannisChamber = 76247,
 
         //Miquella's Haligtree
 

@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using Keystone;
 
-#if DEBUG
-using Keystone;
-#endif
 
 namespace SoulMemory.DarkSouls1.Internal
 {

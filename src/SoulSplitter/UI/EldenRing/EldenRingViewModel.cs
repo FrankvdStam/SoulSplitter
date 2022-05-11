@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Windows.Data;
 using SoulMemory.EldenRing;
+using SoulMemory.Memory;
 using SoulSplitter.Splits.EldenRing;
 
 namespace SoulSplitter.UI.EldenRing
@@ -14,11 +16,6 @@ namespace SoulSplitter.UI.EldenRing
     {
         public EldenRingViewModel()
         {
-            //AddSplit(TimingType.OnLoading, EldenRingSplitType.Boss, Boss.BolsCarianKnight);
-            //AddSplit(TimingType.OnLoading, EldenRingSplitType.Boss, Boss.AncestralSpirit);
-            //AddSplit(TimingType.Immediate, EldenRingSplitType.Boss, Boss.GlintstoneDragonSmarag);
-            //AddSplit(TimingType.Immediate, EldenRingSplitType.Boss, Boss.BlackBladeKindredBestialSanctum);
-            //AddSplit(TimingType.Immediate, EldenRingSplitType.Boss, Boss.CommanderNiall);
         }
 
 
@@ -70,6 +67,7 @@ namespace SoulSplitter.UI.EldenRing
                 VisibleBossSplit = false;
                 VisibleGraceSplit = false;
                 VisibleFlagSplit = false;
+                VisibleItemSplit = false;
 
                 switch (NewSplitType)
                 {
@@ -89,6 +87,10 @@ namespace SoulSplitter.UI.EldenRing
 
                     case EldenRingSplitType.Flag:
                         VisibleFlagSplit = true;
+                        break;
+
+                    case EldenRingSplitType.Item:
+                        VisibleItemSplit = true;
                         break;
                 }
             }
@@ -149,6 +151,27 @@ namespace SoulSplitter.UI.EldenRing
         }
         private bool _visibleFlagSplit;
 
+        
+        public Item NewSplitItem
+        {
+            get => _newSplitItem;
+            set
+            {
+                SetField(ref _newSplitItem, value);
+                EnabledAddSplit = NewSplitItem != null;
+            }
+        }
+        private Item _newSplitItem;
+
+        public bool VisibleItemSplit
+        {
+            get => _visibleItemSplit;
+            set => SetField(ref _visibleItemSplit, value);
+        }
+        private bool _visibleItemSplit;
+
+
+
         public bool EnabledAddSplit
         {
             get => _enabledAddSplit;
@@ -202,6 +225,13 @@ namespace SoulSplitter.UI.EldenRing
                         hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitFlag.Value, Parent = hierarchicalSplitType });
                     }
                     break;
+
+                case EldenRingSplitType.Item:
+                    if (hierarchicalSplitType.Children.All(i => (Item)i.Split != NewSplitItem))
+                    { 
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitItem, Parent = hierarchicalSplitType });
+                    }
+                    break;
             }
 
             NewSplitTimingType = null;
@@ -209,6 +239,7 @@ namespace SoulSplitter.UI.EldenRing
             NewSplitBoss = null;
             NewSplitGrace = null;
             NewSplitFlag = null;
+            NewSplitItem = null;
         }
 
 
@@ -279,14 +310,11 @@ namespace SoulSplitter.UI.EldenRing
 
 
         public ObservableCollection<HierarchicalTimingTypeViewModel> Splits { get; set; }= new ObservableCollection<HierarchicalTimingTypeViewModel>();
-
-
-
-
-
+        
         //source lists
         public static ObservableCollection<BossViewModel> Bosses { get; set; } = new ObservableCollection<BossViewModel>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new BossViewModel(i)));
         public static ObservableCollection<GraceViewModel> Graces { get; set; } = new ObservableCollection<GraceViewModel>(Enum.GetValues(typeof(Grace)).Cast<Grace>().Select(i => new GraceViewModel(i)));
+        public static ObservableCollection<ItemViewModel> Items { get; set; } = new ObservableCollection<ItemViewModel>(Item.LookupTable.Select(i => new ItemViewModel(i)));
         
         #region INotifyPropertyChanged
 
@@ -307,6 +335,7 @@ namespace SoulSplitter.UI.EldenRing
         #endregion
     }
 
+    //TODO: these 3 vm's are kinda lame. Should generalize this into 1 vm. For now it was easier to just copy-pasta tho.
 
     public class BossViewModel
     {
@@ -316,6 +345,11 @@ namespace SoulSplitter.UI.EldenRing
             Name = b.GetDisplayName();
             Flag = (uint)b;
             Boss = b;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         public Boss Boss
@@ -377,7 +411,12 @@ namespace SoulSplitter.UI.EldenRing
             Flag = (uint)g;
             Grace = g;
         }
-        
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
         public Grace Grace
         {
             get => _grace;
@@ -427,4 +466,77 @@ namespace SoulSplitter.UI.EldenRing
         #endregion
     }
 
+
+    public class ItemViewModel
+    {
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public ItemViewModel(Item i)
+        {
+            Item = i;
+            Category = i.Category;
+            GroupName = i.GroupName;
+            Name = i.Name;
+            Id = i.Id;
+        }
+
+        public Item Item
+        {
+            get => _item;
+            set => SetField(ref _item, value);
+        }
+        private Item _item;
+
+        public Category Category
+        {
+            get => _category;
+            set => SetField(ref _category, value);
+        }
+        private Category _category;
+
+        public string GroupName
+        {
+            get => _groupName;
+            set => SetField(ref _groupName, value);
+        }
+        private string _groupName;
+
+
+        public string Name
+        {
+            get => _name;
+            set => SetField(ref _name, value);
+        }
+        private string _name;
+
+        public uint Id
+        {
+            get => _id;
+            set => SetField(ref _id, value);
+        }
+        private uint _id;
+
+
+
+        #region INotifyPropertyChanged
+
+        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName ?? "");
+            return true;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+        }
+
+        #endregion
+    }
 }

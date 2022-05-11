@@ -24,7 +24,7 @@ namespace SoulSplitter.Splitters
             _liveSplitState = state;
             _eldenRing = new EldenRing();
             
-            //_liveSplitState.OnStart += OnStart;
+            _liveSplitState.OnStart += OnStart;
             _liveSplitState.OnReset += OnReset;
             _liveSplitState.IsGameTimePaused = true;
 
@@ -80,12 +80,17 @@ namespace SoulSplitter.Splitters
         
         //Starting the timer by calling Start(); on a TimerModel object will trigger more than just SoulSplitter's start event.
         //It occurred at least twice that another plugin would throw exceptions during the start event, causing SoulSplitter's start event to never be called at all.
-        //That in turn never changed the timer state to running. We can not rely on this event, but I'll leave this code in as documentation.
-        //private void OnStart(object sender, EventArgs e)
-        //{
-        //    StartTimer();
-        //    StartAutoSplitting(_eldenRingViewModel);
-        //}
+        //That in turn never changed the timer state to running. We can not rely on this event.
+        //Thats why autostarting will take care of this and doesn't need the event.
+        //However, we still need this event when players start the timer manually.
+        private void OnStart(object sender, EventArgs e)
+        {
+            if (_timerState != TimerState.Running)
+            {
+                StartTimer();
+                StartAutoSplitting(_eldenRingViewModel);
+            }
+        }
 
         private void OnReset(object sender, TimerPhase timerPhase)
         {
@@ -106,6 +111,7 @@ namespace SoulSplitter.Splitters
             //Set the state of the timer to running, but only start the RTA stopwatch if we're in game
             //IGT will automatically stop if we're no in game
             _timerState = TimerState.Running;
+            _eldenRing.EnableHud();
         }
 
         private void ResetTimer()
@@ -208,6 +214,8 @@ namespace SoulSplitter.Splitters
                 return;
             }
 
+            List<Item> inventoryItems = null;
+
             foreach (var s in _splits)
             {
                 if (!s.SplitTriggered)
@@ -227,28 +235,52 @@ namespace SoulSplitter.Splitters
 
                             if (s.SplitConditionMet)
                             {
-                                switch (s.TimingType)
-                                {
-                                    default:
-                                        throw new Exception($"Unsupported timing type {s.TimingType}");
+                                ResolveSplitTiming(s);
+                            }
 
-                                    case TimingType.Immediate:
-                                        _timerModel.Split();
-                                        s.SplitTriggered = true;
-                                        break;
+                            break;
 
-                                    case TimingType.OnLoading:
-                                        if (_eldenRing.GetScreenState() == ScreenState.Loading)
-                                        {
-                                            _timerModel.Split();
-                                            s.SplitTriggered = true;
-                                        }
-                                        break;
-                                }
+                        case EldenRingSplitType.Item:
+                            //Only get the inventory items once per livesplit tick
+                            if (inventoryItems == null)
+                            {
+                                inventoryItems = _eldenRing.ReadInventory();
+                            }
+
+                            if (!s.SplitConditionMet)
+                            {
+                                s.SplitConditionMet = inventoryItems.Any(i => i.Category == s.Item.Category && i.Id == s.Item.Id);
+                            }
+
+                            if (s.SplitConditionMet)
+                            {
+                                ResolveSplitTiming(s);
                             }
                             break;
                     }
                 }
+            }
+        }
+
+        private void ResolveSplitTiming(Split s)
+        {
+            switch (s.TimingType)
+            {
+                default:
+                    throw new Exception($"Unsupported timing type {s.TimingType}");
+
+                case TimingType.Immediate:
+                    _timerModel.Split();
+                    s.SplitTriggered = true;
+                    break;
+
+                case TimingType.OnLoading:
+                    if (_eldenRing.GetScreenState() == ScreenState.Loading)
+                    {
+                        _timerModel.Split();
+                        s.SplitTriggered = true;
+                    }
+                    break;
             }
         }
         #endregion

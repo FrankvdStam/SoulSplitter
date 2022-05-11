@@ -8,38 +8,38 @@ namespace SoulSplitter.UI.EldenRing
     /// </summary>
     public partial class EldenRingControl : UserControl
     {
-        private EldenRingViewModel _EldenRingViewModel;
+        private EldenRingViewModel _eldenRingViewModel;
         
         public EldenRingControl()
         {
             InitializeComponent();
-            DataContextChanged += new DependencyPropertyChangedEventHandler(OnDataContextChanged);
+            DataContextChanged += OnDataContextChanged;
         }
 
         void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (DataContext is EldenRingViewModel vm)
             {
-                _EldenRingViewModel = vm;
+                _eldenRingViewModel = vm;
             }
         }
         
         private void AddSplit_OnClick(object sender, RoutedEventArgs e)
         {
-            _EldenRingViewModel.AddSplit();
+            _eldenRingViewModel.AddSplit();
         }
 
         private void RemoveSplit_OnClick(object sender, RoutedEventArgs e)
         {
-            _EldenRingViewModel.RemoveSplit();
+            _eldenRingViewModel.RemoveSplit();
         }
 
         private void SplitsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            _EldenRingViewModel.SelectedSplit = null;
+            _eldenRingViewModel.SelectedSplit = null;
             if (e.NewValue is HierarchicalSplitViewModel b)
             {
-                _EldenRingViewModel.SelectedSplit = b;
+                _eldenRingViewModel.SelectedSplit = b;
             }
         }
 
@@ -47,14 +47,13 @@ namespace SoulSplitter.UI.EldenRing
         {
             if (sender is TextBox textBox)
             {
-                var txt = textBox.Text;
-                if (uint.TryParse(txt, out uint result))
+                if (uint.TryParse(textBox.Text, out uint result))
                 {
-                    _EldenRingViewModel.NewSplitFlag = result;
+                    _eldenRingViewModel.NewSplitFlag = result;
                     return;
                 }
             }
-            _EldenRingViewModel.NewSplitFlag = null;
+            _eldenRingViewModel.NewSplitFlag = null;
         }
     }
 }

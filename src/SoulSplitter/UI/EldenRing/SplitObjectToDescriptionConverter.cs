@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using SoulMemory.EldenRing;
+using SoulMemory.Memory;
 
 namespace SoulSplitter.UI.EldenRing
 {
@@ -15,6 +12,11 @@ namespace SoulSplitter.UI.EldenRing
             if (value is Enum e)
             {
                 return e.GetDisplayName();
+            }
+
+            if (value is Item i)
+            {
+                return i.Name;
             }
 
             if (value is uint u)

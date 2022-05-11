@@ -25,6 +25,7 @@ Uses the excellent material design library by James Willock: https://materialdes
 Contains code from Nordgaren's DS2(S)-meta tool, which can be found here:  
 https://github.com/Nordgaren/DS2S-META  
 https://github.com/Nordgaren/DS2-META  
+Also had some help reading the inventory in Elden Ring from Nordgaren's ERD tools: https://github.com/Nordgaren/Erd-Tools
 
 I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
 

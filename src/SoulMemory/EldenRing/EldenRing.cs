@@ -21,11 +21,13 @@ namespace SoulMemory.EldenRing
         private Process _process = null;
 
         private Pointer _igt;
+        private Pointer _hud;
         private Pointer _playerIns;
+        private Pointer _playerGameData;
+        private Pointer _inventory;
         private Pointer _playerChrPhysicsModule;
         private Pointer _menuManImp;
         private Pointer _igtFix;
-        private Pointer _readEventFlag;
         private Pointer _virtualMemoryFlag;
         //private Pointer _noLogo;
 
@@ -82,11 +84,14 @@ namespace SoulMemory.EldenRing
                     //FD4Time
                     .ScanRelative("FD4Time", "48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
                         .CreatePointer(out _igt, 0, 0xa0)
+                        .CreatePointer(out _hud, 0, 0x58, 0x9)
 
                     //WorldChrManImp  
                     .ScanRelative("WorldChrManImp", "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7", 3, 7)
-                        .CreatePointer(out _playerIns, 0, 0x18468)
-                        .CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
+                        .CreatePointer(out _playerIns       , 0, 0x18468)
+                        .CreatePointer(out _playerGameData  , 0, 0x18468, 0x570)
+                        .CreatePointer(out _inventory       , 0, 0x18468, 0x570, 0x5B8, 0x10, 0x0)
+                        //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
 
                     //CSMenuManImp
                     .ScanRelative("MenuManImp", "48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
@@ -168,13 +173,25 @@ namespace SoulMemory.EldenRing
         private void ResetPointers()
         {
             _igt = null;
+            _hud = null;
             _playerIns = null;
             _playerChrPhysicsModule = null;
             _menuManImp = null;
             _igtFix = null;
-            _readEventFlag = null;
+            _playerGameData = null;
+            _inventory = null;
             _virtualMemoryFlag = null;
             //_noLogo = null;
+        }
+
+        public void EnableHud()
+        {
+            if (_hud != null)
+            {
+                var b = _hud.ReadByte();
+                b |= 0x1; //Not sure if this whole byte is reserved for the HUD setting. Just going to write a 1 to the first bit and preserve the other bits.
+                _hud.WriteByte(null, b);
+            }
         }
 
         public bool IsPlayerLoaded()
@@ -286,7 +303,8 @@ namespace SoulMemory.EldenRing
 
         public int GetTestValue()
         {
-            return _menuManImp?.ReadInt32(_blackScreenOffset) ?? 0;
+            EnableHud();
+            return (int)_hud.ReadByte();
         }
 
         public bool Attached => _process != null;
@@ -318,8 +336,76 @@ namespace SoulMemory.EldenRing
 
         //        //#endregion
 
+        #region Read inventory
+        //Got some help from Nordgaren to read the inventory. Cheers!
+        //https://github.com/Nordgaren/Erd-Tools
+
+        private const int InventoryEntrySize = 0x14;
+
+        private int DeleteFromEnd(int num, int n)
+        {
+            for (int i = 1; num != 0; i++)
+            {
+                num = num / 10;
+
+                if (i == n)
+                    return num;
+            }
+
+            return 0;
+        }
+
+        public List<Item> ReadInventory()
+        {
+            var items = new List<Item>();
+            
+            if (_playerGameData == null || _inventory == null)
+            {
+                return items;
+            }
+            
+            var inventoryCount = _playerGameData.ReadInt32(0x420);
+            var inventory = _inventory.ReadBytes(inventoryCount * InventoryEntrySize);
+
+            for (int i = 0; i < inventoryCount; i++)
+            {
+                var itemIndex = i * InventoryEntrySize;
+
+               
+
+                var itemId = BitConverter.ToInt32(new byte[]
+                {
+                    inventory[itemIndex + 0x4],
+                    inventory[itemIndex + 0x5],
+                    inventory[itemIndex + 0x6],
+                    0x0,
+                }, 0);
+
+                byte cat = inventory[itemIndex + 0X7];
+                byte mask = 0xF0;
+                cat &= mask;
+                var category = (Category)(cat * 0x1000000);
+
+                if (category == Category.Weapons)
+                {
+                    itemId = DeleteFromEnd(itemId, 2) * 100;
+                }
+
+                var item = Item.FromLookupTable(category, (uint)itemId);
+                if (item != null)
+                {
+                    Console.WriteLine($"{item.GroupName} {item.Name}");
+                    items.Add(item);
+                }
+            }
+
+            return items;
+        }
+
+        #endregion
+
         #region Read event flag
-        
+
         public bool ReadEventFlag(uint flagId)
         {
             if (_virtualMemoryFlag == null)

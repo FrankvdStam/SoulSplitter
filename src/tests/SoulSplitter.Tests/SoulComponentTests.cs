@@ -54,8 +54,7 @@ namespace SoulSplitter.Tests
                 OmitXmlDeclaration = true,
                 Indent = true,
             };
-
-            var xml = "";
+            
             using (var stream = new StringWriter())
             using (var writer = XmlWriter.Create(stream, settings))
             {

@@ -32,8 +32,11 @@ namespace SoulSplitter.Splits.EldenRing
                 case EldenRingSplitType.Flag:
                     Flag = (uint)split;
                     break;
-            }
 
+                case EldenRingSplitType.Item:
+                    Item = (Item)split;
+                    break;
+            }
         }
 
         public readonly TimingType TimingType;
@@ -41,6 +44,7 @@ namespace SoulSplitter.Splits.EldenRing
         
         public readonly Boss Boss;
         public readonly Grace Grace;
+        public readonly Item Item;
         public readonly uint Flag;
 
         /// <summary>

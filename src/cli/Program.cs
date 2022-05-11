@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,6 +18,10 @@ using SoulMemory.Native;
 using SoulMemory.Shared;
 using SoulSplitter;
 using SoulSplitter.UI;
+using Item = SoulMemory.EldenRing.Item;
+
+
+#pragma warning disable CS0162
 
 namespace cli
 {
@@ -26,27 +31,44 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            var er = new EldenRing();
-            er.Refresh();
-
-            while (true)
-            {
-                er.ResetIgt();
-                er.Refresh();
-            }
-
-
+            TestUi();
+            //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
             return;
 
+            //return;
+            //var itesm = Enum.GetValues(typeof(Item)).Cast<Item>().ToList();
+            //var counts = new Dictionary<string, int>();
+            //
+            //foreach (var i in itesm)
+            //{
+            //    if (!counts.ContainsKey(i.GetDisplayDescription()))
+            //    {
+            //        counts[i.GetDisplayDescription()] = 0;
+            //    }
+            //
+            //    counts[i.GetDisplayDescription()]++;
+            //}
 
-        //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
-        //LogSetEventFlag(EventFlagLogMode.All);
-        //TestAobs();
-        //TestUi();
+
+            var er = new EldenRing();
+            er.Init();
+            er.ReadInventory();
+            Console.ReadKey();
+            return;
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(er.GetTestValue());
+                er.Refresh();
+                Thread.Sleep(500);
+            }
+
+            //LogSetEventFlag(EventFlagLogMode.All);
+            //TestAobs();
+            TestUi();
             //Testy2();
 
-
-//           return;
+             return;
             
 
             
@@ -56,6 +78,24 @@ namespace cli
             er.Init();
             //er.ReadEventFlag(71801);
 
+            while (true)
+            {
+                var items = er.ReadInventory();
+                Console.Clear();
+
+                foreach (var item in items)
+                {
+                    //Console.WriteLine($"{item.GetDisplayDescription()} {item.GetDisplayName()} {(uint)item}");
+                }
+
+                Thread.Sleep(100);
+                er.Refresh();
+            }
+            
+
+
+            Console.ReadKey();
+            return;
 
 
             var discovery = new EventFlagDiscovery(er);
@@ -250,3 +290,6 @@ namespace cli
 
     }
 }
+
+
+#pragma warning restore CS0162

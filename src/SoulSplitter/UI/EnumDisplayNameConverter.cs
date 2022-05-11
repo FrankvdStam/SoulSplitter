@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
+using SoulMemory.Memory;
 
 namespace SoulSplitter.UI
 {

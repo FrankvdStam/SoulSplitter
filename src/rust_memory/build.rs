@@ -6,6 +6,7 @@ fn main()
 {
     //Get a print outdir
     let out_dir = PathBuf::from(env::var_os("OUT_DIR").unwrap());
+
     println!("cargo:warning=out_dir:{}", out_dir.display());
 
     //Collect asm files under src/asm/, print them, mark them as part of the build - cargo will know when they change and recompile.
@@ -19,5 +20,5 @@ fn main()
 
     //assemble and link
     Build::new().files(files).compile("soullib");
-    println!("cargo:rustc-link-search={}", out_dir.display());
+    println!("cargo:rustc-link-search={}", out_dir.display());	
 }

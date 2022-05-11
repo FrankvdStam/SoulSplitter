@@ -11,8 +11,10 @@ namespace SoulMemory.DarkSouls2
 {
     public class DarkSouls2
     {
+#pragma warning disable CS0649
         private IDarkSouls2 _darkSouls2;
         private Process _process;
+#pragma warning restore CS0649
 
         public DarkSouls2()
         {
