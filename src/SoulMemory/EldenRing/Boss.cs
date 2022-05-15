@@ -46,7 +46,7 @@ namespace SoulMemory.EldenRing
         MimicTearSiofraRiver = 12020850,
 
         [Display(Name = "Crucible Knight Sirulia - Deeproot Depths", Description = "Deeproot Depths")]
-        CrucibleKnightSiruliaDeeprootDepths = 12020390,
+        CrucibleKnightSiruliaDeeprootDepths = 12030390,
 
         [Display(Name = "Fia's Champion - Deeproot Depths", Description = "Deeproot Depths")]
         FiasChampionDeeprootDepths = 12030800,
@@ -184,7 +184,7 @@ namespace SoulMemory.EldenRing
         PutridGraveWardenDuelistConsecratedSnowfieldCatacombsSnowfield = 30190800,
 
         [Display(Name = "Stray Mimic Tear - Hidden Path to the Haligtree", Description = "Forbidden Lands")]
-        StrayMimicTearHiddenPathToTheHaligtree = 30200810,
+        StrayMimicTearHiddenPathToTheHaligtree = 30202800,
 
         [Display(Name = "Patches - Murkwater Cave (Limgrave)", Description = "Limgrave")]
         PatchesMurkwaterCaveLimgrave = 31000800,
@@ -352,22 +352,22 @@ namespace SoulMemory.EldenRing
         BallBearingHunterChurchOfVowsLiurnia = 1037460800,
 
         [Display(Name = "Night's Cavalry - Liurnia Highway Far North (Liurnia)", Description = "Liurnia of the Lakes")]
-        NightsCavalryLiurniaHighwayFarNorthLiurnia = 1039430340,
+        NightsCavalryLiurniaHighwayFarNorthLiurnia = 1039430800,
 
         [Display(Name = "Night's Cavalry - East Raya Lucaria Gate (Liurnia)", Description = "Liurnia of the Lakes")]
-        NightsCavalryEastRayaLucariaGateLiurnia = 1036480340,
+        NightsCavalryEastRayaLucariaGateLiurnia = 1036480800,
 
-        [Display(Name = "Death Rite Bird - Laskyar Ruins (Liurnia)", Description = "Liurnia of the Lakes")]
-        DeathRiteBirdLaskyarRuinsLiurnia = 1037420340,
+        [Display(Name = "Deathbird - Laskyar Ruins (Liurnia)", Description = "Liurnia of the Lakes")]
+        DeathRiteBirdLaskyarRuinsLiurnia = 1037420800,
 
         [Display(Name = "Death Rite Bird - Gate Town Northwest (Liurnia)", Description = "Liurnia of the Lakes")]
-        DeathRiteBirdGateTownNorthwestLiurnia = 1036450340,
+        DeathRiteBirdGateTownNorthwestLiurnia = 1036450800,
 
         [Display(Name = "Glintstone Dragon Smarag - Meeting Place (Liurnia)", Description = "Liurnia of the Lakes")]
         GlintstoneDragonSmaragMeetingPlaceLiurnia = 1034450800,
 
-        [Display(Name = "Glintstone Dragon Adula - Ranni's Rise (Liurnia)", Description = "Liurnia of the Lakes")]
-        GlintstoneDragonAdulaRannisRiseLiurnia = 1034500800,
+        //[Display(Name = "Glintstone Dragon Adula - Ranni's Rise (Liurnia)", Description = "Liurnia of the Lakes")]
+        //GlintstoneDragonAdulaRannisRiseLiurnia = 1034500800,
 
         [Display(Name = "Glintstone Dragon Adula - Moonfolk Ruins (Liurnia)", Description = "Liurnia of the Lakes")]
         GlintstoneDragonAdulaMoonfolkRuinsLiurnia = 1034420800,
@@ -378,8 +378,8 @@ namespace SoulMemory.EldenRing
         [Display(Name = "Tibia Mariner - Jarburg (Liurnia)", Description = "Liurnia of the Lakes")]
         TibiaMarinerJarburgLiurnia = 1039440800,
 
-        [Display(Name = "Ancient Dragon Lansseax - Abandoned Coffin (Altus Plateau)", Description = "Altus Plateau")]
-        AncientDragonLansseaxAbandonedCoffinAltusPlateau = 1037510800,
+        //[Display(Name = "Ancient Dragon Lansseax - Abandoned Coffin (Altus Plateau)", Description = "Altus Plateau")]
+        //AncientDragonLansseaxAbandonedCoffinAltusPlateau = 1037510800,
 
         [Display(Name = "Ancient Dragon Lansseax - Rampartside Path (Altus Plateau)", Description = "Altus Plateau")]
         AncientDragonLansseaxRampartsidePathAltusPlateau = 1041520800,
@@ -490,7 +490,7 @@ namespace SoulMemory.EldenRing
         BlackBladeKindredBeforeGrandLiftOfRoldMountaintops = 1049520800,
 
         [Display(Name = "Borealis the Freezing Fog - Freezing Fields (Mountaintops)", Description = "Mountaintops of the Giants")]
-        BorealisTheFreezingFogFreezingFieldsMountaintops = 1054560800,
+        BorealisTheFreezingFogFreezingFieldsMountaintops = 1254560800,
 
         [Display(Name = "Roundtable Knight Vyke - Lord Contender's Evergaol (Mountaintops)", Description = "Mountaintops of the Giants")]
         RoundtableKnightVykeLordContendersEvergaolMountaintops = 1053560800,

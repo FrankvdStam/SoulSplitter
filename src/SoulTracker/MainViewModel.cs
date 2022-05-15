@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -45,6 +46,7 @@ namespace SoulTracker
 
             try
             {
+                var bad = new List<uint>();
                 var count = 0;
                 foreach (var flag in _bossFlags)
                 {
@@ -52,7 +54,17 @@ namespace SoulTracker
                     {
                         count++;
                     }
+                    else
+                    {
+                        bad.Add(flag);
+                        
+                    }
                 }
+
+                //foreach (var f in bad)
+                //{
+                //    Debug.WriteLine(f);
+                //}
 
                 Text = count.ToString();
             }
