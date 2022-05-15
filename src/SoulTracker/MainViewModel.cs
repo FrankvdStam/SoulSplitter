@@ -46,7 +46,7 @@ namespace SoulTracker
 
             try
             {
-                var bad = new List<uint>();
+                //var bad = new List<uint>();
                 var count = 0;
                 foreach (var flag in _bossFlags)
                 {
@@ -54,11 +54,11 @@ namespace SoulTracker
                     {
                         count++;
                     }
-                    else
-                    {
-                        bad.Add(flag);
-                        
-                    }
+                    //else
+                    //{
+                    //    bad.Add(flag);
+                    //    
+                    //}
                 }
 
                 //foreach (var f in bad)
@@ -101,7 +101,7 @@ namespace SoulTracker
             get => _textSize;
             set => SetField(ref _textSize, value);
         }
-        private int _textSize = 150;
+        private int _textSize = 300;
 
 
 

@@ -17,48 +17,51 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="230"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <StackPanel
-            Grid.Row="0"
-            Grid.Column="0">
-            <Label Content="Background"/>
-            <materialDesign:ColorPicker Color="{Binding BackgroundColor}" Width="200" Height="200" HorizontalAlignment="Left"/>
-        </StackPanel>
 
-        <StackPanel 
-            Grid.Row="0"
-            Grid.Column="1">
-            <Label Content="Foreground"/>
-            <materialDesign:ColorPicker Color="{Binding ForegroundColor}" Width="200" Height="200" HorizontalAlignment="Left"/>
-        </StackPanel>
+    <materialDesign:DrawerHost
+        BorderBrush="{DynamicResource MaterialDesignDivider}"
+        BottomDrawerCornerRadius="20 20 0 0"
+        BottomDrawerBackground="{DynamicResource SecondaryHueLightBrush}">
 
-        <StackPanel  
-             Grid.Row="0"
-             Grid.Column="2">
-            <Label Content="Text size"/>
-            <Slider Minimum="10" Maximum="300" Value="{Binding TextSize}"/>
-        </StackPanel>
+        <materialDesign:DrawerHost.LeftDrawerContent>
+            <StackPanel Orientation="Vertical">
 
-        <TextBlock 
-            Grid.Row="1" 
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Text="{Binding Text}" 
-            FontFamily="Consolas"
-            HorizontalAlignment="Stretch"
-            TextAlignment="Right"
-            FontSize="{Binding TextSize}"
-            Foreground="{Binding ForegroundColor, Converter={StaticResource ColorToBrushConverter}}" 
-            Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}"/>
-    </Grid>
+                <Label Content="Background" Margin="5"/>
+                <materialDesign:ColorPicker Margin="5" Color="{Binding BackgroundColor}" Width="200" Height="200" HorizontalAlignment="Left"/>
+
+                <Label Content="Foreground" Margin="5"/>
+                <materialDesign:ColorPicker Margin="5" Color="{Binding ForegroundColor}" Width="200" Height="200" HorizontalAlignment="Left"/>
+
+                <Label Content="Text size" Margin="5"/>
+                <Slider Margin="5" Minimum="10" Maximum="500" MinWidth="200" Value="{Binding TextSize}"/>
+
+            </StackPanel>
+        </materialDesign:DrawerHost.LeftDrawerContent>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Menu Grid.Row="0">
+                <MenuItem 
+                    Header="Settings"  
+                    Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                    CommandParameter="{x:Static Dock.Left}"/>
+            </Menu>
+
+            <TextBlock 
+                Grid.Row="1" 
+                Text="{Binding Text}" 
+                FontFamily="Consolas"
+                HorizontalAlignment="Stretch"
+                TextAlignment="Right"
+                FontSize="{Binding TextSize}"
+                Foreground="{Binding ForegroundColor, Converter={StaticResource ColorToBrushConverter}}" 
+                Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}"/>
+        </Grid>
+
+    </materialDesign:DrawerHost>
 </Window>
