@@ -378,8 +378,8 @@ namespace SoulMemory.EldenRing
         [Display(Name = "Tibia Mariner - Jarburg (Liurnia)", Description = "Liurnia of the Lakes")]
         TibiaMarinerJarburgLiurnia = 1039440800,
 
-        //[Display(Name = "Ancient Dragon Lansseax - Abandoned Coffin (Altus Plateau)", Description = "Altus Plateau")]
-        //AncientDragonLansseaxAbandonedCoffinAltusPlateau = 1037510800,
+        [Display(Name = "Ancient Dragon Lansseax - Abandoned Coffin (Altus Plateau)", Description = "Altus Plateau")]
+        AncientDragonLansseaxAbandonedCoffinAltusPlateau = 1037510800,
 
         [Display(Name = "Ancient Dragon Lansseax - Rampartside Path (Altus Plateau)", Description = "Altus Plateau")]
         AncientDragonLansseaxRampartsidePathAltusPlateau = 1041520800,
