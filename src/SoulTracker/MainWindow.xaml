@@ -20,14 +20,31 @@
 
 
     <materialDesign:DrawerHost
+        OpenMode="Standard"
         BorderBrush="{DynamicResource MaterialDesignDivider}"
-        BottomDrawerCornerRadius="20 20 0 0"
-        BottomDrawerBackground="{DynamicResource SecondaryHueLightBrush}">
+        LeftDrawerCornerRadius="0 10 10 0">
 
         <materialDesign:DrawerHost.LeftDrawerContent>
             <StackPanel Orientation="Vertical">
+                <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal" Margin="5">
 
-                <Label Content="Background" Margin="5"/>
+                    <Label Content="Background" VerticalAlignment="Bottom"/>
+
+                    <Button
+                        Margin="80,0,0,0"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                        Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                        CommandParameter="{x:Static Dock.Left}">
+                        <materialDesign:PackIcon
+                            Kind="Close"
+                            Height="30"
+                            Width="30" />
+                    </Button>
+                </StackPanel>
+
+                
+
                 <materialDesign:ColorPicker Margin="5" Color="{Binding BackgroundColor}" Width="200" Height="200" HorizontalAlignment="Left"/>
 
                 <Label Content="Foreground" Margin="5"/>
