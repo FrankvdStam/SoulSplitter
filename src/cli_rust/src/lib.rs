@@ -1,7 +1,8 @@
 use winapi::shared::minwindef::{BOOL, DWORD, HINSTANCE, LPVOID, TRUE};
 use winapi::um::winnt::{DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 use std::panic;
-use rust_memory::detours;
+use rust_memory;
+
 #[no_mangle]
 #[allow(non_snake_case)]
 pub unsafe extern "system" fn DllMain(
@@ -12,21 +13,16 @@ pub unsafe extern "system" fn DllMain(
 {
     if call_reason == DLL_PROCESS_ATTACH
     {
-        //std::thread::spawn(move ||
-        //{
-            winapi::um::consoleapi::AllocConsole();
-            println!("Init");
+        winapi::um::consoleapi::AllocConsole();
+        println!("Init");
 
-            //Redirect panics
-            panic::set_hook(Box::new(|i| {
-                println!("panic");
-                println!("{}", i);
-            }));
+        //Redirect panics
+        panic::set_hook(Box::new(|i| {
+            println!("panic");
+            println!("{}", i);
+        }));
 
-            //Init detours
-            detours::init();
-
-        //});
+        rust_memory::init();
     }
 
     if call_reason == DLL_PROCESS_DETACH

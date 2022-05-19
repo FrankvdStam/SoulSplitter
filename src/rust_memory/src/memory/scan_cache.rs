@@ -1,5 +1,6 @@
 use std::mem::{size_of};
 use std::ffi::{c_void};
+use std::path::Path;
 use std::slice;
 use winapi::shared::minwindef::{HINSTANCE, HMODULE, MAX_PATH};
 use winapi::shared::ntdef::{NULL};
@@ -7,7 +8,25 @@ use winapi::um::processthreadsapi::GetCurrentProcess;
 use winapi::um::psapi::{EnumProcessModules, GetModuleFileNameExA, GetModuleInformation, MODULEINFO};
 use crate::pattern_scanner::{scan, to_pattern};
 
-fn init_scan_cache()
+pub fn get_process_name() -> Result<String, ()>
+{
+    unsafe
+    {
+        let process_id = GetCurrentProcess();
+
+        let mut mod_name = [0; MAX_PATH];
+        if GetModuleFileNameExA(process_id, 0 as HMODULE, mod_name.as_mut_ptr(), MAX_PATH as u32) != 0
+        {
+            let len  = mod_name.iter().position(|&r| r == 0).unwrap();
+            let path = String::from_utf8(mod_name[0..len].iter().map(|&c| c as u8).collect()).unwrap();
+            let filename = String::from(Path::new(&path).file_name().unwrap().to_str().unwrap());
+            return Ok(filename);
+        }
+        Err(())
+    }
+}
+
+pub fn init_scan_cache(process_name: String)
 {
     unsafe
     {
@@ -31,7 +50,7 @@ fn init_scan_cache()
                 let len  = mod_name.iter().position(|&r| r == 0).unwrap();
                 let name = String::from_utf8(mod_name[0..len].iter().map(|&c| c as u8).collect()).unwrap();
 
-                if name.ends_with("eldenring.exe")
+                if name.ends_with(&process_name)
                 {
                     let mut info: MODULEINFO = MODULEINFO
                     {
@@ -68,7 +87,7 @@ fn init_scan_cache()
 }
 
 static mut MODULE_INIT: bool = false;
-static mut MODULE_BASE: usize = 0;
+pub static mut MODULE_BASE: usize = 0;
 static mut MODULE_SIZE: usize = 0;
 static mut MODULE_BYTES: Vec<u8> = Vec::new();
 
@@ -78,11 +97,7 @@ pub fn scan_absolute(str: &str) -> Result<usize, ()>
     {
         if !MODULE_INIT
         {
-            init_scan_cache();
-            if !MODULE_INIT
-            {
-                return Err(());
-            }
+            println!("Pattern scan requested but scan cache not initialized.")
         }
 
         let scan_result = scan(&MODULE_BYTES, &to_pattern(str));

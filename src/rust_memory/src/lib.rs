@@ -5,12 +5,50 @@
 mod native;
 mod memory;
 
-pub mod detours;
-pub mod elden_ring;
+pub mod eldenring;
+pub mod darksouls2;
 
 pub use crate::memory::*;
 pub use crate::native::*;
-pub use crate::elden_ring::*;
+pub use crate::eldenring::*;
+use crate::scan_cache::{get_process_name, init_scan_cache};
+
+pub fn init()
+{
+     //Find out what game is running
+     let process_name = get_process_name();
+     match process_name
+     {
+          Ok(name) =>
+          {
+               match name.to_lowercase().as_str()
+               {
+                    "eldenring.exe" =>
+                    {
+                         init_scan_cache(name);
+                         eldenring::init_event_flag_detour();
+                    },
+                    "darksoulsii.exe" =>
+                    {
+                         init_scan_cache(name);
+                         darksouls2::init_event_flag_detour();
+                         darksouls2::init_unlock_bonfire_detour();
+                    },
+                    _ => println!("unsupported process: {}", name),
+               }
+          }
+          Err(_) =>
+          {
+               println!("Failed to get process name");
+          }
+     }
+}
+
+
+
+
+
+
 
 extern "C"
 {
