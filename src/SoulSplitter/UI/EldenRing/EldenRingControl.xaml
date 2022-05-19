@@ -50,11 +50,13 @@
                         </CollectionViewSource.GroupDescriptions>
                     </CollectionViewSource>
 
+                    <!--
                     <CollectionViewSource Source="{Binding Items}" x:Key="ItemsCollectionViewSource">
                         <CollectionViewSource.GroupDescriptions>
                             <PropertyGroupDescription PropertyName="Category"/>
                         </CollectionViewSource.GroupDescriptions>
                     </CollectionViewSource>
+                    -->
 
                 </ResourceDictionary>
 
@@ -150,10 +152,16 @@
                     <eldenRingSplits:EldenRingSplitType>Grace</eldenRingSplits:EldenRingSplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
-
+            <!--
             <ComboBoxItem Content="I acquire an item">
                 <ComboBoxItem.Tag>
                     <eldenRingSplits:EldenRingSplitType>Item</eldenRingSplits:EldenRingSplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+            -->
+            <ComboBoxItem Content="I pick up an item">
+                <ComboBoxItem.Tag>
+                    <eldenRingSplits:EldenRingSplitType>ItemPickup</eldenRingSplits:EldenRingSplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
@@ -171,7 +179,6 @@
         <ui:FilteredComboBox
             Grid.Row="{StaticResource SplitTypeRow}"
             Grid.Column="0"
-            Grid.ColumnSpan="3"
             Margin="5"
             Width="420"
             HorizontalAlignment="Left"
@@ -236,6 +243,7 @@
             />
 
         <!-- Item splits DisplayMemberPath="Name" -->
+        <!--
         <ui:FilteredComboBox 
             Grid.Row="{StaticResource SplitTypeRow}"
             Margin="5, 5, 5, 5"
@@ -249,7 +257,7 @@
             SelectedValuePath="Item"
             IsEditable="True" 
             IsTextSearchEnabled="False" 
-            StaysOpenOnEdit="True">
+            StaysOpenOnEdit="True">-->
             <!--
             <ComboBox.GroupStyle>
                 <GroupStyle>
@@ -261,6 +269,36 @@
                 </GroupStyle>
             </ComboBox.GroupStyle>
             -->
+        <!--
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Height="800" IsItemsHost="True" VirtualizationMode="Recycling"/>
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Height="15" Width="420" Text="{Binding Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ui:FilteredComboBox>
+-->
+
+
+        <!-- ItemPickup splits -->
+        <ui:FilteredComboBox 
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Margin="5, 5, 5, 5"
+            HorizontalAlignment="Left"
+            Width="420"
+            ItemsSource="{Binding ItemPickups}" 
+            SelectedValue="{Binding NewSplitItemPickup}"
+            materialDesign:HintAssist.HelperText="which"
+            Visibility="{Binding VisibleItemPickupSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            SelectedValuePath="ItemPickup"
+            IsEditable="True" 
+            IsTextSearchEnabled="False" 
+            StaysOpenOnEdit="True">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel Height="800" IsItemsHost="True" VirtualizationMode="Recycling"/>
@@ -273,10 +311,10 @@
             </ComboBox.ItemTemplate>
         </ui:FilteredComboBox>
 
-        
 
 
-        <!-- row ============================================================================================================================================================================================== -->
+
+<!-- row ============================================================================================================================================================================================== -->
 
         <StackPanel
             Orientation="Horizontal"

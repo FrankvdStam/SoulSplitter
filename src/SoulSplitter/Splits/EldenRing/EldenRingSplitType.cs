@@ -12,6 +12,7 @@ namespace SoulSplitter.Splits.EldenRing
         Boss,
         Grace,
         Flag,
+        ItemPickup,
         Item,
     }
 }

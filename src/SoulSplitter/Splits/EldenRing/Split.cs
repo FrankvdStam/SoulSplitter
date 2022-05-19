@@ -29,6 +29,11 @@ namespace SoulSplitter.Splits.EldenRing
                     Flag = (uint)Grace;
                     break;
 
+                case EldenRingSplitType.ItemPickup:
+                    ItemPickup = (ItemPickup)split;
+                    Flag = (uint)ItemPickup;
+                    break;
+
                 case EldenRingSplitType.Flag:
                     Flag = (uint)split;
                     break;
@@ -44,6 +49,7 @@ namespace SoulSplitter.Splits.EldenRing
         
         public readonly Boss Boss;
         public readonly Grace Grace;
+        public readonly ItemPickup ItemPickup;
         public readonly Item Item;
         public readonly uint Flag;
 

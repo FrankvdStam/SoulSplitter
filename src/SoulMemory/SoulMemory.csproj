@@ -86,6 +86,7 @@
     <Compile Include="EldenRing\EldenRing.cs" />
     <Compile Include="EldenRing\Grace.cs" />
     <Compile Include="EldenRing\Item.cs" />
+    <Compile Include="EldenRing\ItemPickup.cs" />
     <Compile Include="EldenRing\ScreenState.cs" />
     <Compile Include="ITimeable.cs" />
     <Compile Include="Memory\Extensions.cs" />

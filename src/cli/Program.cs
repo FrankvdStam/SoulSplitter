@@ -31,8 +31,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            //TestUi();
-            InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
+            TestUi();
+            //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
             return;
 
             //return;

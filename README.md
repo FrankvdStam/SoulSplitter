@@ -10,7 +10,7 @@ For Elden Ring specific information, see https://github.com/FrankvdStam/SoulSpli
 You can find detailed installation instructions with screenshots here: https://github.com/FrankvdStam/SoulSplitter/wiki/Installation
 
 # Contact
-Find me on discord, on the speedsouls server, or by user wasted#2747 if you have trouble setting this up or have any other questions.
+If you are having trouble, have questions, feature requests or anything else, come find me on discord. I'm usually responsive in the er-help channel on the speedsouls server, or by user wasted#2747.
 
 # Credits
 
@@ -22,10 +22,10 @@ Soulsmodding community: http://soulsmodding.wikidot.com/
 
 Uses the excellent material design library by James Willock: https://materialdesigninxaml.net/
 
-Contains code from Nordgaren's DS2(S)-meta tool, which can be found here:  
+Thanks to Nordgaren, his tools can be found here:
 https://github.com/Nordgaren/DS2S-META  
 https://github.com/Nordgaren/DS2-META  
-Also had some help reading the inventory in Elden Ring from Nordgaren's ERD tools: https://github.com/Nordgaren/Erd-Tools
+https://github.com/Nordgaren/Erd-Tools  
 
 I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
 

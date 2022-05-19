@@ -227,6 +227,7 @@ namespace SoulSplitter.Splitters
 
                         case EldenRingSplitType.Boss:
                         case EldenRingSplitType.Grace:
+                        case EldenRingSplitType.ItemPickup:
                         case EldenRingSplitType.Flag:
                             if (!s.SplitConditionMet)
                             {
