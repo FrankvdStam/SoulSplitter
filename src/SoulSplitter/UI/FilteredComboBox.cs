@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -109,12 +110,14 @@ namespace SoulSplitter.UI
 
         private bool FilterItem(object value)
         {
-            var type = value.GetType();
+            //var type = value.GetType();
 
             if (value == null) return false;
             if (Text.Length == 0) return true;
 
-            return value.ToString().ToLower().Contains(Text.ToLower());
+            var words = Text.ToLower().Split(' ');
+            var lower = value.ToString().ToLower();
+            return words.All(lower.Contains);
         }
     }
 }
