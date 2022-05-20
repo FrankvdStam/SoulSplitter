@@ -26,7 +26,7 @@ namespace SoulTracker
             DataContextChanged += OnDataContextChanged;
         }
 
-        private MainViewModel _mainViewModel;
+        private MainViewModel? _mainViewModel;
 
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Windows.Data;
+using System.Xml.Serialization;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulSplitter.Splits.EldenRing;
@@ -20,24 +21,25 @@ namespace SoulSplitter.UI.EldenRing
 
 
 
-        private bool _startAutomatically = true;
         public bool StartAutomatically
         {
             get => _startAutomatically;
             set => SetField(ref _startAutomatically, value);
         }
+        private bool _startAutomatically = true;
 
-
-        private bool _noLogo = false;
-        public bool NoLogo
+        public bool LockIgtToZero
         {
-            get => _noLogo;
-            set => SetField(ref _noLogo, value);
+            get => _lockIgtToZero;
+            set => SetField(ref _lockIgtToZero, value);
         }
+        private bool _lockIgtToZero;
+
 
 
         #region Adding new splits ================================================================================================================
 
+        [XmlIgnore]
         public TimingType? NewSplitTimingType
         {
             get => _newSplitTimingType;
@@ -49,7 +51,8 @@ namespace SoulSplitter.UI.EldenRing
         }
 
         private TimingType? _newSplitTimingType;
-        
+
+        [XmlIgnore]
         public bool EnabledSplitType
         {
             get => _enabledSplitType;
@@ -57,6 +60,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private bool _enabledSplitType = false;
 
+        [XmlIgnore]
         public EldenRingSplitType? NewSplitType
         {
             get => _newSplitType;
@@ -102,6 +106,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private EldenRingSplitType? _newSplitType;
 
+        [XmlIgnore]
         public Boss? NewSplitBoss
         {
             get => _newSplitBoss;
@@ -113,6 +118,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private Boss? _newSplitBoss;
 
+        [XmlIgnore]
         public bool VisibleBossSplit
         {
             get => _visibleBossSplit;
@@ -120,6 +126,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private bool _visibleBossSplit;
 
+        [XmlIgnore]
         public Grace? NewSplitGrace
         {
             get => _newSplitGrace;
@@ -131,6 +138,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private Grace? _newSplitGrace;
 
+        [XmlIgnore]
         public bool VisibleGraceSplit
         {
             get => _visibleGraceSplit;
@@ -138,6 +146,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private bool _visibleGraceSplit;
 
+        [XmlIgnore]
         public uint? NewSplitFlag
         {
             get => _newSplitFlag;
@@ -149,6 +158,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private uint? _newSplitFlag;
 
+        [XmlIgnore]
         public bool VisibleFlagSplit
         {
             get => _visibleFlagSplit;
@@ -156,7 +166,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private bool _visibleFlagSplit;
 
-        
+        [XmlIgnore]
         public Item NewSplitItem
         {
             get => _newSplitItem;
@@ -168,6 +178,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private Item _newSplitItem;
 
+        [XmlIgnore]
         public bool VisibleItemSplit
         {
             get => _visibleItemSplit;
@@ -175,7 +186,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private bool _visibleItemSplit;
 
-
+        [XmlIgnore]
         public bool VisibleItemPickupSplit
         {
             get => _visibleItemPickupSplit;
@@ -183,6 +194,7 @@ namespace SoulSplitter.UI.EldenRing
         }
         private bool _visibleItemPickupSplit;
 
+        [XmlIgnore]
         public ItemPickup? NewSplitItemPickup
         {
             get => _newSplitItemPickup;
@@ -195,7 +207,7 @@ namespace SoulSplitter.UI.EldenRing
         private ItemPickup? _newSplitItemPickup;
 
 
-        
+        [XmlIgnore]
         public bool EnabledAddSplit
         {
             get => _enabledAddSplit;

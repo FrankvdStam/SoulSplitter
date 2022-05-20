@@ -63,11 +63,12 @@
                 <ResourceDictionary>
 
                     <system:Int32 x:Key="StartAutomaticallyRow" >0</system:Int32>
-                    <system:Int32 x:Key="SeparatorRow"          >1</system:Int32>
-                    <system:Int32 x:Key="SplitDefinitionRow"    >2</system:Int32>
-                    <system:Int32 x:Key="SplitTypeRow"          >3</system:Int32>
-                    <system:Int32 x:Key="AddRemoveSplitRow"     >4</system:Int32>
-                    <system:Int32 x:Key="SplitsTreeRow"         >5</system:Int32>
+                    <system:Int32 x:Key="LockTimerRow"          >1</system:Int32>
+                    <system:Int32 x:Key="SeparatorRow"          >2</system:Int32>
+                    <system:Int32 x:Key="SplitDefinitionRow"    >3</system:Int32>
+                    <system:Int32 x:Key="SplitTypeRow"          >4</system:Int32>
+                    <system:Int32 x:Key="AddRemoveSplitRow"     >5</system:Int32>
+                    <system:Int32 x:Key="SplitsTreeRow"         >6</system:Int32>
 
                 </ResourceDictionary>
 
@@ -78,6 +79,7 @@
     <Grid>
         <Grid.RowDefinitions>
            <!-- <RowDefinition Height="40"/> -->
+            <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -94,6 +96,14 @@
             Margin="5"
             Content="Start automatically with initial black screen removal" 
             IsChecked="{Binding StartAutomatically}"/>
+
+        <!-- row ============================================================================================================================================================================================== -->
+
+        <CheckBox
+            Grid.Row="{StaticResource LockTimerRow}"
+            Margin="5"
+            Content="Lock IGT to 0:00 (for NG+ saves)"
+            IsChecked="{Binding LockIgtToZero}"/>
 
         <!-- row ============================================================================================================================================================================================== -->
         <Label 

@@ -18,12 +18,12 @@ namespace SoulTracker
                 return new SolidColorBrush(color);
             }
 
-            return null;
+            throw new NotSupportedException($"Type not supported {targetType}");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

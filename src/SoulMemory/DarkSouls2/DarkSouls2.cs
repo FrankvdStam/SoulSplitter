@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SoulMemory.DarkSouls2.Sotfs;
-using SoulMemory.DarkSouls2.Vanilla;
 
 namespace SoulMemory.DarkSouls2
 {

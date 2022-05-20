@@ -69,17 +69,6 @@
     <Compile Include="DarkSouls2\DarkSouls2.cs" />
     <Compile Include="DarkSouls2\Data.cs" />
     <Compile Include="DarkSouls2\IDarkSouls2.cs" />
-    <Compile Include="DarkSouls2\Sotfs\DS2SAssembly.cs" />
-    <Compile Include="DarkSouls2\Sotfs\DS2SClass.cs" />
-    <Compile Include="DarkSouls2\Sotfs\DS2SCovenant.cs" />
-    <Compile Include="DarkSouls2\Sotfs\DS2SInfusion.cs" />
-    <Compile Include="DarkSouls2\Sotfs\DS2SItem.cs" />
-    <Compile Include="DarkSouls2\Sotfs\DS2SOffsets.cs" />
-    <Compile Include="DarkSouls2\Vanilla\DS2Class.cs" />
-    <Compile Include="DarkSouls2\Vanilla\DS2Covenant.cs" />
-    <Compile Include="DarkSouls2\Vanilla\DS2Infusion.cs" />
-    <Compile Include="DarkSouls2\Vanilla\DS2Item.cs" />
-    <Compile Include="DarkSouls2\Vanilla\DS2Offsets.cs" />
     <Compile Include="DarkSouls2\WarpType.cs" />
     <Compile Include="DarkSouls3\DarkSouls3.cs" />
     <Compile Include="EldenRing\Boss.cs" />

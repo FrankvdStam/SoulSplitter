@@ -71,6 +71,13 @@ namespace SoulSplitter.Splitters
             //Refresh attachment to ER process
             RefreshEldenRing();
 
+            //Lock IGT to 0 if requested
+            if (_eldenRingViewModel.LockIgtToZero)
+            {
+                _eldenRing.ResetIgt();
+                return;//Don't allow other features to be used while locking the timer
+            }
+
             //Update the timer
             UpdateTimer(TimingMethod.Igt, _eldenRingViewModel.StartAutomatically);
 
