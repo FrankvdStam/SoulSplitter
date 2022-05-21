@@ -8,6 +8,7 @@
 		<changelog>
 			<change>HUD will be set to ON automatically each time the timer starts (this is not reflected in the game's settings, but the HUD will be drawn)</change>
 			<change>Added item pickup flags autosplitting</change>
+			<change>Added a timer lock feature, use this to prepare NG+ save files for use with SoulSplitter</change>
 		</changelog>
 	</update>
 	<update version="1.0.22">

@@ -15,8 +15,7 @@ namespace SoulMemory
         {
             _clientWebSocket = new ClientWebSocket();
             _clientWebSocket.ConnectAsync(new Uri(" ws://localhost:12345"), CancellationToken.None).GetAwaiter().GetResult();
-            var bytes = new byte[]{0, 1, 2, 3};
-            var segment = new ArraySegment<byte>(bytes);
+            
             SendString("unload");
         }
 
