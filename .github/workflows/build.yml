@@ -21,4 +21,4 @@ jobs:
         
       - name: run NUnit tests
         shell: powershell
-        run: packages\NUnit.ConsoleRunner.3.15.0\tools\nunit3-console.exe src\tests\SoulSplitter.Tests\build\SoulSplitter.Tests.dll
+        run: packages\NUnit.ConsoleRunner.3.15.0\tools\nunit3-console.exe tests\SoulSplitter.Tests\build\SoulSplitter.Tests.dll
