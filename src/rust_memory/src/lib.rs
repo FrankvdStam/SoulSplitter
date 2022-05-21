@@ -8,45 +8,87 @@ mod memory;
 
 pub mod eldenring;
 pub mod darksouls2;
-pub mod console;
 pub mod websocket;
 
+use std::thread;
+use std::time::Duration;
+use winapi::shared::minwindef::PROC;
 pub use crate::memory::*;
 pub use crate::native::*;
 pub use crate::eldenring::*;
-use crate::scan_cache::{get_process_name, init_scan_cache};
+use crate::processes::Process;
+use crate::scan_cache::{init_scan_cache};
+use crate::websocket::{init_websocket_server, kill_websocket_server};
+
+static mut PROCESS: Option<Process> = None;
 
 pub fn init()
 {
-     //Find out what game is running
-     let process_name = get_process_name();
-     match process_name
+     unsafe
      {
-          Ok(name) =>
+          init_websocket_server();
+
+          PROCESS = Some(Process::get_current_process().unwrap());
+          let process = PROCESS.as_ref().unwrap();
+
+          let temp = process.name.to_lowercase();
+          let process_name = temp.as_str();
+          init_scan_cache(String::from(process_name));
+
+          match process_name
           {
-               match name.to_lowercase().as_str()
+               "eldenring.exe" =>
                {
-                    "eldenring.exe" =>
-                    {
-                         init_scan_cache(name);
-                         eldenring::init_event_flag_detour();
-                    },
-                    "darksoulsii.exe" =>
-                    {
-                         init_scan_cache(name);
-                         darksouls2::init_event_flag_detour();
-                         darksouls2::init_unlock_bonfire_detour();
-                    },
-                    _ => println!("unsupported process: {}", name),
-               }
-          }
-          Err(_) =>
-          {
-               println!("Failed to get process name");
+
+                    eldenring::init_event_flag_detour();
+               },
+               "darksoulsii.exe" =>
+               {
+                    darksouls2::init_event_flag_detour();
+                    darksouls2::init_unlock_bonfire_detour();
+               },
+               _ => println!("unsupported process: {}", process_name),
           }
      }
 }
 
+pub fn unload()
+{
+     unsafe
+     {
+          kill_websocket_server();
+
+          let process = PROCESS.as_mut().unwrap();
+          let temp = process.name.to_lowercase();
+          let process_name = temp.as_str();
+
+          //Need to disable all detours before unloading, otherwise Elden Ring will jump to unloaded code.
+          match process_name
+          {
+               "eldenring.exe" =>
+               {
+
+                    eldenring::disable_event_flag_detour();
+               },
+               "darksoulsii.exe" =>
+               {
+                    darksouls2::disable_event_flag_detour();
+                    darksouls2::disable_unlock_bonfire_detour();
+               },
+               _ => {}
+          }
+
+
+          process.load_modules();
+          for m in &process.modules
+          {
+               if m.name == "soulinjectee.dll"
+               {
+                    m.unload(process);
+               }
+          }
+     }
+}
 
 
 

@@ -44,6 +44,11 @@ pub fn init_unlock_bonfire_detour()
 }
 
 
+pub fn disable_unlock_bonfire_detour()
+{
+    unsafe { UnlockBonfire.disable() };
+}
+
 
 
 

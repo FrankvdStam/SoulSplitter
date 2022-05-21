@@ -9,12 +9,12 @@ static mut COMMAND_BUFFER: Option<Mutex<Vec<String>>> = None;
 fn init_command_buffer()
 {
     unsafe
-    {
-        if COMMAND_BUFFER.is_none()
         {
-            COMMAND_BUFFER = Some(Mutex::new(Vec::new()));
+            if COMMAND_BUFFER.is_none()
+            {
+                COMMAND_BUFFER = Some(Mutex::new(Vec::new()));
+            }
         }
-    }
 }
 
 
@@ -26,9 +26,11 @@ pub fn write_command(command: String)
         {
             Ok(mut guard) =>
             {
+                println!("writing to command buffer: {}", command);
                 guard.push(command);
             }
             Err(_) => {}
+
         }
     }
 }
@@ -41,18 +43,46 @@ pub fn read_command() -> Option<String>
         {
             Ok(mut guard) =>
             {
-                return guard.pop();
+                let command = guard.pop();
+                if command.is_some()
+                {
+                    let temp = command.unwrap();
+                    println!("read from command buffer: {}", temp);
+                    return Some(temp)
+                }
+                return None;
             }
-            Err(_) => {}
+            Err(e) => { println!("Failed to read {}", e); }
         }
     }
     return None;
 }
 
 
+static mut KILL_SERVER: Option<Mutex<bool>> = None;
+pub fn kill_websocket_server()
+{
+    loop
+    {
+        unsafe
+        {
+            match KILL_SERVER.as_ref().unwrap().try_lock()
+            {
+                Ok(mut guard) =>
+                {
+                    *guard = true;
+                    return;
+                },
+                _ => {},
+            }
+        }
+    }
+}
+
 pub fn init_websocket_server()
 {
     init_command_buffer();
+    unsafe{ KILL_SERVER = Some(Mutex::new(false)) };
 
     thread::spawn(||
     {
@@ -62,6 +92,19 @@ pub fn init_websocket_server()
         let mut clients: HashMap<u64, Responder> = HashMap::new();
 
         loop {
+            //stop the server when signalled
+            unsafe
+            {
+                match KILL_SERVER.as_ref().unwrap().try_lock()
+                {
+                    Ok(mut guard) => {
+                        if *guard {
+                            return;
+                    }},
+                    _ => {}
+                }
+            }
+
             match event_hub.poll_event() {
                 Event::Connect(client_id, responder) => {
                     println!("A client connected with id #{}", client_id);

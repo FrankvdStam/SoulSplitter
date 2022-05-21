@@ -1,12 +1,13 @@
 use std::ffi::c_void;
 use std::intrinsics::size_of;
 use std::path::Path;
-use std::slice;
+use std::{slice, thread};
+use std::time::Duration;
 use winapi::ctypes::c_char;
-use winapi::shared::minwindef::{FALSE, HINSTANCE, HMODULE, LPCVOID, LPDWORD, LPVOID, MAX_PATH};
+use winapi::shared::minwindef::{DWORD, FALSE, HINSTANCE, HMODULE, LPCVOID, LPDWORD, LPVOID, MAX_PATH};
 use winapi::shared::ntdef::NULL;
 use winapi::um::memoryapi::{VirtualAllocEx, VirtualFreeEx, WriteProcessMemory};
-use winapi::um::processthreadsapi::{CreateRemoteThread, OpenProcess};
+use winapi::um::processthreadsapi::{CreateRemoteThread, GetCurrentProcess, GetCurrentProcessId, OpenProcess};
 use winapi::um::psapi::{EnumProcesses, EnumProcessModules, GetModuleFileNameExA, GetModuleInformation, MODULEINFO};
 use winapi::um::winnt;
 use winapi::um::winnt::{HANDLE, LPCSTR, MEM_COMMIT, MEM_RELEASE, MEM_RESERVE, PAGE_READWRITE};
@@ -15,11 +16,13 @@ use winapi::um::libloaderapi::GetModuleHandleA;
 use winapi::um::minwinbase::{LPSECURITY_ATTRIBUTES, PTHREAD_START_ROUTINE};
 use winapi::um::synchapi::WaitForSingleObject;
 use winapi::um::libloaderapi::FreeLibrary;
+use winapi::um::libloaderapi::FreeLibraryAndExitThread;
+
 
 pub struct Process
 {
-    pub id: u32,
-    pub handle: u32,
+    pub id: usize,
+    pub handle: usize,
     pub path: String,
     pub name: String,
 
@@ -76,7 +79,7 @@ impl Process
                     let len  = mod_name.iter().position(|&r| r == 0).unwrap();
                     let path = String::from_utf8(mod_name[0..len].iter().map(|&c| c as u8).collect()).unwrap();
                     let filename = String::from(Path::new(&path).file_name().unwrap().to_str().unwrap());
-                    result.push(Process::new(pid, handle as u32, path, filename));
+                    result.push(Process::new(pid as usize, handle as usize, path, filename));
                 }
             }
 
@@ -84,7 +87,35 @@ impl Process
         }
     }
 
-    pub fn new(id: u32, handle: u32, path: String, name: String) -> Self { Process { id, handle, path, name, main_module: None, modules: Vec::new() } }
+    pub fn get_current_process() -> Result<Self, ()>
+    {
+        unsafe
+        {
+            let process_id = GetCurrentProcessId();
+            let handle = GetCurrentProcess();
+
+            //let handle = OpenProcess(
+            //    winnt::PROCESS_QUERY_INFORMATION
+            //        | winnt::PROCESS_VM_READ
+            //        | winnt::PROCESS_VM_WRITE
+            //        | winnt::PROCESS_VM_OPERATION,
+            //    FALSE,
+            //    process_id as DWORD
+            //);
+
+            let mut mod_name = [0; MAX_PATH];
+            if GetModuleFileNameExA(handle, 0 as HMODULE, mod_name.as_mut_ptr(), MAX_PATH as u32) != 0
+            {
+                let len  = mod_name.iter().position(|&r| r == 0).unwrap();
+                let path = String::from_utf8(mod_name[0..len].iter().map(|&c| c as u8).collect()).unwrap();
+                let filename = String::from(Path::new(&path).file_name().unwrap().to_str().unwrap());
+                return Ok(Process::new(process_id as usize, handle as usize, path, filename));
+            }
+            Err(())
+        }
+    }
+
+    pub fn new(id: usize, handle: usize, path: String, name: String) -> Self { Process { id, handle, path, name, main_module: None, modules: Vec::new() } }
 
     pub fn load_modules(&mut self)
     {
@@ -197,45 +228,7 @@ impl ProcessModule
     {
         unsafe
         {
-            //let name = self.path.clone().to_owned() + "\0";
-            //let module_name = name.as_bytes();
-            //let handle = GetModuleHandleA(module_name.as_ptr() as LPCSTR);
-            //let result = FreeLibrary(handle);
-            //println!("free res {}", result)
-
-            //let path_null = path.clone().to_owned() + "\0";
-
-            //Allocate memory for a path to the DLL to inject and write the path to it.
-            //let strlen_bytes = (path_null.len() + 1) * size_of::<c_char>();
-            //let dll_path_ptr = VirtualAllocEx(self.handle as HANDLE, 0 as LPVOID, strlen_bytes, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-            //let mut bytes_written = 0;
-            //let bytes = path_null.as_bytes();
-            //WriteProcessMemory(self.handle as HANDLE, dll_path_ptr, bytes.as_ptr() as LPCVOID, strlen_bytes, &mut bytes_written);
-
-            let hmodule_ptr = VirtualAllocEx(process.handle as HANDLE, 0 as LPVOID, size_of::<usize>(), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-            let bytes = self.id.to_ne_bytes();let mut bytes_written = 0;
-            WriteProcessMemory(process.handle as HANDLE, hmodule_ptr, bytes.as_ptr() as LPCVOID, bytes.len(), &mut bytes_written);
-
-            let module_name = "kernel32.dll\0".as_bytes();
-            let free_library = "FreeLibrary\0".as_bytes();
-            let free_library_address = GetProcAddress(GetModuleHandleA(module_name.as_ptr() as LPCSTR), free_library.as_ptr() as LPCSTR);
-
-            let pthread_start_routine: PTHREAD_START_ROUTINE = std::mem::transmute(free_library_address as *const PTHREAD_START_ROUTINE);
-
-            let thread = CreateRemoteThread(
-                process.handle as HANDLE,
-                0 as LPSECURITY_ATTRIBUTES,
-                0,
-                pthread_start_routine,
-                hmodule_ptr,
-                0,
-                0 as LPDWORD
-            );
-            let result = WaitForSingleObject(thread, 10000);
-            println!("res {}", result);
-
-            VirtualFreeEx(process.handle as HANDLE, hmodule_ptr, 0, MEM_RELEASE);
-
+            FreeLibraryAndExitThread(self.id as HINSTANCE, 0);
         };
     }
 }

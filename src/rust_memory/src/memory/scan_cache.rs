@@ -8,23 +8,23 @@ use winapi::um::processthreadsapi::GetCurrentProcess;
 use winapi::um::psapi::{EnumProcessModules, GetModuleFileNameExA, GetModuleInformation, MODULEINFO};
 use crate::pattern_scanner::{scan, to_pattern};
 
-pub fn get_process_name() -> Result<String, ()>
-{
-    unsafe
-    {
-        let process_id = GetCurrentProcess();
-
-        let mut mod_name = [0; MAX_PATH];
-        if GetModuleFileNameExA(process_id, 0 as HMODULE, mod_name.as_mut_ptr(), MAX_PATH as u32) != 0
-        {
-            let len  = mod_name.iter().position(|&r| r == 0).unwrap();
-            let path = String::from_utf8(mod_name[0..len].iter().map(|&c| c as u8).collect()).unwrap();
-            let filename = String::from(Path::new(&path).file_name().unwrap().to_str().unwrap());
-            return Ok(filename);
-        }
-        Err(())
-    }
-}
+//pub fn get_current_process() -> Result<String, ()>
+//{
+//    unsafe
+//    {
+//        let process_id = GetCurrentProcess();
+//
+//        let mut mod_name = [0; MAX_PATH];
+//        if GetModuleFileNameExA(process_id, 0 as HMODULE, mod_name.as_mut_ptr(), MAX_PATH as u32) != 0
+//        {
+//            let len  = mod_name.iter().position(|&r| r == 0).unwrap();
+//            let path = String::from_utf8(mod_name[0..len].iter().map(|&c| c as u8).collect()).unwrap();
+//            let filename = String::from(Path::new(&path).file_name().unwrap().to_str().unwrap());
+//            return Ok(filename);
+//        }
+//        Err(())
+//    }
+//}
 
 pub fn init_scan_cache(process_name: String)
 {

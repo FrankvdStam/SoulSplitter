@@ -6,15 +6,30 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 use detour::GenericDetour;
-use rust_memory::console::console_test;
 
 use rust_memory::pattern_scanner::{scan, to_pattern};
 use rust_memory::pointer::Pointer;
 use rust_memory::processes::Process;
 use rust_memory::scan_cache::scan_absolute;
+use rust_memory::websocket::{init_websocket_server, read_command, write_command};
 
 fn main()
 {
+    //let mut proc = Process::get_current_process().unwrap();
+    //proc.load_modules();
+    //println!("{}", proc.modules.len());
+    //return;
+//
+
+    //init_websocket_server();
+//
+    //write_command(String::from("poep"));
+    //let cmd = read_command().unwrap();
+    //println!("{}", cmd);
+//
+    //return;
+
+
     let exe_path = std::env::current_exe().unwrap().as_path().to_owned();
     let dir = Path::parent(&exe_path).unwrap().join("soulinjectee.dll");
     let dll_path = fs::canonicalize(dir).unwrap().to_str().unwrap().to_owned();

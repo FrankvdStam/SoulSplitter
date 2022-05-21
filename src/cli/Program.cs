@@ -32,7 +32,9 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            var client = new SoulInjecteeClient();
+            using (var client = new SoulInjecteeClient())
+            {
+            }
             return;
 
             //TestUi();
