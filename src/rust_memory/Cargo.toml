@@ -12,7 +12,7 @@ cc = "1.0.73"
 sysinfo = "0.23.5"
 detour = "0.8.1"
 chrono = "0.4.19"
-
+simple-websockets = "0.1.4"
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3.9", features = ["memoryapi", "processthreadsapi", "tlhelp32"] }

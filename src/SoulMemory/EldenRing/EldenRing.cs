@@ -204,23 +204,23 @@ namespace SoulMemory.EldenRing
             return false;
         }
 
-        public Vector3f GetPosition()
-        {
-            if (_playerChrPhysicsModule != null)
-            {
-                return new Vector3f(_playerChrPhysicsModule.ReadFloat(0x70), _playerChrPhysicsModule.ReadFloat(0x74), _playerChrPhysicsModule.ReadFloat(0x78));
-            }
-            return new Vector3f(0, 0, 0);
-        }
-
-        public float GetAngle()
-        {
-            if (_playerChrPhysicsModule != null)
-            {
-                return _playerChrPhysicsModule.ReadFloat(0x54);
-            }
-            return 0f;
-        }
+        //public Vector3f GetPosition()
+        //{
+        //    if (_playerChrPhysicsModule != null)
+        //    {
+        //        return new Vector3f(_playerChrPhysicsModule.ReadFloat(0x70), _playerChrPhysicsModule.ReadFloat(0x74), _playerChrPhysicsModule.ReadFloat(0x78));
+        //    }
+        //    return new Vector3f(0, 0, 0);
+        //}
+        //
+        //public float GetAngle()
+        //{
+        //    if (_playerChrPhysicsModule != null)
+        //    {
+        //        return _playerChrPhysicsModule.ReadFloat(0x54);
+        //    }
+        //    return 0f;
+        //}
         
         public ScreenState GetScreenState()
         {
@@ -230,6 +230,11 @@ namespace SoulMemory.EldenRing
                 return s;
             }
             return ScreenState.Unknown;
+        }
+
+        public int GetBlackScreenFlag()
+        {
+            return _menuManImp?.ReadInt32(_blackScreenOffset) ?? 0;
         }
 
         private bool NoCutsceneOrBlackscreen()
@@ -341,20 +346,20 @@ namespace SoulMemory.EldenRing
         //https://github.com/Nordgaren/Erd-Tools
 
         private const int InventoryEntrySize = 0x14;
-
+        
         private int DeleteFromEnd(int num, int n)
         {
             for (int i = 1; num != 0; i++)
             {
                 num = num / 10;
-
+        
                 if (i == n)
                     return num;
             }
-
+        
             return 0;
         }
-
+        
         public List<Item> ReadInventory()
         {
             var items = new List<Item>();
@@ -366,13 +371,13 @@ namespace SoulMemory.EldenRing
             
             var inventoryCount = _playerGameData.ReadInt32(0x420);
             var inventory = _inventory.ReadBytes(inventoryCount * InventoryEntrySize);
-
+        
             for (int i = 0; i < inventoryCount; i++)
             {
                 var itemIndex = i * InventoryEntrySize;
-
+        
                
-
+        
                 var itemId = BitConverter.ToInt32(new byte[]
                 {
                     inventory[itemIndex + 0x4],
@@ -380,17 +385,17 @@ namespace SoulMemory.EldenRing
                     inventory[itemIndex + 0x6],
                     0x0,
                 }, 0);
-
+        
                 byte cat = inventory[itemIndex + 0X7];
                 byte mask = 0xF0;
                 cat &= mask;
                 var category = (Category)(cat * 0x1000000);
-
+        
                 if (category == Category.Weapons)
                 {
                     itemId = DeleteFromEnd(itemId, 2) * 100;
                 }
-
+        
                 var item = Item.FromLookupTable(category, (uint)itemId);
                 if (item != null)
                 {
@@ -398,7 +403,7 @@ namespace SoulMemory.EldenRing
                     items.Add(item);
                 }
             }
-
+        
             return items;
         }
 

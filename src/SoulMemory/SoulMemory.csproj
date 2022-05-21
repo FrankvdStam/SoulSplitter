@@ -90,6 +90,7 @@
     <Compile Include="Native\User32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Native\MemoryRegion.cs" />
+    <Compile Include="SoulInjecteeClient.cs" />
     <Compile Include="Vector3f.cs" />
     <Compile Include="DarkSouls1\WarpType.cs" />
     <Compile Include="DarkSouls1\ZoneType.cs" />

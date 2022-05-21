@@ -1,7 +1,7 @@
 use std::slice;
 use chrono::prelude::*;
 use detour::static_detour;
-use crate::scan_cache::{MODULE_BASE, scan_absolute};
+use crate::scan_cache::{scan_absolute};
 
 static_detour!{ static UnlockBonfire: fn(u64, u64); }
 

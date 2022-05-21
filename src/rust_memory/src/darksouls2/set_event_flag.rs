@@ -1,6 +1,6 @@
 use chrono::Local;
 use detour::static_detour;
-use crate::scan_cache::{MODULE_BASE, scan_absolute};
+use crate::scan_cache::{scan_absolute};
 
 
 static_detour!{ static SetEventFlagHook: fn(u64, u32, u8); }
@@ -9,15 +9,15 @@ static_detour!{ static SetEventFlagHook: fn(u64, u32, u8); }
 
 fn log_event_flag(rdx: u64, edx: u32, r8d: u8)
 {
-    unsafe
-        {
+    //unsafe
+    //    {
             //Only log flags once to cleanup the output a bit
             //if !FLAGS.contains(&edx)
             //{
             println!("{} generic flag {} {}", Local::now().format("%H:%M:%S%.3f"), edx, r8d);
             //    FLAGS.push(edx);
             //}
-        }
+    //    }
     //This calls the original function without detouring, to repair the event flag system.
     SetEventFlagHook.call(rdx, edx, r8d);
 }

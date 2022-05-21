@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SoulMemory;
 using SoulMemory.DarkSouls1;
 using SoulMemory.DarkSouls3;
 using SoulMemory.EldenRing;
@@ -31,9 +32,12 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();
-            //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
+            var client = new SoulInjecteeClient();
             return;
+
+            //TestUi();
+            //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
+            //return;
 
             //return;
             //var itesm = Enum.GetValues(typeof(Item)).Cast<Item>().ToList();
@@ -51,16 +55,12 @@ namespace cli
 
 
             var er = new EldenRing();
-            er.Init();
-            er.ReadInventory();
-            Console.ReadKey();
-            return;
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(er.GetTestValue());
+                Console.WriteLine(er.GetScreenState() + " " + er.GetBlackScreenFlag());
                 er.Refresh();
-                Thread.Sleep(500);
+                Thread.Sleep(100);
             }
 
             //LogSetEventFlag(EventFlagLogMode.All);

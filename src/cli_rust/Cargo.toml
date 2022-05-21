@@ -9,7 +9,7 @@ crate-type = ["cdylib"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-winapi = { version = "0.3.9", features = ["memoryapi", "processthreadsapi", "tlhelp32", "consoleapi"] }
+winapi = { version = "0.3.9", features = ["memoryapi", "processthreadsapi", "tlhelp32", "consoleapi", "processenv"] }
 detour = "0.8.1"
 
 [dependencies.rust_memory]

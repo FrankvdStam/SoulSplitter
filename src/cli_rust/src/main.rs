@@ -1,14 +1,52 @@
 #![allow(unreachable_code)]
+#![allow(dead_code)]
 #![allow(unused_imports)]
 
 
+use std::fs;
+use std::path::{Path, PathBuf};
 use detour::GenericDetour;
+use rust_memory::console::console_test;
 
 use rust_memory::pattern_scanner::{scan, to_pattern};
 use rust_memory::pointer::Pointer;
+use rust_memory::processes::Process;
 use rust_memory::scan_cache::scan_absolute;
 
 fn main()
+{
+    let exe_path = std::env::current_exe().unwrap().as_path().to_owned();
+    let dir = Path::parent(&exe_path).unwrap().join("soulinjectee.dll");
+    let dll_path = fs::canonicalize(dir).unwrap().to_str().unwrap().to_owned();
+
+    //exe_path
+
+    //let dll_path = .to_str().unwrap().to_owned() + "\\soulinjectee.dll";
+    println!("{}", &dll_path);
+
+
+    let processes = Process::get_active_processes();
+
+    for mut p in processes
+    {
+        if p.name == "eldenring.exe"
+        {
+            //println!("{}", p.main_module.as_ref().unwrap().path);
+            //println!("{}", p.main_module.as_ref().unwrap().name);
+            //println!("{}", p.main_module.as_ref().unwrap().base);
+            //println!("{}", p.main_module.as_ref().unwrap().size);
+//
+            //println!("{} {}", p.id, p.name);
+            p.inject_dll(&dll_path);
+        }
+
+
+    }
+}
+
+
+
+fn testy()
 {
     //scan_absolute();
     return;

@@ -1,12 +1,15 @@
 #![feature(naked_functions)]
 #![feature(const_mut_refs)]
 #![feature(once_cell)]
+#![feature(core_intrinsics)]
 
 mod native;
 mod memory;
 
 pub mod eldenring;
 pub mod darksouls2;
+pub mod console;
+pub mod websocket;
 
 pub use crate::memory::*;
 pub use crate::native::*;
