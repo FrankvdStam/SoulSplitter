@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Serialization;
 
 namespace SoulMemory.EldenRing
 {

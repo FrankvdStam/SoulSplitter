@@ -153,8 +153,8 @@ namespace SoulSplitter.Splitters
                         {
                             _eldenRing.ResetIgt();
                             StartTimer();
-                            StartAutoSplitting(_eldenRingViewModel);
                             _timerModel.Start();
+                            StartAutoSplitting(_eldenRingViewModel);
                         }
                     }
                     break;

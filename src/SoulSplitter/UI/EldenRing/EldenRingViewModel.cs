@@ -342,9 +342,9 @@ namespace SoulSplitter.UI.EldenRing
                 foreach (var splitType in timingType.Children)
                 {
                     splitType.Parent = timingType;
-                    foreach (var boss in splitType.Children)
+                    foreach (var split in splitType.Children)
                     {
-                        boss.Parent = splitType;
+                        split.Parent = splitType;
                     }
                 }
             }

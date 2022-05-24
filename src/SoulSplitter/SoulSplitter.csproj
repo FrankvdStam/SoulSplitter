@@ -122,7 +122,12 @@
     <Compile Include="VersionHelper.cs" />
     <Compile Include="XmlSerializableWrapper.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SoulMemory\SoulMemory.csproj">
+      <Project>{03480f4f-f423-4144-90c6-cbda68269374}</Project>
+      <Name>SoulMemory</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="UI\DarkSouls1\DarkSouls1Control.xaml">
       <SubType>Designer</SubType>
@@ -143,12 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SoulMemory\SoulMemory.csproj">
-      <Project>{03480f4f-f423-4144-90c6-cbda68269374}</Project>
-      <Name>SoulMemory</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
