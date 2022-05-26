@@ -29,6 +29,7 @@ namespace SoulMemory.EldenRing
         private Pointer _menuManImp;
         private Pointer _igtFix;
         private Pointer _virtualMemoryFlag;
+        //private Pointer _mapId;
         //private Pointer _noLogo;
 
         private long _screenStateOffset;
@@ -91,7 +92,12 @@ namespace SoulMemory.EldenRing
                         .CreatePointer(out _playerIns       , 0, 0x18468)
                         .CreatePointer(out _playerGameData  , 0, 0x18468, 0x570)
                         .CreatePointer(out _inventory       , 0, 0x18468, 0x570, 0x5B8, 0x10, 0x0)
+                        //.CreatePointer(out _mapId           , 0, 0x18468, 0x6c0)
                         //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
+
+                    ////FieldArea
+                    //.ScanRelative("FieldArea", "48 8B 0D ?? ?? ?? ?? 48 ?? ?? ?? 44 0F B6 61 ?? E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 48 ?? ?? ?? 48 85 C0", 3, 7)
+                    //    .CreatePointer(out _mapId, 0, 0x190) //hitins, has map area
 
                     //CSMenuManImp
                     .ScanRelative("MenuManImp", "48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
@@ -194,6 +200,38 @@ namespace SoulMemory.EldenRing
             }
         }
 
+        public Position GetPosition()
+        {
+            if (_playerIns == null)
+            {
+                return new Position()
+                {
+                    Area   = 0,
+                    Block  = 0,
+                    Region = 0,
+                    Size   = 0,
+
+                    X = 0.0f,
+                    Y = 0.0f,
+                    Z = 0.0f,
+                };
+            }
+
+            var map = _playerIns.ReadInt32(0x6c0);
+            
+            return new Position()
+            {
+                Area   = (byte)(map >> 24 & 0xff),
+                Block  = (byte)(map >> 16 & 0xff),
+                Region = (byte)(map >> 8  & 0xff),
+                Size   = (byte)(map       & 0xff),
+
+                X = _playerIns.ReadFloat(0x6B0),
+                Y = _playerIns.ReadFloat(0x6B4),
+                Z = _playerIns.ReadFloat(0x6B8),
+            };
+        }
+
         public bool IsPlayerLoaded()
         {
             if (_playerIns != null)
@@ -203,24 +241,6 @@ namespace SoulMemory.EldenRing
             }
             return false;
         }
-
-        //public Vector3f GetPosition()
-        //{
-        //    if (_playerChrPhysicsModule != null)
-        //    {
-        //        return new Vector3f(_playerChrPhysicsModule.ReadFloat(0x70), _playerChrPhysicsModule.ReadFloat(0x74), _playerChrPhysicsModule.ReadFloat(0x78));
-        //    }
-        //    return new Vector3f(0, 0, 0);
-        //}
-        //
-        //public float GetAngle()
-        //{
-        //    if (_playerChrPhysicsModule != null)
-        //    {
-        //        return _playerChrPhysicsModule.ReadFloat(0x54);
-        //    }
-        //    return 0f;
-        //}
         
         public ScreenState GetScreenState()
         {
@@ -292,16 +312,6 @@ namespace SoulMemory.EldenRing
                     _pointersInitialized = false;
                     ResetPointers();
                 }
-
-                //if (_pointersInitialized)
-                //{
-                //    if (EnableNoLogo != _previousEnableNoLogo)
-                //    {
-                //        NoLogo(EnableNoLogo);
-                //        _previousEnableNoLogo = EnableNoLogo;
-                //    }
-                //}
-
                 return _pointersInitialized;
             }
         }
@@ -313,34 +323,7 @@ namespace SoulMemory.EldenRing
         }
 
         public bool Attached => _process != null;
-
-
-        //#region Nologo
-
-        //        //private bool _previousEnableNoLogo = false;
-        //public bool EnableNoLogo = false;
-        //public void NoLogo(bool apply)
-        //{
-        //    if (_noLogo == null)
-        //    {
-        //        return;
-        //    }
-
-        //        //    if (apply)
-        //    {
-        //        _noLogo.WriteByte(0x0, 0x90);
-        //        _noLogo.WriteByte(0x1, 0x90);
-        //    }
-        //    else
-        //    {
-        //        _noLogo.WriteByte(0x0, 0x74);
-        //        _noLogo.WriteByte(0x1, 0x53);
-        //    }
-        //}
-        //
-
-        //        //#endregion
-
+        
         #region Read inventory
         //Got some help from Nordgaren to read the inventory. Cheers!
         //https://github.com/Nordgaren/Erd-Tools

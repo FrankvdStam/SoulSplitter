@@ -78,13 +78,27 @@ namespace SoulSplitter.Splitters
                 return;//Don't allow other features to be used while locking the timer
             }
 
+            UpdatePosition();
+
             //Update the timer
             UpdateTimer(TimingMethod.Igt, _eldenRingViewModel.StartAutomatically);
 
             UpdateAutoSplitter();
         }
 
-        
+
+        private void UpdatePosition()
+        {
+            var position = _eldenRing.GetPosition();
+            _eldenRingViewModel.CurrentPosition.Area   = position.Area  ;
+            _eldenRingViewModel.CurrentPosition.Block  = position.Block ;
+            _eldenRingViewModel.CurrentPosition.Region = position.Region;
+            _eldenRingViewModel.CurrentPosition.Size   = position.Size  ;
+            _eldenRingViewModel.CurrentPosition.X      = position.X     ;
+            _eldenRingViewModel.CurrentPosition.Y      = position.Y     ;
+            _eldenRingViewModel.CurrentPosition.Z      = position.Z     ;
+        }
+
         //Starting the timer by calling Start(); on a TimerModel object will trigger more than just SoulSplitter's start event.
         //It occurred at least twice that another plugin would throw exceptions during the start event, causing SoulSplitter's start event to never be called at all.
         //That in turn never changed the timer state to running. We can not rely on this event.
@@ -258,6 +272,34 @@ namespace SoulSplitter.Splitters
                             if (!s.SplitConditionMet)
                             {
                                 s.SplitConditionMet = inventoryItems.Any(i => i.Category == s.Item.Category && i.Id == s.Item.Id);
+                            }
+
+                            if (s.SplitConditionMet)
+                            {
+                                ResolveSplitTiming(s);
+                            }
+                            break;
+
+                        case EldenRingSplitType.Position:
+                            if (!s.SplitConditionMet)
+                            {
+                                if (_eldenRingViewModel.CurrentPosition.Area   == s.Position.Area   &&
+                                    _eldenRingViewModel.CurrentPosition.Block  == s.Position.Block  &&
+                                    _eldenRingViewModel.CurrentPosition.Region == s.Position.Region &&
+                                    _eldenRingViewModel.CurrentPosition.Size   == s.Position.Size)
+                                {
+                                    if (s.Position.X + 5.0f > _eldenRingViewModel.CurrentPosition.X &&
+                                        s.Position.X - 5.0f < _eldenRingViewModel.CurrentPosition.X &&
+
+                                        s.Position.Y + 5.0f > _eldenRingViewModel.CurrentPosition.Y &&
+                                        s.Position.Y - 5.0f < _eldenRingViewModel.CurrentPosition.Y &&
+
+                                        s.Position.Z + 5.0f > _eldenRingViewModel.CurrentPosition.Z &&
+                                        s.Position.Z - 5.0f < _eldenRingViewModel.CurrentPosition.Z)
+                                    {
+                                        s.SplitConditionMet = true;
+                                    }
+                                }
                             }
 
                             if (s.SplitConditionMet)

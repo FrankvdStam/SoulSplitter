@@ -24,6 +24,11 @@ namespace SoulSplitter.UI.EldenRing
                 return u;
             }
 
+            if (value is Position p)
+            {
+                return p.ToString();
+            }
+
             return "";
         }
 

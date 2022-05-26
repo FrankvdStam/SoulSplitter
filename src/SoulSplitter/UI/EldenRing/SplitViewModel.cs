@@ -80,6 +80,8 @@ namespace SoulSplitter.UI.EldenRing
     [XmlInclude(typeof(Grace))]
     [XmlInclude(typeof(ItemPickup))]
     [XmlInclude(typeof(uint))]
+    [XmlInclude(typeof(Item))]
+    [XmlInclude(typeof(Position))]
     public class HierarchicalSplitViewModel : INotifyPropertyChanged
     {
         [XmlIgnore]

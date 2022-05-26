@@ -14,5 +14,6 @@ namespace SoulSplitter.Splits.EldenRing
         Flag,
         ItemPickup,
         Item,
+        Position,
     }
 }

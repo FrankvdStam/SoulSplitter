@@ -10,7 +10,7 @@ For Elden Ring specific information, see https://github.com/FrankvdStam/SoulSpli
 You can find detailed installation instructions with screenshots here: https://github.com/FrankvdStam/SoulSplitter/wiki/Installation
 
 # Contact
-If you are having trouble, have questions, feature requests or anything else, come find me on discord. I'm usually responsive in the er-help channel on the speedsouls server, or by user wasted#2747.
+If you are having trouble, have questions, feature requests or anything else, come find me on discord. I'm usually responsive in the er-help channel on the speedsouls server, or by user wasted#2747 (DM's are open, no need to send a friend request).
 
 # Credits
 
@@ -28,6 +28,8 @@ Thanks to Nordgaren, his tools can be found here:
 https://github.com/Nordgaren/DS2S-META  
 https://github.com/Nordgaren/DS2-META  
 https://github.com/Nordgaren/Erd-Tools  
+
+Thanks thefifthmatt for all the hard work on figuring out how the ER map system works, insane effort! http://soulsmodding.wikidot.com/reference:elden-ring-map-list
 
 I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
 

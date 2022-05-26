@@ -175,6 +175,12 @@
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
+            <ComboBoxItem Content="I reach a position">
+                <ComboBoxItem.Tag>
+                    <eldenRingSplits:EldenRingSplitType>Position</eldenRingSplits:EldenRingSplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
             <ComboBoxItem Content="I trigger a flag">
                 <ComboBoxItem.Tag>
                     <eldenRingSplits:EldenRingSplitType>Flag</eldenRingSplits:EldenRingSplitType>
@@ -322,9 +328,99 @@
         </ui:FilteredComboBox>
 
 
+        <!-- Position -->
+        <StackPanel
+            Margin="5,10,0,0"
+            Visibility="{Binding VisiblePositionSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Grid.Column="0"
+            Orientation="Horizontal">
+            
+            <TextBox 
+                Width="25"
+                Height="25"
+                Margin="0,0,0,0"
+                Text="{Binding NewSplitPosition.Area}"
+                materialDesign:HintAssist.Hint="Area"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Area}"
+                PreviewTextInput="OnPreviewTextInput_Byte"/>
+
+            <TextBox 
+                Width="25"
+                Height="25"
+                Margin="5,0,0,0"
+                Text="{Binding NewSplitPosition.Block}"
+                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Block}"
+                PreviewTextInput="OnPreviewTextInput_Byte"/>
+
+            <TextBox 
+                Width="25"
+                Height="25"
+                Margin="5,0,0,0"
+                Text="{Binding NewSplitPosition.Region}"
+                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Region}"
+                PreviewTextInput="OnPreviewTextInput_Byte"/>
+
+            <TextBox 
+                Width="25"
+                Height="25"
+                Margin="5,0,0,0"
+                Text="{Binding NewSplitPosition.Size}"
+                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Size}"
+                PreviewTextInput="OnPreviewTextInput_Byte"/>
 
 
-<!-- row ============================================================================================================================================================================================== -->
+
+            <TextBox 
+                Width="50"
+                Height="25"
+                Margin="5,0,0,0"
+                Text="{Binding NewSplitPosition.X}"
+                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}"
+                PreviewTextInput="OnPreviewTextInput_Float"/>
+
+            <TextBox 
+                Width="50"
+                Height="25"
+                Margin="5,0,0,0"
+                Text="{Binding NewSplitPosition.Y}"
+                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}"
+                PreviewTextInput="OnPreviewTextInput_Float"/>
+
+
+            <TextBox 
+                Width="50"
+                Height="25"
+                Margin="5,0,0,0"
+                Text="{Binding NewSplitPosition.Z}"
+                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}"
+                PreviewTextInput="OnPreviewTextInput_Float"/>
+        </StackPanel>
+
+        <!-- Hackity -->
+        <Button
+            Visibility="{Binding VisiblePositionSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Grid.Column="0"
+            Margin="300, 5, 0, 0"
+            HorizontalAlignment="Left"
+            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+            ToolTip="Read current game position"
+            Click="CopyPosition_OnClick"
+            IsEnabled="{Binding EnabledAddSplit}">
+            <materialDesign:PackIcon
+                Kind="CrosshairsGps"
+                Height="30"
+                Width="30" />
+        </Button>
+
+        <!-- row ============================================================================================================================================================================================== -->
 
         <StackPanel
             Orientation="Horizontal"

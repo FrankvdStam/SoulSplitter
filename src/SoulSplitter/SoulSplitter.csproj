@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Splits\EldenRing\Split.cs" />
     <Compile Include="Splits\EldenRing\EldenRingSplitType.cs" />
+    <Compile Include="UI\EldenRing\PositionViewModel.cs" />
     <Compile Include="UI\EldenRing\BossViewModel.cs" />
     <Compile Include="UI\EldenRing\ItemPickupViewModel.cs" />
     <Compile Include="UI\EldenRing\GraceViewModel.cs" />

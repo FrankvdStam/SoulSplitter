@@ -20,7 +20,6 @@ namespace SoulSplitter.UI.EldenRing
         }
 
 
-
         public bool StartAutomatically
         {
             get => _startAutomatically;
@@ -35,6 +34,13 @@ namespace SoulSplitter.UI.EldenRing
         }
         private bool _lockIgtToZero;
 
+        [XmlIgnore]
+        public PositionViewModel CurrentPosition
+        {
+            get => _currentPosition;
+            set => SetField(ref _currentPosition, value);
+        }
+        private PositionViewModel _currentPosition = new PositionViewModel();
 
 
         #region Adding new splits ================================================================================================================
@@ -49,7 +55,6 @@ namespace SoulSplitter.UI.EldenRing
                 EnabledSplitType = NewSplitTimingType.HasValue;
             }
         }
-
         private TimingType? _newSplitTimingType;
 
         [XmlIgnore]
@@ -68,11 +73,13 @@ namespace SoulSplitter.UI.EldenRing
             {
                 SetField(ref _newSplitType, value);
 
+                EnabledAddSplit = false;
                 VisibleBossSplit = false;
                 VisibleGraceSplit = false;
                 VisibleItemPickupSplit = false;
                 VisibleFlagSplit = false;
                 VisibleItemSplit = false;
+                VisiblePositionSplit = false;
 
                 switch (NewSplitType)
                 {
@@ -100,6 +107,11 @@ namespace SoulSplitter.UI.EldenRing
 
                     case EldenRingSplitType.Item:
                         VisibleItemSplit = true;
+                        break;
+
+                    case EldenRingSplitType.Position:
+                        VisiblePositionSplit = true;
+                        EnabledAddSplit = true;
                         break;
                 }
             }
@@ -187,6 +199,26 @@ namespace SoulSplitter.UI.EldenRing
         private bool _visibleItemSplit;
 
         [XmlIgnore]
+        public PositionViewModel NewSplitPosition
+        {
+            get => _newSplitPosition;
+            set
+            {
+                SetField(ref _newSplitPosition, value);
+                EnabledAddSplit = _newSplitPosition != null;
+            }
+        }
+        private PositionViewModel _newSplitPosition = new PositionViewModel();
+
+        [XmlIgnore]
+        public bool VisiblePositionSplit
+        {
+            get => _visiblePositionSplit;
+            set => SetField(ref _visiblePositionSplit, value);
+        }
+        private bool _visiblePositionSplit;
+
+        [XmlIgnore]
         public bool VisibleItemPickupSplit
         {
             get => _visibleItemPickupSplit;
@@ -214,7 +246,10 @@ namespace SoulSplitter.UI.EldenRing
             set => SetField(ref _enabledAddSplit, value);
         }
         private bool _enabledAddSplit;
-        
+
+
+
+
         public void AddSplit()
         {
             if (!NewSplitTimingType.HasValue || !NewSplitType.HasValue)
@@ -275,6 +310,13 @@ namespace SoulSplitter.UI.EldenRing
                         hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitItem, Parent = hierarchicalSplitType });
                     }
                     break;
+
+                case EldenRingSplitType.Position:
+                    if (hierarchicalSplitType.Children.All(i => i.Split.ToString() != NewSplitPosition.Position.ToString()))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitPosition.Position, Parent = hierarchicalSplitType });
+                    }
+                    break;
             }
 
             //NewSplitTimingType = null;
@@ -284,6 +326,10 @@ namespace SoulSplitter.UI.EldenRing
             NewSplitFlag = null;
             NewSplitItem = null;
             NewSplitItemPickup = null;
+            NewSplitPosition = new PositionViewModel();
+
+            NewSplitTimingType = null;
+            NewSplitType = null;
         }
 
 

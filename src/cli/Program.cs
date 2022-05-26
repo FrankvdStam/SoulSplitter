@@ -32,14 +32,17 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            using (var client = new SoulInjecteeClient())
-            {
-            }
-            return;
-
-            //TestUi();
-            //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
+            //TestAobs();
             //return;
+            //
+            //using (var client = new SoulInjecteeClient())
+            //{
+            //}
+            //return;
+
+            TestUi();
+            //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
+            return;
 
             //return;
             //var itesm = Enum.GetValues(typeof(Item)).Cast<Item>().ToList();
@@ -60,9 +63,10 @@ namespace cli
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(er.GetScreenState() + " " + er.GetBlackScreenFlag());
+                var p = er.GetPosition();
+                Console.WriteLine($"FA: {p.Area} {p.Block} {p.Region} {p.Size} POS: {p.X:F2} {p.Y:F2} {p.Z:F2}");
                 er.Refresh();
-                Thread.Sleep(100);
+                Thread.Sleep(500);
             }
 
             //LogSetEventFlag(EventFlagLogMode.All);
@@ -241,6 +245,7 @@ namespace cli
         {
             //fd4 alternative 48 8b 0d ? ? ? ? 48 85 c9 74 06 48 8b 59 08
 
+            AobCount("FieldArea", "48 8B 0D ?? ?? ?? ?? 48 ?? ?? ?? 44 0F B6 61 ?? E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 48 ?? ?? ?? 48 85 C0"); 
             AobCount("SetEventFlag", "48 89 5c 24 08 44 8b 49 1c 44 8b d2 33 d2 41 8b c2 41 f7 f1 41 8b d8 4c 8b d9"); 
             AobCount("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00"); 
 

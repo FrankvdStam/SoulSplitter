@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using SoulMemory.EldenRing;
@@ -41,6 +42,10 @@ namespace SoulSplitter.Splits.EldenRing
                 case EldenRingSplitType.Item:
                     Item = (Item)split;
                     break;
+
+                case EldenRingSplitType.Position:
+                    Position = (Position)split;
+                    break;
             }
         }
 
@@ -51,6 +56,7 @@ namespace SoulSplitter.Splits.EldenRing
         public readonly Grace Grace;
         public readonly ItemPickup ItemPickup;
         public readonly Item Item;
+        public readonly Position Position;
         public readonly uint Flag;
 
         /// <summary>
