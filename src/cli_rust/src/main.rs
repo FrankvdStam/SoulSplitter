@@ -44,7 +44,7 @@ fn main()
 
     for mut p in processes
     {
-        if p.name == "eldenring.exe"
+        if p.name == "eldenring.exe" || p.name.to_lowercase() == "darksoulsii.exe"
         {
             //println!("{}", p.main_module.as_ref().unwrap().path);
             //println!("{}", p.main_module.as_ref().unwrap().name);

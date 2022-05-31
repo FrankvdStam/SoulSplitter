@@ -18,6 +18,8 @@ namespace SoulMemory.DarkSouls3
         private Pointer _igt = null;
         private Pointer _playerIns = null;
         private Pointer _nowLoadingHelperImp = null;
+        private Pointer _loading = null;
+        private Pointer _cutscene = null;
 
         public DarkSouls3()
         {
@@ -40,7 +42,12 @@ namespace SoulMemory.DarkSouls3
 
                     .ScanRelative("NowLoadingHelperImp", "48 8b 05 ? ? ? ? 80 78 4d 00 44 8b 8b d4 00 00 00 44 8b 83 d0 00 00 00 48 8b 93 c8 00 00 00 b9 0a 00 00 00 bf 58 02 00 00 0f 45 f9 48 8d 8b 80 00 00 00", 3, 7)
                         .CreatePointer(out _nowLoadingHelperImp, 0)
-                ;
+                    ;
+
+                
+
+                _loading = new Pointer(_process, true, (long)_process.MainModule.BaseAddress + 0x474C2F0);
+                _cutscene = new Pointer(_process, true, (long)_process.MainModule.BaseAddress + 0x494C360);
 
                 return true;
             }
@@ -57,7 +64,25 @@ namespace SoulMemory.DarkSouls3
             _menuMan = null;
         }
 
+        public bool Loading()
+        {
+            if (_loading == null)
+            {
+                return true;
+            }
 
+            return _loading.ReadInt32() != 0;
+        }
+
+        public bool Cutscene()
+        {
+            if (_cutscene == null)
+            {
+                return true;
+            }
+
+            return _cutscene.ReadInt32() != 2;
+        }
 
         public void Refresh()
         {

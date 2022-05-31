@@ -3,6 +3,7 @@ use std::intrinsics::size_of;
 use std::path::Path;
 use std::{slice, thread};
 use std::time::Duration;
+use log::info;
 use winapi::ctypes::c_char;
 use winapi::shared::minwindef::{DWORD, FALSE, HINSTANCE, HMODULE, LPCVOID, LPDWORD, LPVOID, MAX_PATH};
 use winapi::shared::ntdef::NULL;
@@ -155,7 +156,7 @@ impl Process
 
             let thread = CreateRemoteThread(self.handle as HANDLE, 0 as LPSECURITY_ATTRIBUTES, 0, pthread_start_routine, dll_path_ptr, 0, 0 as LPDWORD);
             let result = WaitForSingleObject(thread, 10000);
-            println!("res {}", result);
+            info!("res {}", result);
 
             VirtualFreeEx(self.handle as HANDLE, dll_path_ptr, 0, MEM_RELEASE);
         }

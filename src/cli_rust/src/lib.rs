@@ -3,7 +3,11 @@ use winapi::um::winnt::{DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 use std::{panic, thread};
 use std::time::Duration;
 use rust_memory;
-use rust_memory::unload;
+use rust_memory::{Config, error, info, init_config, LevelFilter, unload, warn};
+use rust_memory::append::console::ConsoleAppender;
+use rust_memory::append::file::FileAppender;
+use rust_memory::config::{Appender, Logger, Root};
+use rust_memory::encode::pattern::PatternEncoder;
 use rust_memory::websocket::{read_command};
 
 #[no_mangle]
@@ -16,17 +20,45 @@ pub unsafe extern "system" fn DllMain(
 {
     if call_reason == DLL_PROCESS_ATTACH
     {
+        //Alloc console, sets up stdout handles
+        winapi::um::consoleapi::AllocConsole();
+
+        //Setup logger
+        let stdout = ConsoleAppender::builder()
+            .encoder(Box::new(PatternEncoder::new("{d(%Y-%m-%d %H:%M:%S%.3f)} - {m}{n}")))
+            .build();
+
+        let requests = FileAppender::builder()
+            .encoder(Box::new(PatternEncoder::new("{d(%Y-%m-%d %H:%M:%S%.3f)} - {m}{n}")))
+            .build(r#"C:/temp/soulinjectee.log"#)
+            .unwrap();
+
+        let config = Config::builder()
+            .appender(Appender::builder().build("stdout", Box::new(stdout)))
+            .appender(Appender::builder().build("log_file", Box::new(requests)))
+            .logger(Logger::builder()
+                .build("cli_rust", LevelFilter::Trace))
+            .logger(Logger::builder()
+                .appender("log_file")
+                .additive(false)
+                .build("cli_rust::log_file", LevelFilter::Trace))
+            .build(Root::builder().appender("stdout").appender("log_file").build(LevelFilter::Trace))
+            .unwrap();
+
+        let _handle = init_config(config).unwrap();
+
         //Redirect panics
         panic::set_hook(Box::new(|i| {
-            println!("panic");
-            println!("{}", i);
+            error!("panic");
+            error!("{}", i);
+            //error!(target: "log_file", "panic");
+            //error!(target: "log_file", "{}", i);
         }));
 
-        winapi::um::consoleapi::AllocConsole();
 
         //let handle = winapi::um::consoleapi::GetStdHandle();
         //winapi::um::consoleapi::ReadConsoleA(handle, )
-        println!("Init");
+        info!("Init");
 
 
         rust_memory::init();
@@ -36,7 +68,7 @@ pub unsafe extern "system" fn DllMain(
 
     if call_reason == DLL_PROCESS_DETACH
     {
-        println!("Exiting");
+        info!("Exiting");
 
         //exit active detours
         //detours::exit();
@@ -52,7 +84,6 @@ fn main_loop()
     loop
     {
         thread::sleep(Duration::from_millis(100));
-        println!("loop");
 
         let command = read_command();
         if command.is_some()
@@ -63,10 +94,10 @@ fn main_loop()
             {
                 "unload" =>
                 {
-                    println!("Attempting to unload");
+                    info!("Attempting to unload");
                     unload();
                 }
-                _ => println!("unknown command {}", command_str),
+                _ => warn!("unknown command {}", command_str),
             }
         }
     }

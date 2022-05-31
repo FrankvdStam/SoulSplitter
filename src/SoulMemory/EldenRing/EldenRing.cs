@@ -34,6 +34,9 @@ namespace SoulMemory.EldenRing
 
         private long _screenStateOffset;
         private long _blackScreenOffset;
+        private long _positionOffset;
+        private long _mapIdOffset;
+        
         
         public EldenRing(bool applyIgtFix = true)
         {
@@ -67,16 +70,29 @@ namespace SoulMemory.EldenRing
                     case EldenRingVersion.Unknown:
                         _screenStateOffset = 0x728;
                         _blackScreenOffset = 0x72c;
+                        _positionOffset = 0x6B0;
+                        _mapIdOffset = 0x6c0;
                         break;
 
                     case EldenRingVersion.V102:
                         _screenStateOffset = 0x718;
                         _blackScreenOffset = 0x71c;
+                        _positionOffset = 0x6b8;
+                        _mapIdOffset = 0x6c8;
                         break;
 
                     case EldenRingVersion.V103:
                         _screenStateOffset = 0x728;
                         _blackScreenOffset = 0x72c;
+                        _positionOffset = 0x6b8;
+                        _mapIdOffset = 0x6c8;
+                        break;
+
+                    case EldenRingVersion.V104:
+                        _screenStateOffset = 0x728;
+                        _blackScreenOffset = 0x72c;
+                        _positionOffset = 0x6B0;
+                        _mapIdOffset = 0x6c0;
                         break;
                 }
 
@@ -151,6 +167,7 @@ namespace SoulMemory.EldenRing
         {
             V102,
             V103,
+            V104,
             Unknown,
         };
 
@@ -171,6 +188,8 @@ namespace SoulMemory.EldenRing
                             return EldenRingVersion.V102;
                         case 3:
                             return EldenRingVersion.V103;
+                        case 4:
+                            return EldenRingVersion.V104;
                     }
             }
         }
@@ -217,7 +236,7 @@ namespace SoulMemory.EldenRing
                 };
             }
 
-            var map = _playerIns.ReadInt32(0x6c0);
+            var map = _playerIns.ReadInt32(_mapIdOffset);
             
             return new Position()
             {
@@ -226,9 +245,9 @@ namespace SoulMemory.EldenRing
                 Region = (byte)(map >> 8  & 0xff),
                 Size   = (byte)(map       & 0xff),
 
-                X = _playerIns.ReadFloat(0x6B0),
-                Y = _playerIns.ReadFloat(0x6B4),
-                Z = _playerIns.ReadFloat(0x6B8),
+                X = _playerIns.ReadFloat(_positionOffset + 0x0),
+                Y = _playerIns.ReadFloat(_positionOffset + 0x4),
+                Z = _playerIns.ReadFloat(_positionOffset + 0x8),
             };
         }
 
@@ -256,7 +275,7 @@ namespace SoulMemory.EldenRing
         {
             return _menuManImp?.ReadInt32(_blackScreenOffset) ?? 0;
         }
-
+        
         private bool NoCutsceneOrBlackscreen()
         {
             var flag = _menuManImp?.ReadInt32(_blackScreenOffset);
@@ -315,11 +334,56 @@ namespace SoulMemory.EldenRing
                 return _pointersInitialized;
             }
         }
-
+        
         public int GetTestValue()
         {
-            EnableHud();
-            return (int)_hud.ReadByte();
+            if (_menuManImp == null)
+            {
+                return 0;
+            }
+
+
+            var screenState = GetScreenState();
+            var flag = _menuManImp.ReadInt32(0x18);
+            //010101 -> IG
+            //010000 -> cutscene
+            //010001 -> blackscreen
+
+            var t = flag & 0x1;
+            var thing = flag >> 8 & 0x1;
+
+            if (screenState == ScreenState.InGame)
+            {
+                if (
+                    (flag       & 0x1) == 1 &&
+                    (flag >> 8  & 0x1) == 0 &&
+                    (flag >> 16 & 0x1) == 1
+                   )
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            return 0;
+
+            //if (
+            //    screenState == ScreenState.InGame &&
+            //    (flag       & 0x1) == 1 && 
+            //    (flag >> 8  & 0x1) == 0 &&
+            //    (flag >> 16 & 0x1) == 1 
+            //    )
+            //{
+            //    return 1;
+            //}
+            //
+            ////if (screenState == ScreenState.InGame && flag == 65793)
+            ////{
+            ////    return 1;
+            ////}
+            //return 0;
         }
 
         public bool Attached => _process != null;

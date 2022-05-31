@@ -10,6 +10,9 @@ pub mod eldenring;
 pub mod darksouls2;
 pub mod websocket;
 
+pub use log::*;
+pub use log4rs::*;
+
 use std::thread;
 use std::time::Duration;
 use winapi::shared::minwindef::PROC;
@@ -33,6 +36,7 @@ pub fn init()
 
           let temp = process.name.to_lowercase();
           let process_name = temp.as_str();
+          info!("init scan cache for {}", process_name);
           init_scan_cache(String::from(process_name));
 
           match process_name
@@ -46,8 +50,9 @@ pub fn init()
                {
                     darksouls2::init_event_flag_detour();
                     darksouls2::init_unlock_bonfire_detour();
+                    darksouls2::init_event_guide_flag_detour();
                },
-               _ => println!("unsupported process: {}", process_name),
+               _ => error!("unsupported process: {}", process_name),
           }
      }
 }
@@ -74,8 +79,9 @@ pub fn unload()
                {
                     darksouls2::disable_event_flag_detour();
                     darksouls2::disable_unlock_bonfire_detour();
+                    darksouls2::disable_event_guide_flag_detour();
                },
-               _ => {}
+               _ => error!("unsupported process: {}", process_name),
           }
 
 

@@ -32,6 +32,19 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            var ds3 = new DarkSouls3();
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"cutscene {ds3.Cutscene()}");
+                Console.WriteLine($"loading  {ds3.Loading()}");
+                Console.WriteLine($"igt      {ds3.GetInGameTimeMilliseconds()}");
+                ds3.Refresh();
+                Thread.Sleep(100);
+            }
+
+
+
             //TestAobs();
             //return;
             //
@@ -40,9 +53,9 @@ namespace cli
             //}
             //return;
 
-            TestUi();
+            //TestUi();
             //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
-            return;
+            //return;
 
             //return;
             //var itesm = Enum.GetValues(typeof(Item)).Cast<Item>().ToList();
@@ -63,10 +76,11 @@ namespace cli
             while (true)
             {
                 Console.Clear();
-                var p = er.GetPosition();
-                Console.WriteLine($"FA: {p.Area} {p.Block} {p.Region} {p.Size} POS: {p.X:F2} {p.Y:F2} {p.Z:F2}");
+                //var p = er.GetPosition();
+                //Console.WriteLine($"FA: {p.Area} {p.Block} {p.Region} {p.Size} POS: {p.X:F2} {p.Y:F2} {p.Z:F2}");
+                Console.WriteLine(er.GetTestValue());
                 er.Refresh();
-                Thread.Sleep(500);
+                Thread.Sleep(100);
             }
 
             //LogSetEventFlag(EventFlagLogMode.All);
@@ -285,6 +299,34 @@ namespace cli
 
             Console.WriteLine($"finished {identifier}");
         }
+
+        private static void AddressFix()
+        {
+            var baseAddress = 0x7ff743490000;
+            var addressees = new List<long>()
+            {
+                0x783CD9,
+                0x71FC02,
+                0x8AD08A,
+                0x70F3A1,
+                0x70F6A1,
+                0x74CACF,
+                0x7219C3,
+                0x72165E,
+                0x784353,
+                0x74CAE4,
+                0x7438E7,
+                0x8AD889,
+                0x70F43D,
+            };
+
+            foreach (var a in addressees)
+            {
+                Console.WriteLine($"{baseAddress + a:X}");
+            }
+
+        }
+
 
 #if DEBUG
         public static void InjectDll(string path)
