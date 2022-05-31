@@ -32,11 +32,14 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+            return;
+
             var ds3 = new DarkSouls3();
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"cutscene {ds3.Cutscene()}");
+                //Console.WriteLine($"cutscene {ds3.Cutscene()}");
                 Console.WriteLine($"loading  {ds3.Loading()}");
                 Console.WriteLine($"igt      {ds3.GetInGameTimeMilliseconds()}");
                 ds3.Refresh();

@@ -10,5 +10,6 @@ namespace SoulSplitter.Splitters
     internal interface ISplitter
     {
         void Update(object settings);
+        Exception Exception { get; set; }
     }
 }

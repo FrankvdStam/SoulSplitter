@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,18 +16,18 @@ namespace SoulMemory.DarkSouls3
         private Process _process;
 
         private Pointer _menuMan = null;
-        private Pointer _igt = null;
+        private Pointer _gameDataMan = null;
         private Pointer _playerIns = null;
         private Pointer _nowLoadingHelperImp = null;
         private Pointer _loading = null;
-        private Pointer _cutscene = null;
+        public Exception Exception;
 
         public DarkSouls3()
         {
             Refresh();
         }
 
-        public bool InitPointers()
+        private bool InitPointers()
         {
             try
             {
@@ -35,25 +36,25 @@ namespace SoulMemory.DarkSouls3
                         .CreatePointer(out _menuMan, 0)
 
                     .ScanRelative("IGT", "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20", 3, 7)
-                        .CreatePointer(out _igt, 0)
+                        .CreatePointer(out _gameDataMan, 0)
 
                     .ScanRelative("playerIns", "48 8b 05 ? ? ? ? 48 89 98 88 00 00 00 4c 8b 05 ? ? ? ? 4c 89 44 24 38 ba 08 00 00 00 8d 4a 08", 3, 7)
                         .CreatePointer(out _playerIns, 0, 0x80)
 
                     .ScanRelative("NowLoadingHelperImp", "48 8b 05 ? ? ? ? 80 78 4d 00 44 8b 8b d4 00 00 00 44 8b 83 d0 00 00 00 48 8b 93 c8 00 00 00 b9 0a 00 00 00 bf 58 02 00 00 0f 45 f9 48 8d 8b 80 00 00 00", 3, 7)
                         .CreatePointer(out _nowLoadingHelperImp, 0)
+                    
+                    .ScanRelative("Loading", "c6 05 e3 ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9", 2, 7)
+                        .CreatePointer(out _loading)
                     ;
-
                 
-
-                _loading = new Pointer(_process, true, (long)_process.MainModule.BaseAddress + 0x474C2F0);
-                _cutscene = new Pointer(_process, true, (long)_process.MainModule.BaseAddress + 0x494C360);
+                //_cutscene = new Pointer(_process, true, (long)_process.MainModule.BaseAddress + 0x494C360);
 
                 return true;
             }
-            catch
+            catch(Exception e)
             {
-                //ignored
+                Exception = e;
             }
             return false;
         }
@@ -70,21 +71,20 @@ namespace SoulMemory.DarkSouls3
             {
                 return true;
             }
-
-            return _loading.ReadInt32() != 0;
+            return _loading?.ReadInt32(-0x1) != 0;
         }
 
-        public bool Cutscene()
-        {
-            if (_cutscene == null)
-            {
-                return true;
-            }
+        //public bool Cutscene()
+        //{
+        //    if (_cutscene == null)
+        //    {
+        //        return true;
+        //    }
+        //
+        //    return _cutscene.ReadInt32() != 2;
+        //}
 
-            return _cutscene.ReadInt32() != 2;
-        }
-
-        public void Refresh()
+        public bool Refresh()
         {
             if (_process == null)
             {
@@ -105,8 +105,10 @@ namespace SoulMemory.DarkSouls3
                     ResetPointers();
                 }
             }
+            return _process != null;
         }
-
+        
+        public bool Attached => _process != null;
 
         public bool IsPlayerLoaded()
         {
@@ -117,20 +119,21 @@ namespace SoulMemory.DarkSouls3
             return false;
         }
 
-
+        public void WriteInGameTimeMilliseconds(int millis)
+        {
+            _gameDataMan?.WriteInt32(0xa4, millis);
+        }
 
         #region Timeable
         public int GetInGameTimeMilliseconds()
         {
-            return _igt?.ReadInt32(0xa4) ?? 0;
+            return _gameDataMan?.ReadInt32(0xa4) ?? 0;
         }
-
+        
         public bool InitialLoadRemoval()
         {
             return true;
         }
-
-
 
         public bool IsInGame()
         {
@@ -154,7 +157,6 @@ namespace SoulMemory.DarkSouls3
             var igt = GetInGameTimeMilliseconds();
             return igt > 0 && igt < 150;
         }
-
 
         public void ResetIgt()
         {

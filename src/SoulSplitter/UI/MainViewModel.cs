@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
@@ -6,6 +7,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;
+using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.EldenRing;
 
 namespace SoulSplitter.UI
@@ -14,12 +16,12 @@ namespace SoulSplitter.UI
     {
         public void Update(MainViewModel mainViewModel)
         {
-            SelectedGameIndex = mainViewModel.SelectedGameIndex;
-            EldenRingViewModel = mainViewModel.EldenRingViewModel;
+            SelectedGame        = mainViewModel.SelectedGame;
+            EldenRingViewModel  = mainViewModel.EldenRingViewModel;
             DarkSouls1ViewModel = mainViewModel.DarkSouls1ViewModel;
             DarkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
         }
-
+        
         [XmlIgnore]
         public string Error
         {
@@ -34,60 +36,43 @@ namespace SoulSplitter.UI
 
         public string Version { get; set; } = VersionHelper.Version.ToString();
 
-        public int SelectedGameIndex
+        public Game SelectedGame
         {
-            get => _selectedGameIndex;
-            set
-            {
-                _selectedGameIndex = value;
-                OnPropertyChanged();
-            }
+            get => _selectedGame;
+            set => SetField(ref _selectedGame, value);
         }
-        private int _selectedGameIndex = 2;
+        private Game _selectedGame = Game.EldenRing;
 
-
-
-        public EldenRingViewModel EldenRingViewModel
-        {
-            get => _eldenRingViewModel;
-            set
-            {
-                _eldenRingViewModel = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private EldenRingViewModel _eldenRingViewModel = new EldenRingViewModel();
-
-
+        #region Game View models
 
         public DarkSouls1ViewModel DarkSouls1ViewModel
         {
             get => _darkSouls1ViewModel;
-            set
-            {
-                _darkSouls1ViewModel = value;
-                OnPropertyChanged();
-            }
+            set => SetField(ref _darkSouls1ViewModel, value);
         }
-
         private DarkSouls1ViewModel _darkSouls1ViewModel = new DarkSouls1ViewModel();
-
-
-
+        
         public DarkSouls2ViewModel DarkSouls2ViewModel
         {
             get => _darkSouls2ViewModel;
-            set
-            {
-                _darkSouls2ViewModel = value;
-                OnPropertyChanged();
-            }
+            set => SetField(ref _darkSouls2ViewModel, value);
         }
-
         private DarkSouls2ViewModel _darkSouls2ViewModel = new DarkSouls2ViewModel();
 
+        public DarkSouls3ViewModel DarkSouls3ViewModel
+        {
+            get => _darkSouls3ViewModel;
+            set => SetField(ref _darkSouls3ViewModel, value);
+        }
+        private DarkSouls3ViewModel _darkSouls3ViewModel = new DarkSouls3ViewModel();
+        public EldenRingViewModel EldenRingViewModel
+        {
+            get => _eldenRingViewModel;
+            set => SetField(ref _eldenRingViewModel, value);
+        }
+        private EldenRingViewModel _eldenRingViewModel = new EldenRingViewModel();
 
+        #endregion
 
         #region Serializing
 
@@ -120,12 +105,23 @@ namespace SoulSplitter.UI
 
         #endregion
 
+        #region INotifyPropertyChanged
 
+        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName ?? "");
+            return true;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
         }
+
+        #endregion
+
     }
 }

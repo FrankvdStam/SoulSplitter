@@ -13,8 +13,8 @@ namespace SoulSplitter.Splitters
 {
     internal class EldenRingSplitter : ISplitter
     {
-        public Exception Exception;
-        
+        public Exception Exception { get; set; }
+
         private EldenRing _eldenRing;
         private EldenRingViewModel _eldenRingViewModel;
         private LiveSplitState _liveSplitState;
@@ -32,7 +32,7 @@ namespace SoulSplitter.Splitters
             _timerModel.CurrentState = state;
         }
 
-        public void RefreshEldenRing()
+        private void RefreshEldenRing()
         {
             try
             {

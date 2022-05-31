@@ -19,21 +19,25 @@ namespace SoulSplitter
         public IDictionary<string, Action> ContextMenuControls => null;
 
         private LiveSplitState _liveSplitState;
-        private readonly EldenRingSplitter _splitter;
-        
+        private ISplitter _splitter = null;
+        private Game? _selectedGame = null;
+
+        private ISplitter _currentSplitter;
+
 
         public SoulComponent(LiveSplitState state = null)
         {           
             _liveSplitState = state;
-            _splitter = new EldenRingSplitter(state);
+            //_splitter = new EldenRingSplitter(state);
         }
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
             try
             {
-                _splitter.Update(MainControlFormsWrapper.MainViewModel.EldenRingViewModel);
-                
+                var viewModel = MainControlFormsWrapper.MainViewModel;
+                UpdateSplitter(viewModel, state);
+
                 _liveSplitState = state;
 
 
@@ -49,6 +53,49 @@ namespace SoulSplitter
             catch (Exception e)
             {
                 MainControlFormsWrapper.MainViewModel.Error = e.Message;
+            }
+        }
+
+        private void UpdateSplitter(MainViewModel mainViewModel, LiveSplitState state)
+        {
+            //Detect game change, initialize the correct splitter
+            if (!_selectedGame.HasValue || _selectedGame != mainViewModel.SelectedGame)
+            {
+                _selectedGame = mainViewModel.SelectedGame;
+                switch (mainViewModel.SelectedGame)
+                {
+                    default:
+                    case Game.DarkSouls1:
+                    case Game.DarkSouls2:
+                        throw new Exception("Not supported");
+
+                    case Game.DarkSouls3:
+                        _splitter = new DarkSouls3Splitter(state);
+                        break;
+
+                    case Game.EldenRing:
+                        _splitter = new EldenRingSplitter(state);
+                        break;
+                }
+            }
+
+            //Update splitter instance with correct VM
+            switch (_selectedGame)
+            {
+                default:
+                case Game.DarkSouls1:
+                case Game.DarkSouls2:
+                    throw new Exception("Not supported");
+
+                case Game.DarkSouls3:
+                    _splitter.Update(MainControlFormsWrapper.MainViewModel.DarkSouls3ViewModel);
+                    break;
+
+                case Game.EldenRing:
+                    _splitter.Update(MainControlFormsWrapper.MainViewModel.EldenRingViewModel);
+                    break;
+
+                    
             }
         }
 

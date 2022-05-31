@@ -9,6 +9,7 @@
              xmlns:darkSouls2="clr-namespace:SoulSplitter.UI.DarkSouls2"
              xmlns:eldenRing="clr-namespace:SoulSplitter.UI.EldenRing"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:darkSouls3="clr-namespace:SoulSplitter.UI.DarkSouls3"
              Width="451"
              Height="497">
 
@@ -21,6 +22,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
+
+                <ResourceDictionary>
+                    <ui:GameToSelectedIndexConverter x:Key="GameToSelectedIndexConverter"/>
+                </ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -69,17 +74,14 @@
         </DockPanel>
 
         <TabControl 
-            Grid.Row="1">
-            <!--
-            SelectedIndex="{Binding SelectedGameIndex}">
-            <TabItem Header="Dark Souls 1" IsEnabled="False">
-                <darkSouls1:DarkSouls1Control DataContext="{Binding DarkSouls1ViewModel}"/>
-            </TabItem>-->
-            <!-- DataContext="{Binding DarkSouls2ViewModel}" -->
-            <!--
-            <TabItem Header="Dark Souls 2" IsEnabled="False">
-                <darkSouls2:DarkSouls2Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls2ViewModel}"/>
-            </TabItem>-->
+            Grid.Row="1"
+            SelectedIndex="{Binding SelectedGame, Converter={StaticResource GameToSelectedIndexConverter}}">
+       
+            <TabItem Header ="Dark Souls 1" Visibility="Collapsed"/>
+            <TabItem Header ="Dark Souls 2" Visibility="Collapsed"/>
+            <TabItem Header ="Dark Souls 3" >
+                <darkSouls3:DarkSouls3Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls3ViewModel}"/>
+            </TabItem>
 
             <TabItem Header="Elden Ring">
                 <eldenRing:EldenRingControl DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.EldenRingViewModel}"/>

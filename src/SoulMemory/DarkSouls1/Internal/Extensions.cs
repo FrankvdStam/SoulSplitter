@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SoulMemory.DarkSouls1.Internal
 {
-    internal static class Extensions
+    public static class Extensions
     {
         public static int GetDigit(this int value, int index)
         {
