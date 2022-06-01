@@ -77,7 +77,7 @@ namespace SoulSplitter.Splitters
         private void StartTimer()
         {
             _timerState = TimerState.Running;
-            _inGameTime = 0;
+            _inGameTime = _darkSouls3.GetInGameTimeMilliseconds();
         }
 
         private void ResetTimer()
