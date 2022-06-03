@@ -20,6 +20,7 @@ namespace SoulMemory.DarkSouls3
         private Pointer _playerIns = null;
         private Pointer _nowLoadingHelperImp = null;
         private Pointer _loading = null;
+        private Pointer _blackscreen = null;
         public Exception Exception;
 
         public DarkSouls3()
@@ -46,7 +47,12 @@ namespace SoulMemory.DarkSouls3
                     
                     .ScanRelative("Loading", "c6 05 e3 ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9", 2, 7)
                         .CreatePointer(out _loading)
+
+                    .ScanRelative("SprjFadeImp", "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2", 3, 7) //0x8 = ptr to Fd4FadeSystem
+                        .CreatePointer(out _blackscreen, 0x0, 0x8, 0x2ec)
+
                     ;
+                ;
                 
                 //_cutscene = new Pointer(_process, true, (long)_process.MainModule.BaseAddress + 0x494C360);
 
@@ -72,6 +78,11 @@ namespace SoulMemory.DarkSouls3
                 return true;
             }
             return _loading?.ReadInt32(-0x1) != 0;
+        }
+
+        public bool BlackscreenActive()
+        {
+            return _blackscreen?.ReadInt32() != 0;
         }
 
         //public bool Cutscene()
