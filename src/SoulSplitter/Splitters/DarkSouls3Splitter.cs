@@ -58,7 +58,7 @@ namespace SoulSplitter.Splitters
 
         #region Timer
         private void UpdateTimer()
-        {
+         {
             switch (_timerState)
             {
                 case TimerState.WaitForStart:
@@ -76,7 +76,7 @@ namespace SoulSplitter.Splitters
                     var currentIgt = _darkSouls3.GetInGameTimeMilliseconds();
 
                     //Blackscreens/meme loading screens - timer is running, but game is actually loading
-                    if (currentIgt != 0 && currentIgt > _inGameTime && (_darkSouls3.Loading() || _darkSouls3.BlackscreenActive()))
+                    if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && (_darkSouls3.IsLoading() || _darkSouls3.BlackscreenActive()))
                     {
                         Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
                         _darkSouls3.WriteInGameTimeMilliseconds(_inGameTime);

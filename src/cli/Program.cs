@@ -32,6 +32,9 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            Ds3TestPatterns();
+            return;
+
             TestUi();
             return;
 
@@ -40,7 +43,7 @@ namespace cli
             {
                 Console.Clear();
                 //Console.WriteLine($"cutscene {ds3.Cutscene()}");
-                Console.WriteLine($"loading  {ds3.Loading()}");
+                Console.WriteLine($"loading  {ds3.IsLoading()}");
                 Console.WriteLine($"igt      {ds3.GetInGameTimeMilliseconds()}");
                 ds3.Refresh();
                 Thread.Sleep(100);
@@ -256,6 +259,30 @@ namespace cli
 
 
 
+        public static void Ds3TestPatterns()
+        {
+            var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables");
+            patternCounter.AddPattern("menuMan"     , "48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 0d ? ? ? ? 48 85 c9 74 33 e8 ? ? ? ? 48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03 33 d2 48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 5c 24 30 48 8b 74 24 38 48 83 c4 20 5f c3");
+            patternCounter.AddPattern("IGT"         , "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20");
+            patternCounter.AddPattern("playerIns"   , "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70");
+            patternCounter.AddPattern("Loading"     , "c6 05 ? ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9");
+            patternCounter.AddPattern("SprjFadeImp" , "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2");
+
+            foreach (var result in patternCounter.GetResults())
+            {
+                if (result.count != 1)
+                {
+                    Console.WriteLine($"Error: {result.executable} {result.name} {result.count}");
+                }
+            }
+
+            Console.WriteLine("Done");
+            Console.ReadKey();
+        }
+
+
+
+
         private static Dictionary<string, byte[]> _cache = new Dictionary<string, byte[]>();
 
         public static void TestAobs()
@@ -277,9 +304,10 @@ namespace cli
             Console.ReadKey();
         }
 
-
+        public static string Aob;
         public static void AobCount(string identifier, string aob)
         {
+            //C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables
             var path = @"C:\Users\Frank\Desktop\dark souls\runtime dumps\exe";
             var executabes = Directory.EnumerateFiles(path).ToList();
 
