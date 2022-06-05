@@ -61,6 +61,13 @@ namespace SoulSplitter
             //Detect game change, initialize the correct splitter
             if (!_selectedGame.HasValue || _selectedGame != mainViewModel.SelectedGame)
             {
+                //the splitter listens to livesplit events. Need to dispose to properly clean up and to make sure no elden ring events trigger in dark souls 3
+                if (_splitter != null)
+                {
+                    _splitter.Dispose();
+                    _splitter = null;
+                }
+
                 _selectedGame = mainViewModel.SelectedGame;
                 switch (mainViewModel.SelectedGame)
                 {

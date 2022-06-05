@@ -7,7 +7,7 @@ using LiveSplit.Model;
 
 namespace SoulSplitter.Splitters
 {
-    internal interface ISplitter
+    internal interface ISplitter : IDisposable
     {
         void Update(object settings);
         Exception Exception { get; set; }

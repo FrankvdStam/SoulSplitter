@@ -21,12 +21,28 @@ namespace SoulSplitter.Splitters
         {
             _darkSouls3 = new DarkSouls3();
             _liveSplitState = state;
-            _liveSplitState.OnStart += (o, e) => StartTimer();
-            _liveSplitState.OnReset += (o, e) => ResetTimer();
+            _liveSplitState.OnStart += OnStart;
+            _liveSplitState.OnReset += OnReset;
             _liveSplitState.IsGameTimePaused = true;
 
             _timerModel = new TimerModel();
             _timerModel.CurrentState = state;
+        }
+
+        public void Dispose()
+        {
+            _liveSplitState.OnStart -= OnStart;
+            _liveSplitState.OnReset -= OnReset;
+        }
+
+        private void OnStart(object sender, EventArgs e)
+        {
+            StartTimer();
+        }
+
+        private void OnReset(object sender, TimerPhase timerPhase)
+        {
+            ResetTimer();
         }
 
 
@@ -60,16 +76,19 @@ namespace SoulSplitter.Splitters
                     var currentIgt = _darkSouls3.GetInGameTimeMilliseconds();
 
                     //Blackscreens/meme loading screens - timer is running, but game is actually loading
-                    if (currentIgt > _inGameTime && (_darkSouls3.Loading() || _darkSouls3.BlackscreenActive()))
+                    if (currentIgt != 0 && currentIgt > _inGameTime && (_darkSouls3.Loading() || _darkSouls3.BlackscreenActive()))
                     {
                         Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
                         _darkSouls3.WriteInGameTimeMilliseconds(_inGameTime);
                     }
                     else
                     {
-                        _inGameTime = currentIgt;
-                        _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
+                        if (currentIgt != 0)
+                        {
+                            _inGameTime = currentIgt;
+                        }
                     }
+                    _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
                     break;
             }
         }
@@ -78,12 +97,14 @@ namespace SoulSplitter.Splitters
         {
             _timerState = TimerState.Running;
             _inGameTime = _darkSouls3.GetInGameTimeMilliseconds();
+            _timerModel.Start();
         }
 
         private void ResetTimer()
         {
             _timerState = TimerState.WaitForStart;
             _inGameTime = 0;
+            _timerModel.Reset();
         }
 
         private readonly TimerModel _timerModel;

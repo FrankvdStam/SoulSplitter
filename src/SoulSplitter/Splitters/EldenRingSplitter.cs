@@ -23,7 +23,7 @@ namespace SoulSplitter.Splitters
         {
             _liveSplitState = state;
             _eldenRing = new EldenRing();
-            
+
             _liveSplitState.OnStart += OnStart;
             _liveSplitState.OnReset += OnReset;
             _liveSplitState.IsGameTimePaused = true;
@@ -31,6 +31,14 @@ namespace SoulSplitter.Splitters
             _timerModel = new TimerModel();
             _timerModel.CurrentState = state;
         }
+
+
+        public void Dispose()
+        {
+            _liveSplitState.OnStart -= OnStart;
+            _liveSplitState.OnReset -= OnReset;
+        }
+
 
         private void RefreshEldenRing()
         {
@@ -333,6 +341,8 @@ namespace SoulSplitter.Splitters
                     break;
             }
         }
+
+       
         #endregion
     }
 }
