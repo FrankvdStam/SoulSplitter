@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using SoulMemory.Memory;
@@ -21,6 +22,8 @@ namespace SoulMemory.DarkSouls3
         //private Pointer _nowLoadingHelperImp = null;
         private Pointer _loading = null;
         private Pointer _blackscreen = null;
+        private Pointer _sprjEventFlagMan = null;
+        private Pointer _fieldArea = null;
         public Exception Exception;
 
         public DarkSouls3()
@@ -52,8 +55,14 @@ namespace SoulMemory.DarkSouls3
                     .ScanRelative("SprjFadeImp", "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2", 3, 7) //0x8 = ptr to Fd4FadeSystem
                         .CreatePointer(out _blackscreen, 0x0, 0x8, 0x2ec)
 
-                    ;
+                    .ScanRelative("SprjEventFlagMan", "48 c7 05 ? ? ? ? 00 00 00 00 48 8b 7c 24 38 c7 46 54 ff ff ff ff 48 83 c4 20 5e c3", 3, 11)
+                        .CreatePointer(out _sprjEventFlagMan, 0x0)
 
+                    .ScanRelative("FieldArea", "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10", 3, 7)
+                        .CreatePointer(out _fieldArea)
+
+                    ;
+                
                 return true;
             }
             catch(Exception e)
@@ -69,6 +78,8 @@ namespace SoulMemory.DarkSouls3
             _playerIns = null;
             _loading = null;
             _blackscreen = null;
+            _sprjEventFlagMan = null;
+            _fieldArea = null;
         }
 
         public bool IsLoading()
@@ -139,5 +150,194 @@ namespace SoulMemory.DarkSouls3
         {
             return _gameDataMan?.ReadInt32(0xa4) ?? 0;
         }
+
+
+        #region read event flags
+
+        public long GetSprjEventFlagManAddress()
+        {
+            return _sprjEventFlagMan.ReadInt64();
+        }
+
+        public bool ReadEventFlag(uint eventFlagId)
+        {
+            if (_sprjEventFlagMan == null || _fieldArea == null)
+            {
+                return false;
+            }
+
+            var eventFlagIdDiv10000000 = (int)(eventFlagId / 10000000) % 10;
+            var eventFlagIdDiv100000   = (int)(eventFlagId / 100000  ) % 100;
+            var eventFlagIdDiv10000    = (int)(eventFlagId / 10000   ) % 10;
+            var eventFlagIdDiv1000     = (int)(eventFlagId / 1000    ) % 10;
+
+            //14000002
+
+            //ItemPickup 0x0?
+            //Bonfire = 0x11?
+            var flagWorldBlockInfoCategory = -1;
+            if (!(eventFlagIdDiv100000 < 90) || eventFlagIdDiv100000 + eventFlagIdDiv10000 == 0)
+            {
+                flagWorldBlockInfoCategory = 0;
+            }
+            else
+            {
+                //Not implementing a case where Global_FieldArea_Ptr == (FieldArea *)0x0
+                if (_fieldArea.IsNullPtr())
+                {
+                    return false;
+                }
+
+                var worldInfoOwner = _fieldArea.Append(0x0, 0x10).CreatePointerFromAddress();
+
+                //Flag stored in world related struct? Looks like the game is reading a size, and then looping over a vector of structs (size 0x38)
+                var size = worldInfoOwner.ReadInt32(0x8);
+                var baseAddress = (IntPtr)worldInfoOwner.Append(0x10, 0x38).GetAddress();
+                var vector = worldInfoOwner.Append(0x10);
+
+                //Loop over worldInfo structs
+                for (int i = 0; i < size; i++)
+                {
+                    var category = vector.ReadByte(i * 0x38 + 0xb);
+                    if (category == eventFlagIdDiv100000)
+                    {
+                        //function at 0x14060c650
+                        var count = vector.ReadByte(i * 0x38 + 0x20);
+                        var index = 0;
+                        var found = false;
+                        Pointer worldInfoBlockPtr = null;
+
+                        if (count >= 1)
+                        {
+                            //Loop over worldBlockInfo structs
+                            while (true)
+                            {
+                                worldInfoBlockPtr = vector.CreatePointerFromAddress(i * 0x38 + 0x28 + (index * 0xe));
+                                var flag = worldInfoBlockPtr.ReadInt32(0x8);
+
+                                if ((flag >> 0x10 & 0xff) == eventFlagIdDiv10000 && flag >> 0x18 == eventFlagIdDiv100000)
+                                {
+                                    found = true;
+                                    break;
+                                }
+
+                                index++;
+                                if (count <= index)
+                                {
+                                    found = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (found)
+                        {
+                            flagWorldBlockInfoCategory = worldInfoBlockPtr.ReadInt32(0x20);
+                            break;
+                        }
+                    }
+                }
+
+                if (-1 < (int)flagWorldBlockInfoCategory)
+                {
+                    flagWorldBlockInfoCategory++;
+                }
+            }
+
+
+            var ptr = _sprjEventFlagMan.Append(0x218, eventFlagIdDiv10000000 * 0x18, 0x0);
+
+            if (ptr.IsNullPtr() || flagWorldBlockInfoCategory < 0)
+            {
+                return false;
+            }
+            
+            var resultPointerAddress = new Pointer(ptr.Process, ptr.Is64Bit, (eventFlagIdDiv1000 << 4) + ptr.GetAddress() + flagWorldBlockInfoCategory * 0xa8, 0x0);
+
+            if (!resultPointerAddress.IsNullPtr())
+            {
+                var value = resultPointerAddress.ReadUInt32((long)((uint)((int)eventFlagId % 1000) >> 5) * 4);
+                var mask = 1 << (0x1f - ((byte)((int)eventFlagId % 1000) & 0x1f) & 0x1f);
+                var result = value & mask;
+                return result != 0;
+            }
+            return false;
+        }
+
+        //Mask magic at 0x1404c6e54:
+        //
+        //plVar3 = (longlong*) get_event_flag_pointer(param_1, eventFlagId,true);
+        //    if ((plVar3 != (longlong*)0x0) &&
+        //((*(uint*) (* plVar3 + (ulonglong) ((uint)((int) eventFlagId % 1000) >> 5) * 4) &
+        //1 << (0x1f - ((byte)((int) eventFlagId % 1000) & 0x1f) & 0x1f)) != 0)) {
+
+
+
+
+        //get_event_flag_pointer at 0x1404c7140
+        //
+        //longlong get_event_flag_pointer(longlong SprjEventFlagMan_ptr, uint eventFlagId, bool state)
+        //
+        //{
+        //    int func_1_result_int;
+        //    ulonglong func_1_result;
+        //    longlong lVar1;
+        //    longlong lVar2;
+        //    uint eventFlagDiv_1000;
+        //    ulonglong eventFlagDiv_10000000;
+        //    uint local_res8[2];
+        //
+        //    /* Returns a pointer to the event flag. Pointer must be read, at on offset,
+        //       obtained with some bitmagic applied to the event flag, to get a value
+        //       indicating if the flag is set or not */
+        //    if ((*(char*)(SprjEventFlagMan_ptr + 0x228) == '\0') || ((int)eventFlagId < 0))
+        //    {
+        //        return 0;
+        //    }
+        //    eventFlagDiv_10000000 = (ulonglong)(uint)(((int)eventFlagId / 10000000) % 10);
+        //    eventFlagDiv_1000 = ((int)eventFlagId / 1000) % 10;
+        //    func_1_result =
+        //         func_1(SprjEventFlagMan_ptr, ((int)eventFlagId / 100000) % 100, ((int)eventFlagId / 10000) % 10
+        //                , state);
+        //    func_1_result_int = (int)func_1_result;
+        //    if (state == false)
+        //    {
+        //        /* If fieldarea not initialized (Main menu?) */
+        //        if (Global_FieldArea_Ptr != (FieldArea*)0x0)
+        //        {
+        //            FUN_1404c46b0(Global_FieldArea_Ptr->WorldInfoOwner_ptr2, local_res8,
+        //                          *(undefined4*)&Global_FieldArea_Ptr->field4_0x20);
+        //            is_param_smaller_than_90(local_res8[0] >> 0x18);
+        //        }
+        //        /* Section is repeated bellow.
+        //           Looks like the compiler failed to optimize this properly.
+        //           It seems like param3 and Global_FieldArea_Ptr if statements are the only real
+        //           difference, and the code is duplicated by the compiler */
+        //        lVar1 = *(longlong*)(*(longlong*)(SprjEventFlagMan_ptr + 0x218) + eventFlagDiv_10000000 * 0x18);
+        //        if ((lVar1 == 0) || (func_1_result_int < 0))
+        //        {
+        //            return 0;
+        //        }
+        //        lVar2 = (ulonglong)eventFlagDiv_1000 << 4;
+        //        lVar1 = (longlong)func_1_result_int * 0xa8 + lVar1;
+        //    }
+        //    else
+        //    {
+        //        lVar2 = *(longlong*)(*(longlong*)(SprjEventFlagMan_ptr + 0x218) + eventFlagDiv_10000000 * 0x18);
+        //        if (lVar2 == 0)
+        //        {
+        //            return 0;
+        //        }
+        //        if (func_1_result_int < 0)
+        //        {
+        //            return 0;
+        //        }
+        //        lVar1 = (ulonglong)eventFlagDiv_1000 << 4;
+        //        lVar2 = (longlong)func_1_result_int * 0xa8 + lVar2;
+        //    }
+        //    return lVar1 + lVar2;
+        //}
+
+        #endregion
     }
 }

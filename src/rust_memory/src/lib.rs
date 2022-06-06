@@ -2,13 +2,22 @@
 #![feature(const_mut_refs)]
 #![feature(once_cell)]
 #![feature(core_intrinsics)]
+#![allow(unused_imports)]
 
 mod native;
 mod memory;
 
-pub mod eldenring;
 pub mod darksouls2;
+pub use darksouls2::*;
+
+pub mod darksouls3;
+pub use darksouls3::*;
+
+pub mod eldenring;
+pub use eldenring::*;
+
 pub mod websocket;
+
 
 pub use log::*;
 pub use log4rs::*;
@@ -18,10 +27,11 @@ use std::time::Duration;
 use winapi::shared::minwindef::PROC;
 pub use crate::memory::*;
 pub use crate::native::*;
-pub use crate::eldenring::*;
 use crate::processes::Process;
 use crate::scan_cache::{init_scan_cache};
-use crate::websocket::{init_websocket_server, kill_websocket_server};
+use crate::websocket::*;
+
+pub use serde_json;
 
 static mut PROCESS: Option<Process> = None;
 
@@ -41,16 +51,20 @@ pub fn init()
 
           match process_name
           {
-               "eldenring.exe" =>
-               {
-
-                    eldenring::init_event_flag_detour();
-               },
                "darksoulsii.exe" =>
                {
                     darksouls2::init_event_flag_detour();
                     darksouls2::init_unlock_bonfire_detour();
                     darksouls2::init_event_guide_flag_detour();
+               },
+               "darksoulsiii.exe" =>
+               {
+                    darksouls3::init_event_flag_detour();
+                    darksouls3::init_get_event_flag_detour();
+               },
+               "eldenring.exe" =>
+               {
+                    eldenring::init_event_flag_detour();
                },
                _ => error!("unsupported process: {}", process_name),
           }
@@ -70,16 +84,19 @@ pub fn unload()
           //Need to disable all detours before unloading, otherwise Elden Ring will jump to unloaded code.
           match process_name
           {
-               "eldenring.exe" =>
-               {
-
-                    eldenring::disable_event_flag_detour();
-               },
                "darksoulsii.exe" =>
                {
                     darksouls2::disable_event_flag_detour();
                     darksouls2::disable_unlock_bonfire_detour();
                     darksouls2::disable_event_guide_flag_detour();
+               },
+               "darksoulsiii.exe" =>
+               {
+                    darksouls3::disable_event_flag_detour();
+               },
+               "eldenring.exe" =>
+               {
+                    eldenring::disable_event_flag_detour();
                },
                _ => error!("unsupported process: {}", process_name),
           }
@@ -90,21 +107,8 @@ pub fn unload()
           {
                if m.name == "soulinjectee.dll"
                {
-                    m.unload(process);
+                    m.unload();
                }
           }
      }
 }
-
-
-
-
-
-
-extern "C"
-{
-     pub fn update_igt_detour(fd4ptr: usize, frame_delta: f32);
-}
-
-#[used] #[no_mangle]
-static USED_UPDATE_IGT_DETOUR: unsafe extern "C" fn(usize, f32) = update_igt_detour;

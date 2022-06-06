@@ -3,6 +3,8 @@ use std::collections::HashMap;
 use std::sync::{Mutex, TryLockResult};
 use std::thread;
 use simple_websockets::Message::Text;
+use serde::{Deserialize, Serialize};
+use serde_json::Result;
 
 static mut COMMAND_BUFFER: Option<Mutex<Vec<String>>> = None;
 
@@ -35,7 +37,7 @@ pub fn write_command(command: String)
     }
 }
 
-pub fn read_command() -> Option<String>
+pub fn read_command_str() -> Option<String>
 {
     unsafe
     {
@@ -97,7 +99,7 @@ pub fn init_websocket_server()
             {
                 match KILL_SERVER.as_ref().unwrap().try_lock()
                 {
-                    Ok(mut guard) => {
+                    Ok(guard) => {
                         if *guard {
                             return;
                     }},
@@ -121,7 +123,7 @@ pub fn init_websocket_server()
                     println!("Received a message from client #{}: {:?}", client_id, message);
 
                     // retrieve this client's `Responder`:
-                    let responder = clients.get(&client_id).unwrap();
+                    //let responder = clients.get(&client_id).unwrap();
                     // echo the message back:
                     //responder.send(message);
 
@@ -134,4 +136,47 @@ pub fn init_websocket_server()
             }
         }
     });
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize)]
+pub struct Message
+{
+    pub MessageType: String,
+    pub DarkSouls3ReadEventFlagMessage: Option<DarkSouls3ReadEventFlagMessage>,
+}
+
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize)]
+pub struct DarkSouls3ReadEventFlagMessage
+{
+    pub SprjEventFlagManager: u64,
+    pub EventFlagId: u32,
+    pub State: bool,
+}
+
+
+
+pub fn json_test()
+{
+    let json = r#"{
+        "MessageType": "DarkSouls3ReadEventFlagMessage",
+        "DarkSouls3ReadEventFlagMessage": {
+            "SprjEventFlagManager": 140688608397088,
+            "EventFlagId": 14000802,
+            "State": true
+        }
+    }"#;
+
+    let result = serde_json::from_str::<Message>(json);
+    match result
+    {
+        Ok(message) =>
+        {
+            println!("{}", message.MessageType);
+            println!("{}", message.DarkSouls3ReadEventFlagMessage.unwrap().SprjEventFlagManager);
+        }
+        Err(_) => {}
+    }
 }

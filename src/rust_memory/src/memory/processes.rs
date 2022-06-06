@@ -1,8 +1,7 @@
 use std::ffi::c_void;
 use std::intrinsics::size_of;
 use std::path::Path;
-use std::{slice, thread};
-use std::time::Duration;
+use std::slice;
 use log::info;
 use winapi::ctypes::c_char;
 use winapi::shared::minwindef::{DWORD, FALSE, HINSTANCE, HMODULE, LPCVOID, LPDWORD, LPVOID, MAX_PATH};
@@ -135,7 +134,7 @@ impl Process
             {
                 if module.name == file_name
                 {
-                    module.unload(self);
+                    module.unload();
                 }
             }
 
@@ -225,7 +224,7 @@ impl ProcessModule
         }
     }
 
-    pub fn unload(&self, process: &Process)
+    pub fn unload(&self)
     {
         unsafe
         {

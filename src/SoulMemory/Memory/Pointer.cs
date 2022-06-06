@@ -12,10 +12,10 @@ namespace SoulMemory.Shared
     {
         public Pointer(Process process, bool is64Bit, long baseAddress, params long[] offsets)
         {
-            Process     = process;
-            Is64Bit     = is64Bit;
+            Process = process;
+            Is64Bit = is64Bit;
             BaseAddress = baseAddress;
-            Offsets     = offsets.ToList();
+            Offsets = offsets.ToList();
         }
 
         public Pointer Copy()
@@ -35,6 +35,7 @@ namespace SoulMemory.Shared
             {
                 offsets.Add(offset.Value);
             }
+
             offsets.Add(0);
 
             copy.BaseAddress = ResolveOffsets(offsets);
@@ -99,6 +100,7 @@ namespace SoulMemory.Shared
 
         //Debug representation, shows in IDE
         public string Path { get; private set; }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -106,6 +108,17 @@ namespace SoulMemory.Shared
             Path = sb.ToString();
             return Path;
         }
+
+        #region Append offsets
+
+        public Pointer Append(params long[] offsets)
+        {
+            var copy = Copy();
+            copy.Offsets.AddRange(offsets);
+            return copy;
+        }
+
+        #endregion
 
         #region Read/write memory
 
@@ -150,6 +163,10 @@ namespace SoulMemory.Shared
         public int ReadInt32(long? offset = null)
         {
             return BitConverter.ToInt32(ReadMemory(offset, 4), 0);
+        }
+        public uint ReadUInt32(long? offset = null)
+        {
+            return BitConverter.ToUInt32(ReadMemory(offset, 4), 0);
         }
 
         public long ReadInt64(long? offset = null)

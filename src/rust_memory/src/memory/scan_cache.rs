@@ -1,6 +1,5 @@
 use std::mem::{size_of};
 use std::ffi::{c_void};
-use std::path::Path;
 use std::slice;
 use log::{error, info};
 use winapi::shared::minwindef::{HINSTANCE, HMODULE, MAX_PATH};

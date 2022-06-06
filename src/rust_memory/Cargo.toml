@@ -12,9 +12,13 @@ cc = "1.0.73"
 sysinfo = "0.23.5"
 detour = "0.8.1"
 chrono = "0.4.19"
-simple-websockets = "0.1.4"
+
 log = "0.4.17"
 log4rs = {version = "1.1.1", features = ["all_components" ] }
+
+simple-websockets = "0.1.4"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3.9", features = ["memoryapi", "processthreadsapi", "tlhelp32"] }

@@ -3,12 +3,12 @@ use winapi::um::winnt::{DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 use std::{panic, thread};
 use std::time::Duration;
 use rust_memory;
-use rust_memory::{Config, error, info, init_config, LevelFilter, unload, warn};
+use rust_memory::{Config, darksouls3, error, info, init_config, LevelFilter, serde_json, unload, warn};
 use rust_memory::append::console::ConsoleAppender;
 use rust_memory::append::file::FileAppender;
 use rust_memory::config::{Appender, Logger, Root};
 use rust_memory::encode::pattern::PatternEncoder;
-use rust_memory::websocket::{read_command};
+use rust_memory::websocket::{Message, read_command_str};
 
 #[no_mangle]
 #[allow(non_snake_case)]
@@ -37,12 +37,12 @@ pub unsafe extern "system" fn DllMain(
             .appender(Appender::builder().build("stdout", Box::new(stdout)))
             .appender(Appender::builder().build("log_file", Box::new(requests)))
             .logger(Logger::builder()
-                .build("cli_rust", LevelFilter::Trace))
+                .build("cli_rust", LevelFilter::Info))
             .logger(Logger::builder()
                 .appender("log_file")
                 .additive(false)
-                .build("cli_rust::log_file", LevelFilter::Trace))
-            .build(Root::builder().appender("stdout").appender("log_file").build(LevelFilter::Trace))
+                .build("cli_rust::log_file", LevelFilter::Info))
+            .build(Root::builder().appender("stdout").appender("log_file").build(LevelFilter::Info))
             .unwrap();
 
         let _handle = init_config(config).unwrap();
@@ -85,19 +85,35 @@ fn main_loop()
     {
         thread::sleep(Duration::from_millis(100));
 
-        let command = read_command();
-        if command.is_some()
+        let command_str = read_command_str();
+        if command_str.is_some()
         {
-            let string = command.unwrap();
+            let string = command_str.unwrap();
             let command_str = string.as_str();
-            match command_str
+
+            let result = serde_json::from_str::<Message>(command_str);
+            match result
             {
-                "unload" =>
+                Ok(message) =>
                 {
-                    info!("Attempting to unload");
-                    unload();
+                    let message_type = message.MessageType.as_str();
+                    match message_type
+                    {
+                        "DarkSouls3ReadEventFlagMessage" =>
+                        {
+                            let dark_souls3read_event_flag_message = message.DarkSouls3ReadEventFlagMessage.unwrap();
+                            let result = darksouls3::get_event_flag
+                            (
+                                dark_souls3read_event_flag_message.SprjEventFlagManager,
+                                dark_souls3read_event_flag_message.EventFlagId,
+                                dark_souls3read_event_flag_message.State
+                            );
+                            info!("get_event_flag result: {:x}", result);
+                        }
+                        _ => info!("unsupported message type {}", message_type),
+                    }
                 }
-                _ => warn!("unknown command {}", command_str),
+                Err(_) => info!("Failed to parse: {}", command_str),
             }
         }
     }

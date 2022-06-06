@@ -43,5 +43,5 @@ pub fn init_event_guide_flag_detour()
 
 pub fn disable_event_guide_flag_detour()
 {
-    unsafe { SetEventGuideFlagHook.disable() };
+    unsafe { SetEventGuideFlagHook.disable().unwrap() };
 }
