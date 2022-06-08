@@ -6,7 +6,7 @@ use crate::scan_cache::{scan_absolute};
 
 static_detour!{ static SetEventFlagHook: fn(u64, u32, u8, u8); }
 
-static IGNORED_FLAGS: [u32; 11] = [
+static IGNORED_FLAGS: [u32; 12] = [
     4200,
     2000,
     2001,
@@ -17,7 +17,8 @@ static IGNORED_FLAGS: [u32; 11] = [
     2022,
     2030,
     2051,
-    2052
+    2052,
+    13415841,
 ];
 
 fn log_event_flag(rdx: u64, edx: u32, r8d: u8, r9b: u8)

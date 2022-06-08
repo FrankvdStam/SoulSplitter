@@ -73,6 +73,7 @@
     <Compile Include="DarkSouls2\Data.cs" />
     <Compile Include="DarkSouls2\IDarkSouls2.cs" />
     <Compile Include="DarkSouls2\WarpType.cs" />
+    <Compile Include="DarkSouls3\Boss.cs" />
     <Compile Include="DarkSouls3\DarkSouls3.cs" />
     <Compile Include="EldenRing\Boss.cs" />
     <Compile Include="EldenRing\EldenRing.cs" />
