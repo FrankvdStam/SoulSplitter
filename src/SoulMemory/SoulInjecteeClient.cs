@@ -15,7 +15,7 @@ namespace SoulMemory
         public SoulInjecteeClient()
         {
             _clientWebSocket = new ClientWebSocket();
-            _clientWebSocket.ConnectAsync(new Uri(" ws://localhost:12345"), CancellationToken.None).GetAwaiter().GetResult();
+            _clientWebSocket.ConnectAsync(new Uri("ws://localhost:12345"), CancellationToken.None).GetAwaiter().GetResult();
         }
 
         private ClientWebSocket _clientWebSocket;

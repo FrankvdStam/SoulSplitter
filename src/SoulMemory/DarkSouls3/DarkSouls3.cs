@@ -167,7 +167,7 @@ namespace SoulMemory.DarkSouls3
             }
 
             var eventFlagIdDiv10000000 = (int)(eventFlagId / 10000000) % 10;
-            var eventFlagIdDiv100000   = (int)(eventFlagId / 100000  ) % 100;
+            var eventFlagArea          = (int)(eventFlagId / 100000  ) % 100;
             var eventFlagIdDiv10000    = (int)(eventFlagId / 10000   ) % 10;
             var eventFlagIdDiv1000     = (int)(eventFlagId / 1000    ) % 10;
 
@@ -176,13 +176,13 @@ namespace SoulMemory.DarkSouls3
             //ItemPickup 0x0?
             //Bonfire = 0x11?
             var flagWorldBlockInfoCategory = -1;
-            if (!(eventFlagIdDiv100000 < 90) || eventFlagIdDiv100000 + eventFlagIdDiv10000 == 0)
+            if (!(eventFlagArea < 90) || eventFlagArea + eventFlagIdDiv10000 == 0)
             {
                 flagWorldBlockInfoCategory = 0;
             }
             else
             {
-                //Not implementing a case where Global_FieldArea_Ptr == (FieldArea *)0x0
+                //Not implementing a case where Global_FieldArea_Ptr == (FieldArea *)0x0. I think it will just do some initialization there.
                 if (_fieldArea.IsNullPtr())
                 {
                     return false;
@@ -192,30 +192,32 @@ namespace SoulMemory.DarkSouls3
 
                 //Flag stored in world related struct? Looks like the game is reading a size, and then looping over a vector of structs (size 0x38)
                 var size = worldInfoOwner.ReadInt32(0x8);
-                var baseAddress = (IntPtr)worldInfoOwner.Append(0x10, 0x38).GetAddress();
+                //var baseAddress = (IntPtr)worldInfoOwner.Append(0x10, 0x38).GetAddress();
                 var vector = worldInfoOwner.Append(0x10);
 
                 //Loop over worldInfo structs
                 for (int i = 0; i < size; i++)
                 {
-                    var category = vector.ReadByte(i * 0x38 + 0xb);
-                    if (category == eventFlagIdDiv100000)
+                    //0x00007ff4fd9ba4c3
+                    var offset = (IntPtr)vector.ReadInt64() + i * 0x38;
+                    var area = vector.ReadByte((i * 0x38) + 0xb);
+                    if (area == eventFlagArea)
                     {
                         //function at 0x14060c650
                         var count = vector.ReadByte(i * 0x38 + 0x20);
                         var index = 0;
                         var found = false;
-                        Pointer worldInfoBlockPtr = null;
+                        Pointer worldInfoBlockVector = null;
 
                         if (count >= 1)
                         {
-                            //Loop over worldBlockInfo structs
+                            //Loop over worldBlockInfo structs, size 0xe
                             while (true)
                             {
-                                worldInfoBlockPtr = vector.CreatePointerFromAddress(i * 0x38 + 0x28 + (index * 0xe));
-                                var flag = worldInfoBlockPtr.ReadInt32(0x8);
+                                worldInfoBlockVector = vector.CreatePointerFromAddress(i * 0x38 + 0x28);
+                                var flag = worldInfoBlockVector.ReadInt32((index * 0x70) + 0x8);
 
-                                if ((flag >> 0x10 & 0xff) == eventFlagIdDiv10000 && flag >> 0x18 == eventFlagIdDiv100000)
+                                if ((flag >> 0x10 & 0xff) == eventFlagIdDiv10000 && flag >> 0x18 == eventFlagArea)
                                 {
                                     found = true;
                                     break;
@@ -232,7 +234,7 @@ namespace SoulMemory.DarkSouls3
 
                         if (found)
                         {
-                            flagWorldBlockInfoCategory = worldInfoBlockPtr.ReadInt32(0x20);
+                            flagWorldBlockInfoCategory = worldInfoBlockVector.ReadInt32((index * 0x70) + 0x20);
                             break;
                         }
                     }

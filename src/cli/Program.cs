@@ -36,6 +36,20 @@ namespace cli
             //return;
 
             var ds3 = new DarkSouls3();
+            //ds3.Refresh();
+            //ds3.ReadEventFlag(15110800);
+            //return;
+            var discovery = new EventFlagDiscovery(ds3);
+
+            for (; ; )
+            {
+                discovery.Update();
+                Thread.Sleep(500);
+                ds3.Refresh();
+            }
+            return;
+
+
             while (true)
             {
                 Console.WriteLine(ds3.ReadEventFlag(14000002));
@@ -139,15 +153,7 @@ namespace cli
             return;
 
 
-            var discovery = new EventFlagDiscovery(er);
-
-            for (;;)
-            {
-                discovery.Update();
-
-                Thread.Sleep(500);
-                er.Refresh();
-            }
+            
         }
 
 
