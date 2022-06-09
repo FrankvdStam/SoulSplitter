@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LiveSplit.Model;
 using SoulMemory.DarkSouls3;
+using SoulSplitter.Splits.DarkSouls3;
 using SoulSplitter.UI.DarkSouls3;
 
 namespace SoulSplitter.Splitters
@@ -38,6 +39,7 @@ namespace SoulSplitter.Splitters
         private void OnStart(object sender, EventArgs e)
         {
             StartTimer();
+            StartAutoSplitting();
         }
 
         private void OnReset(object sender, TimerPhase timerPhase)
@@ -53,6 +55,8 @@ namespace SoulSplitter.Splitters
             RefreshDarkSouls3();
 
             UpdateTimer();
+
+            UpdateAutoSplitter();
         }
 
 
@@ -68,6 +72,7 @@ namespace SoulSplitter.Splitters
                         if (igt > 0 && igt < 150)
                         {
                             StartTimer();
+                            StartAutoSplitting();
                         }
                     }
                     break;
@@ -110,6 +115,85 @@ namespace SoulSplitter.Splitters
         private readonly TimerModel _timerModel;
         private int _inGameTime;
         private TimerState _timerState = TimerState.WaitForStart;
+
+        #endregion
+
+        #region Autosplitting
+
+        private List<Split> _splits = new List<Split>();
+
+        public void ResetAutoSplitting()
+        {
+            _splits.Clear();
+        }
+
+        public void StartAutoSplitting()
+        {
+            _splits = (
+                from timingType in _darkSouls3ViewModel.Splits
+                from splitType in timingType.Children
+                from split in splitType.Children
+                select new Split(timingType.TimingType, splitType.SplitType, split.Split)
+                ).ToList();
+        }
+
+        public void UpdateAutoSplitter()
+        {
+            if (_timerState != TimerState.Running)
+            {
+                return;
+            }
+            
+            foreach (var s in _splits)
+            {
+                if (!s.SplitTriggered)
+                {
+                    switch (s.SplitType)
+                    {
+                        default:
+                            throw new Exception($"Unsupported split type {s.SplitType}");
+
+                        case SplitType.Boss:
+                        case SplitType.Bonfire:
+                        case SplitType.ItemPickup:
+                        case SplitType.Flag:
+                            if (!s.SplitConditionMet)
+                            {
+                                s.SplitConditionMet = _darkSouls3.ReadEventFlag(s.Flag);
+                            }
+
+                            if (s.SplitConditionMet)
+                            {
+                                ResolveSplitTiming(s);
+                            }
+
+                            break;
+                    }
+                }
+            }
+        }
+
+        private void ResolveSplitTiming(Split s)
+        {
+            switch (s.TimingType)
+            {
+                default:
+                    throw new Exception($"Unsupported timing type {s.TimingType}");
+
+                case TimingType.Immediate:
+                    _timerModel.Split();
+                    s.SplitTriggered = true;
+                    break;
+
+                case TimingType.OnLoading:
+                    if (_darkSouls3.IsLoading())
+                    {
+                        _timerModel.Split();
+                        s.SplitTriggered = true;
+                    }
+                    break;
+            }
+        }
 
         #endregion
 

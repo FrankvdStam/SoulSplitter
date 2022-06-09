@@ -24,9 +24,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
 
                 <ResourceDictionary>
-                    <ui:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter"/>
-                    <ui:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-                    <eldenRing:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
+                    <ui:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
+                    <ui:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
+                    <ui:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
                 </ResourceDictionary>
 
                 <ResourceDictionary>

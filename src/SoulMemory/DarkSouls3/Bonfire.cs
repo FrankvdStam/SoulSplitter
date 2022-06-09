@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SoulMemory.DarkSouls3
 {
+    [XmlType(Namespace = "DarkSouls3")]
     public enum Bonfire : uint
     {
         [Display(Name = "Firelink Shrine", Description="Cemetery of Ash")]

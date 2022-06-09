@@ -19,7 +19,6 @@ namespace SoulSplitter.UI.EldenRing
         {
         }
 
-
         public bool StartAutomatically
         {
             get => _startAutomatically;

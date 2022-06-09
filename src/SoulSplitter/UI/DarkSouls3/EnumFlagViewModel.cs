@@ -5,32 +5,29 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 
-namespace SoulSplitter.UI.EldenRing
+namespace SoulSplitter.UI.DarkSouls3
 {
-    public class GraceViewModel : INotifyPropertyChanged
+    //<T> : INotifyPropertyChanged 
+    //where T : System.Enum
+
+    public class EnumFlagViewModel<T> : INotifyPropertyChanged where T : Enum
     {
-        public GraceViewModel(Grace g)
+        public EnumFlagViewModel(T tEnum)
         {
-            Area = g.GetDisplayDescription();
-            Name = g.GetDisplayName();
-            Flag = (uint)g;
-            Grace = g;
+            Value = tEnum;
+            Name = Value.GetDisplayName();
+            Area = Value.GetDisplayDescription();
+            Flag = Convert.ToUInt32(Value);
         }
-
-        public override string ToString()
+        
+        public T Value
         {
-            return Name;
+            get => _value;
+            set => SetField(ref _value, value);
         }
-
-        public Grace Grace
-        {
-            get => _grace;
-            set => SetField(ref _grace, value);
-        }
-        private Grace _grace;
+        private T _value;
 
         public string Area
         {
@@ -54,23 +51,29 @@ namespace SoulSplitter.UI.EldenRing
         private uint _flag;
 
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
 
         #region INotifyPropertyChanged
-
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private bool SetField<U>(ref U field, U value, [CallerMemberName] string propertyName = null)
         {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            if (EqualityComparer<U>.Default.Equals(field, value)) return false;
             field = value;
             OnPropertyChanged(propertyName ?? "");
             return true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
         }
 
         #endregion
+
     }
 }

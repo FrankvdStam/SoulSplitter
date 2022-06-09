@@ -67,6 +67,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Splits\DarkSouls3\SplitType.cs" />
+    <Compile Include="Splits\DarkSouls3\Split.cs" />
     <Compile Include="Splits\EldenRing\Split.cs" />
     <Compile Include="Splits\EldenRing\EldenRingSplitType.cs" />
     <Compile Include="Splitters\DarkSouls3Splitter.cs" />
@@ -74,11 +76,13 @@
       <DependentUpon>DarkSouls3Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DarkSouls3\DarkSouls3ViewModel.cs" />
+    <Compile Include="UI\DarkSouls3\EnumFlagViewModel.cs" />
+    <Compile Include="UI\DarkSouls3\HierarchicalViewModel.cs" />
     <Compile Include="UI\EldenRing\PositionViewModel.cs" />
     <Compile Include="UI\EldenRing\BossViewModel.cs" />
     <Compile Include="UI\EldenRing\ItemPickupViewModel.cs" />
     <Compile Include="UI\EldenRing\GraceViewModel.cs" />
-    <Compile Include="UI\EldenRing\SplitObjectToDescriptionConverter.cs" />
+    <Compile Include="UI\SplitObjectToDescriptionConverter.cs" />
     <Compile Include="UI\EldenRing\SplitViewModel.cs" />
     <Compile Include="UI\BoolToVisibilityConverter.cs" />
     <Compile Include="SoulComponent.cs" />
@@ -91,7 +95,7 @@
     <Compile Include="Splits\DarkSouls2\ItemSplit.cs" />
     <Compile Include="Splits\DarkSouls2\BossSplit.cs" />
     <Compile Include="Splits\DarkSouls2\ISplit.cs" />
-    <Compile Include="Splits\DarkSouls2\SplitType.cs" />
+    <Compile Include="Splits\DarkSouls2\DarkSouls2SplitType.cs" />
     <Compile Include="SplitterState.cs" />
     <Compile Include="Splitters\EldenRingSplitter.cs" />
     <Compile Include="Splitters\ISplitter.cs" />

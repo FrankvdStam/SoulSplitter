@@ -32,6 +32,9 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+            return;
+
             //Ds3TestPatterns();
             //return;
 

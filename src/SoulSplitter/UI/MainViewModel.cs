@@ -20,6 +20,7 @@ namespace SoulSplitter.UI
             EldenRingViewModel  = mainViewModel.EldenRingViewModel;
             DarkSouls1ViewModel = mainViewModel.DarkSouls1ViewModel;
             DarkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
+            DarkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
         }
         
         [XmlIgnore]
@@ -99,6 +100,7 @@ namespace SoulSplitter.UI
         {
             var vm = xml.DeserializeXml<MainViewModel>();
             vm.EldenRingViewModel.RestoreHierarchy();
+            vm.DarkSouls3ViewModel.RestoreHierarchy();
             return vm;
         }
 

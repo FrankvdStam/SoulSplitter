@@ -3,7 +3,7 @@ using System.Windows.Data;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 
-namespace SoulSplitter.UI.EldenRing
+namespace SoulSplitter.UI
 {
     public class SplitObjectToDescriptionConverter : IValueConverter
     {

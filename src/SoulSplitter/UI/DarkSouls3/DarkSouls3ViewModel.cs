@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
+using SoulMemory.DarkSouls3;
+using SoulSplitter.Splits.DarkSouls3;
+using SoulSplitter.UI.DarkSouls3;
 
 namespace SoulSplitter.UI.DarkSouls3
 {
-    public class DarkSouls3ViewModel
+    public class DarkSouls3ViewModel : INotifyPropertyChanged
     {
         public bool StartAutomatically
         {
@@ -17,11 +20,264 @@ namespace SoulSplitter.UI.DarkSouls3
         }
         private bool _startAutomatically = true;
 
+        #region add/remove splits ============================================================================================================================================
+        public void AddSplit()
+        {
+            if (NewSplitTimingType == null ||
+                NewSplitType == null ||
+                NewSplitValue == null)
+            {
+                return;
+            }
 
+            var hierarchicalTimingType = Splits.FirstOrDefault(i => i.TimingType == NewSplitTimingType);
+            if (hierarchicalTimingType == null)
+            {
+                hierarchicalTimingType = new HierarchicalTimingTypeViewModel() { TimingType = NewSplitTimingType.Value };
+                Splits.Add(hierarchicalTimingType);
+            }
 
+            var hierarchicalSplitType = hierarchicalTimingType.Children.FirstOrDefault(i => i.SplitType == NewSplitType);
+            if (hierarchicalSplitType == null)
+            {
+                hierarchicalSplitType = new HierarchicalSplitTypeViewModel() { SplitType = NewSplitType.Value, Parent = hierarchicalTimingType };
+                hierarchicalTimingType.Children.Add(hierarchicalSplitType);
+            }
 
+            switch (NewSplitType)
+            {
+                default:
+                    throw new Exception($"split type not supported: {NewSplitType}");
 
-        #region INotifyPropertyChanged
+                case SplitType.Boss:
+                    var boss = (Boss)NewSplitValue;
+                    if (hierarchicalSplitType.Children.All(i => (Boss)i.Split != boss))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = boss, Parent = hierarchicalSplitType });
+                    }
+                    break;
+
+                case SplitType.Bonfire:
+                    var bonfire = (Bonfire)NewSplitValue;
+                    if (hierarchicalSplitType.Children.All(i => (Bonfire)i.Split != bonfire))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = bonfire, Parent = hierarchicalSplitType });
+                    }
+                    break;
+
+                case SplitType.ItemPickup:
+                    var itemPickup = (ItemPickup)NewSplitValue;
+                    if (hierarchicalSplitType.Children.All(i => (ItemPickup)i.Split != itemPickup))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = itemPickup, Parent = hierarchicalSplitType });
+                    }
+                    break;
+
+                case SplitType.Flag:
+                    var flag = (uint)NewSplitValue;
+                    if (hierarchicalSplitType.Children.All(i => (uint)i.Split != flag))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = flag, Parent = hierarchicalSplitType });
+                    }
+                    break;
+            }
+
+            NewSplitTimingType = null;
+            NewSplitType = null;
+            NewSplitValue = null;
+        }
+
+        public void RemoveSplit()
+        {
+            if (SelectedSplit != null)
+            {
+                var parent = SelectedSplit.Parent;
+                parent.Children.Remove(SelectedSplit);
+                if (parent.Children.Count <= 0)
+                {
+                    var nextParent = parent.Parent;
+                    nextParent.Children.Remove(parent);
+                    if (nextParent.Children.Count <= 0)
+                    {
+                        Splits.Remove(nextParent);
+                    }
+                }
+
+                SelectedSplit = null;
+            }
+        }
+
+        
+        public ObservableCollection<HierarchicalTimingTypeViewModel> Splits { get; set; } = new ObservableCollection<HierarchicalTimingTypeViewModel>();
+        #endregion
+
+        #region Properties for new splits ============================================================================================================================================
+
+        [XmlIgnore]
+        public TimingType? NewSplitTimingType
+        {
+            get => _newSplitTimingType;
+            set
+            {
+                SetField(ref _newSplitTimingType, value);
+                NewSplitTypeEnabled = true;
+            }
+        }
+        private TimingType? _newSplitTimingType = null;
+
+        [XmlIgnore]
+        public SplitType? NewSplitType
+        {
+            get => _newSplitType;
+            set
+            {
+                NewSplitBossEnabled       = false;
+                NewSplitBonfireEnabled    = false;
+                NewSplitItemPickupEnabled = false;
+                NewSplitFlagEnabled       = false;
+
+                SetField(ref _newSplitType, value);
+                switch (NewSplitType)
+                {
+                    case null:
+                        break;
+
+                    case SplitType.Boss:
+                        NewSplitBossEnabled = true;
+                        break;
+
+                    case SplitType.Bonfire:
+                        NewSplitBonfireEnabled = true;
+                        break;
+
+                    case SplitType.ItemPickup:
+                        NewSplitItemPickupEnabled = true;
+                        break;
+
+                    case SplitType.Flag:
+                        NewSplitFlagEnabled = true;
+                        break;
+
+                    default: 
+                        throw new Exception($"Unsupported split type: {NewSplitType}");
+                }
+            }
+        }
+        private SplitType? _newSplitType = null;
+
+        [XmlIgnore]
+        public object NewSplitValue
+        {
+            get => _newSplitValue;
+            set
+            {
+                SetField(ref _newSplitValue, value);
+                NewSplitAddEnabled = NewSplitValue != null;
+            }
+        }
+
+        private object _newSplitValue = null;
+
+        [XmlIgnore]
+        public bool NewSplitTypeEnabled
+        {
+            get => _newSplitTypeEnabled;
+            set => SetField(ref _newSplitTypeEnabled, value);
+        }
+        private bool _newSplitTypeEnabled = false;
+
+        [XmlIgnore]
+        public bool NewSplitBossEnabled
+        {
+            get => _newSplitBossEnabled;
+            set => SetField(ref _newSplitBossEnabled, value);
+        }
+        private bool _newSplitBossEnabled = false;
+
+        [XmlIgnore]
+        public bool NewSplitBonfireEnabled
+        {
+            get => _newSplitBonfireEnabled;
+            set => SetField(ref _newSplitBonfireEnabled, value);
+        }
+        private bool _newSplitBonfireEnabled = false;
+
+        [XmlIgnore]
+        public bool NewSplitItemPickupEnabled
+        {
+            get => _newSplitItemPickupEnabled;
+            set => SetField(ref _newSplitItemPickupEnabled, value);
+        }
+        private bool _newSplitItemPickupEnabled = false;
+
+        [XmlIgnore]
+        public bool NewSplitFlagEnabled
+        {
+            get => _newSplitFlagEnabled;
+            set => SetField(ref _newSplitFlagEnabled, value);
+        }
+        private bool _newSplitFlagEnabled = false;
+
+        [XmlIgnore]
+        public bool NewSplitAddEnabled
+        {
+            get => _newSplitAddEnabled;
+            set => SetField(ref _newSplitAddEnabled, value);
+        }
+        private bool _newSplitAddEnabled = false;
+
+        [XmlIgnore]
+        public bool RemoveSplitEnabled
+        {
+            get => _removeSplitEnabled;
+            set => SetField(ref _removeSplitEnabled, value);
+        }
+        private bool _removeSplitEnabled = false;
+
+        [XmlIgnore]
+        public HierarchicalSplitViewModel SelectedSplit
+        {
+            get => _selectedSplit;
+            set
+            {
+                SetField(ref _selectedSplit, value);
+                RemoveSplitEnabled = SelectedSplit != null;
+            }
+        }
+        private HierarchicalSplitViewModel _selectedSplit = null;
+
+        #endregion
+
+        #region Splits hierarchy
+        public void RestoreHierarchy()
+        {
+            //When serializing the model, we can't serialize the parent relation, because that would be a circular reference. Instead, parent's are not serialized.
+            //After deserializing, the parent relations must be restored.
+
+            foreach (var timingType in Splits)
+            {
+                foreach (var splitType in timingType.Children)
+                {
+                    splitType.Parent = timingType;
+                    foreach (var split in splitType.Children)
+                    {
+                        split.Parent = splitType;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Static UI source data ============================================================================================================================================
+
+        public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<Boss>>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
+        public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = new ObservableCollection<EnumFlagViewModel<Bonfire>>(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
+        public static ObservableCollection<EnumFlagViewModel<ItemPickup>> ItemPickups { get; set; } = new ObservableCollection<EnumFlagViewModel<ItemPickup>>(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new EnumFlagViewModel<ItemPickup>(i)));
+
+        #endregion
+
+        #region INotifyPropertyChanged ============================================================================================================================================
 
         private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {

@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SoulMemory.DarkSouls3
 {
+    [XmlType(Namespace = "DarkSouls3")]
     public enum ItemPickup : uint
     {
         [Display(Name = "[Boss] Soul of Boreal Valley Vordt 50002000")]
@@ -24,14 +26,8 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Boss] Cinders of a Lord 50002040")]
         BossCindersOfaLord = 50002040,
 
-        [Display(Name = "[Boss] Soul of the Twin Princes 50002040")]
-        BossSoulOfTheTwinPrinces = 50002040,
-
         [Display(Name = "[Boss] Soul of the Rotted Greatwood 50002060")]
         BossSoulOfTheRottedGreatwood = 50002060,
-
-        [Display(Name = "[Boss] Transposing Kiln 50002060")]
-        BossTransposingKiln = 50002060,
 
         [Display(Name = "[Boss] Dragon Head Stone 50002070")]
         BossDragonHeadStone = 50002070,
@@ -45,9 +41,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Boss] Cinders of a Lord 50002100")]
         BossCindersOfaLord_ = 50002100,
 
-        [Display(Name = "[Boss] Soul of the Blood of the Wolf 50002100")]
-        BossSoulOfTheBloodOfTheWolf = 50002100,
-
         [Display(Name = "[Boss] Small Doll 50002110")]
         BossSmallDoll = 50002110,
 
@@ -60,9 +53,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Boss] Cinders of a Lord 50002130")]
         BossCindersOfaLord__ = 50002130,
 
-        [Display(Name = "[Boss] Soul of Aldrich 50002130")]
-        BossSoulOfAldrich = 50002130,
-
         [Display(Name = "[Boss] Soul of High Lord Wolnir 50002140")]
         BossSoulOfHighLordWolnir = 50002140,
 
@@ -71,9 +61,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Boss] Cinders of a Lord 50002170")]
         BossCindersOfaLord___ = 50002170,
-
-        [Display(Name = "[Boss] Soul of Yhorm the Giant 50002170")]
-        BossSoulOfYhormTheGiant = 50002170,
 
         [Display(Name = "[Boss] Coiled Sword 50002180")]
         BossCoiledSword = 50002180,
@@ -111,9 +98,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Boss] Soul of Slave Knight Gael 50002360")]
         BossSoulOfSlaveKnightGael = 50002360,
 
-        [Display(Name = "[Boss] Blood of the Dark Soul 50002360")]
-        BossBloodOfTheDarkSoul = 50002360,
-
         [Display(Name = "Coiled Sword 50002500")]
         CoiledSword = 50002500,
 
@@ -143,9 +127,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Covenant] Watchdogs of Farron Rank 2 - Wolf Knight's Greatshield 6722")]
         CovenantWatchdogsOfFarronRank2WolfKnightsGreatshield = 6722,
-
-        [Display(Name = "[Covenant] Watchdogs of Farron Rank 2 - Wolf Ring 6722")]
-        CovenantWatchdogsOfFarronRank2WolfRing = 6722,
 
         [Display(Name = "[Covenant] Watchdogs of Farron Rank 1 - Old Wolf Curved Sword 6721")]
         CovenantWatchdogsOfFarronRank1OldWolfCurvedSword = 6721,
@@ -282,9 +263,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Yuria of Londor] Yuria's Ashes 50006043")]
         YuriaOfLondorYuriasAshes = 50006043,
 
-        [Display(Name = "[Company Captain Yorshka] Blade of the Darkmoon 6750")]
-        CompanyCaptainYorshkaBladeOfTheDarkmoon = 6750,
-
         [Display(Name = "[Company Captain Yorshka] Yorshka's Chime 50006060")]
         CompanyCaptainYorshkaYorshkasChime = 50006060,
 
@@ -321,29 +299,11 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Cornyx of the Great Swamp] Old Sage's Blindfold 50006141")]
         CornyxOfTheGreatSwampOldSagesBlindfold = 50006141,
 
-        [Display(Name = "[Cornyx of the Great Swamp] Cornyx's Garb 50006141")]
-        CornyxOfTheGreatSwampCornyxsGarb = 50006141,
-
-        [Display(Name = "[Cornyx of the Great Swamp] Cornyx's Wrap 50006141")]
-        CornyxOfTheGreatSwampCornyxsWrap = 50006141,
-
-        [Display(Name = "[Cornyx of the Great Swamp] Cornyx's Skirt 50006141")]
-        CornyxOfTheGreatSwampCornyxsSkirt = 50006141,
-
         [Display(Name = "[Cornyx of the Great Swamp] Cornyx's Ashes 50006142")]
         CornyxOfTheGreatSwampCornyxsAshes = 50006142,
 
         [Display(Name = "[Karla] Karla's Pointed Hat 50006150")]
         KarlaKarlasPointedHat = 50006150,
-
-        [Display(Name = "[Karla] Karla's Coat 50006150")]
-        KarlaKarlasCoat = 50006150,
-
-        [Display(Name = "[Karla] Karla's Gloves 50006150")]
-        KarlaKarlasGloves = 50006150,
-
-        [Display(Name = "[Karla] Karla's Trousers 50006150")]
-        KarlaKarlasTrousers = 50006150,
 
         [Display(Name = "[Karla] Karla's Ashes 50006151")]
         KarlaKarlasAshes = 50006151,
@@ -357,14 +317,8 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Eygon of Carim] Morne's Great Hammer 50006170")]
         EygonOfCarimMornesGreatHammer = 50006170,
 
-        [Display(Name = "[Eygon of Carim] Moaning Shield 50006170")]
-        EygonOfCarimMoaningShield = 50006170,
-
         [Display(Name = "[Anri of Astora #1] Anri's Straight Sword 50006030")]
         AnriOfAstora1AnrisStraightSword = 50006030,
-
-        [Display(Name = "[Anri of Astora #2] Anri's Straight Sword 50006030")]
-        AnriOfAstora2AnrisStraightSword = 50006030,
 
         [Display(Name = "[Anri of Astora #2] Ring of the Evil Eye 50006190")]
         AnriOfAstora2RingOfTheEvilEye = 50006190,
@@ -372,17 +326,8 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Unbreakable Patches #1] Winged Spear 50006202")]
         UnbreakablePatches1WingedSpear = 50006202,
 
-        [Display(Name = "[Unbreakable Patches #1] Horsehoof Ring 50006202")]
-        UnbreakablePatches1HorsehoofRing = 50006202,
-
         [Display(Name = "[Unbreakable Patches #1] Patches' Ashes 50006203")]
         UnbreakablePatches1PatchesAshes = 50006203,
-
-        [Display(Name = "[Unbreakable Patches #2] Horsehoof Ring 50006202")]
-        UnbreakablePatches2HorsehoofRing = 50006202,
-
-        [Display(Name = "[Unbreakable Patches #2] Patches' Ashes 50006203")]
-        UnbreakablePatches2PatchesAshes = 50006203,
 
         [Display(Name = "[Unbreakable Patches #3] Pierce Shield 73501050")]
         UnbreakablePatches3PierceShield = 73501050,
@@ -402,38 +347,8 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Siegward of Catarina #1] Catarina Helm 50006217")]
         SiegwardOfCatarina1CatarinaHelm = 50006217,
 
-        [Display(Name = "[Siegward of Catarina #1] Catarina Armor 50006217")]
-        SiegwardOfCatarina1CatarinaArmor = 50006217,
-
-        [Display(Name = "[Siegward of Catarina #1] Catarina Gauntlets 50006217")]
-        SiegwardOfCatarina1CatarinaGauntlets = 50006217,
-
-        [Display(Name = "[Siegward of Catarina #1] Catarina Leggings 50006217")]
-        SiegwardOfCatarina1CatarinaLeggings = 50006217,
-
         [Display(Name = "[Siegward of Catarina #1] Storm Ruler 50006218")]
         SiegwardOfCatarina1StormRuler = 50006218,
-
-        [Display(Name = "[Siegward of Catarina #1] Pierce Shield 50006218")]
-        SiegwardOfCatarina1PierceShield = 50006218,
-
-        [Display(Name = "[Siegward of Catarina #2] Catarina Helm 50006217")]
-        SiegwardOfCatarina2CatarinaHelm = 50006217,
-
-        [Display(Name = "[Siegward of Catarina #2] Catarina Armor 50006217")]
-        SiegwardOfCatarina2CatarinaArmor = 50006217,
-
-        [Display(Name = "[Siegward of Catarina #2] Catarina Gauntlets 50006217")]
-        SiegwardOfCatarina2CatarinaGauntlets = 50006217,
-
-        [Display(Name = "[Siegward of Catarina #2] Catarina Leggings 50006217")]
-        SiegwardOfCatarina2CatarinaLeggings = 50006217,
-
-        [Display(Name = "[Siegward of Catarina #2] Storm Ruler 50006218")]
-        SiegwardOfCatarina2StormRuler = 50006218,
-
-        [Display(Name = "[Siegward of Catarina #2] Pierce Shield 50006218")]
-        SiegwardOfCatarina2PierceShield = 50006218,
 
         [Display(Name = "[Siegward of Catarina #3] Titanite Slab 50006215")]
         SiegwardOfCatarina3TitaniteSlab = 50006215,
@@ -441,17 +356,11 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[High Priestess Emma] Small Lothric Banner 50006232")]
         HighPriestessEmmaSmallLothricBanner = 50006232,
 
-        [Display(Name = "[High Priestess Emma] Way of Blue 6770")]
-        HighPriestessEmmaWayOfBlue = 6770,
-
         [Display(Name = "[High Priestess Emma] Basin of Vows 50006230")]
         HighPriestessEmmaBasinOfVows = 50006230,
 
         [Display(Name = "[Giant] Hawk Ring 50006251")]
         GiantHawkRing = 50006251,
-
-        [Display(Name = "[Horace the Hushed] Blue Sentinels 6740")]
-        HoraceTheHushedBlueSentinels = 6740,
 
         [Display(Name = "[Horace the Hushed] Llewellyn Shield 50006260")]
         HoraceTheHushedLlewellynShield = 50006260,
@@ -461,9 +370,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Londor Pilgrim] Sword of Avowal 50006301")]
         LondorPilgrimSwordOfAvowal = 50006301,
-
-        [Display(Name = "[Londor Pilgrim] Chameleon 50006300")]
-        LondorPilgrimChameleon_ = 50006300,
 
         [Display(Name = "[Drowsy Forlorn] Homeward Bone 50006311")]
         DrowsyForlornHomewardBone = 50006311,
@@ -486,35 +392,11 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Amnesiac Lapp #2] Siegbräu 50006620")]
         AmnesiacLapp2Siegbräu = 50006620,
 
-        [Display(Name = "[Amnesiac Lapp #2] Champion's Bones 50006623")]
-        AmnesiacLapp2ChampionsBones = 50006623,
-
         [Display(Name = "[Amnesiac Lapp #3] Siegbräu 50006622")]
         AmnesiacLapp3Siegbräu = 50006622,
 
-        [Display(Name = "[Amnesiac Lapp #3] Champion's Bones 50006623")]
-        AmnesiacLapp3ChampionsBones = 50006623,
-
-        [Display(Name = "[Amnesiac Lapp #4] Siegbräu 50006622")]
-        AmnesiacLapp4Siegbräu = 50006622,
-
-        [Display(Name = "[Amnesiac Lapp #4] Champion's Bones 50006623")]
-        AmnesiacLapp4ChampionsBones = 50006623,
-
-        [Display(Name = "[Amnesiac Lapp #5] Siegbräu 50006622")]
-        AmnesiacLapp5Siegbräu = 50006622,
-
-        [Display(Name = "[Amnesiac Lapp #5] Champion's Bones 50006623")]
-        AmnesiacLapp5ChampionsBones = 50006623,
-
         [Display(Name = "[Amnesiac Lapp #6] Titanite Slab 50006621")]
         AmnesiacLapp6TitaniteSlab = 50006621,
-
-        [Display(Name = "[Amnesiac Lapp #6] Siegbräu 50006620")]
-        AmnesiacLapp6Siegbräu = 50006620,
-
-        [Display(Name = "[Amnesiac Lapp #6] Champion's Bones 50006623")]
-        AmnesiacLapp6ChampionsBones = 50006623,
 
         [Display(Name = "[Shira, Knight of Filianore #1] Sacred Chime of Filianore 50006630")]
         ShiraKnightOfFilianore1SacredChimeOfFilianore = 50006630,
@@ -525,23 +407,11 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Shira, Knight of Filianore #1] Crucifix of the Mad King 50006632")]
         ShiraKnightOfFilianore1CrucifixOfTheMadKing = 50006632,
 
-        [Display(Name = "[Shira, Knight of Filianore #2] Sacred Chime of Filianore 50006630")]
-        ShiraKnightOfFilianore2SacredChimeOfFilianore = 50006630,
-
-        [Display(Name = "[Shira, Knight of Filianore #2] Titanite Slab 50006631")]
-        ShiraKnightOfFilianore2TitaniteSlab = 50006631,
-
-        [Display(Name = "[Shira, Knight of Filianore #2] Crucifix of the Mad King 50006632")]
-        ShiraKnightOfFilianore2CrucifixOfTheMadKing = 50006632,
-
         [Display(Name = "[Stone-humped Hag] Old Woman's Ashes 50006660")]
         StonehumpedHagOldWomansAshes = 50006660,
 
         [Display(Name = "[Black Hand Gotthard] Grand Archives Key 50006700")]
         BlackHandGotthardGrandArchivesKey = 50006700,
-
-        [Display(Name = "[Black Hand Gotthard] Gotthard Twinswords 50006700")]
-        BlackHandGotthardGotthardTwinswords = 50006700,
 
         [Display(Name = "[Black Hand Kamui] Onikiri and Ubadachi 50006705")]
         BlackHandKamuiOnikiriandUbadachi = 50006705,
@@ -549,17 +419,8 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Havel the Rock] Dragon Tooth 50006710")]
         HavelTheRockDragonTooth = 50006710,
 
-        [Display(Name = "[Havel the Rock] Havel's Greatshield 50006710")]
-        HavelTheRockHavelsGreatshield = 50006710,
-
         [Display(Name = "[Sword Master] Uchigatana 50006720")]
         SwordMasterUchigatana = 50006720,
-
-        [Display(Name = "[Sword Master] Master's Attire 50006720")]
-        SwordMasterMastersAttire = 50006720,
-
-        [Display(Name = "[Sword Master] Master's Gloves 50006720")]
-        SwordMasterMastersGloves = 50006720,
 
         [Display(Name = "[Brigand] Spider Shield 50006730")]
         BrigandSpiderShield = 50006730,
@@ -579,9 +440,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Yellowfinger Heysel] Heysel Pick 50006780")]
         YellowfingerHeyselHeyselPick = 50006780,
 
-        [Display(Name = "[Yellowfinger Heysel] Xanthous Crown 50006780")]
-        YellowfingerHeyselXanthousCrown = 50006780,
-
         [Display(Name = "[Londor Pale Shade] Manikin Claws 50006790")]
         LondorPaleShadeManikinClaws = 50006790,
 
@@ -600,14 +458,8 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Knight Slayer Tsorig #1] Knight Slayer's Ring 50006840")]
         KnightSlayerTsorig1KnightSlayersRing = 50006840,
 
-        [Display(Name = "[Knight Slayer Tsorig #2] Knight Slayer's Ring 50006840")]
-        KnightSlayerTsorig2KnightSlayersRing = 50006840,
-
         [Display(Name = "[Knight Slayer Tsorig #2] Fume Ultra Greatsword 50006845")]
         KnightSlayerTsorig2FumeUltraGreatsword = 50006845,
-
-        [Display(Name = "[Knight Slayer Tsorig #2] Black Iron Greatshield 50006845")]
-        KnightSlayerTsorig2BlackIronGreatshield = 50006845,
 
         [Display(Name = "[Creighton the Wanderer] Dragonslayer's Axe 50006850")]
         CreightonTheWandererDragonslayersAxe = 50006850,
@@ -617,9 +469,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Longfinger Kirk] Barbed Straight Sword 50006870")]
         LongfingerKirkBarbedStraightSword = 50006870,
-
-        [Display(Name = "[Longfinger Kirk] Spiked Shield 50006870")]
-        LongfingerKirkSpikedShield = 50006870,
 
         [Display(Name = "[Isabella the Mad] Butcher Knife 50006880")]
         IsabellaTheMadButcherKnife = 50006880,
@@ -648,50 +497,14 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Untended Graves] Eyes of a Fire Keeper 50006020")]
         UntendedGravesEyesOfaFireKeeper = 50006020,
 
-        [Display(Name = "[Smouldering Lake] Anri's Straight Sword 50006030")]
-        SmoulderingLakeAnrisStraightSword = 50006030,
-
         [Display(Name = "[Yuria of Londor] Morion Blade 50006040")]
         YuriaOfLondorMorionBlade = 50006040,
-
-        [Display(Name = "[Yuria of Londor] Darkdrift - Lord of Hollow reward 50006041")]
-        YuriaOfLondorDarkdriftLordOfHollowreward = 50006041,
 
         [Display(Name = "[Yuria of Londor] Billed Mask - Lord of Hollow reward 50006042")]
         YuriaOfLondorBilledMaskLordOfHollowreward = 50006042,
 
-        [Display(Name = "[Yuria of Londor] Black Dress - Lord of Hollow reward 50006042")]
-        YuriaOfLondorBlackDressLordOfHollowreward = 50006042,
-
-        [Display(Name = "[Yuria of Londor] Black Gauntlets - Lord of Hollow reward 50006042")]
-        YuriaOfLondorBlackGauntletsLordOfHollowreward = 50006042,
-
-        [Display(Name = "[Yuria of Londor] Black Leggings - Lord of Hollow reward 50006042")]
-        YuriaOfLondorBlackLeggingsLordOfHollowreward = 50006042,
-
-        [Display(Name = "[Covenant] Blade of the Darkmoon 6750")]
-        CovenantBladeOfTheDarkmoon = 6750,
-
-        [Display(Name = "[Covenant] Darkmoon Ring 6751")]
-        CovenantDarkmoonRing = 6751,
-
-        [Display(Name = "[Covenant] Darkmoon Blade 6752")]
-        CovenantDarkmoonBlade = 6752,
-
-        [Display(Name = "[Covenant] Darkmoon Ring 6751")]
-        CovenantDarkmoonRing_ = 6751,
-
-        [Display(Name = "[Covenant] Darkmoon Blade 6752")]
-        CovenantDarkmoonBlade_ = 6752,
-
         [Display(Name = "Kukri 50006063")]
         Kukri_ = 50006063,
-
-        [Display(Name = "Heavy Gem 50006070")]
-        HeavyGem = 50006070,
-
-        [Display(Name = "Heavy Gem 50006070")]
-        HeavyGem_ = 50006070,
 
         [Display(Name = "[Archdragon Peak] Twinkling Dragon Torso Stone - Pray at Altar 50006071")]
         ArchdragonPeakTwinklingDragonTorsoStonePrayatAltar = 50006071,
@@ -705,17 +518,8 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Hawkwood] Hawkwood's Shield 50006074")]
         HawkwoodHawkwoodsShield = 50006074,
 
-        [Display(Name = "[Sirris of the Sunless Realms] Sunless Talisman 50006082")]
-        SirrisOfTheSunlessRealmsSunlessTalisman_ = 50006082,
-
-        [Display(Name = "[Sirris of the Sunless Realms] Sunless Talisman 50006082")]
-        SirrisOfTheSunlessRealmsSunlessTalisman__ = 50006082,
-
         [Display(Name = "[Sirris of the Sunless Realms] Blessed Mail Breaker 50006080")]
         SirrisOfTheSunlessRealmsBlessedMailBreaker = 50006080,
-
-        [Display(Name = "[Sirris of the Sunless Realms] Silvercat Ring 50006080")]
-        SirrisOfTheSunlessRealmsSilvercatRing = 50006080,
 
         [Display(Name = "[Sirris of the Sunless Realms] Sunset Shield 50006081")]
         SirrisOfTheSunlessRealmsSunsetShield = 50006081,
@@ -723,32 +527,8 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Sirris of the Sunless Realms] Sunset Helm 50006083")]
         SirrisOfTheSunlessRealmsSunsetHelm = 50006083,
 
-        [Display(Name = "[Sirris of the Sunless Realms] Sunset Armor 50006083")]
-        SirrisOfTheSunlessRealmsSunsetArmor = 50006083,
-
-        [Display(Name = "[Sirris of the Sunless Realms] Sunset Gauntlets 50006083")]
-        SirrisOfTheSunlessRealmsSunsetGauntlets = 50006083,
-
-        [Display(Name = "[Sirris of the Sunless Realms] Sunset Leggings 50006083")]
-        SirrisOfTheSunlessRealmsSunsetLeggings = 50006083,
-
-        [Display(Name = "[Ringfinger Leonhard] Cracked Red Eye Orb 50006090")]
-        RingfingerLeonhardCrackedRedEyeOrb_ = 50006090,
-
-        [Display(Name = "[Ringfinger Leonhard] Lift Chamber Key 50006091")]
-        RingfingerLeonhardLiftChamberKey_ = 50006091,
-
         [Display(Name = "[Ringfinger Leonhard] Black Eye Orb 50006092")]
         RingfingerLeonhardBlackEyeOrb = 50006092,
-
-        [Display(Name = "[Ringfinger Leonhard] Soul of Rosaria 50006093")]
-        RingfingerLeonhardSoulOfRosaria = 50006093,
-
-        [Display(Name = "[Ringfinger Leonhard] Crescent Moon Sword 50006093")]
-        RingfingerLeonhardCrescentMoonSword = 50006093,
-
-        [Display(Name = "[Ringfinger Leonhard] Silver Mask 50006093")]
-        RingfingerLeonhardSilverMask_ = 50006093,
 
         [Display(Name = "[Ringfinger Leonhard] Red Eye Orb 6780")]
         RingfingerLeonhardRedEyeOrb = 6780,
@@ -756,17 +536,11 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Andre] Hawkwood's Swordgrass 50006100")]
         AndreHawkwoodsSwordgrass = 50006100,
 
-        [Display(Name = "[Greirat of the Undead Settlement] Blue Tearstone Ring 50006120")]
-        GreiratOfTheUndeadSettlementBlueTearstoneRing_ = 50006120,
-
         [Display(Name = "[Orbeck of Vinheim] Young Dragon Ring 50006130")]
         OrbeckOfVinheimYoungDragonRing = 50006130,
 
         [Display(Name = "[Orbeck of Vinheim] Slumbering Dragoncrest Ring 50006131")]
         OrbeckOfVinheimSlumberingDragoncrestRing = 50006131,
-
-        [Display(Name = "[Cornyx of the Great Swamp] Pyromancy Flame 50006140")]
-        CornyxOfTheGreatSwampPyromancyFlame_ = 50006140,
 
         [Display(Name = "[Undead Settlement] Saint's Talisman 50006161")]
         UndeadSettlementSaintsTalisman = 50006161,
@@ -776,9 +550,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Yuria of Londor] Londor Braille Divine Tome 50006163")]
         YuriaOfLondorLondorBrailleDivineTome = 50006163,
-
-        [Display(Name = "[Anri of Astora] Ring of the Evil Eye 50006190")]
-        AnriOfAstoraRingOfTheEvilEye = 50006190,
 
         [Display(Name = "[Yoel of Londor] Dark Sigil 50006193")]
         YoelOfLondorDarkSigil = 50006193,
@@ -804,80 +575,14 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Siegward of Catarina] Emit Force 50006214")]
         SiegwardOfCatarinaEmitForce = 50006214,
 
-        [Display(Name = "[Siegward of Catarina] Titanite Slab 50006215")]
-        SiegwardOfCatarinaTitaniteSlab = 50006215,
-
         [Display(Name = "[Siegward of Catarina] Storm Ruler 50006216")]
         SiegwardOfCatarinaStormRuler = 50006216,
-
-        [Display(Name = "[Siegward of Catarina] Titanite Slab 50006215")]
-        SiegwardOfCatarinaTitaniteSlab_ = 50006215,
-
-        [Display(Name = "[High Priestess Emma] Small Lothric Banner 50006232")]
-        HighPriestessEmmaSmallLothricBanner_ = 50006232,
-
-        [Display(Name = "[High Priestess Emma] Way of Blue 6770")]
-        HighPriestessEmmaWayOfBlue_ = 6770,
-
-        [Display(Name = "[High Priestess Emma] Basin of Vows 50006230")]
-        HighPriestessEmmaBasinOfVows_ = 50006230,
 
         [Display(Name = "[Giant] Young White Branch 50006250")]
         GiantYoungWhiteBranch = 50006250,
 
-        [Display(Name = "[Giant] Hawk Ring 50006251")]
-        GiantHawkRing_ = 50006251,
-
-        [Display(Name = "[Horace the Hushed] Blue Sentinels 6740")]
-        HoraceTheHushedBlueSentinels_ = 6740,
-
-        [Display(Name = "[Londor Pilgrim] Sword of Avowal 50006301")]
-        LondorPilgrimSwordOfAvowal_ = 50006301,
-
-        [Display(Name = "[Holy Knight Hodrick] Mound-makers 6710")]
-        HolyKnightHodrickMoundmakers = 6710,
-
-        [Display(Name = "[Holy Knight Hodrick] Homeward Bone 50006311")]
-        HolyKnightHodrickHomewardBone = 50006311,
-
-        [Display(Name = "[Forlorn Corvian Settler] Titanite Slab 50006540")]
-        ForlornCorvianSettlerTitaniteSlab_ = 50006540,
-
-        [Display(Name = "[Sister Friede] Chillbite Ring 50006550")]
-        SisterFriedeChillbiteRing_ = 50006550,
-
-        [Display(Name = "[Amnesiac Lapp] Siegbräu 50006620")]
-        AmnesiacLappSiegbräu = 50006620,
-
-        [Display(Name = "[Amnesiac Lapp] Titanite Slab 50006621")]
-        AmnesiacLappTitaniteSlab = 50006621,
-
-        [Display(Name = "[Amnesiac Lapp] Siegbräu 50006622")]
-        AmnesiacLappSiegbräu_ = 50006622,
-
-        [Display(Name = "[Amnesiac Lapp] Champion's Bones 50006623")]
-        AmnesiacLappChampionsBones = 50006623,
-
         [Display(Name = "[Amnesiac Lapp] Lapp's Helm 50006624")]
         AmnesiacLappLappsHelm = 50006624,
-
-        [Display(Name = "[Amnesiac Lapp] Lapp's Armor 50006624")]
-        AmnesiacLappLappsArmor = 50006624,
-
-        [Display(Name = "[Amnesiac Lapp] Lapp's Gauntlets 50006624")]
-        AmnesiacLappLappsGauntlets = 50006624,
-
-        [Display(Name = "[Amnesiac Lapp] Lapp's Leggings 50006624")]
-        AmnesiacLappLappsLeggings = 50006624,
-
-        [Display(Name = "[Shira, Knight of Filianore] Sacred Chime of Filianore 50006630")]
-        ShiraKnightOfFilianoreSacredChimeOfFilianore = 50006630,
-
-        [Display(Name = "[Shira, Knight of Filianore] Titanite Slab 50006631")]
-        ShiraKnightOfFilianoreTitaniteSlab = 50006631,
-
-        [Display(Name = "[Shira, Knight of Filianore] Sacred Chime of Filianore 50006630")]
-        ShiraKnightOfFilianoreSacredChimeOfFilianore_ = 50006630,
 
         [Display(Name = "[High Wall of Lothric] Estus Shard 53000000")]
         HighWallOfLothricEstusShard = 53000000,
@@ -896,9 +601,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[High Wall of Lothric] Longbow 53000060")]
         HighWallOfLothricLongbow = 53000060,
-
-        [Display(Name = "[High Wall of Lothric] Standard Arrow 53000060")]
-        HighWallOfLothricStandardArrow = 53000060,
 
         [Display(Name = "[High Wall of Lothric] Firebomb 53000070")]
         HighWallOfLothricFirebomb = 53000070,
@@ -987,15 +689,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Consumed King's Garden] Shadow Mask 53000430")]
         ConsumedKingsGardenShadowMask = 53000430,
 
-        [Display(Name = "[Consumed King's Garden] Shadow Garb 53000430")]
-        ConsumedKingsGardenShadowGarb = 53000430,
-
-        [Display(Name = "[Consumed King's Garden] Shadow Gauntlets 53000430")]
-        ConsumedKingsGardenShadowGauntlets = 53000430,
-
-        [Display(Name = "[Consumed King's Garden] Shadow Leggings 53000430")]
-        ConsumedKingsGardenShadowLeggings = 53000430,
-
         [Display(Name = "[High Wall of Lothric] Broadsword 53000440")]
         HighWallOfLothricBroadsword = 53000440,
 
@@ -1077,20 +770,8 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Consumed King's Garden] Drakeblood Helm 53000950")]
         ConsumedKingsGardenDrakebloodHelm = 53000950,
 
-        [Display(Name = "[Consumed King's Garden] Drakeblood Armor 53000950")]
-        ConsumedKingsGardenDrakebloodArmor = 53000950,
-
-        [Display(Name = "[Consumed King's Garden] Drakeblood Gauntlets 53000950")]
-        ConsumedKingsGardenDrakebloodGauntlets = 53000950,
-
-        [Display(Name = "[Consumed King's Garden] Drakeblood Leggings 53000950")]
-        ConsumedKingsGardenDrakebloodLeggings = 53000950,
-
         [Display(Name = "[Lothric Castle] Sniper Crossbow 53010000")]
         LothricCastleSniperCrossbow = 53010000,
-
-        [Display(Name = "[Lothric Castle] Sniper Bolt 53010000")]
-        LothricCastleSniperBolt = 53010000,
 
         [Display(Name = "[Lothric Castle] Titanite Scale 53010010")]
         LothricCastleTitaniteScale = 53010010,
@@ -1194,15 +875,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Lothric Castle] Winged Knight Helm 53010340")]
         LothricCastleWingedKnightHelm = 53010340,
 
-        [Display(Name = "[Lothric Castle] Winged Knight Armor 53010340")]
-        LothricCastleWingedKnightArmor = 53010340,
-
-        [Display(Name = "[Lothric Castle] Winged Knight Gauntlets 53010340")]
-        LothricCastleWingedKnightGauntlets = 53010340,
-
-        [Display(Name = "[Lothric Castle] Winged Knight Leggings 53010340")]
-        LothricCastleWingedKnightLeggings = 53010340,
-
         [Display(Name = "[Lothric Castle] Rusted Coin 53010350")]
         LothricCastleRustedCoin = 53010350,
 
@@ -1229,12 +901,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Lothric Castle] Hood of Prayer 53010530")]
         LothricCastleHoodOfPrayer = 53010530,
-
-        [Display(Name = "[Lothric Castle] Robe of Prayer 53010530")]
-        LothricCastleRobeOfPrayer = 53010530,
-
-        [Display(Name = "[Lothric Castle] Skirt of Prayer 53010530")]
-        LothricCastleSkirtOfPrayer = 53010530,
 
         [Display(Name = "[Lothric Castle] Spirit Tree Crest Shield 53010600")]
         LothricCastleSpiritTreeCrestShield = 53010600,
@@ -1290,15 +956,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Undead Settlement] Spotted Whip 53100100")]
         UndeadSettlementSpottedWhip = 53100100,
 
-        [Display(Name = "[Undead Settlement] Cornyx's Garb 53100100")]
-        UndeadSettlementCornyxsGarb = 53100100,
-
-        [Display(Name = "[Undead Settlement] Cornyx's Wrap 53100100")]
-        UndeadSettlementCornyxsWrap = 53100100,
-
-        [Display(Name = "[Undead Settlement] Cornyx's Skirt 53100100")]
-        UndeadSettlementCornyxsSkirt = 53100100,
-
         [Display(Name = "[Undead Settlement] Titanite Shard 53100110")]
         UndeadSettlementTitaniteShard = 53100110,
 
@@ -1325,18 +982,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Undead Settlement] Blue Wooden Shield 53100190")]
         UndeadSettlementBlueWoodenShield = 53100190,
-
-        [Display(Name = "[Undead Settlement] Cleric Hat 53100190")]
-        UndeadSettlementClericHat = 53100190,
-
-        [Display(Name = "[Undead Settlement] Cleric Blue Robe 53100190")]
-        UndeadSettlementClericBlueRobe = 53100190,
-
-        [Display(Name = "[Undead Settlement] Cleric Gloves 53100190")]
-        UndeadSettlementClericGloves = 53100190,
-
-        [Display(Name = "[Undead Settlement] Cleric Trousers 53100190")]
-        UndeadSettlementClericTrousers = 53100190,
 
         [Display(Name = "[Undead Settlement] Soul of an Unknown Traveler 53100200")]
         UndeadSettlementSoulOfanUnknownTraveler_ = 53100200,
@@ -1397,12 +1042,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Undead Settlement] Mirrah Vest 53100400")]
         UndeadSettlementMirrahVest = 53100400,
-
-        [Display(Name = "[Undead Settlement] Mirrah Gloves 53100400")]
-        UndeadSettlementMirrahGloves = 53100400,
-
-        [Display(Name = "[Undead Settlement] Mirrah Trousers 53100400")]
-        UndeadSettlementMirrahTrousers = 53100400,
 
         [Display(Name = "[Undead Settlement] Plank Shield 53100410")]
         UndeadSettlementPlankShield = 53100410,
@@ -1466,15 +1105,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Undead Settlement] Northern Helm 53100710")]
         UndeadSettlementNorthernHelm = 53100710,
-
-        [Display(Name = "[Undead Settlement] Northern Armor 53100710")]
-        UndeadSettlementNorthernArmor = 53100710,
-
-        [Display(Name = "[Undead Settlement] Northern Gloves 53100710")]
-        UndeadSettlementNorthernGloves = 53100710,
-
-        [Display(Name = "[Undead Settlement] Northern Trousers 53100710")]
-        UndeadSettlementNorthernTrousers = 53100710,
 
         [Display(Name = "[Undead Settlement] Partizan 53100720")]
         UndeadSettlementPartizan = 53100720,
@@ -1605,15 +1235,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Archdragon Peak] Dragonslayer Helm 53200310")]
         ArchdragonPeakDragonslayerHelm = 53200310,
 
-        [Display(Name = "[Archdragon Peak] Dragonslayer Armor 53200310")]
-        ArchdragonPeakDragonslayerArmor = 53200310,
-
-        [Display(Name = "[Archdragon Peak] Dragonslayer Gauntlets 53200310")]
-        ArchdragonPeakDragonslayerGauntlets = 53200310,
-
-        [Display(Name = "[Archdragon Peak] Dragonslayer Leggings 53200310")]
-        ArchdragonPeakDragonslayerLeggings = 53200310,
-
         [Display(Name = "[Archdragon Peak] Twinkling Titanite 53200330")]
         ArchdragonPeakTwinklingTitanite = 53200330,
 
@@ -1671,15 +1292,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Road of Sacrifices] Fallen Knight Helm 53300060")]
         RoadOfSacrificesFallenKnightHelm = 53300060,
 
-        [Display(Name = "[Road of Sacrifices] Fallen Knight Armor 53300060")]
-        RoadOfSacrificesFallenKnightArmor = 53300060,
-
-        [Display(Name = "[Road of Sacrifices] Fallen Knight Gauntlets 53300060")]
-        RoadOfSacrificesFallenKnightGauntlets = 53300060,
-
-        [Display(Name = "[Road of Sacrifices] Fallen Knight Trousers 53300060")]
-        RoadOfSacrificesFallenKnightTrousers = 53300060,
-
         [Display(Name = "[Road of Sacrifices] Heretic's Staff 53300070")]
         RoadOfSacrificesHereticsStaff = 53300070,
 
@@ -1688,15 +1300,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Road of Sacrifices] Conjurator Hood 53300090")]
         RoadOfSacrificesConjuratorHood = 53300090,
-
-        [Display(Name = "[Road of Sacrifices] Conjurator Robe 53300090")]
-        RoadOfSacrificesConjuratorRobe = 53300090,
-
-        [Display(Name = "[Road of Sacrifices] Conjurator Manchettes 53300090")]
-        RoadOfSacrificesConjuratorManchettes = 53300090,
-
-        [Display(Name = "[Road of Sacrifices] Conjurator Boots 53300090")]
-        RoadOfSacrificesConjuratorBoots = 53300090,
 
         [Display(Name = "[Road of Sacrifices] Soul of an Unknown Traveler 53300100")]
         RoadOfSacrificesSoulOfanUnknownTraveler_ = 53300100,
@@ -1734,15 +1337,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Road of Sacrifices] Sorcerer Hood 53300220")]
         RoadOfSacrificesSorcererHood = 53300220,
 
-        [Display(Name = "[Road of Sacrifices] Sorcerer Robe 53300220")]
-        RoadOfSacrificesSorcererRobe = 53300220,
-
-        [Display(Name = "[Road of Sacrifices] Sorcerer Gloves 53300220")]
-        RoadOfSacrificesSorcererGloves = 53300220,
-
-        [Display(Name = "[Road of Sacrifices] Sorcerer Trousers 53300220")]
-        RoadOfSacrificesSorcererTrousers = 53300220,
-
         [Display(Name = "[Road of Sacrifices] Sage Ring 53300230")]
         RoadOfSacrificesSageRing = 53300230,
 
@@ -1778,15 +1372,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Road of Sacrifices] Nameless Knight Helm 53300370")]
         RoadOfSacrificesNamelessKnightHelm = 53300370,
-
-        [Display(Name = "[Road of Sacrifices] Nameless Knight Armor 53300370")]
-        RoadOfSacrificesNamelessKnightArmor = 53300370,
-
-        [Display(Name = "[Road of Sacrifices] Nameless Knight Gauntlets 53300370")]
-        RoadOfSacrificesNamelessKnightGauntlets = 53300370,
-
-        [Display(Name = "[Road of Sacrifices] Nameless Knight Leggings 53300370")]
-        RoadOfSacrificesNamelessKnightLeggings = 53300370,
 
         [Display(Name = "[Road of Sacrifices] Shriving Stone 53300380")]
         RoadOfSacrificesShrivingStone = 53300380,
@@ -1905,29 +1490,11 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Road of Sacrifices] Herald Helm 53300740")]
         RoadOfSacrificesHeraldHelm = 53300740,
 
-        [Display(Name = "[Road of Sacrifices] Herald Armor 53300740")]
-        RoadOfSacrificesHeraldArmor = 53300740,
-
-        [Display(Name = "[Road of Sacrifices] Herald Gloves 53300740")]
-        RoadOfSacrificesHeraldGloves = 53300740,
-
-        [Display(Name = "[Road of Sacrifices] Herald Trousers 53300740")]
-        RoadOfSacrificesHeraldTrousers = 53300740,
-
         [Display(Name = "[Road of Sacrifices] Brigand Axe 53300750")]
         RoadOfSacrificesBrigandAxe = 53300750,
 
         [Display(Name = "[Road of Sacrifices] Brigand Hood 53300760")]
         RoadOfSacrificesBrigandHood = 53300760,
-
-        [Display(Name = "[Road of Sacrifices] Brigand Armor 53300760")]
-        RoadOfSacrificesBrigandArmor = 53300760,
-
-        [Display(Name = "[Road of Sacrifices] Brigand Gauntlets 53300760")]
-        RoadOfSacrificesBrigandGauntlets = 53300760,
-
-        [Display(Name = "[Road of Sacrifices] Brigand Trousers 53300760")]
-        RoadOfSacrificesBrigandTrousers = 53300760,
 
         [Display(Name = "[Road of Sacrifices] Morne's Ring 53300770")]
         RoadOfSacrificesMornesRing = 53300770,
@@ -1935,29 +1502,11 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Road of Sacrifices] Sellsword Helm 53300780")]
         RoadOfSacrificesSellswordHelm = 53300780,
 
-        [Display(Name = "[Road of Sacrifices] Sellsword Armor 53300780")]
-        RoadOfSacrificesSellswordArmor = 53300780,
-
-        [Display(Name = "[Road of Sacrifices] Sellsword Gauntlet 53300780")]
-        RoadOfSacrificesSellswordGauntlet = 53300780,
-
-        [Display(Name = "[Road of Sacrifices] Sellsword Trousers 53300780")]
-        RoadOfSacrificesSellswordTrousers = 53300780,
-
         [Display(Name = "[Road of Sacrifices] Farron Coal 53300790")]
         RoadOfSacrificesFarronCoal = 53300790,
 
         [Display(Name = "[Farron Keep] Havel's Helm 53300800")]
         FarronKeepHavelsHelm = 53300800,
-
-        [Display(Name = "[Farron Keep] Havel's Armor 53300800")]
-        FarronKeepHavelsArmor = 53300800,
-
-        [Display(Name = "[Farron Keep] Havel's Gauntlets 53300800")]
-        FarronKeepHavelsGauntlets = 53300800,
-
-        [Display(Name = "[Farron Keep] Havel's Leggings 53300800")]
-        FarronKeepHavelsLeggings = 53300800,
 
         [Display(Name = "[Farron Keep] Greataxe 53300810")]
         FarronKeepGreataxe = 53300810,
@@ -1988,12 +1537,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Farron Keep] Antiquated Dress 53300940")]
         FarronKeepAntiquatedDress = 53300940,
-
-        [Display(Name = "[Farron Keep] Antiquated Gloves 53300940")]
-        FarronKeepAntiquatedGloves = 53300940,
-
-        [Display(Name = "[Farron Keep] Antiquated Skirt 53300940")]
-        FarronKeepAntiquatedSkirt = 53300940,
 
         [Display(Name = "[Farron Keep] Sunlight Talisman 53300950")]
         FarronKeepSunlightTalisman = 53300950,
@@ -2196,15 +1739,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Cathedral of the Deep] Maiden Hood 53500210")]
         CathedralOfTheDeepMaidenHood = 53500210,
 
-        [Display(Name = "[Cathedral of the Deep] Maiden Robe 53500210")]
-        CathedralOfTheDeepMaidenRobe = 53500210,
-
-        [Display(Name = "[Cathedral of the Deep] Maiden Gloves 53500210")]
-        CathedralOfTheDeepMaidenGloves = 53500210,
-
-        [Display(Name = "[Cathedral of the Deep] Maiden Skirt 53500210")]
-        CathedralOfTheDeepMaidenSkirt = 53500210,
-
         [Display(Name = "[Cathedral of the Deep] Pale Tongue 53500220")]
         CathedralOfTheDeepPaleTongue = 53500220,
 
@@ -2274,15 +1808,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Cathedral of the Deep] Helm of Thorns 53500500")]
         CathedralOfTheDeepHelmOfThorns = 53500500,
 
-        [Display(Name = "[Cathedral of the Deep] Armor of Thorns 53500500")]
-        CathedralOfTheDeepArmorOfThorns = 53500500,
-
-        [Display(Name = "[Cathedral of the Deep] Gauntlets of Thorns 53500500")]
-        CathedralOfTheDeepGauntletsOfThorns = 53500500,
-
-        [Display(Name = "[Cathedral of the Deep] Leggings of Thorns 53500500")]
-        CathedralOfTheDeepLeggingsOfThorns = 53500500,
-
         [Display(Name = "[Cathedral of the Deep] Exploding Bolt 53500540")]
         CathedralOfTheDeepExplodingBolt = 53500540,
 
@@ -2328,12 +1853,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Cathedral of the Deep] Archdeacon White Crown 53500950")]
         CathedralOfTheDeepArchdeaconWhiteCrown = 53500950,
 
-        [Display(Name = "[Cathedral of the Deep] Archdeacon Holy Garb 53500950")]
-        CathedralOfTheDeepArchdeaconHolyGarb = 53500950,
-
-        [Display(Name = "[Cathedral of the Deep] Archdeacon Skirt 53500950")]
-        CathedralOfTheDeepArchdeaconSkirt = 53500950,
-
         [Display(Name = "Large Soul of an Unknown Traveler 53600000")]
         LargeSoulOfanUnknownTraveler = 53600000,
 
@@ -2366,15 +1885,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Irithyll] Creighton's Steel Mask 53700000")]
         IrithyllCreightonsSteelMask = 53700000,
-
-        [Display(Name = "[Irithyll] Mirrah Chain Mail 53700000")]
-        IrithyllMirrahChainMail = 53700000,
-
-        [Display(Name = "[Irithyll] Mirrah Chain Gloves 53700000")]
-        IrithyllMirrahChainGloves = 53700000,
-
-        [Display(Name = "[Irithyll] Mirrah Chain Leggings 53700000")]
-        IrithyllMirrahChainLeggings = 53700000,
 
         [Display(Name = "[Irithyll] Homeward Bone 53700010")]
         IrithyllHomewardBone = 53700010,
@@ -2456,15 +1966,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Irithyll] Brass Helm 53700270")]
         IrithyllBrassHelm = 53700270,
-
-        [Display(Name = "[Irithyll] Brass Armor 53700270")]
-        IrithyllBrassArmor = 53700270,
-
-        [Display(Name = "[Irithyll] Brass Gauntlets 53700270")]
-        IrithyllBrassGauntlets = 53700270,
-
-        [Display(Name = "[Irithyll] Brass Leggings 53700270")]
-        IrithyllBrassLeggings = 53700270,
 
         [Display(Name = "[Irithyll] Blue Bug Pellet 53700280")]
         IrithyllBlueBugPellet = 53700280,
@@ -2562,23 +2063,11 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Irithyll] Dragonslayer Greatbow 53700620")]
         IrithyllDragonslayerGreatbow = 53700620,
 
-        [Display(Name = "[Irithyll] Dragonslayer Greatarrow 53700620")]
-        IrithyllDragonslayerGreatarrow = 53700620,
-
         [Display(Name = "[Irithyll] Easterner's Ashes 53700630")]
         IrithyllEasternersAshes = 53700630,
 
         [Display(Name = "[Anor Londo] Painting Guardian Hood 53700640")]
         AnorLondoPaintingGuardianHood = 53700640,
-
-        [Display(Name = "[Anor Londo] Painting Guardian Gown 53700640")]
-        AnorLondoPaintingGuardianGown = 53700640,
-
-        [Display(Name = "[Anor Londo] Painting Guardian Gloves 53700640")]
-        AnorLondoPaintingGuardianGloves = 53700640,
-
-        [Display(Name = "[Anor Londo] Painting Guardian Waistcloth 53700640")]
-        AnorLondoPaintingGuardianWaistcloth = 53700640,
 
         [Display(Name = "[Anor Londo] Soul of a Crestfallen Knight 53700660")]
         AnorLondoSoulOfaCrestfallenKnight = 53700660,
@@ -2760,9 +2249,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Catacombs of Carthus] Old Sage's Blindfold 53800390")]
         CatacombsOfCarthusOldSagesBlindfold = 53800390,
 
-        [Display(Name = "[Catacombs of Carthus] Witch's Ring 53800390")]
-        CatacombsOfCarthusWitchsRing = 53800390,
-
         [Display(Name = "[Catacombs of Carthus] Ember 53800400")]
         CatacombsOfCarthusEmber_____ = 53800400,
 
@@ -2789,9 +2275,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Catacombs of Carthus] Grave Warden Pyromancy Tome 53800500")]
         CatacombsOfCarthusGraveWardenPyromancyTome = 53800500,
-
-        [Display(Name = "[Catacombs of Carthus] Grave Warden Pyromancy Tome 53800500")]
-        CatacombsOfCarthusGraveWardenPyromancyTome_ = 53800500,
 
         [Display(Name = "[Catacombs of Carthus] Shield of Want 53800520")]
         CatacombsOfCarthusShieldOfWant = 53800520,
@@ -2874,15 +2357,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Irithyll Dungeon] Alva Helm 53900130")]
         IrithyllDungeonAlvaHelm = 53900130,
 
-        [Display(Name = "[Irithyll Dungeon] Alva Armor 53900130")]
-        IrithyllDungeonAlvaArmor = 53900130,
-
-        [Display(Name = "[Irithyll Dungeon] Alva Gauntlets 53900130")]
-        IrithyllDungeonAlvaGauntlets = 53900130,
-
-        [Display(Name = "[Irithyll Dungeon] Alva Leggings 53900130")]
-        IrithyllDungeonAlvaLeggings = 53900130,
-
         [Display(Name = "[Irithyll Dungeon] Lightning Bolt 53900140")]
         IrithyllDungeonLightningBolt = 53900140,
 
@@ -2918,15 +2392,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Irithyll Dungeon] Old Sorcerer Hat 53900260")]
         IrithyllDungeonOldSorcererHat = 53900260,
-
-        [Display(Name = "[Irithyll Dungeon] Old Sorcerer Coat 53900260")]
-        IrithyllDungeonOldSorcererCoat = 53900260,
-
-        [Display(Name = "[Irithyll Dungeon] Old Sorcerer Gauntlets 53900260")]
-        IrithyllDungeonOldSorcererGauntlets = 53900260,
-
-        [Display(Name = "[Irithyll Dungeon] Old Sorcerer Boots 53900260")]
-        IrithyllDungeonOldSorcererBoots = 53900260,
 
         [Display(Name = "[Irithyll Dungeon] Large Soul of a Weary Warrior 53900270")]
         IrithyllDungeonLargeSoulOfaWearyWarrior = 53900270,
@@ -3027,15 +2492,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Profaned Capital] Court Sorcerer Hood 53900800")]
         ProfanedCapitalCourtSorcererHood = 53900800,
 
-        [Display(Name = "[Profaned Capital] Court Sorcerer Robe 53900800")]
-        ProfanedCapitalCourtSorcererRobe = 53900800,
-
-        [Display(Name = "[Profaned Capital] Court Sorcerer Gloves 53900800")]
-        ProfanedCapitalCourtSorcererGloves = 53900800,
-
-        [Display(Name = "[Profaned Capital] Court Sorcerer Trousers 53900800")]
-        ProfanedCapitalCourtSorcererTrousers = 53900800,
-
         [Display(Name = "[Profaned Capital] Storm Ruler 53900810")]
         ProfanedCapitalStormRuler = 53900810,
 
@@ -3080,15 +2536,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Cemetery of Ash] Sneering Mask 54000140")]
         CemeteryOfAshSneeringMask = 54000140,
-
-        [Display(Name = "[Cemetery of Ash] Pale Shade Robe 54000140")]
-        CemeteryOfAshPaleShadeRobe = 54000140,
-
-        [Display(Name = "[Cemetery of Ash] Pale Shade Gloves 54000140")]
-        CemeteryOfAshPaleShadeGloves = 54000140,
-
-        [Display(Name = "[Cemetery of Ash] Pale Shade Trousers 54000140")]
-        CemeteryOfAshPaleShadeTrousers = 54000140,
 
         [Display(Name = "[Cemetery of Ash] Homeward Bone 54000160")]
         CemeteryOfAshHomewardBone__ = 54000160,
@@ -3144,12 +2591,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Cemetery of Ash] Fire Keeper Robe 54000350")]
         CemeteryOfAshFireKeeperRobe = 54000350,
 
-        [Display(Name = "[Cemetery of Ash] Fire Keeper Gloves 54000350")]
-        CemeteryOfAshFireKeeperGloves = 54000350,
-
-        [Display(Name = "[Cemetery of Ash] Fire Keeper Skirt 54000350")]
-        CemeteryOfAshFireKeeperSkirt = 54000350,
-
         [Display(Name = "[Cemetery of Ash] Life Ring+3 54000400")]
         CemeteryOfAshLifeRing3 = 54000400,
 
@@ -3164,36 +2605,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "Ashen Estus Flask 6600")]
         AshenEstusFlask = 6600,
-
-        [Display(Name = "Ashen Estus Flask+1 6600")]
-        AshenEstusFlask1 = 6600,
-
-        [Display(Name = "Ashen Estus Flask+2 6600")]
-        AshenEstusFlask2 = 6600,
-
-        [Display(Name = "Ashen Estus Flask+3 6600")]
-        AshenEstusFlask3 = 6600,
-
-        [Display(Name = "Ashen Estus Flask+4 6600")]
-        AshenEstusFlask4 = 6600,
-
-        [Display(Name = "Ashen Estus Flask+5 6600")]
-        AshenEstusFlask5 = 6600,
-
-        [Display(Name = "Ashen Estus Flask+6 6600")]
-        AshenEstusFlask6 = 6600,
-
-        [Display(Name = "Ashen Estus Flask+7 6600")]
-        AshenEstusFlask7 = 6600,
-
-        [Display(Name = "Ashen Estus Flask+8 6600")]
-        AshenEstusFlask8 = 6600,
-
-        [Display(Name = "Ashen Estus Flask+9 6600")]
-        AshenEstusFlask9 = 6600,
-
-        [Display(Name = "Ashen Estus Flask+10 6600")]
-        AshenEstusFlask10 = 6600,
 
         [Display(Name = "[Cemetery of Ash] Covetous Silver Serpent Ring 54000700")]
         CemeteryOfAshCovetousSilverSerpentRing = 54000700,
@@ -3231,9 +2642,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Ariandel] Millwood Greatbow 54500100")]
         AriandelMillwoodGreatbow = 54500100,
 
-        [Display(Name = "[Ariandel] Millwood Greatarrow 54500100")]
-        AriandelMillwoodGreatarrow = 54500100,
-
         [Display(Name = "[Ariandel] Large Soul of an Unknown Traveler 54500110")]
         AriandelLargeSoulOfanUnknownTraveler__ = 54500110,
 
@@ -3257,15 +2665,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Ariandel] Slave Knight Hood 54500180")]
         AriandelSlaveKnightHood = 54500180,
-
-        [Display(Name = "[Ariandel] Slave Knight Armor 54500180")]
-        AriandelSlaveKnightArmor = 54500180,
-
-        [Display(Name = "[Ariandel] Slave Knight Gauntlets 54500180")]
-        AriandelSlaveKnightGauntlets = 54500180,
-
-        [Display(Name = "[Ariandel] Slave Knight Leggings 54500180")]
-        AriandelSlaveKnightLeggings = 54500180,
 
         [Display(Name = "[Ariandel] Ember 54500190")]
         AriandelEmber = 54500190,
@@ -3345,15 +2744,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Ariandel] Vilhelm's Helm 54500470")]
         AriandelVilhelmsHelm = 54500470,
 
-        [Display(Name = "[Ariandel] Vilhelm's Armor 54500470")]
-        AriandelVilhelmsArmor = 54500470,
-
-        [Display(Name = "[Ariandel] Vilhelm's Gauntlets 54500470")]
-        AriandelVilhelmsGauntlets = 54500470,
-
-        [Display(Name = "[Ariandel] Vilhelm's Leggings 54500470")]
-        AriandelVilhelmsLeggings = 54500470,
-
         [Display(Name = "[Ariandel] Blood Gem 54500480")]
         AriandelBloodGem = 54500480,
 
@@ -3375,9 +2765,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Ariandel] Pyromancer's Parting Flame 54500570")]
         AriandelPyromancersPartingFlame = 54500570,
 
-        [Display(Name = "[Ariandel] Homeward Bone 54500570")]
-        AriandelHomewardBone_ = 54500570,
-
         [Display(Name = "[Ariandel] Rime-blue Moss Clump 54500600")]
         AriandelRimeblueMossClump__ = 54500600,
 
@@ -3394,7 +2781,7 @@ namespace SoulMemory.DarkSouls3
         AriandelTitaniteSlab = 54500640,
 
         [Display(Name = "[Ariandel] Homeward Bone 54500650")]
-        AriandelHomewardBone__ = 54500650,
+        AriandelHomewardBone_ = 54500650,
 
         [Display(Name = "[Ariandel] Large Soul of an Unknown Traveler 54500660")]
         AriandelLargeSoulOfanUnknownTraveler________ = 54500660,
@@ -3534,20 +2921,11 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Dreg Heap] Desert Pyromancer Hood 55000370")]
         DregHeapDesertPyromancerHood = 55000370,
 
-        [Display(Name = "[Dreg Heap] Desert Pyromancer Garb 55000370")]
-        DregHeapDesertPyromancerGarb_ = 55000370,
-
-        [Display(Name = "[Dreg Heap] Desert Pyromancer Gloves 55000370")]
-        DregHeapDesertPyromancerGloves = 55000370,
-
-        [Display(Name = "[Dreg Heap] Desert Pyromancer Skirt 55000370")]
-        DregHeapDesertPyromancerSkirt = 55000370,
-
         [Display(Name = "[Dreg Heap] Desert Pyromancer Gloves 55000380")]
-        DregHeapDesertPyromancerGloves_ = 55000380,
+        DregHeapDesertPyromancerGloves = 55000380,
 
         [Display(Name = "[Dreg Heap] Desert Pyromancer Skirt 55000390")]
-        DregHeapDesertPyromancerSkirt_ = 55000390,
+        DregHeapDesertPyromancerSkirt = 55000390,
 
         [Display(Name = "[Dreg Heap] Titanite Scale 55000400")]
         DregHeapTitaniteScale_ = 55000400,
@@ -3609,15 +2987,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Ringed City] Ruin Helm 55100010")]
         RingedCityRuinHelm = 55100010,
 
-        [Display(Name = "[Ringed City] Ruin Armor 55100010")]
-        RingedCityRuinArmor = 55100010,
-
-        [Display(Name = "[Ringed City] Ruin Gauntlets 55100010")]
-        RingedCityRuinGauntlets = 55100010,
-
-        [Display(Name = "[Ringed City] Ruin Leggings 55100010")]
-        RingedCityRuinLeggings = 55100010,
-
         [Display(Name = "[Ringed City] Budding Green Blossom 55100020")]
         RingedCityBuddingGreenBlossom = 55100020,
 
@@ -3672,15 +3041,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Ringed City] Shira's Crown 55100190")]
         RingedCityShirasCrown = 55100190,
 
-        [Display(Name = "[Ringed City] Shira's Armor 55100190")]
-        RingedCityShirasArmor = 55100190,
-
-        [Display(Name = "[Ringed City] Shira's Gloves 55100190")]
-        RingedCityShirasGloves = 55100190,
-
-        [Display(Name = "[Ringed City] Shira's Trousers 55100190")]
-        RingedCityShirasTrousers = 55100190,
-
         [Display(Name = "[Ringed City] Mossfruit 55100200")]
         RingedCityMossfruit = 55100200,
 
@@ -3698,15 +3058,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Ringed City] Black Witch Hat 55100250")]
         RingedCityBlackWitchHat = 55100250,
-
-        [Display(Name = "[Ringed City] Black Witch Garb 55100250")]
-        RingedCityBlackWitchGarb = 55100250,
-
-        [Display(Name = "[Ringed City] Black Witch Wrappings 55100250")]
-        RingedCityBlackWitchWrappings = 55100250,
-
-        [Display(Name = "[Ringed City] Black Witch Trousers 55100250")]
-        RingedCityBlackWitchTrousers = 55100250,
 
         [Display(Name = "[Ringed City] Dragonhead Shield 55100260")]
         RingedCityDragonheadShield = 55100260,
@@ -3843,9 +3194,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Ringed City] Antiquated Plain Garb 55100700")]
         RingedCityAntiquatedPlainGarb = 55100700,
 
-        [Display(Name = "[Ringed City] Violet Wrappings 55100700")]
-        RingedCityVioletWrappings = 55100700,
-
         [Display(Name = "[Ringed City] Soul of a Weary Warrior 55100710")]
         RingedCitySoulOfaWearyWarrior_ = 55100710,
 
@@ -3915,14 +3263,8 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Pus of Man #1] Titanite Shard 53000980")]
         PusOfMan1TitaniteShard = 53000980,
 
-        [Display(Name = "[Pus of Man #1] Ember 53000980")]
-        PusOfMan1Ember = 53000980,
-
         [Display(Name = "[Pus of Man #2] Titanite Shard 53000981")]
         PusOfMan2TitaniteShard = 53000981,
-
-        [Display(Name = "[Pus of Man #2] Ember 53000981")]
-        PusOfMan2Ember = 53000981,
 
         [Display(Name = "[Cathedral Knight - Oceiros] Magic Stoneplate Ring 53010955")]
         CathedralKnightOceirosMagicStoneplateRing = 53010955,
@@ -3939,15 +3281,6 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Boreal Outrider Knight] Outrider Knight Helm 53410905")]
         BorealOutriderKnightOutriderKnightHelm = 53410905,
 
-        [Display(Name = "[Boreal Outrider Knight] Outrider Knight Armor 53410905")]
-        BorealOutriderKnightOutriderKnightArmor = 53410905,
-
-        [Display(Name = "[Boreal Outrider Knight] Outrider Knight Gauntlets 53410905")]
-        BorealOutriderKnightOutriderKnightGauntlets = 53410905,
-
-        [Display(Name = "[Boreal Outrider Knight] Outrider Knight Leggings 53410905")]
-        BorealOutriderKnightOutriderKnightLeggings = 53410905,
-
         [Display(Name = "[Boreal Outrider Knight] Irithyll Straight Sword 53100980")]
         BorealOutriderKnightIrithyllStraightSword = 53100980,
 
@@ -3959,9 +3292,6 @@ namespace SoulMemory.DarkSouls3
 
         [Display(Name = "[Silver Knight #1] 53700983")]
         SilverKnight1 = 53700983,
-
-        [Display(Name = "[Silver Knight #1] 53700983")]
-        SilverKnight1_ = 53700983,
 
         [Display(Name = "[Silver Knight #2] 53700984")]
         SilverKnight2 = 53700984,
@@ -4062,17 +3392,11 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Yellowfinger Heysel] Heysel Pick 53500960")]
         YellowfingerHeyselHeyselPick_ = 53500960,
 
-        [Display(Name = "[Yellowfinger Heysel] Xanthous Crown 53500960")]
-        YellowfingerHeyselXanthousCrown_ = 53500960,
-
         [Display(Name = "Red Sign Soapstone 6781")]
         RedSignSoapstone = 6781,
 
         [Display(Name = "[Carthus Sandworm] Lightning Stake 53800941")]
         CarthusSandwormLightningStake = 53800941,
-
-        [Display(Name = "[Carthus Sandworm] Undead Bone Shard 53800941")]
-        CarthusSandwormUndeadBoneShard = 53800941,
 
         [Display(Name = "[Jailer #2] Jailer's Key Ring 53900930")]
         Jailer2JailersKeyRing = 53900930,
@@ -4107,409 +3431,16 @@ namespace SoulMemory.DarkSouls3
         [Display(Name = "[Ancient Wyvern] Titanite Chunk 53010990")]
         AncientWyvernTitaniteChunk = 53010990,
 
-        [Display(Name = "[Ancient Wyvern] Ember 53010990")]
-        AncientWyvernEmber = 53010990,
-
         [Display(Name = "[Ancient Wyvern] Titanite Chunk 53010991")]
         AncientWyvernTitaniteChunk_ = 53010991,
-
-        [Display(Name = "[Ancient Wyvern] Ember 53010991")]
-        AncientWyvernEmber_ = 53010991,
 
         [Display(Name = "[Dragonslayer Armour] Iron Dragonslayer Helm 55100987")]
         DragonslayerArmourIronDragonslayerHelm = 55100987,
 
-        [Display(Name = "[Dragonslayer Armour] Iron Dragonslayer Armor 55100987")]
-        DragonslayerArmourIronDragonslayerArmor = 55100987,
-
-        [Display(Name = "[Dragonslayer Armour] Iron Dragonslayer Gauntlets 55100987")]
-        DragonslayerArmourIronDragonslayerGauntlets = 55100987,
-
-        [Display(Name = "[Dragonslayer Armour] Iron Dragonslayer Leggings 55100987")]
-        DragonslayerArmourIronDragonslayerLeggings = 55100987,
-
         [Display(Name = "[Deacon #1 - Irithyll] Deep Ring 53500970")]
         Deacon1IrithyllDeepRing = 53500970,
 
-        [Display(Name = "Large Soul of a Proud Paladin 53000030")]
-        LargeSoulOfaProudPaladin = 53000030,
-
-        [Display(Name = "Soul of a Proud Paladin 53000040")]
-        SoulOfaProudPaladin = 53000040,
-
-        [Display(Name = "Soul of a Proud Paladin 53000110")]
-        SoulOfaProudPaladin_ = 53000110,
-
-        [Display(Name = "Soul of a Proud Paladin 53000240")]
-        SoulOfaProudPaladin__ = 53000240,
-
-        [Display(Name = "Large Soul of a Proud Paladin 53000310")]
-        LargeSoulOfaProudPaladin_ = 53000310,
-
-        [Display(Name = "Soul of a Proud Paladin 53000340")]
-        SoulOfaProudPaladin___ = 53000340,
-
-        [Display(Name = "Large Soul of a Proud Paladin 53000370")]
-        LargeSoulOfaProudPaladin__ = 53000370,
-
-        [Display(Name = "Soul of a Proud Paladin 53000410")]
-        SoulOfaProudPaladin____ = 53000410,
-
-        [Display(Name = "Soul of a Proud Paladin 53000450")]
-        SoulOfaProudPaladin_____ = 53000450,
-
-        [Display(Name = "Soul of a Proud Paladin 53000540")]
-        SoulOfaProudPaladin______ = 53000540,
-
-        [Display(Name = "Soul of a Proud Paladin 53000610")]
-        SoulOfaProudPaladin_______ = 53000610,
-
-        [Display(Name = "Soul of a Champion 53010090")]
-        SoulOfaChampion = 53010090,
-
-        [Display(Name = "Soul of a Venerable Old Hand 53010210")]
-        SoulOfaVenerableOldHand = 53010210,
-
-        [Display(Name = "Soul of a Champion 53010230")]
-        SoulOfaChampion_ = 53010230,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53010260")]
-        LargeSoulOfaSeasonedWarrior = 53010260,
-
-        [Display(Name = "Soul of a Venerable Old Hand 53010290")]
-        SoulOfaVenerableOldHand_ = 53010290,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53010320")]
-        LargeSoulOfaSeasonedWarrior_ = 53010320,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53010420")]
-        LargeSoulOfaSeasonedWarrior__ = 53010420,
-
-        [Display(Name = "Soul of an Intrepid Hero 53100070")]
-        SoulOfanIntrepidHero = 53100070,
-
-        [Display(Name = "Large Soul of a Proud Paladin 53100130")]
-        LargeSoulOfaProudPaladin___ = 53100130,
-
-        [Display(Name = "Large Soul of a Proud Paladin 53100150")]
-        LargeSoulOfaProudPaladin____ = 53100150,
-
-        [Display(Name = "Soul of an Intrepid Hero 53100200")]
-        SoulOfanIntrepidHero_ = 53100200,
-
-        [Display(Name = "Soul of an Intrepid Hero 53100240")]
-        SoulOfanIntrepidHero__ = 53100240,
-
-        [Display(Name = "Soul of an Intrepid Hero 53100380")]
-        SoulOfanIntrepidHero___ = 53100380,
-
-        [Display(Name = "Large Soul of a Proud Paladin 53100550")]
-        LargeSoulOfaProudPaladin_____ = 53100550,
-
-        [Display(Name = "Large Soul of a Proud Paladin 53100610")]
-        LargeSoulOfaProudPaladin______ = 53100610,
-
-        [Display(Name = "Large Soul of a Proud Paladin 53100650")]
-        LargeSoulOfaProudPaladin_______ = 53100650,
-
-        [Display(Name = "Soul of a Seasoned Warrior 53100680")]
-        SoulOfaSeasonedWarrior = 53100680,
-
-        [Display(Name = "Large Soul of a Proud Paladin 53100770")]
-        LargeSoulOfaProudPaladin________ = 53100770,
-
-        [Display(Name = "Soul of an Old Hand 53200040")]
-        SoulOfanOldHand = 53200040,
-
-        [Display(Name = "Soul of a Seasoned Warrior 53200080")]
-        SoulOfaSeasonedWarrior_ = 53200080,
-
-        [Display(Name = "Soul of a Venerable Old Hand 53200110")]
-        SoulOfaVenerableOldHand__ = 53200110,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53200120")]
-        LargeSoulOfaSeasonedWarrior___ = 53200120,
-
-        [Display(Name = "Soul of an Old Hand 53200180")]
-        SoulOfanOldHand_ = 53200180,
-
-        [Display(Name = "Soul of a Champion 53200190")]
-        SoulOfaChampion__ = 53200190,
-
-        [Display(Name = "Soul of a Great Champion 53200270")]
-        SoulOfaGreatChampion = 53200270,
-
-        [Display(Name = "Soul of an Intrepid Hero 53300050")]
-        SoulOfanIntrepidHero____ = 53300050,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 53300080")]
-        LargeSoulOfanIntrepidHero = 53300080,
-
-        [Display(Name = "Soul of an Intrepid Hero 53300100")]
-        SoulOfanIntrepidHero_____ = 53300100,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53300545")]
-        LargeSoulOfaSeasonedWarrior____ = 53300545,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53300555")]
-        LargeSoulOfaSeasonedWarrior_____ = 53300555,
-
-        [Display(Name = "Soul of an Intrepid Hero 53300600")]
-        SoulOfanIntrepidHero______ = 53300600,
-
-        [Display(Name = "Soul of a Seasoned Warrior 53300700")]
-        SoulOfaSeasonedWarrior__ = 53300700,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 53300710")]
-        LargeSoulOfanIntrepidHero_ = 53300710,
-
-        [Display(Name = "Soul of a Champion 53410020")]
-        SoulOfaChampion___ = 53410020,
-
-        [Display(Name = "Soul of a Champion 53410060")]
-        SoulOfaChampion____ = 53410060,
-
-        [Display(Name = "Soul of a Seasoned Warrior 53410070")]
-        SoulOfaSeasonedWarrior___ = 53410070,
-
-        [Display(Name = "Soul of a Great Champion 53410210")]
-        SoulOfaGreatChampion_ = 53410210,
-
-        [Display(Name = "Soul of an Old Hand 53410260")]
-        SoulOfanOldHand__ = 53410260,
-
-        [Display(Name = "Soul of a Great Champion 53410330")]
-        SoulOfaGreatChampion__ = 53410330,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 53500070")]
-        LargeSoulOfanIntrepidHero__ = 53500070,
-
-        [Display(Name = "Soul of a Seasoned Warrior 53500270")]
-        SoulOfaSeasonedWarrior____ = 53500270,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 53500300")]
-        LargeSoulOfanIntrepidHero___ = 53500300,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 53500330")]
-        LargeSoulOfanIntrepidHero____ = 53500330,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 53500340")]
-        LargeSoulOfanIntrepidHero_____ = 53500340,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 53500460")]
-        LargeSoulOfanIntrepidHero______ = 53500460,
-
-        [Display(Name = "Soul of a Seasoned Warrior 53500490")]
-        SoulOfaSeasonedWarrior_____ = 53500490,
-
-        [Display(Name = "Soul of a Seasoned Warrior 53500560")]
-        SoulOfaSeasonedWarrior______ = 53500560,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 53500690")]
-        LargeSoulOfanIntrepidHero_______ = 53500690,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53700020")]
-        LargeSoulOfaSeasonedWarrior______ = 53700020,
-
-        [Display(Name = "Soul of an Old Hand 53700040")]
-        SoulOfanOldHand___ = 53700040,
-
-        [Display(Name = "Soul of an Old Hand 53700050")]
-        SoulOfanOldHand____ = 53700050,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53700150")]
-        LargeSoulOfaSeasonedWarrior_______ = 53700150,
-
-        [Display(Name = "Soul of an Old Hand 53700180")]
-        SoulOfanOldHand_____ = 53700180,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53700360")]
-        LargeSoulOfaSeasonedWarrior________ = 53700360,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53700430")]
-        LargeSoulOfaSeasonedWarrior_________ = 53700430,
-
-        [Display(Name = "Soul of an Old Hand 53700440")]
-        SoulOfanOldHand______ = 53700440,
-
-        [Display(Name = "Soul of an Old Hand 53700500")]
-        SoulOfanOldHand_______ = 53700500,
-
-        [Display(Name = "Soul of a Champion 53700660")]
-        SoulOfaChampion_____ = 53700660,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53700720")]
-        LargeSoulOfaSeasonedWarrior__________ = 53700720,
-
-        [Display(Name = "Soul of an Old Hand 53700740")]
-        SoulOfanOldHand________ = 53700740,
-
-        [Display(Name = "Soul of a Venerable Old Hand 53700770")]
-        SoulOfaVenerableOldHand___ = 53700770,
-
-        [Display(Name = "Soul of a Seasoned Warrior 53800020")]
-        SoulOfaSeasonedWarrior_______ = 53800020,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53800170")]
-        LargeSoulOfaSeasonedWarrior___________ = 53800170,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53800380")]
-        LargeSoulOfaSeasonedWarrior____________ = 53800380,
-
-        [Display(Name = "Soul of a Seasoned Warrior 53800470")]
-        SoulOfaSeasonedWarrior________ = 53800470,
-
-        [Display(Name = "Soul of a Champion 53800530")]
-        SoulOfaChampion______ = 53800530,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 53800570")]
-        LargeSoulOfanIntrepidHero________ = 53800570,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53900030")]
-        LargeSoulOfaSeasonedWarrior_____________ = 53900030,
-
-        [Display(Name = "Large Soul of a Seasoned Warrior 53900070")]
-        LargeSoulOfaSeasonedWarrior______________ = 53900070,
-
-        [Display(Name = "Soul of an Old Hand 53900110")]
-        SoulOfanOldHand_________ = 53900110,
-
-        [Display(Name = "Soul of a Champion 53900120")]
-        SoulOfaChampion_______ = 53900120,
-
-        [Display(Name = "Soul of an Old Hand 53900190")]
-        SoulOfanOldHand__________ = 53900190,
-
-        [Display(Name = "Soul of a Venerable Old Hand 53900270")]
-        SoulOfaVenerableOldHand____ = 53900270,
-
-        [Display(Name = "Soul of a Venerable Old Hand 53900370")]
-        SoulOfaVenerableOldHand_____ = 53900370,
-
-        [Display(Name = "Soul of a Proud Paladin 54000020")]
-        SoulOfaProudPaladin________ = 54000020,
-
-        [Display(Name = "Soul of an Intrepid Hero 54000080")]
-        SoulOfanIntrepidHero_______ = 54000080,
-
-        [Display(Name = "Soul of an Intrepid Hero 54000110")]
-        SoulOfanIntrepidHero________ = 54000110,
-
-        [Display(Name = "Soul of a Champion 54000230")]
-        SoulOfaChampion________ = 54000230,
-
-        [Display(Name = "Soul of a Champion 54000290")]
-        SoulOfaChampion_________ = 54000290,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 54500020")]
-        LargeSoulOfanIntrepidHero_________ = 54500020,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 54500040")]
-        LargeSoulOfanIntrepidHero__________ = 54500040,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 54500110")]
-        LargeSoulOfanIntrepidHero___________ = 54500110,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 54500140")]
-        LargeSoulOfanIntrepidHero____________ = 54500140,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 54500170")]
-        LargeSoulOfanIntrepidHero_____________ = 54500170,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 54500220")]
-        LargeSoulOfanIntrepidHero______________ = 54500220,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 54500230")]
-        LargeSoulOfanIntrepidHero_______________ = 54500230,
-
-        [Display(Name = "Soul of a Champion 54500250")]
-        SoulOfaChampion__________ = 54500250,
-
-        [Display(Name = "Soul of a Champion 54500390")]
-        SoulOfaChampion___________ = 54500390,
-
-        [Display(Name = "Soul of a Champion 54500400")]
-        SoulOfaChampion____________ = 54500400,
-
-        [Display(Name = "Soul of a Great Champion 54500410")]
-        SoulOfaGreatChampion___ = 54500410,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 54500610")]
-        LargeSoulOfanIntrepidHero________________ = 54500610,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 54500660")]
-        LargeSoulOfanIntrepidHero_________________ = 54500660,
-
-        [Display(Name = "Soul of a Venerable Old Hand 54500670")]
-        SoulOfaVenerableOldHand______ = 54500670,
-
-        [Display(Name = "Large Soul of an Intrepid Hero 54500680")]
-        LargeSoulOfanIntrepidHero__________________ = 54500680,
-
-        [Display(Name = "Soul of a Venerable Old Hand 54500800")]
-        SoulOfaVenerableOldHand_______ = 54500800,
-
-        [Display(Name = "Soul of an Old Hand 54500830")]
-        SoulOfanOldHand___________ = 54500830,
-
-        [Display(Name = "Soul of an Old Hand 55000010")]
-        SoulOfanOldHand____________ = 55000010,
-
-        [Display(Name = "Soul of a Champion 55000080")]
-        SoulOfaChampion_____________ = 55000080,
-
-        [Display(Name = "Soul of a Venerable Old Hand 55000210")]
-        SoulOfaVenerableOldHand________ = 55000210,
-
-        [Display(Name = "Soul of a Venerable Old Hand 55000440")]
-        SoulOfaVenerableOldHand_________ = 55000440,
-
-        [Display(Name = "Soul of a Venerable Old Hand 55000490")]
-        SoulOfaVenerableOldHand__________ = 55000490,
-
-        [Display(Name = "Soul of a Champion 55100070")]
-        SoulOfaChampion______________ = 55100070,
-
-        [Display(Name = "Soul of a Venerable Old Hand 55100080")]
-        SoulOfaVenerableOldHand___________ = 55100080,
-
-        [Display(Name = "Soul of a Great Champion 55100220")]
-        SoulOfaGreatChampion____ = 55100220,
-
-        [Display(Name = "Soul of a Great Champion 55100290")]
-        SoulOfaGreatChampion_____ = 55100290,
-
-        [Display(Name = "Soul of an Old Hand 55100420")]
-        SoulOfanOldHand_____________ = 55100420,
-
-        [Display(Name = "Soul of a Champion 55100510")]
-        SoulOfaChampion_______________ = 55100510,
-
-        [Display(Name = "Soul of a Venerable Old Hand 55100590")]
-        SoulOfaVenerableOldHand____________ = 55100590,
-
-        [Display(Name = "Soul of a Venerable Old Hand 55100650")]
-        SoulOfaVenerableOldHand_____________ = 55100650,
-
-        [Display(Name = "Soul of an Old Hand 55100710")]
-        SoulOfanOldHand______________ = 55100710,
-
-        [Display(Name = "Soul of a Venerable Old Hand 55100810")]
-        SoulOfaVenerableOldHand______________ = 55100810,
-
-        [Display(Name = "Soul of an Old Hand 55100830")]
-        SoulOfanOldHand_______________ = 55100830,
-
-        [Display(Name = "Soul of a Champion 55100860")]
-        SoulOfaChampion________________ = 55100860,
-
         [Display(Name = "Green Blossom 53400040")]
         GreenBlossom = 53400040,
-
-        [Display(Name = "Throwing Knife 53400040")]
-        ThrowingKnife = 53400040,
-
-        [Display(Name = "Charcoal Pine Resin 53400040")]
-        CharcoalPineResin = 53400040,
     }
 }

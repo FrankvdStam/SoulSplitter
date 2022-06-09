@@ -14,8 +14,7 @@ namespace SoulSplitter.UI
         private string currentFilter = string.Empty;
 
         protected TextBox EditableTextBox => GetTemplateChild("PART_EditableTextBox") as TextBox;
-
-
+        
         protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
         {
             if (newValue != null)
