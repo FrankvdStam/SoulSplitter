@@ -76,6 +76,7 @@
     <Compile Include="DarkSouls3\Bonfire.cs" />
     <Compile Include="DarkSouls3\Boss.cs" />
     <Compile Include="DarkSouls3\DarkSouls3.cs" />
+    <Compile Include="DarkSouls3\ItemPickup.cs" />
     <Compile Include="EldenRing\Boss.cs" />
     <Compile Include="EldenRing\EldenRing.cs" />
     <Compile Include="EldenRing\Grace.cs" />
