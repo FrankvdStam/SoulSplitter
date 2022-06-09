@@ -2,7 +2,13 @@
 
 ![build](https://github.com/FrankvdStam/SoulSplitter/actions/workflows/build.yml/badge.svg) ![GitHub all releases](https://img.shields.io/github/downloads/FrankvdStam/SoulSplitter/total) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter)
 
-MIGT, initial black screen removal and autosplitting for Elden Ring.
+Soulsgames speedrun timer, load remover and autosplitter  
+
+Currently supports:   
+MIGT, initial black screen removal and autosplitting for Elden Ring  
+IGT, blackscreen removal and autosplitting for DarkSouls3
+
+
 For Elden Ring specific information, see https://github.com/FrankvdStam/SoulSplitter/wiki/Elden-Ring
 
 
@@ -10,7 +16,7 @@ For Elden Ring specific information, see https://github.com/FrankvdStam/SoulSpli
 You can find detailed installation instructions with screenshots here: https://github.com/FrankvdStam/SoulSplitter/wiki/Installation
 
 # Contact
-If you are having trouble, have questions, feature requests or anything else, come find me on discord. I'm usually responsive in the er-help channel on the speedsouls server, or by user wasted#2747 (DM's are open, no need to send a friend request).
+If you are having trouble, have questions, feature requests or anything else, come find me on discord. Feel free to ping me (@wasted) in the help channel of the respective soulsgame on the speedsouls server, or DM me by user wasted#2747 (DM's are open, no need to send a friend request).
 
 # Credits
 
