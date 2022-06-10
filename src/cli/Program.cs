@@ -32,30 +32,30 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();
-            return;
-
-            //Ds3TestPatterns();
+            //TestUi();
+            //return;
+            //
+            ////Ds3TestPatterns();
+            ////return;
+            //
+            //var ds3 = new DarkSouls3();
+            ////ds3.Refresh();
+            ////ds3.ReadEventFlag(15110800);
+            ////return;
+            //var discovery = new EventFlagDiscovery(ds3);
+            //
+            //for (; ; )
+            //{
+            //    discovery.Update();
+            //    Thread.Sleep(500);
+            //    ds3.Refresh();
+            //}
             //return;
 
             var ds3 = new DarkSouls3();
-            //ds3.Refresh();
-            //ds3.ReadEventFlag(15110800);
-            //return;
-            var discovery = new EventFlagDiscovery(ds3);
-
-            for (; ; )
-            {
-                discovery.Update();
-                Thread.Sleep(500);
-                ds3.Refresh();
-            }
-            return;
-
-
             while (true)
             {
-                Console.WriteLine(ds3.ReadEventFlag(14000002));
+                Console.WriteLine(ds3.GetInGameTimeMilliseconds()); 
                 ds3.Refresh();
                 Thread.Sleep(100);
             }

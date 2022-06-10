@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="1.0.27">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>Bugfix IGT value for Dark Souls 3 1.04 R1.05</change>
+		</changelog>
+	</update>
 	<update version="1.0.26">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />
