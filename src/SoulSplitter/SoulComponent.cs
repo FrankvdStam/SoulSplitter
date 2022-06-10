@@ -28,7 +28,21 @@ namespace SoulSplitter
         public SoulComponent(LiveSplitState state = null)
         {           
             _liveSplitState = state;
-            //_splitter = new EldenRingSplitter(state);
+
+            if(!string.IsNullOrWhiteSpace(_liveSplitState?.Run?.GameName))
+            {
+                var name = _liveSplitState.Run.GameName.ToLower().Replace(" ", "");
+                switch (name)
+                {
+                    case "eldenring":
+                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.EldenRing;
+                        break;
+
+                    case "darksoulsiii":
+                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls3;
+                        break;
+                }
+            }
         }
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)

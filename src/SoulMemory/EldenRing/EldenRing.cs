@@ -25,7 +25,7 @@ namespace SoulMemory.EldenRing
         private Pointer _playerIns;
         private Pointer _playerGameData;
         private Pointer _inventory;
-        private Pointer _playerChrPhysicsModule;
+        //private Pointer _playerChrPhysicsModule;
         private Pointer _menuManImp;
         private Pointer _igtFix;
         private Pointer _virtualMemoryFlag;
@@ -127,24 +127,7 @@ namespace SoulMemory.EldenRing
                     .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
                         .CreatePointer(out _igtFix)
                     ;
-
-                //try
-                //{
-                //    //If nologo is not applied
-                //    scanCache
-                //        .ScanAbsolute("74 53 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B C8")
-                //        .CreatePointer(out _noLogo);
-                //}
-                //catch
-                //{
-                //
-                //    //If nologo is already applied
-                //    scanCache
-                //        .ScanAbsolute("90 90 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B C8")
-                //        .CreatePointer(out _noLogo);
-                //}
-
-
+                
                 //gameman  48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03
                 //EventFlagUsageParamManagerImp 48 8b 05 . . . . 48 85 c0 75 12 88 . . . . . e8 20 ec ff ff 48 89 05 . . . .
 
@@ -200,7 +183,7 @@ namespace SoulMemory.EldenRing
             _igt = null;
             _hud = null;
             _playerIns = null;
-            _playerChrPhysicsModule = null;
+            //_playerChrPhysicsModule = null;
             _menuManImp = null;
             _igtFix = null;
             _playerGameData = null;
