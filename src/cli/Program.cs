@@ -56,8 +56,11 @@ namespace cli
             while (true)
             {
                 Console.WriteLine(ds3.GetInGameTimeMilliseconds()); 
+                Console.WriteLine(ds3.IsLoading()); 
+                Console.WriteLine(ds3.BlackscreenActive()); 
                 ds3.Refresh();
                 Thread.Sleep(100);
+                Console.Clear();
             }
             ds3.Refresh();
             ds3.ReadEventFlag(14000002);//bonfire
@@ -286,13 +289,14 @@ namespace cli
         public static void Ds3TestPatterns()
         {
             var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables");
-            patternCounter.AddPattern("menuMan"         , "48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 0d ? ? ? ? 48 85 c9 74 33 e8 ? ? ? ? 48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03 33 d2 48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 5c 24 30 48 8b 74 24 38 48 83 c4 20 5f c3");
-            patternCounter.AddPattern("IGT"             , "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20");
-            patternCounter.AddPattern("playerIns"       , "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70");
-            patternCounter.AddPattern("Loading"         , "c6 05 ? ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9");
-            patternCounter.AddPattern("SprjFadeImp"     , "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2");
-            patternCounter.AddPattern("SprjEventFlagMan", "48 c7 05 ? ? ? ? 00 00 00 00 48 8b 7c 24 38 c7 46 54 ff ff ff ff 48 83 c4 20 5e c3");
-            patternCounter.AddPattern("FieldArea"       , "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10");
+            patternCounter.AddPattern("bonfireUnlock"   , "8B 13 48 83 C4 ? 5B E9 ? 54 ? ? ? BA");
+            //patternCounter.AddPattern("menuMan"         , "48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 0d ? ? ? ? 48 85 c9 74 33 e8 ? ? ? ? 48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03 33 d2 48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 5c 24 30 48 8b 74 24 38 48 83 c4 20 5f c3");
+            //patternCounter.AddPattern("IGT"             , "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20");
+            //patternCounter.AddPattern("playerIns"       , "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70");
+            //patternCounter.AddPattern("Loading"         , "c6 05 ? ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9");
+            //patternCounter.AddPattern("SprjFadeImp"     , "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2");
+            //patternCounter.AddPattern("SprjEventFlagMan", "48 c7 05 ? ? ? ? 00 00 00 00 48 8b 7c 24 38 c7 46 54 ff ff ff ff 48 83 c4 20 5e c3");
+            //patternCounter.AddPattern("FieldArea"       , "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10");
 
             foreach (var result in patternCounter.GetResults())
             {

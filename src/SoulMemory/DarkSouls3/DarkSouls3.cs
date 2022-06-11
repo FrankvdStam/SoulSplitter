@@ -182,7 +182,7 @@ namespace SoulMemory.DarkSouls3
 
         public void WriteInGameTimeMilliseconds(int millis)
         {
-            _gameDataMan?.WriteInt32(0xa4, millis);
+            _gameDataMan?.WriteInt32(_igtOffset, millis);
         }
 
         public int GetInGameTimeMilliseconds()

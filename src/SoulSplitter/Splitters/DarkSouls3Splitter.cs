@@ -79,11 +79,15 @@ namespace SoulSplitter.Splitters
 
                 case TimerState.Running:
                     var currentIgt = _darkSouls3.GetInGameTimeMilliseconds();
+                    var isLoading = _darkSouls3.IsLoading();
+                    var blackscreenActive = _darkSouls3.BlackscreenActive();
+
+                    //Trace.WriteLine($"{_inGameTime} {currentIgt} {isLoading} {blackscreenActive}");
 
                     //Blackscreens/meme loading screens - timer is running, but game is actually loading
-                    if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && (_darkSouls3.IsLoading() || _darkSouls3.BlackscreenActive()))
+                    if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && (isLoading || blackscreenActive))
                     {
-                        Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
+                        //Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
                         _darkSouls3.WriteInGameTimeMilliseconds(_inGameTime);
                     }
                     else
