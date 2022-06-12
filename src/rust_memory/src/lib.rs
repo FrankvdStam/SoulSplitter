@@ -13,10 +13,14 @@ pub use darksouls2::*;
 pub mod darksouls3;
 pub use darksouls3::*;
 
+pub mod sekiro;
+pub use sekiro::*;
+
 pub mod eldenring;
 pub use eldenring::*;
 
 pub mod websocket;
+
 
 
 pub use log::*;
@@ -62,6 +66,10 @@ pub fn init()
                     darksouls3::init_event_flag_detour();
                     darksouls3::init_get_event_flag_detour();
                },
+               "sekiro.exe" =>
+               {
+                    sekiro::init_event_flag_detour();
+               }
                "eldenring.exe" =>
                {
                     eldenring::init_event_flag_detour();
@@ -94,6 +102,10 @@ pub fn unload()
                {
                     darksouls3::disable_event_flag_detour();
                },
+               "sekiro.exe" =>
+               {
+                    sekiro::disable_event_flag_detour();
+               }
                "eldenring.exe" =>
                {
                     eldenring::disable_event_flag_detour();

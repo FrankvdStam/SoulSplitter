@@ -22,7 +22,16 @@ fn main()
     let processes = Process::get_active_processes();
     for mut p in processes
     {
-        if p.name.to_lowercase() == "darksoulsii.exe" || p.name.to_lowercase() == "darksoulsiii.exe" || p.name == "eldenring.exe"
+        let process_name = p.name.to_lowercase();
+        let games = vec!
+        {
+            "darksoulsii.exe",
+            "darksoulsiii.exe",
+            "sekiro.exe",
+            "eldenring.exe",
+        };
+
+        if games.contains(&process_name.as_str())
         {
             p.inject_dll(&dll_path);
         }
