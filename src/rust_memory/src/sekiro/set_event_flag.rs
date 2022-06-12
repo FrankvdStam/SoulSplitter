@@ -26,10 +26,9 @@ fn log_event_flag(rdx: u64, edx: u32, r8d: u8, r9b: i32)
     unsafe{
         if !FLAGS.contains(&edx)
         {
-            info!("set event flag {:x} {} {} {}", rdx, edx, r8d, r9b);
+            info!("set event flag {} {}", edx, r8d);
             FLAGS.push(edx);
         }
-
     }
 
 
