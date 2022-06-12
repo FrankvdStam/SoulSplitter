@@ -16,6 +16,7 @@ using SoulMemory.DarkSouls3;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulMemory.Native;
+using SoulMemory.Sekiro;
 using SoulMemory.Shared;
 using SoulSplitter;
 using SoulSplitter.UI;
@@ -32,6 +33,18 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            var sekiro = new Sekiro();
+            sekiro.Refresh();
+            while (true)
+            {
+                //sekiro.ReadEventFlag(6968);
+                Console.WriteLine($"Upper Tower - Antechamber (11110001)    {sekiro.ReadEventFlag(11110001)}");
+                sekiro.Refresh();
+                Thread.Sleep(500);
+                Console.Clear();
+            }
+
+
             //TestUi();
             //return;
             //
