@@ -184,8 +184,8 @@ namespace SoulMemory.Sekiro
             return false;
         }
 
-        //             ((*(uint *)(*in_RAX + (ulonglong)((uint)(param_2 % 1000) >> 5) * 4) >> (0x1f - (param_2 % 1000 & 0x1fU) & 0x1f) & 1) != 0);
-
+        //((*(uint *)(*in_RAX + (ulonglong)((uint)(param_2 % 1000) >> 5) * 4) >> (0x1f - (param_2 % 1000 & 0x1fU) & 0x1f) & 1) != 0);
+        
 
         //Ghidra, sekiro 1.06, at 1406c63f0, sekiro.exe + 0x6c63f0
         //

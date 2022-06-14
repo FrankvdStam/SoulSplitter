@@ -7,11 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SoulMemory.Memory;
 
-namespace SoulSplitter.UI.DarkSouls3
+namespace SoulSplitter.UI
 {
-    //<T> : INotifyPropertyChanged 
-    //where T : System.Enum
-
     public class EnumFlagViewModel<T> : INotifyPropertyChanged where T : Enum
     {
         public EnumFlagViewModel(T tEnum)
@@ -50,12 +47,13 @@ namespace SoulSplitter.UI.DarkSouls3
         }
         private uint _flag;
 
-
+        /// <summary>
+        /// Used to compare items in the filtered combobox
+        /// </summary>
         public override string ToString()
         {
             return Name;
         }
-
 
         #region INotifyPropertyChanged
         private bool SetField<U>(ref U field, U value, [CallerMemberName] string propertyName = null)
@@ -74,6 +72,5 @@ namespace SoulSplitter.UI.DarkSouls3
         }
 
         #endregion
-
     }
 }

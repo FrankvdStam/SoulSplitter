@@ -11,6 +11,7 @@ namespace SoulSplitter.UI
         DarkSouls1 = 0,
         DarkSouls2 = 1,
         DarkSouls3 = 2,
-        EldenRing = 3,
+        Sekiro = 3,
+        EldenRing = 4,
     }
 }

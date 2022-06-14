@@ -9,6 +9,7 @@ using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.EldenRing;
+using SoulSplitter.UI.Sekiro;
 
 namespace SoulSplitter.UI
 {
@@ -17,10 +18,11 @@ namespace SoulSplitter.UI
         public void Update(MainViewModel mainViewModel)
         {
             SelectedGame        = mainViewModel.SelectedGame;
-            EldenRingViewModel  = mainViewModel.EldenRingViewModel;
             DarkSouls1ViewModel = mainViewModel.DarkSouls1ViewModel;
             DarkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
             DarkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
+            SekiroViewModel     = mainViewModel.SekiroViewModel;
+            EldenRingViewModel  = mainViewModel.EldenRingViewModel;
         }
         
         [XmlIgnore]
@@ -66,6 +68,14 @@ namespace SoulSplitter.UI
             set => SetField(ref _darkSouls3ViewModel, value);
         }
         private DarkSouls3ViewModel _darkSouls3ViewModel = new DarkSouls3ViewModel();
+
+        public SekiroViewModel SekiroViewModel
+        {
+            get => _sekiroViewModel;
+            set => SetField(ref _sekiroViewModel, value);
+        }
+        private SekiroViewModel _sekiroViewModel = new SekiroViewModel();
+
         public EldenRingViewModel EldenRingViewModel
         {
             get => _eldenRingViewModel;
@@ -99,11 +109,11 @@ namespace SoulSplitter.UI
         public static MainViewModel Deserialize(string xml)
         {
             var vm = xml.DeserializeXml<MainViewModel>();
-            vm.EldenRingViewModel.RestoreHierarchy();
             vm.DarkSouls3ViewModel.RestoreHierarchy();
+            vm.SekiroViewModel.RestoreHierarchy();
+            vm.EldenRingViewModel.RestoreHierarchy();
             return vm;
         }
-
 
         #endregion
 

@@ -71,17 +71,24 @@
     <Compile Include="Splits\DarkSouls3\Split.cs" />
     <Compile Include="Splits\EldenRing\Split.cs" />
     <Compile Include="Splits\EldenRing\EldenRingSplitType.cs" />
+    <Compile Include="Splits\Sekiro\SekiroSplitType.cs" />
     <Compile Include="Splitters\DarkSouls3Splitter.cs" />
+    <Compile Include="Splitters\SekiroSplitter.cs" />
     <Compile Include="UI\DarkSouls3\DarkSouls3Control.xaml.cs">
       <DependentUpon>DarkSouls3Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DarkSouls3\DarkSouls3ViewModel.cs" />
-    <Compile Include="UI\DarkSouls3\EnumFlagViewModel.cs" />
+    <Compile Include="UI\EnumFlagViewModel.cs" />
     <Compile Include="UI\DarkSouls3\HierarchicalViewModel.cs" />
     <Compile Include="UI\EldenRing\PositionViewModel.cs" />
     <Compile Include="UI\EldenRing\BossViewModel.cs" />
     <Compile Include="UI\EldenRing\ItemPickupViewModel.cs" />
     <Compile Include="UI\EldenRing\GraceViewModel.cs" />
+    <Compile Include="UI\Sekiro\SekiroControl.xaml.cs">
+      <DependentUpon>SekiroControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Sekiro\SekiroViewModel.cs" />
+    <Compile Include="UI\Sekiro\HierarchicalViewModel.cs" />
     <Compile Include="UI\SplitObjectToDescriptionConverter.cs" />
     <Compile Include="UI\EldenRing\SplitViewModel.cs" />
     <Compile Include="UI\BoolToVisibilityConverter.cs" />
@@ -160,6 +167,10 @@
     <Page Include="UI\MainControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Sekiro\SekiroControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

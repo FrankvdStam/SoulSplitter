@@ -33,7 +33,27 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+            return;
+
+            //var er = new EldenRing();
+            //
+            //er.Init();
+
             var sekiro = new Sekiro();
+            var discovery = new EventFlagDiscovery(sekiro);
+
+            for (; ; )
+            {
+                discovery.Update();
+                Thread.Sleep(500);
+                sekiro.Refresh();
+            }
+            return;
+
+
+
+            
             sekiro.Refresh();
             while (true)
             {
@@ -124,77 +144,11 @@ namespace cli
             //
             //    counts[i.GetDisplayDescription()]++;
             //}
-
-
-            var er = new EldenRing();
-            while (true)
-            {
-                Console.Clear();
-                //var p = er.GetPosition();
-                //Console.WriteLine($"FA: {p.Area} {p.Block} {p.Region} {p.Size} POS: {p.X:F2} {p.Y:F2} {p.Z:F2}");
-                Console.WriteLine(er.GetTestValue());
-                er.Refresh();
-                Thread.Sleep(100);
-            }
-
-            //LogSetEventFlag(EventFlagLogMode.All);
-            //TestAobs();
-            TestUi();
-            //Testy2();
-
-             return;
             
-
-            
-
-            //Thread.Sleep(10000);
-            
-            er.Init();
-            //er.ReadEventFlag(71801);
-
-            while (true)
-            {
-                var items = er.ReadInventory();
-                Console.Clear();
-
-                foreach (var item in items)
-                {
-                    //Console.WriteLine($"{item.GetDisplayDescription()} {item.GetDisplayName()} {(uint)item}");
-                }
-
-                Thread.Sleep(100);
-                er.Refresh();
-            }
-            
-
-
-            Console.ReadKey();
-            return;
-
-
             
         }
 
-
-        private static void Testy2()
-        {
-            var er = new DarkSouls1();
-            er.Refresh();
-
-            var isKill = er.IsBossDefeated(BossType.AsylumDemon);
-
-
-            //for (; ; )
-            //{
-            //    //Console.Clear();
-            //    Console.WriteLine(er.IsInGame() + " " + er.GetInGameTimeMilliseconds());
-            //    Thread.Sleep(10);
-            //
-            //    er.Refresh();
-            //}
-        }
-
-
+        
         private static void Testy()
         {
             Pointer bossKillCount;
@@ -237,51 +191,7 @@ namespace cli
             f.Controls.Add(c);
             f.ShowDialog();
         }
-
-        public static void TestErExe()
-        {
-            Console.WriteLine("start");
-            Process process = null;
-            while (process == null)
-            {
-                process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("eldenring"));
-            }
-
-            var buffer1 = new byte[process.MainModule.ModuleMemorySize];
-            int read = 0;
-            Kernel32.ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, buffer1, buffer1.Length, ref read);
-
-            //Thread.Sleep(10000);
-
-            var buffer2 = new byte[process.MainModule.ModuleMemorySize];
-            read = 0;
-            Kernel32.ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, buffer2, buffer2.Length, ref read);
-
-            var hash1 = md5Hash(buffer1);
-            var hash2 = md5Hash(buffer2);
-
-            Console.WriteLine(hash1);
-            Console.WriteLine(hash2);
-
-
-
-            for (;;)
-            {
-                var buffer = new byte[process.MainModule.ModuleMemorySize];
-                read = 0;
-                Kernel32.ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, buffer, buffer.Length, ref read);
-                Console.WriteLine(md5Hash(buffer));
-            }
-
-
-
-
-            //while (true)
-            //{
-            //    Console.WriteLine(process.MainModule.ModuleMemorySize);
-            //}
-        }
-
+        
         public static string md5Hash(byte[] input)
         {
             // Use input string to calculate MD5 hash

@@ -55,6 +55,7 @@ namespace SoulSplitter.UI.DarkSouls3
                     _darkSouls3ViewModel.NewSplitValue = result;
                     return;
                 }
+                _darkSouls3ViewModel.NewSplitValue = null;
                 textBox.Text = string.Empty;
             }
         }

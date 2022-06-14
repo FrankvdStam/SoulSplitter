@@ -34,12 +34,16 @@ namespace SoulSplitter
                 var name = _liveSplitState.Run.GameName.ToLower().Replace(" ", "");
                 switch (name)
                 {
-                    case "eldenring":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.EldenRing;
-                        break;
-
                     case "darksoulsiii":
                         MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls3;
+                        break;
+
+                    case "sekiro":
+                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.Sekiro;
+                        break;
+
+                    case "eldenring":
+                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.EldenRing;
                         break;
                 }
             }
@@ -94,6 +98,10 @@ namespace SoulSplitter
                         _splitter = new DarkSouls3Splitter(state);
                         break;
 
+                    case Game.Sekiro:
+                        _splitter = new SekiroSplitter(state);
+                        break;
+
                     case Game.EldenRing:
                         _splitter = new EldenRingSplitter(state);
                         break;
@@ -112,11 +120,13 @@ namespace SoulSplitter
                     _splitter.Update(MainControlFormsWrapper.MainViewModel.DarkSouls3ViewModel);
                     break;
 
+                case Game.Sekiro:
+                    _splitter.Update(MainControlFormsWrapper.MainViewModel.SekiroViewModel);
+                    break;
+                
                 case Game.EldenRing:
                     _splitter.Update(MainControlFormsWrapper.MainViewModel.EldenRingViewModel);
                     break;
-
-                    
             }
         }
 
