@@ -33,8 +33,6 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();
-            return;
 
             //var er = new EldenRing();
             //
@@ -220,6 +218,26 @@ namespace cli
             //patternCounter.AddPattern("SprjFadeImp"     , "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2");
             //patternCounter.AddPattern("SprjEventFlagMan", "48 c7 05 ? ? ? ? 00 00 00 00 48 8b 7c 24 38 c7 46 54 ff ff ff ff 48 83 c4 20 5e c3");
             //patternCounter.AddPattern("FieldArea"       , "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10");
+
+            foreach (var result in patternCounter.GetResults())
+            {
+                if (result.count != 1)
+                {
+                    Console.WriteLine($"Error: {result.executable} {result.name} {result.count}");
+                }
+            }
+
+            Console.WriteLine("Done");
+            Console.ReadKey();
+        }
+
+        public static void SekiroTestPatterns()
+        {
+            var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro");
+            patternCounter.AddPattern("WorldChrManImp", "48 8B 35 ? ? ? ? 44 0F 28 18");
+            patternCounter.AddPattern("SprjEventFlagMan", "48 8b 0d ? ? ? ? 32 db 85 d2 49 63 f0");
+            patternCounter.AddPattern("FieldArea", "48 8b 0d ? ? ? ? 48 85 c9 74 26 44 8b 41 28 48 8d 54 24 40");
+            
 
             foreach (var result in patternCounter.GetResults())
             {

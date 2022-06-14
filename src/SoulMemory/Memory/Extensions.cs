@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using SoulMemory.Native;
 
 namespace SoulMemory.Memory
 {
@@ -83,6 +86,33 @@ namespace SoulMemory.Memory
                 displayName = enumValue.ToString();
             }
             return displayName;
+        }
+
+
+        public static byte[] ReadMemory(this Process process, IntPtr address, int size)
+        {
+            var readBuffer = new byte[size];
+            int readBytes = 0;
+            Kernel32.ReadProcessMemory(process.Handle, address, readBuffer, readBuffer.Length, ref readBytes);
+            return readBuffer;
+        }
+
+        public static T ReadMemory<T>(this Process process, IntPtr address)
+        {
+            var type = typeof(T);
+            var size = Marshal.SizeOf(type);
+            var bytes = process.ReadMemory(address, size);
+            var handle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
+            var result = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), type);
+            handle.Free();
+            return result;
+        }
+
+        public static bool WriteMemory(this Process process, IntPtr address, byte[] bytes)
+        {
+            uint writtenBytes = 0;
+            var result = Kernel32.WriteProcessMemory(process.Handle, address, bytes, (uint)bytes.Length, out writtenBytes);
+            return result && writtenBytes == bytes.Length;
         }
     }
 }

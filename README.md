@@ -22,7 +22,7 @@ If you are having trouble, have questions, feature requests or anything else, co
 
 Shout out to [Catalystz](https://www.twitch.tv/catalystz), for helping me test!
 
-Special thanks to B3, for writing the initial MIGT code injection for Elden Ring.  
+Special thanks to [B3LYP](https://github.com/pawREP), for writing the initial MIGT code injection for Elden Ring.  
 Thanks to Pav for the Elden Ring cheat engine table.  
 Thanks [John](https://github.com/veeenu), pretty much always willing to exhange some ideas about tech stuff  
 [Yapped](https://github.com/vawser/Yapped-Rune-Bear) helped speed up mapping event flags to bosses and graces  
