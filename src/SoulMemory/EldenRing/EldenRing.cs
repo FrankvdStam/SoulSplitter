@@ -36,7 +36,7 @@ namespace SoulMemory.EldenRing
         private long _blackScreenOffset;
         private long _positionOffset;
         private long _mapIdOffset;
-        
+        private int _initialBlackscreenValue;
         
         public EldenRing(bool applyIgtFix = true)
         {
@@ -55,15 +55,8 @@ namespace SoulMemory.EldenRing
                 {
                     return false;
                 }
-
-                //Arrange version specific offsets
-                if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
-                {
-                    Exception = new Exception("Failed to determine game version");
-                    return false;
-                }
                 
-                var version = GetVersion(v);
+                var version = GetVersion();
                 switch (version)
                 {
                     default:
@@ -72,6 +65,7 @@ namespace SoulMemory.EldenRing
                         _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
+                        _initialBlackscreenValue = 16;
                         break;
 
                     case EldenRingVersion.V102:
@@ -79,6 +73,7 @@ namespace SoulMemory.EldenRing
                         _blackScreenOffset = 0x71c;
                         _positionOffset = 0x6b8;
                         _mapIdOffset = 0x6c8;
+                        _initialBlackscreenValue = 16;
                         break;
 
                     case EldenRingVersion.V103:
@@ -86,6 +81,7 @@ namespace SoulMemory.EldenRing
                         _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6b8;
                         _mapIdOffset = 0x6c8;
+                        _initialBlackscreenValue = 16;
                         break;
 
                     case EldenRingVersion.V104:
@@ -93,6 +89,15 @@ namespace SoulMemory.EldenRing
                         _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
+                        _initialBlackscreenValue = 16;
+                        break;
+
+                    case EldenRingVersion.V105:
+                        _screenStateOffset = 0x728;
+                        _blackScreenOffset = 0x72c;
+                        _positionOffset = 0x6B0;
+                        _mapIdOffset = 0x6c0;
+                        _initialBlackscreenValue = 17;
                         break;
                 }
 
@@ -151,29 +156,26 @@ namespace SoulMemory.EldenRing
             V102,
             V103,
             V104,
+            V105,
             Unknown,
         };
 
-        public static EldenRingVersion GetVersion(Version v)
+        public EldenRingVersion GetVersion()
         {
-            switch (v.Major)
+            switch (_process?.MainModule?.FileVersionInfo.FileMinorPart)
             {
                 default:
+                case null:
                     return EldenRingVersion.Unknown;
 
-                case 1:
-                    switch (v.Minor)
-                    {
-                        default:
-                            return EldenRingVersion.Unknown;
-
-                        case 2:
-                            return EldenRingVersion.V102;
-                        case 3:
-                            return EldenRingVersion.V103;
-                        case 4:
-                            return EldenRingVersion.V104;
-                    }
+                case 2:
+                    return EldenRingVersion.V102;
+                case 3:
+                    return EldenRingVersion.V103;
+                case 4:
+                    return EldenRingVersion.V104;
+                case 5:
+                    return EldenRingVersion.V105;
             }
         }
 
@@ -254,15 +256,15 @@ namespace SoulMemory.EldenRing
             return ScreenState.Unknown;
         }
 
-        public int GetBlackScreenFlag()
-        {
-            return _menuManImp?.ReadInt32(_blackScreenOffset) ?? 0;
-        }
+        //public int GetBlackScreenFlag()
+        //{
+        //    return _menuManImp?.ReadInt32(_blackScreenOffset) ?? 0;
+        //}
         
         private bool NoCutsceneOrBlackscreen()
         {
             var flag = _menuManImp?.ReadInt32(_blackScreenOffset);
-            return flag.HasValue && flag.Value == 16;
+            return flag.HasValue && flag.Value == _initialBlackscreenValue;
         }
 
         private bool _pointersInitialized = false;

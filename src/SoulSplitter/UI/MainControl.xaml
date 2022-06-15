@@ -85,7 +85,7 @@
                 <darkSouls3:DarkSouls3Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls3ViewModel}"/>
             </TabItem>
 
-            <TabItem Header="Sekiro">
+            <TabItem Header="Sekiro" Visibility="Collapsed">
                 <sekiro:SekiroControl DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.SekiroViewModel}"/>
             </TabItem>
 
