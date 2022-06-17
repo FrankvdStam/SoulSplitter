@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SoulMemory
 {
+    [XmlType(Namespace = "SoulMemory")]
     public class Vector3f
     {
         public Vector3f(){ }
@@ -17,7 +19,9 @@ namespace SoulMemory
         }
         
         public float X { get; set; }
+        
         public float Y { get; set; }
+        
         public float Z { get; set; }
 
         public Vector3f Clone()

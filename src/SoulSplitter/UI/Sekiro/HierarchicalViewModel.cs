@@ -89,7 +89,7 @@ namespace SoulSplitter.UI.Sekiro
         [NonSerialized]
         public HierarchicalSplitTypeViewModel Parent;
 
-        [XmlElement(Namespace = "Sekiro")]
+        //[XmlElement(Namespace = "Sekiro")]
         public object Split
         {
             get => _split;

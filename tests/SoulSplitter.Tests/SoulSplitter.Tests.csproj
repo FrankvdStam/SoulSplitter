@@ -70,6 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\SoulMemory\SoulMemory.csproj">
+      <Project>{03480f4f-f423-4144-90c6-cbda68269374}</Project>
+      <Name>SoulMemory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\SoulSplitter\SoulSplitter.csproj">
       <Project>{a30986d1-6b5a-415d-a737-ae0d9ef4ce9c}</Project>
       <Name>SoulSplitter</Name>
