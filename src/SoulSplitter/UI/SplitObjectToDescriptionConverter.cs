@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
+using SoulMemory;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 
@@ -22,6 +23,11 @@ namespace SoulSplitter.UI
             if (value is uint u)
             {
                 return u;
+            }
+
+            if (value is Vector3f v)
+            {
+                return v.ToString();
             }
 
             if (value is Position p)

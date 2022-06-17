@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using SoulMemory;
 using SoulMemory.Sekiro;
 using SoulSplitter.Splits.Sekiro;
 using SoulSplitter.UI.Sekiro;
@@ -19,6 +20,15 @@ namespace SoulSplitter.UI.Sekiro
             set => SetField(ref _startAutomatically, value);
         }
         private bool _startAutomatically = true;
+
+        [XmlIgnore]
+        public Vector3f CurrentPosition
+        {
+            get => _currentPosition;
+            set => SetField(ref _currentPosition, value);
+        }
+        private Vector3f _currentPosition = new Vector3f(0f,0f,0f);
+
 
         #region add/remove splits ============================================================================================================================================
         public void AddSplit()
@@ -62,6 +72,14 @@ namespace SoulSplitter.UI.Sekiro
                     if (hierarchicalSplitType.Children.All(i => (Idol)i.Split != idol))
                     {
                         hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = idol, Parent = hierarchicalSplitType });
+                    }
+                    break;
+
+                case SplitType.Position:
+                    var position = (Vector3f)NewSplitValue;
+                    if (hierarchicalSplitType.Children.All(i => ((Vector3f)i.Split).ToString() != position.ToString()))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = position, Parent = hierarchicalSplitType });
                     }
                     break;
 
@@ -125,6 +143,7 @@ namespace SoulSplitter.UI.Sekiro
             {
                 NewSplitBossEnabled = false;
                 NewSplitIdolEnabled = false;
+                NewSplitPositionEnabled = false;
                 NewSplitFlagEnabled = false;
 
                 SetField(ref _newSplitType, value);
@@ -139,6 +158,11 @@ namespace SoulSplitter.UI.Sekiro
 
                     case SplitType.Idol:
                         NewSplitIdolEnabled = true;
+                        break;
+
+                    case SplitType.Position:
+                        NewSplitPositionEnabled = true;
+                        NewSplitValue = new Vector3f(CurrentPosition.X, CurrentPosition.Y, CurrentPosition.Z);
                         break;
 
                     case SplitType.Flag:
@@ -163,7 +187,7 @@ namespace SoulSplitter.UI.Sekiro
             }
         }
         private object _newSplitValue = null;
-
+        
         [XmlIgnore]
         public bool NewSplitTypeEnabled
         {
@@ -187,7 +211,15 @@ namespace SoulSplitter.UI.Sekiro
             set => SetField(ref _newSplitIdolEnabled, value);
         }
         private bool _newSplitIdolEnabled = false;
-        
+
+        [XmlIgnore]
+        public bool NewSplitPositionEnabled
+        {
+            get => _newSplitPositionEnabled;
+            set => SetField(ref _newSplitPositionEnabled, value);
+        }
+        private bool _newSplitPositionEnabled = false;
+
         [XmlIgnore]
         public bool NewSplitFlagEnabled
         {

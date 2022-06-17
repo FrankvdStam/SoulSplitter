@@ -46,8 +46,8 @@ namespace cli
 
         private List<uint> _flags = new List<uint>()
         {
-            11120000,
-            12000005,
+            61100691,
+            11100691,
             
             9317,
             9315,

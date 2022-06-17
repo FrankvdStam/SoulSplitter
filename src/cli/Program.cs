@@ -20,7 +20,6 @@ using SoulMemory.Sekiro;
 using SoulMemory.Shared;
 using SoulSplitter;
 using SoulSplitter.UI;
-using Item = SoulMemory.EldenRing.Item;
 
 
 #pragma warning disable CS0162
@@ -33,12 +32,23 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+            return;
 
             //var er = new EldenRing();
             //
             //er.Init();
 
             var sekiro = new Sekiro();
+            while (true)
+            {
+                Console.WriteLine(sekiro.GetPlayerPosition());
+                Thread.Sleep(200);
+                sekiro.Refresh();
+                Console.Clear();
+            }
+            
+
             var discovery = new EventFlagDiscovery(sekiro);
 
             for (; ; )
@@ -237,6 +247,7 @@ namespace cli
             patternCounter.AddPattern("WorldChrManImp", "48 8B 35 ? ? ? ? 44 0F 28 18");
             patternCounter.AddPattern("SprjEventFlagMan", "48 8b 0d ? ? ? ? 32 db 85 d2 49 63 f0");
             patternCounter.AddPattern("FieldArea", "48 8b 0d ? ? ? ? 48 85 c9 74 26 44 8b 41 28 48 8d 54 24 40");
+            patternCounter.AddPattern("Igt", "48 8b 05 ? ? ? ? 32 d2 48 8b 48 08 48 85 c9 74 13 80 b9 ba");
             
 
             foreach (var result in patternCounter.GetResults())

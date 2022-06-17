@@ -11,6 +11,7 @@ namespace SoulSplitter.Splits.Sekiro
     {
         Boss, 
         Idol,
+        Position,
         Flag,
     }
 }

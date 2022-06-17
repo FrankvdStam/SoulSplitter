@@ -121,6 +121,12 @@
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
+            <ComboBoxItem Content="I reach a position">
+                <ComboBoxItem.Tag>
+                    <sekiro1:SplitType>Position</sekiro1:SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
             <ComboBoxItem Content="I trigger a flag">
                 <ComboBoxItem.Tag>
                     <sekiro1:SplitType>Flag</sekiro1:SplitType>
@@ -173,6 +179,61 @@
                 </GroupStyle>
             </ComboBox.GroupStyle>
         </ui:FilteredComboBox>
+
+        <!-- Position -->
+        <StackPanel
+            Margin="5,10,0,0"
+            Visibility="{Binding NewSplitPositionEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Grid.Column="0"
+            Orientation="Horizontal">
+
+            <TextBox 
+                Width="50"
+                Height="25"
+                Margin="0,0,0,0"
+                Text="{Binding NewSplitValue.X}"
+                materialDesign:HintAssist.Hint="X"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}"
+                PreviewTextInput="OnPreviewTextInput_Float"/>
+
+            <TextBox 
+                Width="50"
+                Height="25"
+                Margin="5,0,0,0"
+                Text="{Binding NewSplitValue.Y}"
+                materialDesign:HintAssist.Hint="Y"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}"
+                PreviewTextInput="OnPreviewTextInput_Float"/>
+
+            <TextBox 
+                Width="50"
+                Height="25"
+                Margin="5,0,0,0"
+                Text="{Binding NewSplitValue.Z}"
+                materialDesign:HintAssist.Hint="Z"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}"
+                PreviewTextInput="OnPreviewTextInput_Float"/>
+            
+        </StackPanel>
+
+        <!-- Hackity -->
+        <Button
+            Visibility="{Binding NewSplitPositionEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Grid.Column="0"
+            Margin="300, 5, 0, 0"
+            HorizontalAlignment="Left"
+            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+            ToolTip="Read current game position"
+            Click="CopyPosition_OnClick"
+            IsEnabled="{Binding EnabledAddSplit}">
+            <materialDesign:PackIcon
+                Kind="CrosshairsGps"
+                Height="30"
+                Width="30" />
+        </Button>
+
 
         <!-- Flag -->
         <TextBox

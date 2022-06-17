@@ -31,7 +31,7 @@ Soulsmodding community: http://soulsmodding.wikidot.com/
 
 Uses the excellent material design library by James Willock: https://materialdesigninxaml.net/
 
-Thanks to Nordgaren, his tools can be found here:
+Thanks to Nordgaren, his tools can be found here:  
 https://github.com/Nordgaren/DS2S-META  
 https://github.com/Nordgaren/DS2-META  
 https://github.com/Nordgaren/Erd-Tools  

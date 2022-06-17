@@ -8,16 +8,22 @@ namespace SoulMemory
 {
     public class Vector3f
     {
+        public Vector3f(){ }
         public Vector3f(float x, float y, float z)
         {
             X = x;
             Y = y;
             Z = z;
         }
-
+        
         public float X { get; set; }
         public float Y { get; set; }
         public float Z { get; set; }
+
+        public Vector3f Clone()
+        {
+            return new Vector3f(X, Y, Z);
+        }
 
         public override string ToString()
         {

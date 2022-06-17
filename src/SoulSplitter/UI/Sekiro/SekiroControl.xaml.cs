@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using SoulMemory;
 using SoulSplitter.Splits.Sekiro;
 
 namespace SoulSplitter.UI.Sekiro
@@ -54,6 +56,24 @@ namespace SoulSplitter.UI.Sekiro
             {
                 _sekiroViewModel.SelectedSplit = b;
             }
+        }
+
+        private void OnPreviewTextInput_Float(object sender, TextCompositionEventArgs e)
+        {
+            if (sender is TextBox t)
+            {
+                var newText = t.Text + e.Text;
+                if (string.IsNullOrWhiteSpace(newText) || float.TryParse(newText, out _))
+                {
+                    return;
+                }
+                e.Handled = true;
+            }
+        }
+
+        private void CopyPosition_OnClick(object sender, RoutedEventArgs e)
+        {
+            _sekiroViewModel.NewSplitValue = _sekiroViewModel.CurrentPosition.Clone();
         }
     }
 }

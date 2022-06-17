@@ -359,7 +359,7 @@
                 Height="25"
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.Region}"
-                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.Hint="Region"
                 materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Region}"
                 PreviewTextInput="OnPreviewTextInput_Byte"/>
 
@@ -368,7 +368,7 @@
                 Height="25"
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.Size}"
-                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.Hint="Size"
                 materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Size}"
                 PreviewTextInput="OnPreviewTextInput_Byte"/>
 
@@ -379,7 +379,7 @@
                 Height="25"
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.X}"
-                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.Hint="x"
                 materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}"
                 PreviewTextInput="OnPreviewTextInput_Float"/>
 
@@ -388,7 +388,7 @@
                 Height="25"
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.Y}"
-                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.Hint="y"
                 materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}"
                 PreviewTextInput="OnPreviewTextInput_Float"/>
 
@@ -398,7 +398,7 @@
                 Height="25"
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.Z}"
-                materialDesign:HintAssist.Hint="Block"
+                materialDesign:HintAssist.Hint="z"
                 materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}"
                 PreviewTextInput="OnPreviewTextInput_Float"/>
         </StackPanel>

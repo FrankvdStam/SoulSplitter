@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using SoulMemory.Memory;
 using SoulMemory.Native;
@@ -19,13 +20,15 @@ namespace SoulMemory.Sekiro
         private Pointer _sprjEventFlagMan;
         private Pointer _fieldArea;
         private Pointer _worldChrManImp;
+        private Pointer _igt;
+        private Pointer _position;
 
         private bool InitPointers()
         {
             try
             {
                 _process.ScanCache()
-                    .ScanRelative("SprjEventFlagMan", "48 8b 1d ? ? ? ? 4c 89 64 24 30 44 8b e2 4c 89 7c 24 20 48 85 db", 3, 7)
+                    .ScanRelative("SprjEventFlagMan", "48 8b 0d ? ? ? ? 48 89 5c 24 50 48 89 6c 24 58 48 89 74 24 60", 3, 7)
                         .CreatePointer(out _sprjEventFlagMan, 0)
 
                     .ScanRelative("FieldArea", "48 8b 0d ? ? ? ? 48 85 c9 74 26 44 8b 41 28 48 8d 54 24 40", 3, 7)
@@ -33,7 +36,13 @@ namespace SoulMemory.Sekiro
                     
                     .ScanRelative("WorldChrManImp", "48 8B 35 ? ? ? ? 44 0F 28 18", 3, 7)
                         .CreatePointer(out _worldChrManImp, 0)
-                    ;
+                        .CreatePointer(out _position, 0, 0x48, 0x28)
+
+                    .ScanRelative("Igt", "48 8b 05 ? ? ? ? 32 d2 48 8b 48 08 48 85 c9 74 13 80 b9 ba", 3, 7)
+                        .CreatePointer(out _igt, 0x0, 0x9c)
+                        //.CreatePointer(out _igt, 0x0, 0x70) new game cycle
+
+                ;
 
                 return InitB3Mods();
             }
@@ -43,6 +52,26 @@ namespace SoulMemory.Sekiro
                 return false;
             }
         }
+
+        public int GetInGameTimeMilliseconds()
+        {
+            return _igt?.ReadInt32() ?? 0;
+        }
+
+        public bool IsPlayerLoaded()
+        {
+            if (_worldChrManImp == null)
+                return false;
+
+            return _worldChrManImp.ReadInt64(0x88) != 0;
+        }
+
+        public Vector3f GetPlayerPosition()
+        {
+            return new Vector3f(_position?.ReadFloat(0x80) ?? 0f, _position?.ReadFloat(0x84) ?? 0f, _position?.ReadFloat(0x88) ?? 0f);
+        }
+
+        public bool Attached => _process != null;        
 
         #region Refresh ================================================================================================================================
         private void ResetPointers()
@@ -314,11 +343,12 @@ namespace SoulMemory.Sekiro
             This could potentially cause issues. Replace with code that
             detects decryption if necessary
             */
+            Thread.Sleep(3000);
+
             string version;
 
             uint logoCodeBytesPointFive = 0;
             uint logoCodeBytesPointSix = 0;
-
 
 
             switch (_process?.MainModule?.ModuleMemorySize){

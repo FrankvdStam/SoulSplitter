@@ -72,6 +72,7 @@
     <Compile Include="Splits\EldenRing\Split.cs" />
     <Compile Include="Splits\EldenRing\EldenRingSplitType.cs" />
     <Compile Include="Splits\Sekiro\SekiroSplitType.cs" />
+    <Compile Include="Splits\Sekiro\Split.cs" />
     <Compile Include="Splitters\DarkSouls3Splitter.cs" />
     <Compile Include="Splitters\SekiroSplitter.cs" />
     <Compile Include="UI\DarkSouls3\DarkSouls3Control.xaml.cs">
