@@ -18,6 +18,8 @@ You can find detailed installation instructions with screenshots here: https://g
 # Contact
 If you are having trouble, have questions, feature requests or anything else, come find me on discord. Feel free to ping me (@wasted) in the help channel of the respective soulsgame on the speedsouls server, or DM me by user wasted#2747 (DM's are open, no need to send a friend request).
 
+I make enough to live comfortably but if you want to show your love and support, you can do so [here](https://ko-fi.com/wasted1). 
+
 # Credits
 
 Shout out to [Catalystz](https://www.twitch.tv/catalystz), for helping me test!
