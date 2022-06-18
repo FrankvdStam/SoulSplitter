@@ -1,6 +1,6 @@
 # SoulSplitter
 
-![build](https://github.com/FrankvdStam/SoulSplitter/actions/workflows/build.yml/badge.svg) ![GitHub all releases](https://img.shields.io/github/downloads/FrankvdStam/SoulSplitter/total) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter) <a href='https://ko-fi.com/wasted1' target='_blank'><img height='35' style='border:0px;height:21px;' src='https://az743702.vo.msecnd.net/cdn/kofi6.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' />
+![build](https://github.com/FrankvdStam/SoulSplitter/actions/workflows/build.yml/badge.svg) ![GitHub all releases](https://img.shields.io/github/downloads/FrankvdStam/SoulSplitter/total) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter) <a href='https://ko-fi.com/wasted1' target='_blank'><img height='35' style='border:0px;height:21px;' src='https://az743702.vo.msecnd.net/cdn/kofi6.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 Soulsgames speedrun timer, load remover and autosplitter  
 
