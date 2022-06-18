@@ -1,6 +1,6 @@
 # SoulSplitter
 
-![build](https://github.com/FrankvdStam/SoulSplitter/actions/workflows/build.yml/badge.svg) ![GitHub all releases](https://img.shields.io/github/downloads/FrankvdStam/SoulSplitter/total) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter)
+![build](https://github.com/FrankvdStam/SoulSplitter/actions/workflows/build.yml/badge.svg) ![GitHub all releases](https://img.shields.io/github/downloads/FrankvdStam/SoulSplitter/total) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter) <a href='https://ko-fi.com/wasted1' target='_blank'><img height='35' style='border:0px;height:21px;' src='https://az743702.vo.msecnd.net/cdn/kofi6.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' />
 
 Soulsgames speedrun timer, load remover and autosplitter  
 
@@ -17,8 +17,6 @@ You can find detailed installation instructions with screenshots here: https://g
 
 # Contact
 If you are having trouble, have questions, feature requests or anything else, come find me on discord. Feel free to ping me (@wasted) in the help channel of the respective soulsgame on the speedsouls server, or DM me by user wasted#2747 (DM's are open, no need to send a friend request).
-
-I make enough to live comfortably but if you want to show your love and support, you can do so [here](https://ko-fi.com/wasted1). 
 
 # Credits
 
