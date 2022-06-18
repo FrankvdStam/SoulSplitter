@@ -85,6 +85,9 @@
     <Compile Include="UI\EldenRing\BossViewModel.cs" />
     <Compile Include="UI\EldenRing\ItemPickupViewModel.cs" />
     <Compile Include="UI\EldenRing\GraceViewModel.cs" />
+    <Compile Include="UI\EventFlags\EventFlagControl.xaml.cs">
+      <DependentUpon>EventFlagControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Sekiro\SekiroControl.xaml.cs">
       <DependentUpon>SekiroControl.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\EldenRing\EldenRingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\EventFlags\EventFlagControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

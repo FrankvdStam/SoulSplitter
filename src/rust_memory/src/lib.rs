@@ -7,6 +7,9 @@
 mod native;
 mod memory;
 
+pub mod darksoulsremastered;
+pub use darksoulsremastered::*;
+
 pub mod darksouls2;
 pub use darksouls2::*;
 
@@ -20,7 +23,10 @@ pub mod eldenring;
 pub use eldenring::*;
 
 pub mod websocket;
-
+pub mod state;
+pub use state::init_state;
+pub use state::set_event_flag_log_mode;
+pub use state::set_event_flag_exclusion;
 
 
 pub use log::*;
@@ -55,11 +61,14 @@ pub fn init()
 
           match process_name
           {
+               "darksoulsremastered.exe" =>
+               {
+                    darksoulsremastered::init_event_flag_detour();
+               }
                "darksoulsii.exe" =>
                {
                     darksouls2::init_event_flag_detour();
                     darksouls2::init_unlock_bonfire_detour();
-                    darksouls2::init_event_guide_flag_detour();
                },
                "darksoulsiii.exe" =>
                {
@@ -92,11 +101,14 @@ pub fn unload()
           //Need to disable all detours before unloading, otherwise Elden Ring will jump to unloaded code.
           match process_name
           {
+               "darksoulsremastered.exe" =>
+               {
+                    darksoulsremastered::disable_event_flag_detour();
+               }
                "darksoulsii.exe" =>
                {
                     darksouls2::disable_event_flag_detour();
                     darksouls2::disable_unlock_bonfire_detour();
-                    darksouls2::disable_event_guide_flag_detour();
                },
                "darksoulsiii.exe" =>
                {

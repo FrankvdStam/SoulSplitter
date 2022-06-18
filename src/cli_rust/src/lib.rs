@@ -1,9 +1,9 @@
 use winapi::shared::minwindef::{BOOL, DWORD, HINSTANCE, LPVOID, TRUE};
 use winapi::um::winnt::{DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
-use std::{panic, thread};
+use std::{fs, panic, thread};
 use std::time::Duration;
 use rust_memory;
-use rust_memory::{Config, darksouls3, error, info, init_config, LevelFilter, serde_json, unload, warn};
+use rust_memory::{Config, darksouls3, error, info, init_config, init_state, LevelFilter, serde_json, set_event_flag_exclusion, set_event_flag_log_mode};
 use rust_memory::append::console::ConsoleAppender;
 use rust_memory::append::file::FileAppender;
 use rust_memory::config::{Appender, Logger, Root};
@@ -20,8 +20,13 @@ pub unsafe extern "system" fn DllMain(
 {
     if call_reason == DLL_PROCESS_ATTACH
     {
+        init_state();
+
         //Alloc console, sets up stdout handles
         winapi::um::consoleapi::AllocConsole();
+
+        //Start with a fresh logfile
+        fs::remove_file(r#"C:/temp/soulinjectee.log"#).unwrap();
 
         //Setup logger
         let stdout = ConsoleAppender::builder()
@@ -99,6 +104,12 @@ fn main_loop()
                     let message_type = message.MessageType.as_str();
                     match message_type
                     {
+                        "unload" =>
+                        {
+                            info!("Attempting to unload");
+                            rust_memory::unload();
+                        }
+
                         "DarkSouls3ReadEventFlagMessage" =>
                         {
                             let dark_souls3read_event_flag_message = message.DarkSouls3ReadEventFlagMessage.unwrap();
@@ -109,7 +120,18 @@ fn main_loop()
                                 dark_souls3read_event_flag_message.State
                             );
                             info!("get_event_flag result: {:x}", result);
+                        },
+
+                        "EventFlagSetLogMode" =>
+                        {
+                            set_event_flag_log_mode(message.EventFlagLogMode);
                         }
+
+                        "EventFlagSetExclusions" =>
+                        {
+                            set_event_flag_exclusion(message.EventFlags);
+                        },
+
                         _ => info!("unsupported message type {}", message_type),
                     }
                 }

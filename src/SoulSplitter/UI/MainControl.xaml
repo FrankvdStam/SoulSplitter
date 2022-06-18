@@ -11,6 +11,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:darkSouls3="clr-namespace:SoulSplitter.UI.DarkSouls3"
              xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
+             xmlns:eventFlags="clr-namespace:SoulSplitter.UI.EventFlags"
              Width="451"
              Height="497">
 
@@ -92,6 +93,12 @@
             <TabItem Header="Elden Ring">
                 <eldenRing:EldenRingControl DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.EldenRingViewModel}"/>
             </TabItem>
+
+            <!--
+            <TabItem Header="Event flags">
+                <eventFlags:EventFlagControl/>
+            </TabItem>
+            -->
         </TabControl>
     </Grid>
 </UserControl>

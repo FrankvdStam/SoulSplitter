@@ -12,21 +12,35 @@ namespace SoulMemory
 {
     public class SoulInjecteeClient : IDisposable
     {
+        private ClientWebSocket _clientWebSocket;
+
         public SoulInjecteeClient()
         {
             _clientWebSocket = new ClientWebSocket();
-            _clientWebSocket.ConnectAsync(new Uri("ws://localhost:12345"), CancellationToken.None).GetAwaiter().GetResult();
+            TryConnect();
         }
 
-        private ClientWebSocket _clientWebSocket;
+        public bool TryConnect()
+        {
+            try
+            {
+                if (_clientWebSocket == null)
+                {
+                    _clientWebSocket = new ClientWebSocket();
+                }
+                _clientWebSocket.ConnectAsync(new Uri("ws://localhost:54345"), CancellationToken.None).GetAwaiter().GetResult();
+            }
+            catch(Exception e)
+            {
+                _clientWebSocket = null;
+            }
+            return IsConnected;
+        }
 
-        //private void SendString(string s)
-        //{
-        //    var segment = new ArraySegment<byte>(Encoding.UTF8.GetBytes(s));
-        //    _clientWebSocket.SendAsync(segment, WebSocketMessageType.Text, true, CancellationToken.None).GetAwaiter().GetResult();
-        //}
+        public bool IsConnected => _clientWebSocket?.State == WebSocketState.Open;
 
-        public void Send(Message message)
+        
+        private void Send(Message message)
         {
             var json = JsonConvert.SerializeObject(message);
             var segment = new ArraySegment<byte>(Encoding.UTF8.GetBytes(json));
@@ -38,16 +52,57 @@ namespace SoulMemory
             if (_clientWebSocket != null && _clientWebSocket.State != WebSocketState.Closed)
             {
                 _clientWebSocket.CloseAsync(WebSocketCloseStatus.Empty, null, CancellationToken.None).GetAwaiter().GetResult();
+                _clientWebSocket = null;
             }
         }
+
+
+        public void Unload()
+        {
+            var message = new Message();
+            message.MessageType = "unload";
+            Send(message);
+            _clientWebSocket.Dispose();
+            _clientWebSocket = null;
+        }
+
+        #region EventFlags
+
+        public void EventFlagSetLogMode(EventFlagLogMode eventFlagLogMode)
+        {
+            var message = new Message();
+            message.MessageType = "EventFlagSetLogMode";
+            message.EventFlagLogMode = (int)eventFlagLogMode;
+            Send(message);
+        }
+        
+        public void EventFlagSetExclusions(List<uint> eventFlags)
+        {
+            var message = new Message();
+            message.MessageType = "EventFlagSetExclusions";
+            message.EventFlags = eventFlags;
+            Send(message);
+        }
+
+        #endregion
     }
 
+    public enum EventFlagLogMode
+    {
+        Unique = 0,
+        Exclude = 1,
+        Include = 2,
+    }
+    
 
     public class Message
     {
         public string MessageType;
 
         public DarkSouls3ReadEventFlagMessage DarkSouls3ReadEventFlagMessage = null;
+
+        public int EventFlagLogMode = 0;
+        public List<uint> EventFlags = new List<uint>();
     }
 
     public class DarkSouls3ReadEventFlagMessage

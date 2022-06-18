@@ -7,6 +7,7 @@ use crate::state::is_event_flag_excluded;
 
 static_detour!{ static SetEventFlagHook: fn(u64, u32, u8, u8); }
 
+
 fn log_event_flag(rdx: u64, edx: u32, r8d: u8, r9b: u8)
 {
     if !is_event_flag_excluded(edx)
@@ -20,7 +21,7 @@ pub fn init_event_flag_detour()
 {
     unsafe
     {
-        let address = scan_absolute("40 55 57 41 54 41 57 48 83 ec 58 80 b9 28 02 00 00 00 45 0f b6 f9 45 0f b6 e0 8b ea 48 8b f9").unwrap();
+        let address = scan_absolute("48 89 5c 24 08 57 48 83 ec 20 80 b9 24 02 00 00 00").unwrap();
         info!("set_event_flag address: 0x{:x}", address);
 
         let original_func: fn(u64, u32, u8, u8) = std::mem::transmute(address        as *const fn(u64, u32, u8, u8));

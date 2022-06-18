@@ -1,6 +1,3 @@
-
-
-
 use chrono::Local;
 use detour::static_detour;
 use log::info;

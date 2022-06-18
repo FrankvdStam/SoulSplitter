@@ -13,5 +13,6 @@ namespace SoulSplitter.UI
         DarkSouls3 = 2,
         Sekiro = 3,
         EldenRing = 4,
+        EventFlags = 5,
     }
 }

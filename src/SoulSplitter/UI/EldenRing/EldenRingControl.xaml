@@ -148,8 +148,7 @@
             SelectedValuePath="Tag"
             SelectedValue="{Binding NewSplitType}"
             materialDesign:HintAssist.HelperText="what"
-            IsEnabled="{Binding EnabledSplitType}"
-            >
+            IsEnabled="{Binding EnabledSplitType}">
 
             <ComboBoxItem Content="I kill a boss">
                 <ComboBoxItem.Tag>

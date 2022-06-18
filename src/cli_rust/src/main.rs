@@ -25,6 +25,7 @@ fn main()
         let process_name = p.name.to_lowercase();
         let games = vec!
         {
+            "darksoulsremastered.exe",
             "darksoulsii.exe",
             "darksoulsiii.exe",
             "sekiro.exe",

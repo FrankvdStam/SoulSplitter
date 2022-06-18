@@ -2,6 +2,8 @@ use simple_websockets::{Event, Responder};
 use std::collections::HashMap;
 use std::sync::{Mutex, TryLockResult};
 use std::thread;
+use std::time::Duration;
+use log::info;
 use simple_websockets::Message::Text;
 use serde::{Deserialize, Serialize};
 use serde_json::Result;
@@ -11,12 +13,12 @@ static mut COMMAND_BUFFER: Option<Mutex<Vec<String>>> = None;
 fn init_command_buffer()
 {
     unsafe
+    {
+        if COMMAND_BUFFER.is_none()
         {
-            if COMMAND_BUFFER.is_none()
-            {
-                COMMAND_BUFFER = Some(Mutex::new(Vec::new()));
-            }
+            COMMAND_BUFFER = Some(Mutex::new(Vec::new()));
         }
+    }
 }
 
 
@@ -28,7 +30,7 @@ pub fn write_command(command: String)
         {
             Ok(mut guard) =>
             {
-                println!("writing to command buffer: {}", command);
+                //println!("writing to command buffer: {}", command);
                 guard.push(command);
             }
             Err(_) => {}
@@ -49,7 +51,7 @@ pub fn read_command_str() -> Option<String>
                 if command.is_some()
                 {
                     let temp = command.unwrap();
-                    println!("read from command buffer: {}", temp);
+                    //println!("read from command buffer: {}", temp);
                     return Some(temp)
                 }
                 return None;
@@ -73,6 +75,7 @@ pub fn kill_websocket_server()
                 Ok(mut guard) =>
                 {
                     *guard = true;
+                    thread::sleep(Duration::from_secs(1));
                     return;
                 },
                 _ => {},
@@ -89,7 +92,7 @@ pub fn init_websocket_server()
     thread::spawn(||
     {
         // listen for WebSockets on port 8080:
-        let event_hub = simple_websockets::launch(12345).expect("failed to listen on port 12345");
+        let event_hub = simple_websockets::launch(54345).expect("failed to listen on port 54345");
         // map between client ids and the client's `Responder`:
         let mut clients: HashMap<u64, Responder> = HashMap::new();
 
@@ -101,38 +104,44 @@ pub fn init_websocket_server()
                 {
                     Ok(guard) => {
                         if *guard {
+                            //drop(event_hub);
+                            //drop(clients);
+                            info!("Websocket cleaned up");
                             return;
                     }},
                     _ => {}
                 }
             }
 
-            match event_hub.poll_event() {
-                Event::Connect(client_id, responder) => {
-                    println!("A client connected with id #{}", client_id);
-                    // add their Responder to our `clients` map:
-                    clients.insert(client_id, responder);
-                },
-                Event::Disconnect(client_id) => {
-                    println!("Client #{} disconnected.", client_id);
-                    // remove the disconnected client from the clients map:
-                    clients.remove(&client_id);
-                },
-                Event::Message(client_id, message) =>
-                {
-                    println!("Received a message from client #{}: {:?}", client_id, message);
+            if !event_hub.is_empty()
+            {
+                match event_hub.poll_event() {
+                    Event::Connect(client_id, responder) => {
+                        //println!("A client connected with id #{}", client_id);
+                        // add their Responder to our `clients` map:
+                        clients.insert(client_id, responder);
+                    },
+                    Event::Disconnect(client_id) => {
+                        //println!("Client #{} disconnected.", client_id);
+                        // remove the disconnected client from the clients map:
+                        clients.remove(&client_id);
+                    },
+                    Event::Message(_client_id, message) =>
+                        {
+                            //println!("Received a message from client #{}: {:?}", client_id, message);
 
-                    // retrieve this client's `Responder`:
-                    //let responder = clients.get(&client_id).unwrap();
-                    // echo the message back:
-                    //responder.send(message);
+                            // retrieve this client's `Responder`:
+                            //let responder = clients.get(&client_id).unwrap();
+                            // echo the message back:
+                            //responder.send(message);
 
-                    match message
-                    {
-                        Text(command) => write_command(command),
-                        _ => {}
-                    }
-                },
+                            match message
+                            {
+                                Text(command) => write_command(command),
+                                _ => {}
+                            }
+                        },
+                }
             }
         }
     });
@@ -145,6 +154,8 @@ pub struct Message
 {
     pub MessageType: String,
     pub DarkSouls3ReadEventFlagMessage: Option<DarkSouls3ReadEventFlagMessage>,
+    pub EventFlagLogMode: i32,
+    pub EventFlags: Vec<u32>,
 }
 
 #[allow(non_snake_case)]

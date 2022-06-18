@@ -2,22 +2,16 @@ use chrono::prelude::*;
 use detour::static_detour;
 use log::info;
 use crate::scan_cache::scan_absolute;
+use crate::state::is_event_flag_excluded;
 
 static_detour!{ static SetEventFlagHook: fn(u64, u32, i32); }
 
-static mut FLAGS: Vec<u32> = Vec::new();
-
 fn log_event_flag(rdx: u64, edx: u32, r8d: i32)
 {
-    unsafe {
-        //Only log flags once to cleanup the output a bit
-        if !FLAGS.contains(&edx)
-        {
-            info!("event flag {} {}", edx, r8d);
-            FLAGS.push(edx);
-        }
+    if !is_event_flag_excluded(edx)
+    {
+        info!("set event flag {} {}", edx, r8d);
     }
-    //This calls the original function without detouring, to repair the event flag system.
     SetEventFlagHook.call(rdx, edx, r8d);
 }
 

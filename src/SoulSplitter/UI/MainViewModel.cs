@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Xml;
 using System.Xml.Serialization;
+using SoulMemory;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.DarkSouls3;
@@ -86,7 +88,6 @@ namespace SoulSplitter.UI
         #endregion
 
         #region Serializing
-
         public string Serialize()
         {
             var settings = new XmlWriterSettings()
@@ -116,7 +117,7 @@ namespace SoulSplitter.UI
         }
 
         #endregion
-
+        
         #region INotifyPropertyChanged
 
         private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)

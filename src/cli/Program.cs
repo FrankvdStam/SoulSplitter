@@ -109,20 +109,7 @@ namespace cli
             //24005192 rest gesture?
             //14000800 IND GUN boss
             return;
-
-            var client = new SoulInjecteeClient();
-            client.Send(new SoulMemory.Message()
-            {
-                MessageType = "DarkSouls3ReadEventFlagMessage",
-                DarkSouls3ReadEventFlagMessage = new DarkSouls3ReadEventFlagMessage()
-                {
-                    SprjEventFlagManager = ds3.GetSprjEventFlagManAddress(),
-                    EventFlagId = 50002180,
-                    State = true,
-                }
-            });
-            client.Dispose();
-            return;
+            
 
             
 
