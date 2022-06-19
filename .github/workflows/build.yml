@@ -10,9 +10,16 @@ jobs:
         with:
           fetch-depth: 0
         
-      #- uses: nuget/setup-nuget@v1
-      #- run: nuget restore NWWI.ValidationPlatform\NWWI.ValidationPlatform.sln
-    
+      - uses: actions/checkout@master
+      - uses: actions-rs/toolchain@v1
+        with:
+            toolchain: nightly
+            components: clippy
+            override: true
+      
+      - name: run cargo build
+        run: cargo build --verbose
+        
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1.1
         
