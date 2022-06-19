@@ -10,9 +10,9 @@ jobs:
         with:
           fetch-depth: 0
         
-      #- uses: nuget/setup-nuget@v1
-      #- run: nuget restore NWWI.ValidationPlatform\NWWI.ValidationPlatform.sln
-    
+      - name: run cargo build
+        run: cargo build --verbose
+        
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1.1
         
