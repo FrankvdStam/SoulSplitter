@@ -10,6 +10,15 @@ jobs:
         with:
           fetch-depth: 0
         
+        
+      - uses: actions/checkout@master
+      - id: component
+        uses: actions-rs/components-nightly@v1
+      - uses: actions-rs/toolchain@v1
+        with:
+            toolchain: ${{ steps.component.outputs.toolchain }}
+            override: true
+        
       - name: run cargo build
         run: cargo build --verbose
         
