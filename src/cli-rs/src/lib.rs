@@ -2,13 +2,13 @@ use winapi::shared::minwindef::{BOOL, DWORD, HINSTANCE, LPVOID, TRUE};
 use winapi::um::winnt::{DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 use std::{fs, panic, thread};
 use std::time::Duration;
-use rust_memory;
-use rust_memory::{Config, darksouls3, error, info, init_config, init_state, LevelFilter, serde_json, set_event_flag_exclusion, set_event_flag_log_mode};
-use rust_memory::append::console::ConsoleAppender;
-use rust_memory::append::file::FileAppender;
-use rust_memory::config::{Appender, Logger, Root};
-use rust_memory::encode::pattern::PatternEncoder;
-use rust_memory::websocket::{Message, read_command_str};
+use soulmemory_rs;
+use soulmemory_rs::{Config, darksouls3, error, info, init_config, init_state, LevelFilter, serde_json, set_event_flag_exclusion, set_event_flag_log_mode};
+use soulmemory_rs::append::console::ConsoleAppender;
+use soulmemory_rs::append::file::FileAppender;
+use soulmemory_rs::config::{Appender, Logger, Root};
+use soulmemory_rs::encode::pattern::PatternEncoder;
+use soulmemory_rs::websocket::{Message, read_command_str};
 
 #[no_mangle]
 #[allow(non_snake_case)]
@@ -42,11 +42,11 @@ pub unsafe extern "system" fn DllMain(
             .appender(Appender::builder().build("stdout", Box::new(stdout)))
             .appender(Appender::builder().build("log_file", Box::new(requests)))
             .logger(Logger::builder()
-                .build("cli_rust", LevelFilter::Info))
+                .build("cli-rs", LevelFilter::Info))
             .logger(Logger::builder()
                 .appender("log_file")
                 .additive(false)
-                .build("cli_rust::log_file", LevelFilter::Info))
+                .build("cli-rs::log_file", LevelFilter::Info))
             .build(Root::builder().appender("stdout").appender("log_file").build(LevelFilter::Info))
             .unwrap();
 
@@ -66,7 +66,7 @@ pub unsafe extern "system" fn DllMain(
         info!("Init");
 
 
-        rust_memory::init();
+        soulmemory_rs::init();
 
         thread::spawn(main_loop);
     }
@@ -107,7 +107,7 @@ fn main_loop()
                         "unload" =>
                         {
                             info!("Attempting to unload");
-                            rust_memory::unload();
+                            soulmemory_rs::unload();
                         }
 
                         "DarkSouls3ReadEventFlagMessage" =>

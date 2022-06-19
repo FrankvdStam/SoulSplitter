@@ -1,5 +1,5 @@
 [workspace]
 members = [
-    "src/rust_memory",
-    "src/cli_rust",
+    "src/soulmemory-rs",
+    "src/cli-rs",
 ]

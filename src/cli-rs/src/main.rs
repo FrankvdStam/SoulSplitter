@@ -7,11 +7,11 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use detour::GenericDetour;
 
-use rust_memory::pattern_scanner::{scan, to_pattern};
-use rust_memory::pointer::Pointer;
-use rust_memory::processes::Process;
-use rust_memory::scan_cache::scan_absolute;
-use rust_memory::websocket::{init_websocket_server, read_command_str, write_command};
+use soulmemory_rs::pattern_scanner::{scan, to_pattern};
+use soulmemory_rs::pointer::Pointer;
+use soulmemory_rs::processes::Process;
+use soulmemory_rs::scan_cache::scan_absolute;
+use soulmemory_rs::websocket::{init_websocket_server, read_command_str, write_command};
 
 fn main()
 {
@@ -47,7 +47,7 @@ fn testy()
     return;
 
     let elden_ring_names = vec![String::from("eldenring.exe"), String::from("start_protected_game.exe")];
-    let mut process = rust_memory::create_process(elden_ring_names);
+    let mut process = soulmemory_rs::create_process(elden_ring_names);
 
     let code = process.get_code();
 
