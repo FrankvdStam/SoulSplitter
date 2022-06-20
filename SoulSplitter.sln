@@ -24,6 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", 
 		Components\MaterialDesignColors.dll = Components\MaterialDesignColors.dll
 		Components\MaterialDesignThemes.Wpf.dll = Components\MaterialDesignThemes.Wpf.dll
 		Components\MaterialDesignThemes.Wpf.xml = Components\MaterialDesignThemes.Wpf.xml
+		Components\soulinjectee.dll = Components\soulinjectee.dll
 		Components\SoulMemory.dll = Components\SoulMemory.dll
 		Components\SoulSplitter.dll = Components\SoulSplitter.dll
 		Components\Updates.xml = Components\Updates.xml
