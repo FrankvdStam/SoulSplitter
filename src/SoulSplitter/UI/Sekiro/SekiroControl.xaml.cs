@@ -63,7 +63,7 @@ namespace SoulSplitter.UI.Sekiro
             if (sender is TextBox t)
             {
                 var newText = t.Text + e.Text;
-                if (string.IsNullOrWhiteSpace(newText) || float.TryParse(newText, out _))
+                if (string.IsNullOrWhiteSpace(newText) || newText == "-" || float.TryParse(newText, out _))
                 {
                     return;
                 }

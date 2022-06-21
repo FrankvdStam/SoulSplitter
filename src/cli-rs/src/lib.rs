@@ -1,3 +1,5 @@
+#![feature(path_try_exists)]
+
 use winapi::shared::minwindef::{BOOL, DWORD, HINSTANCE, LPVOID, TRUE};
 use winapi::um::winnt::{DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 use std::{fs, panic, thread};
@@ -26,7 +28,17 @@ pub unsafe extern "system" fn DllMain(
         winapi::um::consoleapi::AllocConsole();
 
         //Start with a fresh logfile
-        fs::remove_file(r#"C:/temp/soulinjectee.log"#).unwrap();
+        match fs::try_exists(r#"C:/temp/soulinjectee.log"#)
+        {
+            Ok(exists) =>
+            {
+                if exists
+                {
+                    fs::remove_file(r#"C:/temp/soulinjectee.log"#).unwrap();
+                }
+            }
+            Err(_) => {}
+        }
 
         //Setup logger
         let stdout = ConsoleAppender::builder()

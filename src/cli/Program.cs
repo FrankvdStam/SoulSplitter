@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SoulMemory;
 using SoulMemory.DarkSouls1;
+using SoulMemory.DarkSouls2.Scholar;
 using SoulMemory.DarkSouls3;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
@@ -34,6 +35,27 @@ namespace cli
         {
             TestUi();
             return;
+
+            DarkSouls2 darkSouls2 = new DarkSouls2();
+            while (true)
+            {
+                Console.WriteLine($"Flagstate 131000025: {darkSouls2.ReadEventFlag(131000025)}");
+                Console.WriteLine($"Flagstate 131000020: {darkSouls2.ReadEventFlag(131000020)}");
+                darkSouls2.Refresh();
+                Thread.Sleep(400);
+                Console.Clear();
+            }
+            //darkSouls2.ReadEventFlag(226010001); //131000025
+            //darkSouls2.ReadEventFlag(131000081); //131000025
+            //darkSouls2.ReadEventFlag(131000086); //131000025
+            //darkSouls2.ReadEventFlag(131010110); //131000025
+            
+             //131000025
+            return;
+
+
+            //TestUi();
+            //return;
 
             //var er = new EldenRing();
             //
