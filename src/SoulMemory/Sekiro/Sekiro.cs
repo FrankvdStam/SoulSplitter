@@ -17,7 +17,7 @@ namespace SoulMemory.Sekiro
 
         private Process _process;
 
-        private Pointer _sprjEventFlagMan;
+        public Pointer _sprjEventFlagMan;
         private Pointer _fieldArea;
         private Pointer _worldChrManImp;
         private Pointer _igt;
@@ -44,7 +44,12 @@ namespace SoulMemory.Sekiro
 
                 ;
 
-                return InitB3Mods();
+                if (!InitB3Mods())
+                {
+                    throw new Exception("B3Mods init failed");
+                }
+
+                return true;
             }
             catch (Exception e)
             {

@@ -28,6 +28,11 @@ namespace SoulMemory.Memory
         /// </summary>
         public static CodeCache ScanCache(this Process process)
         {
+            if (process.MainModule == null)
+            {
+                throw new Exception("ScanCache mainmodule is null");
+            }
+
             var buffer = new byte[process.MainModule.ModuleMemorySize];
             int read = 0;
             Kernel32.ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, buffer, buffer.Length, ref read);

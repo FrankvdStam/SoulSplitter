@@ -490,7 +490,7 @@ namespace SoulMemory.EldenRing
 
                 long calculatedPointer = 0;
 
-                //jump to caluclate ptr if zero
+                //jump to calculate ptr if zero
                 if (mysteryValue != 0)
                 {
                     //jnz skip to return, otherwise set calculated ptr

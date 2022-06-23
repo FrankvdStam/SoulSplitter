@@ -33,8 +33,23 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();
-            return;
+            var sekiro = new Sekiro();
+            while (true)
+            {
+                if (sekiro._sprjEventFlagMan == null)
+                {
+                    Console.WriteLine("sprjEventFlagMan is null");
+                }
+                else
+                {
+                    Console.WriteLine($"Found sprjEventFlagMan: 0x{sekiro._sprjEventFlagMan.GetAddress():x}");
+                }
+                sekiro.Refresh();
+                Thread.Sleep(500);
+                Console.Clear();
+            }
+
+
 
             DarkSouls2 darkSouls2 = new DarkSouls2();
             while (true)
@@ -60,8 +75,7 @@ namespace cli
             //var er = new EldenRing();
             //
             //er.Init();
-
-            var sekiro = new Sekiro();
+            
             while (true)
             {
                 Console.WriteLine(sekiro.GetPlayerPosition());

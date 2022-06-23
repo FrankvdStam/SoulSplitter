@@ -1,4 +1,4 @@
-#![feature(path_try_exists)]
+#![feature(fs_try_exists)]
 
 use winapi::shared::minwindef::{BOOL, DWORD, HINSTANCE, LPVOID, TRUE};
 use winapi::um::winnt::{DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};

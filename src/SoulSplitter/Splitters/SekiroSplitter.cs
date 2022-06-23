@@ -216,19 +216,24 @@ namespace SoulSplitter.Splitters
         {
             try
             {
+                if (_sekiro.Exception != null)
+                {
+                    _sekiro.Exception = null;
+                }
+
                 if (!_sekiro.Refresh())
                 {
-                    if (!_sekiro.Attached)
-                    {
-                        Exception = new Exception("Game not running");
-                    }
-                    else if (_sekiro.Exception != null)
+                    if (_sekiro.Exception != null)
                     {
                         Exception = _sekiro.Exception;
                     }
+                    else if(!_sekiro.Attached)
+                    {
+                        Exception = new Exception("Game not running");
+                    }
                     else
                     {
-                        Exception = new Exception("unable to refresh darksoul3");
+                        Exception = new Exception("unable to refresh Sekiro");
                     }
                 }
                 else
