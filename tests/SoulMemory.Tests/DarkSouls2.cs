@@ -41,14 +41,14 @@ namespace Testing
 
             _assistant = new DarkSouls2ToolAssistant(GameType.DarkSouls2Sotfs);
             _darkSouls2 = new SoulMemory.DarkSouls2.DarkSouls2();
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
 
             _assistant.MainMenuContinue();
 
             //Cheaty
-            _darkSouls2.DisableAllAi = true;
-            _darkSouls2.RightWeapon1DamageMultiplier = 999999.0f;
-            _darkSouls2.LeftWeapon1DamageMultiplier = 999999.0f;
+         //   _darkSouls2.DisableAllAi = true;
+         //   _darkSouls2.RightWeapon1DamageMultiplier = 999999.0f;
+         //   _darkSouls2.LeftWeapon1DamageMultiplier = 999999.0f;
         }
         
         public delegate void KillBossMethod();
@@ -120,9 +120,11 @@ namespace Testing
             var bossType = param.Item1;
             var func = param.Item2;
 
-            var stateBefore = _darkSouls2.GetBossKillCount(bossType);
+            var stateBefore = 0;
+            var stateAfter = 0;
+            //var stateBefore = _darkSouls2.GetBossKillCount(bossType);
             func();
-            var stateAfter = _darkSouls2.GetBossKillCount(bossType);
+            //var stateAfter = _darkSouls2.GetBossKillCount(bossType);
 
             Assert.AreEqual(0, stateBefore, "Initial boss kill count not 0");
             Assert.AreEqual(1, stateAfter, "Boss kill count not 1 after killing");
@@ -132,14 +134,14 @@ namespace Testing
 
         private static void KillTheLastGiant()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.CardinalTower);
 
             Teleport(-144.2992f, 93.41512f, -40.57851f, 0.99f, 0.17f, 0.0f);
             EnterFogGate();
             _assistant.SkipCutscene();
 
-            _darkSouls2.RightWeapon1DamageMultiplier = 999999.0f;
+            //_darkSouls2.RightWeapon1DamageMultiplier = 999999.0f;
 
             Teleport(-127.565f, 98.29201f, -40.52358f, 0.55f, -0.83f, 0.0f);
             _assistant.Punch();
@@ -148,7 +150,7 @@ namespace Testing
 
         private static void KillThePursuer()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.CardinalTower);
 
             Teleport(-216.288f, 138.7449f, 10.05f, 1.00f, 0.01f, 0.0f);
@@ -165,7 +167,7 @@ namespace Testing
 
         private static void KillDragonrider()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.HeidesRuin);
 
             Teleport(283.9956f, -2.403367f, -14.72153f, 0.71f,  0.70f);
@@ -178,7 +180,7 @@ namespace Testing
 
         private static void KillOldDragonSlayer()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.HeidesRuin);
 
             Teleport(168.1138f, -149.4831f, 8.032109f, 0.56f, -0.83f, 0.0f);
@@ -193,7 +195,7 @@ namespace Testing
 
         private static void KillFlexileSentry()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.UnseenPathToHeide);
 
             //Hit the lever to ring the bell - boss arena not actually loaded in...
@@ -215,7 +217,7 @@ namespace Testing
 
         private static void KillRuinSentinels()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.TheTowerApart);
 
             //538.8829f, -143.596f, 11.41f, 0.7437765f, -0.6684284f, 0fw
@@ -238,9 +240,9 @@ namespace Testing
 
         private static void KillBelfryGargoyles()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.ServantsQuarters, true);
-            _darkSouls2.Gravity = false;
+            //_darkSouls2.Gravity = false;
 
             Teleport(518.3754f, -188.5599f, 14.75585f, 0.6680135f, -0.7441492f, 0f);
             Stepy();
@@ -266,7 +268,7 @@ namespace Testing
 
         private static void KillLostSinner()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.TheSaltfort);
 
             Teleport(552.9021f, -122.9815f, -77.01114f, -0.002994459f, 0.9999956f, 0f);
@@ -283,7 +285,7 @@ namespace Testing
 
         private static void KillExecutionersChariot()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.BridgeApproach);
 
             Teleport(-42.01416f, -248.7039f, 47.73362f, -0.1496944f, 0.9887323f, 0f);
@@ -300,14 +302,14 @@ namespace Testing
             //He won't die unless you have it run...
             //TP out of the way first
             Teleport(-49.56203f, -262.6841f, 47.2913f, -0.09203673f, 0.9957556f, 1.874111E-13f);
-            _darkSouls2.DisableAllAi = false;
+            //_darkSouls2.DisableAllAi = false;
 
             Thread.Sleep(3000);
             Teleport(-65.9415f, -277.0759f, 47.25572f, 0.7200707f, -0.6939008f, 2.547025E-13f);
             _assistant.Punch();
             Thread.Sleep(1000);
 
-            _darkSouls2.DisableAllAi = true;
+           // _darkSouls2.DisableAllAi = true;
 
             WaitForBossDeath(BossType.ExecutionersChariot);
         }
@@ -318,10 +320,10 @@ namespace Testing
             //Skellies spawn in random spots & don't pop up with AI disable. 
             //Not worth automating for now
 
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.UndeadLockaway, true);
             
-            _darkSouls2.Gravity = false;
+            //_darkSouls2.Gravity = false;
             Teleport(233.7822f, -406.6223f, 36.97942f, 0.9802294f, -0.1978644f, 0f);
             Thread.Sleep(100);
             
@@ -337,10 +339,10 @@ namespace Testing
             _assistant.Punch();
             Thread.Sleep(1000);
 
-            var before = _darkSouls2.GetBossKillCount(BossType.TheSkeletonLords);
+            //var before = _darkSouls2.GetBossKillCount(BossType.TheSkeletonLords);
 
             Teleport(235.7607f, -402.2172f, 39.00628f, 0.9789585f, -0.2040595f, 0f);
-            _darkSouls2.DisableAllAi = false;
+            //_darkSouls2.DisableAllAi = false;
             Thread.Sleep(15000);
             for (int i = 0; i < 20; i++)
             {
@@ -348,22 +350,22 @@ namespace Testing
                 Thread.Sleep(2000);
 
                 //Optimization, need to return from here because WaitForBossDeath will wait the full duration
-                if (before < _darkSouls2.GetBossKillCount(BossType.TheSkeletonLords))
-                {
-                    _darkSouls2.DisableAllAi = true;
-                    _darkSouls2.Gravity = true;
+                //if (before < _darkSouls2.GetBossKillCount(BossType.TheSkeletonLords))
+                //{
+                //    _darkSouls2.DisableAllAi = true;
+                //    _darkSouls2.Gravity = true;
                     return;
-                }
+                //}
             }
             
-            _darkSouls2.DisableAllAi = true;
-            _darkSouls2.Gravity = true;
+            //_darkSouls2.DisableAllAi = true;
+            //_darkSouls2.Gravity = true;
             WaitForBossDeath(BossType.TheSkeletonLords);
         }
 
         private static void KillCovetousDemon()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.LowerEarthenPeak);
 
             Teleport(530.9958f, -537.2256f, 52.5626f, 0.9998356f, -0.01813193f, 0f);
@@ -376,7 +378,7 @@ namespace Testing
 
         private static void KillMythaTheBanefulQueen()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.UpperEarthenPeak);
 
             Teleport(535.1716f, -561.9955f, 85.66965f, 0.9999912f, 0.004212124f, 0f);
@@ -389,7 +391,7 @@ namespace Testing
 
         private static void KillSmelterDemon()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.IronHearthHall);
 
             Teleport(651.0932f, -708.2863f, 176.362f, 0.8871373f, -0.4615056f, 0f);
@@ -402,12 +404,12 @@ namespace Testing
 
         private static void KillOldIronKing()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.EygilsIdol);
 
             Teleport(722.0f, -650.219f, 166.55f, 0.9787122f, 0.2052375f, 0f);
             Thread.Sleep(500);
-            _darkSouls2.Gravity = false;
+            //_darkSouls2.Gravity = false;
             Stepy();
             EnterFogGate();
             Thread.Sleep(100);
@@ -420,16 +422,16 @@ namespace Testing
 
             Thread.Sleep(1000);
             Teleport(725.5041f, -636.8213f, 166.55f, 0.9047604f, 0.4259209f, 0.0f);
-            _darkSouls2.Gravity = true;
+           // _darkSouls2.Gravity = true;
             WaitForBossDeath(BossType.OldIronKing);
         }
 
         private static void KillScorpionessNajka()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.ShadedRuins);
 
-            _darkSouls2.Gravity = false;
+            //_darkSouls2.Gravity = false;
             Teleport(-288.4196f, -458.6359f, 85.38277f, 0.18f, 0.98f, 0f);
             EnterFogGate();
 
@@ -442,13 +444,13 @@ namespace Testing
             //Teleport(-308.0217f, -453.8119f, 84.82339f, 0.04489959f, 0.9989915f, 0f);
 
 
-            _darkSouls2.Gravity = true;
+           // _darkSouls2.Gravity = true;
             WaitForBossDeath(BossType.ScorpionessNajka);
         }
 
         private static void KillRoyalRatAuthority()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.OrdealsEnd);
 
             Teleport(-176.6047f, -540.4107f, 107.7579f, 0.3795179f, 0.9251844f, 0f);
@@ -465,7 +467,7 @@ namespace Testing
 
         private static void KillProwlingMagnusAndCongregation()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.RoyalArmyCampsite);
 
             Teleport(-52.02335f, -628.2833f, 116.229f, 0.958371f, -0.285526f, 0f);
@@ -479,7 +481,7 @@ namespace Testing
 
         private static void KillTheDukesDearFreja()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.LowerBrightstoneCove);
 
             Teleport(-128.9043f, -584.8237f, 72.64446f, 0.9295461f, 0.3687061f, 0f);
@@ -499,10 +501,10 @@ namespace Testing
 
         private static void KillRoyalRatVanguard()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.GraveEntrance, true);
 
-            _darkSouls2.Gravity = false;
+            //_darkSouls2.Gravity = false;
 
             //Trigger rat spawns
             Teleport(32.25637f, -122.8448f, -29.92383f, -0.02292544f, 0.9997372f, 0f);
@@ -536,7 +538,7 @@ namespace Testing
 
         private static void KillTheRotten()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.HiddenChamber);
 
 
@@ -552,7 +554,7 @@ namespace Testing
 
         private static void KillTwinDragonriders()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.ForgottenChamber);
 
             Teleport(-363.1313f, -467.5252f, 108.8724f, 0.769821f, -0.6382598f, 0f);
@@ -571,7 +573,7 @@ namespace Testing
         private static void KillDarklurker()
         {
             //Talk 3x
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.UnderCastleDrangleic);
             
             Teleport(-322.9447f, -447.0854f, 66.0f, 0.9464179f, -0.3229447f, 0f);
@@ -590,7 +592,7 @@ namespace Testing
 
         private static void KillLookingGlassKnight()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.CentralCastleDrangleic);
 
             Teleport(-341.9656f, -636.6098f, 103.1522f, 0.7070987f, -0.7071149f, 0f);
@@ -604,10 +606,10 @@ namespace Testing
 
         private static void KillDemonOfSong()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.RhoysRestingPlace);
 
-            _darkSouls2.Gravity = false;
+            //_darkSouls2.Gravity = false;
             
             //-169.1916f, -1070.287f, -31.28806f, 0.8263331f, -0.5631817f, 0f
             Teleport(-168.3759f, -1071.915f, -31.36784f, 0.8738585f, -0.4861803f, 0f);
@@ -617,13 +619,13 @@ namespace Testing
             _assistant.Punch();
             Thread.Sleep(1000);
 
-            _darkSouls2.Gravity = true;
+            //_darkSouls2.Gravity = true;
             WaitForBossDeath(BossType.DemonOfSong);
         }
 
         private static void KillVelstadtTheRoyalAegis()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.UndeadDitch);
 
             Teleport(-70.57273f, -1003.883f, -132.2887f, 0.9717425f, 0.2360435f, 0.0f);
@@ -640,7 +642,7 @@ namespace Testing
 
         private static void KillVendrick()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.UndeadDitch);
             
             Teleport(-12.7881f, -967.4067f, -137.45f, -0.9583284f, -0.285669f, 0.0f);
@@ -654,7 +656,7 @@ namespace Testing
 
         private static void KillGuardianDragon()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.RitualSite);
 
             Teleport(-249.4329f, -750.7266f, 80.42351f, 0.699955f, -0.7141869f, 0f);
@@ -667,7 +669,7 @@ namespace Testing
 
         private static void KillAncientDragon()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.ShrineEntrance);
 
             //Teleport and talk
@@ -676,8 +678,8 @@ namespace Testing
 
             //Going for the single punch death doesnt work here, the boss will just respawn. Have to piss it off first and then kill it.
             //In order to piss it off, we need normal damage as to not insta kill it.
-            var temp = _darkSouls2.RightWeapon1DamageMultiplier;
-            _darkSouls2.RightWeapon1DamageMultiplier = 1;
+            //var temp = _darkSouls2.RightWeapon1DamageMultiplier;
+            //_darkSouls2.RightWeapon1DamageMultiplier = 1;
 
             Teleport(-718.5923f, -854.1175f, 336.2798f, 0.2420077f, 0.9702743f, 0f);
             for (int i = 0; i < 5; i++)
@@ -686,14 +688,14 @@ namespace Testing
                 Thread.Sleep(800);
             }
             //Restore damage
-            _darkSouls2.RightWeapon1DamageMultiplier = temp;
+            //_darkSouls2.RightWeapon1DamageMultiplier = temp;
             _assistant.Punch();
             WaitForBossDeath(BossType.AncientDragon);
         }
 
         private static void KillGiantLord()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.ThePlaceUnbeknownst);
 
             Teleport(-151.5625f, 43.66145f, -11.07213f, 0.8743922f, -0.4852198f, 0f);
@@ -714,7 +716,7 @@ namespace Testing
 
         private static void KillThroneWatcherAndThroneDefender()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.KingsGate, true);
 
             Teleport(-257.4019f, -703.2492f, -5.902482f, 0.8592502f, -0.5115555f, 0f);
@@ -727,7 +729,7 @@ namespace Testing
 
         private static void KillNashandra()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.KingsGate, true);
 
             Teleport(-258.6429f, -700.9271f, -5.898954f, 0.8488359f, -0.5286564f, 0f);
@@ -745,7 +747,7 @@ namespace Testing
         //Bit messy - vendrick needs to be dead + need to talk to aldia + need all primal bonfires lit.
         private static void KillAldiaScholarOfTheFirstSin()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
 
             //Aldia's setup. Has been pre-executed on the save file
             //void LightBonfire(WarpType w, float x, float y, float z, float angX, float angY, float angZ)
@@ -815,7 +817,7 @@ namespace Testing
 
         private static void KillElanaSqualidQueen()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.SanctumNadir);
 
             Teleport(-32.20347f, -96.00011f, -71.60806f, 0.8229124f, -0.5681683f, 0f);
@@ -829,7 +831,7 @@ namespace Testing
 
         private static void KillSinhTheSlumberingDragon()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.SanctumNadir);
 
             Teleport(-2.672512f, -176.8107f, -79.31393f, 0.8322052f, -0.5544677f, 0f);
@@ -843,7 +845,7 @@ namespace Testing
 
         private static void KillAfflictedGraveRobberAncientSoldierVargCerahTheOldExplorer()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.PriestessChamber);
 
             Teleport(109.9681f, -10.09036f, 18.96916f, -0.05549607f, 0.9984589f, 0f);
@@ -857,7 +859,7 @@ namespace Testing
 
         private static void KillBlueSmelterDemon()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.IronHallwayEntrance);
 
             Teleport(458.5782f, -251.8682f, -26.8277f, 0.3559672f, 0.9344985f, 0f);
@@ -870,16 +872,16 @@ namespace Testing
 
         private static void KillFumeknight()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.LowermostFloor);
 
             Teleport(388.2416f, -163.3057f, -59.36797f, 0.9166772f, 0.3996284f, 0f);
             Thread.Sleep(100);
 
             Teleport(404.0809f, -145.5095f, -60.97324f, 0.923202f, 0.384315f, 0f);
-            _darkSouls2.DisableAllAi = false;
+            //_darkSouls2.DisableAllAi = false;
             Thread.Sleep(100);
-            _darkSouls2.DisableAllAi = true;
+            //_darkSouls2.DisableAllAi = true;
             
             Thread.Sleep(2500);
 
@@ -890,16 +892,16 @@ namespace Testing
 
         private static void KillSirAlonne()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.SmelterThrone);
             
             Teleport(698.1125f, -100.2904f, 52.71057f, 0.9995792f, -0.02900848f, 0f);
             Stepy();
 
             Teleport(713.8814f, -100.1707f, 53.0f, 0.9999343f, 0.01146176f, 0f);
-            _darkSouls2.DisableAllAi = false;
+            //_darkSouls2.DisableAllAi = false;
             Thread.Sleep(4000);
-            _darkSouls2.DisableAllAi = true;
+            //_darkSouls2.DisableAllAi = true;
             Thread.Sleep(3000);
 
             _assistant.Punch();
@@ -908,7 +910,7 @@ namespace Testing
 
         private static void KillAavaTheKingsPet()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.OuterWall);
 
             Teleport(-27.03299f, -84.49769f, -23.44006f, 0.8955125f, 0.4450365f, 0f);
@@ -924,7 +926,7 @@ namespace Testing
 
         private static void KillLudAndZallenTheKingsPets()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.ExpulsionChamber);
 
             Teleport(-221.4566f, -143.1071f, -23.96864f, -0.9621204f, 0.2726249f, 0f);
@@ -946,7 +948,7 @@ namespace Testing
 
         private static void KillBurntIvoryKing()
         {
-            _darkSouls2.Refresh();
+            _darkSouls2.Refresh(out _);
             Warp(WarpType.GrandCathedral, true);
 
             Teleport(-53.61311f, 212.4491f, -6.083361f, 0.7111562f, 0.703034f, 0f);
@@ -958,9 +960,9 @@ namespace Testing
             {
                 //Spawn wave
                 Thread.Sleep(5000);
-                _darkSouls2.DisableAllAi = false;
+                //_darkSouls2.DisableAllAi = false;
                 Thread.Sleep(3000);
-                _darkSouls2.DisableAllAi = true;
+                //_darkSouls2.DisableAllAi = true;
                 Thread.Sleep(5000);
 
                 //Kill wave
@@ -984,9 +986,9 @@ namespace Testing
             Teleport(-55.20835f, 291.0321f, -283.7508f, 0.8621157f, 0.5067115f, 0f);
             Thread.Sleep(30000);
 
-            _darkSouls2.DisableAllAi = false;
+            //_darkSouls2.DisableAllAi = false;
             Thread.Sleep(1500);
-            _darkSouls2.DisableAllAi = true;
+            //_darkSouls2.DisableAllAi = true;
 
             Thread.Sleep(10000);
             _assistant.Punch();
@@ -1013,39 +1015,39 @@ namespace Testing
 
         private static void Teleport(float x, float y, float z, float angX = 0.0f, float angY = 0.0f, float angZ = 0.0f)
         {
-            _darkSouls2.StableX = x;
-            _darkSouls2.StableY = y;
-            _darkSouls2.StableZ = z;
-            _darkSouls2.AngX = angX;
-            _darkSouls2.AngY = angY;
-            _darkSouls2.AngZ = angZ;
+            //_darkSouls2.StableX = x;
+            //_darkSouls2.StableY = y;
+            //_darkSouls2.StableZ = z;
+            //_darkSouls2.AngX = angX;
+            //_darkSouls2.AngY = angY;
+            //_darkSouls2.AngZ = angZ;
             Thread.Sleep(500);
         }
 
         private static void TeleportWithoutDelay(float x, float y, float z, float angX = 0.0f, float angY = 0.0f, float angZ = 0.0f)
         {
-            _darkSouls2.StableX = x;
-            _darkSouls2.StableY = y;
-            _darkSouls2.StableZ = z;
-            _darkSouls2.AngX = angX;
-            _darkSouls2.AngY = angY;
-            _darkSouls2.AngZ = angZ;
+            //_darkSouls2.StableX = x;
+            //_darkSouls2.StableY = y;
+            //_darkSouls2.StableZ = z;
+            //_darkSouls2.AngX = angX;
+            //_darkSouls2.AngY = angY;
+            //_darkSouls2.AngZ = angZ;
         }
 
         private static void Warp(WarpType warpType, bool rest = false)
         {
-            _darkSouls2.Warp(warpType, rest);
+            //_darkSouls2.Warp(warpType, rest);
             Thread.Sleep(7000);
         }
 
         private static void WaitForBossDeath(BossType boss, int maxWait = 15000)
         {
-            var initial = _darkSouls2.GetBossKillCount(boss);
+            //var initial = _darkSouls2.GetBossKillCount(boss);
             var end = DateTime.Now.AddMilliseconds(maxWait);
 
             while (DateTime.Now < end)
             {
-                if (initial != _darkSouls2.GetBossKillCount(boss))
+                //if (initial != _darkSouls2.GetBossKillCount(boss))
                 {
                     return;
                 }
