@@ -34,6 +34,10 @@ namespace SoulSplitter
                 var name = _liveSplitState.Run.GameName.ToLower().Replace(" ", "");
                 switch (name)
                 {
+                    case "darksoulsii":
+                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls2;
+                        break;
+
                     case "darksoulsiii":
                         MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls3;
                         break;
@@ -91,8 +95,11 @@ namespace SoulSplitter
                 {
                     default:
                     case Game.DarkSouls1:
-                    case Game.DarkSouls2:
                         throw new Exception("Not supported");
+
+                    case Game.DarkSouls2:
+                        _splitter = new DarkSouls2Splitter(state);
+                        break;
 
                     case Game.DarkSouls3:
                         _splitter = new DarkSouls3Splitter(state);
@@ -113,8 +120,11 @@ namespace SoulSplitter
             {
                 default:
                 case Game.DarkSouls1:
-                case Game.DarkSouls2:
                     throw new Exception("Not supported");
+
+                case Game.DarkSouls2:
+                    _splitter.Update(MainControlFormsWrapper.MainViewModel.DarkSouls2ViewModel);
+                    break;
 
                 case Game.DarkSouls3:
                     _splitter.Update(MainControlFormsWrapper.MainViewModel.DarkSouls3ViewModel);

@@ -1,21 +1,20 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using SoulMemory;
+using SoulSplitter.Splits.DarkSouls2;
 
 namespace SoulSplitter.UI.DarkSouls2
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for DarkSouls3Control.xaml
     /// </summary>
     public partial class DarkSouls2Control : UserControl
     {
-        private DarkSouls2ViewModel _darkSouls2ViewModel;
-        
         public DarkSouls2Control()
         {
             InitializeComponent();
-            DataContextChanged += new DependencyPropertyChangedEventHandler(OnDataContextChanged);
+            DataContextChanged += OnDataContextChanged;
         }
 
         void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -25,117 +24,56 @@ namespace SoulSplitter.UI.DarkSouls2
                 _darkSouls2ViewModel = vm;
             }
         }
+        private DarkSouls2ViewModel _darkSouls2ViewModel;
 
-        private void AddButton_OnClick(object sender, RoutedEventArgs e)
+        private void AddSplit_OnClick(object sender, RoutedEventArgs e)
         {
-            _darkSouls2ViewModel.Splits.Add(new SplitViewModel());
+            _darkSouls2ViewModel.AddSplit();
         }
 
-        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+        private void RemoveSplit_OnClick(object sender, RoutedEventArgs e)
         {
-            if (SplitsListView.SelectedItem != null)
-            {
-                _darkSouls2ViewModel.Splits.Remove((SplitViewModel)SplitsListView.SelectedItem);
-            }
+            _darkSouls2ViewModel.RemoveSplit();
         }
 
-
-        #region Drag and drop ==============================================================================================================
-
-
-        private ListViewItem _draggedListViewItem;
-        private DateTime? _dragStartDateTime;
-        private bool _dragging = false;
-        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void TextBoxRawFlag_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (_draggedListViewItem == null)
+            if (_darkSouls2ViewModel.NewSplitType != null && _darkSouls2ViewModel.NewSplitType == DarkSouls2SplitType.Flag && sender is TextBox textBox)
             {
-                if (sender is ListViewItem item)
+                if (uint.TryParse(textBox.Text, out uint result))
                 {
-                    _dragStartDateTime = DateTime.Now;
-                    _draggedListViewItem = item;
+                    _darkSouls2ViewModel.NewSplitValue = result;
+                    return;
                 }
+                _darkSouls2ViewModel.NewSplitValue = null;
+                textBox.Text = string.Empty;
             }
         }
-
-        private void ListViewItem_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void SplitsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            _dragStartDateTime = null;
-            _draggedListViewItem = null;
-            _dragging = false;
-        }
-
-        private void ListViewItem_MouseMove(object sender, MouseEventArgs e)
-        {
-            //If dragging for x milliseconds
-            if (!_dragging && _draggedListViewItem != null && _dragStartDateTime != null && (DateTime.Now - _dragStartDateTime.Value).Milliseconds > 200)
+            _darkSouls2ViewModel.SelectedSplit = null;
+            if (e.NewValue is HierarchicalSplitViewModel b)
             {
-                _dragging = true;
-                DragDrop.DoDragDrop(_draggedListViewItem, _draggedListViewItem.DataContext, DragDropEffects.Move);
+                _darkSouls2ViewModel.SelectedSplit = b;
             }
         }
 
-        private double _insertBorderThickness = 3;
-        private ListViewItem _target;
-        private int _insertIndex = 0;
-        private int _removeIndex = 0;
-        private void ListViewItem_DragOver(object sender, DragEventArgs e)
+        private void OnPreviewTextInput_Float(object sender, TextCompositionEventArgs e)
         {
-            if (_target != null)
+            if (sender is TextBox t)
             {
-                _target.BorderThickness = new Thickness(0, 0, 0, 0);
+                var newText = t.Text + e.Text;
+                if (string.IsNullOrWhiteSpace(newText) || newText == "-" || float.TryParse(newText, out _))
+                {
+                    return;
+                }
+                e.Handled = true;
             }
-
-            _target = (ListViewItem)sender;
-            var mouseY = e.GetPosition(_target).Y;
-            var height = _target.ActualHeight;
-
-            CalculateDragPlacement((SplitViewModel)_draggedListViewItem.DataContext, (SplitViewModel)_target.DataContext, height, mouseY, out bool top, out _insertIndex, out _removeIndex);
-
-            //This creates a visual line to indicate where the dragged item will appear when dropping it
-            _target.BorderThickness = top ? new Thickness(0, _insertBorderThickness, 0, 0) : new Thickness(0, 0, 0, _insertBorderThickness);
-
-            //var targetSplitViewModel = ((ListBoxItem)(sender)).DataContext as SplitViewModel;
-            SplitsListView.SelectedItem = (SplitViewModel)_target.DataContext;
         }
 
-        private void ListViewItem_Drop(object sender, DragEventArgs e)
+        private void CopyPosition_OnClick(object sender, RoutedEventArgs e)
         {
-            var splitViewModel = (SplitViewModel)_draggedListViewItem.DataContext;
-            _darkSouls2ViewModel.Splits.Insert(_insertIndex, splitViewModel);
-            _darkSouls2ViewModel.Splits.RemoveAt(_removeIndex);
-
-            SplitsListView.SelectedItem = splitViewModel;
-
-            _dragStartDateTime = null;
-            _draggedListViewItem = null;
-            _dragging = false;
-            if (_target != null)
-            {
-                _target.BorderThickness = new Thickness(0, 0, 0, 0);
-            }
-            _target = null;
+            _darkSouls2ViewModel.NewSplitValue = _darkSouls2ViewModel.CurrentPosition.Clone();
         }
-
-        private void CalculateDragPlacement(SplitViewModel source, SplitViewModel target, double height, double mouseY, out bool top, out int insertIndex, out int removeIndex)
-        {
-            var sourceIndex = _darkSouls2ViewModel.Splits.IndexOf(source);
-            var targetIndex = _darkSouls2ViewModel.Splits.IndexOf(target);
-
-            insertIndex = 0;
-            removeIndex = 0;
-
-            //Insert at top or at bottom?
-            top = mouseY < (height / 2);
-
-            //Inserting an item in the list will change all the indices. After inserting, we remove the original. Have to adjust it's index
-            var removeOffset = sourceIndex < targetIndex ? 0 : 1;
-
-            //Adjust to insert above or bellow the target element
-            insertIndex = top ? targetIndex : targetIndex + 1;
-            removeIndex = sourceIndex + removeOffset;
-        }
-
-        #endregion
     }
 }

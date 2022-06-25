@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LiveSplit.Model;
-using SoulMemory.Sekiro;
-using SoulSplitter.Splits.Sekiro;
+using SoulMemory.DarkSouls2;
+using SoulSplitter.Splits.DarkSouls2;
+using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.Sekiro;
 
 namespace SoulSplitter.Splitters
 {
-    public class SekiroSplitter : ISplitter
+    public class DarkSouls2Splitter : ISplitter
     {
         public Exception Exception { get; set; }
-        private Sekiro _sekiro;
-        private SekiroViewModel _sekiroViewModel;
+        private DarkSouls2 _darkSouls2;
+        private DarkSouls2ViewModel _darkSouls2ViewModel;
         private LiveSplitState _liveSplitState;
         
-        public SekiroSplitter(LiveSplitState state)
+        public DarkSouls2Splitter(LiveSplitState state)
         {
-            _sekiro = new Sekiro();
+            _darkSouls2 = new DarkSouls2();
             _liveSplitState = state;
             _liveSplitState.OnStart += OnStart;
             _liveSplitState.OnReset += OnReset;
@@ -51,11 +53,11 @@ namespace SoulSplitter.Splitters
 
         public void Update(object settings)
         {
-            _sekiroViewModel = (SekiroViewModel)settings;
+            _darkSouls2ViewModel = (DarkSouls2ViewModel)settings;
 
-            Exception = !_sekiro.Refresh(out Exception e) ? e : null;
+            Exception = !_darkSouls2.Refresh(out Exception e) ? e : null;
             
-            _sekiroViewModel.CurrentPosition = _sekiro.GetPlayerPosition();
+            _darkSouls2ViewModel.CurrentPosition = _darkSouls2.GetPosition();
             
             UpdateTimer();
 
@@ -65,21 +67,23 @@ namespace SoulSplitter.Splitters
         #endregion
 
         #region Timer
+
+        private bool _previousIsLoading;
         private readonly TimerModel _timerModel;
-        private int _inGameTime;
         private TimerState _timerState = TimerState.WaitForStart;
+        private Stopwatch _stopwatch = new Stopwatch();
         
         private void StartTimer()
         {
             _timerState = TimerState.Running;
-            _inGameTime = _sekiro.GetInGameTimeMilliseconds();
+            _stopwatch.Start();
+            _previousIsLoading = _darkSouls2.IsLoading();
             _timerModel.Start();
         }
 
         private void ResetTimer()
         {
             _timerState = TimerState.WaitForStart;
-            _inGameTime = 0;
             _timerModel.Reset();
         }
 
@@ -88,25 +92,35 @@ namespace SoulSplitter.Splitters
             switch (_timerState)
             {
                 case TimerState.WaitForStart:
-                    if (_sekiroViewModel.StartAutomatically)
-                    {
-                        var igt = _sekiro.GetInGameTimeMilliseconds();
-                        if (igt > 0 && igt < 150)
-                        {
-                            StartTimer();
-                            _timerModel.Start();
-                            StartAutoSplitting();
-                        }
-                    }
+                    //if (_darkSouls2ViewModel.StartAutomatically)
+                    //{
+                    //    var igt = _sekiro.GetInGameTimeMilliseconds();
+                    //    if (igt > 0 && igt < 150)
+                    //    {
+                    //        StartTimer();
+                    //        _timerModel.Start();
+                    //        StartAutoSplitting();
+                    //    }
+                    //}
                     break;
 
                 case TimerState.Running:
-                    var currentIgt = _sekiro.GetInGameTimeMilliseconds();
-                    if (currentIgt != 0)
+                    //Pause on loads
+                    if (_previousIsLoading != _darkSouls2.IsLoading())
                     {
-                        _inGameTime = currentIgt;
+                        if (_darkSouls2.IsLoading())
+                        {
+                            _stopwatch.Stop();
+                        }
+                        else
+                        {
+                            _stopwatch.Start();
+                        }
                     }
-                    _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
+                    _previousIsLoading = _darkSouls2.IsLoading();
+
+                    //Set time
+                    _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_stopwatch.ElapsedMilliseconds));
                     break;
             }
         }
@@ -125,7 +139,7 @@ namespace SoulSplitter.Splitters
         public void StartAutoSplitting()
         {
             _splits = (
-                from timingType in _sekiroViewModel.Splits
+                from timingType in _darkSouls2ViewModel.Splits
                 from splitType in timingType.Children
                 from split in splitType.Children
                 select new Split(timingType.TimingType, splitType.SplitType, split.Split)
@@ -149,13 +163,11 @@ namespace SoulSplitter.Splitters
                     {
                         default:
                             throw new Exception($"Unsupported split type {s.SplitType}");
-
-                        case SplitType.Boss:
-                        case SplitType.Idol:
-                        case SplitType.Flag:
+                            
+                        case DarkSouls2SplitType.Flag:
                             if (!s.SplitConditionMet)
                             {
-                                s.SplitConditionMet = _sekiro.ReadEventFlag(s.Flag);
+                                s.SplitConditionMet = _darkSouls2.ReadEventFlag(s.Flag);
                             }
 
                             if (s.SplitConditionMet)
@@ -164,17 +176,17 @@ namespace SoulSplitter.Splitters
                             }
                             break;
 
-                        case SplitType.Position:
+                        case DarkSouls2SplitType.Position:
                             if (!s.SplitConditionMet)
                             {
-                                if (s.Position.X + _boxSize > _sekiroViewModel.CurrentPosition.X &&
-                                    s.Position.X - _boxSize < _sekiroViewModel.CurrentPosition.X &&
+                                if (s.Position.X + _boxSize > _darkSouls2ViewModel.CurrentPosition.X &&
+                                    s.Position.X - _boxSize < _darkSouls2ViewModel.CurrentPosition.X &&
 
-                                    s.Position.Y + _boxSize > _sekiroViewModel.CurrentPosition.Y &&
-                                    s.Position.Y - _boxSize < _sekiroViewModel.CurrentPosition.Y &&
+                                    s.Position.Y + _boxSize > _darkSouls2ViewModel.CurrentPosition.Y &&
+                                    s.Position.Y - _boxSize < _darkSouls2ViewModel.CurrentPosition.Y &&
 
-                                    s.Position.Z + _boxSize > _sekiroViewModel.CurrentPosition.Z &&
-                                    s.Position.Z - _boxSize < _sekiroViewModel.CurrentPosition.Z)
+                                    s.Position.Z + _boxSize > _darkSouls2ViewModel.CurrentPosition.Z &&
+                                    s.Position.Z - _boxSize < _darkSouls2ViewModel.CurrentPosition.Z)
                                 {
                                     s.SplitConditionMet = true;
                                 }
@@ -203,7 +215,7 @@ namespace SoulSplitter.Splitters
                     break;
 
                 case TimingType.OnLoading:
-                    if (!_sekiro.IsPlayerLoaded())
+                    if (_darkSouls2.IsLoading())
                     {
                         _timerModel.Split();
                         s.SplitTriggered = true;

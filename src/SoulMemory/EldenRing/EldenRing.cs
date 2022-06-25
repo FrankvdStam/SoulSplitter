@@ -771,32 +771,5 @@ namespace SoulMemory.EldenRing
         }
 
         #endregion
-
-        #region Dll injection
-#if DEBUG
-        public void InjectDll(string path)
-        {
-            //Get a process handle
-            IntPtr processHandle = Kernel32.OpenProcess(Kernel32.PROCESS_CREATE_THREAD | 
-                                                        Kernel32.PROCESS_QUERY_INFORMATION | 
-                                                        Kernel32.PROCESS_VM_OPERATION | 
-                                                        Kernel32.PROCESS_VM_WRITE | 
-                                                        Kernel32.PROCESS_VM_READ, false, _process.Id);
-
-            //Allocate a buffer in the target process, copy the path to the target dll into this 
-            IntPtr allocatedDllFileName = Kernel32.VirtualAllocEx(processHandle, IntPtr.Zero, (IntPtr)((path.Length + 1) * Marshal.SizeOf(typeof(char))), Kernel32.MEM_COMMIT | Kernel32.MEM_RESERVE, Kernel32.PAGE_READWRITE);
-            Kernel32.WriteProcessMemory(processHandle, allocatedDllFileName, Encoding.Default.GetBytes(path), (uint)((path.Length + 1) * Marshal.SizeOf(typeof(char))), out uint _);
-
-            //Get handles to library loading related functions
-            IntPtr loadLibraryA     = Kernel32.GetProcAddress(Kernel32.GetModuleHandle("kernel32.dll"), "LoadLibraryA");
-
-            //Load dll by having the target process call loadLibraryA
-            var loadThread = Kernel32.CreateRemoteThread(processHandle, IntPtr.Zero, 0, loadLibraryA, allocatedDllFileName, 0, IntPtr.Zero);
-            Kernel32.WaitForSingleObject(loadThread, 10000);
-
-            Kernel32.VirtualFreeEx(processHandle, allocatedDllFileName, IntPtr.Zero, Kernel32.MEM_RELEASE);
-        }
-#endif
-#endregion
     }
 }

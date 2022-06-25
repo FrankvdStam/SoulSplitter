@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace SoulSplitter.Splits.DarkSouls2
 {
-    public enum SplitType
+    public enum DarkSouls2SplitType
     {
-        Boss,
-        Item,
-        Box,
+        Position,
+        Flag,
     }
 }

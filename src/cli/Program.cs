@@ -1,25 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Channels;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using SoulMemory;
-using SoulMemory.DarkSouls1;
-using SoulMemory.DarkSouls2.Scholar;
-using SoulMemory.DarkSouls3;
+using SoulMemory.DarkSouls2;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
-using SoulMemory.Native;
-using SoulMemory.Sekiro;
 using SoulMemory.Shared;
-using SoulSplitter;
 using SoulSplitter.UI;
 
 
@@ -33,150 +22,42 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            var sekiro = new Sekiro();
-            while (true)
-            {
-                if (sekiro._sprjEventFlagMan == null)
-                {
-                    Console.WriteLine("sprjEventFlagMan is null");
-                }
-                else
-                {
-                    Console.WriteLine($"Found sprjEventFlagMan: 0x{sekiro._sprjEventFlagMan.GetAddress():x}");
-                }
-                sekiro.Refresh();
-                Thread.Sleep(500);
-                Console.Clear();
-            }
+            //TestUi();return;
 
+            //var sekiro = new Sekiro();
+            //while (true)
+            //{
+            //    if (sekiro._sprjEventFlagMan == null)
+            //    {
+            //        Console.WriteLine("sprjEventFlagMan is null");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"Found sprjEventFlagMan: 0x{sekiro._sprjEventFlagMan.GetAddress():x}");
+            //    }
+            //
+            //    if (!sekiro.Refresh(out Exception e))
+            //    {
+            //        Console.WriteLine(e.Format());
+            //        Thread.Sleep(2000);
+            //    }
+            //    Thread.Sleep(500);
+            //    Console.Clear();
+            //}
 
+            //LEVER 131000020 131000025
 
             DarkSouls2 darkSouls2 = new DarkSouls2();
             while (true)
             {
-                Console.WriteLine($"Flagstate 131000025: {darkSouls2.ReadEventFlag(131000025)}");
-                Console.WriteLine($"Flagstate 131000020: {darkSouls2.ReadEventFlag(131000020)}");
-                darkSouls2.Refresh();
+                //Console.WriteLine($"load: {darkSouls2.IsLoading()}");
+                Console.WriteLine($"load: {darkSouls2.IsLoading()}");
+                Console.WriteLine($"pos: {darkSouls2.GetPosition()}");
+                Console.WriteLine($"flag: {darkSouls2.ReadEventFlag(131000025)}");
+                darkSouls2.Refresh(out _);
                 Thread.Sleep(400);
                 Console.Clear();
             }
-            //darkSouls2.ReadEventFlag(226010001); //131000025
-            //darkSouls2.ReadEventFlag(131000081); //131000025
-            //darkSouls2.ReadEventFlag(131000086); //131000025
-            //darkSouls2.ReadEventFlag(131010110); //131000025
-            
-             //131000025
-            return;
-
-
-            //TestUi();
-            //return;
-
-            //var er = new EldenRing();
-            //
-            //er.Init();
-            
-            while (true)
-            {
-                Console.WriteLine(sekiro.GetPlayerPosition());
-                Thread.Sleep(200);
-                sekiro.Refresh();
-                Console.Clear();
-            }
-            
-
-            var discovery = new EventFlagDiscovery(sekiro);
-
-            for (; ; )
-            {
-                discovery.Update();
-                Thread.Sleep(500);
-                sekiro.Refresh();
-            }
-            return;
-
-
-
-            
-            sekiro.Refresh();
-            while (true)
-            {
-                //sekiro.ReadEventFlag(6968);
-                Console.WriteLine($"Upper Tower - Antechamber (11110001)    {sekiro.ReadEventFlag(11110001)}");
-                sekiro.Refresh();
-                Thread.Sleep(500);
-                Console.Clear();
-            }
-
-
-            //TestUi();
-            //return;
-            //
-            ////Ds3TestPatterns();
-            ////return;
-            //
-            //var ds3 = new DarkSouls3();
-            ////ds3.Refresh();
-            ////ds3.ReadEventFlag(15110800);
-            ////return;
-            //var discovery = new EventFlagDiscovery(ds3);
-            //
-            //for (; ; )
-            //{
-            //    discovery.Update();
-            //    Thread.Sleep(500);
-            //    ds3.Refresh();
-            //}
-            //return;
-
-            var ds3 = new DarkSouls3();
-            while (true)
-            {
-                Console.WriteLine(ds3.GetInGameTimeMilliseconds()); 
-                Console.WriteLine(ds3.IsLoading()); 
-                Console.WriteLine(ds3.BlackscreenActive()); 
-                ds3.Refresh();
-                Thread.Sleep(100);
-                Console.Clear();
-            }
-            ds3.Refresh();
-            ds3.ReadEventFlag(14000002);//bonfire
-            //ds3.ReadEventFlag(50002180);//coiled sword
-            //24005192 rest gesture?
-            //14000800 IND GUN boss
-            return;
-            
-
-            
-
-
-            //TestAobs();
-            //return;
-            //
-            //using (var client = new SoulInjecteeClient())
-            //{
-            //}
-            //return;
-
-            //TestUi();
-            //InjectDll(@"C:\projects\Dark souls\SoulSplitter\target\x86_64-pc-windows-msvc\debug\soulinjectee.dll");
-            //return;
-
-            //return;
-            //var itesm = Enum.GetValues(typeof(Item)).Cast<Item>().ToList();
-            //var counts = new Dictionary<string, int>();
-            //
-            //foreach (var i in itesm)
-            //{
-            //    if (!counts.ContainsKey(i.GetDisplayDescription()))
-            //    {
-            //        counts[i.GetDisplayDescription()] = 0;
-            //    }
-            //
-            //    counts[i.GetDisplayDescription()]++;
-            //}
-            
-            
         }
 
         
@@ -362,17 +243,6 @@ namespace cli
             }
 
         }
-
-
-#if DEBUG
-        public static void InjectDll(string path)
-        {
-            var er = new EldenRing();
-            er.Init();
-            er.InjectDll(path);
-        }
-#endif
-
     }
 }
 

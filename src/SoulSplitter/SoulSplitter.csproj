@@ -67,6 +67,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Splits\DarkSouls2\Split.cs" />
     <Compile Include="Splits\DarkSouls3\SplitType.cs" />
     <Compile Include="Splits\DarkSouls3\Split.cs" />
     <Compile Include="Splits\EldenRing\Split.cs" />
@@ -74,7 +75,13 @@
     <Compile Include="Splits\Sekiro\SekiroSplitType.cs" />
     <Compile Include="Splits\Sekiro\Split.cs" />
     <Compile Include="Splitters\DarkSouls3Splitter.cs" />
+    <Compile Include="Splitters\DarkSouls2Splitter.cs" />
     <Compile Include="Splitters\SekiroSplitter.cs" />
+    <Compile Include="UI\DarkSouls2\DarkSouls2Control.xaml.cs">
+      <DependentUpon>DarkSouls2Control.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DarkSouls2\DarkSouls2ViewModel.cs" />
+    <Compile Include="UI\DarkSouls2\HierarchicalViewModel.cs" />
     <Compile Include="UI\DarkSouls3\DarkSouls3Control.xaml.cs">
       <DependentUpon>DarkSouls3Control.xaml</DependentUpon>
     </Compile>
@@ -99,13 +106,9 @@
     <Compile Include="SoulComponent.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Splits\DarkSouls1\ISplit.cs" />
-    <Compile Include="Splits\DarkSouls2\BoxSplit.cs" />
     <Compile Include="Splits\DarkSouls1\BossSplit.cs" />
     <Compile Include="Splits\DarkSouls1\SplitType.cs" />
     <Compile Include="Splits\DarkSouls1\TimingType.cs" />
-    <Compile Include="Splits\DarkSouls2\ItemSplit.cs" />
-    <Compile Include="Splits\DarkSouls2\BossSplit.cs" />
-    <Compile Include="Splits\DarkSouls2\ISplit.cs" />
     <Compile Include="Splits\DarkSouls2\DarkSouls2SplitType.cs" />
     <Compile Include="SplitterState.cs" />
     <Compile Include="Splitters\EldenRingSplitter.cs" />
@@ -118,9 +121,6 @@
     </Compile>
     <Compile Include="UI\DarkSouls1\DarkSouls1ViewModel.cs" />
     <Compile Include="UI\DarkSouls1\SplitViewModel.cs" />
-    <Compile Include="UI\DarkSouls2\DarkSouls2Control.xaml.cs">
-      <DependentUpon>DarkSouls2Control.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\EldenRing\EldenRingControl.xaml.cs">
       <DependentUpon>EldenRingControl.xaml</DependentUpon>
     </Compile>
@@ -135,10 +135,7 @@
     <Compile Include="UI\MainControlFormsWrapper.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\DarkSouls2\DarkSouls2ViewModel.cs" />
     <Compile Include="UI\MainViewModel.cs" />
-    <Compile Include="UI\DarkSouls2\SplitsDataTemplateSelector.cs" />
-    <Compile Include="UI\DarkSouls2\SplitViewModel.cs" />
     <Compile Include="UI\EnumDisplayNameConverter.cs" />
     <Compile Include="Splitters\Timer.cs" />
     <Compile Include="Splitters\TimingMethod.cs" />
@@ -157,8 +154,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\DarkSouls2\DarkSouls2Control.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\DarkSouls3\DarkSouls3Control.xaml">
       <SubType>Designer</SubType>
@@ -194,9 +191,9 @@
     <Error Condition="!Exists('..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets'))" />
   </Target>
   <Target Name="Copy to components" AfterTargets="AfterBuild" Condition="$(Configuration) == Release">
-	<Message Text="Copying files to the components directory" Importance="High" />
-	<Copy SourceFiles="$(ProjectDir)\$(BaseOutputPath)\x64\$(Configuration)\SoulSplitter.dll" DestinationFolder="$(ProjectDir)\..\..\Components" />
-	<Copy SourceFiles="$(ProjectDir)\$(BaseOutputPath)\x64\$(Configuration)\SoulMemory.dll" DestinationFolder="$(ProjectDir)\..\..\Components" />
-	<Copy SourceFiles="$(ProjectDir)\$(BaseOutputPath)\x64\$(Configuration)\soulinjectee.dll" DestinationFolder="$(ProjectDir)\..\..\Components" />
+    <Message Text="Copying files to the components directory" Importance="High" />
+    <Copy SourceFiles="$(ProjectDir)\$(BaseOutputPath)\x64\$(Configuration)\SoulSplitter.dll" DestinationFolder="$(ProjectDir)\..\..\Components" />
+    <Copy SourceFiles="$(ProjectDir)\$(BaseOutputPath)\x64\$(Configuration)\SoulMemory.dll" DestinationFolder="$(ProjectDir)\..\..\Components" />
+    <Copy SourceFiles="$(ProjectDir)\$(BaseOutputPath)\x64\$(Configuration)\soulinjectee.dll" DestinationFolder="$(ProjectDir)\..\..\Components" />
   </Target>
 </Project>

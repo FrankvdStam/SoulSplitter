@@ -1,46 +1,33 @@
 ﻿using System;
 using SoulMemory;
-using SoulMemory.Sekiro;
 
-namespace SoulSplitter.Splits.Sekiro
+namespace SoulSplitter.Splits.DarkSouls2
 {
     internal class Split
     {
-        public Split(TimingType timingType, SplitType splitType, object split)
+        public Split(TimingType timingType, DarkSouls2SplitType darkSouls2SplitType, object split)
         {
             TimingType = timingType;
-            SplitType = splitType;
+            SplitType = darkSouls2SplitType;
 
             switch (SplitType)
             {
                 default:
                     throw new Exception($"unsupported split type {SplitType}");
 
-                case SplitType.Boss:
-                    Boss = (Boss)split;
-                    Flag = (uint)Boss;
-                    break;
-
-                case SplitType.Idol:
-                    Idol = (Idol)split;
-                    Flag = (uint)Idol;
-                    break;
-
-                case SplitType.Position:
+                case DarkSouls2SplitType.Position:
                     Position = (Vector3f)split;
                     break;
 
-                case SplitType.Flag:
+                case DarkSouls2SplitType.Flag:
                     Flag = (uint)split;
                     break;
             }
         }
 
         public readonly TimingType TimingType;
-        public readonly SplitType SplitType;
+        public readonly DarkSouls2SplitType SplitType;
         
-        public readonly Boss Boss;
-        public readonly Idol Idol;
         public readonly uint Flag;
         public readonly Vector3f Position;
 

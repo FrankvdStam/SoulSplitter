@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ui="clr-namespace:SoulSplitter.UI"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:soulSplitter="clr-namespace:SoulSplitter"
              xmlns:darkSouls2="clr-namespace:SoulSplitter.UI.DarkSouls2"
-             mc:Ignorable="d"
+             xmlns:darkSouls21="clr-namespace:SoulSplitter.Splits.DarkSouls2"
+             mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance darkSouls2:DarkSouls2ViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
@@ -19,206 +22,222 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
 
+
                 <ResourceDictionary>
 
-                    <ui:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter"/>
-<!--
-                    <DataTemplate x:Key="TimingComboBox">
-                        <ComboBox>
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding TimingType, Converter={StaticResource EnumDisplayNameConverter}}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </DataTemplate>-->
-
-                    <!-- Split templates -->
-                    <DataTemplate x:Key="BossTemplate" DataType="darkSouls2:SplitViewModel">
-                        <StackPanel Orientation="Horizontal" Margin="5">
-                            <ComboBox
-                                Width="50"
-                                ItemsSource="{Binding SplitTypesItemsSource}" 
-                                SelectedItem="{Binding SplitType}"/>
-
-                            <ComboBox
-                                Margin="10,0,0,0"
-                                Width="100"
-                                ItemsSource="{Binding BossTypeItemsSource}" 
-                                SelectedItem="{Binding BossSplit.BossType}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-
-                            <TextBox
-                                Margin="10,0,0,0"
-                                Width="15"
-                                materialDesign:HintAssist.Hint="Kill count"
-                                Text="{Binding BossSplit.KillCount}"/>
-
-                            <ComboBox
-                                Margin="10,0,0,0"
-                                Width="100"
-                                ItemsSource="{Binding TimingTypeItemsSource}"
-                                SelectedItem="{Binding BossSplit.TimingType}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </StackPanel>
-                    </DataTemplate>
+                    <ui:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
+                    <ui:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
+                    <ui:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
 
 
-
-                    <DataTemplate x:Key="ItemTemplate" DataType="darkSouls2:SplitViewModel">
-                        <StackPanel Orientation="Horizontal" Margin="5">
-                            <ComboBox
-                                    Width="50"
-                                    ItemsSource="{Binding SplitTypesItemsSource}" 
-                                    SelectedItem="{Binding SplitType}"/>
-                            <TextBlock Text="Not implemented"/>
-                        </StackPanel>
-                    </DataTemplate>
-
-                    <DataTemplate x:Key="BoxTemplate" DataType="darkSouls2:SplitViewModel">
-                        <Grid Margin="5" >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <ComboBox
-                                HorizontalAlignment="Left"
-                                Grid.Column="0"
-                                Grid.Row="0"
-                                Width="50"
-                                ItemsSource="{Binding SplitTypesItemsSource}" 
-                                SelectedItem="{Binding SplitType}"/>
-
-                            <Label
-                                Grid.Column="1"
-                                Grid.Row="0"
-                                Content="Lower bound:"/>
-
-                            <TextBox
-                                Grid.Column="2"
-                                Grid.Row="0"
-                                Text="{Binding BoxSplit.LowerX}"
-                                materialDesign:HintAssist.Hint="x"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                            <TextBox 
-                                Grid.Column="3"
-                                Grid.Row="0"
-                                Text="{Binding BoxSplit.LowerY}"
-                                materialDesign:HintAssist.Hint="y"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                            <TextBox
-                                Grid.Column="4"
-                                Grid.Row="0"
-                                Text="{Binding BoxSplit.LowerZ}"
-                                materialDesign:HintAssist.Hint="z"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-
-                            <Label 
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                Content="Upper bound:"/>
-
-                            <TextBox 
-                                Grid.Column="2"
-                                Grid.Row="1"
-                                Text="{Binding BoxSplit.UpperX}"
-                                materialDesign:HintAssist.Hint="x"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                            <TextBox
-                                Grid.Column="3"
-                                Grid.Row="1"
-                                Text="{Binding BoxSplit.UpperY}"
-                                materialDesign:HintAssist.Hint="y"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                            <TextBox 
-                                Grid.Column="4"
-                                Grid.Row="1"
-                                Text="{Binding BoxSplit.UpperZ}"
-                                materialDesign:HintAssist.Hint="z"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                        </Grid>
-                    </DataTemplate>
+                    <!-- Grid row definitions -->
+                    <system:Int32 x:Key="StartAutomaticallyRow" >0</system:Int32>
+                    <system:Int32 x:Key="SeparatorRow"          >1</system:Int32>
+                    <system:Int32 x:Key="SplitDefinitionRow"    >2</system:Int32>
+                    <system:Int32 x:Key="SplitTypeRow"          >3</system:Int32>
+                    <system:Int32 x:Key="AddRemoveSplitRow"     >4</system:Int32>
+                    <system:Int32 x:Key="SplitsTreeRow"         >5</system:Int32>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- row ============================================================================================================================================================================================== -->
+        <CheckBox 
+            Grid.Row="{StaticResource StartAutomaticallyRow}"
+            Margin="5" 
+            Content="Start automatically" 
+            IsChecked="{Binding StartAutomatically}"/>
 
-        <StackPanel Orientation="Horizontal">
+        <!-- row ============================================================================================================================================================================================== -->
+        <Label 
+            Grid.Row="{StaticResource SeparatorRow}" 
+            Content="Automatic splitting"/>
+
+        <Separator 
+            Grid.Row="{StaticResource SeparatorRow}" />
+
+        <!-- row ============================================================================================================================================================================================== -->
+        <!-- timing type -->
+        <ComboBox
+            Grid.Row="{StaticResource SplitDefinitionRow}"
+            Margin="5"
+            HorizontalAlignment="Left"
+            Width="205"
+            Height="30"
+            SelectedValuePath="Tag"
+            SelectedValue="{Binding NewSplitTimingType}"
+            materialDesign:HintAssist.HelperText="when">
+
+            <ComboBoxItem Content="immediately when">
+                <ComboBoxItem.Tag>
+                    <soulSplitter:TimingType>Immediate</soulSplitter:TimingType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+            <ComboBoxItem Content="when the game is loading after">
+                <ComboBoxItem.Tag>
+                    <soulSplitter:TimingType>OnLoading</soulSplitter:TimingType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+        </ComboBox>
+
+        <!-- split type -->
+        <ComboBox
+            Grid.Row="{StaticResource SplitDefinitionRow}"
+            Margin="215, 5, 5, 5"
+            HorizontalAlignment="Left"
+            Width="205"
+            Height="30"
+            SelectedValuePath="Tag"
+            SelectedValue="{Binding NewSplitType}"
+            materialDesign:HintAssist.HelperText="what"
+            IsEnabled="{Binding NewSplitTypeEnabled}">
+
+            <ComboBoxItem Content="I reach a position">
+                <ComboBoxItem.Tag>
+                    <darkSouls21:DarkSouls2SplitType>Position</darkSouls21:DarkSouls2SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="I trigger a flag">
+                <ComboBoxItem.Tag>
+                    <darkSouls21:DarkSouls2SplitType>Flag</darkSouls21:DarkSouls2SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+        </ComboBox>
+
+        <!-- row ============================================================================================================================================================================================== -->
+        <!-- Position -->
+        <StackPanel
+            Margin="5,10,0,0"
+            Visibility="{Binding NewSplitPositionEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Grid.Column="0"
+            Orientation="Horizontal">
+
+            <TextBox 
+                Width="50"
+                Height="25"
+                Margin="0,0,0,0"
+                Text="{Binding NewSplitValue.X}"
+                materialDesign:HintAssist.Hint="X"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}"
+                PreviewTextInput="OnPreviewTextInput_Float"/>
+
+            <TextBox 
+                Width="50"
+                Height="25"
+                Margin="5,0,0,0"
+                Text="{Binding NewSplitValue.Y}"
+                materialDesign:HintAssist.Hint="Y"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}"
+                PreviewTextInput="OnPreviewTextInput_Float"/>
+
+            <TextBox 
+                Width="50"
+                Height="25"
+                Margin="5,0,0,0"
+                Text="{Binding NewSplitValue.Z}"
+                materialDesign:HintAssist.Hint="Z"
+                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}"
+                PreviewTextInput="OnPreviewTextInput_Float"/>
+            
+        </StackPanel>
+
+        <!-- Hackity -->
+        <Button
+            Visibility="{Binding NewSplitPositionEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Grid.Column="0"
+            Margin="300, 5, 0, 0"
+            HorizontalAlignment="Left"
+            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+            ToolTip="Read current game position"
+            Click="CopyPosition_OnClick"
+            IsEnabled="{Binding EnabledAddSplit}">
+            <materialDesign:PackIcon
+                Kind="CrosshairsGps"
+                Height="30"
+                Width="30" />
+        </Button>
+
+
+        <!-- Flag -->
+        <TextBox
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Width="420"
+            Margin="5"
+            HorizontalAlignment="Left"
+            Text="{Binding NewSplitValue}"
+            TextChanged="TextBoxRawFlag_OnTextChanged"
+            materialDesign:HintAssist.HelperText="which"
+            Visibility="{Binding NewSplitFlagEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+        />
+
+        <!-- row ============================================================================================================================================================================================== -->
+
+        <StackPanel
+            Orientation="Horizontal"
+            Grid.Row="{StaticResource AddRemoveSplitRow}">
             <Button
-                        Margin="5"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                        ToolTip="Add a split"
-                        Click="AddButton_OnClick">
+                Margin="5"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Add a split"
+                Click="AddSplit_OnClick"
+                IsEnabled="{Binding NewSplitAddEnabled}">
                 <materialDesign:PackIcon
-                    Kind="PlaylistAdd"
+                    Kind="Plus"
                     Height="30"
                     Width="30" />
             </Button>
 
             <Button
                 Margin="5"
+                HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="delete selected split"
-                Click="DeleteButton_OnClick">
+                ToolTip="Remove selected split"
+                Click="RemoveSplit_OnClick"
+                IsEnabled="{Binding RemoveSplitEnabled}">
                 <materialDesign:PackIcon
-                    Kind="PlaylistRemove"
+                    Kind="Close"
                     Height="30"
                     Width="30" />
             </Button>
         </StackPanel>
 
-        <ui:ListViewDragOrder
-            x:Name="SplitsListView"
-            Grid.Row="1"
+        <!-- row ============================================================================================================================================================================================== -->
+
+        <TreeView
+            Grid.Row="{StaticResource SplitsTreeRow}" 
             ItemsSource="{Binding Splits}"
-            AllowDrop="True">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplateSelector>
-                <darkSouls2:DarkSouls2SplitsDataTemplateSelector 
-                    BossTemplate="{StaticResource BossTemplate}"
-                    ItemTemplate="{StaticResource ItemTemplate}"
-                    BoxTemplate="{StaticResource BoxTemplate}"/>
-            </ListView.ItemTemplateSelector>
-        </ui:ListViewDragOrder>
+            SelectedItemChanged="SplitsTreeView_OnSelectedItemChanged">
+
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type darkSouls2:HierarchicalTimingTypeViewModel}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding TimingType, Converter={StaticResource EnumDisplayNameConverter}}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type darkSouls2:HierarchicalSplitTypeViewModel}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding SplitType, Converter={StaticResource EnumDisplayNameConverter}}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type darkSouls2:HierarchicalSplitViewModel}">
+                    <TextBlock Text="{Binding Split, Converter={StaticResource SplitObjectToDescriptionConverter}}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+
+        <!-- row ============================================================================================================================================================================================== -->
+
 
     </Grid>
 </UserControl>

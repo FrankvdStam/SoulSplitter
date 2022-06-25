@@ -9,63 +9,90 @@ using SoulMemory.Shared;
 
 namespace SoulMemory.DarkSouls2.Scholar
 {
-    public class DarkSouls2
+    internal class DarkSouls2 : IDarkSouls2
     {
         private Process _process;
         private Pointer _eventFlagManager;
-        public Exception Exception { get; set; }
+        private Pointer _position;
+        private Pointer _loadState;
 
-        private bool InitPointers()
+        #region Refresh/init/reset ================================================================================================================================
+
+        public bool Refresh(out Exception exception)
+        {
+            exception = null;
+            if (!ProcessClinger.Refresh(ref _process, "darksoulsii", InitPointers, ResetPointers, out Exception e))
+            {
+                exception = e;
+                return false;
+            }
+            return true;
+        }
+
+
+        private Exception InitPointers()
         {
             try
             {
                 _process.ScanCache()
                     .ScanRelative("GameManagerImp", "48 8B 05 ?? ?? ?? ?? 48 8B 58 38 48 85 DB  74  ?? F6", 3, 7)
                         .CreatePointer(out _eventFlagManager, 0, 0x70, 0x20)
-                
+                        .CreatePointer(out _position, 0, 0xd0, 0x100);
+                    //.CreatePointer(out AiManager, 0x28)
+                    //.CreatePointer(out rightHandWeaponMultiplier, 0xd0, 0x378, 0x28, 0x158)
+                    //.CreatePointer(out LeftHandWeaponMultiplier, 0xd0, 0x378, 0x28, 0x80)
+
+
+                _process.ScanCache()
+                    .ScanRelative("LoadState", "48 89 05 ? ? ? ? b0 01 48 83 c4 28", 3, 7)
+                        .CreatePointer(out _loadState, 0x0);
                     ;
 
-                return true;
+                return null;
             }
             catch (Exception e)
             {
-                Exception = e;
-                return false;
+                return e;
             }
         }
 
         private void ResetPointers()
         {
             _eventFlagManager = null;
+            _position = null;
+            _loadState = null;
         }
-        
 
-        public bool Refresh()
+        #endregion
+
+        public Vector3f GetPosition()
         {
-            if (_process == null)
+            if (_position == null)
             {
-                _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("darksoulsii"));
-                if (_process != null)
-                {
-                    if (!InitPointers())
-                    {
-                        _process = null;
-                    }
-                }
+                return new Vector3f(0, 0, 0);
             }
-            else
+            
+            return new Vector3f(
+                _position.ReadFloat(0x80),
+                _position.ReadFloat(0x84),
+                _position.ReadFloat(0x88)
+            );
+        }
+
+        public bool IsLoading()
+        {
+            if (_loadState == null)
             {
-                if (_process.HasExited)
-                {
-                    _process = null;
-                    ResetPointers();
-                }
+                return false;
             }
-            return _process != null;
+
+            return _loadState.ReadInt32(0x11c) == 1;
         }
 
 
+        #region Reading event flags
 
+        
         public bool ReadEventFlag(uint eventFlagId)
         {
             if (_eventFlagManager == null)
@@ -144,5 +171,7 @@ namespace SoulMemory.DarkSouls2.Scholar
         //    pointer_to_vector_in_eventflagmanager = (ulonglong *)pointer_to_vector_in_eventflagmanager[2];
         //  } while( true );
         //}   
+
+        #endregion
     }
 }

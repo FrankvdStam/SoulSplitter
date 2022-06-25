@@ -13,18 +13,32 @@ namespace SoulMemory.Sekiro
 {
     public class Sekiro
     {
-        public Exception Exception;
-
         private Process _process;
 
-        public Pointer _sprjEventFlagMan;
+        public  Pointer _sprjEventFlagMan;
         private Pointer _fieldArea;
         private Pointer _worldChrManImp;
         private Pointer _igt;
         private Pointer _position;
 
-        private bool InitPointers()
+
+        #region Refresh/init/reset ================================================================================================================================
+        
+        public bool Refresh(out Exception exception)
         {
+            exception = null;
+            if (!ProcessClinger.Refresh(ref _process, "sekiro", InitPointers, ResetPointers, out Exception e))
+            {
+                exception = e;
+                return false;
+            }
+            return true;
+        }
+
+        private Exception InitPointers()
+        {
+            Thread.Sleep(3000); //Give sekiro some time to boot
+
             try
             {
                 _process.ScanCache()
@@ -41,22 +55,31 @@ namespace SoulMemory.Sekiro
                     .ScanRelative("Igt", "48 8b 05 ? ? ? ? 32 d2 48 8b 48 08 48 85 c9 74 13 80 b9 ba", 3, 7)
                         .CreatePointer(out _igt, 0x0, 0x9c)
                         //.CreatePointer(out _igt, 0x0, 0x70) new game cycle
-
-                ;
+                        ;
 
                 if (!InitB3Mods())
                 {
                     throw new Exception("B3Mods init failed");
                 }
 
-                return true;
+                return null;
             }
             catch (Exception e)
             {
-                Exception = e;
-                return false;
+                return e;
             }
         }
+
+        private void ResetPointers()
+        {
+            _sprjEventFlagMan = null;
+            _fieldArea = null;
+            _worldChrManImp = null;
+            _igt = null;
+            _position = null;
+        }
+
+        #endregion
 
         public int GetInGameTimeMilliseconds()
         {
@@ -78,39 +101,7 @@ namespace SoulMemory.Sekiro
 
         public bool Attached => _process != null;        
 
-        #region Refresh ================================================================================================================================
-        private void ResetPointers()
-        {
-            _sprjEventFlagMan = null;
-            _fieldArea = null;
-        }
-
-        public bool Refresh()
-        {
-            if (_process == null)
-            {
-                _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("sekiro"));
-                if (_process != null)
-                {
-                    if (!InitPointers())
-                    {
-                        _process = null;
-                    }
-                }
-            }
-            else
-            {
-                if (_process.HasExited)
-                {
-                    _process = null;
-                    ResetPointers();
-                }
-            }
-            return _process != null;
-        }
-
-        #endregion
-
+       
         #region Read event flag ================================================================================================================
 
         public bool ReadEventFlag(uint eventFlagId)
@@ -348,7 +339,7 @@ namespace SoulMemory.Sekiro
             This could potentially cause issues. Replace with code that
             detects decryption if necessary
             */
-            Thread.Sleep(3000);
+            
 
             string version;
 

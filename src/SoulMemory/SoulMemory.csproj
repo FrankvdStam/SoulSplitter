@@ -73,6 +73,7 @@
     <Compile Include="DarkSouls2\Data.cs" />
     <Compile Include="DarkSouls2\IDarkSouls2.cs" />
     <Compile Include="DarkSouls2\Scholar\DarkSouls2.cs" />
+    <Compile Include="DarkSouls2\Vanilla\DarkSouls2.cs" />
     <Compile Include="DarkSouls2\WarpType.cs" />
     <Compile Include="DarkSouls3\Bonfire.cs" />
     <Compile Include="DarkSouls3\Boss.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="DarkSouls1\Item.cs" />
     <Compile Include="DarkSouls1\ItemPrompt.cs" />
     <Compile Include="Memory\PointerFactory.cs" />
+    <Compile Include="Memory\ProcessClinger.cs" />
     <Compile Include="Native\Kernel32.cs" />
     <Compile Include="DarkSouls1\MenuPrompt.cs" />
     <Compile Include="Memory\Pointer.cs" />
@@ -110,9 +112,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DarkSouls2\Vanilla\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="SoulInjectee.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

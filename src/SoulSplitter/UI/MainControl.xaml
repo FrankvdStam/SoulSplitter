@@ -48,10 +48,6 @@
             <TextBlock Text="{Binding Version}" DockPanel.Dock="Left"/>
             <TextBlock Text="{Binding Error}" Margin="10,0,0,0" Foreground="Red" DockPanel.Dock="Left"/>
 
-
-          
-
-            
             <TextBlock
                 DockPanel.Dock="Right"
                 HorizontalAlignment="Right">           
@@ -63,7 +59,7 @@
             <TextBlock
                 Margin="0,0,5,0"
                 DockPanel.Dock="Right"
-                HorizontalAlignment="Right">           
+                HorizontalAlignment="Right">
                 <Hyperlink Click="EventFlagLogger_OnClick">
                     Event flag logger
                 </Hyperlink>
@@ -89,8 +85,11 @@
             SelectedIndex="{Binding SelectedGame, Converter={StaticResource GameToSelectedIndexConverter}}">
        
             <TabItem Header ="Dark Souls 1" Visibility="Collapsed"/>
-            <TabItem Header ="Dark Souls 2" Visibility="Collapsed"/>
-            
+
+            <TabItem Header ="Dark Souls 2" >
+                <darkSouls2:DarkSouls2Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls2ViewModel}"/>
+            </TabItem>
+
             <TabItem Header ="Dark Souls 3" >
                 <darkSouls3:DarkSouls3Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls3ViewModel}"/>
             </TabItem>

@@ -13,6 +13,11 @@ namespace SoulMemory.Memory
 {
     public static class Extensions
     {
+        public static string Format(this Exception e)
+        {
+            return $"{e.Message} {e.StackTrace}";
+        }
+
         public static byte?[] ToByteArray(this string pattern)
         {
             var result = new List<byte?>();
