@@ -9,7 +9,9 @@ namespace SoulMemory.Memory
 {
     internal static class ProcessClinger
     {
-        public static bool Refresh(ref Process process, string name, Func<Exception> initialize, Action reset, out Exception exception)
+        public static bool Refresh(ref Process process, string name, Func<Exception> initialize, Action reset, out Exception exception) => Refresh(ref process, new List<string>(){name}, initialize, reset, out exception);
+
+        public static bool Refresh(ref Process process, List<string> names, Func<Exception> initialize, Action reset, out Exception exception)
         {
             exception = null;
 
@@ -18,10 +20,10 @@ namespace SoulMemory.Memory
                 //Process not attached - find it in the process list
                 if (process == null)
                 {
-                    process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith(name));
+                    process = Process.GetProcesses().FirstOrDefault(i => names.Contains(i.ProcessName.ToLower()) && !i.HasExited && i.MainModule != null);
                     if (process == null)
                     {
-                        exception = new Exception($"{name} not running.");
+                        exception = new Exception($"{string.Join(" ", names)} not running.");
                         return false;
                     }
                     else

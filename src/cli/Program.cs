@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using SoulMemory.DarkSouls2;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
+using SoulMemory.Sekiro;
 using SoulMemory.Shared;
 using SoulSplitter.UI;
 
@@ -22,28 +23,15 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            //TestUi();return;
 
-            //var sekiro = new Sekiro();
-            //while (true)
-            //{
-            //    if (sekiro._sprjEventFlagMan == null)
-            //    {
-            //        Console.WriteLine("sprjEventFlagMan is null");
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine($"Found sprjEventFlagMan: 0x{sekiro._sprjEventFlagMan.GetAddress():x}");
-            //    }
-            //
-            //    if (!sekiro.Refresh(out Exception e))
-            //    {
-            //        Console.WriteLine(e.Format());
-            //        Thread.Sleep(2000);
-            //    }
-            //    Thread.Sleep(500);
-            //    Console.Clear();
-            //}
+            var sekiro = new Sekiro();
+            while (true)
+            {
+                Console.WriteLine(sekiro.IsBlackscreenActive());
+                sekiro.Refresh(out _);
+                Thread.Sleep(100);
+                Console.Clear();
+            }
 
             //LEVER 131000020 131000025
 
@@ -148,10 +136,11 @@ namespace cli
         public static void SekiroTestPatterns()
         {
             var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro");
-            patternCounter.AddPattern("WorldChrManImp", "48 8B 35 ? ? ? ? 44 0F 28 18");
-            patternCounter.AddPattern("SprjEventFlagMan", "48 8b 0d ? ? ? ? 32 db 85 d2 49 63 f0");
-            patternCounter.AddPattern("FieldArea", "48 8b 0d ? ? ? ? 48 85 c9 74 26 44 8b 41 28 48 8d 54 24 40");
-            patternCounter.AddPattern("Igt", "48 8b 05 ? ? ? ? 32 d2 48 8b 48 08 48 85 c9 74 13 80 b9 ba");
+            patternCounter.AddPattern("SprjFadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc");
+            //patternCounter.AddPattern("WorldChrManImp", "48 8B 35 ? ? ? ? 44 0F 28 18");
+            //patternCounter.AddPattern("SprjEventFlagMan", "48 8b 0d ? ? ? ? 32 db 85 d2 49 63 f0");
+            //patternCounter.AddPattern("FieldArea", "48 8b 0d ? ? ? ? 48 85 c9 74 26 44 8b 41 28 48 8d 54 24 40");
+            //patternCounter.AddPattern("Igt", "48 8b 05 ? ? ? ? 32 d2 48 8b 48 08 48 85 c9 74 13 80 b9 ba");
             
 
             foreach (var result in patternCounter.GetResults())

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace SoulMemory.Sekiro
         private Pointer _worldChrManImp;
         private Pointer _igt;
         private Pointer _position;
+        private Pointer _fadeSystem;
 
 
         #region Refresh/init/reset ================================================================================================================================
@@ -55,6 +57,9 @@ namespace SoulMemory.Sekiro
                     .ScanRelative("Igt", "48 8b 05 ? ? ? ? 32 d2 48 8b 48 08 48 85 c9 74 13 80 b9 ba", 3, 7)
                         .CreatePointer(out _igt, 0x0, 0x9c)
                         //.CreatePointer(out _igt, 0x0, 0x70) new game cycle
+
+                    .ScanRelative("SprjFadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7)
+                        .CreatePointer(out _fadeSystem, 0x0, 0x8)
                         ;
 
                 if (!InitB3Mods())
@@ -86,6 +91,12 @@ namespace SoulMemory.Sekiro
             return _igt?.ReadInt32() ?? 0;
         }
 
+        public void WriteInGameTimeMilliseconds(int value)
+        {
+            _igt?.WriteInt32(value);
+        }
+
+
         public bool IsPlayerLoaded()
         {
             if (_worldChrManImp == null)
@@ -97,6 +108,17 @@ namespace SoulMemory.Sekiro
         public Vector3f GetPlayerPosition()
         {
             return new Vector3f(_position?.ReadFloat(0x80) ?? 0f, _position?.ReadFloat(0x84) ?? 0f, _position?.ReadFloat(0x88) ?? 0f);
+        }
+
+        public bool IsBlackscreenActive()
+        {
+            if (_fadeSystem == null)
+            {
+                return false;
+            }
+
+            //0x2dc best candidate so far.
+            return _fadeSystem.ReadInt32(0x2dc) != 0;
         }
 
         public bool Attached => _process != null;        

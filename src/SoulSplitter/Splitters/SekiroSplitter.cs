@@ -102,9 +102,21 @@ namespace SoulSplitter.Splitters
 
                 case TimerState.Running:
                     var currentIgt = _sekiro.GetInGameTimeMilliseconds();
-                    if (currentIgt != 0)
+                    var blackscreenActive = _sekiro.IsBlackscreenActive();
+
+
+                    //Blackscreens/meme loading screens - timer is running, but game is actually loading
+                    if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && blackscreenActive)
                     {
-                        _inGameTime = currentIgt;
+                        //Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
+                        _sekiro.WriteInGameTimeMilliseconds(_inGameTime);
+                    }
+                    else
+                    {
+                        if (currentIgt != 0)
+                        {
+                            _inGameTime = currentIgt;
+                        }
                     }
                     _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
                     break;

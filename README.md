@@ -15,6 +15,9 @@ For Elden Ring specific information, see https://github.com/FrankvdStam/SoulSpli
 # Installation
 You can find detailed installation instructions with screenshots here: https://github.com/FrankvdStam/SoulSplitter/wiki/Installation
 
+# Wiki
+Not everything is documented, the things that are documented can be found on the [wiki](https://github.com/FrankvdStam/SoulSplitter/wiki).
+
 # Contact
 If you are having trouble, have questions, feature requests or anything else, come find me on discord. Feel free to ping me (@wasted) in the help channel of the respective soulsgame on the speedsouls server, or DM me by user wasted#2747 (DM's are open, no need to send a friend request).
 
@@ -25,7 +28,7 @@ Shout out to [Catalystz](https://www.twitch.tv/catalystz), for helping me test!
 Special thanks to [B3LYP](https://github.com/pawREP), for writing the initial MIGT code injection for Elden Ring.  
 Also thanks to [B3LYP](https://github.com/pawREP), for writing the original Sekiro plugin, which features have been included    
 Thanks to Pav for the Elden Ring cheat engine table.  
-Thanks [John](https://github.com/veeenu), pretty much always willing to exhange some ideas about tech stuff  
+Thanks [Johndisandonato](https://github.com/veeenu), pretty much always willing to exhange some ideas about tech stuff  
 [Yapped](https://github.com/vawser/Yapped-Rune-Bear) helped speed up mapping event flags to bosses and graces  
 Soulsmodding community: http://soulsmodding.wikidot.com/  
 

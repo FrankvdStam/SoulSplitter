@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="1.0.36">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+			<file path="Components/soulinjectee.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>Blackscreen removal for Sekiro</change>
+		</changelog>
+	</update>
 	<update version="1.0.35">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />
