@@ -23,16 +23,26 @@ If you are having trouble, have questions, feature requests or anything else, co
 
 # Credits
 
-Shout out to [Catalystz](https://www.twitch.tv/catalystz), for helping me test!
+Thank you strimmers, for risking your PB's, to test my broken code!  
+[Catalystz!](https://www.twitch.tv/catalystz)  
+[Johndisandonato!](https://www.twitch.tv/johndisandonato)  
+[siegbruh!](https://www.twitch.tv/siegbruh)  
+[Holm!](https://www.twitch.tv/holm_gg)  
+[Pennek!](https://www.twitch.tv/pennek)  
+[nyk_style!](https://www.twitch.tv/nyk_style)  
+Thank you all!
 
-Special thanks to [B3LYP](https://github.com/pawREP), for writing the initial MIGT code injection for Elden Ring.  
-Also thanks to [B3LYP](https://github.com/pawREP), for writing the original Sekiro plugin, which features have been included    
-Thanks to Pav for the Elden Ring cheat engine table.  
+Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions to the speedrunning community:  
+- writing the initial MIGT code injection for Elden Ring.  
+- writing the original Sekiro plugin, which features have been included  
+- OG ds3 plugin, together with [Jiiks](https://github.com/Jiiks/)  
+
+Thanks Pav, for the Elden Ring cheat engine table.  
 Thanks [Johndisandonato](https://github.com/veeenu), pretty much always willing to exhange some ideas about tech stuff  
 [Yapped](https://github.com/vawser/Yapped-Rune-Bear) helped speed up mapping event flags to bosses and graces  
-Soulsmodding community: http://soulsmodding.wikidot.com/  
+And thanks to the soulsmodding community at large, I'm standing on the shoulders of these giants: http://soulsmodding.wikidot.com/  
 
-Uses the excellent material design library by James Willock: https://materialdesigninxaml.net/
+Uses the excellent material design library by James Willock: https://materialdesigninxaml.net/  
 
 Thanks to Nordgaren, his tools can be found here:  
 https://github.com/Nordgaren/DS2S-META  

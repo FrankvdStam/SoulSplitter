@@ -23,7 +23,7 @@
 	</update>
 	<update version="1.0.35">
 		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulMemory.dll"				 status="changed" />
 			<file path="Components/SoulSplitter.dll"			 status="changed" />
 			<file path="Components/soulinjectee.dll"			 status="changed" />
 		</files>
