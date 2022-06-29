@@ -86,7 +86,7 @@
        
             <TabItem Header ="Dark Souls 1" Visibility="Collapsed"/>
 
-            <TabItem Header ="Dark Souls 2" Visibility="Collapsed">
+            <TabItem Header ="Dark Souls 2">
                 <darkSouls2:DarkSouls2Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls2ViewModel}"/>
             </TabItem>
 

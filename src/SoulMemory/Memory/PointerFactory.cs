@@ -65,7 +65,7 @@ namespace SoulMemory.Memory
             
             if (cache.ScanResult == 0)
             {
-                throw new Exception($"scan failed {errorName}. Cache size: {cache.Bytes.Length} process name: {cache.Process.ProcessName}");
+                throw new Exception($"scan failed {errorName}. Process name: {cache.Process.ProcessName} cache size: {cache.Bytes.Length}");
             }
 
             var address = BitConverter.ToInt32(cache.Bytes, (int)cache.ScanResult + addressOffset);

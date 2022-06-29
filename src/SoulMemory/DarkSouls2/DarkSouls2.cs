@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SoulMemory.Memory;
+using SoulMemory.Native;
 
 namespace SoulMemory.DarkSouls2
 {
@@ -25,15 +26,16 @@ namespace SoulMemory.DarkSouls2
             {
                 if (_darkSouls2 == null)
                 {
-                    var process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.StartsWith("DarkSoulsII"));
+                    var process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == "darksoulsii" && !i.HasExited && i.MainModule != null);
                     if (process == null)
                     {
                         exception = new Exception("DarkSoulsII not running");
                         return false;
                     }
 
-                    var isScholar = process.MainModule.FileName.ToLower().Contains("scholar");
-
+                    Kernel32.IsWow64Process(process.Handle, out bool isWow64Result);
+                    var isScholar = !isWow64Result;
+                    
                     if (isScholar)
                     {
                         _darkSouls2 = new Scholar.DarkSouls2();

@@ -35,7 +35,7 @@ namespace SoulMemory.DarkSouls2.Scholar
             try
             {
                 _process.ScanCache()
-                    .ScanRelative("GameManagerImp", "48 8B 05 ?? ?? ?? ?? 48 8B 58 38 48 85 DB  74  ?? F6", 3, 7)
+                    .ScanRelative("GameManagerImp", "48 8b 35 ? ? ? ? 48 8b e9 48 85 f6", 3, 7)
                         .CreatePointer(out _eventFlagManager, 0, 0x70, 0x20)
                         .CreatePointer(out _position, 0, 0xd0, 0x100);
                     //.CreatePointer(out AiManager, 0x28)

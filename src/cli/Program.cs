@@ -23,18 +23,6 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-
-            var sekiro = new Sekiro();
-            while (true)
-            {
-                Console.WriteLine(sekiro.IsBlackscreenActive());
-                sekiro.Refresh(out _);
-                Thread.Sleep(100);
-                Console.Clear();
-            }
-
-            //LEVER 131000020 131000025
-
             DarkSouls2 darkSouls2 = new DarkSouls2();
             while (true)
             {
@@ -42,7 +30,16 @@ namespace cli
                 Console.WriteLine($"load: {darkSouls2.IsLoading()}");
                 Console.WriteLine($"pos: {darkSouls2.GetPosition()}");
                 Console.WriteLine($"flag: {darkSouls2.ReadEventFlag(131000025)}");
-                darkSouls2.Refresh(out _);
+                if (!darkSouls2.Refresh(out Exception e))
+                {
+                    Console.WriteLine(e.Format());
+
+                    Console.WriteLine("\nProcesses:");
+                    foreach (var p in Process.GetProcesses().Where(i => i.ProcessName.ToLower() == "darksoulsii"))
+                    {
+                        Console.WriteLine($"{p.Id} {p.ProcessName} {p.MainModule?.ModuleMemorySize}");
+                    }
+                }
                 Thread.Sleep(400);
                 Console.Clear();
             }
