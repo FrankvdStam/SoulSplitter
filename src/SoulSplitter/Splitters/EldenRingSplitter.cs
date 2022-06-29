@@ -39,37 +39,6 @@ namespace SoulSplitter.Splitters
             _liveSplitState.OnReset -= OnReset;
         }
 
-
-        private void RefreshEldenRing()
-        {
-            try
-            {
-                if (!_eldenRing.Refresh())
-                {
-                    if (!_eldenRing.Attached)
-                    {
-                        Exception = new Exception("Game not running");
-                    }
-                    else if (_eldenRing.Exception != null)
-                    {
-                        Exception = _eldenRing.Exception;
-                    }
-                    else
-                    {
-                        Exception = new Exception("unable to refresh eldenring");
-                    }
-                }
-                else
-                {
-                    Exception = null;
-                }
-            }
-            catch (Exception e)
-            {
-                Exception = e;
-            }
-        }
-        
         public void Update(object settings)
         {
             //Settings from the UI
@@ -77,7 +46,7 @@ namespace SoulSplitter.Splitters
             _eldenRingViewModel = (EldenRingViewModel)settings;
 
             //Refresh attachment to ER process
-            RefreshEldenRing();
+            Exception = !_eldenRing.Refresh(out Exception e) ? e : null;
 
             //Lock IGT to 0 if requested
             if (_eldenRingViewModel.LockIgtToZero)
@@ -129,7 +98,7 @@ namespace SoulSplitter.Splitters
 
         #region Timer
         private readonly TimerModel _timerModel;
-        private long _inGameTime;
+        private int _inGameTime;
         private TimerState _timerState = TimerState.WaitForStart;
         private TimingMethod _timingMethod;
         private bool _startAutomatically;
@@ -182,7 +151,25 @@ namespace SoulSplitter.Splitters
                     break;
 
                 case TimerState.Running:
-                    WriteTimer();
+
+                    var currentIgt = _eldenRing.GetInGameTimeMilliseconds();
+                    var blackscreenActive = _eldenRing.IsBlackscreenActive();
+
+
+                    //Blackscreens/meme loading screens - timer is running, but game is actually loading
+                    if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && blackscreenActive)
+                    {
+                        //Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
+                        _eldenRing.WriteInGameTimeMilliseconds(_inGameTime);
+                    }
+                    else
+                    {
+                        if (currentIgt != 0)
+                        {
+                            _inGameTime = currentIgt;
+                        }
+                    }
+                    _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
                     break;
             }
         }

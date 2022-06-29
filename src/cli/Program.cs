@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using SoulMemory.DarkSouls2;
@@ -23,6 +24,24 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            var er = new EldenRing();
+
+            while (true)
+            {
+                Console.WriteLine($"BS: {er.IsBlackscreenActive()}");
+
+                if (!er.Refresh(out Exception e))
+                {
+                    Console.WriteLine(e.Format());
+                    Thread.Sleep(1000);
+                }
+                Thread.Sleep(100);
+                Console.Clear();
+            }
+
+
+
+
             DarkSouls2 darkSouls2 = new DarkSouls2();
             while (true)
             {

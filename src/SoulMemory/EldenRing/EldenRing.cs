@@ -14,10 +14,8 @@ using SoulMemory.Shared;
 
 namespace SoulMemory.EldenRing
 {
-    public class EldenRing : ITimeable
+    public class EldenRing
     {
-        public Exception Exception;
-        
         private Process _process = null;
 
         private Pointer _igt;
@@ -41,21 +39,28 @@ namespace SoulMemory.EldenRing
         public EldenRing(bool applyIgtFix = true)
         {
             _applyIgtFix = applyIgtFix;
-            Refresh();
+            Refresh(out _);
         }
 
         private bool _applyIgtFix = true;
 
 
-        public bool Init()
+        #region Refresh/init/reset ================================================================================================
+        public bool Refresh(out Exception exception)
+        {
+            exception = null;
+            if (!ProcessClinger.Refresh(ref _process, new List<string>() { "eldenring", "start_protected_game" }, InitPointers, ResetPointers, out Exception e))
+            {
+                exception = e;
+                return false;
+            }
+            return true;
+        }
+
+        public Exception InitPointers()
         {
             try
             {
-                if (_process.HasExited)
-                {
-                    return false;
-                }
-                
                 var version = GetVersion();
                 switch (version)
                 {
@@ -110,11 +115,11 @@ namespace SoulMemory.EldenRing
 
                     //WorldChrManImp  
                     .ScanRelative("WorldChrManImp", "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7", 3, 7)
-                        .CreatePointer(out _playerIns       , 0, 0x18468)
-                        .CreatePointer(out _playerGameData  , 0, 0x18468, 0x570)
-                        .CreatePointer(out _inventory       , 0, 0x18468, 0x570, 0x5B8, 0x10, 0x0)
-                        //.CreatePointer(out _mapId           , 0, 0x18468, 0x6c0)
-                        //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
+                        .CreatePointer(out _playerIns, 0, 0x18468)
+                        .CreatePointer(out _playerGameData, 0, 0x18468, 0x570)
+                        .CreatePointer(out _inventory, 0, 0x18468, 0x570, 0x5B8, 0x10, 0x0)
+                    //.CreatePointer(out _mapId           , 0, 0x18468, 0x6c0)
+                    //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
 
                     ////FieldArea
                     //.ScanRelative("FieldArea", "48 8B 0D ?? ?? ?? ?? 48 ?? ?? ?? 44 0F B6 61 ?? E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 48 ?? ?? ?? 48 85 C0", 3, 7)
@@ -123,7 +128,7 @@ namespace SoulMemory.EldenRing
                     //CSMenuManImp
                     .ScanRelative("MenuManImp", "48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
                         .CreatePointer(out _menuManImp, 0)
-                    
+
                     //.ScanRelative("48 83 3d d5 f2 60 03 00 75 46 4c 8b 05 e4 d4 62 03 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
                     .ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
                         .CreatePointer(out _virtualMemoryFlag, 1)
@@ -132,24 +137,39 @@ namespace SoulMemory.EldenRing
                     .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
                         .CreatePointer(out _igtFix)
                     ;
-                
+
                 //gameman  48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03
                 //EventFlagUsageParamManagerImp 48 8b 05 . . . . 48 85 c0 75 12 88 . . . . . e8 20 ec ff ff 48 89 05 . . . .
 
                 if (_applyIgtFix && !ApplyIgtFix())
                 {
-                    Exception = new Exception("MIGT code injection failed");
-                    return false;
+                    return new Exception("MIGT code injection failed");
                 }
-                
-                return true;
             }
             catch (Exception e)
             {
-                Exception = e;
-                return false;
+                return e;
             }
+
+            return null;
         }
+
+        private void ResetPointers()
+        {
+            _igt = null;
+            _hud = null;
+            _playerIns = null;
+            //_playerChrPhysicsModule = null;
+            _menuManImp = null;
+            _igtFix = null;
+            _playerGameData = null;
+            _inventory = null;
+            _virtualMemoryFlag = null;
+            //_noLogo = null;
+        }
+
+        #endregion
+
 
         public enum EldenRingVersion
         {
@@ -180,19 +200,7 @@ namespace SoulMemory.EldenRing
         }
 
 
-        private void ResetPointers()
-        {
-            _igt = null;
-            _hud = null;
-            _playerIns = null;
-            //_playerChrPhysicsModule = null;
-            _menuManImp = null;
-            _igtFix = null;
-            _playerGameData = null;
-            _inventory = null;
-            _virtualMemoryFlag = null;
-            //_noLogo = null;
-        }
+        
 
         public void EnableHud()
         {
@@ -270,56 +278,63 @@ namespace SoulMemory.EldenRing
         private bool _pointersInitialized = false;
         private DateTime _requestInit;
         private readonly TimeSpan _initDelay = TimeSpan.FromSeconds(5);
-        public bool Refresh()
-        {
-            if (_process == null)
-            {
-                //EAC bypass methods differ. In some, people rename eldenring.exe to start_protected_game.exe
-                _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("eldenring")) ?? Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("start_protected_game"));
-                
-                if (_process != null && !_process.HasExited)
-                {
-                    _requestInit = DateTime.Now.Add(_initDelay);
-                    return false;
-                }
 
+        
+
+
+        public bool IsBlackscreenActive()
+        {
+            if (_menuManImp == null)
+            {
                 return false;
+            }
+
+            var screenState = GetScreenState();
+            if (screenState != ScreenState.InGame)
+            {
+                return false;
+            }
+
+            var flag = _menuManImp.ReadInt32(0x18);
+            //010101 -> IG
+            //010000 -> cutscene
+            //010001 -> blackscreen
+
+            var t = flag & 0x1;
+            var thing = flag >> 8 & 0x1;
+
+            if (
+                (flag       & 0x1) == 1 &&
+                (flag >> 8  & 0x1) == 0 &&
+                (flag >> 16 & 0x1) == 1
+                )
+            {
+                return true;
             }
             else
             {
-                if (!_pointersInitialized && _requestInit < DateTime.Now)
-                {
-                    if (Init())
-                    {
-                        _pointersInitialized = true;
-                        return true;
-                    }
-                    else
-                    {
-                        var pointerScanException = new Exception($"Pattern scan failed, is EAC disabled? {Exception?.Message}", Exception);
-                        Exception = pointerScanException;
-                    }
-                }
-
-                try
-                {
-                    if (_process.HasExited)
-                    {
-                        _process = null;
-                        _pointersInitialized = false;
-                        ResetPointers();
-                    }
-                }
-                catch
-                {
-                    _process = null;
-                    _pointersInitialized = false;
-                    ResetPointers();
-                }
-                return _pointersInitialized;
+                return false;
             }
+
+            //if (
+            //    screenState == ScreenState.InGame &&
+            //    (flag       & 0x1) == 1 && 
+            //    (flag >> 8  & 0x1) == 0 &&
+            //    (flag >> 16 & 0x1) == 1 
+            //    )
+            //{
+            //    return 1;
+            //}
+            //
+            ////if (screenState == ScreenState.InGame && flag == 65793)
+            ////{
+            ////    return 1;
+            ////}
+            //return 0;
         }
-        
+
+
+
         public int GetTestValue()
         {
             if (_menuManImp == null)
@@ -632,6 +647,10 @@ namespace SoulMemory.EldenRing
         public int GetInGameTimeMilliseconds()
         {
             return _igt?.ReadInt32() ?? 0;
+        }
+        public void WriteInGameTimeMilliseconds(int milliseconds)
+        {
+            _igt?.WriteInt32(milliseconds);
         }
 
         public bool IsInGame()
