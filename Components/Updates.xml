@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="1.0.37">
+		<files>
+			<file path="Components/SoulMemory.dll"			     status="changed" />
+			<file path="Components/SoulSplitter.dll"			 status="changed" />
+			<file path="Components/soulinjectee.dll"			 status="changed" />
+		</files>
+		<changelog>
+			<change>Added Dark Souls 2 timer + autosplitter (autostart broken)</change>
+			<change>Added a way to overwrite IGT with 0 in Sekiro, for use in NG+ and mortal journey</change>
+		</changelog>
+	</update>
 	<update version="1.0.36">
 		<files>
 			<file path="Components/SoulMemory.dll"			     status="changed" />
