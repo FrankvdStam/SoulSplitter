@@ -23,29 +23,62 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            var flags = ReadFlagsFromFile();
+
             DarkSouls2 darkSouls2 = new DarkSouls2();
+            var disc = new EventFlagDiscovery(darkSouls2);
+
             while (true)
             {
-                //Console.WriteLine($"load: {darkSouls2.IsLoading()}");
-                Console.WriteLine($"load: {darkSouls2.IsLoading()}");
-                Console.WriteLine($"pos: {darkSouls2.GetPosition()}");
-                Console.WriteLine($"flag: {darkSouls2.ReadEventFlag(131000025)}");
+                disc.Update();
+                darkSouls2.Refresh(out _);
+                Thread.Sleep(500);
+                //Console.Clear();
+            }
+            
+            
+            while (true)
+            {
+                foreach (var flag in flags)
+                {
+                    Console.WriteLine($"{flag.ToString().PadRight(10, ' ')}: {darkSouls2.ReadEventFlag(flag)}");
+                }
+
                 if (!darkSouls2.Refresh(out Exception e))
                 {
                     Console.WriteLine(e.Format());
-
                     Console.WriteLine("\nProcesses:");
                     foreach (var p in Process.GetProcesses().Where(i => i.ProcessName.ToLower() == "darksoulsii"))
                     {
                         Console.WriteLine($"{p.Id} {p.ProcessName} {p.MainModule?.ModuleMemorySize}");
                     }
                 }
-                Thread.Sleep(400);
+                Thread.Sleep(500);
                 Console.Clear();
             }
         }
 
-        
+
+        private static List<uint> ReadFlagsFromFile()
+        {
+            var lines = File.ReadAllLines(@"C:\temp\flags.txt");
+            var flags = new List<uint>();
+            foreach (var line in lines)
+            {
+                if (uint.TryParse(line, out uint value))
+                {
+                    flags.Add(value);
+                }
+                else
+                {
+                    throw new Exception($"Failed to parse flag {line}");
+                }
+            }
+            return flags;
+        }
+
+
+
         private static void Testy()
         {
             Pointer bossKillCount;

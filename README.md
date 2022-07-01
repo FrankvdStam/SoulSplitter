@@ -55,5 +55,13 @@ I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been
 
 [![Alt jetbrainslogo](./jetbrains/jetbrains.svg)](https://www.jetbrains.com/?from=SoulSplitter)
 
+# build
+
+The .net build relies on some local files, all can be obtained by cloning livesplit.  
+
+Building soulinjectee can be done in the root directory of the repository. You can build it for 32 bit (DS1 PTDE & DS2 vanilla) or for 64 bit (all other soulsgames) - you need the right toolchain/target for each build respectively  
+64 bit: `cargo build --lib`  
+32 bit: `cargo build --lib --target=i686-pc-windows-msvc`  
+
 
 

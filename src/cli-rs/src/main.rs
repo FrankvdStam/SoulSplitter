@@ -71,7 +71,7 @@ fn testy()
     loop
     {
         process.refresh();
-        println!("{}", process.read_i32(0x7FF47B6C0200));
+        //println!("{}", process.read_i32(0x7FF47B6C0200));
     }
 }
 
