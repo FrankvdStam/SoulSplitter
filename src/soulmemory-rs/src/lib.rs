@@ -28,6 +28,9 @@ pub use eldenring::*;
 pub mod websocket;
 pub mod state;
 
+pub mod tas;
+pub use tas::*;
+
 pub use state::init_state;
 pub use state::set_event_flag_log_mode;
 pub use state::set_event_flag_exclusion;
@@ -54,6 +57,8 @@ pub fn init()
      unsafe
      {
           init_websocket_server();
+          hook_xinput();
+
 
           PROCESS = Some(Process::get_current_process().unwrap());
           let process = PROCESS.as_ref().unwrap();

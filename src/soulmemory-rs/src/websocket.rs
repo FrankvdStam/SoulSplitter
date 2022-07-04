@@ -156,6 +156,7 @@ pub struct Message
     pub DarkSouls3ReadEventFlagMessage: Option<DarkSouls3ReadEventFlagMessage>,
     pub EventFlagLogMode: i32,
     pub EventFlags: Vec<u32>,
+    pub TasInputsFilePath: String
 }
 
 #[allow(non_snake_case)]

@@ -8,6 +8,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:darkSouls3="clr-namespace:SoulSplitter.Splits.DarkSouls3"
+             xmlns:darkSouls3Memory="clr-namespace:SoulMemory.DarkSouls3;assembly=SoulMemory"
              xmlns:soulSplitter="clr-namespace:SoulSplitter"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:DarkSouls3ViewModel, IsDesignTimeCreatable=True}">
@@ -127,6 +128,12 @@
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
+            <ComboBoxItem Content="I level my character">
+                <ComboBoxItem.Tag>
+                    <darkSouls3:SplitType>Attribute</darkSouls3:SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
             <ComboBoxItem Content="I trigger a flag">
                 <ComboBoxItem.Tag>
                     <darkSouls3:SplitType>Flag</darkSouls3:SplitType>
@@ -207,6 +214,101 @@
             </ComboBox.ItemTemplate>
         </ui:FilteredComboBox>
 
+        <!-- Attributes -->
+        <StackPanel 
+            Orientation="Horizontal"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Visibility="{Binding NewSplitAttributeEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+
+            <ComboBox
+            Margin="5, 5, 5, 5"
+            Width="200"
+            SelectedValue="{Binding NewSplitValue.AttributeType}"
+            materialDesign:HintAssist.HelperText="which"
+            Visibility="{Binding NewSplitAttributeEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            SelectedValuePath="Tag"
+            IsEditable="True" 
+            IsTextSearchEnabled="False" 
+            StaysOpenOnEdit="True">
+
+                <ComboBoxItem Content="Vigor">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>Vigor</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Attunement">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>Attunement</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Endurance">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>Endurance</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Vitality">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>Vitality</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Strength">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>Strength</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Dexterity">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>Dexterity</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Intelligence">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>Intelligence</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Faith">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>Faith</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Luck">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>Luck</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="SoulLevel">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>SoulLevel</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Humanity">
+                    <ComboBoxItem.Tag>
+                        <darkSouls3Memory:Attribute>Humanity</darkSouls3Memory:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+
+            <TextBox
+            Margin="5, 5, 5, 5"
+            Width="200"
+            materialDesign:HintAssist.HelperText="Level"
+            Text="{Binding NewSplitValue.Level}"
+            />
+
+        </StackPanel>
+        
+
         <!-- Flag -->
         <TextBox
             Grid.Row="{StaticResource SplitTypeRow}"
@@ -216,8 +318,7 @@
             Text="{Binding NewSplitValue}"
             TextChanged="TextBoxRawFlag_OnTextChanged"
             materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding NewSplitFlagEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
-        />
+            Visibility="{Binding NewSplitFlagEnabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
         <!-- row ============================================================================================================================================================================================== -->
 

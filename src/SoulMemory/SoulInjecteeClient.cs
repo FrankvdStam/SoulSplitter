@@ -59,8 +59,7 @@ namespace SoulMemory
 
         public void Unload()
         {
-            var message = new Message();
-            message.MessageType = "unload";
+            var message = new Message("unload");
             Send(message);
             _clientWebSocket.Dispose();
             _clientWebSocket = null;
@@ -70,20 +69,38 @@ namespace SoulMemory
 
         public void EventFlagSetLogMode(EventFlagLogMode eventFlagLogMode)
         {
-            var message = new Message();
-            message.MessageType = "EventFlagSetLogMode";
+            var message = new Message("EventFlagSetLogMode");
             message.EventFlagLogMode = (int)eventFlagLogMode;
             Send(message);
         }
         
         public void EventFlagSetExclusions(List<uint> eventFlags)
         {
-            var message = new Message();
-            message.MessageType = "EventFlagSetExclusions";
+            var message = new Message("EventFlagSetExclusions");
             message.EventFlags = eventFlags;
             Send(message);
         }
 
+        #endregion
+
+        #region TAS
+
+        public void TasStart()
+        {
+            Send(new Message("TasStart"));
+        }
+
+        public void TasStop()
+        {
+            Send(new Message("TasStop"));
+        }
+
+        public void TasReadInputFromFile(string filepath)
+        {
+            var m = new Message("TasReadInputFromFile");
+            m.TasInputsFilePath = filepath;
+            Send(m);
+        }
         #endregion
     }
 
@@ -97,12 +114,18 @@ namespace SoulMemory
 
     public class Message
     {
+        public Message(string messageType)
+        {
+            MessageType = messageType;
+        }
+
         public string MessageType;
 
         public DarkSouls3ReadEventFlagMessage DarkSouls3ReadEventFlagMessage = null;
 
         public int EventFlagLogMode = 0;
         public List<uint> EventFlags = new List<uint>();
+        public string TasInputsFilePath =  "";
     }
 
     public class DarkSouls3ReadEventFlagMessage

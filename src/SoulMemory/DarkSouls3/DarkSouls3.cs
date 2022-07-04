@@ -5,6 +5,7 @@ using System.IO.Pipes;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using SoulMemory.Memory;
 using SoulMemory.Native;
@@ -18,6 +19,7 @@ namespace SoulMemory.DarkSouls3
 
         //private Pointer _menuMan = null;
         private Pointer _gameDataMan = null;
+        private Pointer _playerGameData = null;
         private Pointer _playerIns = null;
         //private Pointer _nowLoadingHelperImp = null;
         private Pointer _loading = null;
@@ -43,6 +45,8 @@ namespace SoulMemory.DarkSouls3
                     return false;
                 }
 
+
+                //Clear count: 0x78 -> likely subject to the same shift that happens to IGT offset
                 switch (GetVersion(v))
                 {
                     default:
@@ -65,8 +69,9 @@ namespace SoulMemory.DarkSouls3
                     //.ScanRelative("NowLoadingHelperImp", "48 8b 05 ? ? ? ? 80 78 4d 00 44 8b 8b d4 00 00 00 44 8b 83 d0 00 00 00 48 8b 93 c8 00 00 00 b9 0a 00 00 00 bf 58 02 00 00 0f 45 f9 48 8d 8b 80 00 00 00", 3, 7)
                     //    .CreatePointer(out _nowLoadingHelperImp, 0)
 
-                    .ScanRelative("IGT", "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20", 3, 7)
+                    .ScanRelative("GameDataMan", "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20", 3, 7)
                         .CreatePointer(out _gameDataMan, 0)
+                        .CreatePointer(out _playerGameData, 0, 0x10)
 
                     .ScanRelative("playerIns", "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70", 3, 7)
                         .CreatePointer(out _playerIns, 0, 0x80)
@@ -114,6 +119,7 @@ namespace SoulMemory.DarkSouls3
         private void ResetPointers()
         {
             _gameDataMan = null;
+            _playerGameData = null;
             _playerIns = null;
             _loading = null;
             _blackscreen = null;
@@ -190,6 +196,32 @@ namespace SoulMemory.DarkSouls3
             return _gameDataMan?.ReadInt32(_igtOffset) ?? 0;
         }
 
+
+        #region Read attributes
+
+        public int ReadAttribute(Attribute attribute)
+        {
+            if (_playerGameData == null || !IsPlayerLoaded())
+            {
+                return -1;
+            }
+
+            var a = _playerGameData.ReadInt32((long)attribute);
+            Thread.Sleep(1);
+            var b = _playerGameData.ReadInt32((long)attribute);
+            Thread.Sleep(1);
+            var c = _playerGameData.ReadInt32((long)attribute);
+
+            if (a == b && a == c)
+            {
+                return a;
+            }
+
+            return 0;
+        }
+
+
+        #endregion
 
         #region read event flags
 

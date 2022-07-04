@@ -5,24 +5,151 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using SoulMemory;
 using SoulMemory.DarkSouls2;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulMemory.Sekiro;
 using SoulMemory.Shared;
 using SoulSplitter.UI;
-
+using Newtonsoft.Json;
+using SoulMemory.DarkSouls3;
+using Attribute = SoulMemory.DarkSouls3.Attribute;
 
 #pragma warning disable CS0162
 
 namespace cli
 {
+    public enum XInputButton : ushort
+    {
+        DPAD_UP        = 0x0001,
+        DPAD_DOWN      = 0x0002,
+        DPAD_LEFT      = 0x0004,
+        DPAD_RIGHT     = 0x0008,
+        START          = 0x0010,
+        BACK           = 0x0020,
+        LEFT_THUMB     = 0x0040,
+        RIGHT_THUMB    = 0x0080,
+        LEFT_SHOULDER  = 0x0100,
+        RIGHT_SHOULDER = 0x0200,
+        A              = 0x1000,
+        B              = 0x2000,
+        X              = 0x4000,
+        Y              = 0x8000,
+    }
+
+    public class XInputGamepad
+    {
+        public ushort wButtons = 0;
+        public byte bLeftTrigger = 0;
+        public byte bRightTrigger = 0;
+        public short sThumbLX = 0;
+        public short sThumbLY = 0;
+        public short sThumbRX = 0;
+        public short sThumbRY = 0;
+    }
+
     internal class Program
     {
-        
+
         [STAThread]
         static void Main(string[] args)
         {
+
+            var ds3 = new DarkSouls3();
+            ds3.Refresh();
+            Stopwatch s = new Stopwatch();
+
+
+            while (true)
+            {
+                //Console.WriteLine(ds3.ReadAttribute(Attribute.Dexterity));
+
+
+                var val = ds3.ReadAttribute(Attribute.Dexterity);
+                Console.WriteLine(val);
+                if (val > 17)
+                {
+                    //Console.WriteLine(val);
+                    s.Start();
+                
+                    while (val == 17)
+                    {
+                        val = ds3.ReadAttribute(Attribute.Dexterity);
+                    }
+                    s.Stop();
+                    Console.WriteLine($"Detected 99, duration millis: {s.ElapsedMilliseconds}");
+                    s.Reset();
+                }
+
+            }
+
+
+            return;
+
+
+
+            var inputs = new List<XInputGamepad>();
+            for (int i = 0; i < 60; i++)
+            {
+                inputs.Add(new XInputGamepad(){sThumbRX = short.MaxValue});
+            }
+            for (int i = 0; i < 60; i++)
+            {
+                inputs.Add(new XInputGamepad() { sThumbRX = short.MinValue });
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                inputs.Add(new XInputGamepad() { wButtons = (ushort)XInputButton.B });
+            }
+
+            for (int i = 0; i < 30; i++)
+            {
+                inputs.Add(new XInputGamepad());
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                inputs.Add(new XInputGamepad() { wButtons = (ushort)XInputButton.B });
+            }
+
+            for (int i = 0; i < 60; i++)
+            {
+                inputs.Add(new XInputGamepad());
+            }
+
+            for(int i = 0; i < 5; i++)
+            {
+                inputs.Add(new XInputGamepad() { wButtons = (ushort)XInputButton.A });
+            }
+
+            for (int i = 0; i < 60; i++)
+            {
+                inputs.Add(new XInputGamepad());
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                inputs.Add(new XInputGamepad() { wButtons = (ushort)XInputButton.A });
+            }
+
+            for (int i = 0; i < 60; i++)
+            {
+                inputs.Add(new XInputGamepad());
+            }
+
+            var json = JsonConvert.SerializeObject(inputs, Formatting.Indented);
+            File.WriteAllText(@"C:\temp\tas_inputs.json", json);
+
+            var client = new SoulInjecteeClient();
+            client.TasReadInputFromFile(@"C:\temp\tas_inputs.json");
+            Thread.Sleep(1000);
+            client.TasStart();
+            return;
+
+
+
             var flags = ReadFlagsFromFile();
 
             DarkSouls2 darkSouls2 = new DarkSouls2();
@@ -142,7 +269,8 @@ namespace cli
         public static void Ds3TestPatterns()
         {
             var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables");
-            patternCounter.AddPattern("bonfireUnlock"   , "8B 13 48 83 C4 ? 5B E9 ? 54 ? ? ? BA");
+            patternCounter.AddPattern("bonfireUnlock"   , "48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 15 48 8b cb");
+            //patternCounter.AddPattern("bonfireUnlock"   , "8B 13 48 83 C4 ? 5B E9 ? 54 ? ? ? BA");
             //patternCounter.AddPattern("menuMan"         , "48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 0d ? ? ? ? 48 85 c9 74 33 e8 ? ? ? ? 48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03 33 d2 48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 5c 24 30 48 8b 74 24 38 48 83 c4 20 5f c3");
             //patternCounter.AddPattern("IGT"             , "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20");
             //patternCounter.AddPattern("playerIns"       , "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70");

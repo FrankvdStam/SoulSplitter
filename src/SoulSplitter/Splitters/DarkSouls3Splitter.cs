@@ -172,6 +172,19 @@ namespace SoulSplitter.Splitters
                             }
 
                             break;
+
+                        case SplitType.Attribute:
+                            var currentLevel = _darkSouls3.ReadAttribute(s.Attribute.AttributeType);
+                            if (!s.SplitConditionMet)
+                            {
+                                s.SplitConditionMet = currentLevel >= s.Attribute.Level;
+                            }
+
+                            if (s.SplitConditionMet)
+                            {
+                                ResolveSplitTiming(s);
+                            }
+                            break;
                     }
                 }
             }

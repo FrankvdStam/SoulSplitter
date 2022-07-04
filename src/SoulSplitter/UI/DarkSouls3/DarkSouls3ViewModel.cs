@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using SoulMemory.DarkSouls3;
 using SoulSplitter.Splits.DarkSouls3;
 using SoulSplitter.UI.DarkSouls3;
+using Attribute = SoulSplitter.Splits.DarkSouls3.Attribute;
 
 namespace SoulSplitter.UI.DarkSouls3
 {
@@ -73,6 +74,14 @@ namespace SoulSplitter.UI.DarkSouls3
                     }
                     break;
 
+                case SplitType.Attribute:
+                    var attribute = (Attribute)NewSplitValue;
+                    if (hierarchicalSplitType.Children.All(i => ((Attribute)i.Split).ToString() != attribute.ToString()))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = attribute, Parent = hierarchicalSplitType });
+                    }
+                    break;
+
                 case SplitType.Flag:
                     var flag = (uint)NewSplitValue;
                     if (hierarchicalSplitType.Children.All(i => (uint)i.Split != flag))
@@ -134,6 +143,7 @@ namespace SoulSplitter.UI.DarkSouls3
                 NewSplitBossEnabled       = false;
                 NewSplitBonfireEnabled    = false;
                 NewSplitItemPickupEnabled = false;
+                NewSplitAttributeEnabled  = false;
                 NewSplitFlagEnabled       = false;
 
                 SetField(ref _newSplitType, value);
@@ -152,6 +162,11 @@ namespace SoulSplitter.UI.DarkSouls3
 
                     case SplitType.ItemPickup:
                         NewSplitItemPickupEnabled = true;
+                        break;
+
+                    case SplitType.Attribute:
+                        NewSplitAttributeEnabled = true;
+                        NewSplitValue = new Attribute(){AttributeType = SoulMemory.DarkSouls3.Attribute.Vigor, Level = 10};
                         break;
 
                     case SplitType.Flag:
@@ -209,6 +224,14 @@ namespace SoulSplitter.UI.DarkSouls3
             set => SetField(ref _newSplitItemPickupEnabled, value);
         }
         private bool _newSplitItemPickupEnabled = false;
+
+        [XmlIgnore]
+        public bool NewSplitAttributeEnabled
+        {
+            get => _newSplitAttributeEnabled;
+            set => SetField(ref _newSplitAttributeEnabled, value);
+        }
+        private bool _newSplitAttributeEnabled = false;
 
         [XmlIgnore]
         public bool NewSplitFlagEnabled

@@ -1,0 +1,230 @@
+use std::ffi::c_void;
+use std::{fs, mem};
+use std::fmt::Error;
+use std::sync::{Mutex, TryLockResult};
+use detour::static_detour;
+use log::info;
+use winapi::shared::minwindef::{BYTE, DWORD, HMODULE, WORD};
+use winapi::shared::ntdef::{NULL, SHORT};
+use winapi::shared::winerror::ERROR_SUCCESS;
+use winapi::um::xinput;
+use winapi::um::xinput::XINPUT_STATE;
+use winapi::um::xinput::XINPUT_GAMEPAD;
+use serde::{Deserialize, Serialize};
+
+//Instead of fighting with winapi over *const i8, it is far easier to just defined these functions ourselves, and then we can just pass in a string without any memes.
+#[link(name = "kernel32")]
+#[no_mangle]
+extern "stdcall" {
+    //fn LoadLibraryA(lp_proc_name: *const u8) -> HMODULE;
+    fn GetProcAddress(h_module: *const c_void, lp_proc_name: *const u8) -> *const c_void;
+    fn GetModuleHandleA(lp_module_name: *const u8) -> HMODULE;
+}
+
+
+
+static_detour!{ static XInputGetStateDetour: fn(DWORD, *mut XINPUT_STATE) -> DWORD; }
+
+type XInputGetState = fn(dw_user_index: DWORD, p_state: *mut XINPUT_STATE) -> DWORD;
+
+pub fn hook_xinput()
+{
+    unsafe
+    {
+        {
+            let hmodule = GetModuleHandleA("xinput1_3.dll\0".as_ptr());
+            if hmodule != NULL as HMODULE
+            {
+                let address = GetProcAddress(hmodule as *const c_void, "XInputGetState\0".as_ptr());
+                info!("xinput 1_3 address 0x{:x}", address as u64);
+                let original_func: XInputGetState = mem::transmute(address);
+                XInputGetStateDetour.initialize(original_func, xinput_get_state_detour).unwrap().enable().unwrap();
+                return;
+            }
+        }
+
+        {
+            let hmodule = GetModuleHandleA("xinput1_4.dll\0".as_ptr());
+            if hmodule != NULL as HMODULE
+            {
+                let address = GetProcAddress(hmodule as *const c_void, "XInputGetState\0".as_ptr());
+                info!("xinput 1_4 address 0x{:x}", address as u64);
+                let original_func: XInputGetState = mem::transmute(address);
+                XInputGetStateDetour.initialize(original_func, xinput_get_state_detour).unwrap().enable().unwrap();
+                return;
+            }
+        }
+
+        {
+            let hmodule = GetModuleHandleA("xinput9_1_0.dll\0".as_ptr());
+            if hmodule != NULL as HMODULE
+            {
+                let address = GetProcAddress(hmodule as *const c_void, "XInputGetState\0".as_ptr());
+                info!("xinput 9_1_0 address 0x{:x}", address as u64);
+                let original_func: XInputGetState = mem::transmute(address);
+                XInputGetStateDetour.initialize(original_func, xinput_get_state_detour).unwrap().enable().unwrap();
+                return;
+            }
+        }
+    }
+}
+
+fn xinput_get_state_detour(dw_user_index: DWORD, p_state: *mut XINPUT_STATE) -> DWORD
+{
+    if dw_user_index != 0
+    {
+        //Forward the call to xinput, to restore controller functionality
+        return XInputGetStateDetour.call(dw_user_index, p_state);
+    }
+
+    unsafe
+    {
+        match TAS_STATE
+        {
+            TasState::Stopped =>
+            {
+                //0 initialize, in case the caller does not.
+                (*p_state).dwPacketNumber = 0;
+                (*p_state).Gamepad.wButtons = 0;
+                (*p_state).Gamepad.bLeftTrigger = 0;
+                (*p_state).Gamepad.bRightTrigger = 0;
+                (*p_state).Gamepad.sThumbLX = 0;
+                (*p_state).Gamepad.sThumbLY = 0;
+                (*p_state).Gamepad.sThumbRX = 0;
+                (*p_state).Gamepad.sThumbRY = 0;
+
+                //Forward the call to xinput, to restore controller functionality
+                let res = XInputGetStateDetour.call(dw_user_index, p_state);
+                //info!("wButtons: {}", (*p_state).Gamepad.wButtons);
+                return res;
+            }
+
+            TasState::Running =>
+            {
+                match INPUTS.try_lock()
+                {
+                    Ok(inputs) =>
+                    {
+                        if TAS_INPUT_INDEX < inputs.len()
+                        {
+                            (*p_state).dwPacketNumber = 0;
+                            (*p_state).Gamepad.wButtons = inputs[TAS_INPUT_INDEX].wButtons;
+                            (*p_state).Gamepad.bLeftTrigger  = inputs[TAS_INPUT_INDEX].bLeftTrigger;
+                            (*p_state).Gamepad.bRightTrigger = inputs[TAS_INPUT_INDEX].bRightTrigger;
+                            (*p_state).Gamepad.sThumbLX = inputs[TAS_INPUT_INDEX].sThumbLX;
+                            (*p_state).Gamepad.sThumbLY = inputs[TAS_INPUT_INDEX].sThumbLY;
+                            (*p_state).Gamepad.sThumbRX = inputs[TAS_INPUT_INDEX].sThumbRX;
+                            (*p_state).Gamepad.sThumbRY = inputs[TAS_INPUT_INDEX].sThumbRY;
+
+                            TAS_INPUT_INDEX += 1;
+                            return ERROR_SUCCESS;
+                        }
+                        else
+                        {
+                            tas_stop();
+                            return ERROR_SUCCESS;
+                        }
+                    }
+                    Err(_) =>
+                    {
+                        info!("Failed to get inputs lock");
+                    },
+                }
+
+                //0 initialize, in case the caller does not.
+                (*p_state).dwPacketNumber = 0;
+                (*p_state).Gamepad.wButtons = 0;
+                (*p_state).Gamepad.bLeftTrigger = 0;
+                (*p_state).Gamepad.bRightTrigger = 0;
+                (*p_state).Gamepad.sThumbLX = 0;
+                (*p_state).Gamepad.sThumbLY = 0;
+                (*p_state).Gamepad.sThumbRX = 0;
+                (*p_state).Gamepad.sThumbRY = 0;
+
+                return ERROR_SUCCESS;
+            }
+        }
+    }
+}
+
+
+//Managing inputs from the websocket =================================================================================================================================================
+
+static mut TAS_STATE: TasState = TasState::Stopped;
+static mut TAS_INPUT_INDEX: usize = 0;
+
+lazy_static::lazy_static! {
+    static ref INPUTS: Mutex<Vec<XInputGamepad >> = Mutex::new(Vec::new());
+}
+
+pub fn tas_read_inputs_from_file(filepath: &str) -> Result<(), String>
+{
+    match INPUTS.try_lock()
+    {
+        Ok(mut inputs) =>
+        {
+            inputs.clear();
+            match fs::read_to_string(filepath)
+            {
+                Ok(json) =>
+                {
+                    match serde_json::from_str::<Vec<XInputGamepad>>(json.as_str())
+                    {
+                        Ok(inputs_from_file) =>
+                        {
+                            for r in inputs_from_file
+                            {
+                                inputs.push(r);
+                            }
+                            info!("Read {} inputs from file", inputs.len());
+                            Ok(())
+                        },
+                        Err(e) => Err(format!("Failed to parse json {}", e))
+                    }
+                },
+                Err(e) => Err(format!("Failed to read file {}", e))
+            }
+        }
+        Err(_) => Err(String::from("Failed to obtain lock"))
+    }
+}
+
+pub fn tas_start()
+{
+    unsafe
+    {
+        info!("Starting TAS");
+
+        TAS_STATE = TasState::Running;
+        TAS_INPUT_INDEX = 0;
+    }
+}
+
+pub fn tas_stop()
+{
+    unsafe
+    {
+        TAS_STATE = TasState::Stopped;
+        TAS_INPUT_INDEX = 0;
+        info!("Stopped TAS");
+    }
+}
+
+enum TasState
+{
+    Running,
+    Stopped,
+}
+
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize)]
+struct XInputGamepad
+{
+    wButtons: WORD,
+    bLeftTrigger: BYTE,
+    bRightTrigger: BYTE,
+    sThumbLX: SHORT,
+    sThumbLY: SHORT,
+    sThumbRX: SHORT,
+    sThumbRY: SHORT,
+}

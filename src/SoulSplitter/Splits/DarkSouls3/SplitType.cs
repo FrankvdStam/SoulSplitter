@@ -12,6 +12,7 @@ namespace SoulSplitter.Splits.DarkSouls3
         Boss,
         Bonfire,
         ItemPickup,
+        Attribute,
         Flag,
     }
 }
