@@ -21,6 +21,7 @@ namespace SoulMemory.DarkSouls3
         private Pointer _gameDataMan = null;
         private Pointer _playerGameData = null;
         private Pointer _playerIns = null;
+        private Pointer _newMenuSystem = null;
         //private Pointer _nowLoadingHelperImp = null;
         private Pointer _loading = null;
         private Pointer _blackscreen = null;
@@ -68,6 +69,9 @@ namespace SoulMemory.DarkSouls3
 
                     //.ScanRelative("NowLoadingHelperImp", "48 8b 05 ? ? ? ? 80 78 4d 00 44 8b 8b d4 00 00 00 44 8b 83 d0 00 00 00 48 8b 93 c8 00 00 00 b9 0a 00 00 00 bf 58 02 00 00 0f 45 f9 48 8d 8b 80 00 00 00", 3, 7)
                     //    .CreatePointer(out _nowLoadingHelperImp, 0)
+
+                    .ScanRelative("NewMenuSystem", "48 8b 0d ? ? ? ? 48 8b 7c 24 20 48 8b 5c 24 30 48 85 c9", 3, 7)
+                        .CreatePointer(out _newMenuSystem, 0)
 
                     .ScanRelative("GameDataMan", "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20", 3, 7)
                         .CreatePointer(out _gameDataMan, 0)
@@ -201,23 +205,12 @@ namespace SoulMemory.DarkSouls3
 
         public int ReadAttribute(Attribute attribute)
         {
-            if (_playerGameData == null || !IsPlayerLoaded())
+            if (_playerGameData != null && _newMenuSystem != null && IsPlayerLoaded() && _newMenuSystem.ReadInt32(0x88) != 3)
             {
-                return -1;
+                return _playerGameData.ReadInt32((long)attribute);
             }
 
-            var a = _playerGameData.ReadInt32((long)attribute);
-            Thread.Sleep(1);
-            var b = _playerGameData.ReadInt32((long)attribute);
-            Thread.Sleep(1);
-            var c = _playerGameData.ReadInt32((long)attribute);
-
-            if (a == b && a == c)
-            {
-                return a;
-            }
-
-            return 0;
+            return -1;
         }
 
 

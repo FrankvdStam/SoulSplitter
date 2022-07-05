@@ -55,7 +55,6 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-
             var ds3 = new DarkSouls3();
             ds3.Refresh();
             Stopwatch s = new Stopwatch();
@@ -269,7 +268,8 @@ namespace cli
         public static void Ds3TestPatterns()
         {
             var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables");
-            patternCounter.AddPattern("bonfireUnlock"   , "48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 15 48 8b cb");
+            patternCounter.AddPattern("NewMenuSystem"   , "48 8b 0d ? ? ? ? 48 8b 7c 24 20 48 8b 5c 24 30 48 85 c9");
+            //patternCounter.AddPattern("bonfireUnlock"   , "48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 15 48 8b cb");
             //patternCounter.AddPattern("bonfireUnlock"   , "8B 13 48 83 C4 ? 5B E9 ? 54 ? ? ? BA");
             //patternCounter.AddPattern("menuMan"         , "48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 0d ? ? ? ? 48 85 c9 74 33 e8 ? ? ? ? 48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03 33 d2 48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 5c 24 30 48 8b 74 24 38 48 83 c4 20 5f c3");
             //patternCounter.AddPattern("IGT"             , "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20");
