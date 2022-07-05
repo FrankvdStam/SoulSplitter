@@ -134,13 +134,8 @@ namespace SoulSplitter.Splitters
                 case TimerState.WaitForStart:
                     if (_startAutomatically)
                     {
-                        if (!_timerStarted)
-                        {
-                            var igt = _eldenRing.GetInGameTimeMilliseconds();
-                            _timerStarted = igt > 0 && igt < 150;
-                        }
-
-                        if (_timerStarted && _eldenRing.InitialLoadRemoval())
+                        var igt = _eldenRing.GetInGameTimeMilliseconds();
+                        if (igt > 0 && igt < 150)
                         {
                             _eldenRing.ResetIgt();
                             StartTimer();

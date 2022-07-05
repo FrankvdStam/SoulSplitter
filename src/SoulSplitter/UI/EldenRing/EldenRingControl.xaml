@@ -94,7 +94,7 @@
         <CheckBox
             Grid.Row="{StaticResource StartAutomaticallyRow}"
             Margin="5"
-            Content="Start automatically with initial black screen removal" 
+            Content="Start automatically" 
             IsChecked="{Binding StartAutomatically}"/>
 
         <!-- row ============================================================================================================================================================================================== -->

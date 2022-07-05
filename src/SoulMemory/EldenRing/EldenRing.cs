@@ -23,18 +23,14 @@ namespace SoulMemory.EldenRing
         private Pointer _playerIns;
         private Pointer _playerGameData;
         private Pointer _inventory;
-        //private Pointer _playerChrPhysicsModule;
         private Pointer _menuManImp;
         private Pointer _igtFix;
         private Pointer _virtualMemoryFlag;
-        //private Pointer _mapId;
-        //private Pointer _noLogo;
 
         private long _screenStateOffset;
         private long _blackScreenOffset;
         private long _positionOffset;
         private long _mapIdOffset;
-        private int _initialBlackscreenValue;
         
         public EldenRing(bool applyIgtFix = true)
         {
@@ -70,7 +66,6 @@ namespace SoulMemory.EldenRing
                         _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
-                        _initialBlackscreenValue = 16;
                         break;
 
                     case EldenRingVersion.V102:
@@ -78,7 +73,6 @@ namespace SoulMemory.EldenRing
                         _blackScreenOffset = 0x71c;
                         _positionOffset = 0x6b8;
                         _mapIdOffset = 0x6c8;
-                        _initialBlackscreenValue = 16;
                         break;
 
                     case EldenRingVersion.V103:
@@ -86,7 +80,6 @@ namespace SoulMemory.EldenRing
                         _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6b8;
                         _mapIdOffset = 0x6c8;
-                        _initialBlackscreenValue = 16;
                         break;
 
                     case EldenRingVersion.V104:
@@ -94,7 +87,6 @@ namespace SoulMemory.EldenRing
                         _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
-                        _initialBlackscreenValue = 16;
                         break;
 
                     case EldenRingVersion.V105:
@@ -102,7 +94,6 @@ namespace SoulMemory.EldenRing
                         _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
-                        _initialBlackscreenValue = 17;
                         break;
                 }
 
@@ -159,13 +150,11 @@ namespace SoulMemory.EldenRing
             _igt = null;
             _hud = null;
             _playerIns = null;
-            //_playerChrPhysicsModule = null;
             _menuManImp = null;
             _igtFix = null;
             _playerGameData = null;
             _inventory = null;
             _virtualMemoryFlag = null;
-            //_noLogo = null;
         }
 
         #endregion
@@ -263,23 +252,11 @@ namespace SoulMemory.EldenRing
             }
             return ScreenState.Unknown;
         }
-
-        //public int GetBlackScreenFlag()
-        //{
-        //    return _menuManImp?.ReadInt32(_blackScreenOffset) ?? 0;
-        //}
         
-        private bool NoCutsceneOrBlackscreen()
-        {
-            var flag = _menuManImp?.ReadInt32(_blackScreenOffset);
-            return flag.HasValue && flag.Value == _initialBlackscreenValue;
-        }
-
+       
         private bool _pointersInitialized = false;
         private DateTime _requestInit;
         private readonly TimeSpan _initDelay = TimeSpan.FromSeconds(5);
-
-        
 
 
         public bool IsBlackscreenActive()
@@ -337,53 +314,7 @@ namespace SoulMemory.EldenRing
 
         public int GetTestValue()
         {
-            if (_menuManImp == null)
-            {
-                return 0;
-            }
-
-
-            var screenState = GetScreenState();
-            var flag = _menuManImp.ReadInt32(0x18);
-            //010101 -> IG
-            //010000 -> cutscene
-            //010001 -> blackscreen
-
-            var t = flag & 0x1;
-            var thing = flag >> 8 & 0x1;
-
-            if (screenState == ScreenState.InGame)
-            {
-                if (
-                    (flag       & 0x1) == 1 &&
-                    (flag >> 8  & 0x1) == 0 &&
-                    (flag >> 16 & 0x1) == 1
-                   )
-                {
-                    return 0;
-                }
-                else
-                {
-                    return 1;
-                }
-            }
             return 0;
-
-            //if (
-            //    screenState == ScreenState.InGame &&
-            //    (flag       & 0x1) == 1 && 
-            //    (flag >> 8  & 0x1) == 0 &&
-            //    (flag >> 16 & 0x1) == 1 
-            //    )
-            //{
-            //    return 1;
-            //}
-            //
-            ////if (screenState == ScreenState.InGame && flag == 65793)
-            ////{
-            ////    return 1;
-            ////}
-            //return 0;
         }
 
         public bool Attached => _process != null;
@@ -658,8 +589,6 @@ namespace SoulMemory.EldenRing
             return IsPlayerLoaded() && GetScreenState() == ScreenState.InGame;
         }
         
-        public bool InitialLoadRemoval() => NoCutsceneOrBlackscreen();
-
         public void ResetIgt()
         {
             _igt?.WriteInt32(0);
