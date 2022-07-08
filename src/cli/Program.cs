@@ -55,36 +55,6 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            var ds3 = new DarkSouls3();
-            ds3.Refresh();
-            Stopwatch s = new Stopwatch();
-
-
-            while (true)
-            {
-                //Console.WriteLine(ds3.ReadAttribute(Attribute.Dexterity));
-
-
-                var val = ds3.ReadAttribute(Attribute.Dexterity);
-                Console.WriteLine(val);
-                if (val > 17)
-                {
-                    //Console.WriteLine(val);
-                    s.Start();
-                
-                    while (val == 17)
-                    {
-                        val = ds3.ReadAttribute(Attribute.Dexterity);
-                    }
-                    s.Stop();
-                    Console.WriteLine($"Detected 99, duration millis: {s.ElapsedMilliseconds}");
-                    s.Reset();
-                }
-
-            }
-
-
-            return;
 
 
 

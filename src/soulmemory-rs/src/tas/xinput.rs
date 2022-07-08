@@ -83,46 +83,39 @@ fn xinput_get_state_detour(dw_user_index: DWORD, p_state: *mut XINPUT_STATE) -> 
         {
             TasState::Stopped =>
             {
-                //0 initialize, in case the caller does not.
-                (*p_state).dwPacketNumber = 0;
-                (*p_state).Gamepad.wButtons = 0;
-                (*p_state).Gamepad.bLeftTrigger = 0;
-                (*p_state).Gamepad.bRightTrigger = 0;
-                (*p_state).Gamepad.sThumbLX = 0;
-                (*p_state).Gamepad.sThumbLY = 0;
-                (*p_state).Gamepad.sThumbRX = 0;
-                (*p_state).Gamepad.sThumbRY = 0;
-
                 //Forward the call to xinput, to restore controller functionality
-                let res = XInputGetStateDetour.call(dw_user_index, p_state);
-                //info!("wButtons: {}", (*p_state).Gamepad.wButtons);
-                return res;
+                return  XInputGetStateDetour.call(dw_user_index, p_state);
             }
 
             TasState::Running =>
             {
                 match INPUTS.try_lock()
                 {
-                    Ok(inputs) =>
+                    Ok(mut inputs) =>
                     {
                         if TAS_INPUT_INDEX < inputs.len()
                         {
-                            (*p_state).dwPacketNumber = 0;
-                            (*p_state).Gamepad.wButtons = inputs[TAS_INPUT_INDEX].wButtons;
-                            (*p_state).Gamepad.bLeftTrigger  = inputs[TAS_INPUT_INDEX].bLeftTrigger;
-                            (*p_state).Gamepad.bRightTrigger = inputs[TAS_INPUT_INDEX].bRightTrigger;
-                            (*p_state).Gamepad.sThumbLX = inputs[TAS_INPUT_INDEX].sThumbLX;
-                            (*p_state).Gamepad.sThumbLY = inputs[TAS_INPUT_INDEX].sThumbLY;
-                            (*p_state).Gamepad.sThumbRX = inputs[TAS_INPUT_INDEX].sThumbRX;
-                            (*p_state).Gamepad.sThumbRY = inputs[TAS_INPUT_INDEX].sThumbRY;
+                            (*p_state).dwPacketNumber           = 0;
+                            (*p_state).Gamepad.wButtons         = inputs[TAS_INPUT_INDEX].wButtons;
+                            (*p_state).Gamepad.bLeftTrigger     = inputs[TAS_INPUT_INDEX].bLeftTrigger;
+                            (*p_state).Gamepad.bRightTrigger    = inputs[TAS_INPUT_INDEX].bRightTrigger;
+                            (*p_state).Gamepad.sThumbLX         = inputs[TAS_INPUT_INDEX].sThumbLX;
+                            (*p_state).Gamepad.sThumbLY         = inputs[TAS_INPUT_INDEX].sThumbLY;
+                            (*p_state).Gamepad.sThumbRX         = inputs[TAS_INPUT_INDEX].sThumbRX;
+                            (*p_state).Gamepad.sThumbRY         = inputs[TAS_INPUT_INDEX].sThumbRY;
 
-                            TAS_INPUT_INDEX += 1;
+                            inputs[TAS_INPUT_INDEX].Index += 1;
+                            if inputs[TAS_INPUT_INDEX].Index >= inputs[TAS_INPUT_INDEX].Count
+                            {
+                                TAS_INPUT_INDEX += 1;
+                            }
                             return ERROR_SUCCESS;
                         }
                         else
                         {
                             tas_stop();
-                            return ERROR_SUCCESS;
+                            //Don't return here, because the object has not been zero-ed.
+                            //return ERROR_SUCCESS;
                         }
                     }
                     Err(_) =>
@@ -179,7 +172,7 @@ pub fn tas_read_inputs_from_file(filepath: &str) -> Result<(), String>
                             info!("Read {} inputs from file", inputs.len());
                             Ok(())
                         },
-                        Err(e) => Err(format!("Failed to parse json {}", e))
+                        Err(e) => Err(format!("Failed to parse json {:?} - {}", e, json))
                     }
                 },
                 Err(e) => Err(format!("Failed to read file {}", e))
@@ -206,6 +199,20 @@ pub fn tas_stop()
     {
         TAS_STATE = TasState::Stopped;
         TAS_INPUT_INDEX = 0;
+
+        match INPUTS.try_lock()
+        {
+            Ok(mut inputs) =>
+            {
+                for i in 0..inputs.len()
+                {
+                    inputs[i].Index = 0;
+                }
+            }
+            _ => {}
+        }
+
+
         info!("Stopped TAS");
     }
 }
@@ -227,4 +234,67 @@ struct XInputGamepad
     sThumbLY: SHORT,
     sThumbRX: SHORT,
     sThumbRY: SHORT,
+    Count: i32,
+    Index: i32,
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::xinput::XInputGamepad;
+
+    #[test]
+    fn deserialize()
+    {
+        let json = r#"
+           [
+              {
+                "wButtons": 4096,
+                "bLeftTrigger": 0,
+                "bRightTrigger": 0,
+                "sThumbLX": 1884,
+                "sThumbLY": -671,
+                "sThumbRX": 841,
+                "sThumbRY": 526,
+                "Count": 1,
+                "Index": 0
+              },
+              {
+                "wButtons": 0,
+                "bLeftTrigger": 0,
+                "bRightTrigger": 0,
+                "sThumbLX": 1821,
+                "sThumbLY": -570,
+                "sThumbRX": 841,
+                "sThumbRY": 469,
+                "Count": 60,
+                "Index": 0
+              },
+              {
+                "wButtons": 2,
+                "bLeftTrigger": 0,
+                "bRightTrigger": 0,
+                "sThumbLX": 1821,
+                "sThumbLY": -570,
+                "sThumbRX": 841,
+                "sThumbRY": 469,
+                "Count": 1,
+                "Index": 0
+              }
+            ]"#;
+
+        let mut result = Vec::new();
+        match serde_json::from_str::<Vec<XInputGamepad>>(json)
+        {
+            Ok(list) =>
+            {
+                for r in list
+                {
+                    result.push(r);
+                }
+            },
+            Err(e) => println!("Failed to parse json {:?}", e)
+        }
+
+        assert_eq!(result.len(), 3);
+    }
 }
