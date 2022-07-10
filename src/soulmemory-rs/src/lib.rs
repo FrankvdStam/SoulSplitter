@@ -4,6 +4,8 @@
 #![feature(core_intrinsics)]
 #![allow(unused_imports)]
 
+extern crate core;
+
 mod native;
 mod memory;
 

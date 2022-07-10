@@ -158,7 +158,7 @@ fn main_loop()
 
                         "TasReadInputFromFile" =>
                         {
-                            tas_read_inputs_from_file(message.TasInputsFilePath.as_str());
+                            tas_read_inputs_from_file(message.TasInputsFilePath.as_str()).unwrap();
                         }
 
                         _ => info!("unsupported message type {}", message_type),

@@ -14,7 +14,6 @@ use serde::{Deserialize, Serialize};
 
 //Instead of fighting with winapi over *const i8, it is far easier to just defined these functions ourselves, and then we can just pass in a string without any memes.
 #[link(name = "kernel32")]
-#[no_mangle]
 extern "stdcall" {
     //fn LoadLibraryA(lp_proc_name: *const u8) -> HMODULE;
     fn GetProcAddress(h_module: *const c_void, lp_proc_name: *const u8) -> *const c_void;
@@ -69,6 +68,21 @@ pub fn hook_xinput()
     }
 }
 
+fn set_xinput_state_zero(p_state: *mut XINPUT_STATE)
+{
+    unsafe
+    {
+        (*p_state).dwPacketNumber = 0;
+        (*p_state).Gamepad.wButtons = 0;
+        (*p_state).Gamepad.bLeftTrigger = 0;
+        (*p_state).Gamepad.bRightTrigger = 0;
+        (*p_state).Gamepad.sThumbLX = 0;
+        (*p_state).Gamepad.sThumbLY = 0;
+        (*p_state).Gamepad.sThumbRX = 0;
+        (*p_state).Gamepad.sThumbRY = 0;
+    }
+}
+
 fn xinput_get_state_detour(dw_user_index: DWORD, p_state: *mut XINPUT_STATE) -> DWORD
 {
     if dw_user_index != 0
@@ -95,18 +109,34 @@ fn xinput_get_state_detour(dw_user_index: DWORD, p_state: *mut XINPUT_STATE) -> 
                     {
                         if TAS_INPUT_INDEX < inputs.len()
                         {
-                            (*p_state).dwPacketNumber           = 0;
-                            (*p_state).Gamepad.wButtons         = inputs[TAS_INPUT_INDEX].wButtons;
-                            (*p_state).Gamepad.bLeftTrigger     = inputs[TAS_INPUT_INDEX].bLeftTrigger;
-                            (*p_state).Gamepad.bRightTrigger    = inputs[TAS_INPUT_INDEX].bRightTrigger;
-                            (*p_state).Gamepad.sThumbLX         = inputs[TAS_INPUT_INDEX].sThumbLX;
-                            (*p_state).Gamepad.sThumbLY         = inputs[TAS_INPUT_INDEX].sThumbLY;
-                            (*p_state).Gamepad.sThumbRX         = inputs[TAS_INPUT_INDEX].sThumbRX;
-                            (*p_state).Gamepad.sThumbRY         = inputs[TAS_INPUT_INDEX].sThumbRY;
+                            //Should the TAS be giving inputs
+                            let should_input = inputs[TAS_INPUT_INDEX].Index < inputs[TAS_INPUT_INDEX].Count;
+
+                            //Is the requested waiting period active?
+                            let should_waiting = inputs[TAS_INPUT_INDEX].Index >= inputs[TAS_INPUT_INDEX].Count && inputs[TAS_INPUT_INDEX].Index < inputs[TAS_INPUT_INDEX].Count + inputs[TAS_INPUT_INDEX].Wait;
+
+
+                            if should_input
+                            {
+                                (*p_state).dwPacketNumber           = 0;
+                                (*p_state).Gamepad.wButtons         = inputs[TAS_INPUT_INDEX].wButtons;
+                                (*p_state).Gamepad.bLeftTrigger     = inputs[TAS_INPUT_INDEX].bLeftTrigger;
+                                (*p_state).Gamepad.bRightTrigger    = inputs[TAS_INPUT_INDEX].bRightTrigger;
+                                (*p_state).Gamepad.sThumbLX         = inputs[TAS_INPUT_INDEX].sThumbLX;
+                                (*p_state).Gamepad.sThumbLY         = inputs[TAS_INPUT_INDEX].sThumbLY;
+                                (*p_state).Gamepad.sThumbRX         = inputs[TAS_INPUT_INDEX].sThumbRX;
+                                (*p_state).Gamepad.sThumbRY         = inputs[TAS_INPUT_INDEX].sThumbRY;
+                            }
+
+                            if should_waiting
+                            {
+                                set_xinput_state_zero(p_state);
+                            }
 
                             inputs[TAS_INPUT_INDEX].Index += 1;
-                            if inputs[TAS_INPUT_INDEX].Index >= inputs[TAS_INPUT_INDEX].Count
+                            if inputs[TAS_INPUT_INDEX].Index >= inputs[TAS_INPUT_INDEX].Count + inputs[TAS_INPUT_INDEX].Wait
                             {
+                                inputs[TAS_INPUT_INDEX].Index = 0; //reset index
                                 TAS_INPUT_INDEX += 1;
                             }
                             return ERROR_SUCCESS;
@@ -125,15 +155,7 @@ fn xinput_get_state_detour(dw_user_index: DWORD, p_state: *mut XINPUT_STATE) -> 
                 }
 
                 //0 initialize, in case the caller does not.
-                (*p_state).dwPacketNumber = 0;
-                (*p_state).Gamepad.wButtons = 0;
-                (*p_state).Gamepad.bLeftTrigger = 0;
-                (*p_state).Gamepad.bRightTrigger = 0;
-                (*p_state).Gamepad.sThumbLX = 0;
-                (*p_state).Gamepad.sThumbLY = 0;
-                (*p_state).Gamepad.sThumbRX = 0;
-                (*p_state).Gamepad.sThumbRY = 0;
-
+                set_xinput_state_zero(p_state);
                 return ERROR_SUCCESS;
             }
         }
@@ -211,8 +233,6 @@ pub fn tas_stop()
             }
             _ => {}
         }
-
-
         info!("Stopped TAS");
     }
 }
@@ -234,8 +254,9 @@ struct XInputGamepad
     sThumbLY: SHORT,
     sThumbRX: SHORT,
     sThumbRY: SHORT,
-    Count: i32,
-    Index: i32,
+    Count: u32,
+    Wait: u32,
+    Index: u32,
 }
 
 #[cfg(test)]
