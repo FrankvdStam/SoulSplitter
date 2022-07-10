@@ -106,8 +106,7 @@ namespace SoulSplitter.Splitters
 
         private void StartTimer()
         {
-            //Set the state of the timer to running, but only start the RTA stopwatch if we're in game
-            //IGT will automatically stop if we're no in game
+            _liveSplitState.IsGameTimePaused = true;
             _timerState = TimerState.Running;
             _eldenRing.EnableHud();
         }
