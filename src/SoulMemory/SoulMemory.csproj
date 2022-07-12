@@ -75,6 +75,7 @@
     <Compile Include="DarkSouls2\Scholar\DarkSouls2.cs" />
     <Compile Include="DarkSouls2\Vanilla\DarkSouls2.cs" />
     <Compile Include="DarkSouls2\WarpType.cs" />
+    <Compile Include="DarkSouls3\Attributes.cs" />
     <Compile Include="DarkSouls3\Bonfire.cs" />
     <Compile Include="DarkSouls3\Boss.cs" />
     <Compile Include="DarkSouls3\DarkSouls3.cs" />

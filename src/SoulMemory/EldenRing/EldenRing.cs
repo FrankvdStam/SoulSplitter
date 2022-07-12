@@ -21,6 +21,7 @@ namespace SoulMemory.EldenRing
         private Pointer _igt;
         private Pointer _hud;
         private Pointer _playerIns;
+        private Pointer _padManipulator;
         private Pointer _playerGameData;
         private Pointer _inventory;
         private Pointer _menuManImp;
@@ -106,12 +107,7 @@ namespace SoulMemory.EldenRing
 
                     //WorldChrManImp  
                     .ScanRelative("WorldChrManImp", "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7", 3, 7)
-                        .CreatePointer(out _playerIns, 0, 0x18468)
-                        .CreatePointer(out _playerGameData, 0, 0x18468, 0x570)
-                        .CreatePointer(out _inventory, 0, 0x18468, 0x570, 0x5B8, 0x10, 0x0)
-                    //.CreatePointer(out _mapId           , 0, 0x18468, 0x6c0)
-                    //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
-
+                        //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
                     ////FieldArea
                     //.ScanRelative("FieldArea", "48 8B 0D ?? ?? ?? ?? 48 ?? ?? ?? 44 0F B6 61 ?? E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 48 ?? ?? ?? 48 85 C0", 3, 7)
                     //    .CreatePointer(out _mapId, 0, 0x190) //hitins, has map area

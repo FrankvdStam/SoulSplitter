@@ -82,6 +82,7 @@ namespace SoulSplitter.UI.DarkSouls3
     [XmlInclude(typeof(Boss)),
      XmlInclude(typeof(Bonfire)), 
      XmlInclude(typeof(ItemPickup)), 
+     XmlInclude(typeof(Splits.DarkSouls3.Attribute)), 
      XmlInclude(typeof(uint))]
     public class HierarchicalSplitViewModel : INotifyPropertyChanged
     {

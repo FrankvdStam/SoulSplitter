@@ -5,7 +5,7 @@ use winapi::um::winnt::{DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 use std::{fs, panic, thread};
 use std::time::Duration;
 use soulmemory_rs;
-use soulmemory_rs::{Config, darksouls3, error, info, init_config, init_state, LevelFilter, serde_json, set_event_flag_exclusion, set_event_flag_log_mode};
+use soulmemory_rs::{Config, darksouls3, error, info, init_config, init_state, LevelFilter, serde_json, set_event_flag_exclusion, set_event_flag_log_mode, tas_read_inputs_from_file, tas_start, tas_stop};
 use soulmemory_rs::append::console::ConsoleAppender;
 use soulmemory_rs::append::file::FileAppender;
 use soulmemory_rs::config::{Appender, Logger, Root};
@@ -143,6 +143,23 @@ fn main_loop()
                         {
                             set_event_flag_exclusion(message.EventFlags);
                         },
+
+
+                        //TAS ============================================================================================================
+                        "TasStart" =>
+                        {
+                            tas_start();
+                        }
+
+                        "TasStop" =>
+                        {
+                            tas_stop();
+                        }
+
+                        "TasReadInputFromFile" =>
+                        {
+                            tas_read_inputs_from_file(message.TasInputsFilePath.as_str()).unwrap();
+                        }
 
                         _ => info!("unsupported message type {}", message_type),
                     }

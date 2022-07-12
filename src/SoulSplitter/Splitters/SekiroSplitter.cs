@@ -56,7 +56,7 @@ namespace SoulSplitter.Splitters
             Exception = !_sekiro.Refresh(out Exception e) ? e : null;
             
             _sekiroViewModel.CurrentPosition = _sekiro.GetPlayerPosition();
-            
+
             UpdateTimer();
 
             UpdateAutoSplitter();
@@ -71,6 +71,12 @@ namespace SoulSplitter.Splitters
         
         private void StartTimer()
         {
+            if (_sekiroViewModel.OverwriteIgtOnStart)
+            {
+                _sekiro.WriteInGameTimeMilliseconds(0);
+            }
+
+            _liveSplitState.IsGameTimePaused = true;
             _timerState = TimerState.Running;
             _inGameTime = _sekiro.GetInGameTimeMilliseconds();
             _timerModel.Start();

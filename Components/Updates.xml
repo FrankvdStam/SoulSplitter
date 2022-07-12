@@ -1,321 +1,332 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
-	<update version="1.0.36">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-			<file path="Components/soulinjectee.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Blackscreen removal for Sekiro</change>
-		</changelog>
-	</update>
-	<update version="1.0.35">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-			<file path="Components/soulinjectee.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Bugfix event flag logger first run error</change>
-			<change>Bugfix Sekiro coordinate input couldn't be negative</change>
-		</changelog>
-	</update>
-	<update version="1.0.34">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-			<file path="Components/soulinjectee.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Event flag logger now included, can be used in DSR, DS2S, DS3, Sekiro and Elden Ring</change>
-			<change>The event flag logger modifies the game - you must fully restart the game to get rid of it</change>
-		</changelog>
-	</update>
-	<update version="1.0.31">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Bugfix reading Sekiro position based splits from the .lss file work properly now</change>
-		</changelog>
-	</update>
-	<update version="1.0.30">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Added support for Sekiro!</change>
-		</changelog>
-	</update>
-	<update version="1.0.29">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Elden Ring bugfix for 1.05, this fixes autostart + initial blackscreen removal</change>
-		</changelog>
-	</update>
-	<update version="1.0.28">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Small timer bugfix for Dark Souls 3 1.04 R1.05</change>
-		</changelog>
-	</update>
-	<update version="1.0.27">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Bugfix IGT value for Dark Souls 3 1.04 R1.05</change>
-		</changelog>
-	</update>
-	<update version="1.0.26">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>DarkSouls 3 support has been added!</change>
-			<change>IGT, blackscreen removal and autosplitting added for Dark Souls 3</change>
-			<change>Added map + player position based splits for Elden Ring</change>
-		</changelog>
-	</update>
-	<update version="1.0.25">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Fixed a bug where splits where incorrectly read from the .lss file</change>
-		</changelog>
-	</update>
-	<update version="1.0.24">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>HUD will be set to ON automatically each time the timer starts (this is not reflected in the game's settings, but the HUD will be drawn)</change>
-			<change>Added item pickup flags autosplitting</change>
-			<change>Added a timer lock feature, use this to prepare NG+ save files for use with SoulSplitter</change>
-		</changelog>
-	</update>
-	<update version="1.0.22">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Added autosplitting for all bosses and all grace</change>
-			<change>Made searching for bosses and graces a little easier</change>
-			<change>WARNING: this will once again require reconfiguring of your splits, sorry for the inconvenience</change>
-		</changelog>
-	</update>
-	<update version="0.0.21">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Added autosplitting on most graces on the route</change>
-			<change>Added flag autosplitting - these will support any event flag the game sets</change>
-			<change>WARNING: the boss splits you have configured will be removed when updating, to accommodate the new split types - maybe it is wise to back up your splits in case anything goes wrong</change>
-		</changelog>
-	</update>
-	<update version="0.0.20">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Hotfix for a scan error</change>
-		</changelog>
-	</update>
-	<update version="0.0.19">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Added autosplitting for a couple bosses</change>
-		</changelog>
-	</update>
-	<update version="0.0.18">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Elden Ring 1.04 compatibility</change>
-		</changelog>
-	</update>
-	<update version="0.0.17">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Removed RTA. MIGT is not always active</change>
-			<change>Added button to the troubleshooting wiki page</change>
-		</changelog>
-	</update>
-	<update version="0.0.16">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>If a splits file has settings from another livesplit plugin, soulsplitter will ignore it and initialize with default settings, instead of reading it as it's own settings.</change>
-		</changelog>
-	</update>
-	<update version="0.0.15">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Removed pattern scan cache altogether, hopefully fixes a crash loop</change>
-		</changelog>
-	</update>
-	<update version="0.0.14">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Fixed a bug where the game's version was incorrectly detected on the Japanese version</change>
-			<change>Fixed a bug where when running mixed versions of the game, a cache problem would lead to a crash</change>
-		</changelog>
-	</update>
-	<update version="0.0.13">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Changed default timing method from RTA to IGT.</change>
-			<change>Clarified in the UI that the initial black screen removal will only work if you let SoulSplitter auto-start.</change>
-			<change>Moved SoulSplitter's errors into it's UI instead of it being visible in livesplit's UI. Also added the version there for reference.</change>
-			<change>Couple more small UI fixes</change>
-		</changelog>
-	</update>
-	<update version="0.0.12">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>IGT is now modified IGT - framerate issues will not affect IGT and IGT will be consistent for every runner. Made possible by B3.</change>
-			<change>IGT is now reset to 0 after the initial cutscene + hardware dependent blackscreen, starting the timer at 0 when you gain control of the player.</change>
-		</changelog>
-	</update>
-	<update version="0.0.11">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Bugfix screen state offset for 1.03.1 - caused timer to not run.</change>
-		</changelog>
-	</update>
-	<update version="0.0.10">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Bugfix screen state offset changed for 1.03 - caused timer to not run.</change>
-		</changelog>
-	</update>
-	<update version="0.0.9">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Fix pattern scan for 1.03.</change>
-		</changelog>
-	</update>
-	<update version="0.0.8">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>SoulSplitter now scans for both eldenring.exe and start_protected_game.exe, to support both EAC bypass methods.</change>
-		</changelog>
-	</update>
-	<update version="0.0.7">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Fixed horizontal layout</change>
-			<change>Added error output to help diagnose problems</change>
-			<change>Changed auto update URL</change>
-		</changelog>
-	</update>
-	<update version="0.0.6">
-		<files>
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-		</files>
-		<changelog>
-			<change>Settings now get saved.</change>
-			<change>Choosing IGT or RTA now matters, only one can be active. You can split again during load screens.</change>
-		</changelog>
-	</update>
-	<update version="0.0.5">
-		<files>
-			<file path="Components/SoulSplitter.dll"			 status="changed" />
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-		</files>
-		<changelog>
-			<change>Fixed memory scan for 1.02.3 - backwards compatible with .2. Hopefully also forwards compatible when the time comes.</change>
-		</changelog>
-	</update>
-	<update version="0.0.4">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-		</files>
-		<changelog>
-			<change>Fixed memory scan for 1.02.3 - backwards compatible with .2. Hopefully also forwards compatible when the time comes.</change>
-		</changelog>
-	</update>
-	<update version="0.0.3">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-		</files>
-		<changelog>
-			<change>Fixed a bug that would make the library not load when a pattern scan failed</change>
-		</changelog>
-	</update>
-	<update version="0.0.2">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-		</files>
-		<changelog>
-			<change>Fixed memory scan for 1.02.2</change>
-		</changelog>
-	</update>
-	<update version="0.0.1">
-		<files>
-			<file path="Components/SoulMemory.dll"			     status="changed" />
-			<file path="Components/SoulSplitter.dll" 	         status="changed" />
-			<file path="Components/MaterialDesignColors.dll" 	 status="changed" />
-			<file path="Components/MaterialDesignThemes.Wpf.dll" status="changed" />
-			<file path="Components/MaterialDesignThemes.Wpf.xml" status="changed" />
-		</files>
-		<changelog>
-			<change>Initial</change>
-		</changelog>
-	</update>
+    <update version="1.0.37">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+            <file path="Components/soulinjectee.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Added Dark Souls 2 timer + autosplitter (autostart broken)</change>
+            <change>Added a way to overwrite IGT with 0 in Sekiro, for use in NG+ and mortal journey</change>
+        </changelog>
+    </update>
+    <update version="1.0.36">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+            <file path="Components/soulinjectee.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Blackscreen removal for Sekiro</change>
+        </changelog>
+    </update>
+    <update version="1.0.35">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+            <file path="Components/soulinjectee.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Bugfix event flag logger first run error</change>
+            <change>Bugfix Sekiro coordinate input couldn't be negative</change>
+        </changelog>
+    </update>
+    <update version="1.0.34">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+            <file path="Components/soulinjectee.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Event flag logger now included, can be used in DSR, DS2S, DS3, Sekiro and Elden Ring</change>
+            <change>The event flag logger modifies the game - you must fully restart the game to get rid of it</change>
+        </changelog>
+    </update>
+    <update version="1.0.31">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Bugfix reading Sekiro position based splits from the .lss file work properly now</change>
+        </changelog>
+    </update>
+    <update version="1.0.30">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Added support for Sekiro!</change>
+        </changelog>
+    </update>
+    <update version="1.0.29">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Elden Ring bugfix for 1.05, this fixes autostart + initial blackscreen removal</change>
+        </changelog>
+    </update>
+    <update version="1.0.28">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Small timer bugfix for Dark Souls 3 1.04 R1.05</change>
+        </changelog>
+    </update>
+    <update version="1.0.27">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Bugfix IGT value for Dark Souls 3 1.04 R1.05</change>
+        </changelog>
+    </update>
+    <update version="1.0.26">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>DarkSouls 3 support has been added!</change>
+            <change>IGT, blackscreen removal and autosplitting added for Dark Souls 3</change>
+            <change>Added map + player position based splits for Elden Ring</change>
+        </changelog>
+    </update>
+    <update version="1.0.25">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Fixed a bug where splits where incorrectly read from the .lss file</change>
+        </changelog>
+    </update>
+    <update version="1.0.24">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>HUD will be set to ON automatically each time the timer starts (this is not reflected in the game's settings, but the HUD will be drawn)</change>
+            <change>Added item pickup flags autosplitting</change>
+            <change>Added a timer lock feature, use this to prepare NG+ save files for use with SoulSplitter</change>
+        </changelog>
+    </update>
+    <update version="1.0.22">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Added autosplitting for all bosses and all grace</change>
+            <change>Made searching for bosses and graces a little easier</change>
+            <change>WARNING: this will once again require reconfiguring of your splits, sorry for the inconvenience</change>
+        </changelog>
+    </update>
+    <update version="0.0.21">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Added autosplitting on most graces on the route</change>
+            <change>Added flag autosplitting - these will support any event flag the game sets</change>
+            <change>WARNING: the boss splits you have configured will be removed when updating, to accommodate the new split types - maybe it is wise to back up your splits in case anything goes wrong</change>
+        </changelog>
+    </update>
+    <update version="0.0.20">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Hotfix for a scan error</change>
+        </changelog>
+    </update>
+    <update version="0.0.19">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Added autosplitting for a couple bosses</change>
+        </changelog>
+    </update>
+    <update version="0.0.18">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Elden Ring 1.04 compatibility</change>
+        </changelog>
+    </update>
+    <update version="0.0.17">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Removed RTA. MIGT is not always active</change>
+            <change>Added button to the troubleshooting wiki page</change>
+        </changelog>
+    </update>
+    <update version="0.0.16">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>If a splits file has settings from another livesplit plugin, soulsplitter will ignore it and initialize with default settings, instead of reading it as it's own settings.</change>
+        </changelog>
+    </update>
+    <update version="0.0.15">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Removed pattern scan cache altogether, hopefully fixes a crash loop</change>
+        </changelog>
+    </update>
+    <update version="0.0.14">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Fixed a bug where the game's version was incorrectly detected on the Japanese version</change>
+            <change>Fixed a bug where when running mixed versions of the game, a cache problem would lead to a crash</change>
+        </changelog>
+    </update>
+    <update version="0.0.13">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Changed default timing method from RTA to IGT.</change>
+            <change>Clarified in the UI that the initial black screen removal will only work if you let SoulSplitter auto-start.</change>
+            <change>Moved SoulSplitter's errors into it's UI instead of it being visible in livesplit's UI. Also added the version there for reference.</change>
+            <change>Couple more small UI fixes</change>
+        </changelog>
+    </update>
+    <update version="0.0.12">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>IGT is now modified IGT - framerate issues will not affect IGT and IGT will be consistent for every runner. Made possible by B3.</change>
+            <change>IGT is now reset to 0 after the initial cutscene + hardware dependent blackscreen, starting the timer at 0 when you gain control of the player.</change>
+        </changelog>
+    </update>
+    <update version="0.0.11">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Bugfix screen state offset for 1.03.1 - caused timer to not run.</change>
+        </changelog>
+    </update>
+    <update version="0.0.10">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Bugfix screen state offset changed for 1.03 - caused timer to not run.</change>
+        </changelog>
+    </update>
+    <update version="0.0.9">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Fix pattern scan for 1.03.</change>
+        </changelog>
+    </update>
+    <update version="0.0.8">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>SoulSplitter now scans for both eldenring.exe and start_protected_game.exe, to support both EAC bypass methods.</change>
+        </changelog>
+    </update>
+    <update version="0.0.7">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Fixed horizontal layout</change>
+            <change>Added error output to help diagnose problems</change>
+            <change>Changed auto update URL</change>
+        </changelog>
+    </update>
+    <update version="0.0.6">
+        <files>
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Settings now get saved.</change>
+            <change>Choosing IGT or RTA now matters, only one can be active. You can split again during load screens.</change>
+        </changelog>
+    </update>
+    <update version="0.0.5">
+        <files>
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+        </files>
+        <changelog>
+            <change>Fixed memory scan for 1.02.3 - backwards compatible with .2. Hopefully also forwards compatible when the time comes.</change>
+        </changelog>
+    </update>
+    <update version="0.0.4">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+        </files>
+        <changelog>
+            <change>Fixed memory scan for 1.02.3 - backwards compatible with .2. Hopefully also forwards compatible when the time comes.</change>
+        </changelog>
+    </update>
+    <update version="0.0.3">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+        </files>
+        <changelog>
+            <change>Fixed a bug that would make the library not load when a pattern scan failed</change>
+        </changelog>
+    </update>
+    <update version="0.0.2">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+        </files>
+        <changelog>
+            <change>Fixed memory scan for 1.02.2</change>
+        </changelog>
+    </update>
+    <update version="0.0.1">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+            <file path="Components/MaterialDesignColors.dll"        status="changed" />
+            <file path="Components/MaterialDesignThemes.Wpf.dll"    status="changed" />
+            <file path="Components/MaterialDesignThemes.Wpf.xml"    status="changed" />
+        </files>
+        <changelog>
+            <change>Initial</change>
+        </changelog>
+    </update>
 </updates>

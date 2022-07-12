@@ -20,6 +20,13 @@ namespace SoulSplitter.UI.Sekiro
             set => SetField(ref _startAutomatically, value);
         }
         private bool _startAutomatically = true;
+        
+        public bool OverwriteIgtOnStart
+        {
+            get => _overwriteIgtOnStart;
+            set => SetField(ref _overwriteIgtOnStart, value);
+        }
+        private bool _overwriteIgtOnStart = false;
 
         [XmlIgnore]
         public Vector3f CurrentPosition

@@ -7,6 +7,7 @@ use winapi::shared::ntdef::{NULL};
 use winapi::um::processthreadsapi::GetCurrentProcess;
 use winapi::um::psapi::{EnumProcessModules, GetModuleFileNameExA, GetModuleInformation, MODULEINFO};
 use crate::pattern_scanner::{scan, to_pattern};
+use std::convert::TryInto;
 
 //pub fn get_current_process() -> Result<String, ()>
 //{
@@ -106,6 +107,26 @@ pub fn scan_absolute(str: &str) -> Result<usize, ()>
         if scan_result.is_some()
         {
             return Ok(MODULE_BASE + scan_result.unwrap());
+        }
+        return Err(());
+    }
+}
+
+pub fn scan_relative(str: &str, address_offset: usize, instruction_size: usize) -> Result<usize, ()>
+{
+    unsafe
+    {
+        if !MODULE_INIT
+        {
+            error!("Pattern scan requested but scan cache not initialized.")
+        }
+
+        let scan_result = scan(&MODULE_BYTES, &to_pattern(str));
+        if scan_result.is_some()
+        {
+            let read_from = scan_result.unwrap() + address_offset;
+            let address = i32::from_ne_bytes(MODULE_BYTES[read_from..4].try_into().expect(format!("unable to read 4 bytes at {}", read_from).as_str()));
+            return Ok(MODULE_BASE + scan_result.unwrap() + address as usize + instruction_size);
         }
         return Err(());
     }

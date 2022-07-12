@@ -42,7 +42,7 @@ namespace SoulSplitter
                         MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls3;
                         break;
 
-                    case "sekiro":
+                    case "sekiro:shadowsdietwice":
                         MainControlFormsWrapper.MainViewModel.SelectedGame = Game.Sekiro;
                         break;
 

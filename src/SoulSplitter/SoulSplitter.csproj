@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Splits\DarkSouls2\Split.cs" />
+    <Compile Include="Splits\DarkSouls3\Attribute.cs" />
     <Compile Include="Splits\DarkSouls3\SplitType.cs" />
     <Compile Include="Splits\DarkSouls3\Split.cs" />
     <Compile Include="Splits\EldenRing\Split.cs" />

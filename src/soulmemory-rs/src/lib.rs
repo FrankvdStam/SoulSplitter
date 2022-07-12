@@ -4,14 +4,19 @@
 #![feature(core_intrinsics)]
 #![allow(unused_imports)]
 
+extern crate core;
+
 mod native;
 mod memory;
 
 pub mod darksoulsremastered;
 pub use darksoulsremastered::*;
 
-pub mod darksouls2;
-pub use darksouls2::*;
+pub mod darksouls2vanilla;
+pub use darksouls2vanilla::*;
+
+pub mod darksouls2scholar;
+pub use darksouls2scholar::*;
 
 pub mod darksouls3;
 pub use darksouls3::*;
@@ -24,6 +29,10 @@ pub use eldenring::*;
 
 pub mod websocket;
 pub mod state;
+
+pub mod tas;
+pub use tas::*;
+
 pub use state::init_state;
 pub use state::set_event_flag_log_mode;
 pub use state::set_event_flag_exclusion;
@@ -50,6 +59,8 @@ pub fn init()
      unsafe
      {
           init_websocket_server();
+          hook_xinput();
+
 
           PROCESS = Some(Process::get_current_process().unwrap());
           let process = PROCESS.as_ref().unwrap();
@@ -67,8 +78,14 @@ pub fn init()
                }
                "darksoulsii.exe" =>
                {
-                    darksouls2::init_event_flag_detour();
-                    darksouls2::init_unlock_bonfire_detour();
+                    if cfg!(target_pointer_width = "64")
+                    {
+                         darksouls2scholar::init_event_flag_detour();
+                    }
+                    else
+                    {
+                         darksouls2vanilla::init_event_flag_detour();
+                    }
                },
                "darksoulsiii.exe" =>
                {
@@ -107,8 +124,14 @@ pub fn unload()
                }
                "darksoulsii.exe" =>
                {
-                    darksouls2::disable_event_flag_detour();
-                    darksouls2::disable_unlock_bonfire_detour();
+                    if cfg!(target_pointer_width = "64")
+                    {
+                         darksouls2scholar::disable_event_flag_detour();
+                    }
+                    else
+                    {
+                         darksouls2vanilla::disable_event_flag_detour();
+                    }
                },
                "darksoulsiii.exe" =>
                {

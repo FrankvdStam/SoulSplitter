@@ -127,20 +127,20 @@ pub fn init_websocket_server()
                         clients.remove(&client_id);
                     },
                     Event::Message(_client_id, message) =>
+                    {
+                        //println!("Received a message from client #{}: {:?}", client_id, message);
+
+                        // retrieve this client's `Responder`:
+                        //let responder = clients.get(&client_id).unwrap();
+                        // echo the message back:
+                        //responder.send(message);
+
+                        match message
                         {
-                            //println!("Received a message from client #{}: {:?}", client_id, message);
-
-                            // retrieve this client's `Responder`:
-                            //let responder = clients.get(&client_id).unwrap();
-                            // echo the message back:
-                            //responder.send(message);
-
-                            match message
-                            {
-                                Text(command) => write_command(command),
-                                _ => {}
-                            }
-                        },
+                            Text(command) => write_command(command),
+                            _ => {}
+                        }
+                    },
                 }
             }
         }
@@ -156,6 +156,7 @@ pub struct Message
     pub DarkSouls3ReadEventFlagMessage: Option<DarkSouls3ReadEventFlagMessage>,
     pub EventFlagLogMode: i32,
     pub EventFlags: Vec<u32>,
+    pub TasInputsFilePath: String
 }
 
 #[allow(non_snake_case)]
