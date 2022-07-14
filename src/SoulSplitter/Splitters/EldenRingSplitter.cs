@@ -320,6 +320,14 @@ namespace SoulSplitter.Splitters
                         s.SplitTriggered = true;
                     }
                     break;
+
+                case TimingType.OnBlackscreen:
+                    if (_eldenRing.IsBlackscreenActive())
+                    {
+                        _timerModel.Split();
+                        s.SplitTriggered = true;
+                    }
+                    break;
             }
         }
 

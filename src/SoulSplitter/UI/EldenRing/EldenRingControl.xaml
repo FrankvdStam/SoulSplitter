@@ -136,6 +136,11 @@
                     <soulSplitter:TimingType>OnLoading</soulSplitter:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
+            <ComboBoxItem Content="During a blackscreen after">
+                <ComboBoxItem.Tag>
+                    <soulSplitter:TimingType>OnBlackscreen</soulSplitter:TimingType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
         </ComboBox>
 
         <!-- split type -->

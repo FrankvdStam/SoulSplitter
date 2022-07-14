@@ -208,10 +208,12 @@ pub fn tas_start()
 {
     unsafe
     {
-        info!("Starting TAS");
-
-        TAS_STATE = TasState::Running;
-        TAS_INPUT_INDEX = 0;
+        if TAS_STATE != TasState::Running
+        {
+            info!("Starting TAS");
+            TAS_STATE = TasState::Running;
+            TAS_INPUT_INDEX = 0;
+        }
     }
 }
 

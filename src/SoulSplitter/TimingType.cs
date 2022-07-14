@@ -9,5 +9,8 @@ namespace SoulSplitter
         
         [Display(Name = "on loading")]
         OnLoading,
+
+        [Display(Name = "on blackscreen")]
+        OnBlackscreen,
     }
 }
