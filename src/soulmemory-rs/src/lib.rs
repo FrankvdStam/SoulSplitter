@@ -76,6 +76,10 @@ pub fn init()
                {
                     darksoulsremastered::init_event_flag_detour();
                }
+               "darksouls.exe" =>
+               {
+
+               }
                "darksoulsii.exe" =>
                {
                     if cfg!(target_pointer_width = "64")
@@ -121,6 +125,10 @@ pub fn unload()
                "darksoulsremastered.exe" =>
                {
                     darksoulsremastered::disable_event_flag_detour();
+               }
+               "darksouls.exe" =>
+               {
+
                }
                "darksoulsii.exe" =>
                {

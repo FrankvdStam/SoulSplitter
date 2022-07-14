@@ -22,9 +22,9 @@ extern "stdcall" {
 
 
 
-static_detour!{ static XInputGetStateDetour: fn(DWORD, *mut XINPUT_STATE) -> DWORD; }
+static_detour!{ static XInputGetStateDetour: unsafe extern "system" fn(DWORD, *mut XINPUT_STATE) -> DWORD; }
 
-type XInputGetState = fn(dw_user_index: DWORD, p_state: *mut XINPUT_STATE) -> DWORD;
+type XInputGetState = unsafe extern "system" fn(dw_user_index: DWORD, p_state: *mut XINPUT_STATE) -> DWORD;
 
 pub fn hook_xinput()
 {
@@ -85,14 +85,14 @@ fn set_xinput_state_zero(p_state: *mut XINPUT_STATE)
 
 fn xinput_get_state_detour(dw_user_index: DWORD, p_state: *mut XINPUT_STATE) -> DWORD
 {
-    if dw_user_index != 0
-    {
-        //Forward the call to xinput, to restore controller functionality
-        return XInputGetStateDetour.call(dw_user_index, p_state);
-    }
-
     unsafe
     {
+        if dw_user_index != 0
+        {
+            //Forward the call to xinput, to restore controller functionality
+            return XInputGetStateDetour.call(dw_user_index, p_state);
+        }
+
         match TAS_STATE
         {
             TasState::Stopped =>
@@ -239,6 +239,7 @@ pub fn tas_stop()
     }
 }
 
+#[derive(Eq, PartialEq)]
 enum TasState
 {
     Running,

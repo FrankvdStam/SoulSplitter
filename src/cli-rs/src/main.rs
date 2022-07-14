@@ -26,6 +26,7 @@ fn main()
         let games = vec!
         {
             "darksoulsremastered.exe",
+            "darksouls.exe",
             "darksoulsii.exe",
             "darksoulsiii.exe",
             "sekiro.exe",
