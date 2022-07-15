@@ -4,8 +4,13 @@ pub trait Process
     fn refresh(&mut self);
     fn read_memory(&self, address: usize, buffer: &mut [u8])-> bool;
     fn write_memory(&self, address: usize, buffer: &[u8]) -> bool;
-    fn get_code(&mut self) -> Vec<u8>;
+
+    fn get_name(&self) -> String;
+    fn get_code(&mut self) -> &Vec<u8>;
     fn get_base_address(&self) -> usize;
+
+    fn inject_dll(&mut self, path: &str);
+    fn unload_module(&mut self, module_name: String);
 
     ///Read an i32 from the given address
     fn read_i32(&self, address: usize) -> i32

@@ -8,35 +8,29 @@ extern crate core;
 
 mod native;
 mod memory;
-
 pub mod darksoulsremastered;
-pub use darksoulsremastered::*;
-
 pub mod darksouls2vanilla;
-pub use darksouls2vanilla::*;
-
 pub mod darksouls2scholar;
-pub use darksouls2scholar::*;
-
 pub mod darksouls3;
-pub use darksouls3::*;
-
 pub mod sekiro;
-pub use sekiro::*;
-
 pub mod eldenring;
-pub use eldenring::*;
-
 pub mod websocket;
 pub mod state;
-
 pub mod tas;
+mod util;
+
+pub use eldenring::*;
+pub use sekiro::*;
+
+pub use darksoulsremastered::*;
+pub use darksouls2vanilla::*;
+pub use darksouls2scholar::*;
+pub use darksouls3::*;
 pub use tas::*;
 
 pub use state::init_state;
 pub use state::set_event_flag_log_mode;
 pub use state::set_event_flag_exclusion;
-
 
 pub use log::*;
 pub use log4rs::*;
@@ -46,26 +40,32 @@ use std::time::Duration;
 use winapi::shared::minwindef::PROC;
 pub use crate::memory::*;
 pub use crate::native::*;
-use crate::processes::Process;
 use crate::scan_cache::{init_scan_cache};
 use crate::websocket::*;
 
 pub use serde_json;
+use crate::process::Process;
 
-static mut PROCESS: Option<Process> = None;
+static mut PROCESS: Option<Box<dyn Process>> = None;
 
 pub fn init()
 {
+
      unsafe
      {
           init_websocket_server();
           hook_xinput();
 
 
-          PROCESS = Some(Process::get_current_process().unwrap());
+          match get_current_process()
+          {
+               Ok(p) => PROCESS = Some(p),
+               _ => info!("Failed to get current process")
+          }
+
           let process = PROCESS.as_ref().unwrap();
 
-          let temp = process.name.to_lowercase();
+          let temp = process.get_name().to_lowercase();
           let process_name = temp.as_str();
           info!("init scan cache for {}", process_name);
           init_scan_cache(String::from(process_name));
@@ -116,7 +116,7 @@ pub fn unload()
           kill_websocket_server();
 
           let process = PROCESS.as_mut().unwrap();
-          let temp = process.name.to_lowercase();
+          let temp = process.get_name().to_lowercase();
           let process_name = temp.as_str();
 
           //Need to disable all detours before unloading, otherwise Elden Ring will jump to unloaded code.
@@ -156,14 +156,6 @@ pub fn unload()
                _ => error!("unsupported process: {}", process_name),
           }
 
-
-          process.load_modules();
-          for m in &process.modules
-          {
-               if m.name == "soulinjectee.dll"
-               {
-                    m.unload();
-               }
-          }
+          process.unload_module(String::from("soulinjectee.dll"));
      }
 }

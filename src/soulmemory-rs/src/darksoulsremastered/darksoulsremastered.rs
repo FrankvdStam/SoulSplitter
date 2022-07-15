@@ -1,6 +1,5 @@
 use lazy_static::lazy_static;
 use crate::pointer::Pointer;
-use crate::Process;
 use crate::scan_cache::{MODULE_BASE, scan_relative};
 
 //48 89 35 ? ? ? ? 48 8b 5c 24 30 48 8b 74 24 38 48 83 c4 20 5f c3

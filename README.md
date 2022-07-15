@@ -5,8 +5,9 @@
 Soulsgames speedrun timer, load remover and autosplitter  
 
 Currently supports:  
-MIGT, initial black screen removal and autosplitting for Elden Ring  
-IGT, blackscreen removal and autosplitting for DarkSouls3
+Elden Ring: MIGT, initial black screen removal and autosplitting   
+DarkSouls3: IGT, blackscreen removal and autosplitting  
+Sekiro: IGT, blackscreen removal and autosplitting  
 
 
 For Elden Ring specific information, see https://github.com/FrankvdStam/SoulSplitter/wiki/Elden-Ring
