@@ -55,6 +55,16 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            var er = new EldenRing();
+            er.InitPointers();
+
+            while (true)
+            {
+                var pos = er.GetPosition();
+                Console.WriteLine(pos.X);
+                Thread.Sleep(100);
+                Console.Clear();
+            }
 
 
 

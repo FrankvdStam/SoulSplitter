@@ -21,7 +21,6 @@ namespace SoulMemory.EldenRing
         private Pointer _igt;
         private Pointer _hud;
         private Pointer _playerIns;
-        private Pointer _padManipulator;
         private Pointer _playerGameData;
         private Pointer _inventory;
         private Pointer _menuManImp;
@@ -29,7 +28,6 @@ namespace SoulMemory.EldenRing
         private Pointer _virtualMemoryFlag;
 
         private long _screenStateOffset;
-        private long _blackScreenOffset;
         private long _positionOffset;
         private long _mapIdOffset;
         
@@ -39,7 +37,7 @@ namespace SoulMemory.EldenRing
             Refresh(out _);
         }
 
-        private bool _applyIgtFix = true;
+        private readonly bool _applyIgtFix;
 
 
         #region Refresh/init/reset ================================================================================================
@@ -64,35 +62,30 @@ namespace SoulMemory.EldenRing
                     default:
                     case EldenRingVersion.Unknown:
                         _screenStateOffset = 0x728;
-                        _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
                         break;
 
                     case EldenRingVersion.V102:
                         _screenStateOffset = 0x718;
-                        _blackScreenOffset = 0x71c;
                         _positionOffset = 0x6b8;
                         _mapIdOffset = 0x6c8;
                         break;
 
                     case EldenRingVersion.V103:
                         _screenStateOffset = 0x728;
-                        _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6b8;
                         _mapIdOffset = 0x6c8;
                         break;
 
                     case EldenRingVersion.V104:
                         _screenStateOffset = 0x728;
-                        _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
                         break;
 
                     case EldenRingVersion.V105:
                         _screenStateOffset = 0x728;
-                        _blackScreenOffset = 0x72c;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
                         break;
@@ -108,6 +101,7 @@ namespace SoulMemory.EldenRing
                     //WorldChrManImp  
                     .ScanRelative("WorldChrManImp", "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7", 3, 7)
                         //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
+                        .CreatePointer(out _playerIns, 0, 0x18468)
                     ////FieldArea
                     //.ScanRelative("FieldArea", "48 8B 0D ?? ?? ?? ?? 48 ?? ?? ?? 44 0F B6 61 ?? E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 48 ?? ?? ?? 48 85 C0", 3, 7)
                     //    .CreatePointer(out _mapId, 0, 0x190) //hitins, has map area
@@ -117,8 +111,8 @@ namespace SoulMemory.EldenRing
                         .CreatePointer(out _menuManImp, 0)
 
                     //.ScanRelative("48 83 3d d5 f2 60 03 00 75 46 4c 8b 05 e4 d4 62 03 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
-                    .ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
-                        .CreatePointer(out _virtualMemoryFlag, 1)
+                    .ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 8)
+                        .CreatePointer(out _virtualMemoryFlag, 0)
 
                     //IGT fix detour address
                     .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
