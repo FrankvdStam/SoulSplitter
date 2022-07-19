@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
-	<update version="1.0.5">
+	<update version="1.1.0">
 		<files>
 			<file path="Components/SoulMemory.dll"                  status="changed" />
 			<file path="Components/SoulSplitter.dll"                status="changed" />
@@ -32,7 +32,7 @@
 			<change>Added 'on blackscreen' timing type to Elden Ring split timing options</change>
 			<change>Added character attribute based splits to Dark Souls 3</change>
 		</changelog>
-	</update>
+	</update>d
 	<update version="1.0.37">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed" />
