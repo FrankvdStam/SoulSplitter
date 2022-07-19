@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SoulMemory.DarkSouls2
 {
+    [XmlType(Namespace = "SoulMemory.DarkSouls2")]
     public enum BossType
     {
         //Base game ==========================================================================================

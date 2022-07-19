@@ -67,6 +67,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Splits\DarkSouls2\Attribute.cs" />
+    <Compile Include="Splits\DarkSouls2\BossKill.cs" />
     <Compile Include="Splits\DarkSouls2\Split.cs" />
     <Compile Include="Splits\DarkSouls3\Attribute.cs" />
     <Compile Include="Splits\DarkSouls3\SplitType.cs" />

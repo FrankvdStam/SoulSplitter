@@ -9,6 +9,7 @@
              xmlns:soulSplitter="clr-namespace:SoulSplitter"
              xmlns:darkSouls2="clr-namespace:SoulSplitter.UI.DarkSouls2"
              xmlns:darkSouls21="clr-namespace:SoulSplitter.Splits.DarkSouls2"
+             xmlns:darkSouls22="clr-namespace:SoulMemory.DarkSouls2;assembly=SoulMemory"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance darkSouls2:DarkSouls2ViewModel, IsDesignTimeCreatable=True}">
 
@@ -109,6 +110,18 @@
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
+            <ComboBoxItem Content="I kill a boss">
+                <ComboBoxItem.Tag>
+                    <darkSouls21:DarkSouls2SplitType>BossKill</darkSouls21:DarkSouls2SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="I level my character">
+                <ComboBoxItem.Tag>
+                    <darkSouls21:DarkSouls2SplitType>Attribute</darkSouls21:DarkSouls2SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
             <ComboBoxItem Content="I trigger a flag">
                 <ComboBoxItem.Tag>
                     <darkSouls21:DarkSouls2SplitType>Flag</darkSouls21:DarkSouls2SplitType>
@@ -170,6 +183,121 @@
                 Height="30"
                 Width="30" />
         </Button>
+
+        <!-- Boss kill -->
+        <StackPanel 
+            Visibility="{Binding NewSplitBossKillEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Grid.Column="0"
+            Orientation="Horizontal">
+            <ui:FilteredComboBox
+                Margin="5"
+                Width="205"
+                HorizontalAlignment="Left"
+                ItemsSource="{Binding Bosses}" 
+                SelectedValue="{Binding NewSplitValue.BossType}"
+                materialDesign:HintAssist.HelperText="which"
+                DisplayMemberPath="Name"
+                SelectedValuePath="Value"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                IsEditable="True" 
+                IsTextSearchEnabled="False" 
+                StaysOpenOnEdit="True"/>
+
+            <TextBox
+                Width="205"
+                Margin="5"
+                Text="{Binding NewSplitValue.Count}"
+                materialDesign:HintAssist.HelperText="count"/>
+        </StackPanel>
+
+        <!-- Attributes -->
+        <StackPanel 
+            Orientation="Horizontal"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Visibility="{Binding NewSplitAttributeEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+
+            <ComboBox
+            Margin="5, 5, 5, 5"
+            Width="205"
+            SelectedValue="{Binding NewSplitValue.AttributeType}"
+            materialDesign:HintAssist.HelperText="which"
+            Visibility="{Binding NewSplitAttributeEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            SelectedValuePath="Tag"
+            IsEditable="True" 
+            IsTextSearchEnabled="False" 
+            StaysOpenOnEdit="True">
+
+                <ComboBoxItem Content="Soul level">
+                    <ComboBoxItem.Tag>
+                        <darkSouls22:Attribute>SoulLevel</darkSouls22:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Vigor">
+                    <ComboBoxItem.Tag>
+                        <darkSouls22:Attribute>Vigor</darkSouls22:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Endurance">
+                    <ComboBoxItem.Tag>
+                        <darkSouls22:Attribute>Endurance</darkSouls22:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Vitality">
+                    <ComboBoxItem.Tag>
+                        <darkSouls22:Attribute>Vitality</darkSouls22:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Attunement">
+                    <ComboBoxItem.Tag>
+                        <darkSouls22:Attribute>Attunement</darkSouls22:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Strength">
+                    <ComboBoxItem.Tag>
+                        <darkSouls22:Attribute>Strength</darkSouls22:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Dexterity">
+                    <ComboBoxItem.Tag>
+                        <darkSouls22:Attribute>Dexterity</darkSouls22:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Adaptability">
+                    <ComboBoxItem.Tag>
+                        <darkSouls22:Attribute>Adaptability</darkSouls22:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Intelligence">
+                    <ComboBoxItem.Tag>
+                        <darkSouls22:Attribute>Intelligence</darkSouls22:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Faith">
+                    <ComboBoxItem.Tag>
+                        <darkSouls22:Attribute>Faith</darkSouls22:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+
+            <TextBox
+            Margin="5, 5, 5, 5"
+            Width="205"
+            materialDesign:HintAssist.HelperText="Level"
+            Text="{Binding NewSplitValue.Level}"
+            />
+
+        </StackPanel>
 
 
         <!-- Flag -->

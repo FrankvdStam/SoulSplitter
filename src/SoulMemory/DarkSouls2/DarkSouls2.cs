@@ -18,7 +18,11 @@ namespace SoulMemory.DarkSouls2
         public bool IsLoading() => _darkSouls2?.IsLoading() ?? false;
 
         public bool ReadEventFlag(uint eventFlagId) => _darkSouls2?.ReadEventFlag(eventFlagId) ?? false;
-        
+
+        public int GetBossKillCount(BossType bossType) => _darkSouls2?.GetBossKillCount(bossType) ?? 0;
+
+        public int GetAttribute(Attribute attribute) => _darkSouls2?.GetAttribute(attribute) ?? 0;
+
         public bool Refresh(out Exception exception)
         {
             exception = null;

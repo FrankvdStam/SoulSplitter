@@ -9,6 +9,8 @@ namespace SoulSplitter.Splits.DarkSouls2
     public enum DarkSouls2SplitType
     {
         Position,
+        BossKill,
+        Attribute,
         Flag,
     }
 }

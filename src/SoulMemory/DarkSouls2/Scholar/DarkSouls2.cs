@@ -15,6 +15,8 @@ namespace SoulMemory.DarkSouls2.Scholar
         private Pointer _eventFlagManager;
         private Pointer _position;
         private Pointer _loadState;
+        private Pointer _bossCounters;
+        private Pointer _attributes;
 
         #region Refresh/init/reset ================================================================================================================================
 
@@ -37,13 +39,14 @@ namespace SoulMemory.DarkSouls2.Scholar
                 _process.ScanCache()
                     .ScanRelative("GameManagerImp", "48 8b 35 ? ? ? ? 48 8b e9 48 85 f6", 3, 7)
                         .CreatePointer(out _eventFlagManager, 0, 0x70, 0x20)
-                        .CreatePointer(out _position, 0, 0xd0, 0x100);
+                        .CreatePointer(out _position, 0, 0xd0, 0x100)
+                        .CreatePointer(out _bossCounters, 0, 0x70, 0x28, 0x20, 0x8)
+                        .CreatePointer(out _attributes, 0, 0xd0, 0x490)
+                    
                     //.CreatePointer(out AiManager, 0x28)
                     //.CreatePointer(out rightHandWeaponMultiplier, 0xd0, 0x378, 0x28, 0x158)
                     //.CreatePointer(out LeftHandWeaponMultiplier, 0xd0, 0x378, 0x28, 0x80)
-
-
-                _process.ScanCache()
+                    
                     .ScanRelative("LoadState", "48 89 05 ? ? ? ? b0 01 48 83 c4 28", 3, 7)
                         .CreatePointer(out _loadState, 0x0);
                     ;
@@ -61,6 +64,8 @@ namespace SoulMemory.DarkSouls2.Scholar
             _eventFlagManager = null;
             _position = null;
             _loadState = null;
+            _bossCounters = null;
+            _attributes = null;
         }
 
         #endregion
@@ -73,10 +78,19 @@ namespace SoulMemory.DarkSouls2.Scholar
             }
             
             return new Vector3f(
+                _position.ReadFloat(0x88),
                 _position.ReadFloat(0x80),
-                _position.ReadFloat(0x84),
-                _position.ReadFloat(0x88)
+                _position.ReadFloat(0x84)
             );
+        }
+
+        public int GetBossKillCount(BossType bossType)
+        {
+            if (_bossCounters == null)
+            {
+                return 0;
+            }
+            return _bossCounters.ReadInt32((long)bossType);
         }
 
         public bool IsLoading()
@@ -89,10 +103,28 @@ namespace SoulMemory.DarkSouls2.Scholar
             return _loadState.ReadInt32(0x11c) == 1;
         }
 
+        public int GetAttribute(Attribute attribute)
+        {
+            if (_attributes == null)
+            {
+                return 0;
+            }
+
+            var offset = _attributeOffsets[attribute];
+            if (attribute == Attribute.SoulLevel)
+            {
+                return _attributes.ReadInt32(offset);
+            }
+            else
+            {
+                var bytes = _attributes.ReadBytes(2, offset);
+                return (int)BitConverter.ToInt16(bytes, 0);
+            }
+        }
 
         #region Reading event flags
 
-        
+
         public bool ReadEventFlag(uint eventFlagId)
         {
             if (_eventFlagManager == null)
@@ -171,6 +203,24 @@ namespace SoulMemory.DarkSouls2.Scholar
         //    pointer_to_vector_in_eventflagmanager = (ulonglong *)pointer_to_vector_in_eventflagmanager[2];
         //  } while( true );
         //}   
+
+        #endregion
+
+        #region Lookup tables
+
+        private readonly Dictionary<Attribute, long> _attributeOffsets = new Dictionary<Attribute, long>()
+        {
+            { Attribute.SoulLevel   , 0xd0},
+            { Attribute.Vigor       , 0x8},
+            { Attribute.Endurance   , 0xa},
+            { Attribute.Vitality    , 0xc},
+            { Attribute.Attunement  , 0xe},
+            { Attribute.Strength    , 0x10},
+            { Attribute.Dexterity   , 0x12},
+            { Attribute.Adaptability, 0x18},
+            { Attribute.Intelligence, 0x14},
+            { Attribute.Faith       , 0x16},
+        };
 
         #endregion
     }

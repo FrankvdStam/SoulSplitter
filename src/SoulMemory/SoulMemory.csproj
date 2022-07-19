@@ -68,6 +68,7 @@
     <Compile Include="DarkSouls1\ForcedAnimation.cs" />
     <Compile Include="DarkSouls1\Internal\IDarkSouls.cs" />
     <Compile Include="DarkSouls1\Internal\ItemReader.cs" />
+    <Compile Include="DarkSouls2\Attribute.cs" />
     <Compile Include="DarkSouls2\BossType.cs" />
     <Compile Include="DarkSouls2\DarkSouls2.cs" />
     <Compile Include="DarkSouls2\Data.cs" />

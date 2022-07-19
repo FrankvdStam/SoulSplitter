@@ -55,6 +55,32 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+
+            var ds2 = new DarkSouls2();
+            while (true)
+            {
+                var pos = ds2.GetPosition();
+
+                Console.WriteLine($"SoulLevel    {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.SoulLevel      )}");
+                Console.WriteLine($"Vigor        {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Vigor          )}");
+                Console.WriteLine($"Endurance    {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Endurance      )}");
+                Console.WriteLine($"Vitality     {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Vitality       )}");
+                Console.WriteLine($"Attunement   {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Attunement     )}");
+                Console.WriteLine($"Strength     {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Strength       )}");
+                Console.WriteLine($"Dexterity    {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Dexterity      )}");
+                Console.WriteLine($"Adaptability {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Adaptability   )}");
+                Console.WriteLine($"Intelligence {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Intelligence   )}");
+                Console.WriteLine($"Faith        {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Faith)}");
+
+
+
+                ds2.Refresh(out _);
+                Thread.Sleep(200);
+                Console.Clear();
+            }
+
+
+
             var er = new EldenRing();
             er.InitPointers();
 

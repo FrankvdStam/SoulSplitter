@@ -19,6 +19,14 @@ namespace SoulSplitter.Splits.DarkSouls2
                     Position = (Vector3f)split;
                     break;
 
+                case DarkSouls2SplitType.BossKill:
+                    BossKill = (BossKill)split;
+                    break;
+
+                case DarkSouls2SplitType.Attribute:
+                    Attribute = (Attribute)split;
+                    break;
+
                 case DarkSouls2SplitType.Flag:
                     Flag = (uint)split;
                     break;
@@ -30,6 +38,8 @@ namespace SoulSplitter.Splits.DarkSouls2
         
         public readonly uint Flag;
         public readonly Vector3f Position;
+        public readonly BossKill BossKill;
+        public readonly Attribute Attribute;
 
         /// <summary>
         /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met

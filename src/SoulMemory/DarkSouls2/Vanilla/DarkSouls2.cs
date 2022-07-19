@@ -15,6 +15,8 @@ namespace SoulMemory.DarkSouls2.Vanilla
         private Pointer _eventFlagManager;
         private Pointer _position;
         private Pointer _loadState;
+        private Pointer _bossCounters;
+        private Pointer _attributes;
 
         #region Refresh/init/reset ================================================================================================================================
 
@@ -34,6 +36,8 @@ namespace SoulMemory.DarkSouls2.Vanilla
             _eventFlagManager = null;
             _position = null;
             _loadState = null;
+            _bossCounters = null;
+            _attributes = null;
         }
 
         private Exception InitPointers()
@@ -44,6 +48,8 @@ namespace SoulMemory.DarkSouls2.Vanilla
                     .ScanAbsolute("GameManagerImp", "8B F1 8B 0D ? ? ? 01 8B 01 8B 50 28 FF D2 84 C0 74 0C", 4)
                         .CreatePointer(out _eventFlagManager, 0, 0, 0x44, 0x10)
                         .CreatePointer(out _position, 0, 0, 0x74)
+                        .CreatePointer(out _bossCounters, 0, 0, 0x44, 0x14, 0x10, 0x4)
+                        .CreatePointer(out _attributes, 0, 0, 0x74, 0x378)
                     
                     .ScanAbsolute("LoadState", "89 35 ? ? ? ? e8 ? ? ? ? 66 0f ef c0", 2)
                         .CreatePointer(out _loadState, 0, 0);
@@ -68,10 +74,19 @@ namespace SoulMemory.DarkSouls2.Vanilla
             }
 
             return new Vector3f(
+                _position.ReadFloat(0x88),
                 _position.ReadFloat(0x80),
-                _position.ReadFloat(0x84),
-                _position.ReadFloat(0x88)
+                _position.ReadFloat(0x84)
             );
+        }
+
+        public int GetBossKillCount(BossType bossType)
+        {
+            if (_bossCounters == null)
+            {
+                return 0;
+            }
+            return _bossCounters.ReadInt32((long)bossType);
         }
 
         public bool IsLoading()
@@ -82,6 +97,25 @@ namespace SoulMemory.DarkSouls2.Vanilla
             }
 
             return _loadState.ReadUInt32(0x1D4) == 1;
+        }
+
+        public int GetAttribute(Attribute attribute)
+        {
+            if (_attributes == null)
+            {
+                return 0;
+            }
+
+            var offset = _attributeOffsets[attribute];
+            if (attribute == Attribute.SoulLevel)
+            {
+                return _attributes.ReadInt32(offset);
+            }
+            else
+            {
+                var bytes = _attributes.ReadBytes(2, offset);
+                return (int)BitConverter.ToInt16(bytes, 0);
+            }
         }
 
         public bool ReadEventFlag(uint eventFlagId)
@@ -136,5 +170,26 @@ namespace SoulMemory.DarkSouls2.Vanilla
 
             return false;
         }
+
+
+        #region Lookup tables
+
+        private readonly Dictionary<Attribute, long> _attributeOffsets = new Dictionary<Attribute, long>()
+        {
+            { Attribute.SoulLevel   , 0xcc},
+            { Attribute.Vigor       , 0x4},
+            { Attribute.Endurance   , 0x6},
+            { Attribute.Vitality    , 0x8},
+            { Attribute.Attunement  , 0xa},
+            { Attribute.Strength    , 0xc},
+            { Attribute.Dexterity   , 0xe},
+            { Attribute.Adaptability, 0x14},
+            { Attribute.Intelligence, 0x10},
+            { Attribute.Faith       , 0x12},
+        };
+
+
+
+        #endregion
     }
 }

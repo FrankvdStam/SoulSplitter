@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.Native;
 using SoulSplitter.Splits.DarkSouls2;
+using Attribute = SoulSplitter.Splits.DarkSouls2.Attribute;
 
 namespace SoulSplitter.UI.DarkSouls2
 {
@@ -80,6 +81,8 @@ namespace SoulSplitter.UI.DarkSouls2
 
     [XmlType(Namespace = "DarkSouls2")]
     [XmlInclude(typeof(Vector3f)), 
+     XmlInclude(typeof(BossKill)), 
+     XmlInclude(typeof(Attribute)), 
      XmlInclude(typeof(uint))]
     public class HierarchicalSplitViewModel : INotifyPropertyChanged
     {

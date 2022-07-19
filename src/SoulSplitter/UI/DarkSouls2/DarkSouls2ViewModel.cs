@@ -6,8 +6,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using SoulMemory;
-using SoulMemory.Sekiro;
+using SoulMemory.DarkSouls2;
 using SoulSplitter.Splits.DarkSouls2;
+using Attribute = SoulSplitter.Splits.DarkSouls2.Attribute;
 
 namespace SoulSplitter.UI.DarkSouls2
 {
@@ -63,6 +64,22 @@ namespace SoulSplitter.UI.DarkSouls2
                     if (hierarchicalSplitType.Children.All(i => ((Vector3f)i.Split).ToString() != position.ToString()))
                     {
                         hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = position, Parent = hierarchicalSplitType });
+                    }
+                    break;
+
+                case DarkSouls2SplitType.BossKill:
+                    var bossKill = (BossKill)NewSplitValue;
+                    if (hierarchicalSplitType.Children.All(i => ((BossKill)i.Split).ToString() != bossKill.ToString()))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = bossKill, Parent = hierarchicalSplitType });
+                    }
+                    break;
+
+                case DarkSouls2SplitType.Attribute:
+                    var attribute = (Attribute)NewSplitValue;
+                    if (hierarchicalSplitType.Children.All(i => ((Attribute)i.Split).ToString() != attribute.ToString()))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = attribute, Parent = hierarchicalSplitType });
                     }
                     break;
 
@@ -125,6 +142,8 @@ namespace SoulSplitter.UI.DarkSouls2
             set
             {
                 NewSplitPositionEnabled = false;
+                NewSplitBossKillEnabled = false;
+                NewSplitAttributeEnabled = false;
                 NewSplitFlagEnabled = false;
 
                 SetField(ref _newSplitType, value);
@@ -136,6 +155,16 @@ namespace SoulSplitter.UI.DarkSouls2
                     case DarkSouls2SplitType.Position:
                         NewSplitPositionEnabled = true;
                         NewSplitValue = new Vector3f(CurrentPosition.X, CurrentPosition.Y, CurrentPosition.Z);
+                        break;
+
+                    case DarkSouls2SplitType.BossKill:
+                        NewSplitBossKillEnabled = true;
+                        NewSplitValue = new BossKill();
+                        break;
+
+                    case DarkSouls2SplitType.Attribute:
+                        NewSplitAttributeEnabled = true;
+                        NewSplitValue = new Splits.DarkSouls2.Attribute();
                         break;
 
                     case DarkSouls2SplitType.Flag:
@@ -176,6 +205,22 @@ namespace SoulSplitter.UI.DarkSouls2
             set => SetField(ref _newSplitPositionEnabled, value);
         }
         private bool _newSplitPositionEnabled = false;
+
+        [XmlIgnore]
+        public bool NewSplitBossKillEnabled
+        {
+            get => _newSplitBossKillEnabled;
+            set => SetField(ref _newSplitBossKillEnabled, value);
+        }
+        private bool _newSplitBossKillEnabled = false;
+
+        [XmlIgnore]
+        public bool NewSplitAttributeEnabled
+        {
+            get => _newSplitAttributeEnabled;
+            set => SetField(ref _newSplitAttributeEnabled, value);
+        }
+        private bool _newSplitAttributeEnabled = false;
 
         [XmlIgnore]
         public bool NewSplitFlagEnabled
@@ -237,8 +282,10 @@ namespace SoulSplitter.UI.DarkSouls2
         #endregion
 
         #region Static UI source data ============================================================================================================================================
-        
-        
+
+        public static ObservableCollection<EnumFlagViewModel<BossType>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<BossType>>(Enum.GetValues(typeof(BossType)).Cast<BossType>().Select(i => new EnumFlagViewModel<BossType>(i)));
+
+
         #endregion
 
         #region INotifyPropertyChanged ============================================================================================================================================

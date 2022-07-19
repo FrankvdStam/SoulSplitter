@@ -4,11 +4,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using LiveSplit.Model;
 using SoulMemory.DarkSouls2;
 using SoulSplitter.Splits.DarkSouls2;
 using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.Sekiro;
+using Attribute = SoulMemory.DarkSouls2.Attribute;
 
 namespace SoulSplitter.Splitters
 {
@@ -71,12 +73,11 @@ namespace SoulSplitter.Splitters
         private bool _previousIsLoading;
         private readonly TimerModel _timerModel;
         private TimerState _timerState = TimerState.WaitForStart;
-        private Stopwatch _stopwatch = new Stopwatch();
         
         private void StartTimer()
         {
             _timerState = TimerState.Running;
-            _stopwatch.Start();
+            _liveSplitState.IsGameTimePaused = false;
             _previousIsLoading = _darkSouls2.IsLoading();
             _timerModel.Start();
         }
@@ -84,6 +85,7 @@ namespace SoulSplitter.Splitters
         private void ResetTimer()
         {
             _timerState = TimerState.WaitForStart;
+            _liveSplitState.IsGameTimePaused = true;
             _timerModel.Reset();
         }
 
@@ -92,16 +94,22 @@ namespace SoulSplitter.Splitters
             switch (_timerState)
             {
                 case TimerState.WaitForStart:
-                    //if (_darkSouls2ViewModel.StartAutomatically)
-                    //{
-                    //    var igt = _sekiro.GetInGameTimeMilliseconds();
-                    //    if (igt > 0 && igt < 150)
-                    //    {
-                    //        StartTimer();
-                    //        _timerModel.Start();
-                    //        StartAutoSplitting();
-                    //    }
-                    //}
+                    if (_darkSouls2ViewModel.StartAutomatically)
+                    {
+                        var loading = _darkSouls2.IsLoading();
+                        if (!loading)
+                        {
+                            var position = _darkSouls2.GetPosition();
+                            if(
+                                position.Y < -322.0f && position.Y > -323.0f &&
+                                position.X < -213.0f && position.X > -214.0f)
+                            {
+                                StartTimer();
+                                _timerModel.Start();
+                                StartAutoSplitting();
+                            }
+                        }
+                    }
                     break;
 
                 case TimerState.Running:
@@ -110,17 +118,14 @@ namespace SoulSplitter.Splitters
                     {
                         if (_darkSouls2.IsLoading())
                         {
-                            _stopwatch.Stop();
+                            _liveSplitState.IsGameTimePaused = true;
                         }
                         else
                         {
-                            _stopwatch.Start();
+                            _liveSplitState.IsGameTimePaused = false;
                         }
                     }
                     _previousIsLoading = _darkSouls2.IsLoading();
-
-                    //Set time
-                    _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_stopwatch.ElapsedMilliseconds));
                     break;
             }
         }
@@ -169,10 +174,19 @@ namespace SoulSplitter.Splitters
                             {
                                 s.SplitConditionMet = _darkSouls2.ReadEventFlag(s.Flag);
                             }
+                            break;
 
-                            if (s.SplitConditionMet)
+                        case DarkSouls2SplitType.BossKill:
+                            if (!s.SplitConditionMet)
                             {
-                                ResolveSplitTiming(s);
+                                s.SplitConditionMet = _darkSouls2.GetBossKillCount(s.BossKill.BossType) == s.BossKill.Count;
+                            }
+                            break;
+
+                        case DarkSouls2SplitType.Attribute:
+                            if (!s.SplitConditionMet)
+                            {
+                                s.SplitConditionMet = _darkSouls2.GetAttribute(s.Attribute.AttributeType) >= s.Attribute.Level;
                             }
                             break;
 
@@ -192,11 +206,12 @@ namespace SoulSplitter.Splitters
                                 }
                             }
 
-                            if (s.SplitConditionMet)
-                            {
-                                ResolveSplitTiming(s);
-                            }
                             break;
+                    }
+
+                    if (s.SplitConditionMet)
+                    {
+                        ResolveSplitTiming(s);
                     }
                 }
             }
