@@ -513,5 +513,11 @@ namespace SoulMemory.EldenRing
 
         [Display(Name = "Death Rite Bird - Ordina, Liturgical Town (Snowfield)", Description = "Consecrated Snowfield")]
         DeathRiteBirdOrdinaLiturgicalTownSnowfield = 1048570800,
+
+        [Display(Name = "Pumpkinhead Duo - Caelem Ruins (Caelid)", Description = "Caelid")]
+        PumpkinheadDuoCaelemRuinsCaelid = 1048400800,
+
+        [Display(Name = "Night's Cavalry - Altus Highway (Altus Plateau)", Description = "Altus Plateau")]
+        NightsCavalryAltusHighwayAltusPlateau = 1039510800,
     }
 }
