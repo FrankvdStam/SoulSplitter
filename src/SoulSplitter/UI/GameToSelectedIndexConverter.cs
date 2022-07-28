@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using SoulMemory.DarkSouls1.Internal;
+using SoulMemory.DarkSouls1_Old.Internal;
 
 namespace SoulSplitter.UI
 {

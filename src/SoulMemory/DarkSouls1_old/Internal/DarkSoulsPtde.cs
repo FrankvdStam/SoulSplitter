@@ -5,7 +5,7 @@ using System.Text;
 using Keystone;
 
 
-namespace SoulMemory.DarkSouls1.Internal
+namespace SoulMemory.DarkSouls1_Old.Internal
 {
     internal class DarkSoulsPtde : BaseMemoryReaderWriter, IDarkSouls
     {
@@ -122,56 +122,7 @@ namespace SoulMemory.DarkSouls1.Internal
             return memVal.IsBitSet(boss.Bit);
         }
 
-
-        public MenuPrompt GetMenuPrompt()
-        {
-            var menuPromptIns = (IntPtr)ReadInt32(_menuPrompt);
-            menuPromptIns = (IntPtr)ReadInt32(menuPromptIns + 0x9E8);
-
-            var mem = ReadByte(menuPromptIns);
-
-            if (Enum.IsDefined(typeof(MenuPrompt), (int)mem))
-            {
-                return (MenuPrompt)mem;
-            }
-
-            return MenuPrompt.Unknown;
-        }
-
-
-        public ForcedAnimation GetForcedAnimation()
-        {
-
-            var characterIns = (IntPtr)ReadInt32(_character);
-            characterIns = (IntPtr)ReadInt32(characterIns + 0x4);
-            characterIns = (IntPtr)ReadInt32(characterIns);
-
-            var mem = ReadInt32(characterIns + 0xFC);//PlayRegion offset 0x284,
-
-            if (Enum.IsDefined(typeof(ForcedAnimation), mem))
-            {
-                return (ForcedAnimation)mem;
-            }
-
-            return ForcedAnimation.Unknown;
-        }
-
-
-        public ItemPrompt GetItemPrompt()
-        {
-            var characterIns = (IntPtr)ReadInt32(_character);
-            characterIns = (IntPtr)ReadInt32(characterIns + 0x4);
-            characterIns = (IntPtr)ReadInt32(characterIns);
-
-            var mem = ReadInt32(characterIns + 0x62C);
-            if (mem.TryParseEnum(out ItemPrompt i))
-            {
-                return i;
-            }
-
-            return ItemPrompt.Unknown;
-        }
-
+        
 
         public Vector3f GetPlayerPosition()
         {
@@ -187,7 +138,7 @@ namespace SoulMemory.DarkSouls1.Internal
             return new Vector3f(x, y, z);
         }
 
-        public List<Item> GetCurrentInventoryItems()
+        public List<Item> GetInventory()
         {
             var gameDataManIns = (IntPtr)ReadInt32(_gameDataMan);//GameDataMan instance
             var hostPlayerGameData = (IntPtr)ReadInt32(gameDataManIns + 0x8);//Host player game data

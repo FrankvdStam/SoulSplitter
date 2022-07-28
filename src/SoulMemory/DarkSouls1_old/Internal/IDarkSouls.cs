@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoulMemory.DarkSouls1.Internal
+namespace SoulMemory.DarkSouls1_Old.Internal
 {
     internal interface IDarkSouls
     {
@@ -35,32 +35,12 @@ namespace SoulMemory.DarkSouls1.Internal
         /// <returns></returns>
         bool IsBossDefeated(BossType boss);
 
-
-        /// <summary>
-        /// Returns which menu is currently open (homewardBone/darksign/firekeepersoul, etc.)
-        /// </summary>
-        /// <returns></returns>
-        MenuPrompt GetMenuPrompt();
-
-
-        /// <summary>
-        /// Returns the current forced animation
-        /// </summary>
-        /// <returns></returns>
-        ForcedAnimation GetForcedAnimation();
-
-
-        /// <summary>
-        /// Returns the current item prompt
-        /// </summary>
-        /// <returns></returns>
-        ItemPrompt GetItemPrompt();
-
+        
         /// <summary>
         /// Returns a list of the current inventory items
         /// </summary>
         /// <returns></returns>
-        List<Item> GetCurrentInventoryItems();
+        List<Item> GetInventory();
 
 
         /// <summary>

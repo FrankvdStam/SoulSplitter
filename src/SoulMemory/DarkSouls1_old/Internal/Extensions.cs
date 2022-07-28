@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoulMemory.DarkSouls1.Internal
+namespace SoulMemory.DarkSouls1_Old.Internal
 {
     public static class Extensions
     {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using SoulMemory;
-using SoulMemory.DarkSouls1;
+using SoulMemory.DarkSouls1_Old;
 using Testing.Tas;
 
 namespace Testing
@@ -14,7 +14,7 @@ namespace Testing
     internal class DarkSouls1
     {
         private static DarkSouls1ToolAssistant _assistant;
-        private static SoulMemory.DarkSouls1.DarkSouls1 _darkSouls1;
+        private static SoulMemory.DarkSouls1_Old.DarkSouls1 _darkSouls1;
 
 
         public static string SaveFileName = "DRAKS0005.sl2";
@@ -63,7 +63,7 @@ namespace Testing
             //Replace with test save
             File.Move(Environment.CurrentDirectory + $@"\saves\DarkSouls1\{ReplacementSave}\UndeadAsylum", SaveFileLocation + "\\" + SaveFileName);
 
-            _darkSouls1 = new SoulMemory.DarkSouls1.DarkSouls1();
+            _darkSouls1 = new SoulMemory.DarkSouls1_Old.DarkSouls1();
             _darkSouls1.SetCheat(CheatType.PlayerExterminate     , true);
             _darkSouls1.SetCheat(CheatType.PlayerNoDead          , true);
             _darkSouls1.SetCheat(CheatType.AllNoStaminaConsume   , true);

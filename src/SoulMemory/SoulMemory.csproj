@@ -54,20 +54,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DarkSouls1\Area.cs" />
-    <Compile Include="DarkSouls1\Bonfires.cs" />
-    <Compile Include="DarkSouls1\CheatType.cs" />
-    <Compile Include="DarkSouls1\CovenantType.cs" />
-    <Compile Include="DarkSouls1\Internal\AssemblyHelper.cs" />
-    <Compile Include="DarkSouls1\Internal\BaseMemoryReaderWriter.cs" />
-    <Compile Include="DarkSouls1\BossType.cs" />
+    <Compile Include="DarkSouls1\Attribute.cs" />
+    <Compile Include="DarkSouls1\Boss.cs" />
     <Compile Include="DarkSouls1\DarkSouls1.cs" />
-    <Compile Include="DarkSouls1\Internal\DarkSoulsPtde.cs" />
-    <Compile Include="DarkSouls1\Internal\DarkSoulsRemastered.cs" />
-    <Compile Include="DarkSouls1\Internal\Extensions.cs" />
-    <Compile Include="DarkSouls1\ForcedAnimation.cs" />
-    <Compile Include="DarkSouls1\Internal\IDarkSouls.cs" />
-    <Compile Include="DarkSouls1\Internal\ItemReader.cs" />
+    <Compile Include="DarkSouls1\IDarkSouls1.cs" />
+    <Compile Include="DarkSouls1\Ptde.cs" />
+    <Compile Include="DarkSouls1\Remastered.cs" />
+    <Compile Include="DarkSouls1_old\Area.cs" />
+    <Compile Include="DarkSouls1_old\Bonfires.cs" />
+    <Compile Include="DarkSouls1_old\CheatType.cs" />
+    <Compile Include="DarkSouls1_old\CovenantType.cs" />
+    <Compile Include="DarkSouls1_old\Internal\AssemblyHelper.cs" />
+    <Compile Include="DarkSouls1_old\Internal\BaseMemoryReaderWriter.cs" />
+    <Compile Include="DarkSouls1_old\BossType.cs" />
+    <Compile Include="DarkSouls1_old\DarkSouls1.cs" />
+    <Compile Include="DarkSouls1_old\Internal\DarkSoulsPtde.cs" />
+    <Compile Include="DarkSouls1_old\Internal\DarkSoulsRemastered.cs" />
+    <Compile Include="DarkSouls1_old\Internal\Extensions.cs" />
+    <Compile Include="DarkSouls1_old\Internal\IDarkSouls.cs" />
+    <Compile Include="DarkSouls1_old\Internal\ItemReader.cs" />
     <Compile Include="DarkSouls2\Attribute.cs" />
     <Compile Include="DarkSouls2\BossType.cs" />
     <Compile Include="DarkSouls2\DarkSouls2.cs" />
@@ -92,12 +97,10 @@
     <Compile Include="Memory\Extensions.cs" />
     <Compile Include="Memory\PatternCounter.cs" />
     <Compile Include="Memory\PatternScanner.cs" />
-    <Compile Include="DarkSouls1\Item.cs" />
-    <Compile Include="DarkSouls1\ItemPrompt.cs" />
+    <Compile Include="DarkSouls1_old\Item.cs" />
     <Compile Include="Memory\PointerFactory.cs" />
     <Compile Include="Memory\ProcessClinger.cs" />
     <Compile Include="Native\Kernel32.cs" />
-    <Compile Include="DarkSouls1\MenuPrompt.cs" />
     <Compile Include="Memory\Pointer.cs" />
     <Compile Include="Native\Ntdll.cs" />
     <Compile Include="Native\User32.cs" />
@@ -108,8 +111,8 @@
     <Compile Include="Sekiro\Sekiro.cs" />
     <Compile Include="SoulInjecteeClient.cs" />
     <Compile Include="Vector3f.cs" />
-    <Compile Include="DarkSouls1\WarpType.cs" />
-    <Compile Include="DarkSouls1\ZoneType.cs" />
+    <Compile Include="DarkSouls1_old\WarpType.cs" />
+    <Compile Include="DarkSouls1_old\ZoneType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

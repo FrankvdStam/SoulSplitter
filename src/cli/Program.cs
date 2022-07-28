@@ -13,8 +13,10 @@ using SoulMemory.Sekiro;
 using SoulMemory.Shared;
 using SoulSplitter.UI;
 using Newtonsoft.Json;
+using SoulMemory.DarkSouls1;
 using SoulMemory.DarkSouls3;
 using Attribute = SoulMemory.DarkSouls3.Attribute;
+using Boss = SoulMemory.DarkSouls1.Boss;
 
 #pragma warning disable CS0162
 
@@ -55,6 +57,18 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            var ds1 = new DarkSouls1();
+            while (true)
+            {
+                //1812960
+                Console.WriteLine($"strength {ds1.ReadEventFlag((uint)Boss.AsylumDemon)}");
+
+                ds1.Refresh(out _);
+                Thread.Sleep(100);
+                Console.Clear();
+            }
+
+
 
             var ds2 = new DarkSouls2();
             while (true)

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SoulMemory.DarkSouls1;
+using SoulMemory.DarkSouls1_Old;
 
-namespace SoulMemory.DarkSouls1.Internal
+namespace SoulMemory.DarkSouls1_Old.Internal
 {
     internal static class ItemReader
     {

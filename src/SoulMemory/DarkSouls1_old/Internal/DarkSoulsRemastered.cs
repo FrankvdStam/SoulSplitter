@@ -5,7 +5,7 @@ using System.Text;
 using SoulMemory.Memory;
 using SoulMemory.Shared;
 
-namespace SoulMemory.DarkSouls1.Internal
+namespace SoulMemory.DarkSouls1_Old.Internal
 {
     internal class DarkSoulsRemastered : BaseMemoryReaderWriter, IDarkSouls
     {
@@ -138,47 +138,7 @@ namespace SoulMemory.DarkSouls1.Internal
             
             return memVal.IsBitSet(boss.Bit);
         }
-
-        public MenuPrompt GetMenuPrompt()
-        {
-            var menu = _menuPrompt.ReadByte();
-            if (((int)menu).TryParseEnum(out MenuPrompt menuPrompt))
-            {
-                return menuPrompt;
-            }
-
-            return MenuPrompt.Unknown;
-        }
-
-        public ForcedAnimation GetForcedAnimation()
-        {
-            var instance = (IntPtr)ReadInt32(_playerIns);
-            var playerCtrl = instance + 0x68;
-            var forcedAnimationAddr = (IntPtr)ReadInt32(playerCtrl) + 0x16C;
-
-            var anim = ReadInt32(forcedAnimationAddr);
-            if (anim.TryParseEnum(out ForcedAnimation forcedAnimation))
-            {
-                return forcedAnimation;
-            }
-
-            return ForcedAnimation.Unknown;
-        }
-
-        public ItemPrompt GetItemPrompt()
-        {
-            var instance = (IntPtr)ReadInt32(_playerIns);
-            var playerCtrl = instance + 0x68;
-            var itemPromptAddr = (IntPtr)ReadInt32(playerCtrl) + 0x814;
-
-            var mem = ReadInt32(itemPromptAddr);
-            if (mem.TryParseEnum(out ItemPrompt itemPrompt))
-            {
-                return itemPrompt;
-            }
-
-            return ItemPrompt.Unknown;
-        }
+        
 
         public Vector3f GetPlayerPosition()
         {
@@ -198,7 +158,7 @@ namespace SoulMemory.DarkSouls1.Internal
 
 
 
-        public List<Item> GetCurrentInventoryItems()
+        public List<Item> GetInventory()
         {
             //Path: GameDataMan->hostPlayerGameData->equipGameData.equipInventoryData.equipInventoryDataSub
             const long equipInventoryDataSubOffset = 0x3b0;

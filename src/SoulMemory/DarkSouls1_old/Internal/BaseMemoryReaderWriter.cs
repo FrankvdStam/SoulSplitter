@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using SoulMemory.Shared;
 using SoulMemory.Native;
 
-namespace SoulMemory.DarkSouls1.Internal
+namespace SoulMemory.DarkSouls1_Old.Internal
 {
     public class BaseMemoryReaderWriter
     {

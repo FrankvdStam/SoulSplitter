@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using SoulSplitter.Splits.DarkSouls1;
-using SoulMemory.DarkSouls1;
+using SoulMemory.DarkSouls1_Old;
 
 namespace SoulSplitter.Splits.DarkSouls1
 {

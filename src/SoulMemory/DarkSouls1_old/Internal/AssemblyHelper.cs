@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SoulMemory.DarkSouls1.Internal
+namespace SoulMemory.DarkSouls1_Old.Internal
 {
     //TODO: can probably use keystone engine to assemble on the spot, instead of using a regex!
     //Stolen from Nordgaren, https://github.com/Nordgaren/DSR-Gadget-Local-Loader/blob/master/DSR-Gadget/Util/DSRAssembly.cs

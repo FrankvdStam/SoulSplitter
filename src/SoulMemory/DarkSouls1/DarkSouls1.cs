@@ -1,313 +1,59 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using SoulMemory.DarkSouls1.Internal;
+using System.Text;
+using System.Threading.Tasks;
+using SoulMemory.Native;
 
 namespace SoulMemory.DarkSouls1
 {
-    public class DarkSouls1
+    public class DarkSouls1 : IDarkSouls1
     {
-        public DarkSouls1()
+        private IDarkSouls1 _darkSouls1;
+
+        public int GetAttribute(Attribute attribute) => _darkSouls1?.GetAttribute(attribute) ?? 0;
+        public bool ReadEventFlag(uint eventFlagId) => _darkSouls1?.ReadEventFlag(eventFlagId) ?? false;
+
+        public bool Refresh(out Exception exception)
         {
-            Refresh();
-        }
-
-        private IDarkSouls _darkSouls;
-
-
-
-        /// <summary>
-        /// Returns the in game time in millisecond format. Returns 0 when in a menu, returns the clock value during a loading screen and starts running when fully loaded into the game.
-        /// </summary>
-        /// <returns></returns>
-        public int GetGameTimeInMilliseconds()
-        {
-            if (_darkSouls == null)
+            exception = null;
+            try
             {
-                return 0;
-            }
-
-            return _darkSouls.GetGameTimeInMilliseconds();
-        }
-
-
-        /// <summary>
-        /// Checks if IGT clock is running, if it is running, the player has to be loaded.
-        /// </summary>
-        /// <returns></returns>
-        public bool IsPlayerLoaded()
-        {
-            if (_darkSouls == null)
-            {
-                return false;
-            }
-
-            return _darkSouls.IsPlayerLoaded();
-        }
-
-        /// <summary>
-        /// Returns true if the given boss is still alive.
-        /// </summary>
-        /// <param name="boss"></param>
-        /// <returns></returns>
-        public bool IsBossDefeated(BossType boss)
-        {
-            if (_darkSouls == null)
-            {
-                return false;
-            }
-
-            return _darkSouls.IsBossDefeated(boss);
-        }
-
-
-        /// <summary>
-        /// Returns which menu is currently open (homewardBone/darksign/firekeepersoul, etc.)
-        /// </summary>
-        /// <returns></returns>
-        public MenuPrompt GetMenuPrompt()
-        {
-            if (_darkSouls == null)
-            {
-                return MenuPrompt.Unknown;
-            }
-
-            return _darkSouls.GetMenuPrompt();
-        }
-
-
-        /// <summary>
-        /// Returns the current forced animation
-        /// </summary>
-        /// <returns></returns>
-        public ForcedAnimation GetForcedAnimation()
-        {
-            if (_darkSouls == null)
-            {
-                return ForcedAnimation.Unknown;
-            }
-
-            return _darkSouls.GetForcedAnimation();
-        }
-
-
-        /// <summary>
-        /// Returns the current item prompt
-        /// </summary>
-        /// <returns></returns>
-        public ItemPrompt GetItemPrompt()
-        {
-            if (_darkSouls == null)
-            {
-                return ItemPrompt.Unknown;
-            }
-
-            return _darkSouls.GetItemPrompt();
-        }
-
-        /// <summary>
-        /// Returns the player's position
-        /// </summary>
-        /// <returns></returns>
-        public Vector3f GetPlayerPosition()
-        {
-            if (_darkSouls == null)
-            {
-                return new Vector3f(0,0,0);
-            }
-
-            return _darkSouls.GetPlayerPosition();
-        }
-
-
-        /// <summary>
-        /// Returns the current amount of health the player has
-        /// </summary>
-        /// <returns></returns>
-        public int GetPlayerHealth()
-        {
-            if (_darkSouls == null)
-            {
-                return 0;
-            }
-
-            return _darkSouls.GetPlayerHealth();
-        }
-
-        /// <summary>
-        /// Returns the currently active covenant
-        /// </summary>
-        /// <returns></returns>
-        public CovenantType GetCovenant()
-        {
-            if (_darkSouls == null)
-            {
-                return CovenantType.None;
-            }
-
-            return _darkSouls.GetCovenant();
-        }
-
-
-        /// <summary>
-        /// Returns a list of the current inventory items
-        /// </summary>
-        /// <returns></returns>
-        public List<Item> GetCurrentInventoryItems()
-        {
-            if (_darkSouls == null)
-            {
-                return new List<Item>();
-            }
-
-            return _darkSouls.GetCurrentInventoryItems();
-        }
-
-
-        /// <summary>
-        /// Returns the state of the given bonfire
-        /// </summary>
-        /// <returns></returns>
-        public BonfireState GetBonfireState(Bonfire bonfire)
-        {
-            if (_darkSouls == null)
-            {
-                return BonfireState.Undiscovered;
-            }
-
-            return _darkSouls.GetBonfireState(bonfire);
-        }
-
-
-        /// <summary>
-        /// Returns the current zone
-        /// </summary>
-        /// <returns></returns>
-        public ZoneType GetZone()
-        {
-            if (_darkSouls == null)
-            {
-                return ZoneType.Unknown;
-            }
-
-            return _darkSouls.GetZone();
-        }
-        
-
-        /// <summary>
-        /// Resets inventory indices
-        /// </summary>
-        public void ResetInventoryIndices()
-        {
-            if (_darkSouls == null)
-            {
-                return;
-            }
-
-            _darkSouls.ResetInventoryIndices();
-        }
-
-
-        /// <summary>
-        /// Returns the clear count. 0 means ng, 1 means ng+, etc.
-        /// </summary>
-        public int GetClearCount()
-        {
-            if (_darkSouls == null)
-            {
-                return 0;
-            }
-
-            return _darkSouls.GetClearCount();
-        }
-
-        /// <summary>
-        /// Check if arbitrary flag is set
-        /// </summary>
-        public bool CheckFlag(int flag)
-        {
-            if (_darkSouls == null)
-            {
-                return false;
-            }
-
-            return _darkSouls.CheckFlag(flag);
-        }
-
-        /// <summary>
-        /// Returns true if the game is currently attached and memory can be read.
-        /// </summary>
-        public bool IsGameAttached => _darkSouls != null;
-
-
-        /// <summary>
-        /// Refreshes the process attachment, should be called every frame. Returns true if the game is attached
-        /// </summary>
-        /// <returns></returns>
-        public bool Refresh()
-        {
-            if (_darkSouls == null)
-            {
-                var process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("darksouls"));
-                if (process != null)
+                if (_darkSouls1 == null)
                 {
-                    if (process.ProcessName == "DarkSoulsRemastered")
+                    var process = Process.GetProcesses().FirstOrDefault(i => (i.ProcessName.ToLower() == "darksouls" || i.ProcessName.ToLower() == "darksoulsremastered") && !i.HasExited && i.MainModule != null);
+                    if (process == null)
                     {
-                        _darkSouls = new DarkSoulsRemastered();
+                        exception = new Exception("DarkSouls not running");
+                        return false;
                     }
 
-                    if (process.ProcessName == "DARKSOULS")
+                    if (process.ProcessName.ToLower() == "darksouls")
                     {
-                        _darkSouls = new DarkSoulsPtde();
+                        _darkSouls1 = new Ptde();
                     }
+                    else
+                    {
+                        //_darkSouls1 = new Remastered();
+                    }
+                    return true;
                 }
-            }
-            else
-            {
-                if (!_darkSouls.Attach())
+                else
                 {
-                    _darkSouls = null;
+                    if (!_darkSouls1.Refresh(out exception))
+                    {
+                        _darkSouls1 = null;
+                        return false;
+                    }
+                    return true;
                 }
             }
-
-            return _darkSouls != null;
-        }
-        
-        public int GetTestValue()
-        {
-            if (_darkSouls == null)
+            catch (Exception e)
             {
-                return 0;
+                exception = e;
+                return false;
             }
-
-            return _darkSouls.GetTestValue();
-        }
-
-        public void SetCheat(CheatType cheatType, bool enabled)
-        {
-            if (_darkSouls == null)
-            {
-                return;
-            }
-            _darkSouls.SetCheat(cheatType, enabled);
-        }
-
-        public void BonfireWarp(WarpType warpType)
-        {
-            if (_darkSouls == null)
-            {
-                return;
-            }
-            _darkSouls.BonfireWarp(warpType);
-        }
-
-        public void Teleport(Vector3f position, float angle)
-        {
-            if (_darkSouls == null)
-            {
-                return;
-            }
-            _darkSouls.Teleport(position, angle);
         }
     }
 }

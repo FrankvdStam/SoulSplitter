@@ -14,10 +14,10 @@ namespace Testing.Tas
     internal class DarkSouls1ToolAssistant
     {
         private Process _process;
-        private SoulMemory.DarkSouls1.DarkSouls1 _darkSouls;
+        private SoulMemory.DarkSouls1_Old.DarkSouls1 _darkSouls;
         private GameType _gameType;
 
-        public DarkSouls1ToolAssistant(SoulMemory.DarkSouls1.DarkSouls1 darkSouls, GameType gameType)
+        public DarkSouls1ToolAssistant(SoulMemory.DarkSouls1_Old.DarkSouls1 darkSouls, GameType gameType)
         {
             _darkSouls = darkSouls;
 

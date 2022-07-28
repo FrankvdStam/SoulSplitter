@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoulMemory.DarkSouls1
+namespace SoulMemory.DarkSouls1_Old
 {
     public enum Area
     {
