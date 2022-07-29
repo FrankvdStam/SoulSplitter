@@ -14,6 +14,7 @@ namespace SoulMemory.DarkSouls1
 
         public int GetAttribute(Attribute attribute) => _darkSouls1?.GetAttribute(attribute) ?? 0;
         public bool ReadEventFlag(uint eventFlagId) => _darkSouls1?.ReadEventFlag(eventFlagId) ?? false;
+        public bool IsWarping() => _darkSouls1?.IsWarping() ?? false;
 
         public bool Refresh(out Exception exception)
         {

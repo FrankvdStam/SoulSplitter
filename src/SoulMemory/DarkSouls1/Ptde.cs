@@ -16,7 +16,9 @@ namespace SoulMemory.DarkSouls1
 
         private Process _process;
 
+        private Pointer _gameMan;
         private Pointer _gameDataMan;
+        private Pointer _menuMan;
         private Pointer _worldChrManImp;
         private Pointer _playerIns;
         private Pointer _playerGameData;
@@ -35,7 +37,9 @@ namespace SoulMemory.DarkSouls1
 
         private void ResetPointers()
         {
+            _gameMan = null;
             _gameDataMan = null;
+            _menuMan = null;
             _worldChrManImp = null;
             _playerIns = null;
             _playerGameData = null;
@@ -48,6 +52,12 @@ namespace SoulMemory.DarkSouls1
             {
                 var scanCache = _process.ScanCache();
 
+                //a1 a0 ? ? ? ? b8 d8 0b 00 00 8d a8 d8 0b 00 00
+
+                scanCache
+                    .ScanAbsolute("GameMan", "a1 ? ? ? ? 8b b8 d8 0b 00 00 8d a8 d8 0b 00 00", 1)
+                    .CreatePointer(out _gameMan, 0, 0);
+
                 scanCache
                     .ScanAbsolute("GameDataMan", "8b 0d ? ? ? ? 8b 41 30 8b 4d 64", 2)
                     .CreatePointer(out _gameDataMan, 0, 0)
@@ -55,11 +65,15 @@ namespace SoulMemory.DarkSouls1
                     ;
 
                 scanCache
+                    .ScanAbsolute("MenuMan", "a1 ? ? ? ? 8b 88 e8 09 00 00 c7 01 80 3e 00 00", 1)
+                    .CreatePointer(out _menuMan, 0, 0)
+                    ;
+
+                scanCache
                     .ScanAbsolute("WorldChrManImp", "8b 0d ? ? ? ? 8b 71 3c c6 44 24 48 01", 2)
                     .CreatePointer(out _worldChrManImp, 0, 0)
                     .CreatePointer(out _playerIns, 0, 0, 0x3c);
                     ;
-
 
                 scanCache
                     .ScanAbsolute("WorldChrManImp", "56 8B F1 8B 46 1C 50 A1 ? ? ? ? 32 C9", 8)
@@ -150,6 +164,44 @@ namespace SoulMemory.DarkSouls1
             return (value & mask) != 0;
         }
 
+        #endregion
+
+        #region Warp
+        public bool IsLoaded()
+        {
+            if (_menuMan == null)
+            {
+                return false;
+            }
+        
+            var state = _menuMan.ReadInt32(0x7ec);
+            return state != 1 && state != 2;
+        }
+
+        public int GetPlayerHealth()
+        {
+            return _playerIns?.ReadInt32(0x2d4) ?? 0;
+        }
+
+        public bool IsWarping()
+        {
+            if (_gameMan == null)
+            {
+                return false;
+            }
+
+            if (IsLoaded())
+            {
+                return false;
+            }
+
+            if (GetPlayerHealth() == 0)
+            {
+                return false;
+            }
+
+            return _gameMan.ReadByte(0x11) == 1;
+        }
         #endregion
     }
 }

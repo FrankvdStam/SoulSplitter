@@ -11,5 +11,7 @@ namespace SoulMemory.DarkSouls1
         bool Refresh(out Exception exception);
         bool ReadEventFlag(uint eventFlagId);
         int GetAttribute(Attribute attribute);
+        bool IsWarping();
+        bool IsLoaded();
     }
 }

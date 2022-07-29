@@ -57,14 +57,24 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            //var remas = new Remastered();
+            //remas.Refresh(out _);
+            //while (true)
+            //{
+            //    Console.WriteLine($"warp {remas.IsWarping()} hp {remas.GetPlayerHealth()} loaded {remas.IsLoaded()}");
+            //    remas.Refresh(out _);
+            //    Thread.Sleep(100);
+            //    Console.Clear();
+            //}
+
             var ds1 = new DarkSouls1();
             while (true)
             {
                 //1812960
-                Console.WriteLine($"strength {ds1.ReadEventFlag((uint)Boss.AsylumDemon)}");
+                Console.WriteLine($"warp {ds1.IsWarping()}");
 
                 ds1.Refresh(out _);
-                Thread.Sleep(100);
+                Thread.Sleep(32);
                 Console.Clear();
             }
 
