@@ -67,6 +67,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Splits\DarkSouls1\Attribute.cs" />
+    <Compile Include="Splits\DarkSouls1\Split.cs" />
     <Compile Include="Splits\DarkSouls2\Attribute.cs" />
     <Compile Include="Splits\DarkSouls2\BossKill.cs" />
     <Compile Include="Splits\DarkSouls2\Split.cs" />
@@ -77,9 +79,11 @@
     <Compile Include="Splits\EldenRing\EldenRingSplitType.cs" />
     <Compile Include="Splits\Sekiro\SekiroSplitType.cs" />
     <Compile Include="Splits\Sekiro\Split.cs" />
+    <Compile Include="Splitters\DarkSouls1Splitter.cs" />
     <Compile Include="Splitters\DarkSouls3Splitter.cs" />
     <Compile Include="Splitters\DarkSouls2Splitter.cs" />
     <Compile Include="Splitters\SekiroSplitter.cs" />
+    <Compile Include="UI\DarkSouls1\HierarchicalViewModel.cs" />
     <Compile Include="UI\DarkSouls2\DarkSouls2Control.xaml.cs">
       <DependentUpon>DarkSouls2Control.xaml</DependentUpon>
     </Compile>
@@ -98,6 +102,7 @@
     <Compile Include="UI\EventFlags\EventFlagControl.xaml.cs">
       <DependentUpon>EventFlagControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\FlagDescription.cs" />
     <Compile Include="UI\Sekiro\SekiroControl.xaml.cs">
       <DependentUpon>SekiroControl.xaml</DependentUpon>
     </Compile>
@@ -108,10 +113,7 @@
     <Compile Include="UI\BoolToVisibilityConverter.cs" />
     <Compile Include="SoulComponent.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Splits\DarkSouls1\ISplit.cs" />
-    <Compile Include="Splits\DarkSouls1\BossSplit.cs" />
-    <Compile Include="Splits\DarkSouls1\SplitType.cs" />
-    <Compile Include="Splits\DarkSouls1\TimingType.cs" />
+    <Compile Include="Splits\DarkSouls1\DarkSouls1SplitType.cs" />
     <Compile Include="Splits\DarkSouls2\DarkSouls2SplitType.cs" />
     <Compile Include="SplitterState.cs" />
     <Compile Include="Splitters\EldenRingSplitter.cs" />
@@ -123,7 +125,6 @@
       <DependentUpon>DarkSouls1Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DarkSouls1\DarkSouls1ViewModel.cs" />
-    <Compile Include="UI\DarkSouls1\SplitViewModel.cs" />
     <Compile Include="UI\EldenRing\EldenRingControl.xaml.cs">
       <DependentUpon>EldenRingControl.xaml</DependentUpon>
     </Compile>

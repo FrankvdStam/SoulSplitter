@@ -4,9 +4,350 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SoulSplitter.UI.DarkSouls1"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:ui="clr-namespace:SoulSplitter.UI"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:soulSplitter="clr-namespace:SoulSplitter"
+             xmlns:darkSouls1="clr-namespace:SoulSplitter.Splits.DarkSouls1"
+             xmlns:SoulMemoryDs1="clr-namespace:SoulMemory.DarkSouls1;assembly=SoulMemory"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DataContext="{d:DesignInstance local:DarkSouls1ViewModel, IsDesignTimeCreatable=True}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!-- Material design -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
+
+                <ResourceDictionary>
+                    <ui:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
+                    <ui:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
+                    <ui:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
+
+                    <!-- Grid row definitions -->
+                    <system:Int32 x:Key="StartAutomaticallyRow" >0</system:Int32>
+                    <system:Int32 x:Key="ResetIndicesRow"       >1</system:Int32>
+                    <system:Int32 x:Key="SeparatorRow"          >2</system:Int32>
+                    <system:Int32 x:Key="SplitDefinitionRow"    >3</system:Int32>
+                    <system:Int32 x:Key="SplitTypeRow"          >4</system:Int32>
+                    <system:Int32 x:Key="AddRemoveSplitRow"     >5</system:Int32>
+                    <system:Int32 x:Key="SplitsTreeRow"         >6</system:Int32>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- row ============================================================================================================================================================================================== -->
+        <CheckBox 
+            Grid.Row="{StaticResource StartAutomaticallyRow}"
+            Margin="5" 
+            Content="Start automatically" 
+            IsChecked="{Binding StartAutomatically}"/>
+
+        <!-- row ============================================================================================================================================================================================== -->
+        <CheckBox 
+            Grid.Row="{StaticResource ResetIndicesRow}"
+            Margin="5" 
+            Content="Reset indices (TODO)" 
+            IsChecked="{Binding ResetIndices}"/>
+
+        <!-- row ============================================================================================================================================================================================== -->
+        <Label 
+            Grid.Row="{StaticResource SeparatorRow}" 
+            Content="Automatic splitting"/>
+
+        <Separator 
+            Grid.Row="{StaticResource SeparatorRow}" />
+
+        <!-- row ============================================================================================================================================================================================== -->
+        <!-- timing type -->
+        <ComboBox
+            Grid.Row="{StaticResource SplitDefinitionRow}"
+            Margin="5"
+            HorizontalAlignment="Left"
+            Width="205"
+            Height="30"
+            SelectedValuePath="Tag"
+            SelectedValue="{Binding NewSplitTimingType}"
+            materialDesign:HintAssist.HelperText="when">
+
+            <ComboBoxItem Content="immediately when">
+                <ComboBoxItem.Tag>
+                    <soulSplitter:TimingType>Immediate</soulSplitter:TimingType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+            <ComboBoxItem Content="when the game is loading after">
+                <ComboBoxItem.Tag>
+                    <soulSplitter:TimingType>OnLoading</soulSplitter:TimingType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+            <ComboBoxItem Content="when I'm warping after">
+                <ComboBoxItem.Tag>
+                    <soulSplitter:TimingType>OnWarp</soulSplitter:TimingType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+        </ComboBox>
+
+        <!-- split type -->
+        <ComboBox
+            Grid.Row="{StaticResource SplitDefinitionRow}"
+            Margin="215, 5, 5, 5"
+            HorizontalAlignment="Left"
+            Width="205"
+            Height="30"
+            SelectedValuePath="Tag"
+            SelectedValue="{Binding NewSplitType}"
+            materialDesign:HintAssist.HelperText="what"
+            IsEnabled="{Binding NewSplitTypeEnabled}">
+
+            <ComboBoxItem Content="I kill a boss">
+                <ComboBoxItem.Tag>
+                    <darkSouls1:DarkSouls1SplitType>BossKill</darkSouls1:DarkSouls1SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="I level my character">
+                <ComboBoxItem.Tag>
+                    <darkSouls1:DarkSouls1SplitType>Attribute</darkSouls1:DarkSouls1SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="I reach a position">
+                <ComboBoxItem.Tag>
+                    <darkSouls1:DarkSouls1SplitType>Position</darkSouls1:DarkSouls1SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="I trigger a flag">
+                <ComboBoxItem.Tag>
+                    <darkSouls1:DarkSouls1SplitType>Flag</darkSouls1:DarkSouls1SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+        </ComboBox>
+
+        <!-- row ============================================================================================================================================================================================== -->
+        <!-- Boss -->
+        <ui:FilteredComboBox
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Grid.Column="0"
+            Margin="5"
+            Width="420"
+            HorizontalAlignment="Left"
+            ItemsSource="{Binding Bosses}" 
+            SelectedValue="{Binding NewSplitValue}"
+            materialDesign:HintAssist.HelperText="which"
+            Visibility="{Binding NewSplitBossEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            DisplayMemberPath="Name"
+            SelectedValuePath="Value"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            IsEditable="True" 
+            IsTextSearchEnabled="False" 
+            StaysOpenOnEdit="True"/>
+
+        <!-- Attributes -->
+        <StackPanel 
+            Orientation="Horizontal"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Visibility="{Binding NewSplitAttributeEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+
+            <ComboBox
+            Margin="5, 5, 5, 5"
+            Width="200"
+            SelectedValue="{Binding NewSplitValue.AttributeType}"
+            materialDesign:HintAssist.HelperText="which"
+            Visibility="{Binding NewSplitAttributeEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            SelectedValuePath="Tag"
+            IsEditable="True" 
+            IsTextSearchEnabled="False" 
+            StaysOpenOnEdit="True">
+
+                <ComboBoxItem Content="Vitality">
+                    <ComboBoxItem.Tag>
+                        <SoulMemoryDs1:Attribute>Vitality</SoulMemoryDs1:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Attunement">
+                    <ComboBoxItem.Tag>
+                        <SoulMemoryDs1:Attribute>Attunement</SoulMemoryDs1:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Endurance">
+                    <ComboBoxItem.Tag>
+                        <SoulMemoryDs1:Attribute>Endurance</SoulMemoryDs1:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Strength">
+                    <ComboBoxItem.Tag>
+                        <SoulMemoryDs1:Attribute>Strength</SoulMemoryDs1:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Dexterity">
+                    <ComboBoxItem.Tag>
+                        <SoulMemoryDs1:Attribute>Dexterity</SoulMemoryDs1:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Resistance">
+                    <ComboBoxItem.Tag>
+                        <SoulMemoryDs1:Attribute>Resistance</SoulMemoryDs1:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Intelligence">
+                    <ComboBoxItem.Tag>
+                        <SoulMemoryDs1:Attribute>Intelligence</SoulMemoryDs1:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Faith">
+                    <ComboBoxItem.Tag>
+                        <SoulMemoryDs1:Attribute>Faith</SoulMemoryDs1:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Humanity">
+                    <ComboBoxItem.Tag>
+                        <SoulMemoryDs1:Attribute>Humanity</SoulMemoryDs1:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="SoulLevel">
+                    <ComboBoxItem.Tag>
+                        <SoulMemoryDs1:Attribute>SoulLevel</SoulMemoryDs1:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+
+            <TextBox
+                Margin="5, 5, 5, 5"
+                Width="200"
+                materialDesign:HintAssist.HelperText="Level"
+                Text="{Binding NewSplitValue.Level}"
+                />
+        </StackPanel>
+
+        <!-- Position -->
+        <StackPanel
+                Margin="5,10,0,0"
+                Visibility="{Binding NewSplitPositionEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+                Grid.Row="{StaticResource SplitTypeRow}"
+                Grid.Column="0"
+                Orientation="Horizontal">
+
+            <TextBox 
+                    Width="50"
+                    Height="25"
+                    Margin="0,0,0,0"
+                    Text="{Binding NewSplitValue.X}"
+                    materialDesign:HintAssist.Hint="X"
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}"
+                    PreviewTextInput="OnPreviewTextInput_Float"/>
+
+            <TextBox 
+                    Width="50"
+                    Height="25"
+                    Margin="5,0,0,0"
+                    Text="{Binding NewSplitValue.Y}"
+                    materialDesign:HintAssist.Hint="Y"
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}"
+                    PreviewTextInput="OnPreviewTextInput_Float"/>
+
+            <TextBox 
+                    Width="50"
+                    Height="25"
+                    Margin="5,0,0,0"
+                    Text="{Binding NewSplitValue.Z}"
+                    materialDesign:HintAssist.Hint="Z"
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}"
+                    PreviewTextInput="OnPreviewTextInput_Float"/>
+
+        </StackPanel>
+
+        <!-- Flag -->
+        <TextBox
+                Grid.Row="{StaticResource SplitTypeRow}"
+                Width="420"
+                Margin="5"
+                HorizontalAlignment="Left"
+                Text="{Binding NewSplitValue}"
+                TextChanged="TextBoxRawFlag_OnTextChanged"
+                materialDesign:HintAssist.HelperText="which"
+                Visibility="{Binding NewSplitFlagEnabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+
+        <!-- row ============================================================================================================================================================================================== -->
+
+        <StackPanel
+            Orientation="Horizontal"
+            Grid.Row="{StaticResource AddRemoveSplitRow}">
+            <Button
+                Margin="5"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Add a split"
+                Click="AddSplit_OnClick"
+                IsEnabled="{Binding NewSplitAddEnabled}">
+                <materialDesign:PackIcon
+                    Kind="Plus"
+                    Height="30"
+                    Width="30" />
+            </Button>
+
+            <Button
+                Margin="5"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Remove selected split"
+                Click="RemoveSplit_OnClick"
+                IsEnabled="{Binding RemoveSplitEnabled}">
+                <materialDesign:PackIcon
+                    Kind="Close"
+                    Height="30"
+                    Width="30" />
+            </Button>
+        </StackPanel>
+
+        <!-- row ============================================================================================================================================================================================== -->
+
+        <TreeView
+            Grid.Row="{StaticResource SplitsTreeRow}" 
+            ItemsSource="{Binding Splits}"
+            SelectedItemChanged="SplitsTreeView_OnSelectedItemChanged">
+
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:HierarchicalTimingTypeViewModel}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding TimingType, Converter={StaticResource EnumDisplayNameConverter}}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:HierarchicalSplitTypeViewModel}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding SplitType, Converter={StaticResource EnumDisplayNameConverter}}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:HierarchicalSplitViewModel}">
+                    <TextBlock Text="{Binding Split, Converter={StaticResource SplitObjectToDescriptionConverter}}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+
+        <!-- row ============================================================================================================================================================================================== -->
+
     </Grid>
 </UserControl>

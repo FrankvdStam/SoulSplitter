@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SoulMemory.DarkSouls1
 {
+    [XmlType(Namespace = "SoulMemory.DarkSouls1")]
     public enum Attribute : long
     {
         Vitality = 0x38,

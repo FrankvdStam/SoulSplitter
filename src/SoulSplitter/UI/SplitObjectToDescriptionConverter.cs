@@ -21,6 +21,11 @@ namespace SoulSplitter.UI
                 return i.Name;
             }
 
+            if (value is FlagDescription f)
+            {
+                return f.ToString();
+            }
+
             if (value is uint u)
             {
                 return u;

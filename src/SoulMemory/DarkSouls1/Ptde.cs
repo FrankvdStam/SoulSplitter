@@ -80,6 +80,8 @@ namespace SoulMemory.DarkSouls1
                     .CreatePointer(out _eventFlags, 0, 0, 0)
                     ;
 
+                //FrpgMenuDlgKeyGuide 68 78 eb 1b 01 8b ce a3 ? ? ? ? e8 ? ? ? ? 5f 89 86 f4 00 00 00 5e c3
+
                 return null;
             }
             catch (Exception e)
@@ -92,6 +94,7 @@ namespace SoulMemory.DarkSouls1
 
         public int GetAttribute(Attribute attribute) => _playerGameData?.ReadInt32((long)attribute) ?? 0;
 
+        public int GetInGameTimeMillis() => _gameDataMan?.ReadInt32(0x68) ?? 0;
 
         #region Event flags
 
@@ -173,7 +176,13 @@ namespace SoulMemory.DarkSouls1
             {
                 return false;
             }
-        
+
+            //The player unloads at least 1 frame after IGT stops ticking
+            if (!IsPlayerLoaded())
+            {
+                return false;
+            }
+
             var state = _menuMan.ReadInt32(0x7ec);
             return state != 1 && state != 2;
         }
@@ -183,14 +192,12 @@ namespace SoulMemory.DarkSouls1
             return _playerIns?.ReadInt32(0x2d4) ?? 0;
         }
 
+        public bool IsPlayerLoaded() => !_playerIns?.IsNullPtr() ?? false;
+        
+
         public bool IsWarping()
         {
             if (_gameMan == null)
-            {
-                return false;
-            }
-
-            if (IsLoaded())
             {
                 return false;
             }
@@ -203,5 +210,14 @@ namespace SoulMemory.DarkSouls1
             return _gameMan.ReadByte(0x11) == 1;
         }
         #endregion
+
+        public Vector3f GetPosition()
+        {
+            if (_playerIns == null)
+            {
+                return new Vector3f(0, 0, 0);
+            }
+            return new Vector3f(_playerIns.ReadFloat(0xc50), _playerIns.ReadFloat(0xC58), _playerIns.ReadFloat(0xC54));
+        }
     }
 }

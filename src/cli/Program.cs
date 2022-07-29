@@ -53,7 +53,7 @@ namespace cli
 
     internal class Program
     {
-
+        
         [STAThread]
         static void Main(string[] args)
         {
@@ -71,11 +71,12 @@ namespace cli
             while (true)
             {
                 //1812960
-                Console.WriteLine($"warp {ds1.IsWarping()}");
-
+                Console.WriteLine($"pos {ds1.GetPosition()}");
                 ds1.Refresh(out _);
                 Thread.Sleep(32);
-                Console.Clear();
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine("                                                                        ");
+                Console.SetCursorPosition(0, 0);
             }
 
 

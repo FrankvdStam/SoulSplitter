@@ -12,5 +12,8 @@ namespace SoulSplitter
 
         [Display(Name = "on blackscreen")]
         OnBlackscreen,
+
+        [Display(Name = "on warp")]
+        OnWarp,
     }
 }

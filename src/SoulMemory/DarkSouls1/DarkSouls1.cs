@@ -15,7 +15,11 @@ namespace SoulMemory.DarkSouls1
         public int GetAttribute(Attribute attribute) => _darkSouls1?.GetAttribute(attribute) ?? 0;
         public bool ReadEventFlag(uint eventFlagId) => _darkSouls1?.ReadEventFlag(eventFlagId) ?? false;
         public bool IsWarping() => _darkSouls1?.IsWarping() ?? false;
+        public bool IsLoaded() => _darkSouls1?.IsLoaded() ?? false;
+        public bool IsPlayerLoaded() => _darkSouls1?.IsPlayerLoaded() ?? false;
+        public Vector3f GetPosition() => _darkSouls1?.GetPosition() ?? new Vector3f(0,0,0);
 
+        public int GetInGameTimeMillis() => _darkSouls1?.GetInGameTimeMillis() ?? 0;
         public bool Refresh(out Exception exception)
         {
             exception = null;

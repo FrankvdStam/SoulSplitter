@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SoulMemory.DarkSouls1
 {
+    [XmlType(Namespace = "SoulMemory.DarkSouls1")]
     public enum Boss : uint
     {
         [Display(Name = "Asylum Demon")]
@@ -30,7 +32,7 @@ namespace SoulMemory.DarkSouls1
         [Display(Name = "Crossbreed Priscilla")]
         CrossbreedPriscilla = 4,
 
-        [Display(Name = "  Dark Sun Gwyndolin")]
+        [Display(Name = "Dark Sun Gwyndolin")]
         DarkSunGwyndolindolin = 11510900,
 
         [Display(Name = "Demon Firesage")]
@@ -39,7 +41,7 @@ namespace SoulMemory.DarkSouls1
         [Display(Name = "Four Kings")]
         FourKings = 13,
 
-        [Display(Name = "Graping Dragon")]
+        [Display(Name = "Gaping Dragon")]
         GapingDragon = 2,
 
         [Display(Name = "Great Grey Wolf Sif")]

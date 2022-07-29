@@ -32,7 +32,7 @@
 			<change>Added 'on blackscreen' timing type to Elden Ring split timing options</change>
 			<change>Added character attribute based splits to Dark Souls 3</change>
 		</changelog>
-	</update>d
+	</update>
 	<update version="1.0.37">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed" />
