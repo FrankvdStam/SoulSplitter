@@ -175,6 +175,7 @@ namespace SoulSplitter.UI.DarkSouls1
                         break;
 
                     case DarkSouls1SplitType.Flag:
+                        NewSplitValue = new FlagDescription();
                         NewSplitFlagEnabled = true;
                         break;
 

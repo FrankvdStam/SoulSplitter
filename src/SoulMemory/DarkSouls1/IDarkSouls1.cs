@@ -13,8 +13,7 @@ namespace SoulMemory.DarkSouls1
         int GetAttribute(Attribute attribute);
         bool IsWarping();
         bool IsLoaded();
-        bool IsPlayerLoaded();
-        int GetInGameTimeMillis();
+        int GetInGameTimeMilliseconds();
         Vector3f GetPosition();
     }
 }

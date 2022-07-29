@@ -20,9 +20,12 @@ namespace SoulMemory.DarkSouls1
         private Pointer _gameDataMan;
         private Pointer _menuMan;
         private Pointer _worldChrManImp;
+        private Pointer _worldAiManImpl;
         private Pointer _playerIns;
         private Pointer _playerGameData;
         private Pointer _eventFlags;
+        private int _inGameTimeMillis = 0;
+        private bool _loading = false;
 
         public bool Refresh(out Exception exception)
         {
@@ -32,6 +35,21 @@ namespace SoulMemory.DarkSouls1
                 exception = e;
                 return false;
             }
+            
+            var igt = _gameDataMan?.ReadInt32(0x68) ?? 0;
+            
+            if (igt == 0 || _inGameTimeMillis == 0)
+            {
+                _loading = true;
+            }
+
+            if (igt != _inGameTimeMillis)
+            {
+                _loading = false;
+            }
+
+            _inGameTimeMillis = igt;
+
             return true;
         }
 
@@ -44,6 +62,7 @@ namespace SoulMemory.DarkSouls1
             _playerIns = null;
             _playerGameData = null;
             _eventFlags = null;
+            _worldAiManImpl = null;
         }
 
         private Exception InitPointers()
@@ -51,9 +70,7 @@ namespace SoulMemory.DarkSouls1
             try
             {
                 var scanCache = _process.ScanCache();
-
-                //a1 a0 ? ? ? ? b8 d8 0b 00 00 8d a8 d8 0b 00 00
-
+                
                 scanCache
                     .ScanAbsolute("GameMan", "a1 ? ? ? ? 8b b8 d8 0b 00 00 8d a8 d8 0b 00 00", 1)
                     .CreatePointer(out _gameMan, 0, 0);
@@ -80,8 +97,12 @@ namespace SoulMemory.DarkSouls1
                     .CreatePointer(out _eventFlags, 0, 0, 0)
                     ;
 
-                //FrpgMenuDlgKeyGuide 68 78 eb 1b 01 8b ce a3 ? ? ? ? e8 ? ? ? ? 5f 89 86 f4 00 00 00 5e c3
+                scanCache
+                    .ScanAbsolute("WorldAiManImpl", "a1 ? ? ? ? 89 88 8c 0f 00 00 8b 77 14", 1)
+                    .CreatePointer(out _worldAiManImpl, 0, 0);
 
+                //FrpgMenuDlgKeyGuide 68 78 eb 1b 01 8b ce a3 ? ? ? ? e8 ? ? ? ? 5f 89 86 f4 00 00 00 5e c3
+                
                 return null;
             }
             catch (Exception e)
@@ -91,10 +112,9 @@ namespace SoulMemory.DarkSouls1
         }
 
         #endregion
-
         public int GetAttribute(Attribute attribute) => _playerGameData?.ReadInt32((long)attribute) ?? 0;
 
-        public int GetInGameTimeMillis() => _gameDataMan?.ReadInt32(0x68) ?? 0;
+        public int GetInGameTimeMilliseconds() => _gameDataMan?.ReadInt32(0x68) ?? 0;
 
         #region Event flags
 
@@ -172,29 +192,26 @@ namespace SoulMemory.DarkSouls1
         #region Warp
         public bool IsLoaded()
         {
-            if (_menuMan == null)
-            {
-                return false;
-            }
-
-            //The player unloads at least 1 frame after IGT stops ticking
-            if (!IsPlayerLoaded())
-            {
-                return false;
-            }
-
-            var state = _menuMan.ReadInt32(0x7ec);
-            return state != 1 && state != 2;
+            return !_loading;
+            //if (_menuMan == null)
+            //{
+            //    return false;
+            //}
+            //
+            //if (_playerIns?.IsNullPtr() ?? false)
+            //{
+            //    return false;
+            //}
+            //
+            //var state = _menuMan.ReadInt32(0x7ec);
+            //return state != 1 && state != 2;
         }
 
         public int GetPlayerHealth()
         {
             return _playerIns?.ReadInt32(0x2d4) ?? 0;
         }
-
-        public bool IsPlayerLoaded() => !_playerIns?.IsNullPtr() ?? false;
         
-
         public bool IsWarping()
         {
             if (_gameMan == null)

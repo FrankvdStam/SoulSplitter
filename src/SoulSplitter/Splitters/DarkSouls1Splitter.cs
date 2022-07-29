@@ -68,7 +68,7 @@ namespace SoulSplitter.Splitters
         private void StartTimer()
         {
             _timerState = TimerState.Running;
-            _inGameTime = _darkSouls1.GetInGameTimeMillis();
+            _inGameTime = _darkSouls1.GetInGameTimeMilliseconds();
             _timerModel.Start();
         }
 
@@ -81,6 +81,29 @@ namespace SoulSplitter.Splitters
 
         private void UpdateTimer()
         {
+            switch (_timerState)
+            {
+                case TimerState.WaitForStart:
+                    if (_darkSouls1ViewModel.StartAutomatically)
+                    {
+                        var igt = _darkSouls1.GetInGameTimeMilliseconds();
+                        if (igt > 0 && igt < 150)
+                        {
+                            StartTimer();
+                            StartAutoSplitting();
+                        }
+                    }
+                    break;
+
+                case TimerState.Running:
+                    var currentIgt = _darkSouls1.GetInGameTimeMilliseconds();
+                    if (currentIgt != 0)
+                    {
+                        _inGameTime = currentIgt;
+                    }
+                    _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
+                    break;
+            }
         }
 
         #endregion
@@ -95,7 +118,7 @@ namespace SoulSplitter.Splitters
             _splits.Clear();
         }
 
-        public void StartAutoSplitting()
+        private void StartAutoSplitting()
         {
             _splits = (
                 from timingType in _darkSouls1ViewModel.Splits

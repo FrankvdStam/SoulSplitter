@@ -289,7 +289,7 @@
                 Width="420"
                 Margin="5"
                 HorizontalAlignment="Left"
-                Text="{Binding NewSplitValue}"
+                Text="{Binding NewSplitValue.Flag}"
                 TextChanged="TextBoxRawFlag_OnTextChanged"
                 materialDesign:HintAssist.HelperText="which"
                 Visibility="{Binding NewSplitFlagEnabled, Converter={StaticResource BoolToVisibilityConverter}}"/>

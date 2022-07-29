@@ -106,6 +106,7 @@ namespace SoulSplitter.Splitters
         {
             _timerState = TimerState.Running;
             _inGameTime = _darkSouls3.GetInGameTimeMilliseconds();
+            _liveSplitState.IsGameTimePaused = true;
             _timerModel.Start();
         }
 
