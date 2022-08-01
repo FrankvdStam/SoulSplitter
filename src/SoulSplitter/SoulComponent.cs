@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter
 {
@@ -186,6 +187,8 @@ namespace SoulSplitter
         {
             try
             {
+                Migrations.Migrate(settings);
+
                 var vm = MainViewModel.Deserialize(settings.InnerXml);
                 if (vm != null)
                 {

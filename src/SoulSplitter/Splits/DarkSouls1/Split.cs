@@ -2,6 +2,7 @@
 using SoulMemory;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.UI;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splits.DarkSouls1
 {
@@ -27,7 +28,7 @@ namespace SoulSplitter.Splits.DarkSouls1
                     break;
 
                 case DarkSouls1SplitType.Position:
-                    Position = (PositionSplit)split;
+                    Position = (VectorSize)split;
                     break;
                     
                 case DarkSouls1SplitType.Flag:
@@ -41,7 +42,7 @@ namespace SoulSplitter.Splits.DarkSouls1
         
         public readonly Boss Boss;
         public readonly Attribute Attribute;
-        public readonly PositionSplit Position;
+        public readonly VectorSize Position;
         public readonly uint Flag;
 
         /// <summary>

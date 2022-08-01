@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using SoulMemory.Memory;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.UI.Converters
 {
 	public class EnumDisplayNameConverter : IValueConverter
     {

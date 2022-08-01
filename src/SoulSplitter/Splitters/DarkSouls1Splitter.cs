@@ -7,6 +7,7 @@ using LiveSplit.Model;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.UI.DarkSouls1;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splitters
 {

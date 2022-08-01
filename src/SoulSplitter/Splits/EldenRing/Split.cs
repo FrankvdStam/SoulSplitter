@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using SoulMemory.EldenRing;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splits.EldenRing
 {

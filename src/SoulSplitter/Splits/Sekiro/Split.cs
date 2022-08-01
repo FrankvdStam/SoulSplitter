@@ -1,6 +1,9 @@
 ﻿using System;
 using SoulMemory;
 using SoulMemory.Sekiro;
+using SoulSplitter.Splits.DarkSouls1;
+using SoulSplitter.UI;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splits.Sekiro
 {
@@ -21,17 +24,17 @@ namespace SoulSplitter.Splits.Sekiro
                     Flag = (uint)Boss;
                     break;
 
-                case SplitType.Idol:
+                case SplitType.Bonfire:
                     Idol = (Idol)split;
                     Flag = (uint)Idol;
                     break;
 
                 case SplitType.Position:
-                    Position = (Vector3f)split;
+                    Position = (VectorSize)split;
                     break;
 
                 case SplitType.Flag:
-                    Flag = (uint)split;
+                    Flag = ((FlagDescription)split).Flag;
                     break;
             }
         }
@@ -42,7 +45,7 @@ namespace SoulSplitter.Splits.Sekiro
         public readonly Boss Boss;
         public readonly Idol Idol;
         public readonly uint Flag;
-        public readonly Vector3f Position;
+        public readonly VectorSize Position;
 
         /// <summary>
         /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met

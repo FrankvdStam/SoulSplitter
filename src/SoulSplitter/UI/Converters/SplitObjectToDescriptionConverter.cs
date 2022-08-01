@@ -4,8 +4,9 @@ using System.Windows.Forms.Design;
 using SoulMemory;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
+using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.UI.Converters
 {
     public class SplitObjectToDescriptionConverter : IValueConverter
     {

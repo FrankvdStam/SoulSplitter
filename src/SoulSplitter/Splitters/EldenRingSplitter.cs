@@ -8,6 +8,7 @@ using SoulMemory.EldenRing;
 using SoulSplitter.Splits.EldenRing;
 using SoulSplitter.UI;
 using SoulSplitter.UI.EldenRing;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splitters
 {

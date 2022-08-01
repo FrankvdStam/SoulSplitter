@@ -10,6 +10,8 @@
              xmlns:darkSouls2="clr-namespace:SoulSplitter.UI.DarkSouls2"
              xmlns:darkSouls21="clr-namespace:SoulSplitter.Splits.DarkSouls2"
              xmlns:darkSouls22="clr-namespace:SoulMemory.DarkSouls2;assembly=SoulMemory"
+             xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
+             xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance darkSouls2:DarkSouls2ViewModel, IsDesignTimeCreatable=True}">
 
@@ -26,9 +28,9 @@
 
                 <ResourceDictionary>
 
-                    <ui:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
-                    <ui:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
-                    <ui:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
+                    <converters:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
+                    <converters:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
+                    <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
 
 
                     <!-- Grid row definitions -->
@@ -82,12 +84,12 @@
 
             <ComboBoxItem Content="immediately when">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>Immediate</soulSplitter:TimingType>
+                    <generic:TimingType>Immediate</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
             <ComboBoxItem Content="when the game is loading after">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>OnLoading</soulSplitter:TimingType>
+                    <generic:TimingType>OnLoading</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
         </ComboBox>
@@ -190,7 +192,7 @@
             Grid.Row="{StaticResource SplitTypeRow}"
             Grid.Column="0"
             Orientation="Horizontal">
-            <ui:FilteredComboBox
+            <generic:FilteredComboBox
                 Margin="5"
                 Width="205"
                 HorizontalAlignment="Left"

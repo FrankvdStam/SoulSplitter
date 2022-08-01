@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.Sekiro;
 using SoulSplitter.Splits.Sekiro;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.Sekiro
 {
@@ -81,8 +82,8 @@ namespace SoulSplitter.UI.Sekiro
     [XmlType(Namespace = "Sekiro")]
     [XmlInclude(typeof(Idol)),
      XmlInclude(typeof(Boss)), 
-     XmlInclude(typeof(Vector3f)),
-     XmlInclude(typeof(uint))]
+     XmlInclude(typeof(VectorSize)),
+     XmlInclude(typeof(FlagDescription))]
     public class HierarchicalSplitViewModel : INotifyPropertyChanged
     {
         [XmlIgnore]

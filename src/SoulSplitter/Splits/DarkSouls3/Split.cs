@@ -1,5 +1,6 @@
 ﻿using System;
 using SoulMemory.DarkSouls3;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splits.DarkSouls3
 {

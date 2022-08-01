@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.Native;
 using SoulSplitter.Splits.DarkSouls2;
+using SoulSplitter.UI.Generic;
 using Attribute = SoulSplitter.Splits.DarkSouls2.Attribute;
 
 namespace SoulSplitter.UI.DarkSouls2

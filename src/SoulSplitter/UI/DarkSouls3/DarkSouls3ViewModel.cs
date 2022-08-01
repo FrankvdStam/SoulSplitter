@@ -8,7 +8,9 @@ using System.Xml.Serialization;
 using SoulMemory.DarkSouls3;
 using SoulSplitter.Splits.DarkSouls3;
 using SoulSplitter.UI.DarkSouls3;
+using SoulSplitter.UI.Generic;
 using Attribute = SoulSplitter.Splits.DarkSouls3.Attribute;
+using SplitType = SoulSplitter.Splits.DarkSouls3.SplitType;
 
 namespace SoulSplitter.UI.DarkSouls3
 {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SoulSplitter
+namespace SoulSplitter.UI.Validation
 {
     internal enum NumericType
     {

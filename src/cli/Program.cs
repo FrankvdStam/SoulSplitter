@@ -57,6 +57,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+
             //var remas = new Remastered();
             //remas.Refresh(out _);
             //while (true)

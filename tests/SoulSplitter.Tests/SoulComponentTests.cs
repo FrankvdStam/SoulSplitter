@@ -9,6 +9,7 @@ using NUnit.Framework;
 using SoulMemory;
 using SoulSplitter.Splits.Sekiro;
 using SoulSplitter.UI;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Tests
 {
@@ -34,24 +35,20 @@ namespace SoulSplitter.Tests
             viewModel.SekiroViewModel.NewSplitTimingType = TimingType.Immediate;
             viewModel.SekiroViewModel.NewSplitType = SplitType.Position;
             viewModel.SekiroViewModel.NewSplitValue = new Vector3f(1.0f, 2.0f, 3.0f);
-            viewModel.SekiroViewModel.AddSplit();
+            viewModel.SekiroViewModel.AddSplitCommand.Execute(null);
             
             var xml = viewModel.Serialize();
             var deserializedViewModel = MainViewModel.Deserialize(xml);
 
             Assert.AreEqual(viewModel.EldenRingViewModel.StartAutomatically, deserializedViewModel.EldenRingViewModel.StartAutomatically);
             
-            var vector = deserializedViewModel.SekiroViewModel.Splits.FirstOrDefault().Children.FirstOrDefault().Children.FirstOrDefault().Split;
+            var vector = deserializedViewModel.SekiroViewModel.SplitsViewModel.Splits.FirstOrDefault().Children.FirstOrDefault().Children.FirstOrDefault().Split;
 
             Assert.AreEqual(typeof(Vector3f), vector.GetType());
             Assert.AreEqual(1.0f, ((Vector3f)vector).X);
             Assert.AreEqual(2.0f, ((Vector3f)vector).Y);
             Assert.AreEqual(3.0f, ((Vector3f)vector).Z);
         }
-
-
-        
-
 
         private string MainViewModelToXml(MainViewModel viewModel)
         {
@@ -85,6 +82,102 @@ namespace SoulSplitter.Tests
 
             //Assert.AreEqual(viewModel.EldenRingViewModel.StartAutomatically, componentViewModel.EldenRingViewModel.StartAutomatically);
         }
+
+
+        [Test]
+        public void SekiroMigration1_1_0Test()
+        {
+            var doc = new XmlDocument();
+            doc.LoadXml(SekiroMigration1_1_0);
+
+            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
+            var component = new SoulComponent(liveSplitStateMock.Object);
+            component.SetSettings(doc);
+
+            var componentViewModel = component.MainControlFormsWrapper.MainViewModel;
+            Assert.AreEqual(2, componentViewModel.SekiroViewModel.SplitsViewModel.Splits.Count);
+            Assert.AreEqual(3, componentViewModel.SekiroViewModel.SplitsViewModel.Splits.First().Children.Count);
+        }
+
+
+
+
+
+
+
+
+        private const string SekiroMigration1_1_0 =
+            @"<MainViewModel xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <Version>1.1.0</Version>
+  <SelectedGame>Sekiro</SelectedGame>
+  <DarkSouls1ViewModel />
+  <DarkSouls2ViewModel>
+    <StartAutomatically>true</StartAutomatically>
+    <Splits />
+  </DarkSouls2ViewModel>
+  <DarkSouls3ViewModel>
+    <StartAutomatically>true</StartAutomatically>
+    <Splits />
+  </DarkSouls3ViewModel>
+  <SekiroViewModel>
+    <StartAutomatically>true</StartAutomatically>
+    <OverwriteIgtOnStart>false</OverwriteIgtOnStart>
+    <Splits>
+      <HierarchicalTimingTypeViewModel>
+        <TimingType xmlns=""Sekiro"">Immediate</TimingType>
+        <Children xmlns=""Sekiro"">
+          <HierarchicalSplitTypeViewModel>
+            <SplitType>Boss</SplitType>
+            <Children>
+              <HierarchicalSplitViewModel>
+                <Split xsi:type=""Boss"">GyoubuMasatakaOniwa</Split>
+              </HierarchicalSplitViewModel>
+            </Children>
+          </HierarchicalSplitTypeViewModel>
+          <HierarchicalSplitTypeViewModel>
+            <SplitType>Idol</SplitType>
+            <Children>
+              <HierarchicalSplitViewModel>
+                <Split xsi:type=""Idol"">DragonspringHirataEstate</Split>
+              </HierarchicalSplitViewModel>
+            </Children>
+          </HierarchicalSplitTypeViewModel>
+          <HierarchicalSplitTypeViewModel>
+            <SplitType>Position</SplitType>
+            <Children>
+              <HierarchicalSplitViewModel>
+                <Split xmlns:q1=""SoulMemory"" xsi:type=""q1:Vector3f"">
+                  <q1:X>1</q1:X>
+                  <q1:Y>2</q1:Y>
+                  <q1:Z>3</q1:Z>
+                </Split>
+              </HierarchicalSplitViewModel>
+            </Children>
+          </HierarchicalSplitTypeViewModel>
+        </Children>
+      </HierarchicalTimingTypeViewModel>
+      <HierarchicalTimingTypeViewModel>
+        <TimingType xmlns=""Sekiro"">OnLoading</TimingType>
+        <Children xmlns=""Sekiro"">
+          <HierarchicalSplitTypeViewModel>
+            <SplitType>Flag</SplitType>
+            <Children>
+              <HierarchicalSplitViewModel>
+                <Split xsi:type=""xsd:unsignedInt"">123456</Split>
+              </HierarchicalSplitViewModel>
+            </Children>
+          </HierarchicalSplitTypeViewModel>
+        </Children>
+      </HierarchicalTimingTypeViewModel>
+    </Splits>
+  </SekiroViewModel>
+  <EldenRingViewModel>
+    <StartAutomatically>true</StartAutomatically>
+    <LockIgtToZero>false</LockIgtToZero>
+    <EnabledRemoveSplit>false</EnabledRemoveSplit>
+    <Splits />
+  </EldenRingViewModel>
+</MainViewModel>";
 
         private const string ExampleSettings = @"<MainViewModel xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
   <Version>1.0.24</Version>

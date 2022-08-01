@@ -1,22 +1,31 @@
 ﻿using System;
-using System.Windows;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
+using SoulMemory;
+using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.UI.Converters
 {
-	public class BoolToVisibilityConverter : IValueConverter
+    internal class GameToSelectedIndexConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is bool b)
+            if (value is Game g)
             {
-                return b ? Visibility.Visible : Visibility.Collapsed;
+                return (int)g;
             }
             throw new NotSupportedException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value is int num && num.TryParseEnum(out Game g))
+            {
+                return g;
+            }
             throw new NotSupportedException();
         }
     }

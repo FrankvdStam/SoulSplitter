@@ -8,6 +8,7 @@ using SoulMemory;
 using SoulMemory.DarkSouls1;
 using SoulMemory.Native;
 using SoulSplitter.Splits.DarkSouls1;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.DarkSouls1
 {
@@ -80,7 +81,7 @@ namespace SoulSplitter.UI.DarkSouls1
 
     [XmlType(Namespace = "DarkSouls1")]
     [XmlInclude(typeof(Boss)), 
-     XmlInclude(typeof(PositionSplit)), 
+     XmlInclude(typeof(VectorSize)), 
      XmlInclude(typeof(Splits.DarkSouls1.Attribute)), 
      XmlInclude(typeof(FlagDescription))]
     public class HierarchicalSplitViewModel : INotifyPropertyChanged

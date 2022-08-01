@@ -6,7 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using SoulMemory.DarkSouls3;
 using SoulMemory.Native;
-using SoulSplitter.Splits.DarkSouls3;
+using SoulSplitter.UI.Generic;
+using SplitType = SoulSplitter.Splits.DarkSouls3.SplitType;
 
 namespace SoulSplitter.UI.DarkSouls3
 {

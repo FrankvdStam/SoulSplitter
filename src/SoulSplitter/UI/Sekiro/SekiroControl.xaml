@@ -9,6 +9,8 @@
              xmlns:soulSplitter="clr-namespace:SoulSplitter"
              xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
              xmlns:sekiro1="clr-namespace:SoulSplitter.Splits.Sekiro"
+             xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
+             xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance sekiro:SekiroViewModel, IsDesignTimeCreatable=True}">
 
@@ -31,9 +33,8 @@
                         </CollectionViewSource.GroupDescriptions>
                     </CollectionViewSource>
 
-                    <ui:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
-                    <ui:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
-                    <ui:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
+                    <converters:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
+                    <converters:SplitTypeVisibilityConverter      x:Key="SplitTypeVisibilityConverter"/>
 
 
                     <!-- Grid row definitions -->
@@ -49,7 +50,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -57,7 +58,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="45"/>
             <RowDefinition Height="70"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="152"/>
         </Grid.RowDefinitions>
 
         <!-- row ============================================================================================================================================================================================== -->
@@ -96,12 +97,12 @@
 
             <ComboBoxItem Content="immediately when">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>Immediate</soulSplitter:TimingType>
+                    <generic:TimingType>Immediate</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
             <ComboBoxItem Content="when the game is loading after">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>OnLoading</soulSplitter:TimingType>
+                    <generic:TimingType>OnLoading</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
         </ComboBox>
@@ -116,45 +117,46 @@
             SelectedValuePath="Tag"
             SelectedValue="{Binding NewSplitType}"
             materialDesign:HintAssist.HelperText="what"
-            IsEnabled="{Binding NewSplitTypeEnabled}">
+            IsEnabled="{Binding NewSplitEnabledSplitType}">
 
             <ComboBoxItem Content="I kill a boss">
                 <ComboBoxItem.Tag>
-                    <sekiro1:SplitType>Boss</sekiro1:SplitType>
+                    <generic:SplitType>Boss</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
             <ComboBoxItem Content="I unlock an idol">
                 <ComboBoxItem.Tag>
-                    <sekiro1:SplitType>Idol</sekiro1:SplitType>
+                    <generic:SplitType>Bonfire</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
             <ComboBoxItem Content="I reach a position">
                 <ComboBoxItem.Tag>
-                    <sekiro1:SplitType>Position</sekiro1:SplitType>
+                    <generic:SplitType>Position</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
             <ComboBoxItem Content="I trigger a flag">
                 <ComboBoxItem.Tag>
-                    <sekiro1:SplitType>Flag</sekiro1:SplitType>
+                    <generic:SplitType>Flag</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
         </ComboBox>
 
         <!-- row ============================================================================================================================================================================================== -->
         <!-- Boss -->
-        <ui:FilteredComboBox
+        <generic:FilteredComboBox
             Grid.Row="{StaticResource SplitTypeRow}"
             Grid.Column="0"
             Margin="5"
             Width="420"
+            Height="30"
             HorizontalAlignment="Left"
             ItemsSource="{Binding Bosses}" 
             SelectedValue="{Binding NewSplitValue}"
             materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding NewSplitBossEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Boss}"
             DisplayMemberPath="Name"
             SelectedValuePath="Value"
             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
@@ -163,7 +165,7 @@
             StaysOpenOnEdit="True"/>
 
         <!-- Idol -->
-        <ui:FilteredComboBox
+        <generic:FilteredComboBox
             Grid.Row="{StaticResource SplitTypeRow}"
             Width="420"
             Margin="5"
@@ -171,7 +173,7 @@
             ItemsSource="{Binding Source={StaticResource IdolsCollectionViewSource}}" 
             SelectedValue="{Binding NewSplitValue}"
             materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding NewSplitIdolEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Bonfire}"
             DisplayMemberPath="Name"
             SelectedValuePath="Value"
             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
@@ -187,126 +189,25 @@
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
             </ComboBox.GroupStyle>
-        </ui:FilteredComboBox>
+        </generic:FilteredComboBox>
 
         <!-- Position -->
-        <StackPanel
-            Margin="5,10,0,0"
-            Visibility="{Binding NewSplitPositionEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+        <generic:PositionControl
+            Margin="5,0,0,0"
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Position}"
             Grid.Row="{StaticResource SplitTypeRow}"
-            Grid.Column="0"
-            Orientation="Horizontal">
-
-            <TextBox 
-                Width="50"
-                Height="25"
-                Margin="0,0,0,0"
-                Text="{Binding NewSplitValue.X}"
-                materialDesign:HintAssist.Hint="X"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}"
-                PreviewTextInput="OnPreviewTextInput_Float"/>
-
-            <TextBox 
-                Width="50"
-                Height="25"
-                Margin="5,0,0,0"
-                Text="{Binding NewSplitValue.Y}"
-                materialDesign:HintAssist.Hint="Y"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}"
-                PreviewTextInput="OnPreviewTextInput_Float"/>
-
-            <TextBox 
-                Width="50"
-                Height="25"
-                Margin="5,0,0,0"
-                Text="{Binding NewSplitValue.Z}"
-                materialDesign:HintAssist.Hint="Z"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}"
-                PreviewTextInput="OnPreviewTextInput_Float"/>
-            
-        </StackPanel>
-
-        <!-- Hackity -->
-        <Button
-            Visibility="{Binding NewSplitPositionEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
-            Grid.Row="{StaticResource SplitTypeRow}"
-            Grid.Column="0"
-            Margin="300, 5, 0, 0"
-            HorizontalAlignment="Left"
-            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-            ToolTip="Read current game position"
-            Click="CopyPosition_OnClick"
-            IsEnabled="{Binding EnabledAddSplit}">
-            <materialDesign:PackIcon
-                Kind="CrosshairsGps"
-                Height="30"
-                Width="30" />
-        </Button>
-
+            Grid.Column="0"/>
 
         <!-- Flag -->
-        <TextBox
+        <generic:FlagControl
             Grid.Row="{StaticResource SplitTypeRow}"
-            Width="420"
-            Margin="5"
-            HorizontalAlignment="Left"
-            Text="{Binding NewSplitValue}"
-            TextChanged="TextBoxRawFlag_OnTextChanged"
-            materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding NewSplitFlagEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
-        />
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Flag}"/>
 
         <!-- row ============================================================================================================================================================================================== -->
-
-        <StackPanel
-            Orientation="Horizontal"
-            Grid.Row="{StaticResource AddRemoveSplitRow}">
-            <Button
-                Margin="5"
-                HorizontalAlignment="Left"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Add a split"
-                Click="AddSplit_OnClick"
-                IsEnabled="{Binding NewSplitAddEnabled}">
-                <materialDesign:PackIcon
-                    Kind="Plus"
-                    Height="30"
-                    Width="30" />
-            </Button>
-
-            <Button
-                Margin="5"
-                HorizontalAlignment="Left"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Remove selected split"
-                Click="RemoveSplit_OnClick"
-                IsEnabled="{Binding RemoveSplitEnabled}">
-                <materialDesign:PackIcon
-                    Kind="Close"
-                    Height="30"
-                    Width="30" />
-            </Button>
-        </StackPanel>
+        <generic:AddRemoveSplits Grid.Row="{StaticResource AddRemoveSplitRow}"/>
 
         <!-- row ============================================================================================================================================================================================== -->
-
-        <TreeView
-            Grid.Row="{StaticResource SplitsTreeRow}" 
-            ItemsSource="{Binding Splits}"
-            SelectedItemChanged="SplitsTreeView_OnSelectedItemChanged">
-
-            <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type sekiro:HierarchicalTimingTypeViewModel}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding TimingType, Converter={StaticResource EnumDisplayNameConverter}}"/>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type sekiro:HierarchicalSplitTypeViewModel}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding SplitType, Converter={StaticResource EnumDisplayNameConverter}}"/>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type sekiro:HierarchicalSplitViewModel}">
-                    <TextBlock Text="{Binding Split, Converter={StaticResource SplitObjectToDescriptionConverter}}"/>
-                </HierarchicalDataTemplate>
-            </TreeView.Resources>
-        </TreeView>
+        <generic:SplitsTree Grid.Row="{StaticResource SplitsTreeRow}" />
 
         <!-- row ============================================================================================================================================================================================== -->
 

@@ -93,6 +93,7 @@
     <Compile Include="EldenRing\ItemPickup.cs" />
     <Compile Include="EldenRing\Position.cs" />
     <Compile Include="EldenRing\ScreenState.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="ITimeable.cs" />
     <Compile Include="Memory\Extensions.cs" />
     <Compile Include="Memory\PatternCounter.cs" />

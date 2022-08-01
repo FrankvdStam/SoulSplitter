@@ -8,28 +8,27 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using SoulMemory;
 
-namespace SoulSplitter.Splits.DarkSouls1
+namespace SoulSplitter.UI.Generic
 {
-    [XmlType(Namespace = "DarkSouls1")]
-    public class PositionSplit : INotifyPropertyChanged
+    public class VectorSize : INotifyPropertyChanged
     {
         public Vector3f Position
         {
             get => _position;
             set => SetField(ref _position, value);
         }
-        private Vector3f _position;
+        private Vector3f _position = new Vector3f(0,0,0);
 
         public float Size
         {
             get => _size;
             set => SetField(ref _size, value);
         }
-        private float _size;
+        private float _size = 5.0f;
 
         public override string ToString()
         {
-            return $"{Position}, size: {Size}";
+            return $"{Position}, size {Size}";
         }
 
         #region INotifyPropertyChanged

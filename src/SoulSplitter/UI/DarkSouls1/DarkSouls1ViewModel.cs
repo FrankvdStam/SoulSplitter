@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
+using SoulSplitter.UI.Generic;
 using Attribute = System.Attribute;
 
 namespace SoulSplitter.UI.DarkSouls1
@@ -76,8 +77,8 @@ namespace SoulSplitter.UI.DarkSouls1
                     break;
 
                 case DarkSouls1SplitType.Position:
-                    var position = (PositionSplit)NewSplitValue;
-                    if (hierarchicalSplitType.Children.All(i => ((PositionSplit)i.Split).ToString() != position.ToString()))
+                    var position = (VectorSize)NewSplitValue;
+                    if (hierarchicalSplitType.Children.All(i => ((VectorSize)i.Split).ToString() != position.ToString()))
                     {
                         hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = position, Parent = hierarchicalSplitType });
                     }
@@ -171,7 +172,7 @@ namespace SoulSplitter.UI.DarkSouls1
 
                     case DarkSouls1SplitType.Position:
                         NewSplitPositionEnabled = true;
-                        NewSplitValue = new PositionSplit(){ Position = CurrentPosition.Clone() };
+                        NewSplitValue = new VectorSize(){ Position = CurrentPosition.Clone() };
                         break;
 
                     case DarkSouls1SplitType.Flag:

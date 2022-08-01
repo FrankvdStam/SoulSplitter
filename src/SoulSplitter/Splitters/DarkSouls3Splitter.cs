@@ -8,6 +8,8 @@ using LiveSplit.Model;
 using SoulMemory.DarkSouls3;
 using SoulSplitter.Splits.DarkSouls3;
 using SoulSplitter.UI.DarkSouls3;
+using SoulSplitter.UI.Generic;
+using SplitType = SoulSplitter.Splits.DarkSouls3.SplitType;
 
 namespace SoulSplitter.Splitters
 {

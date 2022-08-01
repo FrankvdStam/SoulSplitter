@@ -10,6 +10,8 @@
              xmlns:darkSouls3="clr-namespace:SoulSplitter.Splits.DarkSouls3"
              xmlns:darkSouls3Memory="clr-namespace:SoulMemory.DarkSouls3;assembly=SoulMemory"
              xmlns:soulSplitter="clr-namespace:SoulSplitter"
+             xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
+             xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:DarkSouls3ViewModel, IsDesignTimeCreatable=True}">
 
@@ -32,9 +34,9 @@
                         </CollectionViewSource.GroupDescriptions>
                     </CollectionViewSource>
 
-                    <ui:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
-                    <ui:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
-                    <ui:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
+                    <converters:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
+                    <converters:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
+                    <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
 
 
                     <!-- Grid row definitions -->
@@ -88,12 +90,12 @@
 
             <ComboBoxItem Content="immediately when">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>Immediate</soulSplitter:TimingType>
+                    <generic:TimingType>Immediate</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
             <ComboBoxItem Content="when the game is loading after">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>OnLoading</soulSplitter:TimingType>
+                    <generic:TimingType>OnLoading</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
         </ComboBox>
@@ -143,7 +145,7 @@
 
         <!-- row ============================================================================================================================================================================================== -->
         <!-- Boss -->
-        <ui:FilteredComboBox
+        <generic:FilteredComboBox
             Grid.Row="{StaticResource SplitTypeRow}"
             Grid.Column="0"
             Margin="5"
@@ -161,7 +163,7 @@
             StaysOpenOnEdit="True"/>
 
         <!-- Bonfire -->
-        <ui:FilteredComboBox
+        <generic:FilteredComboBox
             Grid.Row="{StaticResource SplitTypeRow}"
             Width="420"
             Margin="5"
@@ -185,10 +187,10 @@
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
             </ComboBox.GroupStyle>
-        </ui:FilteredComboBox>
+        </generic:FilteredComboBox>
 
         <!-- Item pickup -->
-        <ui:FilteredComboBox 
+        <generic:FilteredComboBox 
             Grid.Row="{StaticResource SplitTypeRow}"
             Margin="5, 5, 5, 5"
             HorizontalAlignment="Left"
@@ -212,7 +214,7 @@
                     <TextBlock Height="15" Width="420" Text="{Binding Name}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
-        </ui:FilteredComboBox>
+        </generic:FilteredComboBox>
 
         <!-- Attributes -->
         <StackPanel 

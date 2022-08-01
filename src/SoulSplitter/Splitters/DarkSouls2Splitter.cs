@@ -9,6 +9,7 @@ using LiveSplit.Model;
 using SoulMemory.DarkSouls2;
 using SoulSplitter.Splits.DarkSouls2;
 using SoulSplitter.UI.DarkSouls2;
+using SoulSplitter.UI.Generic;
 using SoulSplitter.UI.Sekiro;
 using Attribute = SoulMemory.DarkSouls2.Attribute;
 

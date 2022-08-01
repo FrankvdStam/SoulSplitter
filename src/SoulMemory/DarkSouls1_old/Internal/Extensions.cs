@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SoulMemory.DarkSouls1_Old.Internal
 {
-    public static class Extensions
+    internal static class Extensions
     {
         public static int GetDigit(this int value, int index)
         {
@@ -29,7 +29,7 @@ namespace SoulMemory.DarkSouls1_Old.Internal
         {
             var result = new List<byte?>();
             aobStr = aobStr.Replace("\r", string.Empty).Replace("\n", String.Empty);
-            var split = aobStr.Split(new string[]{" "}, StringSplitOptions.RemoveEmptyEntries);
+            var split = aobStr.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var s in split)
             {

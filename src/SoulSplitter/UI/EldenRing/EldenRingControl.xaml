@@ -10,6 +10,8 @@
              xmlns:eldenRingSplits="clr-namespace:SoulSplitter.Splits.EldenRing"
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
+             xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance eldenRing:EldenRingViewModel, IsDesignTimeCreatable=True}">
 
@@ -24,9 +26,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
 
                 <ResourceDictionary>
-                    <ui:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
-                    <ui:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
-                    <ui:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
+                    <converters:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
+                    <converters:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
+                    <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
                 </ResourceDictionary>
 
                 <ResourceDictionary>
@@ -128,17 +130,17 @@
 
             <ComboBoxItem Content="immediately when">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>Immediate</soulSplitter:TimingType>
+                    <generic:TimingType>Immediate</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
             <ComboBoxItem Content="when the game is loading after">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>OnLoading</soulSplitter:TimingType>
+                    <generic:TimingType>OnLoading</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
             <ComboBoxItem Content="During a blackscreen after">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>OnBlackscreen</soulSplitter:TimingType>
+                    <generic:TimingType>OnBlackscreen</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
         </ComboBox>
@@ -196,7 +198,7 @@
         <!-- row ============================================================================================================================================================================================== -->
 
         <!-- boss splits -->
-        <ui:FilteredComboBox
+        <generic:FilteredComboBox
             Grid.Row="{StaticResource SplitTypeRow}"
             Grid.Column="0"
             Margin="5"
@@ -221,10 +223,10 @@
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
             </ComboBox.GroupStyle>
-        </ui:FilteredComboBox>
+        </generic:FilteredComboBox>
 
         <!-- grace splits -->
-        <ui:FilteredComboBox
+        <generic:FilteredComboBox
             Grid.Row="{StaticResource SplitTypeRow}"
             Width="420"
             Margin="5"
@@ -248,7 +250,7 @@
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
             </ComboBox.GroupStyle>
-        </ui:FilteredComboBox>
+        </generic:FilteredComboBox>
 
         <!-- flag splits -->
         <TextBox
@@ -305,7 +307,7 @@
 
 
         <!-- ItemPickup splits -->
-        <ui:FilteredComboBox 
+        <generic:FilteredComboBox 
             Grid.Row="{StaticResource SplitTypeRow}"
             Margin="5, 5, 5, 5"
             HorizontalAlignment="Left"
@@ -329,7 +331,7 @@
                     <TextBlock Height="15" Width="420" Text="{Binding Name}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
-        </ui:FilteredComboBox>
+        </generic:FilteredComboBox>
 
 
         <!-- Position -->

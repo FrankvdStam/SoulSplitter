@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SoulSplitter
+namespace SoulSplitter.UI.Generic
 {
     public enum TimingType
     {

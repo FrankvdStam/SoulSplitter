@@ -5,13 +5,41 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
+using SoulMemory.Memory;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.UI.Generic
 {
-    [XmlType(Namespace = "SoulSplitter")]
-    public class FlagDescription : INotifyPropertyChanged
+    public class EnumFlagViewModel<T> : INotifyPropertyChanged where T : Enum
     {
+        public EnumFlagViewModel(T tEnum)
+        {
+            Value = tEnum;
+            Name = Value.GetDisplayName();
+            Area = Value.GetDisplayDescription();
+            Flag = Convert.ToUInt32(Value);
+        }
+        
+        public T Value
+        {
+            get => _value;
+            set => SetField(ref _value, value);
+        }
+        private T _value;
+
+        public string Area
+        {
+            get => _area;
+            set => SetField(ref _area, value);
+        }
+        private string _area;
+
+        public string Name
+        {
+            get => _name;
+            set => SetField(ref _name, value);
+        }
+        private string _name;
+
         public uint Flag
         {
             get => _flag;
@@ -19,16 +47,12 @@ namespace SoulSplitter.UI
         }
         private uint _flag;
 
-        public string Description
-        {
-            get => _description;
-            set => SetField(ref _description, value);
-        }
-        private string _description;
-
+        /// <summary>
+        /// Used to compare items in the filtered combobox
+        /// </summary>
         public override string ToString()
         {
-            return $"{Flag} {Description}";
+            return Name;
         }
 
         #region INotifyPropertyChanged

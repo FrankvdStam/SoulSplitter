@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LiveSplit.Model;
 using SoulMemory.Sekiro;
 using SoulSplitter.Splits.Sekiro;
+using SoulSplitter.UI.Generic;
 using SoulSplitter.UI.Sekiro;
 
 namespace SoulSplitter.Splitters
@@ -143,15 +144,13 @@ namespace SoulSplitter.Splitters
         public void StartAutoSplitting()
         {
             _splits = (
-                from timingType in _sekiroViewModel.Splits
+                from timingType in _sekiroViewModel.SplitsViewModel.Splits
                 from splitType in timingType.Children
                 from split in splitType.Children
                 select new Split(timingType.TimingType, splitType.SplitType, split.Split)
             ).ToList();
         }
-
-
-        private const float _boxSize = 5.0f;
+        
         public void UpdateAutoSplitter()
         {
             if (_timerState != TimerState.Running)
@@ -169,7 +168,7 @@ namespace SoulSplitter.Splitters
                             throw new Exception($"Unsupported split type {s.SplitType}");
 
                         case SplitType.Boss:
-                        case SplitType.Idol:
+                        case SplitType.Bonfire:
                         case SplitType.Flag:
                             if (!s.SplitConditionMet)
                             {
@@ -185,14 +184,14 @@ namespace SoulSplitter.Splitters
                         case SplitType.Position:
                             if (!s.SplitConditionMet)
                             {
-                                if (s.Position.X + _boxSize > _sekiroViewModel.CurrentPosition.X &&
-                                    s.Position.X - _boxSize < _sekiroViewModel.CurrentPosition.X &&
+                                if (s.Position.Position.X + s.Position.Size > _sekiroViewModel.CurrentPosition.X &&
+                                    s.Position.Position.X - s.Position.Size < _sekiroViewModel.CurrentPosition.X &&
 
-                                    s.Position.Y + _boxSize > _sekiroViewModel.CurrentPosition.Y &&
-                                    s.Position.Y - _boxSize < _sekiroViewModel.CurrentPosition.Y &&
+                                    s.Position.Position.Y + s.Position.Size > _sekiroViewModel.CurrentPosition.Y &&
+                                    s.Position.Position.Y - s.Position.Size < _sekiroViewModel.CurrentPosition.Y &&
 
-                                    s.Position.Z + _boxSize > _sekiroViewModel.CurrentPosition.Z &&
-                                    s.Position.Z - _boxSize < _sekiroViewModel.CurrentPosition.Z)
+                                    s.Position.Position.Z + s.Position.Size > _sekiroViewModel.CurrentPosition.Z &&
+                                    s.Position.Position.Z - s.Position.Size < _sekiroViewModel.CurrentPosition.Z)
                                 {
                                     s.SplitConditionMet = true;
                                 }

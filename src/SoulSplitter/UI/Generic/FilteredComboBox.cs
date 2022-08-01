@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.UI.Generic
 {
     //https://stackoverflow.com/questions/2001842/dynamic-filter-of-wpf-combobox-based-on-text-input/41986141#41986141
     public class FilteredComboBox : ComboBox

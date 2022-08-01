@@ -10,6 +10,9 @@
              xmlns:soulSplitter="clr-namespace:SoulSplitter"
              xmlns:darkSouls1="clr-namespace:SoulSplitter.Splits.DarkSouls1"
              xmlns:SoulMemoryDs1="clr-namespace:SoulMemory.DarkSouls1;assembly=SoulMemory"
+             xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
+             xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
+             xmlns:validation="clr-namespace:SoulSplitter.UI.Validation"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:DarkSouls1ViewModel, IsDesignTimeCreatable=True}">
 
@@ -24,9 +27,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
 
                 <ResourceDictionary>
-                    <ui:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
-                    <ui:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
-                    <ui:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
+                    <converters:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
+                    <converters:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
+                    <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
 
                     <!-- Grid row definitions -->
                     <system:Int32 x:Key="StartAutomaticallyRow" >0</system:Int32>
@@ -88,17 +91,17 @@
 
             <ComboBoxItem Content="immediately when">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>Immediate</soulSplitter:TimingType>
+                    <generic:TimingType>Immediate</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
             <ComboBoxItem Content="when the game is loading after">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>OnLoading</soulSplitter:TimingType>
+                    <generic:TimingType>OnLoading</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
             <ComboBoxItem Content="when I'm warping after">
                 <ComboBoxItem.Tag>
-                    <soulSplitter:TimingType>OnWarp</soulSplitter:TimingType>
+                    <generic:TimingType>OnWarp</generic:TimingType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
         </ComboBox>
@@ -142,7 +145,7 @@
 
         <!-- row ============================================================================================================================================================================================== -->
         <!-- Boss -->
-        <ui:FilteredComboBox
+        <generic:FilteredComboBox
             Grid.Row="{StaticResource SplitTypeRow}"
             Grid.Column="0"
             Margin="5"
@@ -263,7 +266,7 @@
                 <TextBox.Text>
                     <Binding Path="NewSplitValue.Position.X">
                         <Binding.ValidationRules>
-                            <soulSplitter:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
+                            <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -278,7 +281,7 @@
                 <TextBox.Text>
                     <Binding Path="NewSplitValue.Position.Y">
                         <Binding.ValidationRules>
-                            <soulSplitter:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
+                            <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -293,7 +296,7 @@
                 <TextBox.Text>
                     <Binding Path="NewSplitValue.Position.Z">
                         <Binding.ValidationRules>
-                            <soulSplitter:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
+                            <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -307,7 +310,7 @@
                 <TextBox.Text>
                     <Binding Path="NewSplitValue.Size">
                         <Binding.ValidationRules>
-                            <soulSplitter:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="False"/>
+                            <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="False"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -326,7 +329,7 @@
             <TextBox.Text>
                 <Binding Path="NewSplitValue.Flag">
                     <Binding.ValidationRules>
-                        <soulSplitter:TextToNumberValidation NumericType="Uint" IsRequired="True" AllowNegative="False"/>
+                        <validation:TextToNumberValidation NumericType="Uint" IsRequired="True" AllowNegative="False"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>

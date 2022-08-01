@@ -11,6 +11,7 @@ using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.EldenRing;
+using SoulSplitter.UI.Generic;
 using SoulSplitter.UI.Sekiro;
 
 namespace SoulSplitter.UI
@@ -113,7 +114,7 @@ namespace SoulSplitter.UI
             vm.DarkSouls1ViewModel.RestoreHierarchy();
             vm.DarkSouls2ViewModel.RestoreHierarchy();
             vm.DarkSouls3ViewModel.RestoreHierarchy();
-            vm.SekiroViewModel.RestoreHierarchy();
+            vm.SekiroViewModel.SplitsViewModel.RestoreHierarchy();
             vm.EldenRingViewModel.RestoreHierarchy();
             return vm;
         }

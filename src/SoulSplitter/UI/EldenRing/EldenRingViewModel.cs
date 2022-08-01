@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulSplitter.Splits.EldenRing;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.EldenRing
 {
