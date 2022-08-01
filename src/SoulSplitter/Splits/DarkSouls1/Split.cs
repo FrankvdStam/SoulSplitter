@@ -27,7 +27,7 @@ namespace SoulSplitter.Splits.DarkSouls1
                     break;
 
                 case DarkSouls1SplitType.Position:
-                    Position = (Vector3f)split;
+                    Position = (PositionSplit)split;
                     break;
                     
                 case DarkSouls1SplitType.Flag:
@@ -41,7 +41,7 @@ namespace SoulSplitter.Splits.DarkSouls1
         
         public readonly Boss Boss;
         public readonly Attribute Attribute;
-        public readonly Vector3f Position;
+        public readonly PositionSplit Position;
         public readonly uint Flag;
 
         /// <summary>

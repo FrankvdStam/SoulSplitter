@@ -258,28 +258,60 @@
                     Width="50"
                     Height="25"
                     Margin="0,0,0,0"
-                    Text="{Binding NewSplitValue.X}"
                     materialDesign:HintAssist.Hint="X"
-                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}"
-                    PreviewTextInput="OnPreviewTextInput_Float"/>
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}">
+                <TextBox.Text>
+                    <Binding Path="NewSplitValue.Position.X">
+                        <Binding.ValidationRules>
+                            <soulSplitter:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBox 
                     Width="50"
                     Height="25"
                     Margin="5,0,0,0"
-                    Text="{Binding NewSplitValue.Y}"
                     materialDesign:HintAssist.Hint="Y"
-                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}"
-                    PreviewTextInput="OnPreviewTextInput_Float"/>
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}">
+                <TextBox.Text>
+                    <Binding Path="NewSplitValue.Position.Y">
+                        <Binding.ValidationRules>
+                            <soulSplitter:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBox 
                     Width="50"
                     Height="25"
                     Margin="5,0,0,0"
-                    Text="{Binding NewSplitValue.Z}"
                     materialDesign:HintAssist.Hint="Z"
-                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}"
-                    PreviewTextInput="OnPreviewTextInput_Float"/>
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}">
+                <TextBox.Text>
+                    <Binding Path="NewSplitValue.Position.Z">
+                        <Binding.ValidationRules>
+                            <soulSplitter:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBox 
+                Width="50"
+                Height="25"
+                Margin="5,0,0,0"
+                materialDesign:HintAssist.Hint="Trigger size">
+                <TextBox.Text>
+                    <Binding Path="NewSplitValue.Size">
+                        <Binding.ValidationRules>
+                            <soulSplitter:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="False"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
         </StackPanel>
 
@@ -289,10 +321,16 @@
                 Width="420"
                 Margin="5"
                 HorizontalAlignment="Left"
-                Text="{Binding NewSplitValue.Flag}"
-                TextChanged="TextBoxRawFlag_OnTextChanged"
                 materialDesign:HintAssist.HelperText="which"
-                Visibility="{Binding NewSplitFlagEnabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                Visibility="{Binding NewSplitFlagEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+            <TextBox.Text>
+                <Binding Path="NewSplitValue.Flag">
+                    <Binding.ValidationRules>
+                        <soulSplitter:TextToNumberValidation NumericType="Uint" IsRequired="True" AllowNegative="False"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
 
         <!-- row ============================================================================================================================================================================================== -->

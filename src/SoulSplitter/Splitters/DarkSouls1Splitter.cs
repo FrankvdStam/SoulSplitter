@@ -127,7 +127,7 @@ namespace SoulSplitter.Splitters
                 select new Split(timingType.TimingType, splitType.SplitType, split.Split)
             ).ToList();
         }
-        private const float BoxSize = 5.0f;
+
         public void UpdateAutoSplitter()
         {
             TrackWarps();
@@ -164,14 +164,14 @@ namespace SoulSplitter.Splitters
                         case DarkSouls1SplitType.Position:
                             if (!s.SplitConditionMet)
                             {
-                                if (s.Position.X + BoxSize > _darkSouls1ViewModel.CurrentPosition.X &&
-                                    s.Position.X - BoxSize < _darkSouls1ViewModel.CurrentPosition.X &&
+                                if (s.Position.Position.X + s.Position.Size > _darkSouls1ViewModel.CurrentPosition.X &&
+                                    s.Position.Position.X - s.Position.Size < _darkSouls1ViewModel.CurrentPosition.X &&
 
-                                    s.Position.Y + BoxSize > _darkSouls1ViewModel.CurrentPosition.Y &&
-                                    s.Position.Y - BoxSize < _darkSouls1ViewModel.CurrentPosition.Y &&
+                                    s.Position.Position.Y + s.Position.Size > _darkSouls1ViewModel.CurrentPosition.Y &&
+                                    s.Position.Position.Y - s.Position.Size < _darkSouls1ViewModel.CurrentPosition.Y &&
 
-                                    s.Position.Z + BoxSize > _darkSouls1ViewModel.CurrentPosition.Z &&
-                                    s.Position.Z - BoxSize < _darkSouls1ViewModel.CurrentPosition.Z)
+                                    s.Position.Position.Z + s.Position.Size > _darkSouls1ViewModel.CurrentPosition.Z &&
+                                    s.Position.Position.Z - s.Position.Size < _darkSouls1ViewModel.CurrentPosition.Z)
                                 {
                                     s.SplitConditionMet = true;
                                 }

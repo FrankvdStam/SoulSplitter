@@ -67,7 +67,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Validation\TextToNumberValidation.cs" />
     <Compile Include="Splits\DarkSouls1\Attribute.cs" />
+    <Compile Include="Splits\DarkSouls1\PositionSplit.cs" />
     <Compile Include="Splits\DarkSouls1\Split.cs" />
     <Compile Include="Splits\DarkSouls2\Attribute.cs" />
     <Compile Include="Splits\DarkSouls2\BossKill.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Splits\DarkSouls3\Split.cs" />
     <Compile Include="Splits\EldenRing\Split.cs" />
     <Compile Include="Splits\EldenRing\EldenRingSplitType.cs" />
+    <Compile Include="Splits\Sekiro\PositionSplit.cs" />
     <Compile Include="Splits\Sekiro\SekiroSplitType.cs" />
     <Compile Include="Splits\Sekiro\Split.cs" />
     <Compile Include="Splitters\DarkSouls1Splitter.cs" />

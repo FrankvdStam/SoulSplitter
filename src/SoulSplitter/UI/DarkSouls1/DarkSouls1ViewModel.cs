@@ -76,10 +76,10 @@ namespace SoulSplitter.UI.DarkSouls1
                     break;
 
                 case DarkSouls1SplitType.Position:
-                    var bonfire = (Vector3f)NewSplitValue;
-                    if (hierarchicalSplitType.Children.All(i => (Vector3f)i.Split != bonfire))
+                    var position = (PositionSplit)NewSplitValue;
+                    if (hierarchicalSplitType.Children.All(i => ((PositionSplit)i.Split).ToString() != position.ToString()))
                     {
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = bonfire, Parent = hierarchicalSplitType });
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = position, Parent = hierarchicalSplitType });
                     }
                     break;
 
@@ -171,7 +171,7 @@ namespace SoulSplitter.UI.DarkSouls1
 
                     case DarkSouls1SplitType.Position:
                         NewSplitPositionEnabled = true;
-                        NewSplitValue = new Vector3f(CurrentPosition.X, CurrentPosition.Y, CurrentPosition.Z);
+                        NewSplitValue = new PositionSplit(){ Position = CurrentPosition.Clone() };
                         break;
 
                     case DarkSouls1SplitType.Flag:

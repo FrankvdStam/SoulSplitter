@@ -56,7 +56,6 @@ namespace SoulSplitter.UI.DarkSouls1
         }
         private DarkSouls1SplitType _splitType;
 
-
         public ObservableCollection<HierarchicalSplitViewModel> Children { get; set; } = new ObservableCollection<HierarchicalSplitViewModel>();
 
         #region INotifyPropertyChanged
@@ -81,7 +80,7 @@ namespace SoulSplitter.UI.DarkSouls1
 
     [XmlType(Namespace = "DarkSouls1")]
     [XmlInclude(typeof(Boss)), 
-     XmlInclude(typeof(Vector3f)), 
+     XmlInclude(typeof(PositionSplit)), 
      XmlInclude(typeof(Splits.DarkSouls1.Attribute)), 
      XmlInclude(typeof(FlagDescription))]
     public class HierarchicalSplitViewModel : INotifyPropertyChanged
