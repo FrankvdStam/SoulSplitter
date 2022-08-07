@@ -48,6 +48,7 @@ namespace SoulSplitter
                         MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls3;
                         break;
 
+                    case "sekiro":
                     case "sekiro:shadowsdietwice":
                         MainControlFormsWrapper.MainViewModel.SelectedGame = Game.Sekiro;
                         break;
@@ -187,7 +188,12 @@ namespace SoulSplitter
         {
             try
             {
-                Migrations.Migrate(settings);
+                try
+                {
+                    Migrations.Migrate(settings);
+                }
+                catch{ /* Ignored */ }
+
 
                 var vm = MainViewModel.Deserialize(settings.InnerXml);
                 if (vm != null)

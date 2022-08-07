@@ -11,9 +11,13 @@ namespace SoulMemory.DarkSouls1
         bool Refresh(out Exception exception);
         bool ReadEventFlag(uint eventFlagId);
         int GetAttribute(Attribute attribute);
-        bool IsWarping();
-        bool IsLoaded();
+        bool IsWarpRequested();
+        bool IsPlayerLoaded();
         int GetInGameTimeMilliseconds();
         Vector3f GetPosition();
+
+#if DEBUG
+        object GetTestValue();
+#endif
     }
 }

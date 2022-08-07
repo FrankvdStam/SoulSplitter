@@ -36,7 +36,7 @@ namespace SoulSplitter
             var version = new Version(mainViewModel.GetChildNodeByName("Version").InnerText);
             var sekiroViewModel = mainViewModel.GetChildNodeByName("SekiroViewModel");
 
-            if (version == Version.Parse("1.1.0"))
+            if (version <= Version.Parse("1.1.0"))
             {
                 MigrateSekiro1_1_0(settings);
             }

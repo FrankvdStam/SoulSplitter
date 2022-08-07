@@ -39,7 +39,7 @@
         </TextBox>
 
         <TextBox 
-            Width="300"
+            Width="285"
             Margin="5"
             HorizontalAlignment="Left"
             materialDesign:HintAssist.Hint="Description (doesn't do anything, serves as a reminder)"

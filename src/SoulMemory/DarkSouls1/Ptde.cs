@@ -18,14 +18,9 @@ namespace SoulMemory.DarkSouls1
 
         private Pointer _gameMan;
         private Pointer _gameDataMan;
-        private Pointer _menuMan;
-        private Pointer _worldChrManImp;
-        private Pointer _worldAiManImpl;
         private Pointer _playerIns;
         private Pointer _playerGameData;
         private Pointer _eventFlags;
-        private int _inGameTimeMillis = 0;
-        private bool _loading = false;
 
         public bool Refresh(out Exception exception)
         {
@@ -36,20 +31,6 @@ namespace SoulMemory.DarkSouls1
                 return false;
             }
             
-            var igt = _gameDataMan?.ReadInt32(0x68) ?? 0;
-            
-            if (igt == 0 || _inGameTimeMillis == 0)
-            {
-                _loading = true;
-            }
-
-            if (igt != _inGameTimeMillis)
-            {
-                _loading = false;
-            }
-
-            _inGameTimeMillis = igt;
-
             return true;
         }
 
@@ -57,12 +38,9 @@ namespace SoulMemory.DarkSouls1
         {
             _gameMan = null;
             _gameDataMan = null;
-            _menuMan = null;
-            _worldChrManImp = null;
             _playerIns = null;
             _playerGameData = null;
             _eventFlags = null;
-            _worldAiManImpl = null;
         }
 
         private Exception InitPointers()
@@ -81,27 +59,26 @@ namespace SoulMemory.DarkSouls1
                     .CreatePointer(out _playerGameData, 0, 0, 0x8)
                     ;
 
-                scanCache
-                    .ScanAbsolute("MenuMan", "a1 ? ? ? ? 8b 88 e8 09 00 00 c7 01 80 3e 00 00", 1)
-                    .CreatePointer(out _menuMan, 0, 0)
-                    ;
+                //scanCache
+                //    .ScanAbsolute("MenuMan", "a1 ? ? ? ? 8b 88 e8 09 00 00 c7 01 80 3e 00 00", 1)
+                //    .CreatePointer(out _menuMan, 0, 0)
+                //    ;
 
                 scanCache
                     .ScanAbsolute("WorldChrManImp", "8b 0d ? ? ? ? 8b 71 3c c6 44 24 48 01", 2)
-                    .CreatePointer(out _worldChrManImp, 0, 0)
+                    //.CreatePointer(out _worldChrManImp, 0, 0)
                     .CreatePointer(out _playerIns, 0, 0, 0x3c);
                     ;
 
                 scanCache
-                    .ScanAbsolute("WorldChrManImp", "56 8B F1 8B 46 1C 50 A1 ? ? ? ? 32 C9", 8)
+                    .ScanAbsolute("EventFlags", "56 8B F1 8B 46 1C 50 A1 ? ? ? ? 32 C9", 8)
                     .CreatePointer(out _eventFlags, 0, 0, 0)
                     ;
 
-                scanCache
-                    .ScanAbsolute("WorldAiManImpl", "a1 ? ? ? ? 89 88 8c 0f 00 00 8b 77 14", 1)
-                    .CreatePointer(out _worldAiManImpl, 0, 0);
-
-                //FrpgMenuDlgKeyGuide 68 78 eb 1b 01 8b ce a3 ? ? ? ? e8 ? ? ? ? 5f 89 86 f4 00 00 00 5e c3
+                //scanCache
+                //    .ScanAbsolute("WorldAiManImpl", "a1 ? ? ? ? 89 88 8c 0f 00 00 8b 77 14", 1)
+                //    .CreatePointer(out _worldAiManImpl, 0, 0);
+                
                 
                 return null;
             }
@@ -110,17 +87,47 @@ namespace SoulMemory.DarkSouls1
                 return e;
             }
         }
-
         #endregion
+
         public int GetAttribute(Attribute attribute) => _playerGameData?.ReadInt32((long)attribute) ?? 0;
 
         public int GetInGameTimeMilliseconds() => _gameDataMan?.ReadInt32(0x68) ?? 0;
 
-        #region Event flags
+        public Vector3f GetPosition() => _playerIns == null ? new Vector3f(0, 0, 0) : new Vector3f(_playerIns.ReadFloat(0xc50), _playerIns.ReadFloat(0xC58), _playerIns.ReadFloat(0xC54));
+
+        public int GetPlayerHealth() => _playerIns?.ReadInt32(0x2d4) ?? 0;
+
+        public bool IsPlayerLoaded() => !_playerIns?.IsNullPtr() ?? false;
+
+        public bool IsWarpRequested()
+        {
+            if (_gameMan == null)
+            {
+                return false;
+            }
+
+            if (GetPlayerHealth() == 0)
+            {
+                return false;
+            }
+
+            return _gameMan.ReadByte(0x11) == 1;
+        }
+        
+        public object GetTestValue()
+        {
+            if (_gameMan == null)
+            {
+                return 0;
+            }
+            return _gameMan.ReadByte(0x11);
+        }
+
+        #region Event flags ================================================================================================================
 
         //Credit to JKAnderson for the event flag reading code, https://github.com/JKAnderson/DS-Gadget
 
-        private static Dictionary<string, int> _eventFlagGroups = new Dictionary<string, int>()
+        private static readonly Dictionary<string, int> EventFlagGroups = new Dictionary<string, int>()
         {
             {"0", 0x00000},
             {"1", 0x00500},
@@ -129,7 +136,7 @@ namespace SoulMemory.DarkSouls1
             {"7", 0x11300},
         };
 
-        private static Dictionary<string, int> _eventFlagAreas = new Dictionary<string, int>()
+        private static readonly Dictionary<string, int> EventFlagAreas = new Dictionary<string, int>()
         {
             {"000", 00},
             {"100", 01},
@@ -161,10 +168,10 @@ namespace SoulMemory.DarkSouls1
                 int section = int.Parse(idString.Substring(4, 1));
                 int number = int.Parse(idString.Substring(5, 3));
 
-                if (_eventFlagGroups.ContainsKey(group) && _eventFlagAreas.ContainsKey(area))
+                if (EventFlagGroups.ContainsKey(group) && EventFlagAreas.ContainsKey(area))
                 {
-                    int offset = _eventFlagGroups[group];
-                    offset += _eventFlagAreas[area] * 0x500;
+                    int offset = EventFlagGroups[group];
+                    offset += EventFlagAreas[area] * 0x500;
                     offset += section * 128;
                     offset += (number - (number % 32)) / 8;
 
@@ -188,53 +195,5 @@ namespace SoulMemory.DarkSouls1
         }
 
         #endregion
-
-        #region Warp
-        public bool IsLoaded()
-        {
-            return !_loading;
-            //if (_menuMan == null)
-            //{
-            //    return false;
-            //}
-            //
-            //if (_playerIns?.IsNullPtr() ?? false)
-            //{
-            //    return false;
-            //}
-            //
-            //var state = _menuMan.ReadInt32(0x7ec);
-            //return state != 1 && state != 2;
-        }
-
-        public int GetPlayerHealth()
-        {
-            return _playerIns?.ReadInt32(0x2d4) ?? 0;
-        }
-        
-        public bool IsWarping()
-        {
-            if (_gameMan == null)
-            {
-                return false;
-            }
-
-            if (GetPlayerHealth() == 0)
-            {
-                return false;
-            }
-
-            return _gameMan.ReadByte(0x11) == 1;
-        }
-        #endregion
-
-        public Vector3f GetPosition()
-        {
-            if (_playerIns == null)
-            {
-                return new Vector3f(0, 0, 0);
-            }
-            return new Vector3f(_playerIns.ReadFloat(0xc50), _playerIns.ReadFloat(0xC58), _playerIns.ReadFloat(0xC54));
-        }
     }
 }

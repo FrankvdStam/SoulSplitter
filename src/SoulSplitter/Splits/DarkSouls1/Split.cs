@@ -8,7 +8,7 @@ namespace SoulSplitter.Splits.DarkSouls1
 {
     internal class Split
     {
-        public Split(TimingType timingType, DarkSouls1SplitType splitType, object split)
+        public Split(TimingType timingType, SplitType splitType, object split)
         {
             TimingType = timingType;
             SplitType = splitType;
@@ -18,27 +18,27 @@ namespace SoulSplitter.Splits.DarkSouls1
                 default:
                     throw new Exception($"unsupported split type {SplitType}");
 
-                case DarkSouls1SplitType.BossKill:
+                case SplitType.Boss:
                     Boss = (Boss)split;
                     Flag = (uint)Boss;
                     break;
                     
-                case DarkSouls1SplitType.Attribute:
+                case SplitType.Attribute:
                     Attribute = (Attribute)split;
                     break;
 
-                case DarkSouls1SplitType.Position:
+                case SplitType.Position:
                     Position = (VectorSize)split;
                     break;
                     
-                case DarkSouls1SplitType.Flag:
+                case SplitType.Flag:
                     Flag = ((FlagDescription)split).Flag;
                     break;
             }
         }
 
         public readonly TimingType TimingType;
-        public readonly DarkSouls1SplitType SplitType;
+        public readonly SplitType SplitType;
         
         public readonly Boss Boss;
         public readonly Attribute Attribute;

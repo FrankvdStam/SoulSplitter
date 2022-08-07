@@ -102,7 +102,6 @@
     <Compile Include="Splitters\DarkSouls3Splitter.cs" />
     <Compile Include="Splitters\DarkSouls2Splitter.cs" />
     <Compile Include="Splitters\SekiroSplitter.cs" />
-    <Compile Include="UI\DarkSouls1\HierarchicalViewModel.cs" />
     <Compile Include="UI\DarkSouls2\DarkSouls2Control.xaml.cs">
       <DependentUpon>DarkSouls2Control.xaml</DependentUpon>
     </Compile>
@@ -123,13 +122,11 @@
       <DependentUpon>SekiroControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Sekiro\SekiroViewModel.cs" />
-    <Compile Include="UI\Sekiro\HierarchicalViewModel.cs" />
     <Compile Include="UI\Converters\SplitObjectToDescriptionConverter.cs" />
     <Compile Include="UI\EldenRing\SplitViewModel.cs" />
     <Compile Include="UI\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="SoulComponent.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Splits\DarkSouls1\DarkSouls1SplitType.cs" />
     <Compile Include="Splits\DarkSouls2\DarkSouls2SplitType.cs" />
     <Compile Include="SplitterState.cs" />
     <Compile Include="Splitters\EldenRingSplitter.cs" />

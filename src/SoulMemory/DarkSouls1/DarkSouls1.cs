@@ -14,8 +14,8 @@ namespace SoulMemory.DarkSouls1
 
         public int GetAttribute(Attribute attribute) => _darkSouls1?.GetAttribute(attribute) ?? 0;
         public bool ReadEventFlag(uint eventFlagId) => _darkSouls1?.ReadEventFlag(eventFlagId) ?? false;
-        public bool IsWarping() => _darkSouls1?.IsWarping() ?? false;
-        public bool IsLoaded() => _darkSouls1?.IsLoaded() ?? false;
+        public bool IsWarpRequested() => _darkSouls1?.IsWarpRequested() ?? false;
+        public bool IsPlayerLoaded() => _darkSouls1?.IsPlayerLoaded() ?? false;
         public Vector3f GetPosition() => _darkSouls1?.GetPosition() ?? new Vector3f(0,0,0);
 
         public int GetInGameTimeMilliseconds() => _darkSouls1?.GetInGameTimeMilliseconds() ?? 0;
@@ -39,7 +39,7 @@ namespace SoulMemory.DarkSouls1
                     }
                     else
                     {
-                        //_darkSouls1 = new Remastered();
+                        _darkSouls1 = new Remastered();
                     }
                     return true;
                 }
@@ -59,5 +59,10 @@ namespace SoulMemory.DarkSouls1
                 return false;
             }
         }
+
+
+#if DEBUG
+        public object GetTestValue() => _darkSouls1?.GetTestValue();
+#endif
     }
 }

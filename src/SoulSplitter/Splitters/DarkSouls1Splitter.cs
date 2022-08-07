@@ -122,7 +122,7 @@ namespace SoulSplitter.Splitters
         private void StartAutoSplitting()
         {
             _splits = (
-                from timingType in _darkSouls1ViewModel.Splits
+                from timingType in _darkSouls1ViewModel.SplitsViewModel.Splits
                 from splitType in timingType.Children
                 from split in splitType.Children
                 select new Split(timingType.TimingType, splitType.SplitType, split.Split)
@@ -147,22 +147,22 @@ namespace SoulSplitter.Splitters
                         default:
                             throw new Exception($"Unsupported split type {s.SplitType}");
 
-                        case DarkSouls1SplitType.BossKill:
-                        case DarkSouls1SplitType.Flag:
+                        case SplitType.Boss:
+                        case SplitType.Flag:
                             if (!s.SplitConditionMet)
                             {
                                 s.SplitConditionMet = _darkSouls1.ReadEventFlag(s.Flag);
                             }
                             break;
 
-                        case DarkSouls1SplitType.Attribute:
+                        case SplitType.Attribute:
                             if (!s.SplitConditionMet)
                             {
                                 s.SplitConditionMet = _darkSouls1.GetAttribute(s.Attribute.AttributeType) >= s.Attribute.Level;
                             }
                             break;
 
-                        case DarkSouls1SplitType.Position:
+                        case SplitType.Position:
                             if (!s.SplitConditionMet)
                             {
                                 if (s.Position.Position.X + s.Position.Size > _darkSouls1ViewModel.CurrentPosition.X &&
@@ -201,7 +201,7 @@ namespace SoulSplitter.Splitters
                     break;
 
                 case TimingType.OnLoading:
-                    if (!_darkSouls1.IsLoaded())
+                    if (!_darkSouls1.IsPlayerLoaded())
                     {
                         _timerModel.Split();
                         s.SplitTriggered = true;
@@ -209,7 +209,7 @@ namespace SoulSplitter.Splitters
                     break;
 
                 case TimingType.OnWarp:
-                    if (!_darkSouls1.IsLoaded() && _warping)
+                    if (!_darkSouls1.IsPlayerLoaded() && _isWarping)
                     {
                         _timerModel.Split();
                         s.SplitTriggered = true;
@@ -219,35 +219,48 @@ namespace SoulSplitter.Splitters
         }
 
 
-        private bool _warping = false;
-        private bool _warpUnload = false;
+
+        private bool _isWarpRequested = false;
+        private bool _isWarping = false;
+        private bool _warpHasPlayerBeenUnloaded = false;
+
         private void TrackWarps()
         {
             //Track warps - the game handles warps before the loading screen starts.
             //That's why they have to be tracked while playing, and then resolved on the next loading screen
-            if (_darkSouls1.IsWarping())
+
+            if (!_isWarpRequested)
             {
-                _warping = true;
+                _isWarpRequested = _darkSouls1.IsWarpRequested();
+                return;
             }
 
-            if (!_warpUnload)
+            var isPlayerLoaded = _darkSouls1.IsPlayerLoaded();
+
+
+            //Warp is requested - wait for loading screen
+            if (_isWarpRequested)
             {
-                if (!_darkSouls1.IsLoaded())
+                if (!_warpHasPlayerBeenUnloaded)
                 {
-                    _warpUnload = true;
+                    if (!isPlayerLoaded)
+                    {
+                        _warpHasPlayerBeenUnloaded = true;
+                    }
                 }
-            }
-
-            if (_warpUnload)
-            {
-                if (_darkSouls1.IsLoaded())
+                else
                 {
-                    _warpUnload = false;
-                    _warping = false;
+                    _isWarping = true;
+                }
+
+                if (_isWarping && isPlayerLoaded)
+                {
+                    _isWarping = false;
+                    _warpHasPlayerBeenUnloaded = false;
+                    _isWarpRequested = false;
                 }
             }
         }
         #endregion
-        
     }
 }

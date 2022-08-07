@@ -15,14 +15,12 @@ using Attribute = System.Attribute;
 
 namespace SoulSplitter.UI.DarkSouls1
 {
-    public class DarkSouls1ViewModel : INotifyPropertyChanged
+    public class DarkSouls1ViewModel : BaseViewModel
     {
-        public bool StartAutomatically
+        public DarkSouls1ViewModel()
         {
-            get => _startAutomatically;
-            set => SetField(ref _startAutomatically, value);
+            AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
         }
-        private bool _startAutomatically = true;
 
         public bool ResetIndices
         {
@@ -31,103 +29,61 @@ namespace SoulSplitter.UI.DarkSouls1
         }
         private bool _resetIndices;
 
-        [XmlIgnore]
-        public Vector3f CurrentPosition
-        {
-            get => _currentPosition;
-            set => SetField(ref _currentPosition, value);
-        }
-        private Vector3f _currentPosition = new Vector3f(0f, 0f, 0f);
-
         #region add/remove splits ============================================================================================================================================
-        public void AddSplit()
+
+        private bool CanAddSplit(object param)
         {
-            if (NewSplitTimingType == null ||
-                NewSplitType == null ||
-                NewSplitValue == null)
+            if (!NewSplitTimingType.HasValue || !NewSplitType.HasValue)
             {
-                return;
-            }
-
-            var hierarchicalTimingType = Splits.FirstOrDefault(i => i.TimingType == NewSplitTimingType);
-            if (hierarchicalTimingType == null)
-            {
-                hierarchicalTimingType = new HierarchicalTimingTypeViewModel() { TimingType = NewSplitTimingType.Value };
-                Splits.Add(hierarchicalTimingType);
-            }
-
-            var hierarchicalSplitType = hierarchicalTimingType.Children.FirstOrDefault(i => i.SplitType == NewSplitType);
-            if (hierarchicalSplitType == null)
-            {
-                hierarchicalSplitType = new HierarchicalSplitTypeViewModel() { SplitType = NewSplitType.Value, Parent = hierarchicalTimingType };
-                hierarchicalTimingType.Children.Add(hierarchicalSplitType);
+                return false;
             }
 
             switch (NewSplitType)
             {
                 default:
-                    throw new Exception($"split type not supported: {NewSplitType}");
+                    throw new Exception($"{NewSplitType} not supported");
 
-                case DarkSouls1SplitType.BossKill:
-                    var boss = (Boss)NewSplitValue;
-                    if (hierarchicalSplitType.Children.All(i => (Boss)i.Split != boss))
-                    {
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = boss, Parent = hierarchicalSplitType });
-                    }
+                case SplitType.Boss:
+                case SplitType.Attribute:
+                    return NewSplitValue != null;
+
+                case SplitType.Position:
+                    return Position != null;
+
+                case SplitType.Flag:
+                    return FlagDescription != null;
+            }
+        }
+
+        private void AddSplit(object param)
+        {
+            object split = null;
+            switch (NewSplitType)
+            {
+                default:
+                    throw new Exception($"{NewSplitType} not supported");
+
+                case SplitType.Boss:
+                case SplitType.Attribute:
+                    split = NewSplitValue;
                     break;
 
-                case DarkSouls1SplitType.Position:
-                    var position = (VectorSize)NewSplitValue;
-                    if (hierarchicalSplitType.Children.All(i => ((VectorSize)i.Split).ToString() != position.ToString()))
-                    {
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = position, Parent = hierarchicalSplitType });
-                    }
+                case SplitType.Position:
+                    split = Position;
                     break;
 
-                case DarkSouls1SplitType.Attribute:
-                    var attribute = (Splits.DarkSouls1.Attribute)NewSplitValue;
-                    if (hierarchicalSplitType.Children.All(i => ((Splits.DarkSouls1.Attribute)i.Split).ToString() != attribute.ToString()))
-                    {
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = attribute, Parent = hierarchicalSplitType });
-                    }
-                    break;
-                    
-
-                case DarkSouls1SplitType.Flag:
-                    var flagDescription = (FlagDescription)NewSplitValue;
-                    if (hierarchicalSplitType.Children.All(i => ((FlagDescription)i.Split).ToString() != flagDescription.ToString()))
-                    {
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = flagDescription, Parent = hierarchicalSplitType });
-                    }
+                case SplitType.Flag:
+                    split = FlagDescription;
                     break;
             }
+            SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);
 
             NewSplitTimingType = null;
+            NewSplitEnabledSplitType = false;
             NewSplitType = null;
-            NewSplitValue = null;
         }
 
-        public void RemoveSplit()
-        {
-            if (SelectedSplit != null)
-            {
-                var parent = SelectedSplit.Parent;
-                parent.Children.Remove(SelectedSplit);
-                if (parent.Children.Count <= 0)
-                {
-                    var nextParent = parent.Parent;
-                    nextParent.Children.Remove(parent);
-                    if (nextParent.Children.Count <= 0)
-                    {
-                        Splits.Remove(nextParent);
-                    }
-                }
 
-                SelectedSplit = null;
-            }
-        }
-        
-        public ObservableCollection<HierarchicalTimingTypeViewModel> Splits { get; set; } = new ObservableCollection<HierarchicalTimingTypeViewModel>();
         #endregion
 
         #region Properties for new splits ============================================================================================================================================
@@ -139,180 +95,51 @@ namespace SoulSplitter.UI.DarkSouls1
             set
             {
                 SetField(ref _newSplitTimingType, value);
-                NewSplitTypeEnabled = true;
+                NewSplitEnabledSplitType = true;
+                NewSplitValue = null;
             }
         }
-        private TimingType? _newSplitTimingType = null;
+        private TimingType? _newSplitTimingType;
 
         [XmlIgnore]
-        public DarkSouls1SplitType? NewSplitType
+        public SplitType? NewSplitType
         {
             get => _newSplitType;
             set
             {
-                NewSplitBossEnabled = false;
-                NewSplitPositionEnabled = false;
-                NewSplitAttributeEnabled = false;
-                NewSplitFlagEnabled = false;
-
                 SetField(ref _newSplitType, value);
-                switch (NewSplitType)
+
+                if (NewSplitType == SplitType.Attribute)
                 {
-                    case null:
-                        break;
+                    NewSplitValue = new Splits.DarkSouls1.Attribute() { AttributeType = SoulMemory.DarkSouls1.Attribute.Vitality, Level = 10};
+                }
 
-                    case DarkSouls1SplitType.BossKill:
-                        NewSplitBossEnabled = true;
-                        break;
+                if (NewSplitType == SplitType.Position)
+                {
+                    Position = new VectorSize() { Position = CurrentPosition.Clone() };
+                }
 
-                    case DarkSouls1SplitType.Attribute:
-                        NewSplitAttributeEnabled = true;
-                        NewSplitValue = new Splits.DarkSouls1.Attribute() { AttributeType = SoulMemory.DarkSouls1.Attribute.Vitality, Level = 10 };
-                        break;
-
-                    case DarkSouls1SplitType.Position:
-                        NewSplitPositionEnabled = true;
-                        NewSplitValue = new VectorSize(){ Position = CurrentPosition.Clone() };
-                        break;
-
-                    case DarkSouls1SplitType.Flag:
-                        NewSplitValue = new FlagDescription();
-                        NewSplitFlagEnabled = true;
-                        break;
-
-                    default:
-                        throw new Exception($"Unsupported split type: {NewSplitType}");
+                if (NewSplitType == SplitType.Flag)
+                {
+                    FlagDescription = new FlagDescription();
                 }
             }
         }
-        private DarkSouls1SplitType? _newSplitType = null;
+        private SplitType? _newSplitType = null;
 
-        [XmlIgnore]
         public object NewSplitValue
         {
             get => _newSplitValue;
-            set
-            {
-                SetField(ref _newSplitValue, value);
-                NewSplitAddEnabled = NewSplitValue != null;
-            }
+            set => SetField(ref _newSplitValue, value);
         }
+        private object _newSplitValue;
 
-        private object _newSplitValue = null;
-
-        [XmlIgnore]
-        public bool NewSplitTypeEnabled
-        {
-            get => _newSplitTypeEnabled;
-            set => SetField(ref _newSplitTypeEnabled, value);
-        }
-        private bool _newSplitTypeEnabled = false;
-
-        [XmlIgnore]
-        public bool NewSplitBossEnabled
-        {
-            get => _newSplitBossEnabled;
-            set => SetField(ref _newSplitBossEnabled, value);
-        }
-        private bool _newSplitBossEnabled = false;
+        #endregion
         
-        [XmlIgnore]
-        public bool NewSplitAttributeEnabled
-        {
-            get => _newSplitAttributeEnabled;
-            set => SetField(ref _newSplitAttributeEnabled, value);
-        }
-        private bool _newSplitAttributeEnabled = false;
-
-        [XmlIgnore]
-        public bool NewSplitPositionEnabled
-        {
-            get => _newSplitPositionEnabled;
-            set => SetField(ref _newSplitPositionEnabled, value);
-        }
-        private bool _newSplitPositionEnabled = false;
-
-        [XmlIgnore]
-        public bool NewSplitFlagEnabled
-        {
-            get => _newSplitFlagEnabled;
-            set => SetField(ref _newSplitFlagEnabled, value);
-        }
-        private bool _newSplitFlagEnabled = false;
-
-        [XmlIgnore]
-        public bool NewSplitAddEnabled
-        {
-            get => _newSplitAddEnabled;
-            set => SetField(ref _newSplitAddEnabled, value);
-        }
-        private bool _newSplitAddEnabled = false;
-
-        [XmlIgnore]
-        public bool RemoveSplitEnabled
-        {
-            get => _removeSplitEnabled;
-            set => SetField(ref _removeSplitEnabled, value);
-        }
-        private bool _removeSplitEnabled = false;
-
-        [XmlIgnore]
-        public HierarchicalSplitViewModel SelectedSplit
-        {
-            get => _selectedSplit;
-            set
-            {
-                SetField(ref _selectedSplit, value);
-                RemoveSplitEnabled = SelectedSplit != null;
-            }
-        }
-        private HierarchicalSplitViewModel _selectedSplit = null;
-
-        #endregion
-
-        #region Splits hierarchy
-        public void RestoreHierarchy()
-        {
-            //When serializing the model, we can't serialize the parent relation, because that would be a circular reference. Instead, parent's are not serialized.
-            //After deserializing, the parent relations must be restored.
-
-            foreach (var timingType in Splits)
-            {
-                foreach (var splitType in timingType.Children)
-                {
-                    splitType.Parent = timingType;
-                    foreach (var split in splitType.Children)
-                    {
-                        split.Parent = splitType;
-                    }
-                }
-            }
-        }
-
-        #endregion
-
         #region Static UI source data ============================================================================================================================================
 
         public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<Boss>>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
      
-        #endregion
-
-        #region INotifyPropertyChanged ============================================================================================================================================
-
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
         #endregion
     }
 }

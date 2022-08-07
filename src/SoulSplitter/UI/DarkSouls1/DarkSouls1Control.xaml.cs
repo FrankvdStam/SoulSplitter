@@ -24,40 +24,6 @@ namespace SoulSplitter.UI.DarkSouls1
         public DarkSouls1Control()
         {
             InitializeComponent();
-            DataContextChanged += OnDataContextChanged;
-        }
-
-        void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (DataContext is DarkSouls1ViewModel vm)
-            {
-                _darkSouls1ViewModel = vm;
-            }
-        }
-        private DarkSouls1ViewModel _darkSouls1ViewModel;
-
-        private void AddSplit_OnClick(object sender, RoutedEventArgs e)
-        {
-            _darkSouls1ViewModel.AddSplit();
-        }
-
-        private void RemoveSplit_OnClick(object sender, RoutedEventArgs e)
-        {
-            _darkSouls1ViewModel.RemoveSplit();
-        }
-
-        private void SplitsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            _darkSouls1ViewModel.SelectedSplit = null;
-            if (e.NewValue is HierarchicalSplitViewModel b)
-            {
-                _darkSouls1ViewModel.SelectedSplit = b;
-            }
-        }
-
-        private void CopyPosition_OnClick(object sender, RoutedEventArgs e)
-        {
-            _darkSouls1ViewModel.NewSplitValue = _darkSouls1ViewModel.CurrentPosition.Clone();
         }
     }
 }

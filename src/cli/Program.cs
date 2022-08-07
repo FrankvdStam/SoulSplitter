@@ -22,61 +22,38 @@ using Boss = SoulMemory.DarkSouls1.Boss;
 
 namespace cli
 {
-    public enum XInputButton : ushort
-    {
-        DPAD_UP        = 0x0001,
-        DPAD_DOWN      = 0x0002,
-        DPAD_LEFT      = 0x0004,
-        DPAD_RIGHT     = 0x0008,
-        START          = 0x0010,
-        BACK           = 0x0020,
-        LEFT_THUMB     = 0x0040,
-        RIGHT_THUMB    = 0x0080,
-        LEFT_SHOULDER  = 0x0100,
-        RIGHT_SHOULDER = 0x0200,
-        A              = 0x1000,
-        B              = 0x2000,
-        X              = 0x4000,
-        Y              = 0x8000,
-    }
-
-    public class XInputGamepad
-    {
-        public ushort wButtons = 0;
-        public byte bLeftTrigger = 0;
-        public byte bRightTrigger = 0;
-        public short sThumbLX = 0;
-        public short sThumbLY = 0;
-        public short sThumbRX = 0;
-        public short sThumbRY = 0;
-    }
-
     internal class Program
     {
         
+
+
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();
-
-            //var remas = new Remastered();
-            //remas.Refresh(out _);
-            //while (true)
-            //{
-            //    Console.WriteLine($"warp {remas.IsWarping()} hp {remas.GetPlayerHealth()} loaded {remas.IsLoaded()}");
-            //    remas.Refresh(out _);
-            //    Thread.Sleep(100);
-            //    Console.Clear();
-            //}
-
+            //StandAloneErBlackscreenRemoval();
+            //return;
+            //
+            //TestUi();
+            
             var ds1 = new DarkSouls1();
             while (true)
             {
                 //1812960
-                Console.WriteLine($"pos {ds1.GetPosition()}");
+                Console.WriteLine($"O&S       : {ds1.ReadEventFlag((uint)Boss.OrnsteinAndSmough)}");
+                Console.WriteLine($"sarge     : {ds1.ReadEventFlag((uint)Boss.DemonFiresage)}");
+                Console.WriteLine($"warp flag : {ds1.GetTestValue()}");
+                Console.WriteLine($"IsWarping : {ds1.IsWarpRequested()}");
+                Console.WriteLine($"IsPL      : {ds1.IsPlayerLoaded()}");
+                Console.WriteLine($"warp      : {_isWarping}");
+                Console.WriteLine($"igt       : {ds1.GetInGameTimeMilliseconds()}");
+
                 ds1.Refresh(out _);
+                TrackWarps(ds1);
                 Thread.Sleep(32);
                 Console.SetCursorPosition(0, 0);
+                Console.WriteLine("                                                                        ");
+                Console.WriteLine("                                                                        ");
+                Console.WriteLine("                                                                        ");
                 Console.WriteLine("                                                                        ");
                 Console.SetCursorPosition(0, 0);
             }
@@ -423,6 +400,132 @@ namespace cli
             }
 
         }
+
+        #region stand alone bs removal for ER
+
+        private static void StandAloneErBlackscreenRemoval()
+        {
+            Console.CursorVisible = false;
+            int _inGameTime = 0;
+            var _eldenRing = new EldenRing();
+            while (true)
+            {
+                //Refresh, display errors if there are any
+                if (!_eldenRing.Refresh(out Exception e))
+                {
+                    Console.Clear();
+                    Console.SetCursorPosition(0, 1);
+                    Console.WriteLine(e.Format());
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                    continue;
+                }
+
+                //
+                var currentIgt = _eldenRing.GetInGameTimeMilliseconds();
+                var blackscreenActive = _eldenRing.IsBlackscreenActive();
+
+
+                //Blackscreens/meme loading screens - timer is running, but game is actually loading
+                if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && blackscreenActive)
+                {
+                    //Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
+                    _eldenRing.WriteInGameTimeMilliseconds(_inGameTime);
+                }
+                else
+                {
+                    if (currentIgt != 0)
+                    {
+                        _inGameTime = currentIgt;
+                    }
+                }
+
+                if (_inGameTime == 0)
+                {
+                    Console.SetCursorPosition(0, 1);
+                    Console.WriteLine("                                       ");
+                }
+
+                Console.SetCursorPosition(0, 1);
+                Console.WriteLine(TimeSpan.FromMilliseconds(_inGameTime).ToString(@"hh\:mm\:ss\.fff"));
+
+                Thread.Sleep(16);
+            }
+        }
+
+
+        private static bool _isWarpRequested = false;
+        private static bool _isWarping = false;
+        private static bool _warpHasPlayerBeenUnloaded = false;
+        private static void TrackWarps(DarkSouls1 _darkSouls1)
+        {
+            //Track warps - the game handles warps before the loading screen starts.
+            //That's why they have to be tracked while playing, and then resolved on the next loading screen
+
+            if (!_isWarpRequested)
+            {
+                _isWarpRequested = _darkSouls1.IsWarpRequested();
+                return;
+            }
+
+            var isPlayerLoaded = _darkSouls1.IsPlayerLoaded();
+
+
+            //Warp is requested - wait for loading screen
+            if (_isWarpRequested)
+            {
+                if (!_warpHasPlayerBeenUnloaded)
+                {
+                    if (!isPlayerLoaded)
+                    {
+                        _warpHasPlayerBeenUnloaded = true;
+                    }
+                }
+                else
+                {
+                    _isWarping = true;
+                }
+
+                if (_isWarping && isPlayerLoaded)
+                {
+                    _isWarping = false;
+                    _warpHasPlayerBeenUnloaded = false;
+                    _isWarpRequested = false;
+                }
+            }
+        }
+        #endregion
+
+
+        public enum XInputButton : ushort
+        {
+            DPAD_UP = 0x0001,
+            DPAD_DOWN = 0x0002,
+            DPAD_LEFT = 0x0004,
+            DPAD_RIGHT = 0x0008,
+            START = 0x0010,
+            BACK = 0x0020,
+            LEFT_THUMB = 0x0040,
+            RIGHT_THUMB = 0x0080,
+            LEFT_SHOULDER = 0x0100,
+            RIGHT_SHOULDER = 0x0200,
+            A = 0x1000,
+            B = 0x2000,
+            X = 0x4000,
+            Y = 0x8000,
+        }
+
+        public class XInputGamepad
+        {
+            public ushort wButtons = 0;
+            public byte bLeftTrigger = 0;
+            public byte bRightTrigger = 0;
+            public short sThumbLX = 0;
+            public short sThumbLY = 0;
+            public short sThumbRX = 0;
+            public short sThumbRY = 0;
+        }
+
     }
 }
 
