@@ -21,6 +21,8 @@ namespace SoulMemory.DarkSouls1
         private Pointer _playerPos;
         private Pointer _playerGameData;
         private Pointer _eventFlags;
+        private Pointer _inventoryIndices;
+        private Pointer _netBonfireDb;
 
         public bool Refresh(out Exception exception)
         {
@@ -36,6 +38,13 @@ namespace SoulMemory.DarkSouls1
         private void ResetPointers()
         {
             _gameMan = null;
+            _gameDataMan = null;
+            _playerIns = null;
+            _playerPos = null;
+            _playerGameData = null;
+            _eventFlags = null;
+            _inventoryIndices = null;
+            _netBonfireDb = null;
         }
 
         private Exception InitPointers()
@@ -63,13 +72,20 @@ namespace SoulMemory.DarkSouls1
 
                 scanCache
                     .ScanRelative("EventFlags", "48 8B 0D ? ? ? ? 99 33 C2 45 33 C0 2B C2 8D 50 F6", 3, 7)
-                    .CreatePointer(out _eventFlags, 0)
+                    .CreatePointer(out _eventFlags, 0, 0)
                     ;
-                
+
+                scanCache
+                    .ScanRelative("InventoryIndices", "48 8D 15 ? ? ? ? C1 E1 10 49 8B C6 41 0B 8F 14 02 00 00 44 8B C6 42 89 0C B2 41 8B D6 49 8B CF", 3, 7)
+                    .CreatePointer(out _inventoryIndices)
+                    ;
+
+                scanCache
+                    .ScanRelative("NetManImp", "48 8b 05 ? ? ? ? 48 05 08 0a 00 00 48 89 44 24 50 e8 34 fc fd ff", 3, 7)
+                    .CreatePointer(out _netBonfireDb, 0x0, 0xb68);
                 //scanCache
                 //    .ScanRelative("MenuMan", "48 8b 15 ? ? ? ? 89 82 7c 08 00 00", 3, 7)
                 //    .CreatePointer(out _menuMan, 0);
-
 
                 return null;
             }
@@ -104,14 +120,82 @@ namespace SoulMemory.DarkSouls1
             return _gameMan.ReadByte(0x19) == 1;
         }
 
-        public object GetTestValue() => null;
+        public object GetTestValue() => GetInventory();
+        
+        public void ResetInventoryIndices()
+        {
+            if (_inventoryIndices != null)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    _inventoryIndices.WriteUint32(0x4 * i, uint.MaxValue);
+                }
+            }
+        }
+
+        public List<Item> GetInventory()
+        {
+            if (_playerGameData == null)
+            {
+                return new List<Item>();
+            }
+            
+            //Path: GameDataMan->hostPlayerGameData->equipGameData.equipInventoryData.equipInventoryDataSub
+            const long equipInventoryDataSubOffset = 0x3b0;
+
+            var itemCount = _playerGameData.ReadInt32(equipInventoryDataSubOffset + 48);
+            var keyCount = _playerGameData.ReadInt32(equipInventoryDataSubOffset + 52);
+
+            //Struct has 2 lists, list 1 seems to be a subset of list 2, the lists start at the same address..
+            //I think the first list only contains keys. The "master" list contains both.
+            var itemList2Len = _playerGameData.ReadInt32(equipInventoryDataSubOffset);
+            var itemList2 = _playerGameData.ReadInt32(equipInventoryDataSubOffset + 40);
+
+            var bytes = _process.ReadMemory((IntPtr)itemList2, itemList2Len * 0x1c);
+            var items = ItemReader.GetCurrentInventoryItems(bytes, itemList2Len, itemCount, keyCount);
+
+            return items;
+        }
+
+        public BonfireState GetBonfireState(Bonfire bonfire)
+        {
+            if (_netBonfireDb == null)
+            {
+                return BonfireState.Unknown;
+            }
+
+            var element = _netBonfireDb.CreatePointerFromAddress(0x28);
+            element = element.CreatePointerFromAddress(0x0);
+            var netBonfireDbItem = element.CreatePointerFromAddress(0x10);
+
+            //For loop purely to have a max amount of iterations
+            for (var i = 0; i < 100; i++)
+            {
+                if (netBonfireDbItem.IsNullPtr())
+                {
+                    return BonfireState.Unknown;
+                }
+
+                var bonfireId = netBonfireDbItem.ReadInt32(0x8);
+                if (bonfireId == (int)bonfire)
+                { 
+                    int bonfireState = netBonfireDbItem.ReadInt32(0xc);
+                    var state = (BonfireState)bonfireState;
+                    return (BonfireState)bonfireState;
+                }
+
+                element = element.CreatePointerFromAddress(0x0);
+                netBonfireDbItem = element.CreatePointerFromAddress(0x10);
+            }
+            return BonfireState.Unknown;
+        }
 
         #region eventflags
 
         //Credit to JKAnderson for the event flag reading code, https://github.com/JKAnderson/DSR-Gadget
 
         private static readonly Dictionary<string, int> EventFlagGroups = new Dictionary<string, int>()
-        {
+        { 
             {"0", 0x00000},
             {"1", 0x00500},
             {"5", 0x05F00},

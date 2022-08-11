@@ -7,7 +7,7 @@ using System.Security.Permissions;
 using System.Security.Policy;
 using System.Text;
 using Keystone;
-using SoulMemory.DarkSouls1_Old.Internal;
+using SoulMemory.DarkSouls1;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using SoulMemory.Shared;

@@ -23,5 +23,8 @@ namespace SoulSplitter.UI.Generic
 
         [Display(Name = "Flag")]
         Flag,
+
+        [Display(Name = "Item")]
+        Item,
     }
 }

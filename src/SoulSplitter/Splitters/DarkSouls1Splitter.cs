@@ -138,33 +138,28 @@ namespace SoulSplitter.Splitters
                 return;
             }
 
+            List<Item> inventory = null;
             foreach (var s in _splits)
             {
                 if (!s.SplitTriggered)
                 {
-                    switch (s.SplitType)
+                    if (!s.SplitConditionMet)
                     {
-                        default:
-                            throw new Exception($"Unsupported split type {s.SplitType}");
+                        switch (s.SplitType)
+                        {
+                            default:
+                                throw new Exception($"Unsupported split type {s.SplitType}");
 
-                        case SplitType.Boss:
-                        case SplitType.Flag:
-                            if (!s.SplitConditionMet)
-                            {
+                            case SplitType.Boss:
+                            case SplitType.Flag:
                                 s.SplitConditionMet = _darkSouls1.ReadEventFlag(s.Flag);
-                            }
-                            break;
+                                break;
 
-                        case SplitType.Attribute:
-                            if (!s.SplitConditionMet)
-                            {
+                            case SplitType.Attribute:
                                 s.SplitConditionMet = _darkSouls1.GetAttribute(s.Attribute.AttributeType) >= s.Attribute.Level;
-                            }
-                            break;
+                                break;
 
-                        case SplitType.Position:
-                            if (!s.SplitConditionMet)
-                            {
+                            case SplitType.Position:
                                 if (s.Position.Position.X + s.Position.Size > _darkSouls1ViewModel.CurrentPosition.X &&
                                     s.Position.Position.X - s.Position.Size < _darkSouls1ViewModel.CurrentPosition.X &&
 
@@ -176,8 +171,20 @@ namespace SoulSplitter.Splitters
                                 {
                                     s.SplitConditionMet = true;
                                 }
-                            }
-                            break;
+                                break;
+
+                            case SplitType.Bonfire:
+                                s.SplitConditionMet = _darkSouls1.GetBonfireState(s.BonfireState.Bonfire.Value) == s.BonfireState.State;
+                                break;
+
+                            case SplitType.Item:
+                                if (inventory == null)
+                                {
+                                    inventory = _darkSouls1.GetInventory();
+                                }
+                                s.SplitConditionMet = inventory.Any(i => i.ItemType == s.ItemState.ItemType);
+                                break;
+                        }
                     }
                     
                     if (s.SplitConditionMet)

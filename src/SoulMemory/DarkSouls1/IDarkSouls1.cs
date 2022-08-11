@@ -15,6 +15,9 @@ namespace SoulMemory.DarkSouls1
         bool IsPlayerLoaded();
         int GetInGameTimeMilliseconds();
         Vector3f GetPosition();
+        void ResetInventoryIndices();
+        List<Item> GetInventory();
+        BonfireState GetBonfireState(Bonfire bonfire);
 
 #if DEBUG
         object GetTestValue();

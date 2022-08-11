@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SoulMemory.Native;
 
 namespace SoulMemory.DarkSouls1
 {
@@ -17,8 +14,13 @@ namespace SoulMemory.DarkSouls1
         public bool IsWarpRequested() => _darkSouls1?.IsWarpRequested() ?? false;
         public bool IsPlayerLoaded() => _darkSouls1?.IsPlayerLoaded() ?? false;
         public Vector3f GetPosition() => _darkSouls1?.GetPosition() ?? new Vector3f(0,0,0);
-
         public int GetInGameTimeMilliseconds() => _darkSouls1?.GetInGameTimeMilliseconds() ?? 0;
+        public void ResetInventoryIndices() => _darkSouls1?.ResetInventoryIndices();
+        public List<Item> GetInventory() => _darkSouls1?.GetInventory() ?? new List<Item>();
+        public BonfireState GetBonfireState(Bonfire bonfire) => _darkSouls1?.GetBonfireState(bonfire) ?? BonfireState.Unknown;
+
+
+
         public bool Refresh(out Exception exception)
         {
             exception = null;

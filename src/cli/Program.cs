@@ -16,7 +16,9 @@ using Newtonsoft.Json;
 using SoulMemory.DarkSouls1;
 using SoulMemory.DarkSouls3;
 using Attribute = SoulMemory.DarkSouls3.Attribute;
+using Bonfire = SoulMemory.DarkSouls1.Bonfire;
 using Boss = SoulMemory.DarkSouls1.Boss;
+using Item = SoulMemory.DarkSouls1.Item;
 
 #pragma warning disable CS0162
 
@@ -33,29 +35,29 @@ namespace cli
             //StandAloneErBlackscreenRemoval();
             //return;
             //
-            //TestUi();
+            TestUi();
             
             var ds1 = new DarkSouls1();
             while (true)
             {
-                //1812960
-                Console.WriteLine($"O&S       : {ds1.ReadEventFlag((uint)Boss.OrnsteinAndSmough)}");
-                Console.WriteLine($"sarge     : {ds1.ReadEventFlag((uint)Boss.DemonFiresage)}");
-                Console.WriteLine($"warp flag : {ds1.GetTestValue()}");
-                Console.WriteLine($"IsWarping : {ds1.IsWarpRequested()}");
-                Console.WriteLine($"IsPL      : {ds1.IsPlayerLoaded()}");
-                Console.WriteLine($"warp      : {_isWarping}");
-                Console.WriteLine($"igt       : {ds1.GetInGameTimeMilliseconds()}");
+                Console.WriteLine($"quelaag             {ds1.ReadEventFlag((uint)Boss.ChaosWitchQuelaag)}");
+                Console.WriteLine($"BellGargoyles       {ds1.ReadEventFlag((uint)Boss.BellGargoyles)}");
+                Console.WriteLine($"IronGolem           {ds1.ReadEventFlag((uint)Boss.IronGolem)}");
+                Console.WriteLine($"OrnsteinAndSmough   {ds1.ReadEventFlag((uint)Boss.OrnsteinAndSmough)}");
+
+                //var items = ds1.GetInventory();
+                //if (items != null)
+                //{
+                //    foreach (var item in items)
+                //    {
+                //        Console.WriteLine(item.Name + " " + item.Quantity);
+                //    }
+                //}
+                //
 
                 ds1.Refresh(out _);
-                TrackWarps(ds1);
-                Thread.Sleep(32);
-                Console.SetCursorPosition(0, 0);
-                Console.WriteLine("                                                                        ");
-                Console.WriteLine("                                                                        ");
-                Console.WriteLine("                                                                        ");
-                Console.WriteLine("                                                                        ");
-                Console.SetCursorPosition(0, 0);
+                Thread.Sleep(100);
+                Console.Clear();
             }
 
 

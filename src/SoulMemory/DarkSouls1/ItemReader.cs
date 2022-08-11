@@ -3,24 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SoulMemory.DarkSouls1_Old;
+using SoulMemory.DarkSouls1;
 
-namespace SoulMemory.DarkSouls1_Old.Internal
+namespace SoulMemory.DarkSouls1
 {
     internal static class ItemReader
     {
-        /// <summary>
-        /// It turns out that the games store items in the same way. Since there is quite a bit of code, I opted to share this function between PTDE/remastered.
-        /// The path to the start of the list and the counts is different, so those are the input of this function. Optimizations applied to this code
-        /// will cause a speedup for both games.
-        ///
-        /// It turns out doing a read of 28 * 2048 bytes and working from there is faster than doing individual reads, hence they data array
-        /// </summary>
         internal static List<Item> GetCurrentInventoryItems(byte[] data, int listCount, int itemCount, int keyCount)
         {
-            //Path (remastered): GameDataMan->hostPlayerGameData->equipGameData->equipInventoryData->equipInventoryDataSub
-            
-
             var items = new List<Item>();
             
             for (var i = 0; i < listCount; i++)
@@ -30,11 +20,14 @@ namespace SoulMemory.DarkSouls1_Old.Internal
                 var cat = data[address + 3];
                 var item = BitConverter.ToInt32(data, address + 4);
                 var quantity = BitConverter.ToInt32(data, address + 8);
-
+                
                 if (item != -1)
                 {
                     var categories = new List<ItemCategory>();
-                    switch (cat.ToHex())
+                    var hex = cat.ToString("X");
+                    var hexCat = int.Parse(hex[0].ToString());
+
+                    switch (hexCat)
                     {
                         case 0:
                             categories.Add(ItemCategory.MeleeWeapons);
@@ -67,19 +60,19 @@ namespace SoulMemory.DarkSouls1_Old.Internal
                     int level = 0;
 
                     //if 4 or less digits -> non-upgradable item.
-                    if (categories.Contains(ItemCategory.Consumables) && item >= 200 && item <= 215 && !items.Any(j => j.Type == ItemType.EstusFlask))
+                    if (categories.Contains(ItemCategory.Consumables) && item >= 200 && item <= 215 && !items.Any(j => j.ItemType == ItemType.EstusFlask))
                     {
-                        var estus = Item.AllItems.First(j => j.Type == ItemType.EstusFlask);
-                        var instance = new Item(estus.Name, estus.Id, estus.Type, estus.Category, estus.StackLimit, estus.Upgrade);
+                        var estus = Item.AllItems.First(j => j.ItemType == ItemType.EstusFlask);
+                        var instance = new Item(estus.Name, estus.Id, estus.ItemType, estus.Category, estus.StackLimit, estus.Upgrade);
 
                         //Item ID is both the item + reinforcement. Level field does not change in the games memory for the estus flask.
                         //Goes like this:
                         //200 == empty level 0
-                        //201 == full level 0
+                        //201 == full  level 0
                         //202 == empty level 1
-                        //203 == full level 1
+                        //203 == full  level 1
                         //203 == empty level 2
-                        //204 == full level 2
+                        //204 == full  level 2
                         //etc
 
                         //If the flask is not empty, the amount of charges is stored in the quantity field.
@@ -113,7 +106,7 @@ namespace SoulMemory.DarkSouls1_Old.Internal
                     var lookupItem = Item.AllItems.FirstOrDefault(j => categories.Contains(j.Category) && j.Id == id);
                     if (lookupItem != null)
                     {
-                        var instance = new Item(lookupItem.Name, lookupItem.Id, lookupItem.Type, lookupItem.Category, lookupItem.StackLimit, lookupItem.Upgrade);
+                        var instance = new Item(lookupItem.Name, lookupItem.Id, lookupItem.ItemType, lookupItem.Category, lookupItem.StackLimit, lookupItem.Upgrade);
                         instance.Quantity = quantity;
                         instance.Infusion = infusion;
                         instance.UpgradeLevel = level;

@@ -12,6 +12,7 @@ using SoulMemory.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.UI.Generic;
 using Attribute = System.Attribute;
+using BonfireState = SoulMemory.DarkSouls1.BonfireState;
 
 namespace SoulSplitter.UI.DarkSouls1
 {
@@ -22,12 +23,12 @@ namespace SoulSplitter.UI.DarkSouls1
             AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
         }
 
-        public bool ResetIndices
+        public bool ResetInventoryIndices
         {
-            get => _resetIndices;
-            set => SetField(ref _resetIndices, value);
+            get => _resetInventoryIndices;
+            set => SetField(ref _resetInventoryIndices, value);
         }
-        private bool _resetIndices;
+        private bool _resetInventoryIndices;
 
         #region add/remove splits ============================================================================================================================================
 
@@ -52,6 +53,12 @@ namespace SoulSplitter.UI.DarkSouls1
 
                 case SplitType.Flag:
                     return FlagDescription != null;
+
+                case SplitType.Bonfire:
+                    return NewSplitBonfireState != null && NewSplitBonfireState.Bonfire != null;
+
+                case SplitType.Item:
+                    return NewSplitItemState != null && NewSplitItemState.ItemType != null;
             }
         }
 
@@ -74,6 +81,14 @@ namespace SoulSplitter.UI.DarkSouls1
 
                 case SplitType.Flag:
                     split = FlagDescription;
+                    break;
+
+                case SplitType.Bonfire:
+                    split = NewSplitBonfireState;
+                    break;
+
+                case SplitType.Item:
+                    split = NewSplitItemState; 
                     break;
             }
             SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);
@@ -109,24 +124,33 @@ namespace SoulSplitter.UI.DarkSouls1
             {
                 SetField(ref _newSplitType, value);
 
-                if (NewSplitType == SplitType.Attribute)
+                switch (NewSplitType)
                 {
-                    NewSplitValue = new Splits.DarkSouls1.Attribute() { AttributeType = SoulMemory.DarkSouls1.Attribute.Vitality, Level = 10};
-                }
+                    case SplitType.Attribute:
+                        NewSplitValue = new Splits.DarkSouls1.Attribute() { AttributeType = SoulMemory.DarkSouls1.Attribute.Vitality, Level = 10 };
+                        break;
 
-                if (NewSplitType == SplitType.Position)
-                {
-                    Position = new VectorSize() { Position = CurrentPosition.Clone() };
-                }
+                    case SplitType.Position:
+                        Position = new VectorSize() { Position = CurrentPosition.Clone() };
+                        break;
 
-                if (NewSplitType == SplitType.Flag)
-                {
-                    FlagDescription = new FlagDescription();
+                    case SplitType.Flag:
+                        FlagDescription = new FlagDescription();
+                        break;
+
+                    case SplitType.Bonfire:
+                        NewSplitBonfireState = new Splits.DarkSouls1.BonfireState() { State = BonfireState.Unlocked };
+                        break;
+
+                    case SplitType.Item:
+                        NewSplitItemState = new ItemState();
+                        break;
                 }
             }
         }
         private SplitType? _newSplitType = null;
 
+        [XmlIgnore]
         public object NewSplitValue
         {
             get => _newSplitValue;
@@ -134,12 +158,30 @@ namespace SoulSplitter.UI.DarkSouls1
         }
         private object _newSplitValue;
 
+        [XmlIgnore]
+        public Splits.DarkSouls1.BonfireState NewSplitBonfireState
+        {
+            get => _newSplitBonfireState;
+            set => SetField(ref _newSplitBonfireState, value);
+        }
+        private Splits.DarkSouls1.BonfireState _newSplitBonfireState;
+
+        [XmlIgnore]
+        public ItemState NewSplitItemState
+        {
+            get => _newSplitItemState;
+            set => SetField(ref _newSplitItemState, value);
+        }
+        private ItemState _newSplitItemState;
+
         #endregion
         
         #region Static UI source data ============================================================================================================================================
 
         public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<Boss>>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
-     
+        public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = new ObservableCollection<EnumFlagViewModel<Bonfire>>(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
+        public static ObservableCollection<Item> Items { get; set; } = new ObservableCollection<Item>(Item.AllItems);
+
         #endregion
     }
 }

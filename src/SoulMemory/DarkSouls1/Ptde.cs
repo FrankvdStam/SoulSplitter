@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace SoulMemory.DarkSouls1
         private Pointer _playerIns;
         private Pointer _playerGameData;
         private Pointer _eventFlags;
+        private Pointer _inventoryIndices;
+        private Pointer _netBonfireDb;
 
         public bool Refresh(out Exception exception)
         {
@@ -41,6 +44,8 @@ namespace SoulMemory.DarkSouls1
             _playerIns = null;
             _playerGameData = null;
             _eventFlags = null;
+            _inventoryIndices = null;
+            _netBonfireDb = null;
         }
 
         private Exception InitPointers()
@@ -75,11 +80,21 @@ namespace SoulMemory.DarkSouls1
                     .CreatePointer(out _eventFlags, 0, 0, 0)
                     ;
 
+                scanCache
+                    .ScanAbsolute("InventoryIndices", "8B 4C 24 34 8B 44 24 2C 89 8A 38 01 00 00 8B 90 08 01 00 00 C1 E2 10 0B 90 00 01 00 00 8B C1 8B CD 89 14 AD ? ? ? ?", 8)
+                    .CreatePointer(out _inventoryIndices, 0, 0, 0)
+                    ;
+
+                scanCache
+                    .ScanAbsolute("NetManImp", "83 3d ? ? ? ? 00 75 4b a1", 2)
+                    .CreatePointer(out _netBonfireDb, 0, 0, 0xb48);
+
+
                 //scanCache
                 //    .ScanAbsolute("WorldAiManImpl", "a1 ? ? ? ? 89 88 8c 0f 00 00 8b 77 14", 1)
                 //    .CreatePointer(out _worldAiManImpl, 0, 0);
-                
-                
+
+
                 return null;
             }
             catch (Exception e)
@@ -113,7 +128,68 @@ namespace SoulMemory.DarkSouls1
 
             return _gameMan.ReadByte(0x11) == 1;
         }
-        
+
+        public void ResetInventoryIndices()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                _inventoryIndices.WriteUint32(0x4 * i, uint.MaxValue);
+            }
+        }
+
+        public List<Item> GetInventory()
+        {
+            if (_playerGameData == null)
+            {
+                return new List<Item>();
+            }
+
+            var itemCount = _playerGameData.ReadInt32(0x2e0);
+            var keyCount = _playerGameData.ReadInt32(0x2e4);
+            
+            var listLength = _playerGameData.ReadInt32(0x2c8);
+            var listStart = _playerGameData.ReadInt32(0x2cc);
+
+            var bytes = _process.ReadMemory((IntPtr)listStart, listLength * 0x1c);
+            return ItemReader.GetCurrentInventoryItems(bytes, listLength, itemCount, keyCount);
+        }
+
+
+        public BonfireState GetBonfireState(Bonfire bonfire)
+        {
+            if (_netBonfireDb == null)
+            {
+                return BonfireState.Unknown;
+            }
+
+            var element = _netBonfireDb.CreatePointerFromAddress(0x24);
+            element = element.CreatePointerFromAddress(0x0);
+            var netBonfireDbItem = element.CreatePointerFromAddress(0x8);
+
+            //For loop purely to have a max amount of iterations
+            for (var i = 0; i < 100; i++)
+            {
+                if (netBonfireDbItem.IsNullPtr())
+                {
+                    return BonfireState.Unknown;
+                }
+
+                var bonfireId = netBonfireDbItem.ReadInt32(0x4);
+                if (bonfireId == (int)bonfire)
+                {
+                    int bonfireState = netBonfireDbItem.ReadInt32(0x8);
+                    var state = (BonfireState)bonfireState;
+                    return (BonfireState)bonfireState;
+                }
+
+                element = element.CreatePointerFromAddress(0x0);
+                netBonfireDbItem = element.CreatePointerFromAddress(0x8);
+            }
+            return BonfireState.Unknown;
+        }
+
+
+
         public object GetTestValue()
         {
             if (_gameMan == null)
@@ -122,6 +198,7 @@ namespace SoulMemory.DarkSouls1
             }
             return _gameMan.ReadByte(0x11);
         }
+
 
         #region Event flags ================================================================================================================
 

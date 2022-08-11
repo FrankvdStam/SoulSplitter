@@ -34,6 +34,14 @@ namespace SoulSplitter.Splits.DarkSouls1
                 case SplitType.Flag:
                     Flag = ((FlagDescription)split).Flag;
                     break;
+
+                case SplitType.Item:
+                    ItemState = (ItemState)split;
+                    break;
+
+                case SplitType.Bonfire:
+                    BonfireState = (BonfireState)split;
+                    break;
             }
         }
 
@@ -42,6 +50,8 @@ namespace SoulSplitter.Splits.DarkSouls1
         
         public readonly Boss Boss;
         public readonly Attribute Attribute;
+        public readonly ItemState ItemState;
+        public readonly BonfireState BonfireState;
         public readonly VectorSize Position;
         public readonly uint Flag;
 

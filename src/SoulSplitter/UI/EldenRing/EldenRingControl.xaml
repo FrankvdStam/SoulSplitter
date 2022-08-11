@@ -39,7 +39,6 @@
                         </CollectionViewSource.GroupDescriptions>
                     </CollectionViewSource>
 
-
                     <CollectionViewSource Source="{Binding Graces}" x:Key="GracesCollectionViewSource">
                         <CollectionViewSource.GroupDescriptions>
                             <PropertyGroupDescription PropertyName="Area"/>

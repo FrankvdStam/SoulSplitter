@@ -206,6 +206,13 @@ namespace SoulMemory.Shared
             WriteMemory(offset, BitConverter.GetBytes(value));
         }
 
+        public void WriteUint32(uint value) => WriteUint32(null, value);
+
+        public void WriteUint32(long? offset, uint value)
+        {
+            WriteMemory(offset, BitConverter.GetBytes(value));
+        }
+
         public void WriteInt64(long? offset, long value)
         {
             WriteMemory(offset, BitConverter.GetBytes(value));
