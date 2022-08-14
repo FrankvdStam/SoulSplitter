@@ -58,6 +58,9 @@ namespace cli
                 ds1.Refresh(out _);
                 Thread.Sleep(100);
                 Console.Clear();
+
+
+                ds1.ResetInventoryIndices();
             }
 
 

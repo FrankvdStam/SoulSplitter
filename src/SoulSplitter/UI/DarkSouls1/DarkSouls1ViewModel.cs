@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using SoulMemory;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.UI.Generic;
-using Attribute = System.Attribute;
 using BonfireState = SoulMemory.DarkSouls1.BonfireState;
 
 namespace SoulSplitter.UI.DarkSouls1
@@ -28,7 +21,7 @@ namespace SoulSplitter.UI.DarkSouls1
             get => _resetInventoryIndices;
             set => SetField(ref _resetInventoryIndices, value);
         }
-        private bool _resetInventoryIndices;
+        private bool _resetInventoryIndices = true;
 
         #region add/remove splits ============================================================================================================================================
 

@@ -52,6 +52,8 @@ https://github.com/Nordgaren/Erd-Tools
 
 Thanks thefifthmatt for all the hard work on figuring out how the ER map system works, insane effort! http://soulsmodding.wikidot.com/reference:elden-ring-map-list
 
+Thanks [CapitaineToinon](https://github.com/CapitaineToinon/LiveSplit.DarkSoulsIGT) for letting me use his DS1 timer code + inventory index reset code!
+
 I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
 
 [![Alt jetbrainslogo](./jetbrains/jetbrains.svg)](https://www.jetbrains.com/?from=SoulSplitter)

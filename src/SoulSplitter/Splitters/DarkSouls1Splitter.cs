@@ -68,6 +68,11 @@ namespace SoulSplitter.Splitters
 
         private void StartTimer()
         {
+            if (_darkSouls1ViewModel.ResetInventoryIndices)
+            {
+                _darkSouls1.ResetInventoryIndices();
+            }
+
             _timerState = TimerState.Running;
             _inGameTime = _darkSouls1.GetInGameTimeMilliseconds();
             _timerModel.Start();
@@ -208,7 +213,12 @@ namespace SoulSplitter.Splitters
                     break;
 
                 case TimingType.OnLoading:
-                    if (!_darkSouls1.IsPlayerLoaded())
+                    if (!s.Quitout && !_darkSouls1.IsPlayerLoaded())
+                    {
+                        s.Quitout = true;
+                    }
+
+                    if (s.Quitout && _darkSouls1.IsPlayerLoaded())
                     {
                         _timerModel.Split();
                         s.SplitTriggered = true;

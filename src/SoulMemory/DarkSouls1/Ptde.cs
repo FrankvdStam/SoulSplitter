@@ -81,8 +81,8 @@ namespace SoulMemory.DarkSouls1
                     ;
 
                 scanCache
-                    .ScanAbsolute("InventoryIndices", "8B 4C 24 34 8B 44 24 2C 89 8A 38 01 00 00 8B 90 08 01 00 00 C1 E2 10 0B 90 00 01 00 00 8B C1 8B CD 89 14 AD ? ? ? ?", 8)
-                    .CreatePointer(out _inventoryIndices, 0, 0, 0)
+                    .ScanAbsolute("InventoryIndices", "8B 4C 24 34 8B 44 24 2C 89 8A 38 01 00 00 8B 90 08 01 00 00 C1 E2 10 0B 90 00 01 00 00 8B C1 8B CD 89 14 AD ? ? ? ?", 36)
+                    .CreatePointer(out _inventoryIndices, 0)
                     ;
 
                 scanCache

@@ -15,7 +15,7 @@ namespace SoulMemory.DarkSouls2
         [Display(Name = "The Last Giant")]
         TheLastGiant = 0x7c,
 
-        [Display(Name = "The Persuer")]
+        [Display(Name = "The Pursuer")]
         ThePursuer = 0x70,
 
         [Display(Name = "Executioners Chariot")]

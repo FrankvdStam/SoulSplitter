@@ -171,7 +171,8 @@ namespace SoulSplitter.UI.Generic
      XmlInclude(typeof(FlagDescription)),
      XmlInclude(typeof(Splits.DarkSouls1.BonfireState)),
      XmlInclude(typeof(Splits.DarkSouls1.ItemState)),
-     XmlInclude(typeof(Splits.DarkSouls1.Attribute))]
+     XmlInclude(typeof(Splits.DarkSouls1.Attribute)),
+     XmlInclude(typeof(SoulMemory.DarkSouls1.Boss))]
     public class SplitViewModel : INotifyPropertyChanged
     {
         [XmlIgnore]

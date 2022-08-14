@@ -64,5 +64,7 @@ namespace SoulSplitter.Splits.DarkSouls1
         /// True after this split object cause a split. No longer need to check split conditions
         /// </summary>
         public bool SplitTriggered = false;
+        
+        public bool Quitout = false;
     }
 }
