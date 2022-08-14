@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace SoulMemory.DarkSouls1
         private Pointer _eventFlags;
         private Pointer _inventoryIndices;
         private Pointer _netBonfireDb;
+        private Pointer _saveInfo;
 
         public bool Refresh(out Exception exception)
         {
@@ -46,6 +48,7 @@ namespace SoulMemory.DarkSouls1
             _eventFlags = null;
             _inventoryIndices = null;
             _netBonfireDb = null;
+            _saveInfo = null;
         }
 
         private Exception InitPointers()
@@ -90,6 +93,12 @@ namespace SoulMemory.DarkSouls1
                     .CreatePointer(out _netBonfireDb, 0, 0, 0xb48);
 
 
+                scanCache
+                    .ScanAbsolute("sl1", "00 00 00 00 66 89 0D ? ? ? ? C3 CC CC CC CC CC 83 3D", 7)
+                    .CreatePointer(out _saveInfo, 0);
+
+                //8B 0D ? ? ? ? 80 B9 4F 0B 00 00 00 C6 44 24 28 00
+
                 //scanCache
                 //    .ScanAbsolute("WorldAiManImpl", "a1 ? ? ? ? 89 88 8c 0f 00 00 8b 77 14", 1)
                 //    .CreatePointer(out _worldAiManImpl, 0, 0);
@@ -107,6 +116,10 @@ namespace SoulMemory.DarkSouls1
         public int GetAttribute(Attribute attribute) => _playerGameData?.ReadInt32((long)attribute) ?? 0;
 
         public int GetInGameTimeMilliseconds() => _gameDataMan?.ReadInt32(0x68) ?? 0;
+
+        public int NgCount() => _gameDataMan?.ReadInt32(0x3C) ?? 0;
+
+        public int GetCurrentSaveSlot() => _gameMan?.ReadInt32(0xA70) ?? 0;
 
         public Vector3f GetPosition() => _playerIns == null ? new Vector3f(0, 0, 0) : new Vector3f(_playerIns.ReadFloat(0xc50), _playerIns.ReadFloat(0xC58), _playerIns.ReadFloat(0xC54));
 
@@ -129,13 +142,7 @@ namespace SoulMemory.DarkSouls1
             return _gameMan.ReadByte(0x11) == 1;
         }
 
-        public void ResetInventoryIndices()
-        {
-            for (int i = 0; i < 20; i++)
-            {
-                _inventoryIndices.WriteUint32(0x4 * i, uint.MaxValue);
-            }
-        }
+        
 
         public List<Item> GetInventory()
         {
@@ -272,5 +279,62 @@ namespace SoulMemory.DarkSouls1
         }
 
         #endregion
+
+
+
+        //Imported from CapitaineToinon. Thanks!
+        
+        public void ResetInventoryIndices()
+        {
+            if(_inventoryIndices != null)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    _inventoryIndices.WriteUint32(0x4 * i, uint.MaxValue);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Returns the savefile's location
+        /// </summary>
+        /// <returns></returns>
+        public string GetSaveFileLocation()
+        {
+            if (_saveInfo == null)
+            {
+                return string.Empty;
+            }
+
+            var myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var path = Path.Combine(myDocuments, "NBGI\\DarkSouls");
+            var variable = _saveInfo.ReadInt32(0x10);
+        
+            if (variable != 0)
+            {
+                // some old gfwl savefiles are still supported
+
+                var stringBuffer = new List<byte>(128);
+                var strPointer = _saveInfo.CreatePointerFromAddress(0x0);
+                var bytes = strPointer.ReadBytes(128);
+
+                for (int i = 0; i < 128; i += 2)
+                {
+                    if (bytes[i] == 0 && bytes[i + 1] == 0)
+                    {
+                        break;
+                    }
+
+                    stringBuffer.Add(bytes[i]);
+                    stringBuffer.Add(bytes[i+1]);
+                }
+
+                var glfwId = Encoding.Unicode.GetString(stringBuffer.ToArray());
+                path = Path.Combine(path, glfwId);
+            }
+        
+            return Path.Combine(path, "DRAKS0005.sl2");
+        }
     }
 }

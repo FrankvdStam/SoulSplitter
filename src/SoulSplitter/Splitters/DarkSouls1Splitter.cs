@@ -107,6 +107,11 @@ namespace SoulSplitter.Splitters
                     {
                         _inGameTime = currentIgt;
                     }
+                    else
+                    {
+                        _inGameTime = _darkSouls1.GetSaveFileGameTimeMilliseconds();
+                    }
+
                     _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
                     break;
             }

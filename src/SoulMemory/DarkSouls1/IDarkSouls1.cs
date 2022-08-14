@@ -14,10 +14,13 @@ namespace SoulMemory.DarkSouls1
         bool IsWarpRequested();
         bool IsPlayerLoaded();
         int GetInGameTimeMilliseconds();
+        int NgCount();
+        int GetCurrentSaveSlot();
         Vector3f GetPosition();
         void ResetInventoryIndices();
         List<Item> GetInventory();
         BonfireState GetBonfireState(Bonfire bonfire);
+        string GetSaveFileLocation();
 
 #if DEBUG
         object GetTestValue();

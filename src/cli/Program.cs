@@ -9,16 +9,11 @@ using SoulMemory;
 using SoulMemory.DarkSouls2;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
-using SoulMemory.Sekiro;
 using SoulMemory.Shared;
 using SoulSplitter.UI;
 using Newtonsoft.Json;
 using SoulMemory.DarkSouls1;
-using SoulMemory.DarkSouls3;
-using Attribute = SoulMemory.DarkSouls3.Attribute;
-using Bonfire = SoulMemory.DarkSouls1.Bonfire;
 using Boss = SoulMemory.DarkSouls1.Boss;
-using Item = SoulMemory.DarkSouls1.Item;
 
 #pragma warning disable CS0162
 
@@ -35,8 +30,10 @@ namespace cli
             //StandAloneErBlackscreenRemoval();
             //return;
             //
-            TestUi();
-            
+            //TestUi();
+           
+
+
             var ds1 = new DarkSouls1();
             while (true)
             {
@@ -44,6 +41,20 @@ namespace cli
                 Console.WriteLine($"BellGargoyles       {ds1.ReadEventFlag((uint)Boss.BellGargoyles)}");
                 Console.WriteLine($"IronGolem           {ds1.ReadEventFlag((uint)Boss.IronGolem)}");
                 Console.WriteLine($"OrnsteinAndSmough   {ds1.ReadEventFlag((uint)Boss.OrnsteinAndSmough)}");
+                Console.WriteLine($"{ds1.GetSaveFileLocation()}");
+                Console.WriteLine($"{ds1.GetCurrentSaveSlot()}");
+
+                var _inGameTime = 0;
+                var currentIgt = ds1.GetInGameTimeMilliseconds();
+                if (currentIgt != 0)
+                {
+                    _inGameTime = currentIgt;
+                }
+                else
+                {
+                    _inGameTime = ds1.GetSaveFileGameTimeMilliseconds();
+                }
+                Console.WriteLine(_inGameTime);
 
                 //var items = ds1.GetInventory();
                 //if (items != null)
@@ -55,7 +66,11 @@ namespace cli
                 //}
                 //
 
-                ds1.Refresh(out _);
+                if (!ds1.Refresh(out Exception e))
+                {
+                    Console.WriteLine(e.Format());
+                }
+
                 Thread.Sleep(100);
                 Console.Clear();
 

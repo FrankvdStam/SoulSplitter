@@ -63,6 +63,7 @@
     <Compile Include="DarkSouls1\ItemReader.cs" />
     <Compile Include="DarkSouls1\Ptde.cs" />
     <Compile Include="DarkSouls1\Remastered.cs" />
+    <Compile Include="DarkSouls1\Sl2Reader.cs" />
     <Compile Include="DarkSouls2\Attribute.cs" />
     <Compile Include="DarkSouls2\BossType.cs" />
     <Compile Include="DarkSouls2\DarkSouls2.cs" />
