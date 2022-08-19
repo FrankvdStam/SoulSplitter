@@ -13,6 +13,7 @@ using SoulMemory.Shared;
 using SoulSplitter.UI;
 using Newtonsoft.Json;
 using SoulMemory.DarkSouls1;
+using SoulMemory.Sekiro;
 using Boss = SoulMemory.DarkSouls1.Boss;
 
 #pragma warning disable CS0162
@@ -27,6 +28,16 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+
+            var s = new Sekiro();
+            while (true)
+            {
+                Console.WriteLine(s.ReadEventFlag((uint)SoulMemory.Sekiro.Boss.GyoubuMasatakaOniwa));
+                Thread.Sleep(100);
+                s.Refresh(out _);
+                Console.Clear();
+            }
+
             //StandAloneErBlackscreenRemoval();
             //return;
             //

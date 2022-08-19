@@ -156,9 +156,7 @@ namespace SoulMemory.Shared
 
         public long GetAddress()
         {
-            var offsetsCopy = Offsets.ToList();
-            offsetsCopy.Add(0x0);
-            return ResolveOffsets(offsetsCopy);
+            return ResolveOffsets(Offsets);
         }
 
         #region Read
