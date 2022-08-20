@@ -34,7 +34,7 @@ namespace SoulSplitter.Tests
             viewModel.EldenRingViewModel.StartAutomatically = false;
             viewModel.SekiroViewModel.NewSplitTimingType = TimingType.Immediate;
             viewModel.SekiroViewModel.NewSplitType = SplitType.Position;
-            viewModel.SekiroViewModel.NewSplitValue = new Vector3f(1.0f, 2.0f, 3.0f);
+            viewModel.SekiroViewModel.Position = new VectorSize(){Position = new Vector3f(1.0f, 2.0f, 3.0f), Size = 4};
             viewModel.SekiroViewModel.AddSplitCommand.Execute(null);
             
             var xml = viewModel.Serialize();
@@ -42,13 +42,14 @@ namespace SoulSplitter.Tests
 
             Assert.AreEqual(viewModel.EldenRingViewModel.StartAutomatically, deserializedViewModel.EldenRingViewModel.StartAutomatically);
             
-            var vector = deserializedViewModel.SekiroViewModel.SplitsViewModel.Splits.FirstOrDefault().Children.FirstOrDefault().Children.FirstOrDefault().Split;
+            var vectorSize = deserializedViewModel.SekiroViewModel.SplitsViewModel.Splits.FirstOrDefault().Children.FirstOrDefault().Children.FirstOrDefault().Split;
 
-            Assert.AreEqual(typeof(Vector3f), vector.GetType());
-            Assert.AreEqual(1.0f, ((Vector3f)vector).X);
-            Assert.AreEqual(2.0f, ((Vector3f)vector).Y);
-            Assert.AreEqual(3.0f, ((Vector3f)vector).Z);
-        }
+            Assert.AreEqual(typeof(VectorSize), vectorSize.GetType());
+            Assert.AreEqual(1.0f, ((VectorSize)vectorSize).Position.X);
+            Assert.AreEqual(2.0f, ((VectorSize)vectorSize).Position.Y);
+            Assert.AreEqual(3.0f, ((VectorSize)vectorSize).Position.Z);
+            Assert.AreEqual(4.0f, ((VectorSize)vectorSize).Size);
+        }                                                 
 
         private string MainViewModelToXml(MainViewModel viewModel)
         {
