@@ -58,7 +58,7 @@ namespace SoulMemory.DarkSouls1
                 var scanCache = _process.ScanCache();
                 
                 scanCache
-                    .ScanAbsolute("GameMan", "a1 ? ? ? ? 8b b8 d8 0b 00 00 8d a8 d8 0b 00 00", 1)
+                    .ScanAbsolute("GameMan", "8b 0d ? ? ? ? 80 b9 41 0b 00 00 00 74 0d", 2)
                     .CreatePointer(out _gameMan, 0, 0);
 
                 scanCache

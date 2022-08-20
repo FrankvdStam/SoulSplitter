@@ -1,39 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
-	<update version="1.1.0">
-		<files>
-			<file path="Components/SoulMemory.dll"                  status="changed" />
-			<file path="Components/SoulSplitter.dll"                status="changed" />
-			<file path="Components/soulinjectee.dll"                status="changed" />
-		</files>
-		<changelog>
-			<change>Fixed autostart in Dark Souls 2</change>
-			<change>Added Dark Souls 2 boss and attribute autosplitting</change>
-		</changelog>
-	</update>
-	<update version="1.0.39">
-		<files>
-			<file path="Components/SoulMemory.dll"                  status="changed" />
-			<file path="Components/SoulSplitter.dll"                status="changed" />
-			<file path="Components/soulinjectee.dll"                status="changed" />
-		</files>
-		<changelog>
-			<change>Fixed position splits in Elden Ring</change>
-		</changelog>
-	</update>
-	<update version="1.0.38">
-		<files>
-			<file path="Components/SoulMemory.dll"                  status="changed" />
-			<file path="Components/SoulSplitter.dll"                status="changed" />
-			<file path="Components/soulinjectee.dll"                status="changed" />
-		</files>
-		<changelog>
-			<change>Added blackscreen removal to Elden Ring</change>
-			<change>Added 'on blackscreen' timing type to Elden Ring split timing options</change>
-			<change>Added character attribute based splits to Dark Souls 3</change>
-		</changelog>
-	</update>
-	<update version="1.0.37">
+    <update version="1.1.2">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Dark Souls 1 PTDE and remastered support added! Thanks Maarionete, for testing!</change>
+            <change>Sekiro: Added a size to position splits</change>
+            <change>Sekiro: Added a description field to flags (to serve as a reminder what the flag is for)</change>
+            <change>Elden Ring: No-logo is included and not optional. Thanks Blade, for reference code!</change>
+        </changelog>
+    </update>
+    <update version="1.1.0">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+            <file path="Components/soulinjectee.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Fixed autostart in Dark Souls 2</change>
+            <change>Added Dark Souls 2 boss and attribute autosplitting</change>
+        </changelog>
+    </update>
+    <update version="1.0.39">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+            <file path="Components/soulinjectee.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Fixed position splits in Elden Ring</change>
+        </changelog>
+    </update>
+    <update version="1.0.38">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed" />
+            <file path="Components/SoulSplitter.dll"                status="changed" />
+            <file path="Components/soulinjectee.dll"                status="changed" />
+        </files>
+        <changelog>
+            <change>Added blackscreen removal to Elden Ring</change>
+            <change>Added 'on blackscreen' timing type to Elden Ring split timing options</change>
+            <change>Added character attribute based splits to Dark Souls 3</change>
+        </changelog>
+    </update>
+    <update version="1.0.37">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed" />
             <file path="Components/SoulSplitter.dll"                status="changed" />

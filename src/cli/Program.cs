@@ -28,6 +28,9 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            new EldenRing().Refresh(out _);
+
+            TestAobs();
 
             var s = new Sekiro();
             while (true)
@@ -363,6 +366,7 @@ namespace cli
         {
             //fd4 alternative 48 8b 0d ? ? ? ? 48 85 c9 74 06 48 8b 59 08
 
+            AobCount("NoLogo", "80 bf b8 00 00 00 00 ? ? 48 8b 05 ? ? ? ? 48 85 c0 75 2e 48 8d 0d"); 
             AobCount("FieldArea", "48 8B 0D ?? ?? ?? ?? 48 ?? ?? ?? 44 0F B6 61 ?? E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 48 ?? ?? ?? 48 85 C0"); 
             AobCount("SetEventFlag", "48 89 5c 24 08 44 8b 49 1c 44 8b d2 33 d2 41 8b c2 41 f7 f1 41 8b d8 4c 8b d9"); 
             AobCount("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00"); 

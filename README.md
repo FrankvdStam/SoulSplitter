@@ -9,7 +9,6 @@ Elden Ring: MIGT, initial black screen removal and autosplitting
 DarkSouls3: IGT, blackscreen removal and autosplitting  
 Sekiro: IGT, blackscreen removal and autosplitting  
 
-
 For Elden Ring specific information, see https://github.com/FrankvdStam/SoulSplitter/wiki/Elden-Ring
 
 
@@ -25,12 +24,13 @@ If you are having trouble, have questions, feature requests or anything else, co
 # Credits
 
 Thank you strimmers, for risking your PB's, to test my broken code!  
-[Catalystz!](https://www.twitch.tv/catalystz)  
-[Johndisandonato!](https://www.twitch.tv/johndisandonato)  
-[siegbruh!](https://www.twitch.tv/siegbruh)  
-[Holm!](https://www.twitch.tv/holm_gg)  
-[Pennek!](https://www.twitch.tv/pennek)  
-[nyk_style!](https://www.twitch.tv/nyk_style)  
+[Catalystz](https://www.twitch.tv/catalystz)  
+[Johndisandonato](https://www.twitch.tv/johndisandonato)  
+[Siegbruh](https://www.twitch.tv/siegbruh)  
+[Holm](https://www.twitch.tv/holm_gg)  
+[Pennek](https://www.twitch.tv/pennek)  
+[Nyk_style](https://www.twitch.tv/nyk_style)  
+[Maarionete](https://www.twitch.tv/maarionete)  
 Thank you all!
 
 Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions to the speedrunning community:  
@@ -54,6 +54,8 @@ Thanks thefifthmatt for all the hard work on figuring out how the ER map system 
 
 Thanks [CapitaineToinon](https://github.com/CapitaineToinon/LiveSplit.DarkSoulsIGT) for letting me use his DS1 timer code + inventory index reset code!
 
+Thanks [Blade](https://github.com/bladecoding/DarkSouls3RemoveIntroScreens) for the nologo code!  
+
 I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
 
 [![Alt jetbrainslogo](./jetbrains/jetbrains.svg)](https://www.jetbrains.com/?from=SoulSplitter)
@@ -65,6 +67,3 @@ The .net build relies on some local files, all can be obtained by cloning livesp
 Building soulinjectee can be done in the root directory of the repository. You can build it for 32 bit (DS1 PTDE & DS2 vanilla) or for 64 bit (all other soulsgames) - you need the right toolchain/target for each build respectively  
 64 bit: `cargo build --lib`  
 32 bit: `cargo build --lib --target=i686-pc-windows-msvc`  
-
-
-

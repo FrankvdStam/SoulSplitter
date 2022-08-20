@@ -26,6 +26,7 @@ namespace SoulMemory.EldenRing
         private Pointer _menuManImp;
         private Pointer _igtFix;
         private Pointer _virtualMemoryFlag;
+        private Pointer _noLogo;
 
         private long _screenStateOffset;
         private long _positionOffset;
@@ -95,28 +96,37 @@ namespace SoulMemory.EldenRing
                 scanCache
                     //FD4Time
                     .ScanRelative("FD4Time", "48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
-                        .CreatePointer(out _igt, 0, 0xa0)
-                        .CreatePointer(out _hud, 0, 0x58, 0x9)
+                    .CreatePointer(out _igt, 0, 0xa0)
+                    .CreatePointer(out _hud, 0, 0x58, 0x9)
 
                     //WorldChrManImp  
-                    .ScanRelative("WorldChrManImp", "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7", 3, 7)
-                        //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
-                        .CreatePointer(out _playerIns, 0, 0x18468)
+                    .ScanRelative("WorldChrManImp", "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7",
+                        3, 7)
+                    //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
+                    .CreatePointer(out _playerIns, 0, 0x18468)
                     ////FieldArea
                     //.ScanRelative("FieldArea", "48 8B 0D ?? ?? ?? ?? 48 ?? ?? ?? 44 0F B6 61 ?? E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 48 ?? ?? ?? 48 85 C0", 3, 7)
                     //    .CreatePointer(out _mapId, 0, 0x190) //hitins, has map area
 
                     //CSMenuManImp
                     .ScanRelative("MenuManImp", "48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
-                        .CreatePointer(out _menuManImp, 0)
+                    .CreatePointer(out _menuManImp, 0)
 
                     //.ScanRelative("48 83 3d d5 f2 60 03 00 75 46 4c 8b 05 e4 d4 62 03 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
                     .ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 8)
-                        .CreatePointer(out _virtualMemoryFlag, 0)
+                    .CreatePointer(out _virtualMemoryFlag, 0)
 
                     //IGT fix detour address
-                    .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
-                        .CreatePointer(out _igtFix)
+                    .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?",
+                        35)
+                    .CreatePointer(out _igtFix)
+
+
+                    //Nologo address, replace jz with nop's
+                    .ScanAbsolute("NoLogo", "80 bf b8 00 00 00 00 ? ? 48 8b 05 ? ? ? ? 48 85 c0 75 2e 48 8d 0d", 7)
+                    .CreatePointer(out _noLogo);
+                        
+                    
                     ;
 
                 //gameman  48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03
@@ -145,6 +155,7 @@ namespace SoulMemory.EldenRing
             _playerGameData = null;
             _inventory = null;
             _virtualMemoryFlag = null;
+            _noLogo = null;
         }
 
         #endregion
@@ -695,6 +706,10 @@ namespace SoulMemory.EldenRing
             var result = Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)codeCave, igtFixCode.ToArray(), (uint)igtFixCode.Count, out uint bytesWritten);
             result &= Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)igtFixEntryPoint, igtFixDetourCode.ToArray(), (uint)igtFixDetourCode.Count, out bytesWritten);
 
+            //Apply nologo
+            _noLogo.WriteBytes(null, new byte[]{0x90, 0x90});
+            
+            
             Ntdll.NtResumeProcess(_process.Handle);
 
             return result;
