@@ -73,6 +73,7 @@ namespace SoulSplitter.Splitters
                 _darkSouls1.ResetInventoryIndices();
             }
 
+            _liveSplitState.IsGameTimePaused = true;
             _timerState = TimerState.Running;
             _inGameTime = _darkSouls1.GetInGameTimeMilliseconds();
             _timerModel.Start();
