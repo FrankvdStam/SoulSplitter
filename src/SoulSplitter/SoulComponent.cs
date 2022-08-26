@@ -25,39 +25,10 @@ namespace SoulSplitter
 
         private ISplitter _currentSplitter;
 
-
         public SoulComponent(LiveSplitState state = null)
-        {           
+        {
             _liveSplitState = state;
-
-            if(!string.IsNullOrWhiteSpace(_liveSplitState?.Run?.GameName))
-            {
-                var name = _liveSplitState.Run.GameName.ToLower().Replace(" ", "");
-                switch (name)
-                {
-                    case "darksouls":
-                    case "darksoulsremastered":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls1;
-                        break;
-
-                    case "darksoulsii":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls2;
-                        break;
-
-                    case "darksoulsiii":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls3;
-                        break;
-
-                    case "sekiro":
-                    case "sekiro:shadowsdietwice":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.Sekiro;
-                        break;
-
-                    case "eldenring":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.EldenRing;
-                        break;
-                }
-            }
+            SelectGameFromLiveSplitState(_liveSplitState);
         }
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
@@ -204,6 +175,7 @@ namespace SoulSplitter
             catch
             {
                 MainControlFormsWrapper.MainViewModel = new MainViewModel();
+                SelectGameFromLiveSplitState(_liveSplitState);
             }
         }
 
@@ -212,6 +184,40 @@ namespace SoulSplitter
         {
             return MainControlFormsWrapper;
         }
+
+
+        private void SelectGameFromLiveSplitState(LiveSplitState s)
+        {
+            if (!string.IsNullOrWhiteSpace(s?.Run?.GameName))
+            {
+                var name = s.Run.GameName.ToLower().Replace(" ", "");
+                switch (name)
+                {
+                    case "darksouls":
+                    case "darksoulsremastered":
+                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls1;
+                        break;
+
+                    case "darksoulsii":
+                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls2;
+                        break;
+
+                    case "darksoulsiii":
+                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls3;
+                        break;
+
+                    case "sekiro":
+                    case "sekiro:shadowsdietwice":
+                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.Sekiro;
+                        break;
+
+                    case "eldenring":
+                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.EldenRing;
+                        break;
+                }
+            }
+        }
+
         #endregion
     }
 }

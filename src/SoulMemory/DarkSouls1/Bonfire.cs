@@ -44,7 +44,7 @@ namespace SoulMemory.DarkSouls1
         [Display(Name = "Blighttown Catwalk", Description = "Blighttown")]
         BlighttownCatwalk = 1401962,
 
-        [Display(Name = "Blighttown Swap", Description = "Blighttown")]
+        [Display(Name = "Blighttown Swamp", Description = "Blighttown")]
         BlighttownSwamp = 1401961,
 
         [Display(Name = "Quelaag's Domain - DaughterOfChaos", Description = "Quelaag's Domain")]

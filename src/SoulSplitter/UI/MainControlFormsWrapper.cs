@@ -17,8 +17,9 @@ namespace SoulSplitter.UI
             Width = (int)_mainControl.Width + 15;
             Height = (int)_mainControl.Height + 15;
 
-            SuspendLayout();
+            AutoScaleMode = AutoScaleMode.Font; //Fix scaling issues (100%, 150%, etc, in windows display settings)
 
+            SuspendLayout();
             _elementHost = new ElementHost();
             _elementHost.Location = new System.Drawing.Point(0, 0);
             _elementHost.Name = "ElementHost";

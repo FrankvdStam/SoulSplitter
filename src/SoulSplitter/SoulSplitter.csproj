@@ -67,6 +67,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logger.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Splits\DarkSouls1\BonfireState.cs" />

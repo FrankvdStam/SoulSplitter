@@ -65,6 +65,9 @@ namespace SoulSplitter.Splitters
         private readonly TimerModel _timerModel;
         private int _inGameTime;
         private TimerState _timerState = TimerState.WaitForStart;
+        private string _savefilePath = null;
+        private int _saveSlot = -1;
+        private bool _isPtde = false;
 
         private void StartTimer()
         {
@@ -76,6 +79,9 @@ namespace SoulSplitter.Splitters
             _liveSplitState.IsGameTimePaused = true;
             _timerState = TimerState.Running;
             _inGameTime = _darkSouls1.GetInGameTimeMilliseconds();
+            _savefilePath = _darkSouls1.GetSaveFileLocation();
+            _saveSlot = _darkSouls1.GetCurrentSaveSlot();
+            _isPtde = _darkSouls1.IsPtde();
             _timerModel.Start();
         }
 
@@ -110,7 +116,11 @@ namespace SoulSplitter.Splitters
                     }
                     else
                     {
-                        _inGameTime = _darkSouls1.GetSaveFileGameTimeMilliseconds();
+                        var saveFileTime = _darkSouls1.GetSaveFileGameTimeMilliseconds(_savefilePath, _saveSlot, _isPtde);
+                        if(saveFileTime != 0)
+                        {
+                            _inGameTime = saveFileTime;
+                        }
                     }
 
                     _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
@@ -185,7 +195,7 @@ namespace SoulSplitter.Splitters
                                 break;
 
                             case SplitType.Bonfire:
-                                s.SplitConditionMet = _darkSouls1.GetBonfireState(s.BonfireState.Bonfire.Value) == s.BonfireState.State;
+                                s.SplitConditionMet = _darkSouls1.GetBonfireState(s.BonfireState.Bonfire.Value) >= s.BonfireState.State;
                                 break;
 
                             case SplitType.Item:

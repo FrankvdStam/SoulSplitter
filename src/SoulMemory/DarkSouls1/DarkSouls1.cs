@@ -16,31 +16,16 @@ namespace SoulMemory.DarkSouls1
         public Vector3f GetPosition() => _darkSouls1?.GetPosition() ?? new Vector3f(0,0,0);
         public int GetInGameTimeMilliseconds() => _darkSouls1?.GetInGameTimeMilliseconds() ?? 0;
         public int NgCount() => _darkSouls1?.NgCount() ?? 0;
-        public int GetCurrentSaveSlot() => _darkSouls1?.GetCurrentSaveSlot() ?? 0;
+        public int GetCurrentSaveSlot() => _darkSouls1?.GetCurrentSaveSlot() ?? -1;
         public void ResetInventoryIndices() => _darkSouls1?.ResetInventoryIndices();
         public List<Item> GetInventory() => _darkSouls1?.GetInventory() ?? new List<Item>();
         public BonfireState GetBonfireState(Bonfire bonfire) => _darkSouls1?.GetBonfireState(bonfire) ?? BonfireState.Unknown;
         public string GetSaveFileLocation() => _darkSouls1?.GetSaveFileLocation();
-
-        public int GetSaveFileGameTimeMilliseconds()
+        public bool IsPtde() => _darkSouls1 is Ptde;
+        public int GetSaveFileGameTimeMilliseconds(string path, int slot, bool isPtde)
         { 
-            if (_darkSouls1 == null)
-            {
-                return 0;
-            }
-
-            var isPtde = _darkSouls1 is Ptde;
-
-            try
-            {
-                return Sl2Reader.GetSaveFileIgt(_darkSouls1.GetSaveFileLocation(), _darkSouls1.GetCurrentSaveSlot(), isPtde) ?? 0;
-            }
-            catch (Exception e)
-            {
-                return -1;
-            }
-        }
-        
+            return Sl2Reader.GetSaveFileIgt(path, slot, isPtde) ?? 0;
+        }        
 
         public bool Refresh(out Exception exception)
         {

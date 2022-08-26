@@ -112,6 +112,7 @@ namespace SoulSplitter.Splitters
                     var blackscreenActive = _sekiro.IsBlackscreenActive();
 
 
+
                     //Blackscreens/meme loading screens - timer is running, but game is actually loading
                     if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && blackscreenActive)
                     {
@@ -125,6 +126,7 @@ namespace SoulSplitter.Splitters
                             _inGameTime = currentIgt;
                         }
                     }
+
                     _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
                     break;
             }

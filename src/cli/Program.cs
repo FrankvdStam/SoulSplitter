@@ -28,57 +28,19 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            new EldenRing().Refresh(out _);
-
-            TestAobs();
-
-            var s = new Sekiro();
-            while (true)
-            {
-                Console.WriteLine(s.ReadEventFlag((uint)SoulMemory.Sekiro.Boss.GyoubuMasatakaOniwa));
-                Thread.Sleep(100);
-                s.Refresh(out _);
-                Console.Clear();
-            }
-
-            //StandAloneErBlackscreenRemoval();
-            //return;
-            //
-            //TestUi();
-           
-
-
             var ds1 = new DarkSouls1();
+            var isPtde = ds1.IsPtde();
+            ds1.Refresh(out Exception ex);
+            var path = ds1.GetSaveFileLocation();
+            var slot = ds1.GetCurrentSaveSlot();
+
             while (true)
             {
-                Console.WriteLine($"quelaag             {ds1.ReadEventFlag((uint)Boss.ChaosWitchQuelaag)}");
-                Console.WriteLine($"BellGargoyles       {ds1.ReadEventFlag((uint)Boss.BellGargoyles)}");
-                Console.WriteLine($"IronGolem           {ds1.ReadEventFlag((uint)Boss.IronGolem)}");
-                Console.WriteLine($"OrnsteinAndSmough   {ds1.ReadEventFlag((uint)Boss.OrnsteinAndSmough)}");
                 Console.WriteLine($"{ds1.GetSaveFileLocation()}");
                 Console.WriteLine($"{ds1.GetCurrentSaveSlot()}");
-
-                var _inGameTime = 0;
-                var currentIgt = ds1.GetInGameTimeMilliseconds();
-                if (currentIgt != 0)
-                {
-                    _inGameTime = currentIgt;
-                }
-                else
-                {
-                    _inGameTime = ds1.GetSaveFileGameTimeMilliseconds();
-                }
-                Console.WriteLine(_inGameTime);
-
-                //var items = ds1.GetInventory();
-                //if (items != null)
-                //{
-                //    foreach (var item in items)
-                //    {
-                //        Console.WriteLine(item.Name + " " + item.Quantity);
-                //    }
-                //}
-                //
+                Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
+                Console.WriteLine($"{ds1.GetSaveFileGameTimeMilliseconds(ds1.GetSaveFileLocation(), ds1.GetCurrentSaveSlot(), false)}");
+                Console.WriteLine($"{ds1.GetSaveFileGameTimeMilliseconds(path, slot, false)}");
 
                 if (!ds1.Refresh(out Exception e))
                 {
@@ -87,9 +49,6 @@ namespace cli
 
                 Thread.Sleep(100);
                 Console.Clear();
-
-
-                ds1.ResetInventoryIndices();
             }
 
 
