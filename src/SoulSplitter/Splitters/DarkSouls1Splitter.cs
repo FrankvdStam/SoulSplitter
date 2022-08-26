@@ -79,14 +79,13 @@ namespace SoulSplitter.Splitters
             _liveSplitState.IsGameTimePaused = true;
             _timerState = TimerState.Running;
             _inGameTime = _darkSouls1.GetInGameTimeMilliseconds();
-            _savefilePath = _darkSouls1.GetSaveFileLocation();
-            _saveSlot = _darkSouls1.GetCurrentSaveSlot();
-            _isPtde = _darkSouls1.IsPtde();
             _timerModel.Start();
         }
 
         private void ResetTimer()
         {
+            _savefilePath = null;
+            _saveSlot = -1;
             _timerState = TimerState.WaitForStart;
             _inGameTime = 0;
             _timerModel.Reset();
@@ -112,6 +111,16 @@ namespace SoulSplitter.Splitters
                     var currentIgt = _darkSouls1.GetInGameTimeMilliseconds();
                     if (currentIgt != 0)
                     {
+                        //Only latch in these values if IGT is not 0, which means where actually on a save.
+                        //You can otherwise start the timer on the main menu, which would latch in any kind of saveslot,
+                        //but not the real saveslot used later on
+                        if (_savefilePath == null)
+                        {
+                            _savefilePath = _darkSouls1.GetSaveFileLocation();
+                            _saveSlot = _darkSouls1.GetCurrentSaveSlot();
+                            _isPtde = _darkSouls1.IsPtde();
+                        }
+
                         _inGameTime = currentIgt;
                     }
                     else
