@@ -68,6 +68,9 @@ namespace SoulSplitter.UI.DarkSouls1
 
                 case SplitType.Item:
                     return NewSplitItemState != null && NewSplitItemState.ItemType != null;
+
+                case SplitType.Credits:
+                    return NewSplitTimingType != null;
             }
         }
 
@@ -98,6 +101,10 @@ namespace SoulSplitter.UI.DarkSouls1
 
                 case SplitType.Item:
                     split = NewSplitItemState; 
+                    break;
+
+                case SplitType.Credits:
+                    split = "Credits";
                     break;
             }
             SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);

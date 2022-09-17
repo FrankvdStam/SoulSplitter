@@ -37,5 +37,8 @@ namespace SoulSplitter.UI.Generic
 
         [Display(Name = "Item")]
         Item,
+
+        [Display(Name = "Credits")]
+        Credits,
     }
 }

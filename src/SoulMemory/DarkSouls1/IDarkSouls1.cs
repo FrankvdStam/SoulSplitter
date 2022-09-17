@@ -30,6 +30,7 @@ namespace SoulMemory.DarkSouls1
         int NgCount();
         int GetCurrentSaveSlot();
         Vector3f GetPosition();
+        bool AreCreditsRolling();
         void ResetInventoryIndices();
         List<Item> GetInventory();
         BonfireState GetBonfireState(Bonfire bonfire);

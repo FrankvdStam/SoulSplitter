@@ -39,15 +39,15 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
 
             var ds1 = new DarkSouls1();
+            ds1.Refresh(out _);
+
 
             while (true)
             {
-                Console.WriteLine($"{ds1.GetSaveFileLocation()}");
-                Console.WriteLine($"{ds1.GetCurrentSaveSlot()}");
-                Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
-                Console.WriteLine($"{ds1.GetSaveFileGameTimeMilliseconds(ds1.GetSaveFileLocation(), ds1.GetCurrentSaveSlot(), ds1.IsPtde())}");
+                Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()} {ds1.AreCreditsRolling()}");
 
                 if (!ds1.Refresh(out Exception e))
                 {
@@ -55,8 +55,9 @@ namespace cli
                     Thread.Sleep(2000);
                 }
 
-                Thread.Sleep(100);
-                Console.Clear();
+                Thread.Sleep(10);
+                Console.SetCursorPosition(0, 0);
+                //Console.Clear();
             }
         }
 

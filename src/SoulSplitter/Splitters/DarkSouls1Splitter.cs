@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using LiveSplit.Model;
 using SoulMemory.DarkSouls1;
@@ -82,6 +83,8 @@ namespace SoulSplitter.Splitters
         private string _savefilePath = null;
         private int _saveSlot = -1;
         private bool _isPtde = false;
+        private int _previousIgt = 0;
+        private bool _previousCredits = false;
 
         private void StartTimer()
         {
@@ -102,6 +105,8 @@ namespace SoulSplitter.Splitters
             _saveSlot = -1;
             _timerState = TimerState.WaitForStart;
             _inGameTime = 0;
+            _previousIgt = 0;
+            _previousCredits = false;
             _timerModel.Reset();
         }
 
@@ -137,15 +142,31 @@ namespace SoulSplitter.Splitters
 
                         _inGameTime = currentIgt;
                     }
-                    else
+
+
+                    var credits = _darkSouls1.AreCreditsRolling();
+
+                   
+                    if (
+                        //Detect going from a savefile to the main menu
+                        //Only do this once to prevent save file reading race conditions
+                        (currentIgt == 0 && _previousIgt != 0) ||
+
+                        //When the credits are active, show savefile time as well
+                        (credits && credits != _previousCredits)
+                        
+                        )
                     {
+                        Debug.WriteLine("Read savefile time");
                         var saveFileTime = _darkSouls1.GetSaveFileGameTimeMilliseconds(_savefilePath, _saveSlot, _isPtde);
-                        if(saveFileTime != 0)
+                        if (saveFileTime != 0)
                         {
                             _inGameTime = saveFileTime;
                         }
                     }
 
+                    _previousCredits = credits;
+                    _previousIgt = currentIgt;
                     _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
                     break;
             }
@@ -227,6 +248,10 @@ namespace SoulSplitter.Splitters
                                     inventory = _darkSouls1.GetInventory();
                                 }
                                 s.SplitConditionMet = inventory.Any(i => i.ItemType == s.ItemState.ItemType);
+                                break;
+
+                            case SplitType.Credits:
+                                s.SplitConditionMet = _darkSouls1.AreCreditsRolling();
                                 break;
                         }
                     }

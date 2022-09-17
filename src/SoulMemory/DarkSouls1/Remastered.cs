@@ -37,6 +37,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using SoulMemory.Shared;
@@ -57,6 +58,7 @@ namespace SoulMemory.DarkSouls1
         private Pointer _eventFlags;
         private Pointer _inventoryIndices;
         private Pointer _netBonfireDb;
+        private Pointer _menuMan;
         private int? _steamId3;
         private bool? _isJapanese;
 
@@ -81,6 +83,7 @@ namespace SoulMemory.DarkSouls1
             _eventFlags = null;
             _inventoryIndices = null;
             _netBonfireDb = null;
+            _menuMan = null;
             _steamId3 = null;
             _isJapanese = null;
         }
@@ -121,10 +124,12 @@ namespace SoulMemory.DarkSouls1
                 scanCache
                     .ScanRelative("NetManImp", "48 8b 05 ? ? ? ? 48 05 08 0a 00 00 48 89 44 24 50 e8 34 fc fd ff", 3, 7)
                     .CreatePointer(out _netBonfireDb, 0x0, 0xb68);
-                
-                //scanCache
-                //    .ScanRelative("MenuMan", "48 8b 15 ? ? ? ? 89 82 7c 08 00 00", 3, 7)
-                //    .CreatePointer(out _menuMan, 0);
+
+                scanCache
+                .ScanRelative("MenuMan", "48 8b 15 ? ? ? ? 89 82 7c 08 00 00", 3, 7)
+                    .CreatePointer(out _menuMan, 0);
+
+                    
 
                 _steamId3 = GetSteamId3();
                 _isJapanese = IsJapanese();
@@ -168,6 +173,19 @@ namespace SoulMemory.DarkSouls1
 
         public object GetTestValue() => GetInventory();
         
+        public bool AreCreditsRolling()
+        {
+            if(_menuMan == null)
+            {
+                return false;
+            }
+
+            var first  = _menuMan.ReadInt32(0xc8);
+            var second = _menuMan.ReadInt32(0xd4);
+            var third  = _menuMan.ReadInt32(0x80); //This address seems like it turns into a 1 only when you are on the main menu
+
+            return third == 0 && first == 1 & second == 1;
+        }
         
 
         public List<Item> GetInventory()

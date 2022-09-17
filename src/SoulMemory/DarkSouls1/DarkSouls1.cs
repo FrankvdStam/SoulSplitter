@@ -35,6 +35,7 @@ namespace SoulMemory.DarkSouls1
         public int GetCurrentSaveSlot() => _darkSouls1?.GetCurrentSaveSlot() ?? -1;
         public void ResetInventoryIndices() => _darkSouls1?.ResetInventoryIndices();
         public List<Item> GetInventory() => _darkSouls1?.GetInventory() ?? new List<Item>();
+        public bool AreCreditsRolling() => _darkSouls1?.AreCreditsRolling() ?? false;
         public BonfireState GetBonfireState(Bonfire bonfire) => _darkSouls1?.GetBonfireState(bonfire) ?? BonfireState.Unknown;
         public string GetSaveFileLocation() => _darkSouls1?.GetSaveFileLocation();
         public bool IsPtde() => _darkSouls1 is Ptde;

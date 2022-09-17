@@ -56,6 +56,9 @@ namespace SoulSplitter.Splits.DarkSouls1
                 case SplitType.Bonfire:
                     BonfireState = (BonfireState)split;
                     break;
+
+                case SplitType.Credits:
+                    break;
             }
         }
 

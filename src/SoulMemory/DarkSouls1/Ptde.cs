@@ -55,6 +55,7 @@ namespace SoulMemory.DarkSouls1
         private Pointer _inventoryIndices;
         private Pointer _netBonfireDb;
         private Pointer _saveInfo;
+        private Pointer _menuMan;
 
         public bool Refresh(out Exception exception)
         {
@@ -77,6 +78,7 @@ namespace SoulMemory.DarkSouls1
             _eventFlags = null;
             _inventoryIndices = null;
             _netBonfireDb = null;
+            _menuMan = null;
             _saveInfo = null;
         }
 
@@ -96,10 +98,9 @@ namespace SoulMemory.DarkSouls1
                     .CreatePointer(out _playerGameData, 0, 0, 0x8)
                     ;
 
-                //scanCache
-                //    .ScanAbsolute("MenuMan", "a1 ? ? ? ? 8b 88 e8 09 00 00 c7 01 80 3e 00 00", 1)
-                //    .CreatePointer(out _menuMan, 0, 0)
-                //    ;
+                scanCache
+                    .ScanAbsolute("MenuMan", "a1 ? ? ? ? 8b 88 e8 09 00 00 c7 01 80 3e 00 00", 1)
+                    .CreatePointer(out _menuMan, 0, 0);
 
                 scanCache
                     .ScanAbsolute("WorldChrManImp", "8b 0d ? ? ? ? 8b 71 3c c6 44 24 48 01", 2)
@@ -125,8 +126,6 @@ namespace SoulMemory.DarkSouls1
                 scanCache
                     .ScanAbsolute("sl1", "00 00 00 00 66 89 0D ? ? ? ? C3 CC CC CC CC CC 83 3D", 7)
                     .CreatePointer(out _saveInfo, 0);
-
-                //8B 0D ? ? ? ? 80 B9 4F 0B 00 00 00 C6 44 24 28 00
 
                 //scanCache
                 //    .ScanAbsolute("WorldAiManImpl", "a1 ? ? ? ? 89 88 8c 0f 00 00 8b 77 14", 1)
@@ -222,6 +221,20 @@ namespace SoulMemory.DarkSouls1
                 netBonfireDbItem = element.CreatePointerFromAddress(0x8);
             }
             return BonfireState.Unknown;
+        }
+
+        public bool AreCreditsRolling()
+        {
+            if(_menuMan == null)
+            {
+                return false;
+            }
+
+            var first = _menuMan.ReadInt32(0xb4);
+            var second = _menuMan.ReadInt32(0xc0);
+            var third = _menuMan.ReadInt32(0x6c); //This address seems like it turns into a 1 only when you are on the main menu
+
+            return third == 0 && first == 1 & second == 1;
         }
 
 
