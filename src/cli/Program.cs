@@ -1,20 +1,31 @@
-﻿using System;
+﻿// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+// Copyright (c) 2022 Frank van der Stam.
+// https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, version 3.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using SoulMemory;
-using SoulMemory.DarkSouls2;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulMemory.Shared;
 using SoulSplitter.UI;
-using Newtonsoft.Json;
 using SoulMemory.DarkSouls1;
-using SoulMemory.Sekiro;
-using Boss = SoulMemory.DarkSouls1.Boss;
 
 #pragma warning disable CS0162
 
@@ -28,161 +39,23 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+
             var ds1 = new DarkSouls1();
-            var isPtde = ds1.IsPtde();
-            ds1.Refresh(out Exception ex);
-            var path = ds1.GetSaveFileLocation();
-            var slot = ds1.GetCurrentSaveSlot();
 
             while (true)
             {
                 Console.WriteLine($"{ds1.GetSaveFileLocation()}");
                 Console.WriteLine($"{ds1.GetCurrentSaveSlot()}");
                 Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
-                Console.WriteLine($"{ds1.GetSaveFileGameTimeMilliseconds(ds1.GetSaveFileLocation(), ds1.GetCurrentSaveSlot(), false)}");
-                Console.WriteLine($"{ds1.GetSaveFileGameTimeMilliseconds(path, slot, false)}");
+                Console.WriteLine($"{ds1.GetSaveFileGameTimeMilliseconds(ds1.GetSaveFileLocation(), ds1.GetCurrentSaveSlot(), ds1.IsPtde())}");
 
                 if (!ds1.Refresh(out Exception e))
                 {
                     Console.WriteLine(e.Format());
+                    Thread.Sleep(2000);
                 }
 
                 Thread.Sleep(100);
-                Console.Clear();
-            }
-
-
-
-            var ds2 = new DarkSouls2();
-            while (true)
-            {
-                var pos = ds2.GetPosition();
-
-                Console.WriteLine($"SoulLevel    {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.SoulLevel      )}");
-                Console.WriteLine($"Vigor        {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Vigor          )}");
-                Console.WriteLine($"Endurance    {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Endurance      )}");
-                Console.WriteLine($"Vitality     {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Vitality       )}");
-                Console.WriteLine($"Attunement   {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Attunement     )}");
-                Console.WriteLine($"Strength     {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Strength       )}");
-                Console.WriteLine($"Dexterity    {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Dexterity      )}");
-                Console.WriteLine($"Adaptability {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Adaptability   )}");
-                Console.WriteLine($"Intelligence {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Intelligence   )}");
-                Console.WriteLine($"Faith        {ds2.GetAttribute(SoulMemory.DarkSouls2.Attribute.Faith)}");
-
-
-
-                ds2.Refresh(out _);
-                Thread.Sleep(200);
-                Console.Clear();
-            }
-
-
-
-            var er = new EldenRing();
-            er.InitPointers();
-
-            while (true)
-            {
-                var pos = er.GetPosition();
-                Console.WriteLine(pos.X);
-                Thread.Sleep(100);
-                Console.Clear();
-            }
-
-
-
-            var inputs = new List<XInputGamepad>();
-            for (int i = 0; i < 60; i++)
-            {
-                inputs.Add(new XInputGamepad(){sThumbRX = short.MaxValue});
-            }
-            for (int i = 0; i < 60; i++)
-            {
-                inputs.Add(new XInputGamepad() { sThumbRX = short.MinValue });
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                inputs.Add(new XInputGamepad() { wButtons = (ushort)XInputButton.B });
-            }
-
-            for (int i = 0; i < 30; i++)
-            {
-                inputs.Add(new XInputGamepad());
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                inputs.Add(new XInputGamepad() { wButtons = (ushort)XInputButton.B });
-            }
-
-            for (int i = 0; i < 60; i++)
-            {
-                inputs.Add(new XInputGamepad());
-            }
-
-            for(int i = 0; i < 5; i++)
-            {
-                inputs.Add(new XInputGamepad() { wButtons = (ushort)XInputButton.A });
-            }
-
-            for (int i = 0; i < 60; i++)
-            {
-                inputs.Add(new XInputGamepad());
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                inputs.Add(new XInputGamepad() { wButtons = (ushort)XInputButton.A });
-            }
-
-            for (int i = 0; i < 60; i++)
-            {
-                inputs.Add(new XInputGamepad());
-            }
-
-            var json = JsonConvert.SerializeObject(inputs, Formatting.Indented);
-            File.WriteAllText(@"C:\temp\tas_inputs.json", json);
-
-            var client = new SoulInjecteeClient();
-            client.TasReadInputFromFile(@"C:\temp\tas_inputs.json");
-            Thread.Sleep(1000);
-            client.TasStart();
-            return;
-
-
-
-            var flags = ReadFlagsFromFile();
-
-            DarkSouls2 darkSouls2 = new DarkSouls2();
-            var disc = new EventFlagDiscovery(darkSouls2);
-
-            while (true)
-            {
-                disc.Update();
-                darkSouls2.Refresh(out _);
-                Thread.Sleep(500);
-                //Console.Clear();
-            }
-            
-            
-            while (true)
-            {
-                foreach (var flag in flags)
-                {
-                    Console.WriteLine($"{flag.ToString().PadRight(10, ' ')}: {darkSouls2.ReadEventFlag(flag)}");
-                }
-
-                if (!darkSouls2.Refresh(out Exception e))
-                {
-                    Console.WriteLine(e.Format());
-                    Console.WriteLine("\nProcesses:");
-                    foreach (var p in Process.GetProcesses().Where(i => i.ProcessName.ToLower() == "darksoulsii"))
-                    {
-                        Console.WriteLine($"{p.Id} {p.ProcessName} {p.MainModule?.ModuleMemorySize}");
-                    }
-                }
-                Thread.Sleep(500);
                 Console.Clear();
             }
         }
@@ -317,6 +190,36 @@ namespace cli
         }
 
 
+
+        public static void SijixAobTest()
+        {
+            var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\sijix remas exe");
+            patternCounter.AddPattern("GameMan", "4c 8b 05 ? ? ? ? 48 8d 91 80 00 00 00");
+            patternCounter.AddPattern("GameDataMan", "48 8b 05 ? ? ? ? 48 8b 50 10 48 89 54 24 60");
+            patternCounter.AddPattern("WorldChrManImp", "48 8b 05 ? ? ? ? 48 8b da 48 8b 48 68");
+            patternCounter.AddPattern("EventFlags", "48 8B 0D ? ? ? ? 99 33 C2 45 33 C0 2B C2 8D 50 F6");
+            patternCounter.AddPattern("InventoryIndices", "48 8D 15 ? ? ? ? C1 E1 10 49 8B C6 41 0B 8F 14 02 00 00 44 8B C6 42 89 0C B2 41 8B D6 49 8B CF");
+            patternCounter.AddPattern("NetManImp", "48 8b 05 ? ? ? ? 48 05 08 0a 00 00 48 89 44 24 50 e8 34 fc fd ff");
+
+
+            patternCounter.AddPattern("BASE_PTR_AOB", "48 8B 05 ? ? ? ? 48 85 C0 ? ? F3 0F 58 80 AC 00 00 00");
+            patternCounter.AddPattern("ITEM_ADDR_AOB", "48 89 5C 24 18 89 54 24 10 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 F9");
+            patternCounter.AddPattern("INVENTORY_DATA_AOB", "48 8B 05 ? ? ? ? 48 85 C0 ? ? F3 0F 58 80 AC 00 00 00");
+            patternCounter.AddPattern("FLAGS_AOB", "48 8B 0D ? ? ? ? 99 33 C2 45 33 C0 2B C2 8D 50 F6");
+            patternCounter.AddPattern("CHR_FOLLOW_CAM_AOB", "48 8B 0D ? ? ? ? E8 ? ? ? ? 48 8B 4E 68 48 8B 05 ? ? ? ? 48 89 48 60");
+
+            foreach (var result in patternCounter.GetResults())
+            {
+                if (result.count != 1)
+                {
+                    Console.WriteLine($"Error: {result.executable} {result.name} {result.count}");
+                }
+            }
+
+            Console.WriteLine("Done");
+            Console.ReadKey();
+
+        }
 
 
         private static Dictionary<string, byte[]> _cache = new Dictionary<string, byte[]>();

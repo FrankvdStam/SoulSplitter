@@ -1,12 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+// Copyright (c) 2022 Frank van der Stam.
+// https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, version 3.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
-using System.Windows.Controls;
 using System.Xml;
 using System.Xml.Serialization;
-using SoulMemory;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.DarkSouls3;
