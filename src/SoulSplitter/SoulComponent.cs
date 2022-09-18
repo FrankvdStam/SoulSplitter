@@ -47,13 +47,21 @@ namespace SoulSplitter
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
+            MainViewModel mainViewModel = null;
+
             try
             {
-                var viewModel = MainControlFormsWrapper.MainViewModel;
-                UpdateSplitter(viewModel, state);
+                try
+                {
+                    mainViewModel = MainControlFormsWrapper.MainViewModel;
+                    UpdateSplitter(mainViewModel, state);
+                }
+                catch(Exception ex)
+                {
+                    Logger.Log("Updating splitter failed", ex);
+                }
 
                 _liveSplitState = state;
-
 
                 if (_splitter.Exception != null)
                 {
@@ -66,6 +74,7 @@ namespace SoulSplitter
             }
             catch (Exception e)
             {
+                Logger.Log(e);
                 MainControlFormsWrapper.MainViewModel.Error = e.Message;
             }
         }
@@ -114,23 +123,23 @@ namespace SoulSplitter
                     throw new NotImplementedException($"{_selectedGame}");
 
                 case Game.DarkSouls1:
-                    _splitter.Update(MainControlFormsWrapper.MainViewModel.DarkSouls1ViewModel);
+                    _splitter.Update(mainViewModel.DarkSouls1ViewModel);
                     break;
 
                 case Game.DarkSouls2:
-                    _splitter.Update(MainControlFormsWrapper.MainViewModel.DarkSouls2ViewModel);
+                    _splitter.Update(mainViewModel.DarkSouls2ViewModel);
                     break;
 
                 case Game.DarkSouls3:
-                    _splitter.Update(MainControlFormsWrapper.MainViewModel.DarkSouls3ViewModel);
+                    _splitter.Update(mainViewModel.DarkSouls3ViewModel);
                     break;
 
                 case Game.Sekiro:
-                    _splitter.Update(MainControlFormsWrapper.MainViewModel.SekiroViewModel);
+                    _splitter.Update(mainViewModel.SekiroViewModel);
                     break;
                 
                 case Game.EldenRing:
-                    _splitter.Update(MainControlFormsWrapper.MainViewModel.EldenRingViewModel);
+                    _splitter.Update(mainViewModel.EldenRingViewModel);
                     break;
             }
         }

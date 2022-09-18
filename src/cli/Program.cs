@@ -39,7 +39,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();
+            var er = new EldenRing();
+            er.Refresh(out Exception exasd);
 
             var ds1 = new DarkSouls1();
             ds1.Refresh(out _);

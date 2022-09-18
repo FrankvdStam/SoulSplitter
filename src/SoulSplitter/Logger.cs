@@ -14,21 +14,68 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory.Memory;
+using System;
+using System.IO;
+using System.Linq;
+
 namespace SoulSplitter
 {
     internal class Logger
     {
-        //private static object _logLock = new object();
-        //public static void Log(string message)
-        //{
-        //    lock(_logLock)
-        //    {
-        //        using (var writer = File.AppendText(@"C:\temp\soulsplitter.log"))
-        //        {
-        //            writer.WriteLine($"{DateTime.Now.ToShortTimeString()}: {message}");
-        //            writer.Flush();
-        //        }
-        //    }
-        //}
+        private static object _logLock = new object();
+
+        public static void Log(string message)
+        {
+            lock (_logLock)
+            {
+                try
+                {
+                    var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"soulsplitter\soulsplitter.log");
+                    var info = new FileInfo(filePath);
+
+                    //Create the file if it does not exist
+                    if (!info.Exists)
+                    {
+                        Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                        File.Create(filePath).Close();
+                        info = new FileInfo(filePath);
+                    }
+
+                    //If the logfile is bigger than 10 megabytes, the first 9 megabytes and keep the last 1
+                    if (info.Length > 10_485_760)
+                    {
+                        var lines = File.ReadAllLines(filePath);
+                        File.Delete(filePath);
+                        File.WriteAllLines(filePath, lines.Skip(lines.Count() / 2));
+                    }
+
+                    //Log the message
+                    using (var writer = File.AppendText(filePath))
+                    {
+                        writer.WriteLine($"{DateTime.Now.ToString("HH:mm:ss:fff")}: {message}");
+                        writer.Flush();
+                    }
+                }
+                catch
+                {
+                    //ignored
+                }
+            }
+        }
+
+        public static void Log(string message, Exception e) => Log(message + " " + e.Format());
+        public static void Log(Exception e) => Log(e.Format());
+        public static void TryOrLogError(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch(Exception e)
+            {
+                Log(e);
+            }
+        }
     }
 }

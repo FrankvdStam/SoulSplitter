@@ -47,15 +47,35 @@ namespace SoulSplitter.Splitters
 
         public void Update(object settings)
         {
-            _darkSouls1ViewModel = (DarkSouls1ViewModel)settings;
+            Logger.TryOrLogError(() =>
+            {
+                _darkSouls1ViewModel = (DarkSouls1ViewModel)settings;
+            });
 
-            Exception = !_darkSouls1.Refresh(out Exception e) ? e : null;
+            Exception = null;
+            if(!_darkSouls1.Refresh(out Exception e))
+            {
+                if(e.Message != "DarkSouls not running")
+                {
+                    Logger.Log(e);
+                }
+                Exception = e;
+            }
 
-            _darkSouls1ViewModel.CurrentPosition = _darkSouls1.GetPosition();
+            Logger.TryOrLogError(() =>
+            {
+                _darkSouls1ViewModel.CurrentPosition = _darkSouls1.GetPosition();
+            });
 
-            UpdateTimer();
+            Logger.TryOrLogError(() =>
+            {
+                UpdateTimer();
+            });
 
-            UpdateAutoSplitter();
+            Logger.TryOrLogError(() =>
+            {
+                UpdateAutoSplitter();
+            });
         }
 
         public void Dispose()

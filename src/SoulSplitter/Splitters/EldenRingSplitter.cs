@@ -56,25 +56,46 @@ namespace SoulSplitter.Splitters
         public void Update(object settings)
         {
             //Settings from the UI
-
-            _eldenRingViewModel = (EldenRingViewModel)settings;
+            Logger.TryOrLogError(() =>
+            {
+                _eldenRingViewModel = (EldenRingViewModel)settings;
+            });
 
             //Refresh attachment to ER process
-            Exception = !_eldenRing.Refresh(out Exception e) ? e : null;
-
-            //Lock IGT to 0 if requested
-            if (_eldenRingViewModel.LockIgtToZero)
+            Exception = null;
+            if(!_eldenRing.Refresh(out Exception e))
             {
-                _eldenRing.ResetIgt();
-                return;//Don't allow other features to be used while locking the timer
+                if(e.Message != "eldenring start_protected_game not running.")
+                {
+                    Logger.Log(e);
+                }
+                Exception = e;
             }
 
-            UpdatePosition();
+            Logger.TryOrLogError(() =>
+            {
+                //Lock IGT to 0 if requested
+                if (_eldenRingViewModel.LockIgtToZero)
+                {
+                    _eldenRing.ResetIgt();
+                    return;//Don't allow other features to be used while locking the timer
+                }
+            });
 
-            //Update the timer
-            UpdateTimer(TimingMethod.Igt, _eldenRingViewModel.StartAutomatically);
+            Logger.TryOrLogError(() =>
+            {
+                UpdatePosition();
+            });
 
-            UpdateAutoSplitter();
+            Logger.TryOrLogError(() =>
+            {
+                UpdateTimer(_eldenRingViewModel.StartAutomatically);
+            });
+
+            Logger.TryOrLogError(() =>
+            {
+                UpdateAutoSplitter();
+            });
         }
 
 
@@ -114,7 +135,6 @@ namespace SoulSplitter.Splitters
         private readonly TimerModel _timerModel;
         private int _inGameTime;
         private TimerState _timerState = TimerState.WaitForStart;
-        private TimingMethod _timingMethod;
         private bool _startAutomatically;
         private bool _timerStarted;
 
@@ -133,13 +153,12 @@ namespace SoulSplitter.Splitters
         }
 
 
-        public void UpdateTimer(TimingMethod timingMethod, bool startAutomatically)
+        public void UpdateTimer(bool startAutomatically)
         {
             //Allow updates from the UI only when a run isn't in progress
             if (_timerState == TimerState.WaitForStart)
             {
                 _startAutomatically = startAutomatically;
-                _timingMethod = timingMethod;
             }
 
             switch (_timerState)
@@ -180,26 +199,6 @@ namespace SoulSplitter.Splitters
                     _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
                     break;
             }
-        }
-        
-        private void WriteTimer()
-        {
-            if (_timingMethod == TimingMethod.None)
-            {
-                return;
-            }
-
-            switch (_timingMethod)
-            {
-                case TimingMethod.Igt:
-                    if (_eldenRing.IsInGame())
-                    {
-                        _inGameTime = _eldenRing.GetInGameTimeMilliseconds();
-                    }
-                    break;
-            }
-
-            _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
         }
 
         #endregion
