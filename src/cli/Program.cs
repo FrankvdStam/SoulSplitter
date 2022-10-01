@@ -39,6 +39,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+
             var ds1 = new DarkSouls1();
             ds1.Refresh(out _);
 
