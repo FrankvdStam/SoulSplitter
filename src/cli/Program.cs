@@ -39,21 +39,18 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            var er = new EldenRing();
-            er.Refresh(out Exception exasd);
-
             var ds1 = new DarkSouls1();
             ds1.Refresh(out _);
 
-
             while (true)
             {
-                Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()} {ds1.AreCreditsRolling()}");
+                Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
 
                 if (!ds1.Refresh(out Exception e))
                 {
                     Console.WriteLine(e.Format());
-                    Thread.Sleep(2000);
+                    Thread.Sleep(3000);
+                    Console.Clear();
                 }
 
                 Thread.Sleep(10);

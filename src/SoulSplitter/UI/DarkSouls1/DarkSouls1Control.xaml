@@ -160,12 +160,14 @@
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
+            <!--
             <ComboBoxItem Content="I reach the credits">
                 <ComboBoxItem.Tag>
                     <generic:SplitType>Credits</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
-
+            -->
+            
             <ComboBoxItem Content="I trigger a flag">
                 <ComboBoxItem.Tag>
                     <generic:SplitType>Flag</generic:SplitType>
