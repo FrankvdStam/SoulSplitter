@@ -24,6 +24,7 @@ using System.Xml;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
+using System.Windows.Threading;
 
 namespace SoulSplitter
 {
@@ -47,36 +48,36 @@ namespace SoulSplitter
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
-            MainViewModel mainViewModel = null;
-
-            try
+            Dispatcher.CurrentDispatcher.Invoke(() =>
             {
                 try
                 {
-                    mainViewModel = MainControlFormsWrapper.MainViewModel;
-                    UpdateSplitter(mainViewModel, state);
-                }
-                catch(Exception ex)
-                {
-                    Logger.Log("Updating splitter failed", ex);
-                }
+                    try
+                    {
+                        UpdateSplitter(MainControlFormsWrapper.MainViewModel, state);
+                    }
+                    catch(Exception ex)
+                    {
+                        Logger.Log("Updating splitter failed", ex);
+                    }
 
-                _liveSplitState = state;
+                    _liveSplitState = state;
 
-                if (_splitter.Exception != null)
-                {
-                    MainControlFormsWrapper.MainViewModel.Error = _splitter.Exception.Message;
+                    if (_splitter.Exception != null)
+                    {
+                        MainControlFormsWrapper.MainViewModel.Error = _splitter.Exception.Message;
+                    }
+                    else
+                    {
+                        MainControlFormsWrapper.MainViewModel.Error = "";
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    MainControlFormsWrapper.MainViewModel.Error = "";
+                    Logger.Log(e);
+                    MainControlFormsWrapper.MainViewModel.Error = e.Message;
                 }
-            }
-            catch (Exception e)
-            {
-                Logger.Log(e);
-                MainControlFormsWrapper.MainViewModel.Error = e.Message;
-            }
+            });
         }
 
         private void UpdateSplitter(MainViewModel mainViewModel, LiveSplitState state)
@@ -169,37 +170,41 @@ namespace SoulSplitter
         #region Xml settings ==============================================================================================================
         public XmlNode GetSettings(XmlDocument document)
         {
-            var xml = MainControlFormsWrapper.MainViewModel.Serialize();
-            XmlDocumentFragment fragment = document.CreateDocumentFragment();
-            fragment.InnerXml = xml;
-
             XmlElement root = document.CreateElement("Settings");
-            root.AppendChild(fragment);
+            Dispatcher.CurrentDispatcher.Invoke(() =>
+            {
+                var xml = MainControlFormsWrapper.MainViewModel.Serialize();
+                XmlDocumentFragment fragment = document.CreateDocumentFragment();
+                fragment.InnerXml = xml;
+                root.AppendChild(fragment);
+            });
             return root;
         }
 
         public void SetSettings(XmlNode settings)
         {
-            try
+            Dispatcher.CurrentDispatcher.Invoke(() =>
             {
                 try
                 {
-                    Migrations.Migrate(settings);
+                    try
+                    {
+                        Migrations.Migrate(settings);
+                    }
+                    catch { /* Ignored */ }
+
+                    var vm = MainViewModel.Deserialize(settings.InnerXml);
+                    if (vm != null)
+                    {
+                        MainControlFormsWrapper.MainViewModel = vm;
+                    }
                 }
-                catch{ /* Ignored */ }
-
-
-                var vm = MainViewModel.Deserialize(settings.InnerXml);
-                if (vm != null)
+                catch
                 {
-                    MainControlFormsWrapper.MainViewModel = vm;
+                    MainControlFormsWrapper.MainViewModel = new MainViewModel();
+                    SelectGameFromLiveSplitState(_liveSplitState);
                 }
-            }
-            catch
-            {
-                MainControlFormsWrapper.MainViewModel = new MainViewModel();
-                SelectGameFromLiveSplitState(_liveSplitState);
-            }
+            });
         }
 
         public MainControlFormsWrapper MainControlFormsWrapper = new MainControlFormsWrapper();
@@ -211,34 +216,37 @@ namespace SoulSplitter
 
         private void SelectGameFromLiveSplitState(LiveSplitState s)
         {
-            if (!string.IsNullOrWhiteSpace(s?.Run?.GameName))
+            Dispatcher.CurrentDispatcher.Invoke(() =>
             {
-                var name = s.Run.GameName.ToLower().Replace(" ", "");
-                switch (name)
+                if (!string.IsNullOrWhiteSpace(s?.Run?.GameName))
                 {
-                    case "darksouls":
-                    case "darksoulsremastered":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls1;
-                        break;
+                    var name = s.Run.GameName.ToLower().Replace(" ", "");
+                    switch (name)
+                    {
+                        case "darksouls":
+                        case "darksoulsremastered":
+                            MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls1;
+                            break;
 
-                    case "darksoulsii":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls2;
-                        break;
+                        case "darksoulsii":
+                            MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls2;
+                            break;
 
-                    case "darksoulsiii":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls3;
-                        break;
+                        case "darksoulsiii":
+                            MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls3;
+                            break;
 
-                    case "sekiro":
-                    case "sekiro:shadowsdietwice":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.Sekiro;
-                        break;
+                        case "sekiro":
+                        case "sekiro:shadowsdietwice":
+                            MainControlFormsWrapper.MainViewModel.SelectedGame = Game.Sekiro;
+                            break;
 
-                    case "eldenring":
-                        MainControlFormsWrapper.MainViewModel.SelectedGame = Game.EldenRing;
-                        break;
+                        case "eldenring":
+                            MainControlFormsWrapper.MainViewModel.SelectedGame = Game.EldenRing;
+                            break;
+                    }
                 }
-            }
+            });
         }
 
         #endregion

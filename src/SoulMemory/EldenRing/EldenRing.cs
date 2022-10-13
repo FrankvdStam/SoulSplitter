@@ -46,7 +46,6 @@ namespace SoulMemory.EldenRing
         public EldenRing(bool applyIgtFix = true)
         {
             _applyIgtFix = applyIgtFix;
-            Refresh(out _);
         }
 
         private readonly bool _applyIgtFix;
@@ -68,7 +67,12 @@ namespace SoulMemory.EldenRing
         {
             try
             {
-                var version = GetVersion();
+                if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
+                {
+                    return new Exception("Failed to determine game version");
+                }
+
+                var version = GetVersion(v);
                 switch (version)
                 {
                     default:
@@ -128,8 +132,7 @@ namespace SoulMemory.EldenRing
                     .CreatePointer(out _virtualMemoryFlag, 0)
 
                     //IGT fix detour address
-                    .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?",
-                        35)
+                    .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
                     .CreatePointer(out _igtFix)
 
 
@@ -181,12 +184,11 @@ namespace SoulMemory.EldenRing
             Unknown,
         };
 
-        public EldenRingVersion GetVersion()
+        public EldenRingVersion GetVersion(Version v)
         {
-            switch (_process?.MainModule?.FileVersionInfo.FileMinorPart)
+            switch (v.Minor)
             {
                 default:
-                case null:
                     return EldenRingVersion.Unknown;
 
                 case 2:
@@ -199,9 +201,7 @@ namespace SoulMemory.EldenRing
                     return EldenRingVersion.V105;
             }
         }
-
-
-        
+                
 
         public void EnableHud()
         {

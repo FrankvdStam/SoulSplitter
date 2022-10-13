@@ -8,6 +8,9 @@ indent_style = space
 [*.xml]
 indent_size = 2
 
+[*.xaml]
+file_header_template = This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).\nCopyright (c) 2022 Frank van der Stam.\nhttps://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, version 3.\n\nThis program is distributed in the hope that it will be useful, but\nWITHOUT ANY WARRANTY without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU\nGeneral Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program. If not, see <http://www.gnu.org/licenses/>.
+
 [*.cs]
 file_header_template = This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).\nCopyright (c) 2022 Frank van der Stam.\nhttps://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, version 3.\n\nThis program is distributed in the hope that it will be useful, but\nWITHOUT ANY WARRANTY without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU\nGeneral Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program. If not, see <http://www.gnu.org/licenses/>.
 csharp_using_directive_placement = outside_namespace:silent

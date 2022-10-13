@@ -20,6 +20,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using SoulMemory;
 using SoulMemory.DarkSouls3;
 using SoulSplitter.UI.Generic;
 using SplitType = SoulSplitter.Splits.DarkSouls3.SplitType;
@@ -98,6 +99,7 @@ namespace SoulSplitter.UI.DarkSouls3
     [XmlInclude(typeof(Boss)),
      XmlInclude(typeof(Bonfire)), 
      XmlInclude(typeof(ItemPickup)), 
+     XmlInclude(typeof(Vector3f)), 
      XmlInclude(typeof(Splits.DarkSouls3.Attribute)), 
      XmlInclude(typeof(uint))]
     public class HierarchicalSplitViewModel : INotifyPropertyChanged

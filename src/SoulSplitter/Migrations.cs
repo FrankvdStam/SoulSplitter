@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Globalization;
 using System.Xml;
 using SoulMemory;
 using SoulSplitter.UI.Generic;
@@ -93,9 +94,9 @@ namespace SoulSplitter
                             {
                                 var split = position.GetChildNodeByName("Split");
 
-                                var x = float.Parse(split.GetChildNodeByName("X").InnerText);
-                                var y = float.Parse(split.GetChildNodeByName("Y").InnerText);
-                                var z = float.Parse(split.GetChildNodeByName("Z").InnerText);
+                                var x = float.Parse(split.GetChildNodeByName("X").InnerText, CultureInfo.CurrentCulture);
+                                var y = float.Parse(split.GetChildNodeByName("Y").InnerText, CultureInfo.CurrentCulture);
+                                var z = float.Parse(split.GetChildNodeByName("Z").InnerText, CultureInfo.CurrentCulture);
 
                                 newSekiroViewModel.NewSplitTimingType = timingType;
                                 newSekiroViewModel.NewSplitType = SplitType.Position;

@@ -141,6 +141,12 @@
                     <darkSouls3:SplitType>Flag</darkSouls3:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
+
+            <ComboBoxItem Content="I reach a position">
+                <ComboBoxItem.Tag>
+                    <darkSouls3:SplitType>Position</darkSouls3:SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
         </ComboBox>
 
         <!-- row ============================================================================================================================================================================================== -->

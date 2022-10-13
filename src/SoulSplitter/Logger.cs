@@ -42,7 +42,7 @@ namespace SoulSplitter
                         info = new FileInfo(filePath);
                     }
 
-                    //If the logfile is bigger than 10 megabytes, the first 9 megabytes and keep the last 1
+                    //If the logfile is bigger than 10 megabytes then delete the first half
                     if (info.Length > 10_485_760)
                     {
                         var lines = File.ReadAllLines(filePath);
@@ -53,7 +53,7 @@ namespace SoulSplitter
                     //Log the message
                     using (var writer = File.AppendText(filePath))
                     {
-                        writer.WriteLine($"{DateTime.Now.ToString("HH:mm:ss:fff")}: {message}");
+                        writer.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")}: {message}");
                         writer.Flush();
                     }
                 }

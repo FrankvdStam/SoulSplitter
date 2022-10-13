@@ -23,5 +23,6 @@ namespace SoulSplitter.Splits.DarkSouls3
         ItemPickup,
         Attribute,
         Flag,
+        Position,
     }
 }

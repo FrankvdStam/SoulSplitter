@@ -26,6 +26,8 @@ using SoulMemory.Memory;
 using SoulMemory.Shared;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
+using SoulMemory.DarkSouls3;
+using SoulMemory.Sekiro;
 
 #pragma warning disable CS0162
 
@@ -39,7 +41,43 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();
+           //var sekiro = new Sekiro();
+           //sekiro.Refresh(out _);
+           //
+           //var previousIgt = sekiro.GetInGameTimeMilliseconds();
+           //for(;;)
+           //{
+           //    var currentIgt = sekiro.GetInGameTimeMilliseconds();
+           //    if(currentIgt == 0 && previousIgt != 0)
+           //    {
+           //        Console.WriteLine($"before: {TimeSpan.FromMilliseconds(previousIgt)}");
+           //    }
+           //
+           //    if(previousIgt == 0 && currentIgt != 0)
+           //    {
+           //        Console.WriteLine($"after: {TimeSpan.FromMilliseconds(currentIgt)}");
+           //    }
+           //
+           //    previousIgt = currentIgt;
+           //    sekiro.Refresh(out _);
+           //}
+           //
+           //
+           //var ds3 = new DarkSouls3();
+           //ds3.Refresh();
+           //
+           //for(; ; )
+           //{
+           //    Console.WriteLine(ds3.GetPosition());
+           //    Console.Out.Flush();
+           //    Thread.Sleep(500);
+           //
+           //    ds3.Refresh();
+           //    Console.Clear();
+           //}
+           //
+           //
+           //TestUi();
 
             var ds1 = new DarkSouls1();
             ds1.Refresh(out _);

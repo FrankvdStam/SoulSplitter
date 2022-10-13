@@ -36,6 +36,7 @@ namespace SoulMemory.DarkSouls3
         private Pointer _blackscreen = null;
         private Pointer _sprjEventFlagMan = null;
         private Pointer _fieldArea = null;
+        private Pointer _sprjChrPhysicsModule = null;
         public Exception Exception;
 
         private long _igtOffset;
@@ -88,7 +89,7 @@ namespace SoulMemory.DarkSouls3
 
                     .ScanRelative("playerIns", "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70", 3, 7)
                         .CreatePointer(out _playerIns, 0, 0x80)
-
+                        .CreatePointer(out _sprjChrPhysicsModule, 0, 0x40, 0x28)
                    
                     .ScanRelative("Loading", "c6 05 ? ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9", 2, 7)
                         .CreatePointer(out _loading)
@@ -138,6 +139,7 @@ namespace SoulMemory.DarkSouls3
             _blackscreen = null;
             _sprjEventFlagMan = null;
             _fieldArea = null;
+            _sprjChrPhysicsModule = null;
         }
 
         public bool IsLoading()
@@ -209,6 +211,19 @@ namespace SoulMemory.DarkSouls3
             return _gameDataMan?.ReadInt32(_igtOffset) ?? 0;
         }
 
+        public Vector3f GetPosition()
+        {
+            if(_sprjChrPhysicsModule == null)
+            {
+                return new Vector3f();
+            }
+            return new Vector3f
+            (
+                _sprjChrPhysicsModule.ReadFloat(0x80),
+                _sprjChrPhysicsModule.ReadFloat(0x84),
+                _sprjChrPhysicsModule.ReadFloat(0x88)
+            );
+        }
 
         #region Read attributes
 
