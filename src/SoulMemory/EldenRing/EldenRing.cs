@@ -222,9 +222,12 @@ namespace SoulMemory.EldenRing
                     return EldenRingVersion.V104;
                 case 5:
                     return EldenRingVersion.V105;
+                case 6:
+                    return EldenRingVersion.V106;
+                case 7:
+                    return EldenRingVersion.V107;
             }
         }
-                
 
         public void EnableHud()
         {
