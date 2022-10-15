@@ -56,7 +56,6 @@ pub fn init()
           init_websocket_server();
           hook_xinput();
 
-
           match get_current_process()
           {
                Ok(p) => PROCESS = Some(p),

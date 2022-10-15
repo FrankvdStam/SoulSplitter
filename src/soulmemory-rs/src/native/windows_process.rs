@@ -174,20 +174,20 @@ impl WindowsProcess
     pub fn get_current_process() -> Result<Self, ()>
     {
         unsafe
-            {
-                let process_id = GetCurrentProcessId();
-                let handle = GetCurrentProcess();
+        {
+            let process_id = GetCurrentProcessId();
+            let handle = GetCurrentProcess();
 
-                let mut mod_name = [0; MAX_PATH];
-                if GetModuleFileNameExA(handle, 0 as HMODULE, mod_name.as_mut_ptr(), MAX_PATH as u32) != 0
-                {
-                    let len  = mod_name.iter().position(|&r| r == 0).unwrap();
-                    let path = String::from_utf8(mod_name[0..len].iter().map(|&c| c as u8).collect()).unwrap();
-                    let filename = String::from(Path::new(&path).file_name().unwrap().to_str().unwrap());
-                    return Ok(WindowsProcess::new(process_id as usize, handle as usize, path, filename));
-                }
-                Err(())
+            let mut mod_name = [0; MAX_PATH];
+            if GetModuleFileNameExA(handle, 0 as HMODULE, mod_name.as_mut_ptr(), MAX_PATH as u32) != 0
+            {
+                let len  = mod_name.iter().position(|&r| r == 0).unwrap();
+                let path = String::from_utf8(mod_name[0..len].iter().map(|&c| c as u8).collect()).unwrap();
+                let filename = String::from(Path::new(&path).file_name().unwrap().to_str().unwrap());
+                return Ok(WindowsProcess::new(process_id as usize, handle as usize, path, filename));
             }
+            Err(())
+        }
     }
 
     ///Inject a dll into this process

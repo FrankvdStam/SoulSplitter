@@ -42,6 +42,7 @@ namespace SoulMemory.EldenRing
         private long _screenStateOffset;
         private long _positionOffset;
         private long _mapIdOffset;
+        private long _playerInsOffset;
         
         public EldenRing(bool applyIgtFix = true)
         {
@@ -75,35 +76,55 @@ namespace SoulMemory.EldenRing
                 var version = GetVersion(v);
                 switch (version)
                 {
-                    default:
+                   
                     case EldenRingVersion.Unknown:
                         _screenStateOffset = 0x728;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
+                        _playerInsOffset = 0x18468;
                         break;
 
                     case EldenRingVersion.V102:
                         _screenStateOffset = 0x718;
                         _positionOffset = 0x6b8;
                         _mapIdOffset = 0x6c8;
+                        _playerInsOffset = 0x18468;
                         break;
 
                     case EldenRingVersion.V103:
                         _screenStateOffset = 0x728;
                         _positionOffset = 0x6b8;
                         _mapIdOffset = 0x6c8;
+                        _playerInsOffset = 0x18468;
                         break;
 
                     case EldenRingVersion.V104:
                         _screenStateOffset = 0x728;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
+                        _playerInsOffset = 0x18468;
                         break;
 
                     case EldenRingVersion.V105:
                         _screenStateOffset = 0x728;
                         _positionOffset = 0x6B0;
                         _mapIdOffset = 0x6c0;
+                        _playerInsOffset = 0x18468;
+                        break;
+
+                    case EldenRingVersion.V106:
+                        _screenStateOffset = 0x728;
+                        _positionOffset = 0x6B0;
+                        _mapIdOffset = 0x6c0;
+                        _playerInsOffset = 0x18468;
+                        break;
+
+                    default:
+                    case EldenRingVersion.V107:
+                        _screenStateOffset = 0x728;
+                        _positionOffset = 0x6B0;
+                        _mapIdOffset = 0x6c0;
+                        _playerInsOffset = 0x1e508;
                         break;
                 }
 
@@ -118,7 +139,7 @@ namespace SoulMemory.EldenRing
                     .ScanRelative("WorldChrManImp", "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7",
                         3, 7)
                     //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
-                    .CreatePointer(out _playerIns, 0, 0x18468)
+                    .CreatePointer(out _playerIns, 0, _playerInsOffset)
                     ////FieldArea
                     //.ScanRelative("FieldArea", "48 8B 0D ?? ?? ?? ?? 48 ?? ?? ?? 44 0F B6 61 ?? E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 48 ?? ?? ?? 48 85 C0", 3, 7)
                     //    .CreatePointer(out _mapId, 0, 0x190) //hitins, has map area
@@ -181,6 +202,8 @@ namespace SoulMemory.EldenRing
             V103,
             V104,
             V105,
+            V106,
+            V107,
             Unknown,
         };
 
