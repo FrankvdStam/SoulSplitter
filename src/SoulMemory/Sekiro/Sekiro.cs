@@ -55,6 +55,7 @@ namespace SoulMemory.Sekiro
 
             try
             {
+
                 _process.ScanCache()
                     .ScanRelative("SprjEventFlagMan", "48 8b 0d ? ? ? ? 48 89 5c 24 50 48 89 6c 24 58 48 89 74 24 60", 3, 7)
                         .CreatePointer(out _sprjEventFlagMan, 0)

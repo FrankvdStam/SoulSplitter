@@ -56,7 +56,7 @@ namespace SoulMemory.EldenRing
         public bool Refresh(out Exception exception)
         {
             exception = null;
-            if (!ProcessClinger.Refresh(ref _process, new List<string>() { "eldenring", "start_protected_game" }, InitPointers, ResetPointers, out Exception e))
+            if (!ProcessClinger.Refresh(ref _process, "eldenring", InitPointers, ResetPointers, out Exception e))
             {
                 exception = e;
                 return false;

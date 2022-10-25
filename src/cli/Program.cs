@@ -41,46 +41,50 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-           //var sekiro = new Sekiro();
-           //sekiro.Refresh(out _);
-           //
-           //var previousIgt = sekiro.GetInGameTimeMilliseconds();
-           //for(;;)
-           //{
-           //    var currentIgt = sekiro.GetInGameTimeMilliseconds();
-           //    if(currentIgt == 0 && previousIgt != 0)
-           //    {
-           //        Console.WriteLine($"before: {TimeSpan.FromMilliseconds(previousIgt)}");
-           //    }
-           //
-           //    if(previousIgt == 0 && currentIgt != 0)
-           //    {
-           //        Console.WriteLine($"after: {TimeSpan.FromMilliseconds(currentIgt)}");
-           //    }
-           //
-           //    previousIgt = currentIgt;
-           //    sekiro.Refresh(out _);
-           //}
-           //
-           //
-           //var ds3 = new DarkSouls3();
-           //ds3.Refresh();
-           //
-           //for(; ; )
-           //{
-           //    Console.WriteLine(ds3.GetPosition());
-           //    Console.Out.Flush();
-           //    Thread.Sleep(500);
-           //
-           //    ds3.Refresh();
-           //    Console.Clear();
-           //}
-           //
-           //
-           //TestUi();
+            SekiroTestPatterns();
+            return;
+            //var sekiro = new Sekiro();
+            //sekiro.Refresh(out _);
+            //
+            //var previousIgt = sekiro.GetInGameTimeMilliseconds();
+            //for(;;)
+            //{
+            //    var currentIgt = sekiro.GetInGameTimeMilliseconds();
+            //    if(currentIgt == 0 && previousIgt != 0)
+            //    {
+            //        Console.WriteLine($"before: {TimeSpan.FromMilliseconds(previousIgt)}");
+            //    }
+            //
+            //    if(previousIgt == 0 && currentIgt != 0)
+            //    {
+            //        Console.WriteLine($"after: {TimeSpan.FromMilliseconds(currentIgt)}");
+            //    }
+            //
+            //    previousIgt = currentIgt;
+            //    sekiro.Refresh(out _);
+            //}
+            //
+            //
+            //var ds3 = new DarkSouls3();
+            //ds3.Refresh();
+            //
+            //for(; ; )
+            //{
+            //    Console.WriteLine(ds3.GetPosition());
+            //    Console.Out.Flush();
+            //    Thread.Sleep(500);
+            //
+            //    ds3.Refresh();
+            //    Console.Clear();
+            //}
+            //
+            //
+            //TestUi();
 
             var ds1 = new DarkSouls1();
             ds1.Refresh(out _);
+
+            ds1.ReadEventFlag(51810000);
 
             while (true)
             {
@@ -209,7 +213,8 @@ namespace cli
         public static void SekiroTestPatterns()
         {
             var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro");
-            patternCounter.AddPattern("SprjFadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc");
+            patternCounter.AddPattern("chr dbg", "80 3d ? ? ? ? 00 0f ? ? ? ? ? 48 8b 9b d0 11 00 00");
+            //patternCounter.AddPattern("SprjFadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc");
             //patternCounter.AddPattern("WorldChrManImp", "48 8B 35 ? ? ? ? 44 0F 28 18");
             //patternCounter.AddPattern("SprjEventFlagMan", "48 8b 0d ? ? ? ? 32 db 85 d2 49 63 f0");
             //patternCounter.AddPattern("FieldArea", "48 8b 0d ? ? ? ? 48 85 c9 74 26 44 8b 41 28 48 8d 54 24 40");
