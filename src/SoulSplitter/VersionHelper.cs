@@ -20,6 +20,6 @@ namespace SoulSplitter
 {
     internal static class VersionHelper
     {
-        public static Version Version => new Version(1, 1, 5);
+        public static Version Version => new Version(1, 1, 6);
     }
 }

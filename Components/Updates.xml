@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+  <update version="1.1.6">
+    <files>
+      <file path="Components/SoulMemory.dll"                  status="changed" />
+      <file path="Components/SoulSplitter.dll"                status="changed" />
+    </files>
+    <changelog>
+      <change>Elden Ring: fixed positions for v1.07</change>
+    </changelog>
+  </update>
   <update version="1.1.5">
     <files>
       <file path="Components/SoulMemory.dll"                  status="changed" />
