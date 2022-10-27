@@ -291,12 +291,6 @@ namespace SoulMemory.EldenRing
             return ScreenState.Unknown;
         }
         
-       
-        private bool _pointersInitialized = false;
-        private DateTime _requestInit;
-        private readonly TimeSpan _initDelay = TimeSpan.FromSeconds(5);
-
-
         public bool IsBlackscreenActive()
         {
             if (_menuManImp == null)

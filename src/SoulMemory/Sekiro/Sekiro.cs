@@ -501,7 +501,6 @@ namespace SoulMemory.Sekiro
                 break;  
             default:
                 throw new NotImplementedException();
-                break;
             }
 
             

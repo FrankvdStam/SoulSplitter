@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -82,8 +81,8 @@ namespace SoulMemory.Memory
                 .GetType()
                 .GetMember(enumValue.ToString())
                 .FirstOrDefault()
-                .GetCustomAttribute<DisplayAttribute>()?
-                .GetName();
+                .GetCustomAttribute<Annotation>()?
+                .Name;
 
             if (string.IsNullOrEmpty(displayName))
             {
@@ -98,8 +97,8 @@ namespace SoulMemory.Memory
                 .GetType()
                 .GetMember(enumValue.ToString())
                 .FirstOrDefault()
-                .GetCustomAttribute<DisplayAttribute>()?
-                .GetDescription();
+                .GetCustomAttribute<Annotation>()?
+                .Description;
 
             if (string.IsNullOrEmpty(displayName))
             {

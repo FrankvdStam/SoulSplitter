@@ -43,7 +43,7 @@ namespace SoulMemory
                 }
                 _clientWebSocket.ConnectAsync(new Uri("ws://localhost:54345"), CancellationToken.None).GetAwaiter().GetResult();
             }
-            catch(Exception e)
+            catch
             {
                 _clientWebSocket = null;
             }

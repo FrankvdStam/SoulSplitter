@@ -136,7 +136,6 @@ namespace SoulSplitter.Splitters
         private int _inGameTime;
         private TimerState _timerState = TimerState.WaitForStart;
         private bool _startAutomatically;
-        private bool _timerStarted;
 
         private void StartTimer()
         {
@@ -149,7 +148,6 @@ namespace SoulSplitter.Splitters
         {
             _timerState = TimerState.WaitForStart;
             _inGameTime = 0;
-            _timerStarted = false;
         }
 
 

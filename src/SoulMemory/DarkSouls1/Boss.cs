@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
 namespace SoulMemory.DarkSouls1
@@ -22,82 +21,82 @@ namespace SoulMemory.DarkSouls1
     [XmlType(Namespace = "SoulMemory.DarkSouls1")]
     public enum Boss : uint
     {
-        [Display(Name = "Asylum Demon")]
+        [Annotation(Name = "Asylum Demon")]
         AsylumDemon = 16,
 
-        [Display(Name = "Bell Gargoyle")]
+        [Annotation(Name = "Bell Gargoyle")]
         BellGargoyles = 3,
 
-        [Display(Name = "Capra Demon")]
+        [Annotation(Name = "Capra Demon")]
         CapraDemon = 11010902,
 
-        [Display(Name = "Ceaseless Discharge")]
+        [Annotation(Name = "Ceaseless Discharge")]
         CeaselessDischarge = 11410900,
 
-        [Display(Name = "Centipede Demon")]
+        [Annotation(Name = "Centipede Demon")]
         CentipedeDemon = 11410901,
 
-        [Display(Name = "Chaos Witch Quelaag")]
+        [Annotation(Name = "Chaos Witch Quelaag")]
         ChaosWitchQuelaag = 9,
 
-        [Display(Name = "Crossbreed Priscilla")]
+        [Annotation(Name = "Crossbreed Priscilla")]
         CrossbreedPriscilla = 4,
 
-        [Display(Name = "Dark Sun Gwyndolin")]
+        [Annotation(Name = "Dark Sun Gwyndolin")]
         DarkSunGwyndolindolin = 11510900,
 
-        [Display(Name = "Demon Firesage")]
+        [Annotation(Name = "Demon Firesage")]
         DemonFiresage = 11410410,
 
-        [Display(Name = "Four Kings")]
+        [Annotation(Name = "Four Kings")]
         FourKings = 13,
 
-        [Display(Name = "Gaping Dragon")]
+        [Annotation(Name = "Gaping Dragon")]
         GapingDragon = 2,
 
-        [Display(Name = "Great Grey Wolf Sif")]
+        [Annotation(Name = "Great Grey Wolf Sif")]
         GreatGreyWolfSif = 5,
 
-        [Display(Name = "Gwyn Lord of Cinder")]
+        [Annotation(Name = "Gwyn Lord of Cinder")]
         GwynLordOfCinder = 15,
 
-        [Display(Name = "Iron Golem")]
+        [Annotation(Name = "Iron Golem")]
         IronGolem = 11,
 
-        [Display(Name = "Moonlight Butterfly")]
+        [Annotation(Name = "Moonlight Butterfly")]
         MoonlightButterfly = 11200900,
 
-        [Display(Name = "Nito")]
+        [Annotation(Name = "Nito")]
         Nito = 7,
 
-        [Display(Name = "Ornstein And Smough")]
+        [Annotation(Name = "Ornstein And Smough")]
         OrnsteinAndSmough = 12,
 
-        [Display(Name = "Pinwheel")]
+        [Annotation(Name = "Pinwheel")]
         Pinwheel = 6,
 
-        [Display(Name = "Seath the Scaleless")]
+        [Annotation(Name = "Seath the Scaleless")]
         SeathTheScaleless = 14,
 
-        [Display(Name = "Stray Demon")]
+        [Annotation(Name = "Stray Demon")]
         StrayDemon = 11810900,
 
-        [Display(Name = "Taurus Demon")]
+        [Annotation(Name = "Taurus Demon")]
         TaurusDemon = 11010901,
 
-        [Display(Name = "The Bed of Chaos")]
+        [Annotation(Name = "The Bed of Chaos")]
         BedOfChaos = 10,
         
-        [Display(Name = "Artorias the Abysswalker")]
+        [Annotation(Name = "Artorias the Abysswalker")]
         ArtoriasTheAbysswalker = 11210001,
         
-        [Display(Name = "Black Dragon Kalameet")]
+        [Annotation(Name = "Black Dragon Kalameet")]
         BlackDragonKalameet = 11210004,
 
-        [Display(Name = "Manus, Father of the Abyss")]
+        [Annotation(Name = "Manus, Father of the Abyss")]
         ManusFatherOfTheAbyss = 11210002,
         
-        [Display(Name = "Sanctuary Guardian")]
+        [Annotation(Name = "Sanctuary Guardian")]
         SanctuaryGuardian = 11210000,
     }
 }

@@ -38,8 +38,6 @@ namespace SoulSplitter
         private ISplitter _splitter = null;
         private Game? _selectedGame = null;
 
-        private ISplitter _currentSplitter;
-
         public SoulComponent(LiveSplitState state = null)
         {
             _liveSplitState = state;

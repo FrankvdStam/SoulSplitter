@@ -41,8 +41,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            SekiroTestPatterns();
-            return;
+            //SekiroTestPatterns();
+            //return;
             //var sekiro = new Sekiro();
             //sekiro.Refresh(out _);
             //
@@ -288,7 +288,6 @@ namespace cli
             Console.ReadKey();
         }
 
-        public static string Aob;
         public static void AobCount(string identifier, string aob)
         {
             //C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables

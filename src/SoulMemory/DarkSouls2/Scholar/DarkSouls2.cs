@@ -151,7 +151,7 @@ namespace SoulMemory.DarkSouls2.Scholar
 
             var offset = r8d * 0x8 + 0x20;
             var vector = _eventFlagManager.CreatePointerFromAddress(offset);
-            ulong result = 0;
+            //ulong result = 0;
 
             for(int i = 0; i < 100; i++) //Replaced infinite while with for loop, in case some memes occur and the function never returns
             {
@@ -159,8 +159,8 @@ namespace SoulMemory.DarkSouls2.Scholar
                 {
                     return false;
                     //TODO: fix this. Should be (uVar1 * 0x1f >> 8) << 8
-                    result = uVar1 & 0xffffffffffffff00;
-                    return result != 0;
+                    //result = uVar1 & 0xffffffffffffff00;
+                    //return result != 0;
                 }
 
                 if (vector.ReadInt32(0xc) == eventFlagId / 10000)
