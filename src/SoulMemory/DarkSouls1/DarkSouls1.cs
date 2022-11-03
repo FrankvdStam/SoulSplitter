@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory.MemoryV2;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,7 +25,6 @@ namespace SoulMemory.DarkSouls1
     public class DarkSouls1 : IDarkSouls1
     {
         private IDarkSouls1 _darkSouls1;
-
         public int GetAttribute(Attribute attribute) => _darkSouls1?.GetAttribute(attribute) ?? 0;
         public bool ReadEventFlag(uint eventFlagId) => _darkSouls1?.ReadEventFlag(eventFlagId) ?? false;
         public bool IsWarpRequested() => _darkSouls1?.IsWarpRequested() ?? false;
@@ -42,9 +42,11 @@ namespace SoulMemory.DarkSouls1
         public int GetSaveFileGameTimeMilliseconds(string path, int slot, bool isPtde)
         { 
             return Sl2Reader.GetSaveFileIgt(path, slot, isPtde) ?? 0;
-        }        
+        }
 
-        public bool Refresh(out Exception exception)
+        public TreeBuilder GetTreeBuilder() => _darkSouls1.GetTreeBuilder();
+
+        public bool TryRefresh(out Exception exception)
         {
             exception = null;
             try
@@ -70,7 +72,7 @@ namespace SoulMemory.DarkSouls1
                 }
                 else
                 {
-                    if (!_darkSouls1.Refresh(out exception))
+                    if (!_darkSouls1.TryRefresh(out exception))
                     {
                         _darkSouls1 = null;
                         return false;

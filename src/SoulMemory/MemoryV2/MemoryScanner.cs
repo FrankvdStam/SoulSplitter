@@ -1,0 +1,349 @@
+﻿// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+// Copyright (c) 2022 Frank van der Stam.
+// https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, version 3.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+using SoulMemory.Native;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SoulMemory.MemoryV2
+{
+    public static class MemoryScanner
+    {
+        #region Resolving pointers ==============================================================================================================================
+
+        /// <summary>
+        /// Resolve pointers to their correct address by scanning for patterns in a running process
+        /// </summary>
+        /// <param name="treeBuilder"></param>
+        /// <param name="process"></param>
+        /// <param name="errors"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static bool TryResolvePointers(TreeBuilder treeBuilder, Process process, out List<string> errors)
+        {
+            if (process.MainModule == null)
+            {
+                throw new Exception("process MainModule is null");
+            }
+
+            //Gather some information about the process that can be reused throughout the resolving process
+            var bytes = new byte[process.MainModule.ModuleMemorySize];
+            int read = 0;
+            Kernel32.ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, bytes, bytes.Length, ref read);
+            var baseAddress = process.MainModule.BaseAddress.ToInt64();
+            Kernel32.IsWow64Process(process.Handle, out bool isWow64Result);
+            var is64Bit = !isWow64Result;
+
+            //Resolve nodes with the above data
+            errors = new List<string>();
+            foreach (var node in treeBuilder.Tree)
+            {
+                long scanResult = 0;
+                bool success = false;
+                switch (node.NodeType)
+                {
+                    default:
+                        throw new Exception($"Incorrect node type at base level: {node.NodeType}");
+
+                    case NodeType.RelativeScan:
+                        success = TryScanRelative(process, bytes, baseAddress, is64Bit, node, out scanResult);
+                        break;
+
+                    case NodeType.AbsoluteScan:
+                        success = TryScanAbsolute(process, bytes, baseAddress, is64Bit, node, out scanResult);
+                        break;
+                }
+
+                if (success)
+                {
+                    foreach (var p in node.Pointers)
+                    {
+                        p.Pointer.Initialize(process, is64Bit, scanResult, p.Offsets);
+                    }
+                }
+                else
+                {
+                    errors.Add(node.Name);
+                }
+            }
+
+            return !errors.Any();
+        }
+        #endregion
+
+        #region Validate patterns from file ==============================================================================================================================
+
+        /// <summary>
+        /// Validate patterns in a TreeBuilder by counting the patterns in a given file.
+        /// </summary>
+        public static bool TryValidatePatterns(TreeBuilder treeBuilder, List<string> filepaths, out List<(string fileName, string patternName, long count)> errors)
+        {
+            var files = new List<(string name, byte[] bytes)>();
+
+            foreach (var path in filepaths)
+            {
+                files.Add((Path.GetFileName(path), File.ReadAllBytes(path)));
+            }
+
+            object errorLock = new object();
+            var errorsList = new List<(string fileName, string patternName, long count)>();
+
+            //Count every pattern in every file; any count that returns something other than 1 is either missing or not exclusive, and thus erroneaus
+            Parallel.For(0, files.Count, i => 
+            {
+                foreach (var n in treeBuilder.Tree)
+                {
+                    var pattern = n.Pattern.ToBytePattern();
+                    var count = files[i].bytes.BoyerMooreCount(pattern); //BoyerMooreCount
+                    if (count != 1)
+                    {
+                        lock(errorLock)
+                        {
+                            errorsList.Add((files[i].name, n.Name, count));
+                        }
+                    }
+                }
+            });
+
+            errors = errorsList;
+            return !errors.Any();
+        }
+
+        #endregion
+
+        #region Utility ==============================================================================================================================
+
+        /// <summary>
+        /// Scan a previously created buffer of bytes for a given pattern, then interpret the data as AMD64 assembly, where the target address is a relative address
+        /// Returns the static address of the given instruction
+        /// </summary>
+        private static bool TryScanRelative(Process process, byte[] bytes, long baseAddress, bool is64Bit, Node node, out long result)
+        {
+            result = 0;
+            var pattern = node.Pattern.ToBytePattern();
+            if (bytes.TryBoyerMooreSearch(pattern, out long scanResult))
+            {
+                var address = BitConverter.ToInt32(bytes, (int)(scanResult + node.AddressOffset));
+                result = baseAddress + scanResult + address + node.InstructionSize;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Scan a previously created buffer of bytes for a given pattern, then interpret the data as assembly, where the target address is an absolute address
+        /// </summary>
+        private static bool TryScanAbsolute(Process process, byte[] bytes, long baseAddress, bool is64Bit, Node node, out long result)
+        {
+            result = 0;
+            var pattern = node.Pattern.ToBytePattern();
+            if (bytes.TryBoyerMooreSearch(pattern, out long scanResult))
+            {
+                scanResult += baseAddress;
+                if (node.Offset.HasValue)
+                {
+                    scanResult += node.Offset.Value;
+                }
+                result = scanResult;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Convert a string of hexadecimal symbols with wildcards into an array of bytes (with null as wildcard values)
+        /// </summary>
+        /// <param name="pattern">Hex string, separated with whitespaces and ?/??/x/xx as wildcards. Example: "48 8b 05 ? ? ? ? c6 40 18 00"</param>
+        /// <returns>byte representation of the input string</returns>
+        private static byte?[] ToBytePattern(this string pattern)
+        {
+            var result = new List<byte?>();
+            pattern = pattern.Replace("\r", string.Empty).Replace("\n", string.Empty);
+            var split = pattern.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var s in split)
+            {
+                if (s != "?" && s != "??" && s != "x" && s != "xx")
+                {
+                    result.Add(Convert.ToByte(s, 16));
+                }
+                else
+                {
+                    result.Add(null);
+                }
+            }
+            return result.ToArray();
+        }
+
+
+        /// <summary>
+        /// Searches for needle in haystack with wildcards, based on Boyer–Moore–Horspool
+        /// https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore%E2%80%93Horspool_algorithm
+        /// Will return the first match it finds.
+        /// </summary>
+        public static bool TryBoyerMooreSearch(this byte[] haystack, byte?[] needle, out long result)
+        {
+            result = 0;
+            var lastPatternIndex = needle.Length - 1;
+
+            var diff = lastPatternIndex - Math.Max(Array.LastIndexOf(needle, null), 0);
+            if (diff == 0)
+            {
+                diff = 1;
+            }
+
+            var badCharacters = new int[256];
+            for (var i = 0; i < badCharacters.Length; i++)
+            {
+                badCharacters[i] = diff;
+            }
+
+            for (var i = lastPatternIndex - diff; i < lastPatternIndex; i++)
+            {
+                badCharacters[needle[i] ?? 0] = lastPatternIndex - i;
+            }
+
+            for (var i = 0; i <= haystack.Length - needle.Length; i += Math.Max(badCharacters[haystack[i + lastPatternIndex] & 0xFF], 1))
+            {
+                for (var j = lastPatternIndex; !needle[j].HasValue || haystack[i + j] == needle[j]; --j)
+                {
+                    if (j == 0)
+                    {
+                        result = i;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Searches for needle in haystack with wildcards, based on Boyer–Moore–Horspool
+        /// https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore%E2%80%93Horspool_algorithm
+        /// Will return how many matches are found
+        /// </summary>
+        public static int BoyerMooreCount(this byte[] haystack, byte?[] needle)
+        {
+            int result = 0;
+            var lastPatternIndex = needle.Length - 1;
+
+            var diff = lastPatternIndex - Math.Max(Array.LastIndexOf(needle, null), 0);
+            if (diff == 0)
+            {
+                diff = 1;
+            }
+
+            var badCharacters = new int[256];
+            for (var i = 0; i < badCharacters.Length; i++)
+            {
+                badCharacters[i] = diff;
+            }
+
+            for (var i = lastPatternIndex - diff; i < lastPatternIndex; i++)
+            {
+                badCharacters[needle[i] ?? 0] = lastPatternIndex - i;
+            }
+
+            for (var i = 0; i <= haystack.Length - needle.Length; i += Math.Max(badCharacters[haystack[i + lastPatternIndex] & 0xFF], 1))
+            {
+                for (var j = lastPatternIndex; !needle[j].HasValue || haystack[i + j] == needle[j]; --j)
+                {
+                    if (j == 0)
+                    {
+                        result++;
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+
+
+
+
+        ///// <summary>
+        ///// Naive scan through an array of bytes
+        ///// </summary>
+        //private static bool TryScanPattern(this byte[] code, byte?[] pattern, out long result)
+        //{
+        //    result = 0;
+        //    for (int i = 0; i < code.Length - pattern.Length; i++)
+        //    {
+        //        bool found = true;
+        //        for (int j = 0; j < pattern.Length; j++)
+        //        {
+        //            if (pattern[j] != null)
+        //            {
+        //                if (pattern[j] != code[i + j])
+        //                {
+        //                    found = false;
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //
+        //        if (found)
+        //        {
+        //            result = i;
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
+        //
+        ///// <summary>
+        ///// Naive count through an array of bytes
+        ///// </summary>
+        //private static long CountPattern(this byte[] code, byte?[] pattern)
+        //{
+        //    var count = 0;
+        //
+        //    //Find the pattern
+        //    for (int i = 0; i < code.Length - pattern.Length; i++)
+        //    {
+        //        bool found = true;
+        //        for (int j = 0; j < pattern.Length; j++)
+        //        {
+        //            if (pattern[j] != null)
+        //            {
+        //                if (pattern[j] != code[i + j])
+        //                {
+        //                    found = false;
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //
+        //        if (found)
+        //        {
+        //            count++;
+        //        }
+        //    }
+        //    return count;
+        //}
+
+        #endregion
+    }
+}

@@ -14,29 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory.MemoryV2;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace SoulMemory.DarkSouls1
+namespace SoulMemory
 {
-    internal interface IDarkSouls1 : IGame
+    internal interface IGame
     {
-        bool ReadEventFlag(uint eventFlagId);
-        int GetAttribute(Attribute attribute);
-        bool IsWarpRequested();
-        bool IsPlayerLoaded();
-        int GetInGameTimeMilliseconds();
-        int NgCount();
-        int GetCurrentSaveSlot();
-        Vector3f GetPosition();
-        bool AreCreditsRolling();
-        void ResetInventoryIndices();
-        List<Item> GetInventory();
-        BonfireState GetBonfireState(Bonfire bonfire);
-        string GetSaveFileLocation();
-
-#if DEBUG
-        object GetTestValue();
-#endif
+        bool TryRefresh(out Exception exception);
+        TreeBuilder GetTreeBuilder();
     }
 }

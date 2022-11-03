@@ -21,13 +21,13 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using SoulMemory.EldenRing;
-using SoulMemory.Memory;
-using SoulMemory.Shared;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
 using SoulMemory.DarkSouls3;
 using SoulMemory.Sekiro;
+using SoulMemory.EldenRing;
+using SoulMemory.Memory;
+using SoulMemory.Shared;
 
 #pragma warning disable CS0162
 
@@ -41,7 +41,9 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            //RemasteredTestPatterns();
+            //TestDs3Patts();
+            //return;
+
             //SekiroTestPatterns();
             //return;
             //var sekiro = new Sekiro();
@@ -83,15 +85,13 @@ namespace cli
             //TestUi();
 
             var ds1 = new DarkSouls1();
-            ds1.Refresh(out _);
-
-            ds1.ReadEventFlag(51810000);
+            ds1.TryRefresh(out _);
 
             while (true)
             {
                 Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
 
-                if (!ds1.Refresh(out Exception e))
+                if (!ds1.TryRefresh(out Exception e))
                 {
                     Console.WriteLine(e.Format());
                     Thread.Sleep(3000);
@@ -183,6 +183,72 @@ namespace cli
             }
         }
 
+
+        public static void TestDs3Patts()
+        {
+            if (!SoulMemory.MemoryV2.MemoryScanner.TryValidatePatterns(
+                GetDs3TreeBuilder(), 
+                Directory.EnumerateFiles(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables").ToList(), 
+                out List<(string fileName, string patternName, long count)> errors))
+            {
+                foreach (var error in errors)
+                {
+                    Console.WriteLine($"{error.fileName} {error.patternName} {error.count}");
+                }
+            }
+
+            Console.WriteLine("Done");
+            Console.ReadKey();
+        }
+
+
+        public static SoulMemory.MemoryV2.TreeBuilder GetDs3TreeBuilder()
+        {
+            var treeBuilder = new SoulMemory.MemoryV2.TreeBuilder();
+            treeBuilder
+                .ScanRelative("NewMenuSystem", "48 8b 0d ? ? ? ? 48 8b 7c 24 20 48 8b 5c 24 30 48 85 c9", 3, 7)
+                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0);
+
+            treeBuilder
+                .ScanRelative("GameDataMan", "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20", 3, 7)
+                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0)
+                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0, 0x10);
+                    ;
+            treeBuilder
+                .ScanRelative("playerIns", "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70", 3, 7)
+                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0, 0x80)
+                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0, 0x40, 0x28)
+                    ;
+            treeBuilder
+                .ScanRelative("Loading", "c6 05 ? ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9", 2, 7)
+                    .AddPointer(new SoulMemory.MemoryV2.Pointer())
+                    ;
+            treeBuilder
+                .ScanRelative("SprjFadeImp", "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2", 3, 7) //0x8 = ptr to Fd4FadeSystem
+                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0x0, 0x8, 0x2ec)
+                    ;
+            treeBuilder
+                .ScanRelative("SprjEventFlagMan", "48 c7 05 ? ? ? ? 00 00 00 00 48 8b 7c 24 38 c7 46 54 ff ff ff ff 48 83 c4 20 5e c3", 3, 11)
+                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0x0)
+                    ;
+            treeBuilder
+                .ScanRelative("FieldArea", "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10", 3, 7)
+                    .AddPointer(new SoulMemory.MemoryV2.Pointer())
+                    ;
+            return treeBuilder;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public static void Ds3TestPatterns()
         {
             var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables");
@@ -211,20 +277,12 @@ namespace cli
 
         public static void RemasteredTestPatterns()
         {
-            var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR");
-            patternCounter.AddPattern("GameMan", "48 8b 05 ? ? ? ? c6 40 18 00");
-            patternCounter.AddPattern("GameDataMan", "48 8b 05 ? ? ? ? 48 8b 50 10 48 89 54 24 60");
-            patternCounter.AddPattern("WorldChrManImp", "48 83 3d ? ? ? ? 00 45 0f b6 e0");
-            patternCounter.AddPattern("EventFlags", "48 8B 0D ? ? ? ? 99 33 C2 45 33 C0 2B C2 8D 50 F6");
-            patternCounter.AddPattern("InventoryIndices", "48 8D 15 ? ? ? ? C1 E1 10 49 8B C6 41 0B 8F 14 02 00 00 44 8B C6 42 89 0C B2 41 8B D6 49 8B CF");
-            patternCounter.AddPattern("FrpgNetManImp", "48 83 3d ? ? ? ? 00 48 8b f1");
-            patternCounter.AddPattern("MenuMan", "48 8b 15 ? ? ? ? 89 82 7c 08 00 00");
-
-            foreach (var result in patternCounter.GetResults())
+            var remastered = new Remastered();
+            if (!SoulMemory.MemoryV2.MemoryScanner.TryValidatePatterns(remastered.GetTreeBuilder(), Directory.EnumerateFiles(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR").ToList(), out List<(string fileName, string patternName, long count)> errors))
             {
-                if (result.count != 1)
+                foreach (var error in errors)
                 {
-                    Console.WriteLine($"Error: {result.executable} {result.name} {result.count}");
+                    Console.WriteLine($"{error.fileName} {error.patternName} {error.count}");
                 }
             }
 

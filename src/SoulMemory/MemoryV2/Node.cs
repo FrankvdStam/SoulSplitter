@@ -16,27 +16,29 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace SoulMemory.DarkSouls1
+namespace SoulMemory.MemoryV2
 {
-    internal interface IDarkSouls1 : IGame
+    internal class Node
     {
-        bool ReadEventFlag(uint eventFlagId);
-        int GetAttribute(Attribute attribute);
-        bool IsWarpRequested();
-        bool IsPlayerLoaded();
-        int GetInGameTimeMilliseconds();
-        int NgCount();
-        int GetCurrentSaveSlot();
-        Vector3f GetPosition();
-        bool AreCreditsRolling();
-        void ResetInventoryIndices();
-        List<Item> GetInventory();
-        BonfireState GetBonfireState(Bonfire bonfire);
-        string GetSaveFileLocation();
+        public NodeType NodeType;
 
-#if DEBUG
-        object GetTestValue();
-#endif
+        //Used for scans
+        public string Name = "";
+        public string Pattern = "";
+
+        //Used for relative scans
+        public long AddressOffset;
+        public long InstructionSize;
+
+        //used for absolute scans
+        public long? Offset;
+
+        //used for pointers
+        public long[] Offsets = new long[] { };
+        public Pointer Pointer = new Pointer();
+
+        public List<Node> Pointers = new List<Node>();
     }
 }

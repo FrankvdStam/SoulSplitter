@@ -37,11 +37,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using SoulMemory.Memory;
-using SoulMemory.Shared;
+using SoulMemory.MemoryV2;
+using Pointer = SoulMemory.Shared.Pointer;
 
 namespace SoulMemory.DarkSouls1
 {
-    internal class Ptde : IDarkSouls1
+    public class Ptde : IDarkSouls1
     {
         #region Refresh/init/reset ================================================================================================================================
 
@@ -57,7 +58,9 @@ namespace SoulMemory.DarkSouls1
         private Pointer _saveInfo;
         private Pointer _menuMan;
 
-        public bool Refresh(out Exception exception)
+        public TreeBuilder GetTreeBuilder() => null;
+        
+        public bool TryRefresh(out Exception exception)
         {
             exception = null;
             if (!ProcessClinger.Refresh(ref _process, "darksouls", InitPointers, ResetPointers, out Exception e))

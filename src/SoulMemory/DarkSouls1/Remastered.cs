@@ -39,30 +39,32 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using SoulMemory.Memory;
+using SoulMemory.MemoryV2;
 using SoulMemory.Native;
 using SoulMemory.Shared;
+using Pointer = SoulMemory.MemoryV2.Pointer;
 
 namespace SoulMemory.DarkSouls1
 {
-    internal class Remastered : IDarkSouls1
+    public class Remastered : IDarkSouls1
     {
         #region Refresh/init/reset ================================================================================================================================
 
         private Process _process;
 
-        private Pointer _gameMan;
-        private Pointer _gameDataMan;
-        private Pointer _playerIns;
-        private Pointer _playerPos;
-        private Pointer _playerGameData;
-        private Pointer _eventFlags;
-        private Pointer _inventoryIndices;
-        private Pointer _netBonfireDb;
-        private Pointer _menuMan;
+        private Pointer _gameMan = new Pointer();
+        private Pointer _gameDataMan = new Pointer();
+        private Pointer _playerIns = new Pointer();
+        private Pointer _playerPos = new Pointer();
+        private Pointer _playerGameData = new Pointer();
+        private Pointer _eventFlags = new Pointer();
+        private Pointer _inventoryIndices = new Pointer();
+        private Pointer _netBonfireDb = new Pointer();
+        private Pointer _menuMan = new Pointer();
         private int? _steamId3;
         private bool? _isJapanese;
 
-        public bool Refresh(out Exception exception)
+        public bool TryRefresh(out Exception exception)
         {
             exception = null;
             if (!ProcessClinger.Refresh(ref _process, "darksoulsremastered", InitPointers, ResetPointers, out Exception e))
@@ -75,59 +77,28 @@ namespace SoulMemory.DarkSouls1
 
         private void ResetPointers()
         {
-            _gameMan = null;
-            _gameDataMan = null;
-            _playerIns = null;
-            _playerPos = null;
-            _playerGameData = null;
-            _eventFlags = null;
-            _inventoryIndices = null;
-            _netBonfireDb = null;
-            _menuMan = null;
+            _gameMan.Clear();
+            _gameDataMan.Clear();
+            _playerIns.Clear();
+            _playerPos.Clear();
+            _playerGameData.Clear();
+            _eventFlags.Clear();
+            _inventoryIndices.Clear();
+            _netBonfireDb.Clear();
+            _menuMan.Clear();
             _steamId3 = null;
             _isJapanese = null;
         }
 
         private Exception InitPointers()
         {
-            try
+            try 
             {
-                var scanCache = _process.ScanCache();
-                
-                scanCache
-                    .ScanRelative("GameMan", "48 8b 05 ? ? ? ? c6 40 18 00", 3, 7)
-                    .CreatePointer(out _gameMan, 0)
-                    ;
-
-                scanCache
-                    .ScanRelative("GameDataMan", "48 8b 05 ? ? ? ? 48 8b 50 10 48 89 54 24 60", 3, 7)
-                    .CreatePointer(out _gameDataMan, 0)
-                    .CreatePointer(out _playerGameData, 0, 0x10)
-                    ;
-
-                scanCache
-                    .ScanRelative("WorldChrManImp", "48 83 3d ? ? ? ? 00 45 0f b6 e0", 3, 8)
-                    .CreatePointer(out _playerIns, 0, 0x68)
-                    .CreatePointer(out _playerPos, 0, 0x68, 0x68, 0x28)
-                    ;
-
-                scanCache
-                    .ScanRelative("EventFlags", "48 8B 0D ? ? ? ? 99 33 C2 45 33 C0 2B C2 8D 50 F6", 3, 7)
-                    .CreatePointer(out _eventFlags, 0, 0)
-                    ;
-
-                scanCache
-                    .ScanRelative("InventoryIndices", "48 8D 15 ? ? ? ? C1 E1 10 49 8B C6 41 0B 8F 14 02 00 00 44 8B C6 42 89 0C B2 41 8B D6 49 8B CF", 3, 7)
-                    .CreatePointer(out _inventoryIndices)
-                    ;
-
-                scanCache
-                    .ScanRelative("FrpgNetManImp", "48 83 3d ? ? ? ? 00 48 8b f1", 3, 8)
-                    .CreatePointer(out _netBonfireDb, 0x0, 0xb68);
-
-                scanCache
-                .ScanRelative("MenuMan", "48 8b 15 ? ? ? ? 89 82 7c 08 00 00", 3, 7)
-                    .CreatePointer(out _menuMan, 0);
+                var treeBuilder = GetTreeBuilder();
+                if(!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+                {
+                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
+                }
 
                 _steamId3 = GetSteamId3();
                 _isJapanese = IsJapanese();
@@ -138,6 +109,48 @@ namespace SoulMemory.DarkSouls1
             {
                 return e;
             }
+        }
+
+        public TreeBuilder GetTreeBuilder()
+        {
+            var treeBuilder = new TreeBuilder();
+            treeBuilder
+                .ScanRelative("GameMan", "48 8b 05 ? ? ? ? c6 40 18 00", 3, 7)
+                    .AddPointer(_gameMan, 0)
+                    ;
+
+            treeBuilder
+                .ScanRelative("GameDataMan", "48 8b 05 ? ? ? ? 48 8b 50 10 48 89 54 24 60", 3, 7)
+                    .AddPointer(_gameDataMan, 0)
+                    .AddPointer(_playerGameData, 0, 0x10)
+                    ;
+
+            treeBuilder
+                .ScanRelative("WorldChrManImp", "48 83 3d ? ? ? ? 00 45 0f b6 e0", 3, 8)
+                    .AddPointer(_playerIns, 0, 0x68)
+                    .AddPointer(_playerPos, 0, 0x68, 0x68, 0x28)
+                    ;
+
+            treeBuilder
+                .ScanRelative("EventFlags", "48 8B 0D ? ? ? ? 99 33 C2 45 33 C0 2B C2 8D 50 F6", 3, 7)
+                    .AddPointer(_eventFlags, 0, 0)
+                    ;
+
+            treeBuilder
+                .ScanRelative("InventoryIndices", "48 8D 15 ? ? ? ? C1 E1 10 49 8B C6 41 0B 8F 14 02 00 00 44 8B C6 42 89 0C B2 41 8B D6 49 8B CF", 3, 7)
+                    .AddPointer(_inventoryIndices)
+                    ;
+
+            treeBuilder
+                .ScanRelative("FrpgNetManImp", "48 83 3d ? ? ? ? 00 48 8b f1", 3, 8)
+                    .AddPointer(_netBonfireDb, 0x0, 0xb68)
+                    ;
+
+            treeBuilder
+                .ScanRelative("MenuMan", "48 8b 15 ? ? ? ? 89 82 7c 08 00 00", 3, 7)
+                    .AddPointer(_menuMan, 0)
+                    ;
+            return treeBuilder;
         }
         #endregion
 

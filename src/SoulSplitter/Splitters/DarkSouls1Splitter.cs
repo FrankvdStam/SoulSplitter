@@ -53,7 +53,7 @@ namespace SoulSplitter.Splitters
             });
 
             Exception = null;
-            if(!_darkSouls1.Refresh(out Exception e))
+            if(!_darkSouls1.TryRefresh(out Exception e))
             {
                 if(e.Message != "DarkSouls not running")
                 {
