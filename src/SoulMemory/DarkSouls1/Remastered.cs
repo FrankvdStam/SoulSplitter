@@ -93,9 +93,9 @@ namespace SoulMemory.DarkSouls1
             try
             {
                 var scanCache = _process.ScanCache();
-
+                
                 scanCache
-                    .ScanRelative("GameMan", "4c 8b 05 ? ? ? ? 48 8d 91 80 00 00 00", 3, 7)
+                    .ScanRelative("GameMan", "48 8b 05 ? ? ? ? c6 40 18 00", 3, 7)
                     .CreatePointer(out _gameMan, 0)
                     ;
 
@@ -106,7 +106,7 @@ namespace SoulMemory.DarkSouls1
                     ;
 
                 scanCache
-                    .ScanRelative("WorldChrManImp", "48 8b 05 ? ? ? ? 48 8b da 48 8b 48 68", 3, 7)
+                    .ScanRelative("WorldChrManImp", "48 83 3d ? ? ? ? 00 45 0f b6 e0", 3, 8)
                     .CreatePointer(out _playerIns, 0, 0x68)
                     .CreatePointer(out _playerPos, 0, 0x68, 0x68, 0x28)
                     ;
@@ -122,14 +122,12 @@ namespace SoulMemory.DarkSouls1
                     ;
 
                 scanCache
-                    .ScanRelative("NetManImp", "48 8b 05 ? ? ? ? 48 05 08 0a 00 00 48 89 44 24 50 e8 34 fc fd ff", 3, 7)
+                    .ScanRelative("FrpgNetManImp", "48 83 3d ? ? ? ? 00 48 8b f1", 3, 8)
                     .CreatePointer(out _netBonfireDb, 0x0, 0xb68);
 
                 scanCache
                 .ScanRelative("MenuMan", "48 8b 15 ? ? ? ? 89 82 7c 08 00 00", 3, 7)
                     .CreatePointer(out _menuMan, 0);
-
-                    
 
                 _steamId3 = GetSteamId3();
                 _isJapanese = IsJapanese();
@@ -142,6 +140,7 @@ namespace SoulMemory.DarkSouls1
             }
         }
         #endregion
+
         public int GetAttribute(Attribute attribute) => _playerGameData?.ReadInt32(0x8 + (long)attribute) ?? 0;
 
         public int GetInGameTimeMilliseconds() => _gameDataMan?.ReadInt32(0xa4) ?? 0;

@@ -6,7 +6,7 @@
     <Platforms>x64</Platforms>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>SoulMemory</Title>
-    <Version>1.1.7</Version>
+    <Version>1.1.8</Version>
     <Authors>Frank v.d. Stam</Authors>
     <PackageProjectUrl>https://github.com/FrankvdStam/SoulSplitter</PackageProjectUrl>
     <RepositoryUrl>https://github.com/FrankvdStam/SoulSplitter</RepositoryUrl>
@@ -22,7 +22,7 @@
     <IncludeSymbols>False</IncludeSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <OutputPath>..\..\..\LiveSplit\LiveSplit\bin\Debug\Components\</OutputPath>
+    <OutDir>..\..\..\LiveSplit\LiveSplit\bin\Debug\Components\</OutDir>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>

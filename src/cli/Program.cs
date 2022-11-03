@@ -41,6 +41,7 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            //RemasteredTestPatterns();
             //SekiroTestPatterns();
             //return;
             //var sekiro = new Sekiro();
@@ -182,8 +183,6 @@ namespace cli
             }
         }
 
-
-
         public static void Ds3TestPatterns()
         {
             var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables");
@@ -197,6 +196,29 @@ namespace cli
             //patternCounter.AddPattern("SprjFadeImp"     , "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2");
             //patternCounter.AddPattern("SprjEventFlagMan", "48 c7 05 ? ? ? ? 00 00 00 00 48 8b 7c 24 38 c7 46 54 ff ff ff ff 48 83 c4 20 5e c3");
             //patternCounter.AddPattern("FieldArea"       , "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10");
+
+            foreach (var result in patternCounter.GetResults())
+            {
+                if (result.count != 1)
+                {
+                    Console.WriteLine($"Error: {result.executable} {result.name} {result.count}");
+                }
+            }
+
+            Console.WriteLine("Done");
+            Console.ReadKey();
+        }
+
+        public static void RemasteredTestPatterns()
+        {
+            var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR");
+            patternCounter.AddPattern("GameMan", "48 8b 05 ? ? ? ? c6 40 18 00");
+            patternCounter.AddPattern("GameDataMan", "48 8b 05 ? ? ? ? 48 8b 50 10 48 89 54 24 60");
+            patternCounter.AddPattern("WorldChrManImp", "48 83 3d ? ? ? ? 00 45 0f b6 e0");
+            patternCounter.AddPattern("EventFlags", "48 8B 0D ? ? ? ? 99 33 C2 45 33 C0 2B C2 8D 50 F6");
+            patternCounter.AddPattern("InventoryIndices", "48 8D 15 ? ? ? ? C1 E1 10 49 8B C6 41 0B 8F 14 02 00 00 44 8B C6 42 89 0C B2 41 8B D6 49 8B CF");
+            patternCounter.AddPattern("FrpgNetManImp", "48 83 3d ? ? ? ? 00 48 8b f1");
+            patternCounter.AddPattern("MenuMan", "48 8b 15 ? ? ? ? 89 82 7c 08 00 00");
 
             foreach (var result in patternCounter.GetResults())
             {
