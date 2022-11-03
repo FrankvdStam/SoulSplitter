@@ -28,9 +28,6 @@ namespace SoulMemory.Native
         public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out uint lpNumberOfBytesWritten);
 
         [DllImport("kernel32.dll")]
-        public static extern uint VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MemoryRegion lpBuffer, uint dwLength);
-
-        [DllImport("kernel32.dll")]
         public static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
 
         [DllImport("kernel32.dll")]
