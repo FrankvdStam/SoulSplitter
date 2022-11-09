@@ -249,7 +249,60 @@ namespace cli
 
 
 
+        private static void Ds1Diagnostic()
+        {
+            var ds1 = new DarkSouls1();
+            while (true)
+            {
+                Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
 
+                if (!ds1.TryRefresh(out Exception e))
+                {
+                    Console.WriteLine(e.Format());
+                    Thread.Sleep(3000);
+                    Console.Clear();
+                }
+                else
+                {
+                    void Test(string name, Action f)
+                    {
+                        Console.WriteLine(name);
+                        f();
+                        Thread.Sleep(5000);
+                        if (!ds1.TryRefresh(out Exception exc))
+                        {
+                            Console.WriteLine(exc.ToString());
+                            Console.WriteLine("Error occurred, press any key to exit.");
+                            Console.ReadKey();
+                        }
+                    }
+
+                    Test("GetAttribute", () => { ds1.GetAttribute(SoulMemory.DarkSouls1.Attribute.Strength); });
+                    Test("ReadEventFlag", () => { ds1.ReadEventFlag(16); });
+                    Test("IsWarpRequested", () => { ds1.IsWarpRequested(); });
+                    Test("IsPlayerLoaded", () => { ds1.IsPlayerLoaded(); });
+                    Test("GetPosition", () => { ds1.GetPosition(); });
+                    Test("NgCount", () => { ds1.NgCount(); });
+                    Test("GetCurrentSaveSlot", () => { ds1.GetCurrentSaveSlot(); });
+                    Test("ResetInventoryIndices", () => { ds1.ResetInventoryIndices(); });
+                    Test("GetInventory", () => { ds1.GetInventory(); });
+                    Test("AreCreditsRolling", () => { ds1.AreCreditsRolling(); });
+                    Test("GetBonfireState", () => { ds1.GetBonfireState(SoulMemory.DarkSouls1.Bonfire.UndeadAsylumCourtyard); });
+                    Test("GetSaveFileLocation", () => { ds1.GetSaveFileLocation(); });
+                    Test("IsPtde", () => { ds1.IsPtde(); });
+                    Test("GetSaveFileGameTimeMilliseconds", () => { ds1.GetSaveFileGameTimeMilliseconds(ds1.GetSaveFileLocation(), ds1.GetCurrentSaveSlot(), ds1.IsPtde()); });
+
+
+                    Console.WriteLine("Done, press any key to exit.");
+                    Console.ReadKey();
+                    return;
+                }
+
+                Thread.Sleep(10);
+                Console.SetCursorPosition(0, 0);
+                //Console.Clear();
+            }
+        }
 
         public static void Ds3TestPatterns()
         {

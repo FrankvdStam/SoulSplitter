@@ -128,9 +128,7 @@ namespace SoulMemory.DarkSouls1
                     ;
 
             treeBuilder
-                //.ScanRelative("WorldChrManImp", "48 83 3d ? ? ? ? 00 45 0f b6 e0", 3, 8)
-                .ScanRelative("WorldChrManImp", "48 8b 05 ? ? ? ? 48 8d 54 24 58 48 8b 48 68", 3, 7)
-                //.ScanRelative("WorldChrManImp", "48 8b 05 ? ? ? ? 4c 8b bc 24 80 00 00 00", 3, 7)
+                .ScanRelative("WorldChrManImp", "48 8b 0d ? ? ? ? 0f 28 f1 48 85 c9 74 ? 48 89 7c", 3, 7)
                     .AddPointer(_playerIns, 0, 0x68)
                     .AddPointer(_playerPos, 0, 0x68, 0x68, 0x28)
                     ;
