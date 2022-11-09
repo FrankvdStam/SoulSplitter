@@ -40,5 +40,7 @@ namespace SoulMemory.MemoryV2
         public Pointer Pointer = new Pointer();
 
         public List<Node> Pointers = new List<Node>();
+
+        public override string ToString() => Name;
     }
 }

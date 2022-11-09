@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.1.9">
+        <files>
+            <file path="Components/SoulMemory.dll"   status="changed"/>
+            <file path="Components/SoulSplitter.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Dark Souls Remastered: fix for 1.03.1</change>
+        </changelog>
+    </update>
     <update version="1.1.8">
         <files>
             <file path="Components/SoulMemory.dll"   status="changed"/>

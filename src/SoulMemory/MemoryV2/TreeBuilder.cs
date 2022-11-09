@@ -52,6 +52,7 @@ namespace SoulMemory.MemoryV2
                 Pattern = pattern,
                 Offset = offset,
             };
+            Tree.Add(node);
             return new PointerAppender(node);
         }
     }

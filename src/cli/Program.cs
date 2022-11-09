@@ -41,6 +41,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            RemasteredTestPatterns();
+            return;
             //TestDs3Patts();
             //return;
 

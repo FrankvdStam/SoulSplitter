@@ -61,6 +61,7 @@ namespace SoulMemory.DarkSouls1
         private Pointer _inventoryIndices = new Pointer();
         private Pointer _netBonfireDb = new Pointer();
         private Pointer _menuMan = new Pointer();
+        private Pointer _getRegion = new Pointer();
         private int? _steamId3;
         private bool? _isJapanese;
 
@@ -86,6 +87,7 @@ namespace SoulMemory.DarkSouls1
             _inventoryIndices.Clear();
             _netBonfireDb.Clear();
             _menuMan.Clear();
+            _getRegion.Clear();
             _steamId3 = null;
             _isJapanese = null;
         }
@@ -126,7 +128,9 @@ namespace SoulMemory.DarkSouls1
                     ;
 
             treeBuilder
-                .ScanRelative("WorldChrManImp", "48 83 3d ? ? ? ? 00 45 0f b6 e0", 3, 8)
+                //.ScanRelative("WorldChrManImp", "48 83 3d ? ? ? ? 00 45 0f b6 e0", 3, 8)
+                .ScanRelative("WorldChrManImp", "48 8b 05 ? ? ? ? 48 8d 54 24 58 48 8b 48 68", 3, 7)
+                //.ScanRelative("WorldChrManImp", "48 8b 05 ? ? ? ? 4c 8b bc 24 80 00 00 00", 3, 7)
                     .AddPointer(_playerIns, 0, 0x68)
                     .AddPointer(_playerPos, 0, 0x68, 0x68, 0x28)
                     ;
@@ -150,6 +154,12 @@ namespace SoulMemory.DarkSouls1
                 .ScanRelative("MenuMan", "48 8b 15 ? ? ? ? 89 82 7c 08 00 00", 3, 7)
                     .AddPointer(_menuMan, 0)
                     ;
+
+            treeBuilder
+                .ScanAbsolute("GetRegion", "40 53 48 83 ec 20 bb 02 00 00 00", 0)
+                    .AddPointer(_getRegion, 0)
+                    ;
+
             return treeBuilder;
         }
         #endregion
@@ -443,12 +453,13 @@ e:  41 ff d6                call   r14
         /// <returns>bool</returns>
         private bool IsJapanese()
         {
-            // Calls DarkSoulsRemastered.exe+C8820 and then writes the value of eax
+            // Calls DarkSoulsRemastered.exe+C8820 (1.03, different address in 1.03.1) and then writes the value of eax
             // to a given address. If that value is 0, the game is in Japanese.
             // That function uses the steam64 api underneath so we have no other
             // choice but calling that function manually
 
-            IntPtr callPtr = IntPtr.Add(_process.MainModule.BaseAddress, 0xC8820);//TODO: turn into AOB
+            var getRegionAddress = _getRegion.BaseAddress;
+            IntPtr callPtr = (IntPtr)getRegionAddress;
             IntPtr resultPtr = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)0x4, Kernel32.MEM_COMMIT, Kernel32.PAGE_READWRITE);
 
             // build asm and replace the function pointers
@@ -461,10 +472,10 @@ e:  41 ff d6                call   r14
             //Allocate memory and write asm, create thread
             IntPtr address = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)asm.Length, Kernel32.MEM_COMMIT, Kernel32.PAGE_EXECUTE_READWRITE);
             _process.WriteMemory(address, asm);
-            IntPtr thread = Kernel32.CreateRemoteThread(_process.Handle, IntPtr.Zero, 0, address, IntPtr.Zero, 0, IntPtr.Zero);
-
+            
             //Suspend, call asm, resume
             Ntdll.NtSuspendProcess(_process.Handle);
+            IntPtr thread = Kernel32.CreateRemoteThread(_process.Handle, IntPtr.Zero, 0, address, IntPtr.Zero, 0, IntPtr.Zero);
             uint result = Kernel32.WaitForSingleObject(thread, 5000);
             Ntdll.NtResumeProcess(_process.Handle);
 
