@@ -95,10 +95,12 @@ namespace cli
 
                 if (!ds1.TryRefresh(out Exception e))
                 {
-                    Console.WriteLine(e.Format());
+                    Console.WriteLine(e);
                     Thread.Sleep(3000);
                     Console.Clear();
                 }
+
+                var isAsAlive = ds1.ReadEventFlag((uint)SoulMemory.DarkSouls1.Boss.AsylumDemon);
 
                 Thread.Sleep(10);
                 Console.SetCursorPosition(0, 0);

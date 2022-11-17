@@ -616,11 +616,6 @@ namespace SoulMemory.EldenRing
             _igt?.WriteInt32(milliseconds);
         }
 
-        public bool IsInGame()
-        {
-            return IsPlayerLoaded() && GetScreenState() == ScreenState.InGame;
-        }
-        
         public void ResetIgt()
         {
             _igt?.WriteInt32(0);

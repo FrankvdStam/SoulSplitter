@@ -133,10 +133,7 @@ namespace SoulMemory.Sekiro
             //0x2dc best candidate so far.
             return _fadeSystem.ReadInt32(0x2dc) != 0;
         }
-
-        public bool Attached => _process != null;        
-
-       
+               
         #region Read event flag ================================================================================================================
 
         public bool ReadEventFlag(uint eventFlagId)

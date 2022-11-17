@@ -2,7 +2,7 @@
 
 [![build](https://img.shields.io/github/workflow/status/FrankvdStam/SoulSplitter/build)](https://github.com/FrankvdStam/SoulSplitter/actions) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter) [![NuGet version (SoulMemory)](https://img.shields.io/nuget/v/SoulMemory)](https://www.nuget.org/packages/SoulMemory/)  
 ![GitHub last commit](https://img.shields.io/github/last-commit/FrankvdStam/SoulSplitter) ![GitHub repo size](https://img.shields.io/github/repo-size/FrankvdStam/SoulSplitter)  
-<a href="https://ko-fi.com/wasted1" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a> [![build](https://img.shields.io/badge/-Discord-blue)](https://discord.com/users/281116269921566721) <a href="https://www.youtube.com/channel/UCyTI4G2CfhIV2_wNkTk4Pdw"><img src="https://img.shields.io/badge/-YouTube-red"></a>
+<a href="https://ko-fi.com/wasted1" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a> [![build](https://img.shields.io/badge/-Discord-blue)](https://discord.com/users/281116269921566721) <a href="https://www.youtube.com/@1wasted"><img src="https://img.shields.io/badge/-YouTube-red"></a>
 
 
 

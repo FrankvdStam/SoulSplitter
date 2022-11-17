@@ -242,11 +242,6 @@ namespace SoulMemory.DarkSouls3
 
         #region read event flags
 
-        public long GetSprjEventFlagManAddress()
-        {
-            return _sprjEventFlagMan.ReadInt64();
-        }
-
         public bool ReadEventFlag(uint eventFlagId)
         {
             if (_sprjEventFlagMan == null || _fieldArea == null)
