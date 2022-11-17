@@ -1,8 +1,10 @@
 # SoulSplitter
 
-![build](https://github.com/FrankvdStam/SoulSplitter/actions/workflows/build.yml/badge.svg) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter) [![NuGet version (SoulMemory)](https://img.shields.io/nuget/v/SoulMemory)](https://www.nuget.org/packages/SoulMemory/)  
+[![build](https://img.shields.io/github/workflow/status/FrankvdStam/SoulSplitter/build)](https://github.com/FrankvdStam/SoulSplitter/actions) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter) [![NuGet version (SoulMemory)](https://img.shields.io/nuget/v/SoulMemory)](https://www.nuget.org/packages/SoulMemory/)  
 ![GitHub last commit](https://img.shields.io/github/last-commit/FrankvdStam/SoulSplitter) ![GitHub repo size](https://img.shields.io/github/repo-size/FrankvdStam/SoulSplitter)  
 <a href="https://ko-fi.com/wasted1" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a> <a href="https://www.youtube.com/channel/UCyTI4G2CfhIV2_wNkTk4Pdw"><img src="https://img.shields.io/badge/-YouTube-red"></a>
+
+
 
 Souls games speedrun timer, load remover and autosplitter  
 Currently the official timer for Dark Souls 1, Dark Souls 3, Elden Ring and Sekiro  
