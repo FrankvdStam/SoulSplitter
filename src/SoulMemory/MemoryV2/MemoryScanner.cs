@@ -240,6 +240,48 @@ namespace SoulMemory.MemoryV2
         /// <summary>
         /// Searches for needle in haystack with wildcards, based on Boyer–Moore–Horspool
         /// https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore%E2%80%93Horspool_algorithm
+        /// Will return the first match it finds.
+        /// </summary>
+        public static List<long> BoyerMooreSearch(this byte[] haystack, byte?[] needle)
+        {
+            var result = new List<long>();
+            var lastPatternIndex = needle.Length - 1;
+
+            var diff = lastPatternIndex - Math.Max(Array.LastIndexOf(needle, null), 0);
+            if (diff == 0)
+            {
+                diff = 1;
+            }
+
+            var badCharacters = new int[256];
+            for (var i = 0; i < badCharacters.Length; i++)
+            {
+                badCharacters[i] = diff;
+            }
+
+            for (var i = lastPatternIndex - diff; i < lastPatternIndex; i++)
+            {
+                badCharacters[needle[i] ?? 0] = lastPatternIndex - i;
+            }
+
+            for (var i = 0; i <= haystack.Length - needle.Length; i += Math.Max(badCharacters[haystack[i + lastPatternIndex] & 0xFF], 1))
+            {
+                for (var j = lastPatternIndex; !needle[j].HasValue || haystack[i + j] == needle[j]; --j)
+                {
+                    if (j == 0)
+                    {
+                        result.Add(i);
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Searches for needle in haystack with wildcards, based on Boyer–Moore–Horspool
+        /// https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore%E2%80%93Horspool_algorithm
         /// Will return how many matches are found
         /// </summary>
         public static int BoyerMooreCount(this byte[] haystack, byte?[] needle)
@@ -278,71 +320,6 @@ namespace SoulMemory.MemoryV2
 
             return result;
         }
-
-
-
-
-
-        ///// <summary>
-        ///// Naive scan through an array of bytes
-        ///// </summary>
-        //private static bool TryScanPattern(this byte[] code, byte?[] pattern, out long result)
-        //{
-        //    result = 0;
-        //    for (int i = 0; i < code.Length - pattern.Length; i++)
-        //    {
-        //        bool found = true;
-        //        for (int j = 0; j < pattern.Length; j++)
-        //        {
-        //            if (pattern[j] != null)
-        //            {
-        //                if (pattern[j] != code[i + j])
-        //                {
-        //                    found = false;
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //
-        //        if (found)
-        //        {
-        //            result = i;
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
-        //
-        ///// <summary>
-        ///// Naive count through an array of bytes
-        ///// </summary>
-        //private static long CountPattern(this byte[] code, byte?[] pattern)
-        //{
-        //    var count = 0;
-        //
-        //    //Find the pattern
-        //    for (int i = 0; i < code.Length - pattern.Length; i++)
-        //    {
-        //        bool found = true;
-        //        for (int j = 0; j < pattern.Length; j++)
-        //        {
-        //            if (pattern[j] != null)
-        //            {
-        //                if (pattern[j] != code[i + j])
-        //                {
-        //                    found = false;
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //
-        //        if (found)
-        //        {
-        //            count++;
-        //        }
-        //    }
-        //    return count;
-        //}
 
         #endregion
     }

@@ -64,13 +64,21 @@ namespace SoulMemory.DarkSouls1
         private Pointer _getRegion = new Pointer();
         private int? _steamId3;
         private bool? _isJapanese;
+        private DateTime _lastFailedRefresh = DateTime.MinValue;
 
         public bool TryRefresh(out Exception exception)
         {
+            if(DateTime.Now < _lastFailedRefresh.AddSeconds(5))
+            {
+                exception = null;
+                return false;
+            }
+
             exception = null;
             if (!ProcessClinger.Refresh(ref _process, "darksoulsremastered", InitPointers, ResetPointers, out Exception e))
             {
                 exception = e;
+                _lastFailedRefresh = DateTime.Now;
                 return false;
             }
             return true;
