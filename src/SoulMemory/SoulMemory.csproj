@@ -15,7 +15,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Copyright>(c) 2022 by Frank van der Stam, GPL-v3 licensed</Copyright>
-    <Description>SoulMemory reads and decodes data from running instances of souls games.</Description>
+    <Description>SoulMemory reads and decodes data from running instances of souls games. Check the readme here: https://github.com/FrankvdStam/SoulSplitter/blob/main/src/SoulMemory/README.md</Description>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <AssemblyVersion>$(PackageVersion)</AssemblyVersion>
     <FileVersion>$(PackageVersion)</FileVersion>
