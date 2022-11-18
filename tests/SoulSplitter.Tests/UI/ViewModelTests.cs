@@ -26,6 +26,8 @@ using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.Sekiro;
 using System;
 using static SoulSplitter.Tests.UI.ViewModelTests;
+using SoulMemory.EldenRing;
+using SoulSplitter.UI.DarkSouls2;
 
 namespace SoulSplitter.Tests.UI
 {
@@ -192,36 +194,48 @@ namespace SoulSplitter.Tests.UI
             {
                 AddSplit addDarkSouls1Split = AddDarkSouls1Split;
                 AddSplit addDarkSouls3Split = AddDarkSouls3Split;
+                AddSplit addSekiroSplit     = AddSekiroSplit;
 
                 //Dark Souls 1 ====================================================================================================================================================================================
-                yield return new TestCaseData(GameType.DarkSouls1, addDarkSouls1Split, TimingType.Immediate,  SplitType.Boss,       SoulMemory.DarkSouls1.Boss.AsylumDemon);
-                yield return new TestCaseData(GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnLoading , SplitType.Boss,       SoulMemory.DarkSouls1.Boss.FourKings);
-                yield return new TestCaseData(GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnWarp    , SplitType.Boss,       SoulMemory.DarkSouls1.Boss.GreatGreyWolfSif);
+                yield return new TestCaseData(GameType.DarkSouls1,  addDarkSouls1Split, TimingType.Immediate,  SplitType.Boss,       SoulMemory.DarkSouls1.Boss.AsylumDemon);
+                yield return new TestCaseData(GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnLoading , SplitType.Boss,       SoulMemory.DarkSouls1.Boss.FourKings);
+                yield return new TestCaseData(GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnWarp    , SplitType.Boss,       SoulMemory.DarkSouls1.Boss.GreatGreyWolfSif);
 
-                yield return new TestCaseData(GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnWarp    , SplitType.Flag,       new FlagDescription { Flag = 248157 });
+                yield return new TestCaseData(GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnWarp    , SplitType.Flag,       new FlagDescription { Flag = 248157 });
 
-                yield return new TestCaseData(GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnLoading , SplitType.Bonfire,    new SoulSplitter.Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AnorLondo,  State = SoulMemory.DarkSouls1.BonfireState.Kindled2 });
-                yield return new TestCaseData(GameType.DarkSouls1, addDarkSouls1Split, TimingType.Immediate , SplitType.Bonfire,    new SoulSplitter.Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AshLakeDragon,  State = SoulMemory.DarkSouls1.BonfireState.Unlocked });
+                yield return new TestCaseData(GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnLoading , SplitType.Bonfire,    new SoulSplitter.Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AnorLondo,  State = SoulMemory.DarkSouls1.BonfireState.Kindled2 });
+                yield return new TestCaseData(GameType.DarkSouls1,  addDarkSouls1Split, TimingType.Immediate , SplitType.Bonfire,    new SoulSplitter.Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AshLakeDragon,  State = SoulMemory.DarkSouls1.BonfireState.Unlocked });
 
-                yield return new TestCaseData(GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnLoading , SplitType.Position,   new VectorSize() { Size = 10 });
+                yield return new TestCaseData(GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnLoading , SplitType.Position,   new VectorSize() { Size = 10 });
 
-                yield return new TestCaseData(GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnWarp    , SplitType.Attribute,  new Splits.DarkSouls1.Attribute{ AttributeType = SoulMemory.DarkSouls1.Attribute.Dexterity, Level = 10 });
+                yield return new TestCaseData(GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnWarp    , SplitType.Attribute,  new Splits.DarkSouls1.Attribute{ AttributeType = SoulMemory.DarkSouls1.Attribute.Dexterity, Level = 10 });
 
                 //Dark Souls 3 ====================================================================================================================================================================================
-                yield return new TestCaseData(GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Boss,        SoulMemory.DarkSouls3.Boss.AbyssWatchers);
-                yield return new TestCaseData(GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Boss,        SoulMemory.DarkSouls3.Boss.IudexGundyr);
-                yield return new TestCaseData(GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Boss,        SoulMemory.DarkSouls3.Boss.SlaveKnightGael);
+                yield return new TestCaseData(GameType.DarkSouls3,  addDarkSouls3Split, TimingType.Immediate, SplitType.Boss,        SoulMemory.DarkSouls3.Boss.AbyssWatchers);
+                yield return new TestCaseData(GameType.DarkSouls3,  addDarkSouls3Split, TimingType.OnLoading, SplitType.Boss,        SoulMemory.DarkSouls3.Boss.IudexGundyr);
+                yield return new TestCaseData(GameType.DarkSouls3,  addDarkSouls3Split, TimingType.OnLoading, SplitType.Boss,        SoulMemory.DarkSouls3.Boss.SlaveKnightGael);
 
-                yield return new TestCaseData(GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Flag,        new FlagDescription { Flag = 248157 });
+                yield return new TestCaseData(GameType.DarkSouls3,  addDarkSouls3Split, TimingType.Immediate, SplitType.Flag,        new FlagDescription { Flag = 248157 });
 
-                yield return new TestCaseData(GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Bonfire,     SoulMemory.DarkSouls3.Bonfire.DarkeaterMidir);
-                yield return new TestCaseData(GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Bonfire,     SoulMemory.DarkSouls3.Bonfire.FarronKeep);
+                yield return new TestCaseData(GameType.DarkSouls3,  addDarkSouls3Split, TimingType.OnLoading, SplitType.Bonfire,     SoulMemory.DarkSouls3.Bonfire.DarkeaterMidir);
+                yield return new TestCaseData(GameType.DarkSouls3,  addDarkSouls3Split, TimingType.Immediate, SplitType.Bonfire,     SoulMemory.DarkSouls3.Bonfire.FarronKeep);
 
-                yield return new TestCaseData(GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Position,    new VectorSize() { Size = 10 });
+                yield return new TestCaseData(GameType.DarkSouls3,  addDarkSouls3Split, TimingType.OnLoading, SplitType.Position,    new VectorSize() { Size = 10 });
 
-                yield return new TestCaseData(GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Attribute,   new Splits.DarkSouls3.Attribute { AttributeType = SoulMemory.DarkSouls3.Attribute.Dexterity, Level = 10 });
+                yield return new TestCaseData(GameType.DarkSouls3,  addDarkSouls3Split, TimingType.Immediate, SplitType.Attribute,   new Splits.DarkSouls3.Attribute { AttributeType = SoulMemory.DarkSouls3.Attribute.Dexterity, Level = 10 });
 
-                yield return new TestCaseData(GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.ItemPickup,  SoulMemory.DarkSouls3.ItemPickup.BlackHandKamuiOnikiriandUbadachi);
+                yield return new TestCaseData(GameType.DarkSouls3,  addDarkSouls3Split, TimingType.Immediate, SplitType.ItemPickup,  SoulMemory.DarkSouls3.ItemPickup.BlackHandKamuiOnikiriandUbadachi);
+
+                //Sekiro ====================================================================================================================================================================================
+                yield return new TestCaseData(GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Boss,        SoulMemory.Sekiro.Boss.EmmaTheGentleBlade);
+                yield return new TestCaseData(GameType.Sekiro,      addSekiroSplit,     TimingType.OnLoading, SplitType.Boss,        SoulMemory.Sekiro.Boss.LadyButterfly);
+
+                yield return new TestCaseData(GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Bonfire,     SoulMemory.Sekiro.Idol.AshinaCastleFortress);
+                yield return new TestCaseData(GameType.Sekiro,      addSekiroSplit,     TimingType.OnLoading, SplitType.Bonfire,     SoulMemory.Sekiro.Idol.AshinaOutskirts);
+
+                yield return new TestCaseData(GameType.Sekiro,      addSekiroSplit,     TimingType.OnLoading, SplitType.Position,    new VectorSize() { Size = 10 });
+
+                yield return new TestCaseData(GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Flag,        new FlagDescription { Flag = 248157 });
             }
         }
 
@@ -280,6 +294,30 @@ namespace SoulSplitter.Tests.UI
             }
 
             darkSouls3ViewModel.AddSplitCommand.Execute(null);
+        }
+
+        private static void AddSekiroSplit(object viewModel, TimingType timingType, SplitType splitType, object split)
+        {
+            var sekiroViewModel = (SekiroViewModel)viewModel;
+            sekiroViewModel.NewSplitTimingType = timingType;
+            sekiroViewModel.NewSplitType = splitType;
+
+            switch(splitType)
+            {
+                default:
+                    sekiroViewModel.NewSplitValue = split;
+                    break;
+
+                case SplitType.Position:
+                    sekiroViewModel.Position = (VectorSize)split;
+                    break;
+
+                case SplitType.Flag:
+                    sekiroViewModel.FlagDescription = (FlagDescription)split;
+                    break;
+            }
+
+            sekiroViewModel.AddSplitCommand.Execute(null);
         }
 
         #endregion
