@@ -23,7 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoulSplitter.Tests
+namespace SoulSplitter.Tests.UI.Validation
 {
     [TestFixture]
     public class TextToNumberValidationTests

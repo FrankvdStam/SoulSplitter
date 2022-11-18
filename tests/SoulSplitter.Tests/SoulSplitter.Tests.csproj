@@ -66,7 +66,9 @@
   <ItemGroup>
     <Compile Include="SoulComponentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextToNumberValidationTests.cs" />
+    <Compile Include="UI\DarkSouls3\DarkSouls3ViewModelTests.cs" />
+    <Compile Include="UI\DarkSouls1\DarkSouls1ViewModelTests.cs" />
+    <Compile Include="UI\Validation\TextToNumberValidationTests.cs" />
     <Compile Include="XmlData.cs" />
   </ItemGroup>
   <ItemGroup>

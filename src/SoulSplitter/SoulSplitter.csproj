@@ -132,7 +132,6 @@
     <Compile Include="SoulComponent.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Splits\DarkSouls2\DarkSouls2SplitType.cs" />
-    <Compile Include="SplitterState.cs" />
     <Compile Include="Splitters\EldenRingSplitter.cs" />
     <Compile Include="Splitters\ISplitter.cs" />
     <Compile Include="UI\Generic\TimingType.cs" />

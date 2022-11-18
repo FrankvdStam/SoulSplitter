@@ -26,6 +26,8 @@ namespace SoulSplitter.UI.Generic
 {
     public class SplitsViewModel : INotifyPropertyChanged
     {
+        public int TotalSplitsCount => Splits.Sum(timing => timing.Children.Sum(type => type.Children.Count));
+            
         public void AddSplit(TimingType timingType, SplitType splitType, object split)
         {
             var splitTimingViewModel = Splits.FirstOrDefault(i => i.TimingType == timingType);
