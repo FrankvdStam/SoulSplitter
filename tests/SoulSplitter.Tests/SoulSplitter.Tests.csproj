@@ -69,6 +69,7 @@
     <Compile Include="UI\DarkSouls3\DarkSouls3ViewModelTests.cs" />
     <Compile Include="UI\DarkSouls1\DarkSouls1ViewModelTests.cs" />
     <Compile Include="UI\Validation\TextToNumberValidationTests.cs" />
+    <Compile Include="UI\ViewModelTests.cs" />
     <Compile Include="XmlData.cs" />
   </ItemGroup>
   <ItemGroup>
