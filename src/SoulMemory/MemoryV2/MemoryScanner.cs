@@ -174,7 +174,7 @@ namespace SoulMemory.MemoryV2
         /// </summary>
         /// <param name="pattern">Hex string, separated with whitespaces and ?/??/x/xx as wildcards. Example: "48 8b 05 ? ? ? ? c6 40 18 00"</param>
         /// <returns>byte representation of the input string</returns>
-        private static byte?[] ToBytePattern(this string pattern)
+        public static byte?[] ToBytePattern(this string pattern)
         {
             var result = new List<byte?>();
             pattern = pattern.Replace("\r", string.Empty).Replace("\n", string.Empty);

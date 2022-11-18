@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SoulMemory.Tests</RootNamespace>
     <AssemblyName>SoulMemory.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
@@ -51,39 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DarkSouls2.cs" />
-    <Compile Include="GameType.cs" />
-    <Compile Include="DarkSouls1.cs" />
+    <Compile Include="MemoryV2\MemoryScannerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolAssistant\DarkSouls2ToolAssistant.cs" />
-    <Compile Include="ToolAssistant\DarkSouls1ToolAssistant.cs" />
-    <Compile Include="ToolAssistant\User32.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Saves\DarkSouls1\cracked\UndeadAsylum">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="readme.md" />
-    <None Include="Saves\DarkSouls1\ptde\UndeadAsylum">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Saves\DarkSouls1\Remastered\UndeadAsylum">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Saves\DarkSouls2\Sotfs\AllBossesSetup">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Saves\DarkSouls2\Sotfs\ThingsBetwixt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Saves\DarkSouls2\Sotfs\ThingsBetwixtWrathOfTheGods">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Saves\DarkSouls2\Vanilla\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\src\SoulMemory\SoulMemory.csproj">
       <Project>{b3728f9b-c1d8-4d33-b9fc-e835e619401c}</Project>
