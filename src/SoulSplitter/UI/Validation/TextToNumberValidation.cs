@@ -20,7 +20,7 @@ using System.Windows.Controls;
 
 namespace SoulSplitter.UI.Validation
 {
-    internal enum NumericType
+    public enum NumericType
     {
         Int,
         Uint,
@@ -28,7 +28,7 @@ namespace SoulSplitter.UI.Validation
     }
 
 
-    internal class TextToNumberValidation : ValidationRule
+    public class TextToNumberValidation : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
