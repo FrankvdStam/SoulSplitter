@@ -21,7 +21,7 @@ using System.Text;
 
 namespace SoulMemory
 {
-    internal interface IGame
+    public interface IGame
     {
         bool TryRefresh(out Exception exception);
         TreeBuilder GetTreeBuilder();

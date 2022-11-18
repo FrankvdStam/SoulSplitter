@@ -65,15 +65,30 @@ namespace SoulSplitter.Splitters
 
         public void Update(object settings)
         {
-            _darkSouls3ViewModel = (DarkSouls3ViewModel)settings;
+            Logger.TryOrLogError(() =>
+            {
+                _darkSouls3ViewModel = (DarkSouls3ViewModel)settings;
+            });
 
-            RefreshDarkSouls3();
+            if (!_darkSouls3.TryRefresh(out Exception e))
+            {
+                if (!e.Message.EndsWith("not running."))
+                {
+                    Logger.Log(e);
+                }
+                Exception = e;
+            }
 
-            UpdateTimer();
+            Logger.TryOrLogError(() =>
+            {
+                UpdateTimer();
+            });
 
-            UpdateAutoSplitter();
+            Logger.TryOrLogError(() =>
+            {
+                UpdateAutoSplitter();
+            });
         }
-
 
         #region Timer
         private void UpdateTimer()
@@ -230,34 +245,5 @@ namespace SoulSplitter.Splitters
 
         #endregion
 
-        private void RefreshDarkSouls3()
-        {
-            try
-            {
-                if (!_darkSouls3.Refresh())
-                {
-                    if (!_darkSouls3.Attached)
-                    {
-                        Exception = new Exception("Game not running");
-                    }
-                    else if (_darkSouls3.Exception != null)
-                    {
-                        Exception = _darkSouls3.Exception;
-                    }
-                    else
-                    {
-                        Exception = new Exception("unable to refresh darksoul3");
-                    }
-                }
-                else
-                {
-                    Exception = null;
-                }
-            }
-            catch (Exception e)
-            {
-                Exception = e;
-            }
-        }
     }
 }

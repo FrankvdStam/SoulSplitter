@@ -28,6 +28,9 @@ using SoulMemory.Sekiro;
 using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulMemory.Shared;
+using System.Security.Cryptography;
+using SoulMemory;
+using System.Text;
 
 #pragma warning disable CS0162
 
@@ -41,50 +44,13 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            RemasteredTestPatterns();
-            return;
-            //TestDs3Patts();
-            //return;
-
-            //SekiroTestPatterns();
-            //return;
-            //var sekiro = new Sekiro();
-            //sekiro.Refresh(out _);
-            //
-            //var previousIgt = sekiro.GetInGameTimeMilliseconds();
-            //for(;;)
-            //{
-            //    var currentIgt = sekiro.GetInGameTimeMilliseconds();
-            //    if(currentIgt == 0 && previousIgt != 0)
-            //    {
-            //        Console.WriteLine($"before: {TimeSpan.FromMilliseconds(previousIgt)}");
-            //    }
-            //
-            //    if(previousIgt == 0 && currentIgt != 0)
-            //    {
-            //        Console.WriteLine($"after: {TimeSpan.FromMilliseconds(currentIgt)}");
-            //    }
-            //
-            //    previousIgt = currentIgt;
-            //    sekiro.Refresh(out _);
-            //}
-            //
-            //
-            //var ds3 = new DarkSouls3();
-            //ds3.Refresh();
-            //
-            //for(; ; )
-            //{
-            //    Console.WriteLine(ds3.GetPosition());
-            //    Console.Out.Flush();
-            //    Thread.Sleep(500);
-            //
-            //    ds3.Refresh();
-            //    Console.Clear();
-            //}
-            //
-            //
-            //TestUi();
+            var ds3 = new DarkSouls3();
+            
+            GameLoop(ds3, () =>
+            {
+                Console.WriteLine($"{ds3.GetInGameTimeMilliseconds()}");
+                Console.WriteLine($"peepo: {ds3.ReadEventFlag((uint)SoulMemory.DarkSouls3.Boss.IudexGundyr)}");
+            });
 
             var ds1 = new DarkSouls1();
             ds1.TryRefresh(out _);
@@ -108,57 +74,24 @@ namespace cli
             }
         }
 
-
-        private static List<uint> ReadFlagsFromFile()
+        private static void GameLoop<T>(T game, Action display) where T : IGame
         {
-            var lines = File.ReadAllLines(@"C:\temp\flags.txt");
-            var flags = new List<uint>();
-            foreach (var line in lines)
+            while (true)
             {
-                if (uint.TryParse(line, out uint value))
+                if (!game.TryRefresh(out Exception e))
                 {
-                    flags.Add(value);
+                    Console.Clear();
+                    Console.WriteLine(e);
+                    Console.Out.Flush();
+                    Thread.Sleep(3000);
+                    Console.Clear();
                 }
                 else
                 {
-                    throw new Exception($"Failed to parse flag {line}");
+                    display.Invoke();
+                    Thread.Sleep(16);
+                    Console.SetCursorPosition(0, 0);
                 }
-            }
-            return flags;
-        }
-
-
-
-        private static void Testy()
-        {
-            Pointer bossKillCount;
-            Pointer AiManager;
-            Pointer rightHandWeaponMultiplier;
-            Pointer LeftHandWeaponMultiplier;
-
-            var process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.StartsWith("DarkSoulsII"));
-
-            process.ScanCache().ScanRelative("some aob", "48 8B 05 ?? ?? ?? ?? 48 8B 58 38 48 85 DB 74 ?? F6", 3, 7)
-                .CreatePointer(out bossKillCount, 0x70, 0x28, 0x20, 0x8)
-                .CreatePointer(out AiManager, 0x28)
-                .CreatePointer(out rightHandWeaponMultiplier, 0xd0, 0x378, 0x28, 0x158)
-                .CreatePointer(out LeftHandWeaponMultiplier, 0xd0, 0x378, 0x28, 0x80)
-                ;
-
-            //Disable AI
-            AiManager.WriteBool(0x18, true);
-
-            //Set crazy damage
-            rightHandWeaponMultiplier.WriteFloat(999999.0f);
-
-            //Read boss kill counters
-            var lastGiantKillCount = bossKillCount.ReadInt32(0x7c);
-
-            while (true)
-            {
-                Console.Clear();
-                var res = bossKillCount.ToString();
-                Console.WriteLine(res);
             }
         }
 
@@ -171,85 +104,45 @@ namespace cli
             f.Controls.Add(c);
             f.ShowDialog();
         }
-        
-        public static string md5Hash(byte[] input)
-        {
-            // Use input string to calculate MD5 hash
-            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
-            {
-                var hash = md5.ComputeHash(input);
-                var sb = new System.Text.StringBuilder();
-                for (int i = 0; i < hash.Length; i++)
-                {
-                    sb.Append(hash[i].ToString("X2"));
-                }
-                return sb.ToString();
-            }
-        }
 
-
-        public static void TestDs3Patts()
+        #region Validate patterns 
+        public static void ValidatePatterns()
         {
-            if (!SoulMemory.MemoryV2.MemoryScanner.TryValidatePatterns(
-                GetDs3TreeBuilder(), 
-                Directory.EnumerateFiles(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables").ToList(), 
-                out List<(string fileName, string patternName, long count)> errors))
+            var validatables = new List<(string Name, IGame Game, string Directory)>()
             {
-                foreach (var error in errors)
+                ("Dark Souls Remastered", new Remastered(), @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
+                ("Dark Souls 3"         , new DarkSouls3(), @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
+            };
+
+            foreach(var validatable in validatables)
+            {
+                var tree = validatable.Game.GetTreeBuilder();
+                var files = Directory.EnumerateFiles(validatable.Directory).ToList();
+
+                Console.WriteLine($"Starting {validatable.Name}");
+
+                var s = new Stopwatch();
+                s.Start();
+                
+                if (!SoulMemory.MemoryV2.MemoryScanner.TryValidatePatterns(tree, files, out List<(string fileName, string patternName, long count)> errors))
                 {
-                    Console.WriteLine($"{error.fileName} {error.patternName} {error.count}");
+                    foreach (var error in errors)
+                    {
+                        Console.WriteLine($"{error.fileName} {error.patternName} {error.count}");
+                    }
                 }
+
+                s.Stop();
+                Console.WriteLine($"Finished {validatable.Name}, elapsed {s.Elapsed}");
             }
 
             Console.WriteLine("Done");
             Console.ReadKey();
         }
 
+        #endregion
 
-        public static SoulMemory.MemoryV2.TreeBuilder GetDs3TreeBuilder()
-        {
-            var treeBuilder = new SoulMemory.MemoryV2.TreeBuilder();
-            treeBuilder
-                .ScanRelative("NewMenuSystem", "48 8b 0d ? ? ? ? 48 8b 7c 24 20 48 8b 5c 24 30 48 85 c9", 3, 7)
-                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0);
-
-            treeBuilder
-                .ScanRelative("GameDataMan", "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20", 3, 7)
-                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0)
-                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0, 0x10);
-                    ;
-            treeBuilder
-                .ScanRelative("playerIns", "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70", 3, 7)
-                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0, 0x80)
-                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0, 0x40, 0x28)
-                    ;
-            treeBuilder
-                .ScanRelative("Loading", "c6 05 ? ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9", 2, 7)
-                    .AddPointer(new SoulMemory.MemoryV2.Pointer())
-                    ;
-            treeBuilder
-                .ScanRelative("SprjFadeImp", "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2", 3, 7) //0x8 = ptr to Fd4FadeSystem
-                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0x0, 0x8, 0x2ec)
-                    ;
-            treeBuilder
-                .ScanRelative("SprjEventFlagMan", "48 c7 05 ? ? ? ? 00 00 00 00 48 8b 7c 24 38 c7 46 54 ff ff ff ff 48 83 c4 20 5e c3", 3, 11)
-                    .AddPointer(new SoulMemory.MemoryV2.Pointer(), 0x0)
-                    ;
-            treeBuilder
-                .ScanRelative("FieldArea", "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10", 3, 7)
-                    .AddPointer(new SoulMemory.MemoryV2.Pointer())
-                    ;
-            return treeBuilder;
-        }
-
-
-
-
-
-
-
-
-
+        #region Ds1 diagnostic
 
         private static void Ds1Diagnostic()
         {
@@ -306,180 +199,9 @@ namespace cli
             }
         }
 
-        public static void Ds3TestPatterns()
-        {
-            var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables");
-            patternCounter.AddPattern("NewMenuSystem"   , "48 8b 0d ? ? ? ? 48 8b 7c 24 20 48 8b 5c 24 30 48 85 c9");
-            //patternCounter.AddPattern("bonfireUnlock"   , "48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 15 48 8b cb");
-            //patternCounter.AddPattern("bonfireUnlock"   , "8B 13 48 83 C4 ? 5B E9 ? 54 ? ? ? BA");
-            //patternCounter.AddPattern("menuMan"         , "48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 0d ? ? ? ? 48 85 c9 74 33 e8 ? ? ? ? 48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03 33 d2 48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 5c 24 30 48 8b 74 24 38 48 83 c4 20 5f c3");
-            //patternCounter.AddPattern("IGT"             , "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20");
-            //patternCounter.AddPattern("playerIns"       , "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70");
-            //patternCounter.AddPattern("Loading"         , "c6 05 ? ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9");
-            //patternCounter.AddPattern("SprjFadeImp"     , "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2");
-            //patternCounter.AddPattern("SprjEventFlagMan", "48 c7 05 ? ? ? ? 00 00 00 00 48 8b 7c 24 38 c7 46 54 ff ff ff ff 48 83 c4 20 5e c3");
-            //patternCounter.AddPattern("FieldArea"       , "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10");
-
-            foreach (var result in patternCounter.GetResults())
-            {
-                if (result.count != 1)
-                {
-                    Console.WriteLine($"Error: {result.executable} {result.name} {result.count}");
-                }
-            }
-
-            Console.WriteLine("Done");
-            Console.ReadKey();
-        }
-
-        public static void RemasteredTestPatterns()
-        {
-            var remastered = new Remastered();
-            if (!SoulMemory.MemoryV2.MemoryScanner.TryValidatePatterns(remastered.GetTreeBuilder(), Directory.EnumerateFiles(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR").ToList(), out List<(string fileName, string patternName, long count)> errors))
-            {
-                foreach (var error in errors)
-                {
-                    Console.WriteLine($"{error.fileName} {error.patternName} {error.count}");
-                }
-            }
-
-            Console.WriteLine("Done");
-            Console.ReadKey();
-        }
-
-        public static void SekiroTestPatterns()
-        {
-            var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro");
-            patternCounter.AddPattern("chr dbg", "80 3d ? ? ? ? 00 0f ? ? ? ? ? 48 8b 9b d0 11 00 00");
-            //patternCounter.AddPattern("SprjFadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc");
-            //patternCounter.AddPattern("WorldChrManImp", "48 8B 35 ? ? ? ? 44 0F 28 18");
-            //patternCounter.AddPattern("SprjEventFlagMan", "48 8b 0d ? ? ? ? 32 db 85 d2 49 63 f0");
-            //patternCounter.AddPattern("FieldArea", "48 8b 0d ? ? ? ? 48 85 c9 74 26 44 8b 41 28 48 8d 54 24 40");
-            //patternCounter.AddPattern("Igt", "48 8b 05 ? ? ? ? 32 d2 48 8b 48 08 48 85 c9 74 13 80 b9 ba");
-            
-
-            foreach (var result in patternCounter.GetResults())
-            {
-                if (result.count != 1)
-                {
-                    Console.WriteLine($"Error: {result.executable} {result.name} {result.count}");
-                }
-            }
-
-            Console.WriteLine("Done");
-            Console.ReadKey();
-        }
-
-
-
-        public static void SijixAobTest()
-        {
-            var patternCounter = new PatternCounter(@"C:\Users\Frank\Desktop\sijix remas exe");
-            patternCounter.AddPattern("GameMan", "4c 8b 05 ? ? ? ? 48 8d 91 80 00 00 00");
-            patternCounter.AddPattern("GameDataMan", "48 8b 05 ? ? ? ? 48 8b 50 10 48 89 54 24 60");
-            patternCounter.AddPattern("WorldChrManImp", "48 8b 05 ? ? ? ? 48 8b da 48 8b 48 68");
-            patternCounter.AddPattern("EventFlags", "48 8B 0D ? ? ? ? 99 33 C2 45 33 C0 2B C2 8D 50 F6");
-            patternCounter.AddPattern("InventoryIndices", "48 8D 15 ? ? ? ? C1 E1 10 49 8B C6 41 0B 8F 14 02 00 00 44 8B C6 42 89 0C B2 41 8B D6 49 8B CF");
-            patternCounter.AddPattern("NetManImp", "48 8b 05 ? ? ? ? 48 05 08 0a 00 00 48 89 44 24 50 e8 34 fc fd ff");
-
-
-            patternCounter.AddPattern("BASE_PTR_AOB", "48 8B 05 ? ? ? ? 48 85 C0 ? ? F3 0F 58 80 AC 00 00 00");
-            patternCounter.AddPattern("ITEM_ADDR_AOB", "48 89 5C 24 18 89 54 24 10 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 F9");
-            patternCounter.AddPattern("INVENTORY_DATA_AOB", "48 8B 05 ? ? ? ? 48 85 C0 ? ? F3 0F 58 80 AC 00 00 00");
-            patternCounter.AddPattern("FLAGS_AOB", "48 8B 0D ? ? ? ? 99 33 C2 45 33 C0 2B C2 8D 50 F6");
-            patternCounter.AddPattern("CHR_FOLLOW_CAM_AOB", "48 8B 0D ? ? ? ? E8 ? ? ? ? 48 8B 4E 68 48 8B 05 ? ? ? ? 48 89 48 60");
-
-            foreach (var result in patternCounter.GetResults())
-            {
-                if (result.count != 1)
-                {
-                    Console.WriteLine($"Error: {result.executable} {result.name} {result.count}");
-                }
-            }
-
-            Console.WriteLine("Done");
-            Console.ReadKey();
-
-        }
-
-
-        private static Dictionary<string, byte[]> _cache = new Dictionary<string, byte[]>();
-
-        public static void TestAobs()
-        {
-            //fd4 alternative 48 8b 0d ? ? ? ? 48 85 c9 74 06 48 8b 59 08
-
-            AobCount("NoLogo", "80 bf b8 00 00 00 00 ? ? 48 8b 05 ? ? ? ? 48 85 c0 75 2e 48 8d 0d"); 
-            AobCount("FieldArea", "48 8B 0D ?? ?? ?? ?? 48 ?? ?? ?? 44 0F B6 61 ?? E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 48 ?? ?? ?? 48 85 C0"); 
-            AobCount("SetEventFlag", "48 89 5c 24 08 44 8b 49 1c 44 8b d2 33 d2 41 8b c2 41 f7 f1 41 8b d8 4c 8b d9"); 
-            AobCount("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00"); 
-
-            AobCount("FD4Time",                 "48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00");
-            AobCount("WorldChrManImp",          "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7");
-            AobCount("CSMenuManImp",            "48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b");
-            AobCount("IGT fix detour address",  "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?");
-            AobCount("IGT code cave",           "48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20");
-            AobCount("gameman",                 "48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03");
-
-            Console.WriteLine("all aob's counted.");
-            Console.ReadKey();
-        }
-
-        public static void AobCount(string identifier, string aob)
-        {
-            //C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables
-            var path = @"C:\Users\Frank\Desktop\dark souls\runtime dumps\exe";
-            var executabes = Directory.EnumerateFiles(path).ToList();
-
-            var pattern = aob.ToByteArray();
-
-            foreach (var e in executabes)
-            {
-                if (!_cache.TryGetValue(e, out byte[] bytes))
-                {
-                    bytes = File.ReadAllBytes(e);
-                    _cache[e] = bytes;
-                }
-
-                var count = PatternScanner.Count(bytes, pattern);
-                if (count != 1)
-                {
-                    Console.WriteLine($"{Path.GetFileName(e)} {count} {identifier}");
-                }
-            }
-
-            Console.WriteLine($"finished {identifier}");
-        }
-
-        private static void AddressFix()
-        {
-            var baseAddress = 0x7ff743490000;
-            var addressees = new List<long>()
-            {
-                0x783CD9,
-                0x71FC02,
-                0x8AD08A,
-                0x70F3A1,
-                0x70F6A1,
-                0x74CACF,
-                0x7219C3,
-                0x72165E,
-                0x784353,
-                0x74CAE4,
-                0x7438E7,
-                0x8AD889,
-                0x70F43D,
-            };
-
-            foreach (var a in addressees)
-            {
-                Console.WriteLine($"{baseAddress + a:X}");
-            }
-
-        }
+        #endregion
 
         #region stand alone bs removal for ER
-
         private static void StandAloneErBlackscreenRemoval()
         {
             Console.CursorVisible = false;
@@ -530,81 +252,8 @@ namespace cli
             }
         }
 
-
-        private static bool _isWarpRequested = false;
-        private static bool _isWarping = false;
-        private static bool _warpHasPlayerBeenUnloaded = false;
-        private static void TrackWarps(DarkSouls1 _darkSouls1)
-        {
-            //Track warps - the game handles warps before the loading screen starts.
-            //That's why they have to be tracked while playing, and then resolved on the next loading screen
-
-            if (!_isWarpRequested)
-            {
-                _isWarpRequested = _darkSouls1.IsWarpRequested();
-                return;
-            }
-
-            var isPlayerLoaded = _darkSouls1.IsPlayerLoaded();
-
-
-            //Warp is requested - wait for loading screen
-            if (_isWarpRequested)
-            {
-                if (!_warpHasPlayerBeenUnloaded)
-                {
-                    if (!isPlayerLoaded)
-                    {
-                        _warpHasPlayerBeenUnloaded = true;
-                    }
-                }
-                else
-                {
-                    _isWarping = true;
-                }
-
-                if (_isWarping && isPlayerLoaded)
-                {
-                    _isWarping = false;
-                    _warpHasPlayerBeenUnloaded = false;
-                    _isWarpRequested = false;
-                }
-            }
-        }
         #endregion
-
-
-        public enum XInputButton : ushort
-        {
-            DPAD_UP = 0x0001,
-            DPAD_DOWN = 0x0002,
-            DPAD_LEFT = 0x0004,
-            DPAD_RIGHT = 0x0008,
-            START = 0x0010,
-            BACK = 0x0020,
-            LEFT_THUMB = 0x0040,
-            RIGHT_THUMB = 0x0080,
-            LEFT_SHOULDER = 0x0100,
-            RIGHT_SHOULDER = 0x0200,
-            A = 0x1000,
-            B = 0x2000,
-            X = 0x4000,
-            Y = 0x8000,
-        }
-
-        public class XInputGamepad
-        {
-            public ushort wButtons = 0;
-            public byte bLeftTrigger = 0;
-            public byte bRightTrigger = 0;
-            public short sThumbLX = 0;
-            public short sThumbLY = 0;
-            public short sThumbRX = 0;
-            public short sThumbRY = 0;
-        }
-
     }
 }
-
 
 #pragma warning restore CS0162

@@ -15,47 +15,94 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using SoulMemory.Memory;
+using SoulMemory.MemoryV2;
 using SoulMemory.Shared;
+using Pointer = SoulMemory.MemoryV2.Pointer;
 
 namespace SoulMemory.DarkSouls3
 {
-    public class DarkSouls3
+    public class DarkSouls3 : IGame
     {
         private Process _process;
-
-        //private Pointer _menuMan = null;
-        private Pointer _gameDataMan = null;
-        private Pointer _playerGameData = null;
-        private Pointer _playerIns = null;
-        private Pointer _newMenuSystem = null;
-        //private Pointer _nowLoadingHelperImp = null;
-        private Pointer _loading = null;
-        private Pointer _blackscreen = null;
-        private Pointer _sprjEventFlagMan = null;
-        private Pointer _fieldArea = null;
-        private Pointer _sprjChrPhysicsModule = null;
-        public Exception Exception;
-
+        private Pointer _gameDataMan = new Pointer();
+        private Pointer _playerGameData = new Pointer();
+        private Pointer _playerIns = new Pointer();
+        private Pointer _newMenuSystem = new Pointer();
+        private Pointer _loading = new Pointer();
+        private Pointer _blackscreen = new Pointer();
+        private Pointer _sprjEventFlagMan = new Pointer();
+        private Pointer _fieldArea = new Pointer();
+        private Pointer _sprjChrPhysicsModule = new Pointer();
         private long _igtOffset;
+        private DateTime _lastFailedRefresh = DateTime.MinValue;
 
-        public DarkSouls3()
+        public bool TryRefresh(out Exception exception)
         {
-            Refresh();
+            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
+            {
+                exception = null;
+                return false;
+            }
+
+            exception = null;
+            if (!ProcessClinger.Refresh(ref _process, "darksoulsiii", InitPointers, ResetPointers, out Exception e))
+            {
+                exception = e;
+                _lastFailedRefresh = DateTime.Now;
+                return false;
+            }
+            return true;
         }
 
-        private bool InitPointers()
+        public TreeBuilder GetTreeBuilder()
+        {
+            var treeBuilder = new TreeBuilder();
+            treeBuilder
+                .ScanRelative("NewMenuSystem", "48 8b 0d ? ? ? ? 48 8b 7c 24 20 48 8b 5c 24 30 48 85 c9", 3, 7)
+                    .AddPointer(_newMenuSystem, 0);
+
+            treeBuilder
+                .ScanRelative("GameDataMan", "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20", 3, 7)
+                    .AddPointer(_gameDataMan, 0)
+                    .AddPointer(_playerGameData, 0, 0x10);
+
+            treeBuilder
+                .ScanRelative("playerIns", "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70", 3, 7)
+                    .AddPointer(_playerIns, 0, 0x80)
+                    .AddPointer(_sprjChrPhysicsModule, 0, 0x40, 0x28);
+
+            treeBuilder
+                .ScanRelative("Loading", "c6 05 ? ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9", 2, 7)
+                    .AddPointer(_loading);
+
+            treeBuilder
+                .ScanRelative("SprjFadeImp", "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2", 3, 7) //0x8 = ptr to Fd4FadeSystem
+                    .AddPointer(_blackscreen, 0x0, 0x8, 0x2ec);
+
+            treeBuilder
+                .ScanRelative("SprjEventFlagMan", "48 c7 05 ? ? ? ? 00 00 00 00 48 8b 7c 24 38 c7 46 54 ff ff ff ff 48 83 c4 20 5e c3", 3, 11)
+                    .AddPointer(_sprjEventFlagMan, 0x0);
+
+            treeBuilder
+                .ScanRelative("FieldArea", "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10", 3, 7)
+                    .AddPointer(_fieldArea);
+
+            return treeBuilder;
+        }
+
+
+        private Exception InitPointers()
         {
             try
             {
                 if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
                 {
-                    Exception = new Exception("Failed to determine game version");
-                    return false;
+                    return new Exception("Failed to determine game version");
                 }
-
 
                 //Clear count: 0x78 -> likely subject to the same shift that happens to IGT offset
                 switch (GetVersion(v))
@@ -73,52 +120,39 @@ namespace SoulMemory.DarkSouls3
                         break;
                 }
 
-                _process.ScanCache()
-                    //.ScanRelative("menuMan", "48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 0d ? ? ? ? 48 85 c9 74 33 e8 ? ? ? ? 48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03 33 d2 48 8b cb 41 ff 10 4c 8b 07 48 8b d3 48 8b cf 41 ff 50 68 48 89 35 ? ? ? ? 48 8b 5c 24 30 48 8b 74 24 38 48 83 c4 20 5f c3", 33, 7)
-                    //    .CreatePointer(out _menuMan, 0)
-
-                    //.ScanRelative("NowLoadingHelperImp", "48 8b 05 ? ? ? ? 80 78 4d 00 44 8b 8b d4 00 00 00 44 8b 83 d0 00 00 00 48 8b 93 c8 00 00 00 b9 0a 00 00 00 bf 58 02 00 00 0f 45 f9 48 8d 8b 80 00 00 00", 3, 7)
-                    //    .CreatePointer(out _nowLoadingHelperImp, 0)
-
-                    .ScanRelative("NewMenuSystem", "48 8b 0d ? ? ? ? 48 8b 7c 24 20 48 8b 5c 24 30 48 85 c9", 3, 7)
-                        .CreatePointer(out _newMenuSystem, 0)
-
-                    .ScanRelative("GameDataMan", "48 8b 0d ? ? ? ? 4c 8d 44 24 40 45 33 c9 48 8b d3 40 88 74 24 28 44 88 74 24 20", 3, 7)
-                        .CreatePointer(out _gameDataMan, 0)
-                        .CreatePointer(out _playerGameData, 0, 0x10)
-
-                    .ScanRelative("playerIns", "48 8b 0d ? ? ? ? 45 33 c0 48 8d 55 e7 e8 ? ? ? ? 0f 2f 73 70 72 0d f3 ? ? ? ? ? ? ? ? 0f 11 43 70", 3, 7)
-                        .CreatePointer(out _playerIns, 0, 0x80)
-                        .CreatePointer(out _sprjChrPhysicsModule, 0, 0x40, 0x28)
-                   
-                    .ScanRelative("Loading", "c6 05 ? ? ? ? ? e8 ? ? ? ? 84 c0 0f 94 c0 e9", 2, 7)
-                        .CreatePointer(out _loading)
-
-                    .ScanRelative("SprjFadeImp", "48 8b 0d ? ? ? ? 4c 8d 4c 24 38 4c 8d 44 24 48 33 d2", 3, 7) //0x8 = ptr to Fd4FadeSystem
-                        .CreatePointer(out _blackscreen, 0x0, 0x8, 0x2ec)
-
-                    .ScanRelative("SprjEventFlagMan", "48 c7 05 ? ? ? ? 00 00 00 00 48 8b 7c 24 38 c7 46 54 ff ff ff ff 48 83 c4 20 5e c3", 3, 11)
-                        .CreatePointer(out _sprjEventFlagMan, 0x0)
-
-                    .ScanRelative("FieldArea", "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10", 3, 7)
-                        .CreatePointer(out _fieldArea)
-
-                    ;
-                
-                return true;
+                var treeBuilder = GetTreeBuilder();
+                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+                {
+                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
+                }
             }
             catch(Exception e)
             {
-                Exception = e;
+                return e;
             }
-            return false;
+            return null;
         }
+
+        private void ResetPointers()
+        {
+            _gameDataMan.Clear();
+            _playerGameData.Clear();
+            _playerIns.Clear();
+            _loading.Clear();
+            _blackscreen.Clear();
+            _sprjEventFlagMan.Clear();
+            _fieldArea.Clear();
+            _sprjChrPhysicsModule.Clear();
+        }
+
+
 
         public enum DarkSouls3Version
         {
             V104,
             Later,
         };
+
         public static DarkSouls3Version GetVersion(Version v)
         {
             if (v.Minor <= 4)
@@ -128,20 +162,7 @@ namespace SoulMemory.DarkSouls3
 
             return DarkSouls3Version.Later;
         }
-
-
-        private void ResetPointers()
-        {
-            _gameDataMan = null;
-            _playerGameData = null;
-            _playerIns = null;
-            _loading = null;
-            _blackscreen = null;
-            _sprjEventFlagMan = null;
-            _fieldArea = null;
-            _sprjChrPhysicsModule = null;
-        }
-
+       
         public bool IsLoading()
         {
             if (_loading == null)
@@ -156,40 +177,6 @@ namespace SoulMemory.DarkSouls3
             return _blackscreen?.ReadInt32() != 0;
         }
 
-        //public bool Cutscene()
-        //{
-        //    if (_cutscene == null)
-        //    {
-        //        return true;
-        //    }
-        //
-        //    return _cutscene.ReadInt32() != 2;
-        //}
-
-        public bool Refresh()
-        {
-            if (_process == null)
-            {
-                _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower().StartsWith("darksoulsiii"));
-                if (_process != null)
-                {
-                    if (!InitPointers())
-                    {
-                        _process = null;
-                    }
-                }
-            }
-            else
-            {
-                if (_process.HasExited)
-                {
-                    _process = null;
-                    ResetPointers();
-                }
-            }
-            return _process != null;
-        }
-        
         public bool Attached => _process != null;
 
         public bool IsPlayerLoaded()
@@ -241,7 +228,6 @@ namespace SoulMemory.DarkSouls3
         #endregion
 
         #region read event flags
-
         public bool ReadEventFlag(uint eventFlagId)
         {
             if (_sprjEventFlagMan == null || _fieldArea == null)
@@ -336,8 +322,9 @@ namespace SoulMemory.DarkSouls3
             {
                 return false;
             }
-            
-            var resultPointerAddress = new Pointer(ptr.Process, ptr.Is64Bit, (eventFlagIdDiv1000 << 4) + ptr.GetAddress() + flagWorldBlockInfoCategory * 0xa8, 0x0);
+
+            var resultPointerAddress = new Pointer();
+            resultPointerAddress.Initialize(ptr.Process, ptr.Is64Bit, (eventFlagIdDiv1000 << 4) + ptr.GetAddress() + flagWorldBlockInfoCategory * 0xa8, 0x0);
 
             if (!resultPointerAddress.IsNullPtr())
             {
