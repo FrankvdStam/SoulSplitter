@@ -28,48 +28,6 @@ namespace SoulSplitter.UI.DarkSouls3
         public DarkSouls3Control()
         {
             InitializeComponent();
-            DataContextChanged += OnDataContextChanged;
-        }
-
-        void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (DataContext is DarkSouls3ViewModel vm)
-            {
-                _darkSouls3ViewModel = vm;
-            }
-        }
-        private DarkSouls3ViewModel _darkSouls3ViewModel;
-
-        private void AddSplit_OnClick(object sender, RoutedEventArgs e)
-        {
-            _darkSouls3ViewModel.AddSplit();
-        }
-
-        private void RemoveSplit_OnClick(object sender, RoutedEventArgs e)
-        {
-            _darkSouls3ViewModel.RemoveSplit();
-        }
-
-        private void TextBoxRawFlag_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (_darkSouls3ViewModel.NewSplitType != null && _darkSouls3ViewModel.NewSplitType == SplitType.Flag && sender is TextBox textBox)
-            {
-                if (uint.TryParse(textBox.Text, out uint result))
-                {
-                    _darkSouls3ViewModel.NewSplitValue = result;
-                    return;
-                }
-                _darkSouls3ViewModel.NewSplitValue = null;
-                textBox.Text = string.Empty;
-            }
-        }
-        private void SplitsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            _darkSouls3ViewModel.SelectedSplit = null;
-            if (e.NewValue is HierarchicalSplitViewModel b)
-            {
-                _darkSouls3ViewModel.SelectedSplit = b;
-            }
         }
     }
 }

@@ -36,6 +36,51 @@ namespace SoulSplitter.UI.Generic
 
         #region Field visibility
 
+        #region new splits ============================================================================================================================================
+
+        [XmlIgnore]
+        public SplitType? NewSplitType
+        {
+            get => _newSplitType;
+            set
+            {
+                SetField(ref _newSplitType, value);
+
+                if (NewSplitType == SplitType.Position)
+                {
+                    Position = new VectorSize() { Position = CurrentPosition.Clone() };
+                }
+
+                if (NewSplitType == SplitType.Flag)
+                {
+                    FlagDescription = new FlagDescription();
+                }
+            }
+        }
+        private SplitType? _newSplitType = null;
+
+        [XmlIgnore]
+        public TimingType? NewSplitTimingType
+        {
+            get => _newSplitTimingType;
+            set
+            {
+                SetField(ref _newSplitTimingType, value);
+                NewSplitEnabledSplitType = true;
+                NewSplitValue = null;
+            }
+        }
+        private TimingType? _newSplitTimingType;
+
+        [XmlIgnore]
+        public object NewSplitValue
+        {
+            get => _newSplitValue;
+            set => SetField(ref _newSplitValue, value);
+        }
+        private object _newSplitValue;
+        #endregion
+
         [XmlIgnore]
         public bool NewSplitEnabledSplitType
         {

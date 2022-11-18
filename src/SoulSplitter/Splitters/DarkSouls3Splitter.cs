@@ -22,7 +22,6 @@ using SoulMemory.DarkSouls3;
 using SoulSplitter.Splits.DarkSouls3;
 using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.Generic;
-using SplitType = SoulSplitter.Splits.DarkSouls3.SplitType;
 
 namespace SoulSplitter.Splitters
 {
@@ -78,6 +77,15 @@ namespace SoulSplitter.Splitters
                 }
                 Exception = e;
             }
+
+            Logger.TryOrLogError(() =>
+            {
+                if (_darkSouls3ViewModel.LockIgtToZero)
+                {
+                    _darkSouls3.WriteInGameTimeMilliseconds(0);
+                    return; //Don't allow the timer to run when IGT is locked
+                }
+            });
 
             Logger.TryOrLogError(() =>
             {
@@ -165,7 +173,7 @@ namespace SoulSplitter.Splitters
         public void StartAutoSplitting()
         {
             _splits = (
-                from timingType in _darkSouls3ViewModel.Splits
+                from timingType in _darkSouls3ViewModel.SplitsViewModel.Splits
                 from splitType in timingType.Children
                 from split in splitType.Children
                 select new Split(timingType.TimingType, splitType.SplitType, split.Split)
@@ -183,39 +191,44 @@ namespace SoulSplitter.Splitters
             {
                 if (!s.SplitTriggered)
                 {
-                    switch (s.SplitType)
+                    if (!s.SplitConditionMet)
                     {
-                        default:
-                            throw new Exception($"Unsupported split type {s.SplitType}");
+                        switch (s.SplitType)
+                        {
+                            default:
+                                throw new Exception($"Unsupported split type {s.SplitType}");
 
-                        case SplitType.Boss:
-                        case SplitType.Bonfire:
-                        case SplitType.ItemPickup:
-                        case SplitType.Flag:
-                            if (!s.SplitConditionMet)
-                            {
+                            case SplitType.Boss:
+                            case SplitType.Bonfire:
+                            case SplitType.ItemPickup:
+                            case SplitType.Flag:
                                 s.SplitConditionMet = _darkSouls3.ReadEventFlag(s.Flag);
-                            }
+                                break;
 
-                            if (s.SplitConditionMet)
-                            {
-                                ResolveSplitTiming(s);
-                            }
-
-                            break;
-
-                        case SplitType.Attribute:
-                            var currentLevel = _darkSouls3.ReadAttribute(s.Attribute.AttributeType);
-                            if (!s.SplitConditionMet)
-                            {
+                            case SplitType.Attribute:
+                                var currentLevel = _darkSouls3.ReadAttribute(s.Attribute.AttributeType);
                                 s.SplitConditionMet = currentLevel >= s.Attribute.Level;
-                            }
+                                break;
 
-                            if (s.SplitConditionMet)
-                            {
-                                ResolveSplitTiming(s);
-                            }
-                            break;
+                            case SplitType.Position:
+                                if (s.Position.Position.X + s.Position.Size > _darkSouls3ViewModel.CurrentPosition.X &&
+                                    s.Position.Position.X - s.Position.Size < _darkSouls3ViewModel.CurrentPosition.X &&
+                                    
+                                    s.Position.Position.Y + s.Position.Size > _darkSouls3ViewModel.CurrentPosition.Y &&
+                                    s.Position.Position.Y - s.Position.Size < _darkSouls3ViewModel.CurrentPosition.Y &&
+                                    
+                                    s.Position.Position.Z + s.Position.Size > _darkSouls3ViewModel.CurrentPosition.Z &&
+                                    s.Position.Position.Z - s.Position.Size < _darkSouls3ViewModel.CurrentPosition.Z)
+                                {
+                                    s.SplitConditionMet = true;
+                                }
+                                break;
+                        }
+                    }
+
+                    if (s.SplitConditionMet)
+                    {
+                        ResolveSplitTiming(s);
                     }
                 }
             }

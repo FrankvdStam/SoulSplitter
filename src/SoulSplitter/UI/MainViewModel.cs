@@ -126,7 +126,7 @@ namespace SoulSplitter.UI
             var vm = xml.DeserializeXml<MainViewModel>();
             vm.DarkSouls1ViewModel.SplitsViewModel.RestoreHierarchy();
             vm.DarkSouls2ViewModel.RestoreHierarchy();
-            vm.DarkSouls3ViewModel.RestoreHierarchy();
+            vm.DarkSouls3ViewModel.SplitsViewModel.RestoreHierarchy();
             vm.SekiroViewModel.SplitsViewModel.RestoreHierarchy();
             vm.EldenRingViewModel.RestoreHierarchy();
             return vm;

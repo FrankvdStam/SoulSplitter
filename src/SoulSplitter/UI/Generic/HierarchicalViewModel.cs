@@ -183,10 +183,17 @@ namespace SoulSplitter.UI.Generic
 
     [XmlInclude(typeof(VectorSize)),
      XmlInclude(typeof(FlagDescription)),
+     
      XmlInclude(typeof(Splits.DarkSouls1.BonfireState)),
      XmlInclude(typeof(Splits.DarkSouls1.ItemState)),
      XmlInclude(typeof(Splits.DarkSouls1.Attribute)),
      XmlInclude(typeof(SoulMemory.DarkSouls1.Boss)),
+
+     XmlInclude(typeof(SoulMemory.DarkSouls3.Boss)),
+     XmlInclude(typeof(SoulMemory.DarkSouls3.Bonfire)),
+     XmlInclude(typeof(SoulMemory.DarkSouls3.ItemPickup)),
+     XmlInclude(typeof(Splits.DarkSouls3.Attribute)),
+
      XmlInclude(typeof(SoulMemory.Sekiro.Boss)),
      XmlInclude(typeof(SoulMemory.Sekiro.Idol))]
     public class SplitViewModel : INotifyPropertyChanged

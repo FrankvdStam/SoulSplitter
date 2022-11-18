@@ -25,7 +25,6 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:darkSouls3="clr-namespace:SoulSplitter.Splits.DarkSouls3"
              xmlns:darkSouls3Memory="clr-namespace:SoulMemory.DarkSouls3;assembly=SoulMemory"
-             xmlns:soulSplitter="clr-namespace:SoulSplitter"
              xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
              xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
              mc:Ignorable="d" 
@@ -53,15 +52,17 @@
                     <converters:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
                     <converters:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
                     <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
+                    <converters:SplitTypeVisibilityConverter      x:Key="SplitTypeVisibilityConverter"/>
 
 
                     <!-- Grid row definitions -->
                     <system:Int32 x:Key="StartAutomaticallyRow" >0</system:Int32>
-                    <system:Int32 x:Key="SeparatorRow"          >1</system:Int32>
-                    <system:Int32 x:Key="SplitDefinitionRow"    >2</system:Int32>
-                    <system:Int32 x:Key="SplitTypeRow"          >3</system:Int32>
-                    <system:Int32 x:Key="AddRemoveSplitRow"     >4</system:Int32>
-                    <system:Int32 x:Key="SplitsTreeRow"         >5</system:Int32>
+                    <system:Int32 x:Key="LockTimerRow"          >1</system:Int32>
+                    <system:Int32 x:Key="SeparatorRow"          >2</system:Int32>
+                    <system:Int32 x:Key="SplitDefinitionRow"    >3</system:Int32>
+                    <system:Int32 x:Key="SplitTypeRow"          >4</system:Int32>
+                    <system:Int32 x:Key="AddRemoveSplitRow"     >5</system:Int32>
+                    <system:Int32 x:Key="SplitsTreeRow"         >6</system:Int32>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -69,6 +70,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -83,6 +85,13 @@
             Margin="5" 
             Content="Start automatically" 
             IsChecked="{Binding StartAutomatically}"/>
+
+        <!-- row ============================================================================================================================================================================================== -->
+        <CheckBox
+            Grid.Row="{StaticResource LockTimerRow}"
+            Margin="5"
+            Content="Lock IGT to 0:00 (for NG+ saves)"
+            IsChecked="{Binding LockIgtToZero}"/>
 
         <!-- row ============================================================================================================================================================================================== -->
         <Label 
@@ -126,41 +135,41 @@
             SelectedValuePath="Tag"
             SelectedValue="{Binding NewSplitType}"
             materialDesign:HintAssist.HelperText="what"
-            IsEnabled="{Binding NewSplitTypeEnabled}">
+            IsEnabled="{Binding NewSplitEnabledSplitType}">
 
             <ComboBoxItem Content="I kill a boss">
                 <ComboBoxItem.Tag>
-                    <darkSouls3:SplitType>Boss</darkSouls3:SplitType>
+                    <generic:SplitType>Boss</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
             <ComboBoxItem Content="I light a bonfire">
                 <ComboBoxItem.Tag>
-                    <darkSouls3:SplitType>Bonfire</darkSouls3:SplitType>
+                    <generic:SplitType>Bonfire</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
             <ComboBoxItem Content="I pick up an item">
                 <ComboBoxItem.Tag>
-                    <darkSouls3:SplitType>ItemPickup</darkSouls3:SplitType>
+                    <generic:SplitType>ItemPickup</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
             <ComboBoxItem Content="I level my character">
                 <ComboBoxItem.Tag>
-                    <darkSouls3:SplitType>Attribute</darkSouls3:SplitType>
+                    <generic:SplitType>Attribute</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
             <ComboBoxItem Content="I trigger a flag">
                 <ComboBoxItem.Tag>
-                    <darkSouls3:SplitType>Flag</darkSouls3:SplitType>
+                    <generic:SplitType>Flag</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
             <ComboBoxItem Content="I reach a position">
                 <ComboBoxItem.Tag>
-                    <darkSouls3:SplitType>Position</darkSouls3:SplitType>
+                    <generic:SplitType>Position</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
         </ComboBox>
@@ -176,14 +185,14 @@
             ItemsSource="{Binding Bosses}" 
             SelectedValue="{Binding NewSplitValue}"
             materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding NewSplitBossEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Boss}"
             DisplayMemberPath="Name"
             SelectedValuePath="Value"
             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
             IsEditable="True" 
             IsTextSearchEnabled="False" 
             StaysOpenOnEdit="True"/>
-
+        
         <!-- Bonfire -->
         <generic:FilteredComboBox
             Grid.Row="{StaticResource SplitTypeRow}"
@@ -193,7 +202,7 @@
             ItemsSource="{Binding Source={StaticResource BonfiresCollectionViewSource}}" 
             SelectedValue="{Binding NewSplitValue}"
             materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding NewSplitBonfireEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Bonfire}"
             DisplayMemberPath="Name"
             SelectedValuePath="Value"
             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
@@ -210,7 +219,7 @@
                 </GroupStyle>
             </ComboBox.GroupStyle>
         </generic:FilteredComboBox>
-
+        
         <!-- Item pickup -->
         <generic:FilteredComboBox 
             Grid.Row="{StaticResource SplitTypeRow}"
@@ -220,7 +229,7 @@
             ItemsSource="{Binding ItemPickups}" 
             SelectedValue="{Binding NewSplitValue}"
             materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding NewSplitItemPickupEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=ItemPickup}"
             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
             SelectedValuePath="Value"
             IsEditable="True" 
@@ -237,24 +246,23 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </generic:FilteredComboBox>
-
+        
         <!-- Attributes -->
         <StackPanel 
             Orientation="Horizontal"
             Grid.Row="{StaticResource SplitTypeRow}"
-            Visibility="{Binding NewSplitAttributeEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Attribute}">
 
             <ComboBox
-            Margin="5, 5, 5, 5"
-            Width="200"
-            SelectedValue="{Binding NewSplitValue.AttributeType}"
-            materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding NewSplitAttributeEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
-            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-            SelectedValuePath="Tag"
-            IsEditable="True" 
-            IsTextSearchEnabled="False" 
-            StaysOpenOnEdit="True">
+                Margin="5, 5, 5, 5"
+                Width="200"
+                SelectedValue="{Binding NewSplitValue.AttributeType}"
+                materialDesign:HintAssist.HelperText="which"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                SelectedValuePath="Tag"
+                IsEditable="True" 
+                IsTextSearchEnabled="False" 
+                StaysOpenOnEdit="True">
 
                 <ComboBoxItem Content="Vigor">
                     <ComboBoxItem.Tag>
@@ -329,75 +337,28 @@
             materialDesign:HintAssist.HelperText="Level"
             Text="{Binding NewSplitValue.Level}"
             />
-
         </StackPanel>
-        
 
-        <!-- Flag -->
-        <TextBox
+        <!-- Position -->
+        <generic:PositionControl
+            Margin="5,0,0,0"
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Position}"
             Grid.Row="{StaticResource SplitTypeRow}"
-            Width="420"
-            Margin="5"
-            HorizontalAlignment="Left"
-            Text="{Binding NewSplitValue}"
-            TextChanged="TextBoxRawFlag_OnTextChanged"
-            materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding NewSplitFlagEnabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            Grid.Column="0"/>
+        
+        <!-- Flag -->
+
+        <generic:FlagControl
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Flag}"/>
 
         <!-- row ============================================================================================================================================================================================== -->
-
-        <StackPanel
-            Orientation="Horizontal"
-            Grid.Row="{StaticResource AddRemoveSplitRow}">
-            <Button
-                Margin="5"
-                HorizontalAlignment="Left"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Add a split"
-                Click="AddSplit_OnClick"
-                IsEnabled="{Binding NewSplitAddEnabled}">
-                <materialDesign:PackIcon
-                    Kind="Plus"
-                    Height="30"
-                    Width="30" />
-            </Button>
-
-            <Button
-                Margin="5"
-                HorizontalAlignment="Left"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Remove selected split"
-                Click="RemoveSplit_OnClick"
-                IsEnabled="{Binding RemoveSplitEnabled}">
-                <materialDesign:PackIcon
-                    Kind="Close"
-                    Height="30"
-                    Width="30" />
-            </Button>
-        </StackPanel>
+        <generic:AddRemoveSplits Grid.Row="{StaticResource AddRemoveSplitRow}"/>
 
         <!-- row ============================================================================================================================================================================================== -->
-
-        <TreeView
-            Grid.Row="{StaticResource SplitsTreeRow}" 
-            ItemsSource="{Binding Splits}"
-            SelectedItemChanged="SplitsTreeView_OnSelectedItemChanged">
-
-            <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type local:HierarchicalTimingTypeViewModel}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding TimingType, Converter={StaticResource EnumDisplayNameConverter}}"/>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type local:HierarchicalSplitTypeViewModel}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding SplitType, Converter={StaticResource EnumDisplayNameConverter}}"/>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type local:HierarchicalSplitViewModel}">
-                    <TextBlock Text="{Binding Split, Converter={StaticResource SplitObjectToDescriptionConverter}}"/>
-                </HierarchicalDataTemplate>
-            </TreeView.Resources>
-        </TreeView>
+        <generic:SplitsTree Grid.Row="{StaticResource SplitsTreeRow}" />
 
         <!-- row ============================================================================================================================================================================================== -->
-
 
     </Grid>
 </UserControl>

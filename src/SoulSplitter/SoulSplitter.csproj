@@ -69,7 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logger.cs" />
-    <Compile Include="Migrations.cs" />
+    <Compile Include="Migrations\Migrator.cs" />
+    <Compile Include="Migrations\XmlExtensions.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Splits\DarkSouls1\BonfireState.cs" />
     <Compile Include="Splits\DarkSouls1\ItemState.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="Splits\DarkSouls2\BossKill.cs" />
     <Compile Include="Splits\DarkSouls2\Split.cs" />
     <Compile Include="Splits\DarkSouls3\Attribute.cs" />
-    <Compile Include="Splits\DarkSouls3\SplitType.cs" />
     <Compile Include="Splits\DarkSouls3\Split.cs" />
     <Compile Include="Splits\EldenRing\Split.cs" />
     <Compile Include="Splits\EldenRing\EldenRingSplitType.cs" />
@@ -117,7 +117,6 @@
     </Compile>
     <Compile Include="UI\DarkSouls3\DarkSouls3ViewModel.cs" />
     <Compile Include="UI\Generic\EnumFlagViewModel.cs" />
-    <Compile Include="UI\DarkSouls3\HierarchicalViewModel.cs" />
     <Compile Include="UI\EldenRing\PositionViewModel.cs" />
     <Compile Include="UI\EldenRing\BossViewModel.cs" />
     <Compile Include="UI\EldenRing\ItemPickupViewModel.cs" />

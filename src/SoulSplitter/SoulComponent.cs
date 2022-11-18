@@ -187,7 +187,7 @@ namespace SoulSplitter
                 {
                     try
                     {
-                        Migrations.Migrate(settings);
+                        Migrator.Migrate(settings);
                     }
                     catch { /* Ignored */ }
 

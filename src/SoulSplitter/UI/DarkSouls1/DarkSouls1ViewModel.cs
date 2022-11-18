@@ -120,20 +120,7 @@ namespace SoulSplitter.UI.DarkSouls1
         #region Properties for new splits ============================================================================================================================================
 
         [XmlIgnore]
-        public TimingType? NewSplitTimingType
-        {
-            get => _newSplitTimingType;
-            set
-            {
-                SetField(ref _newSplitTimingType, value);
-                NewSplitEnabledSplitType = true;
-                NewSplitValue = null;
-            }
-        }
-        private TimingType? _newSplitTimingType;
-
-        [XmlIgnore]
-        public SplitType? NewSplitType
+        public new SplitType? NewSplitType
         {
             get => _newSplitType;
             set
@@ -165,14 +152,6 @@ namespace SoulSplitter.UI.DarkSouls1
             }
         }
         private SplitType? _newSplitType = null;
-
-        [XmlIgnore]
-        public object NewSplitValue
-        {
-            get => _newSplitValue;
-            set => SetField(ref _newSplitValue, value);
-        }
-        private object _newSplitValue;
 
         [XmlIgnore]
         public Splits.DarkSouls1.BonfireState NewSplitBonfireState

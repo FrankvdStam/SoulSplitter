@@ -44,6 +44,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();return;
+
             var ds3 = new DarkSouls3();
             
             GameLoop(ds3, () =>

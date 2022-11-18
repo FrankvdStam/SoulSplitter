@@ -14,15 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulSplitter.Splits.DarkSouls3
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
+
+namespace SoulSplitter.Migrations
 {
-    public enum SplitType
+    internal static class XmlExtensions
     {
-        Boss,
-        Bonfire,
-        ItemPickup,
-        Attribute,
-        Flag,
-        Position,
+        public static XmlNode GetChildNodeByName(this XmlNode node, string childName)
+        {
+            var lower = childName.ToLower();
+            foreach (XmlNode child in node.ChildNodes)
+            {
+                if (child.LocalName.ToLower() == lower)
+                {
+                    return child;
+                }
+            }
+            throw new Exception($"{childName} not found");
+        }
     }
 }

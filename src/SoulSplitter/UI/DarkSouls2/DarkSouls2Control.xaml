@@ -195,7 +195,7 @@
             Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
             ToolTip="Read current game position"
             Click="CopyPosition_OnClick"
-            IsEnabled="{Binding EnabledAddSplit}">
+            IsEnabled="{Binding NewSplitAddEnabled}">
             <materialDesign:PackIcon
                 Kind="CrosshairsGps"
                 Height="30"

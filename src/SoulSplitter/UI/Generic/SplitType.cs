@@ -35,8 +35,11 @@ namespace SoulSplitter.UI.Generic
         [Display(Name = "Flag")]
         Flag,
 
-        [Display(Name = "Item")]
+        [Display(Name = "Iventory item")]
         Item,
+
+        [Display(Name = "Item pickup")]
+        ItemPickup,
 
         [Display(Name = "Credits")]
         Credits,

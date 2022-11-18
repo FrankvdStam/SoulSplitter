@@ -51,6 +51,10 @@ namespace SoulSplitter.Splits.DarkSouls3
                     Attribute = (Attribute)split;
                     break;
 
+                case SplitType.Position:
+                    Position = (VectorSize)split;
+                    break;
+
                 case SplitType.Flag:
                     Flag = (uint)split;
                     break;
@@ -64,6 +68,7 @@ namespace SoulSplitter.Splits.DarkSouls3
         public readonly Bonfire Bonfire;
         public readonly ItemPickup ItemPickup;
         public readonly Attribute Attribute;
+        public readonly VectorSize Position;
         public readonly uint Flag;
 
         /// <summary>
