@@ -26,23 +26,20 @@ using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splitters
 {
-    internal class DarkSouls1Splitter : ISplitter
+    public class DarkSouls1Splitter : ISplitter
     {
-        private LiveSplitState _liveSplitState;
-        private DarkSouls1 _darkSouls1;
+       // private LiveSplitState _liveSplitState;
+        private IDarkSouls1 _darkSouls1;
         private DarkSouls1ViewModel _darkSouls1ViewModel;
         public Exception Exception { get; set; }
 
-        public DarkSouls1Splitter(LiveSplitState state)
+        public DarkSouls1Splitter(ITimerModel timerModel, IDarkSouls1 darkSouls1)
         {
-            _darkSouls1 = new DarkSouls1();
-            _liveSplitState = state;
-            _liveSplitState.OnStart += OnStart;
-            _liveSplitState.OnReset += OnReset;
-            _liveSplitState.IsGameTimePaused = true;
-
-            _timerModel = new TimerModel();
-            _timerModel.CurrentState = state;
+            _darkSouls1 = darkSouls1;
+            _timerModel = timerModel;
+            _timerModel.OnStart += OnStart;
+            _timerModel.OnReset += OnReset;
+            _timerModel.CurrentState.IsGameTimePaused = true;
         }
 
         public void Update(object settings)
@@ -80,8 +77,8 @@ namespace SoulSplitter.Splitters
 
         public void Dispose()
         {
-            _liveSplitState.OnStart -= OnStart;
-            _liveSplitState.OnReset -= OnReset;
+            _timerModel.OnStart -= OnStart;
+            _timerModel.OnReset -= OnReset;
         }
 
         private void OnStart(object sender, EventArgs e)
@@ -97,12 +94,11 @@ namespace SoulSplitter.Splitters
 
         #region Timer
 
-        private readonly TimerModel _timerModel;
+        private readonly ITimerModel _timerModel;
         private int _inGameTime;
         private TimerState _timerState = TimerState.WaitForStart;
         private string _savefilePath = null;
         private int _saveSlot = -1;
-        private bool _isPtde = false;
         private int _previousIgt = 0;
         private bool _previousCredits = false;
 
@@ -113,10 +109,10 @@ namespace SoulSplitter.Splitters
                 _darkSouls1.ResetInventoryIndices();
             }
 
-            _liveSplitState.IsGameTimePaused = true;
+            _timerModel.CurrentState.IsGameTimePaused = true;
+            _timerModel.CurrentState.CurrentTimingMethod = LiveSplit.Model.TimingMethod.GameTime;
             _timerState = TimerState.Running;
             _inGameTime = _darkSouls1.GetInGameTimeMilliseconds();
-            _timerModel.Start();
         }
 
         private void ResetTimer()
@@ -127,7 +123,6 @@ namespace SoulSplitter.Splitters
             _inGameTime = 0;
             _previousIgt = 0;
             _previousCredits = false;
-            _timerModel.Reset();
         }
 
         private void UpdateTimer()
@@ -140,8 +135,7 @@ namespace SoulSplitter.Splitters
                         var igt = _darkSouls1.GetInGameTimeMilliseconds();
                         if (igt > 0 && igt < 150)
                         {
-                            StartTimer();
-                            StartAutoSplitting();
+                            _timerModel.Start();
                         }
                     }
                     break;
@@ -155,9 +149,8 @@ namespace SoulSplitter.Splitters
                         //but not the real saveslot used later on
                         if (_savefilePath == null)
                         {
-                            _savefilePath = _darkSouls1.GetSaveFileLocation();
+                            _savefilePath = _darkSouls1.GetSaveFileLocation(); //Maybe this path can be internal, the slot however can not.
                             _saveSlot = _darkSouls1.GetCurrentSaveSlot();
-                            _isPtde = _darkSouls1.IsPtde();
                         }
 
                         _inGameTime = currentIgt;
@@ -178,7 +171,7 @@ namespace SoulSplitter.Splitters
                         )
                     {
                         Debug.WriteLine("Read savefile time");
-                        var saveFileTime = _darkSouls1.GetSaveFileGameTimeMilliseconds(_savefilePath, _saveSlot, _isPtde);
+                        var saveFileTime = _darkSouls1.GetSaveFileGameTimeMilliseconds(_savefilePath, _saveSlot);
                         if (saveFileTime != 0)
                         {
                             _inGameTime = saveFileTime;

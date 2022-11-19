@@ -33,6 +33,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -254,6 +255,11 @@ namespace SoulMemory.DarkSouls1
                 return 0;
             }
             return _gameMan.ReadByte(0x11);
+        }
+
+        public int GetSaveFileGameTimeMilliseconds(string path, int slot)
+        {
+            return Sl2Reader.GetSaveFileIgt(path, slot, true) ?? 0;
         }
 
 

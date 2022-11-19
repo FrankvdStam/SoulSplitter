@@ -34,6 +34,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -272,6 +273,11 @@ namespace SoulMemory.DarkSouls1
                 netBonfireDbItem = element.CreatePointerFromAddress(0x10);
             }
             return BonfireState.Unknown;
+        }
+
+        public int GetSaveFileGameTimeMilliseconds(string path, int slot)
+        {
+            return Sl2Reader.GetSaveFileIgt(path, slot, false) ?? 0;
         }
 
         #region eventflags

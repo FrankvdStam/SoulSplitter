@@ -94,7 +94,7 @@ namespace SoulSplitter
                 switch (mainViewModel.SelectedGame)
                 {
                     case Game.DarkSouls1:
-                        _splitter = new DarkSouls1Splitter(state);
+                        _splitter = new DarkSouls1Splitter(new TimerModel { CurrentState = state }, new SoulMemory.DarkSouls1.DarkSouls1());
                         break;
 
                     case Game.DarkSouls2:

@@ -19,7 +19,7 @@ using System.Collections.Generic;
 
 namespace SoulMemory.DarkSouls1
 {
-    internal interface IDarkSouls1 : IGame
+    public interface IDarkSouls1 : IGame
     {
         bool ReadEventFlag(uint eventFlagId);
         int GetAttribute(Attribute attribute);
@@ -34,6 +34,7 @@ namespace SoulMemory.DarkSouls1
         List<Item> GetInventory();
         BonfireState GetBonfireState(Bonfire bonfire);
         string GetSaveFileLocation();
+        int GetSaveFileGameTimeMilliseconds(string path, int slot);
 
 #if DEBUG
         object GetTestValue();

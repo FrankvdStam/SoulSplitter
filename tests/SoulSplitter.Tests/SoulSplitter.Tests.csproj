@@ -65,8 +65,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MockAutoSplitData.cs" />
     <Compile Include="SoulComponentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Splitters\SplitterTests.cs" />
     <Compile Include="UI\Validation\TextToNumberValidationTests.cs" />
     <Compile Include="UI\ViewModelTests.cs" />
     <Compile Include="XmlData.cs" />

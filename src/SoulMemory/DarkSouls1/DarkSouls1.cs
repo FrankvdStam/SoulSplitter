@@ -38,12 +38,8 @@ namespace SoulMemory.DarkSouls1
         public bool AreCreditsRolling() => _darkSouls1?.AreCreditsRolling() ?? false;
         public BonfireState GetBonfireState(Bonfire bonfire) => _darkSouls1?.GetBonfireState(bonfire) ?? BonfireState.Unknown;
         public string GetSaveFileLocation() => _darkSouls1?.GetSaveFileLocation();
-        public bool IsPtde() => _darkSouls1 is Ptde;
-        public int GetSaveFileGameTimeMilliseconds(string path, int slot, bool isPtde)
-        { 
-            return Sl2Reader.GetSaveFileIgt(path, slot, isPtde) ?? 0;
-        }
-
+        public int GetSaveFileGameTimeMilliseconds(string path, int slot) => _darkSouls1?.GetSaveFileGameTimeMilliseconds(path, slot) ?? 0;
+       
         public TreeBuilder GetTreeBuilder() => _darkSouls1.GetTreeBuilder();
 
         public bool TryRefresh(out Exception exception)
