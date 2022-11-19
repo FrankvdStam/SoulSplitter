@@ -68,13 +68,14 @@ namespace SoulMemory.DarkSouls1
 
         public bool TryRefresh(out Exception exception)
         {
-            if(DateTime.Now < _lastFailedRefresh.AddSeconds(5))
+            exception = null;
+
+            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
             {
-                exception = null;
+                exception = new Exception("Timeout");
                 return false;
             }
 
-            exception = null;
             if (!ProcessClinger.Refresh(ref _process, "darksoulsremastered", InitPointers, ResetPointers, out Exception e))
             {
                 exception = e;

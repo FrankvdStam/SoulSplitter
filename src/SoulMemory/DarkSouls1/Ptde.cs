@@ -36,9 +36,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using SoulMemory.Memory;
 using SoulMemory.MemoryV2;
-using Pointer = SoulMemory.Shared.Pointer;
 
 namespace SoulMemory.DarkSouls1
 {
@@ -48,99 +46,106 @@ namespace SoulMemory.DarkSouls1
 
         private Process _process;
 
-        private Pointer _gameMan;
-        private Pointer _gameDataMan;
-        private Pointer _playerIns;
-        private Pointer _playerGameData;
-        private Pointer _eventFlags;
-        private Pointer _inventoryIndices;
-        private Pointer _netBonfireDb;
-        private Pointer _saveInfo;
-        private Pointer _menuMan;
+        private Pointer _gameMan = new Pointer();
+        private Pointer _gameDataMan = new Pointer();
+        private Pointer _playerIns = new Pointer();
+        private Pointer _playerGameData = new Pointer();
+        private Pointer _eventFlags = new Pointer();
+        private Pointer _inventoryIndices = new Pointer();
+        private Pointer _netBonfireDb = new Pointer();
+        private Pointer _saveInfo = new Pointer();
+        private Pointer _menuMan = new Pointer();
+        private DateTime _lastFailedRefresh = DateTime.MinValue;
 
-        public TreeBuilder GetTreeBuilder() => null;
-        
         public bool TryRefresh(out Exception exception)
         {
             exception = null;
-            if (!ProcessClinger.Refresh(ref _process, "darksouls", InitPointers, ResetPointers, out Exception e))
+
+            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
             {
-                exception = e;
+                exception = new Exception("Timeout");
                 return false;
             }
-            
+
+            if (!SoulMemory.Memory.ProcessClinger.Refresh(ref _process, "darksouls", InitPointers, ResetPointers, out Exception e))
+            {
+                exception = e; 
+                _lastFailedRefresh = DateTime.Now;
+                return false;
+            }
             return true;
         }
 
+        public TreeBuilder GetTreeBuilder() 
+        {
+            var treeBuilder = new TreeBuilder();
+            treeBuilder
+                .ScanAbsolute("GameMan", "a1 ? ? ? ? 8b 88 ec 0b 00 00 83 79 10 01 0f 94 c0", 1) // 8b 0d ? ? ? ? 80 b9 41 0b 00 00 00 74 0d
+                    .AddPointer(_gameMan, 0, 0);
+
+            treeBuilder
+                .ScanAbsolute("GameDataMan", "8b 0d ? ? ? ? 8b 41 30 8b 4d 64", 2)
+                    .AddPointer(_gameDataMan, 0, 0)
+                    .AddPointer(_playerGameData, 0, 0, 0x8)                    ;
+
+            treeBuilder
+                .ScanAbsolute("MenuMan", "a1 ? ? ? ? 8b 88 e8 09 00 00 c7 01 80 3e 00 00", 1)
+                    .AddPointer(_menuMan, 0, 0);
+
+            treeBuilder
+                .ScanAbsolute("WorldChrManImp", "8b 0d ? ? ? ? 8b 71 3c c6 44 24 48 01", 2)
+                //.CreatePointer(out _worldChrManImp, 0, 0)
+                    .AddPointer(_playerIns, 0, 0, 0x3c);
+            ;
+
+            treeBuilder
+                .ScanAbsolute("EventFlags", "56 8B F1 8B 46 1C 50 A1 ? ? ? ? 32 C9", 8)
+                    .AddPointer(_eventFlags, 0, 0, 0)                ;
+
+            treeBuilder
+                .ScanAbsolute("InventoryIndices", "8B 4C 24 34 8B 44 24 2C 89 8A 38 01 00 00 8B 90 08 01 00 00 C1 E2 10 0B 90 00 01 00 00 8B C1 8B CD 89 14 AD ? ? ? ?", 36)
+                    .AddPointer(_inventoryIndices, 0)                    ;
+
+            treeBuilder
+                .ScanAbsolute("NetManImp", "a1 ? ? ? ? 8b 80 5c 0b 00 00 8b 40 2c 85 c0 0f", 1) //83 3d ? ? ? ? 00 75 4b a1
+                    .AddPointer(_netBonfireDb, 0, 0, 0xb48);
+
+
+            treeBuilder
+                .ScanAbsolute("SaveInfo", "8b 0d ? ? ? ? 39 35 ? ? ? ? 73 05 b9", 2) //00 00 00 00 66 89 0D ? ? ? ? C3 CC CC CC CC CC 83 3D
+                    .AddPointer(_saveInfo, 0);
+
+            return treeBuilder;
+        }
+        
         private void ResetPointers()
         {
-            _gameMan = null;
-            _gameDataMan = null;
-            _playerIns = null;
-            _playerGameData = null;
-            _eventFlags = null;
-            _inventoryIndices = null;
-            _netBonfireDb = null;
-            _menuMan = null;
-            _saveInfo = null;
+            _gameMan.Clear();
+            _gameDataMan.Clear();
+            _playerIns.Clear();
+            _playerGameData.Clear();
+            _eventFlags.Clear();
+            _inventoryIndices.Clear();
+            _netBonfireDb.Clear();
+            _menuMan.Clear();
+            _saveInfo.Clear();
         }
 
         private Exception InitPointers()
         {
             try
             {
-                var scanCache = _process.ScanCache();
-                
-                scanCache
-                    .ScanAbsolute("GameMan", "8b 0d ? ? ? ? 80 b9 41 0b 00 00 00 74 0d", 2)
-                    .CreatePointer(out _gameMan, 0, 0);
-
-                scanCache
-                    .ScanAbsolute("GameDataMan", "8b 0d ? ? ? ? 8b 41 30 8b 4d 64", 2)
-                    .CreatePointer(out _gameDataMan, 0, 0)
-                    .CreatePointer(out _playerGameData, 0, 0, 0x8)
-                    ;
-
-                scanCache
-                    .ScanAbsolute("MenuMan", "a1 ? ? ? ? 8b 88 e8 09 00 00 c7 01 80 3e 00 00", 1)
-                    .CreatePointer(out _menuMan, 0, 0);
-
-                scanCache
-                    .ScanAbsolute("WorldChrManImp", "8b 0d ? ? ? ? 8b 71 3c c6 44 24 48 01", 2)
-                    //.CreatePointer(out _worldChrManImp, 0, 0)
-                    .CreatePointer(out _playerIns, 0, 0, 0x3c);
-                    ;
-
-                scanCache
-                    .ScanAbsolute("EventFlags", "56 8B F1 8B 46 1C 50 A1 ? ? ? ? 32 C9", 8)
-                    .CreatePointer(out _eventFlags, 0, 0, 0)
-                    ;
-
-                scanCache
-                    .ScanAbsolute("InventoryIndices", "8B 4C 24 34 8B 44 24 2C 89 8A 38 01 00 00 8B 90 08 01 00 00 C1 E2 10 0B 90 00 01 00 00 8B C1 8B CD 89 14 AD ? ? ? ?", 36)
-                    .CreatePointer(out _inventoryIndices, 0)
-                    ;
-
-                scanCache
-                    .ScanAbsolute("NetManImp", "83 3d ? ? ? ? 00 75 4b a1", 2)
-                    .CreatePointer(out _netBonfireDb, 0, 0, 0xb48);
-
-
-                scanCache
-                    .ScanAbsolute("sl1", "00 00 00 00 66 89 0D ? ? ? ? C3 CC CC CC CC CC 83 3D", 7)
-                    .CreatePointer(out _saveInfo, 0);
-
-                //scanCache
-                //    .ScanAbsolute("WorldAiManImpl", "a1 ? ? ? ? 89 88 8c 0f 00 00 8b 77 14", 1)
-                //    .CreatePointer(out _worldAiManImpl, 0, 0);
-
-
-                return null;
+                var treeBuilder = GetTreeBuilder();
+                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+                {
+                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
+                }
             }
             catch (Exception e)
             {
                 return e;
             }
+            return null;
         }
         #endregion
 
@@ -187,8 +192,8 @@ namespace SoulMemory.DarkSouls1
             
             var listLength = _playerGameData.ReadInt32(0x2c8);
             var listStart = _playerGameData.ReadInt32(0x2cc);
-
-            var bytes = _process.ReadMemory((IntPtr)listStart, listLength * 0x1c);
+            
+            var bytes = SoulMemory.Memory.Extensions.ReadMemory(_process, (IntPtr)listStart, listLength * 0x1c);
             return ItemReader.GetCurrentInventoryItems(bytes, listLength, itemCount, keyCount);
         }
 
@@ -324,8 +329,6 @@ namespace SoulMemory.DarkSouls1
         }
 
         #endregion
-
-
 
         //Imported from CapitaineToinon. Thanks!
         

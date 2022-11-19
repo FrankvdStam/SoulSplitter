@@ -89,6 +89,11 @@ namespace SoulSplitter.Splitters
 
             Logger.TryOrLogError(() =>
             {
+                _darkSouls3ViewModel.CurrentPosition = _darkSouls3.GetPosition();
+            });
+
+            Logger.TryOrLogError(() =>
+            {
                 UpdateTimer();
             });
 

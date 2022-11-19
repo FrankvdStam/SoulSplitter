@@ -39,22 +39,31 @@ namespace cli
     internal class Program
     {
         
-
-
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();return;
+            //ValidatePatterns();return;
+            //TestUi();return;
 
-            var ds3 = new DarkSouls3();
-            
-            GameLoop(ds3, () =>
-            {
-                Console.WriteLine($"{ds3.GetInGameTimeMilliseconds()}");
-                Console.WriteLine($"peepo: {ds3.ReadEventFlag((uint)SoulMemory.DarkSouls3.Boss.IudexGundyr)}");
-            });
+            //var ds3 = new DarkSouls3();
+            //
+            //GameLoop(ds3, () =>
+            //{
+            //    Console.WriteLine($"{ds3.GetInGameTimeMilliseconds()}");
+            //    Console.WriteLine($"peepo: {ds3.ReadEventFlag((uint)SoulMemory.DarkSouls3.Boss.IudexGundyr)}");
+            //});
 
             var ds1 = new DarkSouls1();
+
+            GameLoop(ds1, () =>
+            {
+                Console.WriteLine(ds1.GetInGameTimeMilliseconds());
+                Console.WriteLine(ds1.ReadEventFlag((uint)SoulMemory.DarkSouls1.Boss.AsylumDemon));
+                Console.WriteLine(ds1.GetSaveFileLocation());
+            });
+
+
+            
             ds1.TryRefresh(out _);
 
             while (true)
@@ -112,8 +121,9 @@ namespace cli
         {
             var validatables = new List<(string Name, IGame Game, string Directory)>()
             {
-                ("Dark Souls Remastered", new Remastered(), @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
-                ("Dark Souls 3"         , new DarkSouls3(), @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
+                ("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
+                ("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
+                ("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
             };
 
             foreach(var validatable in validatables)

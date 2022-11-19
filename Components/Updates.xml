@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.2.1">
+        <files>
+            <file path="Components/SoulMemory.dll"   status="changed"/>
+            <file path="Components/SoulSplitter.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Dark Souls PTDE: internal upgrades, no functional changes</change>
+            <change>Dark Souls 3: internal upgrades</change>
+            <change>Dark Souls 3: added a description field to event flags</change>
+            <change>Dark Souls 3: added position splits</change>
+            <change>Dark Souls 3: added IGT lock to prepare NG+ save files</change>
+        </changelog>
+    </update>
     <update version="1.1.9">
         <files>
             <file path="Components/SoulMemory.dll"   status="changed"/>

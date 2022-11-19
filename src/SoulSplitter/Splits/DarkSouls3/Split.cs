@@ -56,7 +56,7 @@ namespace SoulSplitter.Splits.DarkSouls3
                     break;
 
                 case SplitType.Flag:
-                    Flag = (uint)split;
+                    Flag = ((FlagDescription)split).Flag;
                     break;
             }
         }

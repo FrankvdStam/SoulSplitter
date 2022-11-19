@@ -42,13 +42,13 @@ namespace SoulMemory.DarkSouls3
 
         public bool TryRefresh(out Exception exception)
         {
+            exception = null;
             if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
             {
-                exception = null;
+                exception = new Exception("Timeout");
                 return false;
             }
 
-            exception = null;
             if (!ProcessClinger.Refresh(ref _process, "darksoulsiii", InitPointers, ResetPointers, out Exception e))
             {
                 exception = e;

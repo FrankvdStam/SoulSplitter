@@ -30,6 +30,7 @@ Thank you strimmers, for risking your PB's, to test my broken code!
 [Pennek](https://www.twitch.tv/pennek)  
 [Nyk_style](https://www.twitch.tv/nyk_style)  
 [Maarionete](https://www.twitch.tv/maarionete)  
+[Moochyy](https://www.twitch.tv/moochyy_)  
 Thank you all!
 
 Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions to the speedrunning community:  
