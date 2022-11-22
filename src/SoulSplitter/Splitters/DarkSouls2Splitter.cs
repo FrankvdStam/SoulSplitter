@@ -115,9 +115,7 @@ namespace SoulSplitter.Splitters
                                 position.Y < -322.0f && position.Y > -323.0f &&
                                 position.X < -213.0f && position.X > -214.0f)
                             {
-                                StartTimer();
                                 _timerModel.Start();
-                                StartAutoSplitting();
                             }
                         }
                     }
