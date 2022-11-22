@@ -37,8 +37,8 @@ namespace SoulSplitter.Splitters
         {
             _darkSouls1 = darkSouls1;
             _timerModel = timerModel;
-            _timerModel.OnStart += OnStart;
-            _timerModel.OnReset += OnReset;
+            _timerModel.CurrentState.OnStart += OnStart;
+            _timerModel.CurrentState.OnReset += OnReset;
             _timerModel.CurrentState.IsGameTimePaused = true;
         }
 
@@ -77,8 +77,8 @@ namespace SoulSplitter.Splitters
 
         public void Dispose()
         {
-            _timerModel.OnStart -= OnStart;
-            _timerModel.OnReset -= OnReset;
+            _timerModel.CurrentState.OnStart -= OnStart;
+            _timerModel.CurrentState.OnReset -= OnReset;
         }
 
         private void OnStart(object sender, EventArgs e)

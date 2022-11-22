@@ -39,6 +39,7 @@ namespace SoulSplitter.Tests.Splitters
             var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
 
             timerModel.Setup(t => t.CurrentState).Returns(liveSplitStateMock.Object);
+            liveSplitStateMock.Object.RegisterTimerModel(timerModel.Object);
 
             //Setup a viewmodel
             var darkSouls1ViewModel = new DarkSouls1ViewModel();
@@ -77,7 +78,7 @@ namespace SoulSplitter.Tests.Splitters
 
             var started = false;
             timerModel.Setup(t => t.Start()).Raises(t => t.OnStart += null, new EventArgs());
-            timerModel.Object.OnStart += (o, a) =>
+            timerModel.Object.CurrentState.OnStart += (o, a) =>
             {
                 started = true;
             };
@@ -85,25 +86,64 @@ namespace SoulSplitter.Tests.Splitters
             //Never start, regardless of settings, when the timer is 0
             igt = 0;
             ds1Splitter.Update(darkSouls1ViewModel);
-            Assert.IsFalse(started);
-            Assert.IsFalse(resetInventoryIndices);
+            Assert.IsFalse(started, "Timer should not have started");
+            Assert.IsFalse(resetInventoryIndices, "Indices should not have reset");
 
             //Don't start when millis above a certain treshhold (existing saves)
             igt = 200;
             ds1Splitter.Update(darkSouls1ViewModel);
-            Assert.IsFalse(started);
-            Assert.IsFalse(resetInventoryIndices);
+            Assert.IsFalse(started, "Timer should not have started");
+            Assert.IsFalse(resetInventoryIndices, "Indices should not have reset");
 
             //Start automatically, if requested
             igt = 50;
             ds1Splitter.Update(darkSouls1ViewModel);
-            Assert.AreEqual(shouldAutoStart, started);
+            Assert.AreEqual(shouldAutoStart, started, "Timer start value not expected");
             //Indices won't reset when it is requested and autostart is off, because the timer will never start.
             if(shouldAutoStart)
             {
-                Assert.AreEqual(shouldResetInventoryIndices, resetInventoryIndices);
+                Assert.AreEqual(shouldResetInventoryIndices, resetInventoryIndices, "Indices not behaving as expected");
             }
         }
+
+        [Test]
+        public void AutoStartResetAutoStartTest()
+        {
+            var (timerModel, darkSouls1ViewModel, darkSouls1, ds1Splitter) = CreateMock();
+            darkSouls1ViewModel.StartAutomatically = true;
+
+            var igt = 0;
+            darkSouls1.Setup(ds1 => ds1.GetInGameTimeMilliseconds()).Returns(() => { return igt; });
+
+            var started = false;
+            timerModel.Setup(t => t.Start()).Raises(t => t.OnStart += null, new EventArgs());
+            timerModel.Object.OnStart += (o, a) =>
+            {
+                started = true;
+            };
+
+            timerModel.Setup(t => t.Reset()).Raises(t => t.OnReset += null, null, TimerPhase.NotRunning);
+            timerModel.Object.OnReset += (o, a) =>
+            {
+                started = false;
+            };
+
+            //Timer should begin stopped.
+            Assert.IsFalse(started);
+
+            igt = 50;
+            ds1Splitter.Update(darkSouls1ViewModel);//autostart
+            Assert.IsTrue(started);
+
+            //Reset
+            timerModel.Object.Reset();
+            Assert.IsFalse(started);
+
+            igt = 50;
+            ds1Splitter.Update(darkSouls1ViewModel);//autostart
+            Assert.IsTrue(started);
+        }
+
 
         [Test]
         public void AutoSplitTests()
