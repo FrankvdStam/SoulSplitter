@@ -68,7 +68,7 @@ namespace SoulSplitter.Splitters
         {
             _sekiroViewModel = (SekiroViewModel)settings;
 
-            Exception = !_sekiro.Refresh(out Exception e) ? e : null;
+            Exception = !_sekiro.TryRefresh(out Exception e) ? e : null;
             
             _sekiroViewModel.CurrentPosition = _sekiro.GetPlayerPosition();
 

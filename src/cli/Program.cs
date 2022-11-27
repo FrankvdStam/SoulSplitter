@@ -31,17 +31,29 @@ using SoulMemory.Shared;
 using System.Security.Cryptography;
 using SoulMemory;
 using System.Text;
+using System.Threading.Tasks;
 
 #pragma warning disable CS0162
 
 namespace cli
 {
     internal class Program
-    {
-        
+    {        
         [STAThread]
         static void Main(string[] args)
         {
+            ValidatePatterns(); return;
+
+            //flag 11000530
+            //offset 1345
+            //mask 8192
+
+
+            var ds1 = new DarkSouls1();
+            ds1.TryRefresh(out _);
+            ds1.TryRefresh(out _);
+            ds1.ReadEventFlag(11000530);
+
             //ValidatePatterns();return;
             //TestUi();return;
 
@@ -53,7 +65,6 @@ namespace cli
             //    Console.WriteLine($"peepo: {ds3.ReadEventFlag((uint)SoulMemory.DarkSouls3.Boss.IudexGundyr)}");
             //});
 
-            var ds1 = new DarkSouls1();
 
             GameLoop(ds1, () =>
             {
@@ -124,6 +135,7 @@ namespace cli
                 ("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 ("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 ("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
+                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"  ),
             };
 
             foreach(var validatable in validatables)

@@ -19,29 +19,28 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using SoulMemory.Memory;
+using SoulMemory.MemoryV2;
 using SoulMemory.Native;
-using SoulMemory.Shared;
 
 namespace SoulMemory.Sekiro
 {
-    public class Sekiro
+    public class Sekiro : IGame
     {
         private Process _process;
-
-        public  Pointer _sprjEventFlagMan;
-        private Pointer _fieldArea;
-        private Pointer _worldChrManImp;
-        private Pointer _igt;
-        private Pointer _position;
-        private Pointer _fadeSystem;
+        public  Pointer _sprjEventFlagMan = new Pointer();
+        private Pointer _fieldArea = new Pointer();
+        private Pointer _worldChrManImp = new Pointer();
+        private Pointer _igt = new Pointer();
+        private Pointer _position = new Pointer();
+        private Pointer _fadeSystem = new Pointer();
 
 
         #region Refresh/init/reset ================================================================================================================================
-        
-        public bool Refresh(out Exception exception)
+
+        public bool TryRefresh(out Exception exception)
         {
             exception = null;
-            if (!ProcessClinger.Refresh(ref _process, "sekiro", InitPointers, ResetPointers, out Exception e))
+            if (!SoulMemory.Memory.ProcessClinger.Refresh(ref _process, "sekiro", InitPointers, ResetPointers, out Exception e))
             {
                 exception = e;
                 return false;
@@ -49,31 +48,49 @@ namespace SoulMemory.Sekiro
             return true;
         }
 
+        public TreeBuilder GetTreeBuilder()
+        {
+            var treeBuilder = new TreeBuilder();
+            treeBuilder
+                .ScanRelative("SprjEventFlagMan", "48 8b 0d ? ? ? ? 48 89 5c 24 50 48 89 6c 24 58 48 89 74 24 60", 3, 7)
+                    .AddPointer(_sprjEventFlagMan, 0);
+
+            treeBuilder
+                .ScanRelative("FieldArea", "48 8b 0d ? ? ? ? 48 85 c9 74 26 44 8b 41 28 48 8d 54 24 40", 3, 7)
+                    .AddPointer(_fieldArea, 0);
+
+            treeBuilder
+                .ScanRelative("WorldChrManImp", "48 8B 35 ? ? ? ? 44 0F 28 18", 3, 7)
+                    .AddPointer(_worldChrManImp, 0)
+                    .AddPointer(_position, 0, 0x48, 0x28);
+
+            treeBuilder
+                .ScanRelative("Igt", "48 8b 05 ? ? ? ? 32 d2 48 8b 48 08 48 85 c9 74 13 80 b9 ba", 3, 7)
+                    .AddPointer(_igt, 0x0, 0x9c);
+            //.CreatePointer(out _igt, 0x0, 0x70) new game cycle
+
+            treeBuilder
+                .ScanRelative("SprjFadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7)
+                    .AddPointer(_fadeSystem, 0x0, 0x8);
+
+            treeBuilder
+                .ScanRelative("MenuMan", "48 8b 05 ? ? ? ? 0f b6 d1 48 8b 88 08 33 00 00", 3, 7);
+
+            return treeBuilder;
+        }
+         
+
         private Exception InitPointers()
         {
             Thread.Sleep(3000); //Give sekiro some time to boot
 
             try
             {
-
-                _process.ScanCache()
-                    .ScanRelative("SprjEventFlagMan", "48 8b 0d ? ? ? ? 48 89 5c 24 50 48 89 6c 24 58 48 89 74 24 60", 3, 7)
-                        .CreatePointer(out _sprjEventFlagMan, 0)
-
-                    .ScanRelative("FieldArea", "48 8b 0d ? ? ? ? 48 85 c9 74 26 44 8b 41 28 48 8d 54 24 40", 3, 7)
-                        .CreatePointer(out _fieldArea, 0)
-                    
-                    .ScanRelative("WorldChrManImp", "48 8B 35 ? ? ? ? 44 0F 28 18", 3, 7)
-                        .CreatePointer(out _worldChrManImp, 0)
-                        .CreatePointer(out _position, 0, 0x48, 0x28)
-
-                    .ScanRelative("Igt", "48 8b 05 ? ? ? ? 32 d2 48 8b 48 08 48 85 c9 74 13 80 b9 ba", 3, 7)
-                        .CreatePointer(out _igt, 0x0, 0x9c)
-                        //.CreatePointer(out _igt, 0x0, 0x70) new game cycle
-
-                    .ScanRelative("SprjFadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7)
-                        .CreatePointer(out _fadeSystem, 0x0, 0x8)
-                        ;
+                var treeBuilder = GetTreeBuilder();
+                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+                {
+                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
+                }
 
                 if (!InitB3Mods())
                 {
@@ -90,11 +107,11 @@ namespace SoulMemory.Sekiro
 
         private void ResetPointers()
         {
-            _sprjEventFlagMan = null;
-            _fieldArea = null;
-            _worldChrManImp = null;
-            _igt = null;
-            _position = null;
+            _sprjEventFlagMan.Clear();
+            _fieldArea.Clear();
+            _worldChrManImp.Clear();
+            _igt.Clear();
+            _position.Clear();
         }
 
         #endregion
@@ -148,10 +165,6 @@ namespace SoulMemory.Sekiro
             var eventFlagIdDiv10000 = (int)(eventFlagId / 10000) % 10;
             var eventFlagIdDiv1000 = (int)(eventFlagId / 1000) % 10;
 
-            //14000002
-
-            //ItemPickup 0x0?
-            //Bonfire = 0x11?
             var flagWorldBlockInfoCategory = -1;
             if (!(eventFlagArea < 90) || eventFlagArea + eventFlagIdDiv10000 == 0)
             {
@@ -169,18 +182,15 @@ namespace SoulMemory.Sekiro
 
                 //Flag stored in world related struct? Looks like the game is reading a size, and then looping over a vector of structs (size 0x38)
                 var size = worldInfoOwner.ReadInt32(0x8);
-                //var baseAddress = (IntPtr)worldInfoOwner.Append(0x10, 0x38).GetAddress();
                 var vector = worldInfoOwner.Append(0x10);
 
                 //Loop over worldInfo structs
                 for (int i = 0; i < size; i++)
                 {
-                    //0x00007ff4fd9ba4c3
                     var offset = (IntPtr)vector.ReadInt64() + i * 0x38;
                     var area = vector.ReadByte((i * 0x38) + 0xb);
                     if (area == eventFlagArea)
                     {
-                        //function at 0x14060c650
                         var count = vector.ReadByte(i * 0x38 + 0x20);
                         var index = 0;
                         var found = false;
@@ -223,11 +233,6 @@ namespace SoulMemory.Sekiro
                 }
             }
 
-            var testy = (IntPtr)_sprjEventFlagMan.ReadInt64(0x218);
-
-            //7FF49E6D03C0
-
-            //7FF49E6D03E8
             var ptr = _sprjEventFlagMan.Append(0x218, eventFlagIdDiv10000000 * 0x18, 0x0);
 
             if (ptr.IsNullPtr() || flagWorldBlockInfoCategory < 0)
@@ -235,8 +240,8 @@ namespace SoulMemory.Sekiro
                 return false;
             }
 
-            var resultPointerAddress = new Pointer(ptr.Process, ptr.Is64Bit, (eventFlagIdDiv1000 << 4) + ptr.GetAddress() + flagWorldBlockInfoCategory * 0xa8, 0x0);
-            //7FF429823090
+            var resultPointerAddress = new Pointer();
+            resultPointerAddress.Initialize(ptr.Process, ptr.Is64Bit, (eventFlagIdDiv1000 << 4) + ptr.GetAddress() + flagWorldBlockInfoCategory * 0xa8, 0x0);
             if (!resultPointerAddress.IsNullPtr())
             {
                 var value = resultPointerAddress.ReadUInt32((long)((uint)((int)eventFlagId % 1000) >> 5) * 4);

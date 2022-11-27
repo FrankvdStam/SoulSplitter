@@ -87,7 +87,7 @@ namespace SoulMemory.DarkSouls1
             treeBuilder
                 .ScanAbsolute("GameDataMan", "8b 0d ? ? ? ? 8b 41 30 8b 4d 64", 2)
                     .AddPointer(_gameDataMan, 0, 0)
-                    .AddPointer(_playerGameData, 0, 0, 0x8)                    ;
+                    .AddPointer(_playerGameData, 0, 0, 0x8);
 
             treeBuilder
                 .ScanAbsolute("MenuMan", "a1 ? ? ? ? 8b 88 e8 09 00 00 c7 01 80 3e 00 00", 1)
@@ -101,11 +101,11 @@ namespace SoulMemory.DarkSouls1
 
             treeBuilder
                 .ScanAbsolute("EventFlags", "56 8B F1 8B 46 1C 50 A1 ? ? ? ? 32 C9", 8)
-                    .AddPointer(_eventFlags, 0, 0, 0)                ;
+                    .AddPointer(_eventFlags, 0, 0, 0);
 
             treeBuilder
                 .ScanAbsolute("InventoryIndices", "8B 4C 24 34 8B 44 24 2C 89 8A 38 01 00 00 8B 90 08 01 00 00 C1 E2 10 0B 90 00 01 00 00 8B C1 8B CD 89 14 AD ? ? ? ?", 36)
-                    .AddPointer(_inventoryIndices, 0)                    ;
+                    .AddPointer(_inventoryIndices, 0);
 
             treeBuilder
                 .ScanAbsolute("NetManImp", "a1 ? ? ? ? 8b 80 5c 0b 00 00 8b 40 2c 85 c0 0f", 1) //83 3d ? ? ? ? 00 75 4b a1
