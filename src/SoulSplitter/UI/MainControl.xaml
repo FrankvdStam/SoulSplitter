@@ -27,9 +27,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:darkSouls3="clr-namespace:SoulSplitter.UI.DarkSouls3"
              xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
-             xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
-             Width="451"
-             Height="497">
+             xmlns:converters="clr-namespace:SoulSplitter.UI.Converters">
 
     <UserControl.Resources>
         <ResourceDictionary>

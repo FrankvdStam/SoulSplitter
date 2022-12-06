@@ -25,6 +25,7 @@ using SoulSplitter.Splitters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
 using System.Windows.Threading;
+using System.Windows.Forms.Integration;
 
 namespace SoulSplitter
 {
@@ -40,6 +41,7 @@ namespace SoulSplitter
 
         public SoulComponent(LiveSplitState state = null)
         {
+            (ElementHost, MainControl) = MainControl.GetElementHostMainControl();
             _liveSplitState = state;
             SelectGameFromLiveSplitState(_liveSplitState);
         }
@@ -52,7 +54,7 @@ namespace SoulSplitter
                 {
                     try
                     {
-                        UpdateSplitter(MainControlFormsWrapper.MainViewModel, state);
+                        UpdateSplitter(MainControl.MainViewModel, state);
                     }
                     catch(Exception ex)
                     {
@@ -63,17 +65,17 @@ namespace SoulSplitter
 
                     if (_splitter.Exception != null)
                     {
-                        MainControlFormsWrapper.MainViewModel.Error = _splitter.Exception.Message;
+                        MainControl.MainViewModel.Error = _splitter.Exception.Message;
                     }
                     else
                     {
-                        MainControlFormsWrapper.MainViewModel.Error = "";
+                        MainControl.MainViewModel.Error = "";
                     }
                 }
                 catch (Exception e)
                 {
                     Logger.Log(e);
-                    MainControlFormsWrapper.MainViewModel.Error = e.Message;
+                    MainControl.MainViewModel.Error = e.Message;
                 }
             });
         }
@@ -171,7 +173,7 @@ namespace SoulSplitter
             XmlElement root = document.CreateElement("Settings");
             Dispatcher.CurrentDispatcher.Invoke(() =>
             {
-                var xml = MainControlFormsWrapper.MainViewModel.Serialize();
+                var xml = MainControl.MainViewModel.Serialize();
                 XmlDocumentFragment fragment = document.CreateDocumentFragment();
                 fragment.InnerXml = xml;
                 root.AppendChild(fragment);
@@ -194,21 +196,24 @@ namespace SoulSplitter
                     var vm = MainViewModel.Deserialize(settings.InnerXml);
                     if (vm != null)
                     {
-                        MainControlFormsWrapper.MainViewModel = vm;
+                        MainControl.MainViewModel = vm;
                     }
                 }
                 catch
                 {
-                    MainControlFormsWrapper.MainViewModel = new MainViewModel();
+                    MainControl.MainViewModel = new MainViewModel();
                     SelectGameFromLiveSplitState(_liveSplitState);
                 }
             });
         }
 
-        public MainControlFormsWrapper MainControlFormsWrapper = new MainControlFormsWrapper();
+
+        public readonly MainControl MainControl;
+        public readonly ElementHost ElementHost;
+
         public System.Windows.Forms.Control GetSettingsControl(LayoutMode mode)
         {
-            return MainControlFormsWrapper;
+            return ElementHost;
         }
 
 
@@ -223,24 +228,24 @@ namespace SoulSplitter
                     {
                         case "darksouls":
                         case "darksoulsremastered":
-                            MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls1;
+                            MainControl.MainViewModel.SelectedGame = Game.DarkSouls1;
                             break;
 
                         case "darksoulsii":
-                            MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls2;
+                            MainControl.MainViewModel.SelectedGame = Game.DarkSouls2;
                             break;
 
                         case "darksoulsiii":
-                            MainControlFormsWrapper.MainViewModel.SelectedGame = Game.DarkSouls3;
+                            MainControl.MainViewModel.SelectedGame = Game.DarkSouls3;
                             break;
 
                         case "sekiro":
                         case "sekiro:shadowsdietwice":
-                            MainControlFormsWrapper.MainViewModel.SelectedGame = Game.Sekiro;
+                            MainControl.MainViewModel.SelectedGame = Game.Sekiro;
                             break;
 
                         case "eldenring":
-                            MainControlFormsWrapper.MainViewModel.SelectedGame = Game.EldenRing;
+                            MainControl.MainViewModel.SelectedGame = Game.EldenRing;
                             break;
                     }
                 }

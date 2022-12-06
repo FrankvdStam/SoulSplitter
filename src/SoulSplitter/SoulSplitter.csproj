@@ -151,9 +151,6 @@
     <Compile Include="UI\MainControl.xaml.cs">
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\MainControlFormsWrapper.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="UI\MainViewModel.cs" />
     <Compile Include="UI\Converters\EnumDisplayNameConverter.cs" />
     <Compile Include="Splitters\TimingMethod.cs" />

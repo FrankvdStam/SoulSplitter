@@ -32,6 +32,7 @@ using System.Security.Cryptography;
 using SoulMemory;
 using System.Text;
 using System.Threading.Tasks;
+using System.Resources;
 
 #pragma warning disable CS0162
 
@@ -42,6 +43,7 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
             ValidatePatterns(); return;
 
             //flag 11000530
@@ -119,12 +121,17 @@ namespace cli
 
         public static void TestUi()
         {
-            Form f = new Form();
-            var c = new MainControlFormsWrapper();
-            f.Width = c.Width;
-            f.Height = c.Height;
-            f.Controls.Add(c);
-            f.ShowDialog();
+            var (form, _, mainControl) = MainControl.GetTestForm();
+
+            foreach(var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
+            {
+                mainControl.MainViewModel.EldenRingViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
+                mainControl.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
+                mainControl.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
+                mainControl.MainViewModel.EldenRingViewModel.AddSplit();
+            }
+
+            form.ShowDialog();
         }
 
         #region Validate patterns 
@@ -135,7 +142,7 @@ namespace cli
                 ("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 ("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 ("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
-                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"  ),
+                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
             };
 
             foreach(var validatable in validatables)
