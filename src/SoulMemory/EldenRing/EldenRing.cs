@@ -19,32 +19,38 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using SoulMemory.Memory;
+using SoulMemory.MemoryV2;
 using SoulMemory.Native;
 using SoulMemory.Shared;
+using Pointer = SoulMemory.MemoryV2.Pointer;
 
 namespace SoulMemory.EldenRing
 {
-    public class EldenRing
+    public class EldenRing : IGame
     {
         private Process _process = null;
 
-        private Pointer _igt;
-        private Pointer _hud;
-        private Pointer _playerIns;
-        private Pointer _playerGameData;
-        private Pointer _inventory;
-        private Pointer _menuManImp;
-        private Pointer _igtFix;
-        private Pointer _virtualMemoryFlag;
-        private Pointer _noLogo;
+        private Pointer _igt = new Pointer();
+        private Pointer _hud = new Pointer();
+        private Pointer _playerIns = new Pointer();
+        private Pointer _playerGameData = new Pointer();
+        private Pointer _inventory = new Pointer();
+        private Pointer _menuManImp = new Pointer();
+        private Pointer _igtFix = new Pointer();
+        private Pointer _virtualMemoryFlag = new Pointer();
+        private Pointer _noLogo = new Pointer();
 
         private long _screenStateOffset;
         private long _positionOffset;
         private long _mapIdOffset;
         private long _playerInsOffset;
         
-        public EldenRing(bool applyIgtFix = true)
+        public EldenRing() 
+        {
+            _applyIgtFix = true; 
+        }
+
+        public EldenRing(bool applyIgtFix)
         {
             _applyIgtFix = applyIgtFix;
         }
@@ -53,16 +59,115 @@ namespace SoulMemory.EldenRing
 
 
         #region Refresh/init/reset ================================================================================================
-        public bool Refresh(out Exception exception)
+        private DateTime _lastFailedRefresh = DateTime.MinValue;
+        public bool TryRefresh(out Exception exception)
         {
             exception = null;
-            if (!ProcessClinger.Refresh(ref _process, "eldenring", InitPointers, ResetPointers, out Exception e))
+
+            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
+            {
+                exception = new Exception("Timeout");
+                return false;
+            }
+
+            if (!SoulMemory.Memory.ProcessClinger.Refresh(ref _process, "eldenring", InitPointers, ResetPointers, out Exception e))
             {
                 exception = e;
+                _lastFailedRefresh = DateTime.Now;
                 return false;
             }
             return true;
         }
+
+        public TreeBuilder GetTreeBuilder()
+        {
+            var treeBuilder = new TreeBuilder();
+
+            treeBuilder
+                .ScanRelative("FD4Time", "48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
+                    .AddPointer(_igt, 0, 0xa0)
+                    .AddPointer(_hud, 0, 0x58, 0x9);
+
+            treeBuilder
+                .ScanRelative("WorldChrManImp", "48 8b 35 ? ? ? ? 48 85 f6 ? ? bb 01 00 00 00 89 5c 24 20 48 8b b6", 3, 7) //48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7
+                    .AddPointer(_playerIns, 0, _playerInsOffset);
+
+            treeBuilder
+                .ScanRelative("MenuManImp", "48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
+                    .AddPointer(_menuManImp, 0);
+
+            treeBuilder
+                .ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 8)
+                    .AddPointer(_virtualMemoryFlag, 0);
+
+            treeBuilder
+                .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
+                    .AddPointer(_igtFix);
+
+            treeBuilder
+                .ScanAbsolute("NoLogo", "80 bf b8 00 00 00 00 ? ? 48 8b 05 ? ? ? ? 48 85 c0 75 2e 48 8d 0d", 7)
+                    .AddPointer(_noLogo);
+
+            return treeBuilder;
+        }
+
+        private void InitializeOffsets(Version v)
+        {
+            var version = GetVersion(v);
+            switch (version)
+            {
+                case EldenRingVersion.V102:
+                    _screenStateOffset = 0x718;
+                    _positionOffset = 0x6b8;
+                    _mapIdOffset = 0x6c8;
+                    _playerInsOffset = 0x18468;
+                    break;
+
+                case EldenRingVersion.V103:
+                    _screenStateOffset = 0x728;
+                    _positionOffset = 0x6b8;
+                    _mapIdOffset = 0x6c8;
+                    _playerInsOffset = 0x18468;
+                    break;
+
+                case EldenRingVersion.V104:
+                    _screenStateOffset = 0x728;
+                    _positionOffset = 0x6B0;
+                    _mapIdOffset = 0x6c0;
+                    _playerInsOffset = 0x18468;
+                    break;
+
+                case EldenRingVersion.V105:
+                    _screenStateOffset = 0x728;
+                    _positionOffset = 0x6B0;
+                    _mapIdOffset = 0x6c0;
+                    _playerInsOffset = 0x18468;
+                    break;
+
+                case EldenRingVersion.V106:
+                    _screenStateOffset = 0x728;
+                    _positionOffset = 0x6B0;
+                    _mapIdOffset = 0x6c0;
+                    _playerInsOffset = 0x18468;
+                    break;
+
+                case EldenRingVersion.V107:
+                    _screenStateOffset = 0x728;
+                    _positionOffset = 0x6B0;
+                    _mapIdOffset = 0x6c0;
+                    _playerInsOffset = 0x1e508;
+                    break;
+
+                default:
+                case EldenRingVersion.V108:
+                    _screenStateOffset = 0x728;
+                    _positionOffset = 0x6d4;
+                    _mapIdOffset = 0x6d0;
+                    _playerInsOffset = 0x1e508;
+                    break;
+            }
+        }
+
 
         public Exception InitPointers()
         {
@@ -73,99 +178,14 @@ namespace SoulMemory.EldenRing
                     return new Exception("Failed to determine game version");
                 }
 
-                var version = GetVersion(v);
-                switch (version)
+                InitializeOffsets(v);
+
+                var treeBuilder = GetTreeBuilder();
+
+                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
                 {
-                   
-                    case EldenRingVersion.Unknown:
-                        _screenStateOffset = 0x728;
-                        _positionOffset = 0x6B0;
-                        _mapIdOffset = 0x6c0;
-                        _playerInsOffset = 0x18468;
-                        break;
-
-                    case EldenRingVersion.V102:
-                        _screenStateOffset = 0x718;
-                        _positionOffset = 0x6b8;
-                        _mapIdOffset = 0x6c8;
-                        _playerInsOffset = 0x18468;
-                        break;
-
-                    case EldenRingVersion.V103:
-                        _screenStateOffset = 0x728;
-                        _positionOffset = 0x6b8;
-                        _mapIdOffset = 0x6c8;
-                        _playerInsOffset = 0x18468;
-                        break;
-
-                    case EldenRingVersion.V104:
-                        _screenStateOffset = 0x728;
-                        _positionOffset = 0x6B0;
-                        _mapIdOffset = 0x6c0;
-                        _playerInsOffset = 0x18468;
-                        break;
-
-                    case EldenRingVersion.V105:
-                        _screenStateOffset = 0x728;
-                        _positionOffset = 0x6B0;
-                        _mapIdOffset = 0x6c0;
-                        _playerInsOffset = 0x18468;
-                        break;
-
-                    case EldenRingVersion.V106:
-                        _screenStateOffset = 0x728;
-                        _positionOffset = 0x6B0;
-                        _mapIdOffset = 0x6c0;
-                        _playerInsOffset = 0x18468;
-                        break;
-
-                    default:
-                    case EldenRingVersion.V107:
-                        _screenStateOffset = 0x728;
-                        _positionOffset = 0x6B0;
-                        _mapIdOffset = 0x6c0;
-                        _playerInsOffset = 0x1e508;
-                        break;
+                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
                 }
-
-                var scanCache = _process.ScanCache();
-                scanCache
-                    //FD4Time
-                    .ScanRelative("FD4Time", "48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
-                    .CreatePointer(out _igt, 0, 0xa0)
-                    .CreatePointer(out _hud, 0, 0x58, 0x9)
-
-                    //WorldChrManImp  
-                    .ScanRelative("WorldChrManImp", "48 8B 05 ? ? ? ? 48 85 C0 74 0F 48 39 88 ? ? ? ? 75 06 89 B1 5C 03 00 00 0F 28 05 ? ? ? ? 4C 8D 45 E7",
-                        3, 7)
-                    //.CreatePointer(out _playerChrPhysicsModule, 0, 0x18468, 0xF68)
-                    .CreatePointer(out _playerIns, 0, _playerInsOffset)
-                    ////FieldArea
-                    //.ScanRelative("FieldArea", "48 8B 0D ?? ?? ?? ?? 48 ?? ?? ?? 44 0F B6 61 ?? E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 48 ?? ?? ?? 48 85 C0", 3, 7)
-                    //    .CreatePointer(out _mapId, 0, 0x190) //hitins, has map area
-
-                    //CSMenuManImp
-                    .ScanRelative("MenuManImp", "48 8b 0d ? ? ? ? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b", 3, 7)
-                    .CreatePointer(out _menuManImp, 0)
-
-                    //.ScanRelative("48 83 3d d5 f2 60 03 00 75 46 4c 8b 05 e4 d4 62 03 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 7)
-                    .ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 8)
-                    .CreatePointer(out _virtualMemoryFlag, 0)
-
-                    //IGT fix detour address
-                    .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
-                    .CreatePointer(out _igtFix)
-
-
-                    //Nologo address, replace jz with nop's
-                    .ScanAbsolute("NoLogo", "80 bf b8 00 00 00 00 ? ? 48 8b 05 ? ? ? ? 48 85 c0 75 2e 48 8d 0d", 7)
-                    .CreatePointer(out _noLogo);
-                        
-                    
-                    ;
-
-                //gameman  48 8b 1d ? ? ? ? 48 8b f8 48 85 db 74 18 4c 8b 03
-                //EventFlagUsageParamManagerImp 48 8b 05 . . . . 48 85 c0 75 12 88 . . . . . e8 20 ec ff ff 48 89 05 . . . .
 
                 if (_applyIgtFix && !ApplyIgtFix())
                 {
@@ -182,15 +202,15 @@ namespace SoulMemory.EldenRing
 
         private void ResetPointers()
         {
-            _igt = null;
-            _hud = null;
-            _playerIns = null;
-            _menuManImp = null;
-            _igtFix = null;
-            _playerGameData = null;
-            _inventory = null;
-            _virtualMemoryFlag = null;
-            _noLogo = null;
+            _igt.Clear();
+            _hud.Clear();
+            _playerIns.Clear();
+            _playerGameData.Clear();
+            _inventory.Clear();
+            _menuManImp.Clear();
+            _igtFix.Clear();
+            _virtualMemoryFlag.Clear();
+            _noLogo.Clear();
         }
 
         #endregion
@@ -204,6 +224,7 @@ namespace SoulMemory.EldenRing
             V105,
             V106,
             V107,
+            V108,
             Unknown,
         };
 
@@ -226,6 +247,8 @@ namespace SoulMemory.EldenRing
                     return EldenRingVersion.V106;
                 case 7:
                     return EldenRingVersion.V107;
+                case 8:
+                    return EldenRingVersion.V108;
             }
         }
 
@@ -241,23 +264,7 @@ namespace SoulMemory.EldenRing
 
         public Position GetPosition()
         {
-            if (_playerIns == null)
-            {
-                return new Position()
-                {
-                    Area   = 0,
-                    Block  = 0,
-                    Region = 0,
-                    Size   = 0,
-
-                    X = 0.0f,
-                    Y = 0.0f,
-                    Z = 0.0f,
-                };
-            }
-
             var map = _playerIns.ReadInt32(_mapIdOffset);
-            
             return new Position()
             {
                 Area   = (byte)(map >> 24 & 0xff),
@@ -273,12 +280,8 @@ namespace SoulMemory.EldenRing
 
         public bool IsPlayerLoaded()
         {
-            if (_playerIns != null)
-            {
-                var player = _playerIns.ReadInt64();
-                return player != 0;
-            }
-            return false;
+            var player = _playerIns.ReadInt64();
+            return player != 0;
         }
         
         public ScreenState GetScreenState()
@@ -293,11 +296,6 @@ namespace SoulMemory.EldenRing
         
         public bool IsBlackscreenActive()
         {
-            if (_menuManImp == null)
-            {
-                return false;
-            }
-
             var screenState = GetScreenState();
             if (screenState != ScreenState.InGame)
             {
@@ -305,10 +303,6 @@ namespace SoulMemory.EldenRing
             }
 
             var flag = _menuManImp.ReadInt32(0x18);
-            //010101 -> IG
-            //010000 -> cutscene
-            //010001 -> blackscreen
-
             var t = flag & 0x1;
             var thing = flag >> 8 & 0x1;
 
@@ -324,22 +318,6 @@ namespace SoulMemory.EldenRing
             {
                 return false;
             }
-
-            //if (
-            //    screenState == ScreenState.InGame &&
-            //    (flag       & 0x1) == 1 && 
-            //    (flag >> 8  & 0x1) == 0 &&
-            //    (flag >> 16 & 0x1) == 1 
-            //    )
-            //{
-            //    return 1;
-            //}
-            //
-            ////if (screenState == ScreenState.InGame && flag == 65793)
-            ////{
-            ////    return 1;
-            ////}
-            //return 0;
         }
 
 
@@ -373,12 +351,7 @@ namespace SoulMemory.EldenRing
         public List<Item> ReadInventory()
         {
             var items = new List<Item>();
-            
-            if (_playerGameData == null || _inventory == null)
-            {
-                return items;
-            }
-            
+                        
             var inventoryCount = _playerGameData.ReadInt32(0x420);
             var inventory = _inventory.ReadBytes(inventoryCount * InventoryEntrySize);
         
@@ -423,11 +396,6 @@ namespace SoulMemory.EldenRing
 
         public bool ReadEventFlag(uint flagId)
         {
-            if (_virtualMemoryFlag == null)
-            {
-                return false;
-            }
-
             var divisor = _virtualMemoryFlag.ReadInt32(0x1c);
             //This check does not exist in the games code; reading 0 here means something isn't initialized yet and we should check this flag again later.
             if (divisor == 0)
@@ -493,7 +461,8 @@ namespace SoulMemory.EldenRing
                     var anotherThing = 1 << (int)thing;
                     var shifted = leastSignificantDigits >> 3;
 
-                    var pointer = new Pointer(_process, _virtualMemoryFlag.Is64Bit, calculatedPointer + shifted);
+                    var pointer = new Pointer();
+                    pointer.Initialize(_process, _virtualMemoryFlag.Is64Bit, calculatedPointer + shifted);
                     var read = pointer.ReadInt32();
                     if ((read & anotherThing) != 0)
                     {
@@ -609,16 +578,16 @@ namespace SoulMemory.EldenRing
         #region Timeable
         public int GetInGameTimeMilliseconds()
         {
-            return _igt?.ReadInt32() ?? 0;
+            return _igt.ReadInt32();
         }
         public void WriteInGameTimeMilliseconds(int milliseconds)
         {
-            _igt?.WriteInt32(milliseconds);
+            _igt.WriteInt32(milliseconds);
         }
 
         public void ResetIgt()
         {
-            _igt?.WriteInt32(0);
+            _igt.WriteInt32(0);
         }
         #endregion
 
@@ -659,9 +628,17 @@ namespace SoulMemory.EldenRing
                 return true; //code already injected. Return.
             }
 
-            _process.ScanCache()
-                .ScanAbsolute("igtCodeCave", "48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20")
-                .CreatePointer(out Pointer igtCodeCave);
+            var igtCodeCave = new Pointer();
+            var treeBuilder = new TreeBuilder();
+            treeBuilder
+                .ScanAbsolute("igtCodeCave", "48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20", 0)
+                .AddPointer(igtCodeCave);
+
+            if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+            {
+                return false;
+            }
+
             long codeCave = igtCodeCave.GetAddress();
 
             //The location used as code cave here is the constructor of the network test title screen. This code would never run under normal circumstances so we can overwrite it.
@@ -723,7 +700,7 @@ namespace SoulMemory.EldenRing
             var jumpFromAddress = codeCave + igtFixCode.Count - 1;//minus jmp instruction
             var jmpAddress = (igtFixEntryPoint + 9) - (jumpFromAddress + 9);
             igtFixCode.AddRange(BitConverter.GetBytes(jmpAddress));
-            var str = igtFixCode.ToArray().ToHexString().Replace("-", " ");
+            var str = Memory.Extensions.ToHexString(igtFixCode.ToArray()).Replace("-", " ");
 
 
             //Write fixes to game memory

@@ -63,6 +63,15 @@
             <TextBlock Text="{Binding Error}" Margin="10,0,0,0" Foreground="Red" DockPanel.Dock="Left"/>
 
             <TextBlock
+                Margin="0,0,5,0"
+                DockPanel.Dock="Right"
+                HorizontalAlignment="Right">
+                <Hyperlink Click="OpenSeparateWindow_OnClick">
+                    open separate window
+                </Hyperlink>
+            </TextBlock>
+            
+            <TextBlock
                 DockPanel.Dock="Right"
                 HorizontalAlignment="Right">           
                 <Hyperlink NavigateUri="https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting" RequestNavigate="Hyperlink_RequestNavigate">

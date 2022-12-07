@@ -72,6 +72,11 @@ namespace SoulSplitter.UI
             }
         }
 
+        private void OpenSeparateWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         public static (System.Windows.Forms.Integration.ElementHost, MainControl) GetElementHostMainControl()
         {
             var mainControl = new MainControl();
