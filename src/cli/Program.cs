@@ -33,6 +33,7 @@ using SoulMemory;
 using System.Text;
 using System.Threading.Tasks;
 using System.Resources;
+using SoulSplitter.UI.Generic;
 
 #pragma warning disable CS0162
 
@@ -43,30 +44,20 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();
-            ValidatePatterns(); return;
+            //TestUi();
+            //ValidatePatterns(); return;
 
-            //flag 11000530
-            //offset 1345
-            //mask 8192
-
+            GameLoop<EldenRing>((er) =>
+            {
+                Console.WriteLine(er.GetInGameTimeMilliseconds());
+                Console.WriteLine(er.GetPosition());
+                Console.WriteLine(er.ReadEventFlag((uint)SoulMemory.EldenRing.ItemPickup.LDChapelOfAnticipationTarnishedsWizenedFinger));
+            });
 
             var ds1 = new DarkSouls1();
             ds1.TryRefresh(out _);
             ds1.TryRefresh(out _);
             ds1.ReadEventFlag(11000530);
-
-            //ValidatePatterns();return;
-            //TestUi();return;
-
-            //var ds3 = new DarkSouls3();
-            //
-            //GameLoop(ds3, () =>
-            //{
-            //    Console.WriteLine($"{ds3.GetInGameTimeMilliseconds()}");
-            //    Console.WriteLine($"peepo: {ds3.ReadEventFlag((uint)SoulMemory.DarkSouls3.Boss.IudexGundyr)}");
-            //});
-
 
             GameLoop(ds1, () =>
             {
@@ -74,29 +65,32 @@ namespace cli
                 Console.WriteLine(ds1.ReadEventFlag((uint)SoulMemory.DarkSouls1.Boss.AsylumDemon));
                 Console.WriteLine(ds1.GetSaveFileLocation());
             });
+        }
 
 
-            
-            ds1.TryRefresh(out _);
-
+        private static void GameLoop<T>(Action<T> display) where T : IGame, new()
+        {
+            var game = new T();
             while (true)
             {
-                Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
-
-                if (!ds1.TryRefresh(out Exception e))
+                if (!game.TryRefresh(out Exception e))
                 {
+                    Console.Clear();
                     Console.WriteLine(e);
+                    Console.Out.Flush();
                     Thread.Sleep(3000);
                     Console.Clear();
                 }
-
-                var isAsAlive = ds1.ReadEventFlag((uint)SoulMemory.DarkSouls1.Boss.AsylumDemon);
-
-                Thread.Sleep(10);
-                Console.SetCursorPosition(0, 0);
-                //Console.Clear();
+                else
+                {
+                    display.Invoke(game);
+                    Thread.Sleep(16);
+                    Console.SetCursorPosition(0, 0);
+                }
             }
         }
+
+
 
         private static void GameLoop<T>(T game, Action display) where T : IGame
         {
@@ -139,10 +133,11 @@ namespace cli
         {
             var validatables = new List<(string Name, IGame Game, string Directory)>()
             {
-                ("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
-                ("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
-                ("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
-                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
+                //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
+                //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
+                //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
+                //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
+                ("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
             };
 
             foreach(var validatable in validatables)
@@ -240,7 +235,7 @@ namespace cli
             while (true)
             {
                 //Refresh, display errors if there are any
-                if (!_eldenRing.Refresh(out Exception e))
+                if (!_eldenRing.TryRefresh(out Exception e))
                 {
                     Console.Clear();
                     Console.SetCursorPosition(0, 1);

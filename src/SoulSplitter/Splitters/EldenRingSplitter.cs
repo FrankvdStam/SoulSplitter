@@ -63,7 +63,7 @@ namespace SoulSplitter.Splitters
 
             //Refresh attachment to ER process
             Exception = null;
-            if(!_eldenRing.Refresh(out Exception e))
+            if(!_eldenRing.TryRefresh(out Exception e))
             {
                 if(e.Message != "eldenring start_protected_game not running.")
                 {
