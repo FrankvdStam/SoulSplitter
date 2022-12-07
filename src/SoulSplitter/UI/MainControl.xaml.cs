@@ -41,38 +41,18 @@ namespace SoulSplitter.UI
             set => ((MainViewModel)DataContext).Update(value);
         }
         
-        private void Troubleshooting_OnClick(object sender, RoutedEventArgs e)
+        
+
+        
+
+        
+
+
+        private void AddError_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting");
         }
 
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
-            e.Handled = true;
-        }
-
-        private void EventFlagLogger_OnClick(object sender, RoutedEventArgs e)
-        {
-            var games = new List<string>()
-            {
-                "darksoulsremastered",
-                "darksoulsii",
-                "darksoulsiii",
-                "sekiro",
-                "eldenring",
-            };
-
-            var process = Process.GetProcesses().FirstOrDefault(p => games.Contains(p.ProcessName.ToLower()));
-            var path = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(MainControl)).Location) + @"\soulinjectee.dll";
-
-            if (process != null && File.Exists(path))
-            {
-                process.InjectDll(path);
-            }
-        }
-
-        private void OpenSeparateWindow_OnClick(object sender, RoutedEventArgs e)
+        private void ShowErrors_OnClick(object sender, RoutedEventArgs e)
         {
 
         }

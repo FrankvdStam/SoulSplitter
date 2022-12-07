@@ -63,19 +63,15 @@ namespace SoulSplitter
 
                     _liveSplitState = state;
 
-                    if (_splitter.Exception != null)
+                    if (_splitter.Exception != null && _splitter.Exception.Message != "Timeout")
                     {
-                        MainControl.MainViewModel.Error = _splitter.Exception.Message;
-                    }
-                    else
-                    {
-                        MainControl.MainViewModel.Error = "";
+                        MainControl.MainViewModel.AddError(_splitter.Exception);
                     }
                 }
                 catch (Exception e)
                 {
                     Logger.Log(e);
-                    MainControl.MainViewModel.Error = e.Message;
+                    MainControl.MainViewModel.AddError(e);
                 }
             });
         }

@@ -51,56 +51,96 @@
         <ui:MainViewModel/>
     </UserControl.DataContext>
 
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <DockPanel Margin="3" >
-            <TextBlock Text="SoulSplitter version " DockPanel.Dock="Left"/>
-            <TextBlock Text="{Binding Version}" DockPanel.Dock="Left"/>
-            <TextBlock Text="{Binding Error}" Margin="10,0,0,0" Foreground="Red" DockPanel.Dock="Left"/>
+        <DockPanel 
+            Margin="3">
+            <TextBlock VerticalAlignment="Center" Text=" SoulSplitter "    DockPanel.Dock="Left" FontWeight="Bold" FontSize="15"/>
+            <TextBlock VerticalAlignment="Center" Text="version "           DockPanel.Dock="Left"/>
+            <TextBlock VerticalAlignment="Center" Text="{Binding Version}"  DockPanel.Dock="Left"/>
 
-            <TextBlock
-                Margin="0,0,5,0"
-                DockPanel.Dock="Right"
-                HorizontalAlignment="Right">
-                <Hyperlink Click="OpenSeparateWindow_OnClick">
-                    open separate window
-                </Hyperlink>
-            </TextBlock>
+            <!-- Due to the nature of the dockpanel control, these items are reversed in code vs how they are drawn -->
             
-            <TextBlock
-                DockPanel.Dock="Right"
-                HorizontalAlignment="Right">           
-                <Hyperlink NavigateUri="https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting" RequestNavigate="Hyperlink_RequestNavigate">
-                    Help
-                </Hyperlink>
-            </TextBlock>
-
-            <TextBlock
-                Margin="0,0,5,0"
-                DockPanel.Dock="Right"
-                HorizontalAlignment="Right">
-                <Hyperlink Click="EventFlagLogger_OnClick">
-                    Event flag logger
-                </Hyperlink>
-            </TextBlock>
-            <!--
+            <!-- Open external window -->
             <Button
                 DockPanel.Dock="Right"
                 HorizontalAlignment="Right"
-                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                VerticalAlignment="Bottom"
+                Margin="1"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Open this settings menu in a window outside of livesplit"
                 Width="25"
                 Height="25"
-                ToolTip="Troubleshooting"
-                Click="Troubleshooting_OnClick">
-                <materialDesign:PackIcon
-                    Kind="InformationOutline"
-                    Height="15"
-                    Width="15" />
-            </Button> -->
+                Command="{Binding CommandOpenSeparateSettingsWindow}">
+                <materialDesign:PackIcon Kind="Monitor"/>
+            </Button>
+            
+            <!-- Run event flag logger -->
+            <Button
+                DockPanel.Dock="Right"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="1"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Run event flag logger"
+                Width="25"
+                Height="25"
+                Command="{Binding CommandRunEventFlagLogger}">
+                <materialDesign:PackIcon Kind="Console"/>
+            </Button>
+
+            <!-- Help -->
+            <Button
+                DockPanel.Dock="Right"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="1"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Open the troubleshooting page"
+                Width="25"
+                Height="25"
+                Command="{Binding CommandTroubleShooting}">
+                <materialDesign:PackIcon Kind="Help"/>
+            </Button>
+
+            <!-- Errors -->
+            <materialDesign:Badged
+                Margin="1"
+                DockPanel.Dock="Right"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                BadgeBackground="{Binding BadgeBackgroundBrush}"
+                BadgeForeground="{Binding BadgeForegroundBrush}"
+                Badge="{Binding ErrorCount}">
+                <Button
+                    Visibility="{Binding BadgeVisibility}"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                    ToolTip="Show errors"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding CommandShowErrors}">
+                    <materialDesign:PackIcon Kind="ExclamationThick"/>
+                </Button>
+            </materialDesign:Badged>
+            
+            <!-- Debug add error 
+            <Button
+                DockPanel.Dock="Right"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="1"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Add bogus error for testing"
+                Width="25"
+                Height="25"
+                Command="{Binding CommandAddError}">
+                <materialDesign:PackIcon Kind="Plus"/>
+            </Button>-->
+
         </DockPanel>
 
         <TabControl 

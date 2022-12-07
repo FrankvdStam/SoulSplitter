@@ -44,7 +44,7 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            //TestUi();
+            TestUi();return;
             //ValidatePatterns(); return;
 
             GameLoop<EldenRing>((er) =>
