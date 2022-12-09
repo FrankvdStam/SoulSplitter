@@ -5,23 +5,56 @@ jobs:
     name: Build
     runs-on: windows-2019
     steps:
-    
+
+        #Setup Shallow clone
       - name: Checkout
         uses: actions/checkout@v2.4.0
         with:
           fetch-depth: 0
-          
+       
+         #Setup Setup dotnet & restore dependencies.
       - name: setup dotnet
         uses: actions/setup-dotnet@v3
+
+      - name: setup-msbuild
+        uses: microsoft/setup-msbuild@v1.1
 
       - name: dotnet restore
         run: dotnet restore
 
-      - name: setup-msbuild
-        uses: microsoft/setup-msbuild@v1.1
-        
-      - name: run msbuild
-        run: msbuild SoulSplitter.sln -t:rebuild -property:Configuration=Debug /p:OutputPath=build
+        #Setup sonarqube dependencies, run scan
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+     
+      - name: Cache SonarQube packages
+        uses: actions/cache@v1
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache SonarQube scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v1
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+      - name: Install SonarQube scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        shell: powershell
+        run: |
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT4BvcTSOc3x-56fpNK" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+          msbuild SoulSplitter.sln -t:rebuild -property:Configuration=Debug /p:OutputPath=build
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       - name: run NUnit tests
         shell: powershell
