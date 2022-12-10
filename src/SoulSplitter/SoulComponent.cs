@@ -61,6 +61,7 @@ namespace SoulSplitter
                         Logger.Log("Updating splitter failed", ex);
                     }
 
+
                     _liveSplitState = state;
 
                     if (_splitter.Exception != null && _splitter.Exception.Message != "Timeout")
