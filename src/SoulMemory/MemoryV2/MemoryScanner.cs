@@ -66,11 +66,11 @@ namespace SoulMemory.MemoryV2
                         return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Incorrect node type at base level: {node.NodeType}"));
 
                     case NodeType.RelativeScan:
-                        success = TryScanRelative(process, bytes, baseAddress, is64Bit, node, out scanResult);
+                        success = bytes.TryScanRelative(baseAddress, node, out scanResult);
                         break;
 
                     case NodeType.AbsoluteScan:
-                        success = TryScanAbsolute(process, bytes, baseAddress, is64Bit, node, out scanResult);
+                        success = bytes.TryScanAbsolute(baseAddress, node, out scanResult);
                         break;
                 }
 
@@ -191,7 +191,7 @@ namespace SoulMemory.MemoryV2
         /// Scan a previously created buffer of bytes for a given pattern, then interpret the data as AMD64 assembly, where the target address is a relative address
         /// Returns the static address of the given instruction
         /// </summary>
-        private static bool TryScanRelative(Process process, byte[] bytes, long baseAddress, bool is64Bit, Node node, out long result)
+        private static bool TryScanRelative(this byte[] bytes, long baseAddress, Node node, out long result)
         {
             result = 0;
             var pattern = node.Pattern.ToBytePattern();
@@ -207,7 +207,7 @@ namespace SoulMemory.MemoryV2
         /// <summary>
         /// Scan a previously created buffer of bytes for a given pattern, then interpret the data as assembly, where the target address is an absolute address
         /// </summary>
-        private static bool TryScanAbsolute(Process process, byte[] bytes, long baseAddress, bool is64Bit, Node node, out long result)
+        private static bool TryScanAbsolute(this byte[] bytes, long baseAddress, Node node, out long result)
         {
             result = 0;
             var pattern = node.Pattern.ToBytePattern();

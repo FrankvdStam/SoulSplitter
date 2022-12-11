@@ -22,7 +22,7 @@ namespace SoulMemory.MemoryV2
 {
     public class PointerAppender
     {
-        private Node _node;
+        private readonly Node _node;
         internal PointerAppender(Node node)
         {
             _node = node;

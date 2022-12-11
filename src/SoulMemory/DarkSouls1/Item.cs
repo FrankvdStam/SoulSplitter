@@ -75,7 +75,7 @@ namespace SoulMemory.DarkSouls1
             {
                 switch (Infusion)
                 {
-                    default: throw new ArgumentException($"Unknown infusion type: {Infusion}");
+                    default: throw new NotSupportedException($"Unknown infusion type: {Infusion}");
                     case ItemInfusion.Normal: return 15;
                     case ItemInfusion.Chaos: return 5;
                     case ItemInfusion.Crystal: return 5;
@@ -96,7 +96,7 @@ namespace SoulMemory.DarkSouls1
             {
                 switch (Infusion)
                 {
-                    default: throw new ArgumentException($"Unknown infusion type: {Infusion}");
+                    default: throw new NotSupportedException($"Unknown infusion type: {Infusion}");
                     case ItemInfusion.Normal: return false;
                     case ItemInfusion.Chaos: return true;
                     case ItemInfusion.Crystal: return false;

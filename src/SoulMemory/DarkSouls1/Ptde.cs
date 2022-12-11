@@ -78,7 +78,6 @@ namespace SoulMemory.DarkSouls1
                 .ScanAbsolute("WorldChrManImp", "8b 0d ? ? ? ? 8b 71 3c c6 44 24 48 01", 2)
                 //.CreatePointer(out _worldChrManImp, 0, 0)
                     .AddPointer(_playerIns, 0, 0, 0x3c);
-            ;
 
             treeBuilder
                 .ScanAbsolute("EventFlags", "56 8B F1 8B 46 1C 50 A1 ? ? ? ? 32 C9", 8)
@@ -199,7 +198,6 @@ namespace SoulMemory.DarkSouls1
                 if (bonfireId == (int)bonfire)
                 {
                     int bonfireState = netBonfireDbItem.ReadInt32(0x8);
-                    var state = (BonfireState)bonfireState;
                     return (BonfireState)bonfireState;
                 }
 
@@ -220,7 +218,7 @@ namespace SoulMemory.DarkSouls1
             var second = _menuMan.ReadInt32(0xc0);
             var third = _menuMan.ReadInt32(0x6c); //This address seems like it turns into a 1 only when you are on the main menu
 
-            return third == 0 && first == 1 & second == 1;
+            return third == 0 && first == 1 && second == 1;
         }
 
 

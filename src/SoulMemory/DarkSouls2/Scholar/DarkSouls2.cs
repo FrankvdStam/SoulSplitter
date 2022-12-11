@@ -62,7 +62,7 @@ namespace SoulMemory.DarkSouls2.Scholar
                     
                     .ScanRelative("LoadState", "48 89 05 ? ? ? ? b0 01 48 83 c4 28", 3, 7)
                         .CreatePointer(out _loadState, 0x0);
-                    ;
+                    
 
                 return null;
             }
@@ -159,8 +159,6 @@ namespace SoulMemory.DarkSouls2.Scholar
                 {
                     return false;
                     //TODO: fix this. Should be (uVar1 * 0x1f >> 8) << 8
-                    //result = uVar1 & 0xffffffffffffff00;
-                    //return result != 0;
                 }
 
                 if (vector.ReadInt32(0xc) == eventFlagId / 10000)
