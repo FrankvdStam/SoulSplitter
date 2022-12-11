@@ -35,6 +35,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -65,26 +66,8 @@ namespace SoulMemory.DarkSouls1
         private Pointer _getRegion = new Pointer();
         private int? _steamId3;
         private bool? _isJapanese;
-        private DateTime _lastFailedRefresh = DateTime.MinValue;
 
-        public bool TryRefresh(out Exception exception)
-        {
-            exception = null;
-
-            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
-            {
-                exception = new Exception("Timeout");
-                return false;
-            }
-
-            if (!ProcessClinger.Refresh(ref _process, "darksoulsremastered", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e;
-                _lastFailedRefresh = DateTime.Now;
-                return false;
-            }
-            return true;
-        }
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsremastered", InitPointers, ResetPointers);
 
         private void ResetPointers()
         {
@@ -102,24 +85,25 @@ namespace SoulMemory.DarkSouls1
             _isJapanese = null;
         }
 
-        private Exception InitPointers()
+        private ResultErr<RefreshError> InitPointers()
         {
             try 
             {
                 var treeBuilder = GetTreeBuilder();
-                if(!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+                var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
+                if(result.IsErr)
                 {
-                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
+                    return result;
                 }
 
                 _steamId3 = GetSteamId3();
                 _isJapanese = IsJapanese();
 
-                return null;
+                return Result.Ok();
             }
             catch (Exception e)
             {
-                return e;
+                return RefreshError.FromException(e);
             }
         }
 

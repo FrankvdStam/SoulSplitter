@@ -26,6 +26,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
+using SoulMemory;
 using SoulMemory.Memory;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;
@@ -43,7 +44,7 @@ namespace SoulSplitter.UI
             CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage, (o) => true);
             CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger, (o) => true);
             CommandOpenSeparateSettingsWindow = new RelayCommand(OpenSeparateSettingsWindow, (o) => true);
-            CommandClearErrors = new RelayCommand(ClearErrors, (o) => ErrorCount > 0);
+            CommandClearErrors = new RelayCommand(ClearErrors, (o) => Errors.Count > 0);
             CommandAddError = new RelayCommand(AddErrorCommand, (o) => true);
             CommandShowErrors = new RelayCommand(ShowErrorWindow, (o) => true);
         }
@@ -109,25 +110,85 @@ namespace SoulSplitter.UI
 
         #region Errors
 
-        public void AddError(Exception e)
+        public bool IgnoreProcessNotRunningErrors
+        {
+            get => _ignoreProcessNotRunningErrors;
+            set => SetField(ref _ignoreProcessNotRunningErrors, value);
+        }
+        private bool _ignoreProcessNotRunningErrors = true;
+
+        public void TryAndHandleError(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e);
+                AddException(e);
+            }
+        }
+
+        public void AddRefreshError(RefreshError error)
+        {
+            if(IgnoreProcessNotRunningErrors && error.Reason == RefreshErrorReason.ProcessNotRunning || error.Reason == RefreshErrorReason.ProcessExited)
+            {
+                return;
+            }
+
+            var errorViewModel = new ErrorViewModel
+            {
+                DateTime = DateTime.Now,
+                Error = $"{error.Message ?? ""} {error.Exception?.ToString() ?? ""}",
+            };
+            AddError(errorViewModel);
+        }
+
+        public void AddException(Exception e)
         {
             var errorViewModel = new ErrorViewModel
             {
                 DateTime = DateTime.Now,
                 Error = e.ToString(),
             };
-            Errors.Add(errorViewModel);
-            ErrorCount = Errors.Count;
-            BadgeBackgroundBrush = new SolidColorBrush(Colors.Red);
-            BadgeForegroundBrush = new SolidColorBrush(Colors.Black);
+            AddError(errorViewModel);
+        }
+
+        private void AddError(ErrorViewModel errorViewModel)
+        {
+            Errors.Add(errorViewModel); 
+            UpdateErrorBadge();
         }
 
         public void ClearErrors(object param)
         {
             Errors.Clear();
-            ErrorCount = Errors.Count;
-            BadgeBackgroundBrush = new SolidColorBrush(Colors.Transparent);
-            BadgeForegroundBrush = new SolidColorBrush(Colors.Transparent);
+            UpdateErrorBadge();
+        }
+
+        private void UpdateErrorBadge()
+        {
+            if(Errors.Count == 0)
+            {
+                ErrorCount = "";
+                BadgeBackgroundBrush = new SolidColorBrush(Colors.Transparent);
+                BadgeForegroundBrush = new SolidColorBrush(Colors.Transparent);
+            }
+            else
+            {
+                BadgeBackgroundBrush = new SolidColorBrush(Colors.Red);
+                BadgeForegroundBrush = new SolidColorBrush(Colors.Black);
+
+                if(Errors.Count > 9)
+                {
+                    ErrorCount = "9+";
+                }
+                else
+                {
+                    ErrorCount = Errors.Count.ToString();
+                }
+            }
         }
 
         [XmlIgnore]
@@ -153,6 +214,7 @@ namespace SoulSplitter.UI
             {
                 _errorWindow = new ErrorWindow();
                 _errorWindow.DataContext = this;
+                _errorWindow.Title = "SoulSplitter errors";
                 _errorWindow.Closing += (s, arg) =>
                 {
                     _errorWindow.Hide();
@@ -163,12 +225,12 @@ namespace SoulSplitter.UI
         }
 
         [XmlIgnore]
-        public int ErrorCount
+        public string ErrorCount
         {
             get => _errorCount;
             set => SetField(ref _errorCount, value);
         }
-        private int _errorCount;
+        private string _errorCount;
 
         [XmlIgnore]
         public Brush BadgeBackgroundBrush
@@ -209,9 +271,10 @@ namespace SoulSplitter.UI
         }
         private RelayCommand _commandTroubleShooting;
 
+        private const string TroubleshootingUrl = "https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting";
         private void OpenTroubleshootingWebpage(object param)
         {
-            Process.Start("https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting");
+            Process.Start(TroubleshootingUrl);
         }
 
         [XmlIgnore]
@@ -259,6 +322,7 @@ namespace SoulSplitter.UI
                 mainControl.DataContext = this;
 
                 _settingsWindow = new Window();
+                _settingsWindow.Title = "SoulSplitter settings";
                 _settingsWindow.Content = mainControl;
                 _settingsWindow.Closing += (s, arg) =>
                 {
@@ -281,7 +345,7 @@ namespace SoulSplitter.UI
 
         private void AddErrorCommand(object param)
         {
-            AddError(new Exception("adf"));
+            AddException(new Exception("adf"));
         }
 
         #endregion

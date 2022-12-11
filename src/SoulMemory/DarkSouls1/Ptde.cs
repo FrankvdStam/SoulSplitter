@@ -56,26 +56,7 @@ namespace SoulMemory.DarkSouls1
         private Pointer _netBonfireDb = new Pointer();
         private Pointer _saveInfo = new Pointer();
         private Pointer _menuMan = new Pointer();
-        private DateTime _lastFailedRefresh = DateTime.MinValue;
-
-        public bool TryRefresh(out Exception exception)
-        {
-            exception = null;
-
-            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
-            {
-                exception = new Exception("Timeout");
-                return false;
-            }
-
-            if (!SoulMemory.Memory.ProcessClinger.Refresh(ref _process, "darksouls", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e; 
-                _lastFailedRefresh = DateTime.Now;
-                return false;
-            }
-            return true;
-        }
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksouls", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder() 
         {
@@ -132,21 +113,17 @@ namespace SoulMemory.DarkSouls1
             _saveInfo.Clear();
         }
 
-        private Exception InitPointers()
+        private ResultErr<RefreshError> InitPointers()
         {
             try
             {
                 var treeBuilder = GetTreeBuilder();
-                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
-                {
-                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
-                }
+                return MemoryScanner.TryResolvePointers(treeBuilder, _process);
             }
             catch (Exception e)
             {
-                return e;
+                return RefreshError.FromException(e);
             }
-            return null;
         }
         #endregion
 

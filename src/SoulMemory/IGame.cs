@@ -23,7 +23,7 @@ namespace SoulMemory
 {
     public interface IGame
     {
-        bool TryRefresh(out Exception exception);
+        ResultErr<RefreshError> TryRefresh();
         TreeBuilder GetTreeBuilder();
     }
 }

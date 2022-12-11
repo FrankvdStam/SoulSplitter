@@ -29,7 +29,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml

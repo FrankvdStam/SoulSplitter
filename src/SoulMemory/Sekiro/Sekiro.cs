@@ -37,16 +37,7 @@ namespace SoulMemory.Sekiro
 
         #region Refresh/init/reset ================================================================================================================================
 
-        public bool TryRefresh(out Exception exception)
-        {
-            exception = null;
-            if (!SoulMemory.Memory.ProcessClinger.Refresh(ref _process, "sekiro", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e;
-                return false;
-            }
-            return true;
-        }
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "sekiro", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
         {
@@ -80,28 +71,29 @@ namespace SoulMemory.Sekiro
         }
          
 
-        private Exception InitPointers()
+        private ResultErr<RefreshError> InitPointers()
         {
             Thread.Sleep(3000); //Give sekiro some time to boot
 
             try
             {
                 var treeBuilder = GetTreeBuilder();
-                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+                var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
+                if (result.IsErr)
                 {
-                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
+                    return result;
                 }
 
                 if (!InitB3Mods())
                 {
-                    throw new Exception("B3Mods init failed");
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "B3Mods init failed"));
                 }
 
-                return null;
+                return Result.Ok();
             }
             catch (Exception e)
             {
-                return e;
+                return RefreshError.FromException(e);
             }
         }
 

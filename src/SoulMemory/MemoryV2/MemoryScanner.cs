@@ -17,6 +17,7 @@
 using SoulMemory.Native;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -38,11 +39,11 @@ namespace SoulMemory.MemoryV2
         /// <param name="errors"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static bool TryResolvePointers(TreeBuilder treeBuilder, Process process, out List<string> errors)
+        public static ResultErr<RefreshError> TryResolvePointers(TreeBuilder treeBuilder, Process process)
         {
             if (process.MainModule == null)
             {
-                throw new Exception("process MainModule is null");
+                return Result.Err(new RefreshError(RefreshErrorReason.MainModuleNull, "Main module is null. Try running as admin."));
             }
 
             //Gather some information about the process that can be reused throughout the resolving process
@@ -54,7 +55,7 @@ namespace SoulMemory.MemoryV2
             var is64Bit = !isWow64Result;
 
             //Resolve nodes with the above data
-            errors = new List<string>();
+            var errors = new List<string>();
             foreach (var node in treeBuilder.Tree)
             {
                 long scanResult = 0;
@@ -62,7 +63,7 @@ namespace SoulMemory.MemoryV2
                 switch (node.NodeType)
                 {
                     default:
-                        throw new Exception($"Incorrect node type at base level: {node.NodeType}");
+                        return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Incorrect node type at base level: {node.NodeType}"));
 
                     case NodeType.RelativeScan:
                         success = TryScanRelative(process, bytes, baseAddress, is64Bit, node, out scanResult);
@@ -86,7 +87,11 @@ namespace SoulMemory.MemoryV2
                 }
             }
 
-            return !errors.Any();
+            if (errors.Any())
+            {
+                return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, $"Scans failed for {string.Join(",", errors)}"));
+            }
+            return Result.Ok();
         }
         #endregion
 
@@ -131,6 +136,56 @@ namespace SoulMemory.MemoryV2
         #endregion
 
         #region Utility ==============================================================================================================================
+
+        /// <summary>
+        /// Refresh a process instance
+        /// </summary>
+        /// <returns></returns>
+        public static ResultErr<RefreshError> TryRefresh(ref Process process, string name, Func<ResultErr<RefreshError>> initialize, Action reset)
+        {
+            try
+            {
+                //Process not attached - find it in the process list
+                if (process == null)
+                {
+                    process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == name.ToLower() && !i.HasExited);
+                    if (process == null)
+                    {
+                        return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, $"Process {name} not running or inaccessible. Try running livesplit as admin."));
+                    }
+                    else
+                    {
+                        //Propogate init result upwards
+                        return initialize();
+                    }
+                }
+                //Process is attached, make sure it is still running
+                else
+                {
+                    if (process.HasExited)
+                    {
+                        process = null;
+                        reset();
+                        return Result.Err(new RefreshError(RefreshErrorReason.ProcessExited));
+                    }
+
+                    //Nothing going on, process still running
+                    return Result.Ok();
+                }
+            }
+            catch (Exception e)
+            {
+                reset();
+                process = null;
+
+                if (e.Message == "Access is denied")
+                {
+                    return Result.Err(new RefreshError(RefreshErrorReason.AccessDenied, "Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin."));
+                }
+
+                return RefreshError.FromException(e);
+            }
+        }
 
         /// <summary>
         /// Scan a previously created buffer of bytes for a given pattern, then interpret the data as AMD64 assembly, where the target address is a relative address

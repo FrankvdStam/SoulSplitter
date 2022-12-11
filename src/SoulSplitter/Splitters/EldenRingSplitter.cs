@@ -18,8 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LiveSplit.Model;
+using SoulMemory;
 using SoulMemory.EldenRing;
 using SoulSplitter.Splits.EldenRing;
+using SoulSplitter.UI;
 using SoulSplitter.UI.EldenRing;
 using SoulSplitter.UI.Generic;
 
@@ -27,8 +29,6 @@ namespace SoulSplitter.Splitters
 {
     internal class EldenRingSplitter : ISplitter
     {
-        public Exception Exception { get; set; }
-
         private EldenRing _eldenRing;
         private EldenRingViewModel _eldenRingViewModel;
         private LiveSplitState _liveSplitState;
@@ -53,26 +53,22 @@ namespace SoulSplitter.Splitters
             _liveSplitState.OnReset -= OnReset;
         }
 
-        public void Update(object settings)
+        public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
         {
             //Settings from the UI
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
-                _eldenRingViewModel = (EldenRingViewModel)settings;
+                _eldenRingViewModel = mainViewModel.EldenRingViewModel;
             });
 
             //Refresh attachment to ER process
-            Exception = null;
-            if(!_eldenRing.TryRefresh(out Exception e))
+            var result = _eldenRing.TryRefresh();
+            if (result.IsErr)
             {
-                if(e.Message != "eldenring start_protected_game not running.")
-                {
-                    Logger.Log(e);
-                }
-                Exception = e;
+                mainViewModel.AddRefreshError(result.GetErr());
             }
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 //Lock IGT to 0 if requested
                 if (_eldenRingViewModel.LockIgtToZero)
@@ -82,20 +78,22 @@ namespace SoulSplitter.Splitters
                 }
             });
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 UpdatePosition();
             });
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 UpdateTimer(_eldenRingViewModel.StartAutomatically);
             });
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 UpdateAutoSplitter();
             });
+
+            return result;
         }
 
 

@@ -40,23 +40,7 @@ namespace SoulMemory.DarkSouls3
         private long _igtOffset;
         private DateTime _lastFailedRefresh = DateTime.MinValue;
 
-        public bool TryRefresh(out Exception exception)
-        {
-            exception = null;
-            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
-            {
-                exception = new Exception("Timeout");
-                return false;
-            }
-
-            if (!ProcessClinger.Refresh(ref _process, "darksoulsiii", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e;
-                _lastFailedRefresh = DateTime.Now;
-                return false;
-            }
-            return true;
-        }
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsiii", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
         {
@@ -95,13 +79,13 @@ namespace SoulMemory.DarkSouls3
         }
 
 
-        private Exception InitPointers()
+        private ResultErr<RefreshError> InitPointers()
         {
             try
             {
                 if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
                 {
-                    return new Exception("Failed to determine game version");
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {_process?.MainModule?.FileVersionInfo?.ProductVersion}"));
                 }
 
                 //Clear count: 0x78 -> likely subject to the same shift that happens to IGT offset
@@ -121,16 +105,12 @@ namespace SoulMemory.DarkSouls3
                 }
 
                 var treeBuilder = GetTreeBuilder();
-                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
-                {
-                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
-                }
+                return MemoryScanner.TryResolvePointers(treeBuilder, _process);
             }
             catch(Exception e)
             {
-                return e;
+                return RefreshError.FromException(e);
             }
-            return null;
         }
 
         private void ResetPointers()

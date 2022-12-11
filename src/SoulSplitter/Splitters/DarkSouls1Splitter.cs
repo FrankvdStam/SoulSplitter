@@ -19,8 +19,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using LiveSplit.Model;
+using SoulMemory;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
+using SoulSplitter.UI;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.Generic;
 
@@ -31,7 +33,6 @@ namespace SoulSplitter.Splitters
        // private LiveSplitState _liveSplitState;
         private IDarkSouls1 _darkSouls1;
         private DarkSouls1ViewModel _darkSouls1ViewModel;
-        public Exception Exception { get; set; }
 
         public DarkSouls1Splitter(ITimerModel timerModel, IDarkSouls1 darkSouls1)
         {
@@ -42,37 +43,35 @@ namespace SoulSplitter.Splitters
             _timerModel.CurrentState.IsGameTimePaused = true;
         }
 
-        public void Update(object settings)
+        public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
         {
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
-                _darkSouls1ViewModel = (DarkSouls1ViewModel)settings;
+                _darkSouls1ViewModel = mainViewModel.DarkSouls1ViewModel;
             });
 
-            Exception = null;
-            if(!_darkSouls1.TryRefresh(out Exception e))
+            var result = _darkSouls1.TryRefresh();
+            if (result.IsErr)
             {
-                if(e.Message != "DarkSouls not running")
-                {
-                    Logger.Log(e);
-                }
-                Exception = e;
+                mainViewModel.AddRefreshError(result.GetErr());
             }
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 _darkSouls1ViewModel.CurrentPosition = _darkSouls1.GetPosition();
             });
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 UpdateTimer();
             });
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 UpdateAutoSplitter();
             });
+
+            return result;
         }
 
         public void Dispose()
@@ -159,7 +158,6 @@ namespace SoulSplitter.Splitters
 
                     var credits = _darkSouls1.AreCreditsRolling();
 
-                   
                     if (
                         //Detect going from a savefile to the main menu
                         //Only do this once to prevent save file reading race conditions

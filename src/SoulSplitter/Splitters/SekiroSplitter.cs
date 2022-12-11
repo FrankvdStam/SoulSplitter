@@ -18,8 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LiveSplit.Model;
+using SoulMemory;
 using SoulMemory.Sekiro;
 using SoulSplitter.Splits.Sekiro;
+using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
 using SoulSplitter.UI.Sekiro;
 
@@ -27,7 +29,6 @@ namespace SoulSplitter.Splitters
 {
     public class SekiroSplitter : ISplitter
     {
-        public Exception Exception { get; set; }
         private Sekiro _sekiro;
         private SekiroViewModel _sekiroViewModel;
         private LiveSplitState _liveSplitState;
@@ -64,17 +65,35 @@ namespace SoulSplitter.Splitters
             _liveSplitState.OnReset -= OnReset;
         }
 
-        public void Update(object settings)
+        public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
         {
-            _sekiroViewModel = (SekiroViewModel)settings;
+            mainViewModel.TryAndHandleError(() =>
+            {
+                _sekiroViewModel = mainViewModel.SekiroViewModel;
+            });
 
-            Exception = !_sekiro.TryRefresh(out Exception e) ? e : null;
-            
-            _sekiroViewModel.CurrentPosition = _sekiro.GetPlayerPosition();
+            var result = _sekiro.TryRefresh();
+            if (result.IsErr)
+            {
+                mainViewModel.AddRefreshError(result.GetErr());
+            }
 
-            UpdateTimer();
+            mainViewModel.TryAndHandleError(() =>
+            {
+                _sekiroViewModel.CurrentPosition = _sekiro.GetPlayerPosition();
+            });
 
-            UpdateAutoSplitter();
+            mainViewModel.TryAndHandleError(() =>
+            {
+                UpdateTimer();
+            });
+
+            mainViewModel.TryAndHandleError(() =>
+            {
+                UpdateAutoSplitter();
+            });
+
+            return result;
         }
         
         #endregion

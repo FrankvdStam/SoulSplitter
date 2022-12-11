@@ -59,30 +59,11 @@ namespace SoulMemory.EldenRing
 
 
         #region Refresh/init/reset ================================================================================================
-        private DateTime _lastFailedRefresh = DateTime.MinValue;
-        public bool TryRefresh(out Exception exception)
-        {
-            exception = null;
-
-            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
-            {
-                exception = new Exception("Timeout");
-                return false;
-            }
-
-            if (!SoulMemory.Memory.ProcessClinger.Refresh(ref _process, "eldenring", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e;
-                _lastFailedRefresh = DateTime.Now;
-                return false;
-            }
-            return true;
-        }
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "eldenring", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
         {
             var treeBuilder = new TreeBuilder();
-
             treeBuilder
                 .ScanRelative("FD4Time", "48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
                     .AddPointer(_igt, 0, 0xa0)
@@ -169,35 +150,41 @@ namespace SoulMemory.EldenRing
         }
 
 
-        public Exception InitPointers()
+        public ResultErr<RefreshError> InitPointers()
         {
             try
             {
                 if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
                 {
-                    return new Exception("Failed to determine game version");
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {_process?.MainModule?.FileVersionInfo?.ProductVersion}"));
                 }
 
                 InitializeOffsets(v);
 
                 var treeBuilder = GetTreeBuilder();
-
-                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+                var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
+                if (result.IsErr)
                 {
-                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
+                    return result;
                 }
 
                 if (_applyIgtFix && !ApplyIgtFix())
                 {
-                    return new Exception("MIGT code injection failed");
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "MIGT injection failed"));
                 }
+
+                return Result.Ok();
             }
             catch (Exception e)
             {
-                return e;
-            }
+                if(e.Message == "Access is denied")
+                {
+                    _process = null;
+                    return Result.Err(new RefreshError(RefreshErrorReason.AccessDenied, "Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin."));
+                }
 
-            return null;
+                return RefreshError.FromException(e);
+            }
         }
 
         private void ResetPointers()
@@ -634,7 +621,8 @@ namespace SoulMemory.EldenRing
                 .ScanAbsolute("igtCodeCave", "48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20", 0)
                 .AddPointer(igtCodeCave);
 
-            if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+            
+            if (MemoryScanner.TryResolvePointers(treeBuilder, _process).IsErr)
             {
                 return false;
             }
