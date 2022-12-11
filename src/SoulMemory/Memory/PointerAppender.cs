@@ -14,31 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
-
-namespace SoulMemory.MemoryV2
+namespace SoulMemory.Memory
 {
-    internal class Node
+    public class PointerAppender
     {
-        public NodeType NodeType;
+        private readonly Node _node;
+        internal PointerAppender(Node node)
+        {
+            _node = node;
+        }
 
-        //Used for scans
-        public string Name = "";
-        public string Pattern = "";
-
-        //Used for relative scans
-        public long AddressOffset;
-        public long InstructionSize;
-
-        //used for absolute scans
-        public long? Offset;
-
-        //used for pointers
-        public long[] Offsets = new long[] { };
-        public Pointer Pointer = new Pointer();
-
-        public List<Node> Pointers = new List<Node>();
-
-        public override string ToString() => Name;
+        public PointerAppender AddPointer(Pointer pointer, params long[] offsets)
+        {
+            var node = new Node
+            {
+                NodeType = NodeType.Pointer,
+                Name = _node.Name,
+                Pattern = _node.Pattern,
+                Offsets = offsets,
+                Pointer = pointer,
+            };
+            _node.Pointers.Add(node);
+            return this;
+        }
     }
 }

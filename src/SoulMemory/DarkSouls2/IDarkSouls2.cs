@@ -18,9 +18,8 @@ using System;
 
 namespace SoulMemory.DarkSouls2
 {
-    public interface IDarkSouls2
+    public interface IDarkSouls2 : IGame
     {
-        bool Refresh(out Exception exception);
         Vector3f GetPosition();
         int GetBossKillCount(BossType bossType);
         int GetAttribute(Attribute attribute);

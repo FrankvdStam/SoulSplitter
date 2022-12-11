@@ -16,8 +16,8 @@
 
 using System;
 using System.Diagnostics;
-using SoulMemory.MemoryV2;
-using Pointer = SoulMemory.MemoryV2.Pointer;
+using SoulMemory.Memory;
+using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.DarkSouls3
 {

@@ -116,7 +116,7 @@ namespace cli
                 var s = new Stopwatch();
                 s.Start();
                 
-                if (!SoulMemory.MemoryV2.MemoryScanner.TryValidatePatterns(tree, files, out List<(string fileName, string patternName, long count)> errors))
+                if (!SoulMemory.Memory.MemoryScanner.TryValidatePatterns(tree, files, out List<(string fileName, string patternName, long count)> errors))
                 {
                     foreach (var error in errors)
                     {

@@ -36,7 +36,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using SoulMemory.MemoryV2;
+using SoulMemory.Memory;
 
 namespace SoulMemory.DarkSouls1
 {
@@ -169,7 +169,7 @@ namespace SoulMemory.DarkSouls1
             var listLength = _playerGameData.ReadInt32(0x2c8);
             var listStart = _playerGameData.ReadInt32(0x2cc);
             
-            var bytes = SoulMemory.Memory.Extensions.ReadMemory(_process, (IntPtr)listStart, listLength * 0x1c);
+            var bytes = Memory.Extensions.ReadMemory(_process, (IntPtr)listStart, listLength * 0x1c);
             return ItemReader.GetCurrentInventoryItems(bytes, listLength, itemCount, keyCount);
         }
 

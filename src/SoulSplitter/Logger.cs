@@ -75,7 +75,7 @@ namespace SoulSplitter
             }
         }
 
-        public static void Log(string message, Exception e) => Log(message + " " + e.Format());
-        public static void Log(Exception e) => Log(e.Format());
+        public static void Log(string message, Exception e) => Log(message + " " + e.ToString());
+        public static void Log(Exception e) => Log(e.ToString());
     }
 }

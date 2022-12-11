@@ -22,7 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SoulMemory.MemoryV2
+namespace SoulMemory.Memory
 {
     public static class MemoryScanner
     {

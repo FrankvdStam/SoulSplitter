@@ -16,7 +16,7 @@
 
 using System.Collections.Generic;
 
-namespace SoulMemory.MemoryV2
+namespace SoulMemory.Memory
 {
     /// <summary>
     /// A TreeBuilder lets you define a data tree, from scans and offsets, that end in pointers.

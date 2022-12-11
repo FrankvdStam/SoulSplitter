@@ -38,9 +38,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using SoulMemory.Memory;
-using SoulMemory.MemoryV2;
 using SoulMemory.Native;
-using Pointer = SoulMemory.MemoryV2.Pointer;
+using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.DarkSouls1
 {

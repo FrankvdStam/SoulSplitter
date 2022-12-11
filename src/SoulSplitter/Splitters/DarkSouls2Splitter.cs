@@ -69,7 +69,7 @@ namespace SoulSplitter.Splitters
         {
             _darkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
 
-            _darkSouls2.Refresh(out _);
+            _darkSouls2.TryRefresh();
             
             _darkSouls2ViewModel.CurrentPosition = _darkSouls2.GetPosition();
             

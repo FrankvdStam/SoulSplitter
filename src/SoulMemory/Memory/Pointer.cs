@@ -14,28 +14,47 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory.Native;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using SoulMemory.Native;
 
-namespace SoulMemory.Shared
+namespace SoulMemory.Memory
 {
     public class Pointer
     {
-        public Pointer(Process process, bool is64Bit, long baseAddress, params long[] offsets)
+        public Process Process;
+        public long BaseAddress;
+        public List<long> Offsets = new List<long>();
+        public bool Is64Bit;
+        private bool _initialized = false;
+
+
+        public void Initialize(Process process, bool is64Bit, long baseAddress, params long[] offsets)
         {
             Process = process;
             Is64Bit = is64Bit;
             BaseAddress = baseAddress;
             Offsets = offsets.ToList();
+            _initialized = true;
         }
+
+        public void Clear()
+        {
+            _initialized = false;
+            Process = null;
+            BaseAddress = 0;
+            Offsets.Clear();
+        }
+
 
         public Pointer Copy()
         {
-            return new Pointer(Process, Is64Bit, BaseAddress, Offsets.ToArray());
+            var p = new Pointer();
+            p.Initialize(Process, Is64Bit, BaseAddress, Offsets.ToArray());
+            return p;
         }
 
         /// <summary>
@@ -58,10 +77,7 @@ namespace SoulMemory.Shared
             return copy;
         }
 
-        public Process Process;
-        public long BaseAddress;
-        public List<long> Offsets;
-        public bool Is64Bit;
+      
 
         private long ResolveOffsets(List<long> offsets, StringBuilder debugStringBuilder = null)
         {
@@ -138,9 +154,15 @@ namespace SoulMemory.Shared
         #region Read/write memory
 
         private byte[] ReadMemory(long? offset, int length)
-        { 
+        {
+
             int bytesRead = 0;
             byte[] buffer = new byte[length];
+
+            if (!_initialized)
+            {
+                return buffer;
+            }
 
             var offsetsCopy = Offsets.ToList();
             if (offset.HasValue)
@@ -212,7 +234,7 @@ namespace SoulMemory.Shared
         #region Write
 
         public void WriteInt32(int value) => WriteInt32(null, value);
-        
+
 
         public void WriteInt32(long? offset, int value)
         {
@@ -235,10 +257,10 @@ namespace SoulMemory.Shared
         {
             WriteMemory(offset, BitConverter.GetBytes(value));
         }
-        
+
         public void WriteByte(long? offset, byte value)
         {
-            WriteMemory(offset, new byte[]{value});
+            WriteMemory(offset, new byte[] { value });
         }
 
         public void WriteBytes(long? offset, byte[] value)
@@ -268,6 +290,7 @@ namespace SoulMemory.Shared
         {
             Kernel32.VirtualFreeEx(Process.Handle, address, IntPtr.Zero, Kernel32.MEM_RELEASE);
         }
+
         public uint Execute(IntPtr address, uint timeout = 0xFFFFFFFF)
         {
             IntPtr thread = Kernel32.CreateRemoteThread(Process.Handle, IntPtr.Zero, 0, address, IntPtr.Zero, 0, IntPtr.Zero);
@@ -275,6 +298,7 @@ namespace SoulMemory.Shared
             Kernel32.CloseHandle(thread);
             return result;
         }
+
         public uint Execute(byte[] bytes, uint timeout = 0xFFFFFFFF)
         {
             IntPtr address = Allocate((uint)bytes.Length, Kernel32.PAGE_EXECUTE_READWRITE);

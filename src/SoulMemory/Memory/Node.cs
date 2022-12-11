@@ -14,12 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.MemoryV2
+using System.Collections.Generic;
+
+namespace SoulMemory.Memory
 {
-    internal enum NodeType
+    internal class Node
     {
-        RelativeScan,
-        AbsoluteScan,
-        Pointer,
+        public NodeType NodeType;
+
+        //Used for scans
+        public string Name = "";
+        public string Pattern = "";
+
+        //Used for relative scans
+        public long AddressOffset;
+        public long InstructionSize;
+
+        //used for absolute scans
+        public long? Offset;
+
+        //used for pointers
+        public long[] Offsets = new long[] { };
+        public Pointer Pointer = new Pointer();
+
+        public List<Node> Pointers = new List<Node>();
+
+        public override string ToString() => Name;
     }
 }

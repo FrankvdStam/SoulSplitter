@@ -19,9 +19,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using SoulMemory.MemoryV2;
+using SoulMemory.Memory;
 using SoulMemory.Native;
-using Pointer = SoulMemory.MemoryV2.Pointer;
+using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.EldenRing
 {

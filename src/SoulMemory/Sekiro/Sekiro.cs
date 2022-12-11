@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using SoulMemory.Memory;
-using SoulMemory.MemoryV2;
 using SoulMemory.Native;
 
 namespace SoulMemory.Sekiro
