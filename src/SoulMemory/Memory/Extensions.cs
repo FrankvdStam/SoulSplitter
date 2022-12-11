@@ -81,7 +81,7 @@ namespace SoulMemory.Memory
                 .GetType()
                 .GetMember(enumValue.ToString())
                 .FirstOrDefault()
-                .GetCustomAttribute<Annotation>()?
+                .GetCustomAttribute<AnnotationAttribute>()?
                 .Name;
 
             if (string.IsNullOrEmpty(displayName))
@@ -97,7 +97,7 @@ namespace SoulMemory.Memory
                 .GetType()
                 .GetMember(enumValue.ToString())
                 .FirstOrDefault()
-                .GetCustomAttribute<Annotation>()?
+                .GetCustomAttribute<AnnotationAttribute>()?
                 .Description;
 
             if (string.IsNullOrEmpty(displayName))

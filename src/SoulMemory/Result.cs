@@ -26,19 +26,9 @@ namespace SoulMemory
     {
         #region Sugar interface ==========================================================================================================================================================
 
-        public static ContainerOk<Empty> Ok()
-        {
-            return new ContainerOk<Empty>(default);
-        }
-
         public static ContainerErr<Empty> Err()
         {
             return new ContainerErr<Empty>(default);
-        }
-
-        public static ContainerOk<T> Ok<T>(T t)
-        {
-            return new ContainerOk<T>(t);
         }
 
         public static ContainerErr<T> Err<T>(T t)
@@ -46,11 +36,14 @@ namespace SoulMemory
             return new ContainerErr<T>(t);
         }
 
-        //Ugly helper function to support old style errors for the webservice.
-        //Should ultimately be removed after errors have been standardized
-        public static ContainerErr<WebserviceError> WsErr(int code, string message)
+        public static ContainerOk<Empty> Ok()
         {
-            return new ContainerErr<WebserviceError>(new WebserviceError(code, message));
+            return new ContainerOk<Empty>(default);
+        }
+
+        public static ContainerOk<T> Ok<T>(T t)
+        {
+            return new ContainerOk<T>(t);
         }
 
         #endregion
@@ -82,7 +75,7 @@ namespace SoulMemory
         {
             if (!IsOk)
             {
-                throw new Exception("Called unwrap on a failed Result");
+                throw new UnwrapException("Called unwrap on a failed Result");
             }
         }
 
@@ -139,7 +132,7 @@ namespace SoulMemory
         {
             if (!IsOk)
             {
-                throw new Exception("Called unwrap on a failed Result");
+                throw new UnwrapException("Called unwrap on a failed Result");
             }
         }
 
@@ -204,7 +197,7 @@ namespace SoulMemory
         {
             if (!IsOk)
             {
-                throw new Exception("Called unwrap on a failed Result");
+                throw new UnwrapException("Called unwrap on a failed Result");
             }
 
             return _ok;
@@ -292,7 +285,7 @@ namespace SoulMemory
             {
                 return _ok;
             }
-            throw new Exception("Called unwrap on a failed Result");
+            throw new UnwrapException("Called unwrap on a failed Result");
         }
 
         public TErr GetErr()
@@ -358,18 +351,10 @@ namespace SoulMemory
     public struct Empty { }
 
     /// <summary>
-    /// Helper struct to help remove servicemodel exceptions from the other layers of the application,
-    /// While keeping all the fields intact
+    /// Thrown when unwrapping a failed result
     /// </summary>
-    public struct WebserviceError
+    public class UnwrapException : Exception 
     {
-        public WebserviceError(int code, string message)
-        {
-            Code = code;
-            Message = message;
-        }
-
-        public int Code;
-        public string Message;
+        public UnwrapException(string message) : base(message) { }
     }
 }

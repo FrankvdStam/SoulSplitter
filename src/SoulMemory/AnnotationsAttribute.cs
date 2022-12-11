@@ -25,7 +25,7 @@ namespace SoulMemory
     //That's why this annotion exists and why it is so similar to Display().
 
     [AttributeUsage(AttributeTargets.Field)]
-    public class Annotation : Attribute
+    public class AnnotationAttribute : Attribute
     {
         public string Name { get; set; }
         public string Description { get; set; }

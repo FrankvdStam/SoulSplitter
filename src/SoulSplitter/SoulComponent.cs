@@ -126,7 +126,7 @@ namespace SoulSplitter
             //Update splitter instance with correct VM
             if(_splitter == null)
             {
-                throw new Exception("Splitter object is null");
+                throw new NullReferenceException("Splitter object is null");
             }
 
             return _splitter.Update(mainViewModel);

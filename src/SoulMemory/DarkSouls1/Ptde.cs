@@ -47,15 +47,15 @@ namespace SoulMemory.DarkSouls1
 
         private Process _process;
 
-        private Pointer _gameMan = new Pointer();
-        private Pointer _gameDataMan = new Pointer();
-        private Pointer _playerIns = new Pointer();
-        private Pointer _playerGameData = new Pointer();
-        private Pointer _eventFlags = new Pointer();
-        private Pointer _inventoryIndices = new Pointer();
-        private Pointer _netBonfireDb = new Pointer();
-        private Pointer _saveInfo = new Pointer();
-        private Pointer _menuMan = new Pointer();
+        private readonly Pointer _gameMan = new Pointer();
+        private readonly Pointer _gameDataMan = new Pointer();
+        private readonly Pointer _playerIns = new Pointer();
+        private readonly Pointer _playerGameData = new Pointer();
+        private readonly Pointer _eventFlags = new Pointer();
+        private readonly Pointer _inventoryIndices = new Pointer();
+        private readonly Pointer _netBonfireDb = new Pointer();
+        private readonly Pointer _saveInfo = new Pointer();
+        private readonly Pointer _menuMan = new Pointer();
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksouls", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder() 

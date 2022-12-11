@@ -30,15 +30,15 @@ namespace SoulMemory.EldenRing
     {
         private Process _process = null;
 
-        private Pointer _igt = new Pointer();
-        private Pointer _hud = new Pointer();
-        private Pointer _playerIns = new Pointer();
-        private Pointer _playerGameData = new Pointer();
-        private Pointer _inventory = new Pointer();
-        private Pointer _menuManImp = new Pointer();
-        private Pointer _igtFix = new Pointer();
-        private Pointer _virtualMemoryFlag = new Pointer();
-        private Pointer _noLogo = new Pointer();
+        private readonly Pointer _igt = new Pointer();
+        private readonly Pointer _hud = new Pointer();
+        private readonly Pointer _playerIns = new Pointer();
+        private readonly Pointer _playerGameData = new Pointer();
+        private readonly Pointer _inventory = new Pointer();
+        private readonly Pointer _menuManImp = new Pointer();
+        private readonly Pointer _igtFix = new Pointer();
+        private readonly Pointer _virtualMemoryFlag = new Pointer();
+        private readonly Pointer _noLogo = new Pointer();
 
         private long _screenStateOffset;
         private long _positionOffset;
@@ -112,19 +112,7 @@ namespace SoulMemory.EldenRing
                     break;
 
                 case EldenRingVersion.V104:
-                    _screenStateOffset = 0x728;
-                    _positionOffset = 0x6B0;
-                    _mapIdOffset = 0x6c0;
-                    _playerInsOffset = 0x18468;
-                    break;
-
                 case EldenRingVersion.V105:
-                    _screenStateOffset = 0x728;
-                    _positionOffset = 0x6B0;
-                    _mapIdOffset = 0x6c0;
-                    _playerInsOffset = 0x18468;
-                    break;
-
                 case EldenRingVersion.V106:
                     _screenStateOffset = 0x728;
                     _positionOffset = 0x6B0;
@@ -290,8 +278,6 @@ namespace SoulMemory.EldenRing
             }
 
             var flag = _menuManImp.ReadInt32(0x18);
-            var t = flag & 0x1;
-            var thing = flag >> 8 & 0x1;
 
             if (
                 (flag       & 0x1) == 1 &&
@@ -441,7 +427,6 @@ namespace SoulMemory.EldenRing
                     calculatedPointer = (_virtualMemoryFlag.ReadInt32(0x20) * currentElement.ReadInt32(0x30)) + _virtualMemoryFlag.ReadInt64(0x28);
                 }
 
-                //var ptr = (_virtualMemoryFlag.ReadInt32(0x20) * currentElement.ReadInt32(0x30)) + _virtualMemoryFlag.ReadInt64(0x28);
                 if (calculatedPointer != 0)
                 {
                     var thing = 7 - (leastSignificantDigits & 7);
