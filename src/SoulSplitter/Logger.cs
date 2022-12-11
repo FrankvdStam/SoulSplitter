@@ -21,10 +21,15 @@ using System.Linq;
 
 namespace SoulSplitter
 {
-    internal class Logger
+    internal static class Logger
     {
-        public static bool LoggingEnabled = true;
+        private static bool LoggingEnabled = true;
         private static object _logLock = new object();
+
+        public static void SetLoggingEnabled(bool enable)
+        {
+            LoggingEnabled = enable;
+        }
 
         public static void Log(string message)
         {

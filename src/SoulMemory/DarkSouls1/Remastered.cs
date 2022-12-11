@@ -34,16 +34,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading;
 using SoulMemory.Memory;
 using SoulMemory.MemoryV2;
 using SoulMemory.Native;
-using SoulMemory.Shared;
 using Pointer = SoulMemory.MemoryV2.Pointer;
 
 namespace SoulMemory.DarkSouls1

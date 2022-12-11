@@ -26,13 +26,10 @@ namespace SoulMemory.Shared
                 bool found = true;
                 for (int j = 0; j < pattern.Length; j++)
                 {
-                    if (pattern[j] != null)
+                    if (pattern[j] != null && pattern[j] != code[i + j])
                     {
-                        if (pattern[j] != code[i + j])
-                        {
-                            found = false;
-                            break;
-                        }
+                        found = false;
+                        break;                        
                     }
                 }
 
@@ -56,13 +53,10 @@ namespace SoulMemory.Shared
                 bool found = true;
                 for (int j = 0; j < pattern.Length; j++)
                 {
-                    if (pattern[j] != null)
+                    if (pattern[j] != null && pattern[j] != code[i + j])
                     {
-                        if (pattern[j] != code[i + j])
-                        {
-                            found = false;
-                            break;
-                        }
+                        found = false;
+                        break;
                     }
                 }
 

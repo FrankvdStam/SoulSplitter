@@ -15,12 +15,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using SoulMemory.Memory;
 using SoulMemory.MemoryV2;
-using SoulMemory.Shared;
 using Pointer = SoulMemory.MemoryV2.Pointer;
 
 namespace SoulMemory.DarkSouls3
@@ -307,13 +303,6 @@ namespace SoulMemory.DarkSouls3
             }
             return false;
         }
-
-        //Mask magic at 0x1404c6e54:
-        //
-        //plVar3 = (longlong*) get_event_flag_pointer(param_1, eventFlagId,true);
-        //    if ((plVar3 != (longlong*)0x0) &&
-        //((*(uint*) (* plVar3 + (ulonglong) ((uint)((int) eventFlagId % 1000) >> 5) * 4) &
-        //1 << (0x1f - ((byte)((int) eventFlagId % 1000) & 0x1f) & 0x1f)) != 0)) {
 
         //get_event_flag_pointer at 0x1404c7140
         //

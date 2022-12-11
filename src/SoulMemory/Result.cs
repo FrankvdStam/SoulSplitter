@@ -353,6 +353,7 @@ namespace SoulMemory
     /// <summary>
     /// Thrown when unwrapping a failed result
     /// </summary>
+    [Serializable]
     public class UnwrapException : Exception 
     {
         public UnwrapException(string message) : base(message) { }

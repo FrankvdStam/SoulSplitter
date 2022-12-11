@@ -21,7 +21,6 @@ using System.Linq;
 using System.Text;
 using SoulMemory.MemoryV2;
 using SoulMemory.Native;
-using SoulMemory.Shared;
 using Pointer = SoulMemory.MemoryV2.Pointer;
 
 namespace SoulMemory.EldenRing
@@ -291,13 +290,6 @@ namespace SoulMemory.EldenRing
             {
                 return false;
             }
-        }
-
-
-
-        public int GetTestValue()
-        {
-            return 0;
         }
 
         public bool Attached => _process != null;
@@ -626,7 +618,7 @@ namespace SoulMemory.EldenRing
             var scale = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)sizeof(float), Kernel32.MEM_COMMIT, Kernel32.PAGE_EXECUTE_READWRITE);
 
             var buffer = BitConverter.GetBytes(0.96f);
-            var writeRes = Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)scale, buffer.ToArray(), (uint)buffer.Length, out uint written);
+            Kernel32.WriteProcessMemory(_process.Handle, scale, buffer.ToArray(), (uint)buffer.Length, out uint written);
 
             var igtFixCode = new List<byte>(){
                 0x53,                        //push   rbx
@@ -674,7 +666,7 @@ namespace SoulMemory.EldenRing
             var jmpAddress = (igtFixEntryPoint + 9) - (jumpFromAddress + 9);
             igtFixCode.AddRange(BitConverter.GetBytes(jmpAddress));
             var str = Memory.Extensions.ToHexString(igtFixCode.ToArray()).Replace("-", " ");
-
+            Trace.WriteLine(str);
 
             //Write fixes to game memory
             Ntdll.NtSuspendProcess(_process.Handle);

@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SoulMemory.DarkSouls2
 {
@@ -37,7 +38,7 @@ namespace SoulMemory.DarkSouls2
         }
 
         //TODO: move name string to display name attribute on WarpType enum
-        public static List<Bonfire> Bonfires = new List<Bonfire>()
+        public static ReadOnlyCollection<Bonfire> Bonfires = new ReadOnlyCollection<Bonfire>(new List<Bonfire>()
         {
             new Bonfire(WarpType.FireKeepersDwelling    , 167903232, 2650 , "Fire Keepers' Dwelling"),
             new Bonfire(WarpType.TheFarFire             , 168034304, 4650 , "The Far Fire"),
@@ -108,7 +109,7 @@ namespace SoulMemory.DarkSouls2
             new Bonfire(WarpType.UpperFloor             , 841220096, 36660, "Upper Floor"),
             new Bonfire(WarpType.Foyer                  , 841220096, 36655, "Foyer"),
             new Bonfire(WarpType.LowermostFloor         , 841220096, 36670, "Lowermost Floor"),
-            new Bonfire(WarpType.SmelterThrone       , 841220096, 36675, "The Smelter Throne"),
+            new Bonfire(WarpType.SmelterThrone          , 841220096, 36675, "The Smelter Throne"),
             new Bonfire(WarpType.IronHallwayEntrance    , 841220096, 36665, "Iron Hallway Entrance"),
             new Bonfire(WarpType.OuterWall              , 841285632, 37650, "Outer Wall"),
             new Bonfire(WarpType.AbandonedDwelling      , 841285632, 37660, "Abandoned Dwelling"),
@@ -116,6 +117,6 @@ namespace SoulMemory.DarkSouls2
             new Bonfire(WarpType.InnerWall              , 841285632, 37685, "Inner Wall"),
             new Bonfire(WarpType.LowerGarrison          , 841285632, 37665, "Lower Garrison"),
             new Bonfire(WarpType.GrandCathedral         , 841285632, 37670, "Grand Cathedral"),
-        };
+        });
     }
 }

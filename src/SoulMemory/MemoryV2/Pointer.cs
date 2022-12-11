@@ -286,9 +286,9 @@ namespace SoulMemory.MemoryV2
             return Kernel32.VirtualAllocEx(Process.Handle, IntPtr.Zero, (IntPtr)size, Kernel32.MEM_COMMIT, flProtect);
         }
 
-        private bool Free(IntPtr address)
+        private void Free(IntPtr address)
         {
-            return Kernel32.VirtualFreeEx(Process.Handle, address, IntPtr.Zero, Kernel32.MEM_RELEASE);
+            Kernel32.VirtualFreeEx(Process.Handle, address, IntPtr.Zero, Kernel32.MEM_RELEASE);
         }
 
         public uint Execute(IntPtr address, uint timeout = 0xFFFFFFFF)

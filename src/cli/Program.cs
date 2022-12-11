@@ -20,20 +20,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Windows.Forms;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
-using SoulMemory.DarkSouls3;
-using SoulMemory.Sekiro;
 using SoulMemory.EldenRing;
-using SoulMemory.Memory;
-using SoulMemory.Shared;
-using System.Security.Cryptography;
 using SoulMemory;
-using System.Text;
-using System.Threading.Tasks;
-using System.Resources;
-using SoulSplitter.UI.Generic;
 
 #pragma warning disable CS0162
 

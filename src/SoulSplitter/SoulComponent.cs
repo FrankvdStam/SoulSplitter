@@ -34,7 +34,6 @@ namespace SoulSplitter
     {
         public const string Name = "SoulSplitter";
 
-        public IDictionary<string, Action> ContextMenuControls => null;
 
         private LiveSplitState _liveSplitState;
         private ISplitter _splitter = null;
@@ -126,20 +125,22 @@ namespace SoulSplitter
             //Update splitter instance with correct VM
             if(_splitter == null)
             {
-                throw new NullReferenceException("Splitter object is null");
+                throw new InvalidOperationException("Splitter object is null");
             }
 
             return _splitter.Update(mainViewModel);
         }
 
         #region drawing ===================================================================================================================
-
+        public IDictionary<string, Action> ContextMenuControls => new Dictionary<string, Action>();
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
         {
+            //Soulsplitter doesn't draw to livesplit's window, but must implement the full interface.
         }
 
         public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion)
         {
+            //Soulsplitter doesn't draw to livesplit's window, but must implement the full interface.
         }
 
         public string ComponentName => Name;
@@ -151,7 +152,18 @@ namespace SoulSplitter
         public float PaddingBottom => 0;
         public float PaddingLeft => 0;
         public float PaddingRight => 0;
-        public void Dispose() { }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_splitter != null)
+            {
+                _splitter.Dispose();
+            }
+        }
         #endregion
 
         #region Xml settings ==============================================================================================================

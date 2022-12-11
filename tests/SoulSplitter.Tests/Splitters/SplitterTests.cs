@@ -21,13 +21,9 @@ using SoulMemory;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
-using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.Generic;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoulSplitter.Tests.Splitters
 {

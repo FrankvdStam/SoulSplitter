@@ -41,7 +41,7 @@ namespace SoulMemory.Memory
         {
             if (process.MainModule == null)
             {
-                throw new Exception("ScanCache MainModule is null");
+                throw new InvalidOperationException("ScanCache MainModule is null");
             }
 
             var buffer = new byte[process.MainModule.ModuleMemorySize];
@@ -76,7 +76,7 @@ namespace SoulMemory.Memory
             
             if (cache.ScanResult == 0)
             {
-                throw new Exception($"scan failed {errorName}. Process name: {cache.Process.ProcessName} cache size: {cache.Bytes.Length}");
+                throw new InvalidOperationException($"scan failed {errorName}. Process name: {cache.Process.ProcessName} cache size: {cache.Bytes.Length}");
             }
 
             var address = BitConverter.ToInt32(cache.Bytes, (int)cache.ScanResult + addressOffset);
@@ -100,7 +100,7 @@ namespace SoulMemory.Memory
             cache.ScanResult =PatternScanner.Scan(cache.Bytes, pattern);
             if (cache.ScanResult == 0)
             {
-                throw new Exception($"scan failed {errorName}");
+                throw new InvalidOperationException($"scan failed {errorName}");
             }
 
             cache.ScanResult += cache.Process.MainModule.BaseAddress.ToInt64();

@@ -19,15 +19,9 @@ using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.Generic;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
-using System.Windows.Forms.VisualStyles;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.Sekiro;
 using System;
-using static SoulSplitter.Tests.UI.ViewModelTests;
-using SoulMemory.EldenRing;
-using SoulSplitter.UI.DarkSouls2;
 
 namespace SoulSplitter.Tests.UI
 {
