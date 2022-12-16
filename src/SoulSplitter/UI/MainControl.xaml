@@ -64,8 +64,8 @@
             <TextBlock VerticalAlignment="Center" Text="{Binding Version}"  DockPanel.Dock="Left"/>
 
             <!-- Due to the nature of the dockpanel control, these items are reversed in code vs how they are drawn -->
-            
-            <!-- Open external window -->
+
+            <!-- Open external window
             <Button
                 DockPanel.Dock="Right"
                 HorizontalAlignment="Right"
@@ -77,7 +77,7 @@
                 Height="25"
                 Command="{Binding CommandOpenSeparateSettingsWindow}">
                 <materialDesign:PackIcon Kind="Monitor"/>
-            </Button>
+            </Button> -->
             
             <!-- Run event flag logger -->
             <Button

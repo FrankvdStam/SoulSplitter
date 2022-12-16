@@ -25,38 +25,43 @@ namespace SoulSplitter.UI.EldenRing
     /// </summary>
     public partial class EldenRingControl : UserControl
     {
-        private EldenRingViewModel _eldenRingViewModel;
+        //private EldenRingViewModel _eldenRingViewModel;
         
         public EldenRingControl()
         {
             InitializeComponent();
-            DataContextChanged += OnDataContextChanged;
+            //DataContextChanged += OnDataContextChanged;
         }
 
-        void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (DataContext is EldenRingViewModel vm)
-            {
-                _eldenRingViewModel = vm;
-            }
-        }
+        //void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    if (DataContext is EldenRingViewModel vm)
+        //    {
+        //        _eldenRingViewModel = vm;
+        //    }
+        //}
         
+        private EldenRingViewModel GetEldenRingViewModel()
+        {
+            return DataContext as EldenRingViewModel;
+        }
+
         private void AddSplit_OnClick(object sender, RoutedEventArgs e)
         {
-            _eldenRingViewModel.AddSplit();
+            GetEldenRingViewModel().AddSplit();
         }
 
         private void RemoveSplit_OnClick(object sender, RoutedEventArgs e)
         {
-            _eldenRingViewModel.RemoveSplit();
+            GetEldenRingViewModel().RemoveSplit();
         }
 
         private void SplitsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            _eldenRingViewModel.SelectedSplit = null;
+            GetEldenRingViewModel().SelectedSplit = null;
             if (e.NewValue is HierarchicalSplitViewModel b)
             {
-                _eldenRingViewModel.SelectedSplit = b;
+                GetEldenRingViewModel().SelectedSplit = b;
             }
         }
 
@@ -66,11 +71,11 @@ namespace SoulSplitter.UI.EldenRing
             {
                 if (uint.TryParse(textBox.Text, out uint result))
                 {
-                    _eldenRingViewModel.NewSplitFlag = result;
+                    GetEldenRingViewModel().NewSplitFlag = result;
                     return;
                 }
             }
-            _eldenRingViewModel.NewSplitFlag = null;
+            GetEldenRingViewModel().NewSplitFlag = null;
         }
 
         private void TextBox_OnTextChanged_CheckByte(object sender, TextChangedEventArgs e)
@@ -120,13 +125,14 @@ namespace SoulSplitter.UI.EldenRing
 
         private void CopyPosition_OnClick(object sender, RoutedEventArgs e)
         {
-            _eldenRingViewModel.NewSplitPosition.Area   = _eldenRingViewModel.CurrentPosition.Area  ;
-            _eldenRingViewModel.NewSplitPosition.Block  = _eldenRingViewModel.CurrentPosition.Block ;
-            _eldenRingViewModel.NewSplitPosition.Region = _eldenRingViewModel.CurrentPosition.Region;
-            _eldenRingViewModel.NewSplitPosition.Size   = _eldenRingViewModel.CurrentPosition.Size  ;
-            _eldenRingViewModel.NewSplitPosition.X      = _eldenRingViewModel.CurrentPosition.X     ;
-            _eldenRingViewModel.NewSplitPosition.Y      = _eldenRingViewModel.CurrentPosition.Y     ;
-            _eldenRingViewModel.NewSplitPosition.Z      = _eldenRingViewModel.CurrentPosition.Z     ;
+            var vm = GetEldenRingViewModel();
+            vm.NewSplitPosition.Area   = vm.CurrentPosition.Area  ;
+            vm.NewSplitPosition.Block  = vm.CurrentPosition.Block ;
+            vm.NewSplitPosition.Region = vm.CurrentPosition.Region;
+            vm.NewSplitPosition.Size   = vm.CurrentPosition.Size  ;
+            vm.NewSplitPosition.X      = vm.CurrentPosition.X     ;
+            vm.NewSplitPosition.Y      = vm.CurrentPosition.Y     ;
+            vm.NewSplitPosition.Z      = vm.CurrentPosition.Z     ;
         }
     }
 }
