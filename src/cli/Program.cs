@@ -20,20 +20,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Windows.Forms;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
-using SoulMemory.DarkSouls3;
-using SoulMemory.Sekiro;
 using SoulMemory.EldenRing;
-using SoulMemory.Memory;
-using SoulMemory.Shared;
-using System.Security.Cryptography;
 using SoulMemory;
-using System.Text;
-using System.Threading.Tasks;
-using System.Resources;
-using SoulSplitter.UI.Generic;
 
 #pragma warning disable CS0162
 
@@ -44,7 +34,7 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            //TestUi();
+            TestUi();return;
             //ValidatePatterns(); return;
 
             GameLoop<EldenRing>((er) =>
@@ -53,17 +43,14 @@ namespace cli
                 Console.WriteLine(er.GetPosition());
                 Console.WriteLine(er.ReadEventFlag((uint)SoulMemory.EldenRing.ItemPickup.LDChapelOfAnticipationTarnishedsWizenedFinger));
             });
+                        
 
-            var ds1 = new DarkSouls1();
-            ds1.TryRefresh(out _);
-            ds1.TryRefresh(out _);
-            ds1.ReadEventFlag(11000530);
-
-            GameLoop(ds1, () =>
+            GameLoop<DarkSouls1>((ds1) =>
             {
                 Console.WriteLine(ds1.GetInGameTimeMilliseconds());
                 Console.WriteLine(ds1.ReadEventFlag((uint)SoulMemory.DarkSouls1.Boss.AsylumDemon));
                 Console.WriteLine(ds1.GetSaveFileLocation());
+                ds1.ReadEventFlag(11000530);
             });
         }
 
@@ -73,10 +60,12 @@ namespace cli
             var game = new T();
             while (true)
             {
-                if (!game.TryRefresh(out Exception e))
+                var result = game.TryRefresh();
+                if(result.IsErr)
                 {
+                    var err = result.GetErr();
                     Console.Clear();
-                    Console.WriteLine(e);
+                    Console.WriteLine(err.ToString());
                     Console.Out.Flush();
                     Thread.Sleep(3000);
                     Console.Clear();
@@ -84,29 +73,6 @@ namespace cli
                 else
                 {
                     display.Invoke(game);
-                    Thread.Sleep(16);
-                    Console.SetCursorPosition(0, 0);
-                }
-            }
-        }
-
-
-
-        private static void GameLoop<T>(T game, Action display) where T : IGame
-        {
-            while (true)
-            {
-                if (!game.TryRefresh(out Exception e))
-                {
-                    Console.Clear();
-                    Console.WriteLine(e);
-                    Console.Out.Flush();
-                    Thread.Sleep(3000);
-                    Console.Clear();
-                }
-                else
-                {
-                    display.Invoke();
                     Thread.Sleep(16);
                     Console.SetCursorPosition(0, 0);
                 }
@@ -150,7 +116,7 @@ namespace cli
                 var s = new Stopwatch();
                 s.Start();
                 
-                if (!SoulMemory.MemoryV2.MemoryScanner.TryValidatePatterns(tree, files, out List<(string fileName, string patternName, long count)> errors))
+                if (!SoulMemory.Memory.MemoryScanner.TryValidatePatterns(tree, files, out List<(string fileName, string patternName, long count)> errors))
                 {
                     foreach (var error in errors)
                     {
@@ -177,9 +143,13 @@ namespace cli
             {
                 Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
 
-                if (!ds1.TryRefresh(out Exception e))
+                var result = ds1.TryRefresh();
+                if (result.IsErr)
                 {
-                    Console.WriteLine(e.Format());
+                    var err = result.GetErr();
+                    Console.Clear();
+                    Console.WriteLine(err.ToString());
+                    Console.Out.Flush();
                     Thread.Sleep(3000);
                     Console.Clear();
                 }
@@ -190,11 +160,14 @@ namespace cli
                         Console.WriteLine(name);
                         f();
                         Thread.Sleep(5000);
-                        if (!ds1.TryRefresh(out Exception exc))
+
+                        var result2 = ds1.TryRefresh();
+                        if (result2.IsErr)
                         {
-                            Console.WriteLine(exc.ToString());
+                            var err = result2.GetErr();
+                            Console.WriteLine(err.ToString());
                             Console.WriteLine("Error occurred, press any key to exit.");
-                            Console.ReadKey();
+                            Console.Clear();
                         }
                     }
 
@@ -235,12 +208,15 @@ namespace cli
             while (true)
             {
                 //Refresh, display errors if there are any
-                if (!_eldenRing.TryRefresh(out Exception e))
+
+                var result = _eldenRing.TryRefresh();
+                if (result.IsErr)
                 {
+                    var err = result.GetErr();
                     Console.Clear();
-                    Console.SetCursorPosition(0, 1);
-                    Console.WriteLine(e.Format());
-                    Thread.Sleep(1000);
+                    Console.WriteLine(err.ToString());
+                    Console.Out.Flush();
+                    Thread.Sleep(3000);
                     Console.Clear();
                     continue;
                 }

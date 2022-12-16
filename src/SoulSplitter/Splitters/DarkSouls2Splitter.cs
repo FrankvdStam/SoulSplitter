@@ -18,8 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LiveSplit.Model;
+using SoulMemory;
 using SoulMemory.DarkSouls2;
 using SoulSplitter.Splits.DarkSouls2;
+using SoulSplitter.UI;
 using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.Generic;
 
@@ -27,7 +29,6 @@ namespace SoulSplitter.Splitters
 {
     public class DarkSouls2Splitter : ISplitter
     {
-        public Exception Exception { get; set; }
         private DarkSouls2 _darkSouls2;
         private DarkSouls2ViewModel _darkSouls2ViewModel;
         private LiveSplitState _liveSplitState;
@@ -64,17 +65,19 @@ namespace SoulSplitter.Splitters
             _liveSplitState.OnReset -= OnReset;
         }
 
-        public void Update(object settings)
+        public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
         {
-            _darkSouls2ViewModel = (DarkSouls2ViewModel)settings;
+            _darkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
 
-            Exception = !_darkSouls2.Refresh(out Exception e) ? e : null;
+            _darkSouls2.TryRefresh();
             
             _darkSouls2ViewModel.CurrentPosition = _darkSouls2.GetPosition();
             
             UpdateTimer();
 
             UpdateAutoSplitter();
+
+            return Result.Ok();
         }
         
         #endregion

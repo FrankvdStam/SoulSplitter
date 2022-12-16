@@ -16,7 +16,7 @@
 
 using NUnit.Framework;
 using System.Collections.Generic;
-using SoulMemory.MemoryV2;
+using SoulMemory.Memory;
 using System.Linq;
 
 namespace SoulMemory.Tests.MemoryV2

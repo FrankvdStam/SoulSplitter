@@ -15,48 +15,27 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using SoulMemory.Memory;
-using SoulMemory.MemoryV2;
-using SoulMemory.Shared;
-using Pointer = SoulMemory.MemoryV2.Pointer;
+using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.DarkSouls3
 {
     public class DarkSouls3 : IGame
     {
         private Process _process;
-        private Pointer _gameDataMan = new Pointer();
-        private Pointer _playerGameData = new Pointer();
-        private Pointer _playerIns = new Pointer();
-        private Pointer _newMenuSystem = new Pointer();
-        private Pointer _loading = new Pointer();
-        private Pointer _blackscreen = new Pointer();
-        private Pointer _sprjEventFlagMan = new Pointer();
-        private Pointer _fieldArea = new Pointer();
-        private Pointer _sprjChrPhysicsModule = new Pointer();
+        private readonly Pointer _gameDataMan = new Pointer();
+        private readonly Pointer _playerGameData = new Pointer();
+        private readonly Pointer _playerIns = new Pointer();
+        private readonly Pointer _newMenuSystem = new Pointer();
+        private readonly Pointer _loading = new Pointer();
+        private readonly Pointer _blackscreen = new Pointer();
+        private readonly Pointer _sprjEventFlagMan = new Pointer();
+        private readonly Pointer _fieldArea = new Pointer();
+        private readonly Pointer _sprjChrPhysicsModule = new Pointer();
         private long _igtOffset;
-        private DateTime _lastFailedRefresh = DateTime.MinValue;
 
-        public bool TryRefresh(out Exception exception)
-        {
-            exception = null;
-            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
-            {
-                exception = new Exception("Timeout");
-                return false;
-            }
-
-            if (!ProcessClinger.Refresh(ref _process, "darksoulsiii", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e;
-                _lastFailedRefresh = DateTime.Now;
-                return false;
-            }
-            return true;
-        }
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsiii", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
         {
@@ -95,13 +74,13 @@ namespace SoulMemory.DarkSouls3
         }
 
 
-        private Exception InitPointers()
+        private ResultErr<RefreshError> InitPointers()
         {
             try
             {
                 if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
                 {
-                    return new Exception("Failed to determine game version");
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {_process?.MainModule?.FileVersionInfo?.ProductVersion}"));
                 }
 
                 //Clear count: 0x78 -> likely subject to the same shift that happens to IGT offset
@@ -121,16 +100,12 @@ namespace SoulMemory.DarkSouls3
                 }
 
                 var treeBuilder = GetTreeBuilder();
-                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
-                {
-                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
-                }
+                return MemoryScanner.TryResolvePointers(treeBuilder, _process);
             }
             catch(Exception e)
             {
-                return e;
+                return RefreshError.FromException(e);
             }
-            return null;
         }
 
         private void ResetPointers()
@@ -230,11 +205,6 @@ namespace SoulMemory.DarkSouls3
         #region read event flags
         public bool ReadEventFlag(uint eventFlagId)
         {
-            if (_sprjEventFlagMan == null || _fieldArea == null)
-            {
-                return false;
-            }
-
             var eventFlagIdDiv10000000 = (int)(eventFlagId / 10000000) % 10;
             var eventFlagArea          = (int)(eventFlagId / 100000  ) % 100;
             var eventFlagIdDiv10000    = (int)(eventFlagId / 10000   ) % 10;
@@ -245,7 +215,7 @@ namespace SoulMemory.DarkSouls3
             //ItemPickup 0x0?
             //Bonfire = 0x11?
             var flagWorldBlockInfoCategory = -1;
-            if (!(eventFlagArea < 90) || eventFlagArea + eventFlagIdDiv10000 == 0)
+            if (eventFlagArea >= 90 || eventFlagArea + eventFlagIdDiv10000 == 0)
             {
                 flagWorldBlockInfoCategory = 0;
             }
@@ -261,14 +231,12 @@ namespace SoulMemory.DarkSouls3
 
                 //Flag stored in world related struct? Looks like the game is reading a size, and then looping over a vector of structs (size 0x38)
                 var size = worldInfoOwner.ReadInt32(0x8);
-                //var baseAddress = (IntPtr)worldInfoOwner.Append(0x10, 0x38).GetAddress();
                 var vector = worldInfoOwner.Append(0x10);
 
                 //Loop over worldInfo structs
                 for (int i = 0; i < size; i++)
                 {
                     //0x00007ff4fd9ba4c3
-                    var offset = (IntPtr)vector.ReadInt64() + i * 0x38;
                     var area = vector.ReadByte((i * 0x38) + 0xb);
                     if (area == eventFlagArea)
                     {
@@ -309,7 +277,7 @@ namespace SoulMemory.DarkSouls3
                     }
                 }
 
-                if (-1 < (int)flagWorldBlockInfoCategory)
+                if (-1 < flagWorldBlockInfoCategory)
                 {
                     flagWorldBlockInfoCategory++;
                 }
@@ -335,16 +303,6 @@ namespace SoulMemory.DarkSouls3
             }
             return false;
         }
-
-        //Mask magic at 0x1404c6e54:
-        //
-        //plVar3 = (longlong*) get_event_flag_pointer(param_1, eventFlagId,true);
-        //    if ((plVar3 != (longlong*)0x0) &&
-        //((*(uint*) (* plVar3 + (ulonglong) ((uint)((int) eventFlagId % 1000) >> 5) * 4) &
-        //1 << (0x1f - ((byte)((int) eventFlagId % 1000) & 0x1f) & 0x1f)) != 0)) {
-
-
-
 
         //get_event_flag_pointer at 0x1404c7140
         //

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.MemoryV2;
+using SoulMemory.Memory;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -42,18 +42,16 @@ namespace SoulMemory.DarkSouls1
        
         public TreeBuilder GetTreeBuilder() => _darkSouls1.GetTreeBuilder();
 
-        public bool TryRefresh(out Exception exception)
+        public ResultErr<RefreshError> TryRefresh()
         {
-            exception = null;
             try
             {
                 if (_darkSouls1 == null)
                 {
-                    var process = Process.GetProcesses().FirstOrDefault(i => (i.ProcessName.ToLower() == "darksouls" || i.ProcessName.ToLower() == "darksoulsremastered") && !i.HasExited && i.MainModule != null);
+                    var process = Process.GetProcesses().FirstOrDefault(i => (i.ProcessName.ToLower() == "darksouls" || i.ProcessName.ToLower() == "darksoulsremastered") && !i.HasExited);
                     if (process == null)
                     {
-                        exception = new Exception("DarkSouls not running");
-                        return false;
+                        return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, "Dark Souls 1/Dark Souls Remastered not running."));
                     }
 
                     if (process.ProcessName.ToLower() == "darksouls")
@@ -64,22 +62,22 @@ namespace SoulMemory.DarkSouls1
                     {
                         _darkSouls1 = new Remastered();
                     }
-                    return true;
+                    return Result.Ok();
                 }
                 else
                 {
-                    if (!_darkSouls1.TryRefresh(out exception))
+                    var result = _darkSouls1.TryRefresh();
+                    if(result.IsErr)
                     {
                         _darkSouls1 = null;
-                        return false;
+                        return result;
                     }
-                    return true;
+                    return Result.Ok();
                 }
             }
             catch (Exception e)
             {
-                exception = e;
-                return false;
+                return RefreshError.FromException(e);
             }
         }
 

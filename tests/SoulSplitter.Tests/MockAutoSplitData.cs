@@ -14,17 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using NUnit.Framework;
 using SoulSplitter.Tests.UI;
 using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.Generic;
 using SoulSplitter.UI.Sekiro;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static SoulSplitter.Tests.UI.ViewModelTests;
 
 namespace SoulSplitter.Tests
 {

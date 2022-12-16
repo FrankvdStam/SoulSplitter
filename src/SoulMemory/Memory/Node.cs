@@ -14,14 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory;
-using SoulSplitter.UI;
-using System;
+using System.Collections.Generic;
 
-namespace SoulSplitter.Splitters
+namespace SoulMemory.Memory
 {
-    internal interface ISplitter : IDisposable
+    internal class Node
     {
-        ResultErr<RefreshError> Update(MainViewModel mainViewModel);
+        public NodeType NodeType;
+
+        //Used for scans
+        public string Name = "";
+        public string Pattern = "";
+
+        //Used for relative scans
+        public long AddressOffset;
+        public long InstructionSize;
+
+        //used for absolute scans
+        public long? Offset;
+
+        //used for pointers
+        public long[] Offsets = new long[] { };
+        public Pointer Pointer = new Pointer();
+
+        public List<Node> Pointers = new List<Node>();
+
+        public override string ToString() => Name;
     }
 }

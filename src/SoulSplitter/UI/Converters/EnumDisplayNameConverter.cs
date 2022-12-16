@@ -20,7 +20,7 @@ using SoulMemory.Memory;
 
 namespace SoulSplitter.UI.Converters
 {
-	public class EnumDisplayNameConverter : IValueConverter
+    public class EnumDisplayNameConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

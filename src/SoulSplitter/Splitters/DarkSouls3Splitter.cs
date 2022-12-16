@@ -18,8 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LiveSplit.Model;
+using SoulMemory;
 using SoulMemory.DarkSouls3;
 using SoulSplitter.Splits.DarkSouls3;
+using SoulSplitter.UI;
 using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.Generic;
 
@@ -29,7 +31,6 @@ namespace SoulSplitter.Splitters
     {
         private LiveSplitState _liveSplitState;
         private DarkSouls3 _darkSouls3;
-        public Exception Exception { get; set; }
         private DarkSouls3ViewModel _darkSouls3ViewModel;
 
         public DarkSouls3Splitter(LiveSplitState state)
@@ -62,23 +63,20 @@ namespace SoulSplitter.Splitters
         }
 
 
-        public void Update(object settings)
+        public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
         {
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
-                _darkSouls3ViewModel = (DarkSouls3ViewModel)settings;
+                _darkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
             });
 
-            if (!_darkSouls3.TryRefresh(out Exception e))
+            var result = _darkSouls3.TryRefresh();
+            if (result.IsErr)
             {
-                if (!e.Message.EndsWith("not running."))
-                {
-                    Logger.Log(e);
-                }
-                Exception = e;
+                mainViewModel.AddRefreshError(result.GetErr());
             }
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 if (_darkSouls3ViewModel.LockIgtToZero)
                 {
@@ -87,20 +85,22 @@ namespace SoulSplitter.Splitters
                 }
             });
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 _darkSouls3ViewModel.CurrentPosition = _darkSouls3.GetPosition();
             });
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 UpdateTimer();
             });
 
-            Logger.TryOrLogError(() =>
+            mainViewModel.TryAndHandleError(() =>
             {
                 UpdateAutoSplitter();
             });
+
+            return result;
         }
 
         #region Timer

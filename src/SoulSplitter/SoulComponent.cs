@@ -26,6 +26,7 @@ using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
 using System.Windows.Threading;
 using System.Windows.Forms.Integration;
+using SoulMemory;
 
 namespace SoulSplitter
 {
@@ -33,12 +34,11 @@ namespace SoulSplitter
     {
         public const string Name = "SoulSplitter";
 
-        public IDictionary<string, Action> ContextMenuControls => null;
 
         private LiveSplitState _liveSplitState;
         private ISplitter _splitter = null;
         private Game? _selectedGame = null;
-
+        private DateTime _lastFailedRefresh = DateTime.MinValue;
         public SoulComponent(LiveSplitState state = null)
         {
             (ElementHost, MainControl) = MainControl.GetElementHostMainControl();
@@ -52,35 +52,40 @@ namespace SoulSplitter
             {
                 try
                 {
-                    try
-                    {
-                        UpdateSplitter(MainControl.MainViewModel, state);
-                    }
-                    catch(Exception ex)
-                    {
-                        Logger.Log("Updating splitter failed", ex);
-                    }
-
                     _liveSplitState = state;
 
-                    if (_splitter.Exception != null)
+                    //Timeout for 5 sec after a refresh fails
+                    if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
                     {
-                        MainControl.MainViewModel.Error = _splitter.Exception.Message;
+                        return;
                     }
-                    else
+
+                    //Result will internally be added to the error list already.
+                    var result = UpdateSplitter(MainControl.MainViewModel, state);
+                    if(result.IsErr)
                     {
-                        MainControl.MainViewModel.Error = "";
+                        var err = result.GetErr();
+                        if(
+                            //For these error cases it is pointless to try again right away; it will only eat host CPU.
+                            //Hence the timeout.
+                            err.Reason == RefreshErrorReason.ProcessNotRunning || 
+                            err.Reason == RefreshErrorReason.ProcessExited || 
+                            err.Reason == RefreshErrorReason.ScansFailed ||
+                            err.Reason == RefreshErrorReason.AccessDenied)
+                        {
+                            _lastFailedRefresh = DateTime.Now;
+                        }
                     }
                 }
                 catch (Exception e)
                 {
                     Logger.Log(e);
-                    MainControl.MainViewModel.Error = e.Message;
+                    MainControl.MainViewModel.AddException(e);
                 }
             });
         }
 
-        private void UpdateSplitter(MainViewModel mainViewModel, LiveSplitState state)
+        private ResultErr<RefreshError> UpdateSplitter(MainViewModel mainViewModel, LiveSplitState state)
         {
             //Detect game change, initialize the correct splitter
             if (!_selectedGame.HasValue || _selectedGame != mainViewModel.SelectedGame)
@@ -118,41 +123,24 @@ namespace SoulSplitter
             }
 
             //Update splitter instance with correct VM
-            switch (_selectedGame)
+            if(_splitter == null)
             {
-                default:
-                    throw new NotImplementedException($"{_selectedGame}");
-
-                case Game.DarkSouls1:
-                    _splitter.Update(mainViewModel.DarkSouls1ViewModel);
-                    break;
-
-                case Game.DarkSouls2:
-                    _splitter.Update(mainViewModel.DarkSouls2ViewModel);
-                    break;
-
-                case Game.DarkSouls3:
-                    _splitter.Update(mainViewModel.DarkSouls3ViewModel);
-                    break;
-
-                case Game.Sekiro:
-                    _splitter.Update(mainViewModel.SekiroViewModel);
-                    break;
-                
-                case Game.EldenRing:
-                    _splitter.Update(mainViewModel.EldenRingViewModel);
-                    break;
+                throw new InvalidOperationException("Splitter object is null");
             }
+
+            return _splitter.Update(mainViewModel);
         }
 
         #region drawing ===================================================================================================================
-
+        public IDictionary<string, Action> ContextMenuControls => new Dictionary<string, Action>();
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
         {
+            //Soulsplitter doesn't draw to livesplit's window, but must implement the full interface.
         }
 
         public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion)
         {
+            //Soulsplitter doesn't draw to livesplit's window, but must implement the full interface.
         }
 
         public string ComponentName => Name;
@@ -164,7 +152,18 @@ namespace SoulSplitter
         public float PaddingBottom => 0;
         public float PaddingLeft => 0;
         public float PaddingRight => 0;
-        public void Dispose() { }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_splitter != null)
+            {
+                _splitter.Dispose();
+            }
+        }
         #endregion
 
         #region Xml settings ==============================================================================================================

@@ -14,20 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
-namespace SoulMemory
+namespace SoulMemory.Memory
 {
-    //I used to use Dispaly(Name = "", Description = "") to add human friendly boss/bonfire names
-    //and locations to enum flags. When switching to .net standard, it was troublesome to get
-    //livesplit to properly load the data annotations lib from microsoft. Rather than fighting
-    //livesplit over loading it, I opted to just ditch it and use a simple attribute.
-    //That's why this annotion exists and why it is so similar to Display().
-
-    [AttributeUsage(AttributeTargets.Field)]
-    public class Annotation : Attribute
+    internal enum NodeType
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        RelativeScan,
+        AbsoluteScan,
+        Pointer,
     }
 }

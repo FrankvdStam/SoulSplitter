@@ -33,11 +33,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using SoulMemory.MemoryV2;
+using SoulMemory.Memory;
 
 namespace SoulMemory.DarkSouls1
 {
@@ -47,35 +46,16 @@ namespace SoulMemory.DarkSouls1
 
         private Process _process;
 
-        private Pointer _gameMan = new Pointer();
-        private Pointer _gameDataMan = new Pointer();
-        private Pointer _playerIns = new Pointer();
-        private Pointer _playerGameData = new Pointer();
-        private Pointer _eventFlags = new Pointer();
-        private Pointer _inventoryIndices = new Pointer();
-        private Pointer _netBonfireDb = new Pointer();
-        private Pointer _saveInfo = new Pointer();
-        private Pointer _menuMan = new Pointer();
-        private DateTime _lastFailedRefresh = DateTime.MinValue;
-
-        public bool TryRefresh(out Exception exception)
-        {
-            exception = null;
-
-            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
-            {
-                exception = new Exception("Timeout");
-                return false;
-            }
-
-            if (!SoulMemory.Memory.ProcessClinger.Refresh(ref _process, "darksouls", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e; 
-                _lastFailedRefresh = DateTime.Now;
-                return false;
-            }
-            return true;
-        }
+        private readonly Pointer _gameMan = new Pointer();
+        private readonly Pointer _gameDataMan = new Pointer();
+        private readonly Pointer _playerIns = new Pointer();
+        private readonly Pointer _playerGameData = new Pointer();
+        private readonly Pointer _eventFlags = new Pointer();
+        private readonly Pointer _inventoryIndices = new Pointer();
+        private readonly Pointer _netBonfireDb = new Pointer();
+        private readonly Pointer _saveInfo = new Pointer();
+        private readonly Pointer _menuMan = new Pointer();
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksouls", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder() 
         {
@@ -97,7 +77,6 @@ namespace SoulMemory.DarkSouls1
                 .ScanAbsolute("WorldChrManImp", "8b 0d ? ? ? ? 8b 71 3c c6 44 24 48 01", 2)
                 //.CreatePointer(out _worldChrManImp, 0, 0)
                     .AddPointer(_playerIns, 0, 0, 0x3c);
-            ;
 
             treeBuilder
                 .ScanAbsolute("EventFlags", "56 8B F1 8B 46 1C 50 A1 ? ? ? ? 32 C9", 8)
@@ -132,21 +111,17 @@ namespace SoulMemory.DarkSouls1
             _saveInfo.Clear();
         }
 
-        private Exception InitPointers()
+        private ResultErr<RefreshError> InitPointers()
         {
             try
             {
                 var treeBuilder = GetTreeBuilder();
-                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
-                {
-                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
-                }
+                return MemoryScanner.TryResolvePointers(treeBuilder, _process);
             }
             catch (Exception e)
             {
-                return e;
+                return RefreshError.FromException(e);
             }
-            return null;
         }
         #endregion
 
@@ -194,7 +169,7 @@ namespace SoulMemory.DarkSouls1
             var listLength = _playerGameData.ReadInt32(0x2c8);
             var listStart = _playerGameData.ReadInt32(0x2cc);
             
-            var bytes = SoulMemory.Memory.Extensions.ReadMemory(_process, (IntPtr)listStart, listLength * 0x1c);
+            var bytes = Memory.Extensions.ReadMemory(_process, (IntPtr)listStart, listLength * 0x1c);
             return ItemReader.GetCurrentInventoryItems(bytes, listLength, itemCount, keyCount);
         }
 
@@ -222,7 +197,6 @@ namespace SoulMemory.DarkSouls1
                 if (bonfireId == (int)bonfire)
                 {
                     int bonfireState = netBonfireDbItem.ReadInt32(0x8);
-                    var state = (BonfireState)bonfireState;
                     return (BonfireState)bonfireState;
                 }
 
@@ -243,7 +217,7 @@ namespace SoulMemory.DarkSouls1
             var second = _menuMan.ReadInt32(0xc0);
             var third = _menuMan.ReadInt32(0x6c); //This address seems like it turns into a 1 only when you are on the main menu
 
-            return third == 0 && first == 1 & second == 1;
+            return third == 0 && first == 1 && second == 1;
         }
 
 

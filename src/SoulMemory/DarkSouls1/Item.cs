@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SoulMemory.DarkSouls1
 {
@@ -74,7 +75,7 @@ namespace SoulMemory.DarkSouls1
             {
                 switch (Infusion)
                 {
-                    default: throw new Exception($"Unknown infusion type: {Infusion}");
+                    default: throw new NotSupportedException($"Unknown infusion type: {Infusion}");
                     case ItemInfusion.Normal: return 15;
                     case ItemInfusion.Chaos: return 5;
                     case ItemInfusion.Crystal: return 5;
@@ -95,7 +96,7 @@ namespace SoulMemory.DarkSouls1
             {
                 switch (Infusion)
                 {
-                    default: throw new Exception($"Unknown infusion type: {Infusion}");
+                    default: throw new NotSupportedException($"Unknown infusion type: {Infusion}");
                     case ItemInfusion.Normal: return false;
                     case ItemInfusion.Chaos: return true;
                     case ItemInfusion.Crystal: return false;
@@ -110,7 +111,7 @@ namespace SoulMemory.DarkSouls1
             }
         }
         
-        public static readonly List<Item> AllItems = new List<Item>()
+        public static readonly ReadOnlyCollection<Item> AllItems = new ReadOnlyCollection<Item>(new List<Item>()
         {
             new Item("Catarina Helm"                                    ,   10000, ItemType.CatarinaHelm                           , ItemCategory.Armor          ,   1, ItemUpgrade.Unique             ),
             new Item("Catarina Armor"                                   ,   11000, ItemType.CatarinaArmor                          , ItemCategory.Armor          ,   1, ItemUpgrade.Unique             ),
@@ -808,7 +809,7 @@ namespace SoulMemory.DarkSouls1
             new Item("Very good! Carving"                               ,      512, ItemType.VerygoodCarving                       , ItemCategory.UsableItems     ,   1, ItemUpgrade.None               ),
             new Item("I'm sorry Carving"                                ,      513, ItemType.ImsorryCarving                        , ItemCategory.UsableItems     ,   1, ItemUpgrade.None               ),
             new Item("Help me! Carving"                                 ,      514, ItemType.HelpmeCarving                         , ItemCategory.UsableItems     ,   1, ItemUpgrade.None               ),
-        };
+        });
     }
 
     public enum ItemInfusion

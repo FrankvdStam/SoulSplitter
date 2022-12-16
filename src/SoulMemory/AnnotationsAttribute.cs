@@ -15,32 +15,19 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SoulMemory.MemoryV2
+namespace SoulMemory
 {
-    internal class Node
+    //I used to use Dispaly(Name = "", Description = "") to add human friendly boss/bonfire names
+    //and locations to enum flags. When switching to .net standard, it was troublesome to get
+    //livesplit to properly load the data annotations lib from microsoft. Rather than fighting
+    //livesplit over loading it, I opted to just ditch it and use a simple attribute.
+    //That's why this annotion exists and why it is so similar to Display().
+
+    [AttributeUsage(AttributeTargets.Field)]
+    public class AnnotationAttribute : Attribute
     {
-        public NodeType NodeType;
-
-        //Used for scans
-        public string Name = "";
-        public string Pattern = "";
-
-        //Used for relative scans
-        public long AddressOffset;
-        public long InstructionSize;
-
-        //used for absolute scans
-        public long? Offset;
-
-        //used for pointers
-        public long[] Offsets = new long[] { };
-        public Pointer Pointer = new Pointer();
-
-        public List<Node> Pointers = new List<Node>();
-
-        public override string ToString() => Name;
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

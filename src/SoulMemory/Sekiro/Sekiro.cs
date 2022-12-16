@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using SoulMemory.Memory;
-using SoulMemory.MemoryV2;
 using SoulMemory.Native;
 
 namespace SoulMemory.Sekiro
@@ -27,26 +26,17 @@ namespace SoulMemory.Sekiro
     public class Sekiro : IGame
     {
         private Process _process;
-        public  Pointer _sprjEventFlagMan = new Pointer();
-        private Pointer _fieldArea = new Pointer();
-        private Pointer _worldChrManImp = new Pointer();
-        private Pointer _igt = new Pointer();
-        private Pointer _position = new Pointer();
-        private Pointer _fadeSystem = new Pointer();
+        private readonly Pointer _sprjEventFlagMan = new Pointer();
+        private readonly Pointer _fieldArea = new Pointer();
+        private readonly Pointer _worldChrManImp = new Pointer();
+        private readonly Pointer _igt = new Pointer();
+        private readonly Pointer _position = new Pointer();
+        private readonly Pointer _fadeSystem = new Pointer();
 
 
         #region Refresh/init/reset ================================================================================================================================
 
-        public bool TryRefresh(out Exception exception)
-        {
-            exception = null;
-            if (!SoulMemory.Memory.ProcessClinger.Refresh(ref _process, "sekiro", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e;
-                return false;
-            }
-            return true;
-        }
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "sekiro", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
         {
@@ -80,28 +70,29 @@ namespace SoulMemory.Sekiro
         }
          
 
-        private Exception InitPointers()
+        private ResultErr<RefreshError> InitPointers()
         {
             Thread.Sleep(3000); //Give sekiro some time to boot
 
             try
             {
                 var treeBuilder = GetTreeBuilder();
-                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+                var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
+                if (result.IsErr)
                 {
-                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
+                    return result;
                 }
 
                 if (!InitB3Mods())
                 {
-                    throw new Exception("B3Mods init failed");
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "B3Mods init failed"));
                 }
 
-                return null;
+                return Result.Ok();
             }
             catch (Exception e)
             {
-                return e;
+                return RefreshError.FromException(e);
             }
         }
 
@@ -155,18 +146,13 @@ namespace SoulMemory.Sekiro
 
         public bool ReadEventFlag(uint eventFlagId)
         {
-            if (_sprjEventFlagMan == null || _fieldArea == null)
-            {
-                return false;
-            }
-
             var eventFlagIdDiv10000000 = (int)(eventFlagId / 10000000) % 10;
             var eventFlagArea = (int)(eventFlagId / 100000) % 100;
             var eventFlagIdDiv10000 = (int)(eventFlagId / 10000) % 10;
             var eventFlagIdDiv1000 = (int)(eventFlagId / 1000) % 10;
 
             var flagWorldBlockInfoCategory = -1;
-            if (!(eventFlagArea < 90) || eventFlagArea + eventFlagIdDiv10000 == 0)
+            if (eventFlagArea >= 90 || eventFlagArea + eventFlagIdDiv10000 == 0)
             {
                 flagWorldBlockInfoCategory = 0;
             }
@@ -187,7 +173,6 @@ namespace SoulMemory.Sekiro
                 //Loop over worldInfo structs
                 for (int i = 0; i < size; i++)
                 {
-                    var offset = (IntPtr)vector.ReadInt64() + i * 0x38;
                     var area = vector.ReadByte((i * 0x38) + 0xb);
                     if (area == eventFlagArea)
                     {
@@ -227,7 +212,7 @@ namespace SoulMemory.Sekiro
                     }
                 }
 
-                if (-1 < (int)flagWorldBlockInfoCategory)
+                if (-1 < flagWorldBlockInfoCategory)
                 {
                     flagWorldBlockInfoCategory++;
                 }
@@ -251,9 +236,6 @@ namespace SoulMemory.Sekiro
             }
             return false;
         }
-
-        //((*(uint *)(*in_RAX + (ulonglong)((uint)(param_2 % 1000) >> 5) * 4) >> (0x1f - (param_2 % 1000 & 0x1fU) & 0x1f) & 1) != 0);
-
 
         //Ghidra, sekiro 1.06, at 1406c63f0, sekiro.exe + 0x6c63f0
         //

@@ -14,16 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Windows;
 
-namespace SoulMemory.MemoryV2
+namespace SoulSplitter.UI
 {
-    internal enum NodeType
+    /// <summary>
+    /// Interaction logic for UserControl1.xaml
+    /// </summary>
+    public partial class ErrorWindow : Window
     {
-        RelativeScan,
-        AbsoluteScan,
-        Pointer,
+        public ErrorWindow()
+        {
+            InitializeComponent();
+        }
     }
 }

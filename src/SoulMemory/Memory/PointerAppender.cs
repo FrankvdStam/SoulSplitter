@@ -14,15 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SoulMemory.MemoryV2
+namespace SoulMemory.Memory
 {
     public class PointerAppender
     {
-        private Node _node;
+        private readonly Node _node;
         internal PointerAppender(Node node)
         {
             _node = node;

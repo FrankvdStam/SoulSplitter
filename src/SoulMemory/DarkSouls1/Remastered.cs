@@ -34,16 +34,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading;
 using SoulMemory.Memory;
-using SoulMemory.MemoryV2;
 using SoulMemory.Native;
-using SoulMemory.Shared;
-using Pointer = SoulMemory.MemoryV2.Pointer;
+using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.DarkSouls1
 {
@@ -53,38 +49,20 @@ namespace SoulMemory.DarkSouls1
 
         private Process _process;
 
-        private Pointer _gameMan = new Pointer();
-        private Pointer _gameDataMan = new Pointer();
-        private Pointer _playerIns = new Pointer();
-        private Pointer _playerPos = new Pointer();
-        private Pointer _playerGameData = new Pointer();
-        private Pointer _eventFlags = new Pointer();
-        private Pointer _inventoryIndices = new Pointer();
-        private Pointer _netBonfireDb = new Pointer();
-        private Pointer _menuMan = new Pointer();
-        private Pointer _getRegion = new Pointer();
+        private readonly Pointer _gameMan = new Pointer();
+        private readonly Pointer _gameDataMan = new Pointer();
+        private readonly Pointer _playerIns = new Pointer();
+        private readonly Pointer _playerPos = new Pointer();
+        private readonly Pointer _playerGameData = new Pointer();
+        private readonly Pointer _eventFlags = new Pointer();
+        private readonly Pointer _inventoryIndices = new Pointer();
+        private readonly Pointer _netBonfireDb = new Pointer();
+        private readonly Pointer _menuMan = new Pointer();
+        private readonly Pointer _getRegion = new Pointer();
         private int? _steamId3;
         private bool? _isJapanese;
-        private DateTime _lastFailedRefresh = DateTime.MinValue;
 
-        public bool TryRefresh(out Exception exception)
-        {
-            exception = null;
-
-            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
-            {
-                exception = new Exception("Timeout");
-                return false;
-            }
-
-            if (!ProcessClinger.Refresh(ref _process, "darksoulsremastered", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e;
-                _lastFailedRefresh = DateTime.Now;
-                return false;
-            }
-            return true;
-        }
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsremastered", InitPointers, ResetPointers);
 
         private void ResetPointers()
         {
@@ -102,24 +80,25 @@ namespace SoulMemory.DarkSouls1
             _isJapanese = null;
         }
 
-        private Exception InitPointers()
+        private ResultErr<RefreshError> InitPointers()
         {
             try 
             {
                 var treeBuilder = GetTreeBuilder();
-                if(!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+                var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
+                if(result.IsErr)
                 {
-                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
+                    return result;
                 }
 
                 _steamId3 = GetSteamId3();
                 _isJapanese = IsJapanese();
 
-                return null;
+                return Result.Ok();
             }
             catch (Exception e)
             {
-                return e;
+                return RefreshError.FromException(e);
             }
         }
 
@@ -214,7 +193,7 @@ namespace SoulMemory.DarkSouls1
             var second = _menuMan.ReadInt32(0xd4);
             var third  = _menuMan.ReadInt32(0x80); //This address seems like it turns into a 1 only when you are on the main menu
 
-            return third == 0 && first == 1 & second == 1;
+            return third == 0 && first == 1 && second == 1;
         }
         
 
@@ -265,7 +244,6 @@ namespace SoulMemory.DarkSouls1
                 if (bonfireId == (int)bonfire)
                 { 
                     int bonfireState = netBonfireDbItem.ReadInt32(0xc);
-                    var state = (BonfireState)bonfireState;
                     return (BonfireState)bonfireState;
                 }
 
@@ -476,7 +454,7 @@ e:  41 ff d6                call   r14
             IntPtr resultPtr = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)0x4, Kernel32.MEM_COMMIT, Kernel32.PAGE_READWRITE);
 
             // build asm and replace the function pointers
-            byte[] asm = (byte[])LoadDefuseOutput(IsJapaneseAsm);
+            byte[] asm = LoadDefuseOutput(IsJapaneseAsm);
             byte[] callBytes = BitConverter.GetBytes((ulong)callPtr);
             Array.Copy(callBytes, 0, asm, 0x6, 8);
             byte[] resultBytes = BitConverter.GetBytes((ulong)resultPtr);
@@ -489,7 +467,7 @@ e:  41 ff d6                call   r14
             //Suspend, call asm, resume
             Ntdll.NtSuspendProcess(_process.Handle);
             IntPtr thread = Kernel32.CreateRemoteThread(_process.Handle, IntPtr.Zero, 0, address, IntPtr.Zero, 0, IntPtr.Zero);
-            uint result = Kernel32.WaitForSingleObject(thread, 5000);
+            Kernel32.WaitForSingleObject(thread, 5000);
             Ntdll.NtResumeProcess(_process.Handle);
 
             //Read result, cleanup

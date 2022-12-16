@@ -18,62 +18,56 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using SoulMemory.Memory;
-using SoulMemory.Shared;
 
-namespace SoulMemory.DarkSouls2.Vanilla
+namespace SoulMemory.DarkSouls2
 {
-    internal class DarkSouls2 : IDarkSouls2
+    internal class Vanilla : IDarkSouls2
     {
         private Process _process;
-        private Pointer _eventFlagManager;
-        private Pointer _position;
-        private Pointer _loadState;
-        private Pointer _bossCounters;
-        private Pointer _attributes;
+        private readonly Pointer _eventFlagManager = new Pointer();
+        private readonly Pointer _position = new Pointer();
+        private readonly Pointer _loadState = new Pointer();
+        private readonly Pointer _bossCounters = new Pointer();
+        private readonly Pointer _attributes = new Pointer();
 
         #region Refresh/init/reset ================================================================================================================================
-
-        public bool Refresh(out Exception exception)
-        {
-            exception = null;
-            if (!ProcessClinger.Refresh(ref _process, "darksoulsii", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e;
-                return false;
-            }
-            return true;
-        }
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsii", InitPointers, ResetPointers);
 
         private void ResetPointers()
         {
-            _eventFlagManager = null;
-            _position = null;
-            _loadState = null;
-            _bossCounters = null;
-            _attributes = null;
+            _eventFlagManager.Clear();
+            _position.Clear();
+            _loadState.Clear();
+            _bossCounters.Clear();
+            _attributes.Clear();
         }
 
-        private Exception InitPointers()
+        public TreeBuilder GetTreeBuilder()
+        {
+            var treeBuilder = new TreeBuilder();
+            treeBuilder
+                .ScanAbsolute("GameManagerImp", "8B F1 8B 0D ? ? ? 01 8B 01 8B 50 28 FF D2 84 C0 74 0C", 4)
+                    .AddPointer(_eventFlagManager, 0, 0, 0x44, 0x10)
+                    .AddPointer(_position, 0, 0, 0x74)
+                    .AddPointer(_bossCounters, 0, 0, 0x44, 0x14, 0x10, 0x4)
+                    .AddPointer(_attributes, 0, 0, 0x74, 0x378);
+            treeBuilder
+                .ScanAbsolute("LoadState", "89 35 ? ? ? ? e8 ? ? ? ? 66 0f ef c0", 2)
+                    .AddPointer(_loadState, 0, 0);
+
+            return treeBuilder;
+        }
+
+        private ResultErr<RefreshError> InitPointers()
         {
             try
             {
-                _process.ScanCache()
-                    .ScanAbsolute("GameManagerImp", "8B F1 8B 0D ? ? ? 01 8B 01 8B 50 28 FF D2 84 C0 74 0C", 4)
-                        .CreatePointer(out _eventFlagManager, 0, 0, 0x44, 0x10)
-                        .CreatePointer(out _position, 0, 0, 0x74)
-                        .CreatePointer(out _bossCounters, 0, 0, 0x44, 0x14, 0x10, 0x4)
-                        .CreatePointer(out _attributes, 0, 0, 0x74, 0x378)
-                    
-                    .ScanAbsolute("LoadState", "89 35 ? ? ? ? e8 ? ? ? ? 66 0f ef c0", 2)
-                        .CreatePointer(out _loadState, 0, 0);
-
-                ;
-
-                return null;
+                var treeBuilder = GetTreeBuilder();
+                return MemoryScanner.TryResolvePointers(treeBuilder, _process);
             }
             catch (Exception e)
             {
-                return e;
+                return RefreshError.FromException(e);
             }
         }
 
@@ -127,7 +121,7 @@ namespace SoulMemory.DarkSouls2.Vanilla
             else
             {
                 var bytes = _attributes.ReadBytes(2, offset);
-                return (int)BitConverter.ToInt16(bytes, 0);
+                return BitConverter.ToInt16(bytes, 0);
             }
         }
 
@@ -138,8 +132,8 @@ namespace SoulMemory.DarkSouls2.Vanilla
                 return false;
             }
 
-            var eventCategory = (eventFlagId / 10000) * 0x89;
-            var offset = (eventCategory % 0x1f) * 4 + 0x10;
+            var eventCategory = eventFlagId / 10000 * 0x89;
+            var offset = eventCategory % 0x1f * 4 + 0x10;
 
 
             //var uVar1 = ((eventCategory - eventCategory / 0x1f >> 1) + (eventCategory / 0x1f) >> 4) * 31;
@@ -155,7 +149,7 @@ namespace SoulMemory.DarkSouls2.Vanilla
             //ecx 100A9ED0
             //edx 00000011
             //res:10152830
-            
+
 
             for (int i = 0; i < 100; i++) //Replaced infinite while with for loop, in case some memes occur and the function never returns
             {
@@ -172,7 +166,7 @@ namespace SoulMemory.DarkSouls2.Vanilla
                     if (category2 < vector.ReadInt32(0x4))
                     {
                         var ptr = vector.CreatePointerFromAddress(0x0);
-                        var shift = (int)(0x7 - (eventFlagId % 10000) & 0x7);
+                        var shift = (int)(0x7 - eventFlagId % 10000 & 0x7);
                         var shifted = 0x1 << shift;
                         var flagBit = ptr.ReadByte(category2);
                         return flagBit == shifted;

@@ -79,6 +79,7 @@
     <Compile Include="UI\Generic\AddRemoveSplits.xaml.cs">
       <DependentUpon>AddRemoveSplits.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ErrorViewModel.cs" />
     <Compile Include="UI\Generic\FlagControl.xaml.cs">
       <DependentUpon>FlagControl.xaml</DependentUpon>
     </Compile>
@@ -90,6 +91,9 @@
     <Compile Include="UI\Generic\HierarchicalViewModel.cs" />
     <Compile Include="UI\Generic\PositionControl.xaml.cs">
       <DependentUpon>PositionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ErrorWindow.xaml.cs">
+      <DependentUpon>ErrorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Validation\TextToNumberValidation.cs" />
     <Compile Include="Splits\DarkSouls1\Attribute.cs" />
@@ -192,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Generic\SplitsTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ErrorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

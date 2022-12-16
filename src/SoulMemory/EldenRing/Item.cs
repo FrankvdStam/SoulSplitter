@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace SoulMemory.EldenRing
@@ -42,10 +43,9 @@ namespace SoulMemory.EldenRing
         public static Item FromLookupTable(Category category, uint id)
         {
             return LookupTable.SingleOrDefault(i => i.Category == category && i.Id == id);
-        }
-        
+        }        
 
-        public static List<Item> LookupTable = new List<Item>()
+        private readonly static ReadOnlyCollection<Item> LookupTable = new ReadOnlyCollection<Item>(new List<Item>()
         {
             new Item() { Category = Category.Protector,GroupName = "Armor", Name = "Iron Helmet", Id = 40000 },
             new Item() { Category = Category.Protector,GroupName = "Armor", Name = "Scale Armor", Id = 40100 },
@@ -2706,6 +2706,6 @@ namespace SoulMemory.EldenRing
             new Item() { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Erdtree Seal", Id = 34070000 },
             new Item() { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Dragon Communion Seal", Id = 34080000 },
             new Item() { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Frenzied Flame Seal", Id = 34090000 },
-        };
+        });
     }
 }

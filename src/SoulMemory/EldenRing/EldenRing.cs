@@ -19,10 +19,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using SoulMemory.MemoryV2;
+using SoulMemory.Memory;
 using SoulMemory.Native;
-using SoulMemory.Shared;
-using Pointer = SoulMemory.MemoryV2.Pointer;
+using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.EldenRing
 {
@@ -30,15 +29,15 @@ namespace SoulMemory.EldenRing
     {
         private Process _process = null;
 
-        private Pointer _igt = new Pointer();
-        private Pointer _hud = new Pointer();
-        private Pointer _playerIns = new Pointer();
-        private Pointer _playerGameData = new Pointer();
-        private Pointer _inventory = new Pointer();
-        private Pointer _menuManImp = new Pointer();
-        private Pointer _igtFix = new Pointer();
-        private Pointer _virtualMemoryFlag = new Pointer();
-        private Pointer _noLogo = new Pointer();
+        private readonly Pointer _igt = new Pointer();
+        private readonly Pointer _hud = new Pointer();
+        private readonly Pointer _playerIns = new Pointer();
+        private readonly Pointer _playerGameData = new Pointer();
+        private readonly Pointer _inventory = new Pointer();
+        private readonly Pointer _menuManImp = new Pointer();
+        private readonly Pointer _igtFix = new Pointer();
+        private readonly Pointer _virtualMemoryFlag = new Pointer();
+        private readonly Pointer _noLogo = new Pointer();
 
         private long _screenStateOffset;
         private long _positionOffset;
@@ -59,30 +58,11 @@ namespace SoulMemory.EldenRing
 
 
         #region Refresh/init/reset ================================================================================================
-        private DateTime _lastFailedRefresh = DateTime.MinValue;
-        public bool TryRefresh(out Exception exception)
-        {
-            exception = null;
-
-            if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
-            {
-                exception = new Exception("Timeout");
-                return false;
-            }
-
-            if (!SoulMemory.Memory.ProcessClinger.Refresh(ref _process, "eldenring", InitPointers, ResetPointers, out Exception e))
-            {
-                exception = e;
-                _lastFailedRefresh = DateTime.Now;
-                return false;
-            }
-            return true;
-        }
+        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "eldenring", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
         {
             var treeBuilder = new TreeBuilder();
-
             treeBuilder
                 .ScanRelative("FD4Time", "48 8b 05 ? ? ? ? 4c 8b 40 08 4d 85 c0 74 0d 45 0f b6 80 be 00 00 00 e9 13 00 00 00", 3, 7)
                     .AddPointer(_igt, 0, 0xa0)
@@ -131,19 +111,7 @@ namespace SoulMemory.EldenRing
                     break;
 
                 case EldenRingVersion.V104:
-                    _screenStateOffset = 0x728;
-                    _positionOffset = 0x6B0;
-                    _mapIdOffset = 0x6c0;
-                    _playerInsOffset = 0x18468;
-                    break;
-
                 case EldenRingVersion.V105:
-                    _screenStateOffset = 0x728;
-                    _positionOffset = 0x6B0;
-                    _mapIdOffset = 0x6c0;
-                    _playerInsOffset = 0x18468;
-                    break;
-
                 case EldenRingVersion.V106:
                     _screenStateOffset = 0x728;
                     _positionOffset = 0x6B0;
@@ -169,35 +137,41 @@ namespace SoulMemory.EldenRing
         }
 
 
-        public Exception InitPointers()
+        public ResultErr<RefreshError> InitPointers()
         {
             try
             {
                 if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
                 {
-                    return new Exception("Failed to determine game version");
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {_process?.MainModule?.FileVersionInfo?.ProductVersion}"));
                 }
 
                 InitializeOffsets(v);
 
                 var treeBuilder = GetTreeBuilder();
-
-                if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+                var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
+                if (result.IsErr)
                 {
-                    return new Exception($"{errors.Count} scan(s) failed: {string.Join(",", errors)}");
+                    return result;
                 }
 
                 if (_applyIgtFix && !ApplyIgtFix())
                 {
-                    return new Exception("MIGT code injection failed");
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "MIGT injection failed"));
                 }
+
+                return Result.Ok();
             }
             catch (Exception e)
             {
-                return e;
-            }
+                if(e.Message == "Access is denied")
+                {
+                    _process = null;
+                    return Result.Err(new RefreshError(RefreshErrorReason.AccessDenied, "Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin."));
+                }
 
-            return null;
+                return RefreshError.FromException(e);
+            }
         }
 
         private void ResetPointers()
@@ -303,8 +277,6 @@ namespace SoulMemory.EldenRing
             }
 
             var flag = _menuManImp.ReadInt32(0x18);
-            var t = flag & 0x1;
-            var thing = flag >> 8 & 0x1;
 
             if (
                 (flag       & 0x1) == 1 &&
@@ -318,13 +290,6 @@ namespace SoulMemory.EldenRing
             {
                 return false;
             }
-        }
-
-
-
-        public int GetTestValue()
-        {
-            return 0;
         }
 
         public bool Attached => _process != null;
@@ -454,7 +419,6 @@ namespace SoulMemory.EldenRing
                     calculatedPointer = (_virtualMemoryFlag.ReadInt32(0x20) * currentElement.ReadInt32(0x30)) + _virtualMemoryFlag.ReadInt64(0x28);
                 }
 
-                //var ptr = (_virtualMemoryFlag.ReadInt32(0x20) * currentElement.ReadInt32(0x30)) + _virtualMemoryFlag.ReadInt64(0x28);
                 if (calculatedPointer != 0)
                 {
                     var thing = 7 - (leastSignificantDigits & 7);
@@ -634,7 +598,8 @@ namespace SoulMemory.EldenRing
                 .ScanAbsolute("igtCodeCave", "48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20", 0)
                 .AddPointer(igtCodeCave);
 
-            if (!MemoryScanner.TryResolvePointers(treeBuilder, _process, out List<string> errors))
+            
+            if (MemoryScanner.TryResolvePointers(treeBuilder, _process).IsErr)
             {
                 return false;
             }
@@ -653,7 +618,7 @@ namespace SoulMemory.EldenRing
             var scale = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)sizeof(float), Kernel32.MEM_COMMIT, Kernel32.PAGE_EXECUTE_READWRITE);
 
             var buffer = BitConverter.GetBytes(0.96f);
-            var writeRes = Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)scale, buffer.ToArray(), (uint)buffer.Length, out uint written);
+            Kernel32.WriteProcessMemory(_process.Handle, scale, buffer.ToArray(), (uint)buffer.Length, out uint written);
 
             var igtFixCode = new List<byte>(){
                 0x53,                        //push   rbx
@@ -669,39 +634,39 @@ namespace SoulMemory.EldenRing
             igtFixCode.AddRange(BitConverter.GetBytes((long)scale));
             igtFixCode.AddRange(new byte[]
             {
-                0x44, 0x0f, 0x10, 0x39,       //movups    xmm15, XMMWORD PTR [rcx]   ; read scale value
-                0xF3, 0x41, 0x0F, 0x59, 0xCF, //mulss     xmm1,  xmm15               ; multiply frame delta by scale
-                0x44, 0x0F, 0x10, 0xF1,       //movups    xmm14, xmm1                ; frame time to double
-                0xF3, 0x45, 0x0F, 0x5A, 0xF6, //cvtss2sd  xmm14, xmm14               ; 
-                0xF2, 0x49, 0x0F, 0x2C, 0xC6, //cvttsd2si rax,   xmm14               ; cast scaled frametime to int
-                0xF2, 0x4C, 0x0F, 0x2A, 0xF8, //cvtsi2sd  xmm15, rax                 ; cast int frametime to double
-                0xF2, 0x45, 0x0F, 0x5C, 0xF7, //subsd     xmm14, xmm15               ; subtract int frametime from double frametime -> only the fracture remains
-                0x66, 0x44, 0x0F, 0x10, 0x3B, //movupd    xmm15, [rbx]               ; load previous fracture
-                0xF2, 0x45, 0x0F, 0x58, 0xFE, //addsd     xmm15, xmm14               ; add fractures
-                0x66, 0x44, 0x0F, 0x11, 0x3B, //movupd    [rbx], xmm15               ; store new fracture
-                0xF2, 0x49, 0x0F, 0x2C, 0xC7, //cvttsd2si rax,   xmm15               ; cast fracture to int
-                0x48, 0x85, 0xC0,             //test      rax,   rax                 ; if fracture is 1 or bigger
-                0x74, 0x1D,                   //jz        +1D                        ; 
-                0x90, 0x90, 0x90, 0x90,       //nop                                  ;
-                0xF2, 0x4C, 0x0F, 0x2A, 0xF0, //cvtsi2sd  xmm14, rax                 ; convert fracture back to double (will always be 1)
-                0xF2, 0x45, 0x0F, 0x5C, 0xFE, //subsd     xmm15, xmm14               ; remove from fracture
-                0x66, 0x44, 0x0F, 0x11, 0x3B, //movupd    [rbx], xmm15               ; store remainder of fracture
-                0xF2, 0x45, 0x0F, 0x5A, 0xF6, //cvtsd2ss  xmm14, xmm14               ; convert fracture from double to single
-                0xF3, 0x41, 0x0F, 0x58, 0xCE, //addss     xmm1, xmm14                ; add fracture to frame delta
-                                              //jz landing                           ; jz lands on the next line
-                0x45, 0x0F, 0x57, 0xF6,       //xorps     xmm14, xmm14               ; zero xmm14
-                0x45, 0x0F, 0x57, 0xFF,       //xorps     xmm15, xmm15               ; zero xmm15
-                0x59,                         //pop rcx                              ;
-                0x5B,                         //pop rbx                              ;
-                0xF3, 0x48, 0x0F, 0x2C, 0xC1, //cvttss2si rax,xmm1                   ; cast unscaled frame delta to int in rax (eax will be added to igt)
-                0xE9                          //jmp return igtFixEntryPoint +5
+                0x44, 0x0f, 0x10, 0x39,       ///movups    xmm15, XMMWORD PTR [rcx]   ; read scale value
+                0xF3, 0x41, 0x0F, 0x59, 0xCF, ///mulss     xmm1,  xmm15               ; multiply frame delta by scale
+                0x44, 0x0F, 0x10, 0xF1,       ///movups    xmm14, xmm1                ; frame time to double
+                0xF3, 0x45, 0x0F, 0x5A, 0xF6, ///cvtss2sd  xmm14, xmm14               ; 
+                0xF2, 0x49, 0x0F, 0x2C, 0xC6, ///cvttsd2si rax,   xmm14               ; cast scaled frametime to int
+                0xF2, 0x4C, 0x0F, 0x2A, 0xF8, ///cvtsi2sd  xmm15, rax                 ; cast int frametime to double
+                0xF2, 0x45, 0x0F, 0x5C, 0xF7, ///subsd     xmm14, xmm15               ; subtract int frametime from double frametime -> only the fraction remains
+                0x66, 0x44, 0x0F, 0x10, 0x3B, ///movupd    xmm15, [rbx]               ; load previous fraction
+                0xF2, 0x45, 0x0F, 0x58, 0xFE, ///addsd     xmm15, xmm14               ; add fraction
+                0x66, 0x44, 0x0F, 0x11, 0x3B, ///movupd    [rbx], xmm15               ; store new fraction
+                0xF2, 0x49, 0x0F, 0x2C, 0xC7, ///cvttsd2si rax,   xmm15               ; cast fraction to int
+                0x48, 0x85, 0xC0,             ///test      rax,   rax                 ; if fraction is 1 or bigger
+                0x74, 0x1D,                   ///jz        +1D                        ; 
+                0x90, 0x90, 0x90, 0x90,       ///nop                                  ;
+                0xF2, 0x4C, 0x0F, 0x2A, 0xF0, ///cvtsi2sd  xmm14, rax                 ; convert fraction back to double (will always be 1)
+                0xF2, 0x45, 0x0F, 0x5C, 0xFE, ///subsd     xmm15, xmm14               ; remove from fraction
+                0x66, 0x44, 0x0F, 0x11, 0x3B, ///movupd    [rbx], xmm15               ; store remainder of fraction
+                0xF2, 0x45, 0x0F, 0x5A, 0xF6, ///cvtsd2ss  xmm14, xmm14               ; convert fraction from double to single
+                0xF3, 0x41, 0x0F, 0x58, 0xCE, ///addss     xmm1, xmm14                ; add fraction to frame delta
+                                              ///jz landing                           ; jz lands on the next line
+                0x45, 0x0F, 0x57, 0xF6,       ///xorps     xmm14, xmm14               ; zero xmm14
+                0x45, 0x0F, 0x57, 0xFF,       ///xorps     xmm15, xmm15               ; zero xmm15
+                0x59,                         ///pop rcx                              ;
+                0x5B,                         ///pop rbx                              ;
+                0xF3, 0x48, 0x0F, 0x2C, 0xC1, ///cvttss2si rax,xmm1                   ; cast unscaled frame delta to int in rax (eax will be added to igt)
+                0xE9                          ///jmp return igtFixEntryPoint +5
             });
 
             var jumpFromAddress = codeCave + igtFixCode.Count - 1;//minus jmp instruction
             var jmpAddress = (igtFixEntryPoint + 9) - (jumpFromAddress + 9);
             igtFixCode.AddRange(BitConverter.GetBytes(jmpAddress));
             var str = Memory.Extensions.ToHexString(igtFixCode.ToArray()).Replace("-", " ");
-
+            Trace.WriteLine(str);
 
             //Write fixes to game memory
             Ntdll.NtSuspendProcess(_process.Handle);

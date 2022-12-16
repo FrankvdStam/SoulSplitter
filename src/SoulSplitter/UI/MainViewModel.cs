@@ -14,12 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
+using SoulMemory;
+using SoulMemory.Memory;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.DarkSouls3;
@@ -31,27 +39,26 @@ namespace SoulSplitter.UI
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        public MainViewModel()
+        {
+            CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage, (o) => true);
+            CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger, (o) => true);
+            CommandOpenSeparateSettingsWindow = new RelayCommand(OpenSeparateSettingsWindow, (o) => true);
+            CommandClearErrors = new RelayCommand(ClearErrors, (o) => Errors.Count > 0);
+            CommandAddError = new RelayCommand(AddErrorCommand, (o) => true);
+            CommandShowErrors = new RelayCommand(ShowErrorWindow, (o) => true);
+        }
+
         public void Update(MainViewModel mainViewModel)
         {
-            SelectedGame        = mainViewModel.SelectedGame;
+            SelectedGame = mainViewModel.SelectedGame;
             DarkSouls1ViewModel = mainViewModel.DarkSouls1ViewModel;
             DarkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
             DarkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
-            SekiroViewModel     = mainViewModel.SekiroViewModel;
-            EldenRingViewModel  = mainViewModel.EldenRingViewModel;
+            SekiroViewModel = mainViewModel.SekiroViewModel;
+            EldenRingViewModel = mainViewModel.EldenRingViewModel;
         }
-        
-        [XmlIgnore]
-        public string Error
-        {
-            get => _error;
-            set
-            {
-                _error = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _error;
+
 
         public string Version { get; set; } = VersionHelper.Version.ToString();
 
@@ -70,7 +77,7 @@ namespace SoulSplitter.UI
             set => SetField(ref _darkSouls1ViewModel, value);
         }
         private DarkSouls1ViewModel _darkSouls1ViewModel = new DarkSouls1ViewModel();
-        
+
         public DarkSouls2ViewModel DarkSouls2ViewModel
         {
             get => _darkSouls2ViewModel;
@@ -98,6 +105,248 @@ namespace SoulSplitter.UI
             set => SetField(ref _eldenRingViewModel, value);
         }
         private EldenRingViewModel _eldenRingViewModel = new EldenRingViewModel();
+
+        #endregion
+
+        #region Errors
+
+        public bool IgnoreProcessNotRunningErrors
+        {
+            get => _ignoreProcessNotRunningErrors;
+            set => SetField(ref _ignoreProcessNotRunningErrors, value);
+        }
+        private bool _ignoreProcessNotRunningErrors = true;
+
+        public void TryAndHandleError(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e);
+                AddException(e);
+            }
+        }
+
+        public void AddRefreshError(RefreshError error)
+        {
+            if(IgnoreProcessNotRunningErrors && error.Reason == RefreshErrorReason.ProcessNotRunning || error.Reason == RefreshErrorReason.ProcessExited)
+            {
+                return;
+            }
+
+            var errorViewModel = new ErrorViewModel
+            {
+                DateTime = DateTime.Now,
+                Error = $"{error.Message ?? ""} {error.Exception?.ToString() ?? ""}",
+            };
+            AddError(errorViewModel);
+        }
+
+        public void AddException(Exception e)
+        {
+            var errorViewModel = new ErrorViewModel
+            {
+                DateTime = DateTime.Now,
+                Error = e.ToString(),
+            };
+            AddError(errorViewModel);
+        }
+
+        private void AddError(ErrorViewModel errorViewModel)
+        {
+            Errors.Add(errorViewModel); 
+            UpdateErrorBadge();
+        }
+
+        public void ClearErrors(object param)
+        {
+            Errors.Clear();
+            UpdateErrorBadge();
+        }
+
+        private void UpdateErrorBadge()
+        {
+            if(Errors.Count == 0)
+            {
+                ErrorCount = "";
+                BadgeBackgroundBrush = new SolidColorBrush(Colors.Transparent);
+                BadgeForegroundBrush = new SolidColorBrush(Colors.Transparent);
+            }
+            else
+            {
+                BadgeBackgroundBrush = new SolidColorBrush(Colors.Red);
+                BadgeForegroundBrush = new SolidColorBrush(Colors.Black);
+
+                if(Errors.Count > 9)
+                {
+                    ErrorCount = "9+";
+                }
+                else
+                {
+                    ErrorCount = Errors.Count.ToString();
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public RelayCommand CommandClearErrors
+        {
+            get => _commandClearErrors;
+            set => SetField(ref _commandClearErrors, value);
+        }
+        private RelayCommand _commandClearErrors;
+
+        [XmlIgnore]
+        public RelayCommand CommandShowErrors
+        {
+            get => _commandShowErrors;
+            set => SetField(ref _commandShowErrors, value);
+        }
+        private RelayCommand _commandShowErrors;
+
+        private ErrorWindow _errorWindow = null;
+        private void ShowErrorWindow(object param)
+        {
+            if(_errorWindow == null)
+            {
+                _errorWindow = new ErrorWindow();
+                _errorWindow.DataContext = this;
+                _errorWindow.Title = "SoulSplitter errors";
+                _errorWindow.Closing += (s, arg) =>
+                {
+                    _errorWindow.Hide();
+                    arg.Cancel = true;
+                };
+            }
+            _errorWindow.Show();
+        }
+
+        [XmlIgnore]
+        public string ErrorCount
+        {
+            get => _errorCount;
+            set => SetField(ref _errorCount, value);
+        }
+        private string _errorCount;
+
+        [XmlIgnore]
+        public Brush BadgeBackgroundBrush
+        {
+            get => _badgeBackgroundBrush;
+            set => SetField(ref _badgeBackgroundBrush, value);
+        }
+        private Brush _badgeBackgroundBrush = new SolidColorBrush(Colors.Transparent);
+
+        [XmlIgnore]
+        public Brush BadgeForegroundBrush
+        {
+            get => _badgeForegroundBrush;
+            set => SetField(ref _badgeForegroundBrush, value);
+        }
+        private Brush _badgeForegroundBrush = new SolidColorBrush(Colors.Transparent);
+
+        [XmlIgnore]
+        public Visibility BadgeVisibilityInverse
+        {
+            get => _badgeVisibilityInverse;
+            set => SetField(ref _badgeVisibilityInverse, value);
+        }
+        public Visibility _badgeVisibilityInverse = Visibility.Visible;
+
+        [XmlIgnore]
+        public ObservableCollection<ErrorViewModel> Errors { get; set; } = new ObservableCollection<ErrorViewModel>();
+
+        #endregion
+
+        #region Menu
+
+        [XmlIgnore]
+        public RelayCommand CommandTroubleShooting
+        {
+            get => _commandTroubleShooting;
+            set => SetField(ref _commandTroubleShooting, value);
+        }
+        private RelayCommand _commandTroubleShooting;
+
+        private const string TroubleshootingUrl = "https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting";
+        private void OpenTroubleshootingWebpage(object param)
+        {
+            Process.Start(TroubleshootingUrl);
+        }
+
+        [XmlIgnore]
+        public RelayCommand CommandRunEventFlagLogger
+        {
+            get => _commandRunEventFlagLogger;
+            set => SetField(ref _commandRunEventFlagLogger, value);
+        }
+        private RelayCommand _commandRunEventFlagLogger;
+
+        private void RunEventFlagLogger(object sender)
+        {
+            var games = new List<string>()
+            {
+                "darksoulsremastered",
+                "darksoulsii",
+                "darksoulsiii",
+                "sekiro",
+                "eldenring",
+            };
+
+            var process = Process.GetProcesses().FirstOrDefault(p => games.Contains(p.ProcessName.ToLower()));
+            var path = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(MainControl)).Location) + @"\soulinjectee.dll";
+
+            if (process != null && File.Exists(path))
+            {
+                process.InjectDll(path);
+            }
+        }
+
+        [XmlIgnore]
+        public RelayCommand CommandOpenSeparateSettingsWindow
+        {
+            get => _commandOpenSeparateSettingsWindow;
+            set => SetField(ref _commandOpenSeparateSettingsWindow, value);
+        }
+        private RelayCommand _commandOpenSeparateSettingsWindow;
+
+        private Window _settingsWindow;
+        private void OpenSeparateSettingsWindow(object sender)
+        {
+            if (_settingsWindow == null)
+            {
+                var mainControl = new MainControl();
+                mainControl.DataContext = this;
+
+                _settingsWindow = new Window();
+                _settingsWindow.Title = "SoulSplitter settings";
+                _settingsWindow.Content = mainControl;
+                _settingsWindow.Closing += (s, arg) =>
+                {
+                    _settingsWindow.Hide();
+                    arg.Cancel = true;
+                };
+            }
+            _settingsWindow.Show();
+        }
+
+
+        //For debugging purposes
+        [XmlIgnore]
+        public RelayCommand CommandAddError
+        {
+            get => _commandAddError;
+            set => SetField(ref _commandAddError, value);
+        }
+        private RelayCommand _commandAddError;
+
+        private void AddErrorCommand(object param)
+        {
+            AddException(new Exception("adf"));
+        }
 
         #endregion
 

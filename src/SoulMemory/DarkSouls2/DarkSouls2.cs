@@ -17,6 +17,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using SoulMemory.Memory;
 using SoulMemory.Native;
 
 namespace SoulMemory.DarkSouls2
@@ -26,18 +27,14 @@ namespace SoulMemory.DarkSouls2
         private IDarkSouls2 _darkSouls2;
 
         public Vector3f GetPosition() => _darkSouls2?.GetPosition() ?? new Vector3f();
-
         public bool IsLoading() => _darkSouls2?.IsLoading() ?? false;
-
         public bool ReadEventFlag(uint eventFlagId) => _darkSouls2?.ReadEventFlag(eventFlagId) ?? false;
-
         public int GetBossKillCount(BossType bossType) => _darkSouls2?.GetBossKillCount(bossType) ?? 0;
-
         public int GetAttribute(Attribute attribute) => _darkSouls2?.GetAttribute(attribute) ?? 0;
+        public TreeBuilder GetTreeBuilder() => _darkSouls2?.GetTreeBuilder();
 
-        public bool Refresh(out Exception exception)
+        public ResultErr<RefreshError> TryRefresh()
         {
-            exception = null;
             try
             {
                 if (_darkSouls2 == null)
@@ -45,8 +42,7 @@ namespace SoulMemory.DarkSouls2
                     var process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == "darksoulsii" && !i.HasExited && i.MainModule != null);
                     if (process == null)
                     {
-                        exception = new Exception("DarkSoulsII not running");
-                        return false;
+                        return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, "Dark Souls 2 vanilla/scholar not running."));
                     }
 
                     Kernel32.IsWow64Process(process.Handle, out bool isWow64Result);
@@ -54,28 +50,28 @@ namespace SoulMemory.DarkSouls2
                     
                     if (isScholar)
                     {
-                        _darkSouls2 = new Scholar.DarkSouls2();
+                        _darkSouls2 = new Scholar();
                     }
                     else
                     {
-                        _darkSouls2 = new Vanilla.DarkSouls2();
+                        _darkSouls2 = new Vanilla();
                     }
-                    return true;
+                    return Result.Ok();
                 }
                 else
                 {
-                    if (!_darkSouls2.Refresh(out exception))
+                    var result = _darkSouls2.TryRefresh();
+                    if (result.IsErr)
                     {
                         _darkSouls2 = null;
-                        return false;
+                        return result;
                     }
-                    return true;
+                    return Result.Ok();
                 }
             }
             catch (Exception e)
             {
-                exception = e;
-                return false;
+                return RefreshError.FromException(e);
             }
         }
     }
