@@ -20,6 +20,5 @@ namespace SoulSplitter.Splitters
     {
         WaitForStart,
         Running,
-        Paused,
     }
 }
