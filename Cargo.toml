@@ -1,5 +1,0 @@
-[workspace]
-members = [
-    "src/soulmemory-rs",
-    "src/cli-rs",
-]

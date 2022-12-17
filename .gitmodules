@@ -1,3 +1,0 @@
-[submodule "src/rust_memory/lib/minhook"]
-	path = src/rust_memory/lib/minhook
-	url = https://github.com/TsudaKageyu/minhook.git
