@@ -234,6 +234,5 @@
     <Message Text="Copying files to the components directory" Importance="High" />
     <Copy SourceFiles="$(ProjectDir)\$(BaseOutputPath)\x64\$(Configuration)\SoulSplitter.dll" DestinationFolder="$(ProjectDir)\..\..\Components" />
     <Copy SourceFiles="$(ProjectDir)\$(BaseOutputPath)\x64\$(Configuration)\SoulMemory.dll" DestinationFolder="$(ProjectDir)\..\..\Components" />
-    <Copy SourceFiles="$(ProjectDir)\$(BaseOutputPath)\x64\$(Configuration)\soulinjectee.dll" DestinationFolder="$(ProjectDir)\..\..\Components" />
   </Target>
 </Project>
