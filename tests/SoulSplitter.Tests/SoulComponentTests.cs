@@ -83,22 +83,6 @@ namespace SoulSplitter.Tests
             }
         }
 
-
-        [Test]
-        public void SetSettingsTest2()
-        {
-            var doc = new XmlDocument();
-            doc.LoadXml(XmlData.ExampleSettings);
-
-            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
-            var component = new SoulComponent(liveSplitStateMock.Object);
-            component.SetSettings(doc);
-
-            var componentViewModel = component.MainControl.MainViewModel;
-
-            //Assert.AreEqual(viewModel.EldenRingViewModel.StartAutomatically, componentViewModel.EldenRingViewModel.StartAutomatically);
-        }
-
         [Test]
         public void SekiroMigration1_1_0Test()
         {
