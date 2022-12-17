@@ -51,7 +51,7 @@ namespace SoulSplitter.UI.DarkSouls1
             switch (NewSplitType)
             {
                 default:
-                    throw new Exception($"{NewSplitType} not supported");
+                    throw new ArgumentException($"{NewSplitType} not supported");
 
                 case SplitType.Boss:
                 case SplitType.Attribute:
@@ -80,7 +80,7 @@ namespace SoulSplitter.UI.DarkSouls1
             switch (NewSplitType)
             {
                 default:
-                    throw new Exception($"{NewSplitType} not supported");
+                    throw new ArgumentException($"{NewSplitType} not supported");
 
                 case SplitType.Boss:
                 case SplitType.Attribute:

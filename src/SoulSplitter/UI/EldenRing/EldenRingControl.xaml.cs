@@ -25,21 +25,10 @@ namespace SoulSplitter.UI.EldenRing
     /// </summary>
     public partial class EldenRingControl : UserControl
     {
-        //private EldenRingViewModel _eldenRingViewModel;
-        
         public EldenRingControl()
         {
             InitializeComponent();
-            //DataContextChanged += OnDataContextChanged;
         }
-
-        //void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        //{
-        //    if (DataContext is EldenRingViewModel vm)
-        //    {
-        //        _eldenRingViewModel = vm;
-        //    }
-        //}
         
         private EldenRingViewModel GetEldenRingViewModel()
         {
@@ -67,34 +56,12 @@ namespace SoulSplitter.UI.EldenRing
 
         private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (sender is TextBox textBox)
+            if (sender is TextBox textBox && uint.TryParse(textBox.Text, out uint result))
             {
-                if (uint.TryParse(textBox.Text, out uint result))
-                {
-                    GetEldenRingViewModel().NewSplitFlag = result;
-                    return;
-                }
+                GetEldenRingViewModel().NewSplitFlag = result;
+                return;
             }
             GetEldenRingViewModel().NewSplitFlag = null;
-        }
-
-        private void TextBox_OnTextChanged_CheckByte(object sender, TextChangedEventArgs e)
-        {
-            if (sender is TextBox textBox)
-            {
-                if (string.IsNullOrWhiteSpace(textBox.Text))
-                {
-                    return;
-                }
-
-                if (byte.TryParse(textBox.Text, out byte result))
-                {
-                    return;
-                }
-
-
-            }
-            //_eldenRingViewModel.NewSplitFlag = null;
         }
 
         private void OnPreviewTextInput_Byte(object sender, TextCompositionEventArgs e)

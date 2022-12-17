@@ -35,22 +35,6 @@ namespace SoulSplitter.UI
             set => ((MainViewModel)DataContext).Update(value);
         }
         
-        
-
-        
-
-        
-
-
-        private void AddError_OnClick(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void ShowErrors_OnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         public static (System.Windows.Forms.Integration.ElementHost, MainControl) GetElementHostMainControl()
         {
             var mainControl = new MainControl();

@@ -30,7 +30,7 @@ namespace SoulSplitter.Splits.DarkSouls1
             switch (SplitType)
             {
                 default:
-                    throw new Exception($"unsupported split type {SplitType}");
+                    throw new ArgumentException($"unsupported split type {SplitType}");
 
                 case SplitType.Boss:
                     Boss = (Boss)split;

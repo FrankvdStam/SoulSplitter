@@ -29,9 +29,9 @@ namespace SoulSplitter.Splitters
 {
     internal class EldenRingSplitter : ISplitter
     {
-        private EldenRing _eldenRing;
+        private readonly EldenRing _eldenRing;
         private EldenRingViewModel _eldenRingViewModel;
-        private LiveSplitState _liveSplitState;
+        private readonly LiveSplitState _liveSplitState;
 
         public EldenRingSplitter(LiveSplitState state)
         {
@@ -46,11 +46,19 @@ namespace SoulSplitter.Splitters
             _timerModel.CurrentState = state;
         }
 
-
         public void Dispose()
         {
-            _liveSplitState.OnStart -= OnStart;
-            _liveSplitState.OnReset -= OnReset;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _liveSplitState.OnStart -= OnStart;
+                _liveSplitState.OnReset -= OnReset;
+            }
         }
 
         public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
@@ -68,15 +76,20 @@ namespace SoulSplitter.Splitters
                 mainViewModel.AddRefreshError(result.GetErr());
             }
 
+            var shouldExit = false;
             mainViewModel.TryAndHandleError(() =>
             {
                 //Lock IGT to 0 if requested
                 if (_eldenRingViewModel.LockIgtToZero)
                 {
                     _eldenRing.ResetIgt();
-                    return;//Don't allow other features to be used while locking the timer
+                    shouldExit = true;//Don't allow other features to be used while locking the timer
                 }
             });
+            if(shouldExit)
+            {
+                return Result.Ok();
+            }
 
             mainViewModel.TryAndHandleError(() =>
             {
@@ -182,7 +195,6 @@ namespace SoulSplitter.Splitters
                     //Blackscreens/meme loading screens - timer is running, but game is actually loading
                     if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && blackscreenActive)
                     {
-                        //Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
                         _eldenRing.WriteInGameTimeMilliseconds(_inGameTime);
                     }
                     else
@@ -215,14 +227,6 @@ namespace SoulSplitter.Splitters
                 from splitType in timingType.Children
                 from split in splitType.Children
                 select new Split(timingType.TimingType, splitType.EldenRingSplitType, split.Split)
-                //{
-                //    TimingType = timingType.TimingType,
-                //    EldenRingSplitType = splitType.EldenRingSplitType,
-                //    Boss = splitType.EldenRingSplitType == EldenRingSplitType.Boss ? (Boss)split.Split : Boss.AncestralSpirit,//random default
-                //    Grace = splitType.EldenRingSplitType == EldenRingSplitType.Grace ? (Grace)split.Split : Grace.TheFirstStep,//random default
-                //    Flag = splitType.EldenRingSplitType == EldenRingSplitType.Flag ? (uint)split.Split : 0,
-                //
-                //}
                 ).ToList();
         }
 
@@ -239,52 +243,34 @@ namespace SoulSplitter.Splitters
             {
                 if (!s.SplitTriggered)
                 {
-                    switch (s.EldenRingSplitType)
+                    if (!s.SplitConditionMet)
                     {
-                        default:
-                            throw new Exception($"Unsupported split type {s.EldenRingSplitType}");
+                        switch (s.EldenRingSplitType)
+                        {
+                            default:
+                                throw new ArgumentException($"Unsupported split type {s.EldenRingSplitType}");
 
-                        case EldenRingSplitType.Boss:
-                        case EldenRingSplitType.Grace:
-                        case EldenRingSplitType.ItemPickup:
-                        case EldenRingSplitType.Flag:
-                            if (!s.SplitConditionMet)
-                            {
+                            case EldenRingSplitType.Boss:
+                            case EldenRingSplitType.Grace:
+                            case EldenRingSplitType.ItemPickup:
+                            case EldenRingSplitType.Flag:
                                 s.SplitConditionMet = _eldenRing.ReadEventFlag(s.Flag);
-                            }
+                                break;
 
-                            if (s.SplitConditionMet)
-                            {
-                                ResolveSplitTiming(s);
-                            }
-
-                            break;
-
-                        case EldenRingSplitType.Item:
-                            //Only get the inventory items once per livesplit tick
-                            if (inventoryItems == null)
-                            {
-                                inventoryItems = _eldenRing.ReadInventory();
-                            }
-
-                            if (!s.SplitConditionMet)
-                            {
+                            case EldenRingSplitType.Item:
+                                //Only get the inventory items once per livesplit tick
+                                if (inventoryItems == null)
+                                {
+                                    inventoryItems = _eldenRing.ReadInventory();
+                                }
                                 s.SplitConditionMet = inventoryItems.Any(i => i.Category == s.Item.Category && i.Id == s.Item.Id);
-                            }
+                                break;
 
-                            if (s.SplitConditionMet)
-                            {
-                                ResolveSplitTiming(s);
-                            }
-                            break;
-
-                        case EldenRingSplitType.Position:
-                            if (!s.SplitConditionMet)
-                            {
-                                if (_eldenRingViewModel.CurrentPosition.Area   == s.Position.Area   &&
-                                    _eldenRingViewModel.CurrentPosition.Block  == s.Position.Block  &&
+                            case EldenRingSplitType.Position:
+                                if (_eldenRingViewModel.CurrentPosition.Area == s.Position.Area &&
+                                    _eldenRingViewModel.CurrentPosition.Block == s.Position.Block &&
                                     _eldenRingViewModel.CurrentPosition.Region == s.Position.Region &&
-                                    _eldenRingViewModel.CurrentPosition.Size   == s.Position.Size)
+                                    _eldenRingViewModel.CurrentPosition.Size == s.Position.Size)
                                 {
                                     if (s.Position.X + 5.0f > _eldenRingViewModel.CurrentPosition.X &&
                                         s.Position.X - 5.0f < _eldenRingViewModel.CurrentPosition.X &&
@@ -298,13 +284,13 @@ namespace SoulSplitter.Splitters
                                         s.SplitConditionMet = true;
                                     }
                                 }
-                            }
+                                break;
+                        }
+                    }
 
-                            if (s.SplitConditionMet)
-                            {
-                                ResolveSplitTiming(s);
-                            }
-                            break;
+                    if (s.SplitConditionMet)
+                    {
+                        ResolveSplitTiming(s);
                     }
                 }
             }
@@ -315,7 +301,7 @@ namespace SoulSplitter.Splitters
             switch (s.TimingType)
             {
                 default:
-                    throw new Exception($"Unsupported timing type {s.TimingType}");
+                    throw new ArgumentException($"Unsupported timing type {s.TimingType}");
 
                 case TimingType.Immediate:
                     _timerModel.Split();

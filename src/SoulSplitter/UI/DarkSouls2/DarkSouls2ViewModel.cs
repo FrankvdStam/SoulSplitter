@@ -74,7 +74,7 @@ namespace SoulSplitter.UI.DarkSouls2
             switch (NewSplitType)
             {
                 default:
-                    throw new Exception($"split type not supported: {NewSplitType}");
+                    throw new ArgumentException($"split type not supported: {NewSplitType}");
 
                 case DarkSouls2SplitType.Position:
                     var position = (Vector3f)NewSplitValue;
@@ -189,7 +189,7 @@ namespace SoulSplitter.UI.DarkSouls2
                         break;
 
                     default: 
-                        throw new Exception($"Unsupported split type: {NewSplitType}");
+                        throw new ArgumentException($"Unsupported split type: {NewSplitType}");
                 }
             }
         }

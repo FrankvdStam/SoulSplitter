@@ -26,7 +26,6 @@ namespace SoulSplitter.UI.Converters
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var result =
-                value != null &&
                 value is SplitType splitType &&
                 parameter is string s &&
                 Enum.TryParse(s, out SplitType target) &&

@@ -29,8 +29,8 @@ namespace SoulSplitter.Splitters
 {
     public class DarkSouls3Splitter : ISplitter
     {
-        private LiveSplitState _liveSplitState;
-        private DarkSouls3 _darkSouls3;
+        private readonly LiveSplitState _liveSplitState;
+        private readonly DarkSouls3 _darkSouls3;
         private DarkSouls3ViewModel _darkSouls3ViewModel;
 
         public DarkSouls3Splitter(LiveSplitState state)
@@ -47,8 +47,17 @@ namespace SoulSplitter.Splitters
 
         public void Dispose()
         {
-            _liveSplitState.OnStart -= OnStart;
-            _liveSplitState.OnReset -= OnReset;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _liveSplitState.OnStart -= OnStart;
+                _liveSplitState.OnReset -= OnReset;
+            }
         }
 
         private void OnStart(object sender, EventArgs e)
@@ -76,14 +85,19 @@ namespace SoulSplitter.Splitters
                 mainViewModel.AddRefreshError(result.GetErr());
             }
 
+            var shouldExit = false;
             mainViewModel.TryAndHandleError(() =>
             {
                 if (_darkSouls3ViewModel.LockIgtToZero)
                 {
                     _darkSouls3.WriteInGameTimeMilliseconds(0);
-                    return; //Don't allow the timer to run when IGT is locked
+                    shouldExit = true; //Don't allow the timer to run when IGT is locked
                 }
             });
+            if(shouldExit)
+            {
+                return Result.Ok();
+            }
 
             mainViewModel.TryAndHandleError(() =>
             {
@@ -125,12 +139,9 @@ namespace SoulSplitter.Splitters
                     var isLoading = _darkSouls3.IsLoading();
                     var blackscreenActive = _darkSouls3.BlackscreenActive();
 
-                    //Trace.WriteLine($"{_inGameTime} {currentIgt} {isLoading} {blackscreenActive}");
-
                     //Blackscreens/meme loading screens - timer is running, but game is actually loading
                     if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && (isLoading || blackscreenActive))
                     {
-                        //Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
                         _darkSouls3.WriteInGameTimeMilliseconds(_inGameTime);
                     }
                     else
@@ -201,7 +212,7 @@ namespace SoulSplitter.Splitters
                         switch (s.SplitType)
                         {
                             default:
-                                throw new Exception($"Unsupported split type {s.SplitType}");
+                                throw new ArgumentException($"Unsupported split type {s.SplitType}");
 
                             case SplitType.Boss:
                             case SplitType.Bonfire:
@@ -244,7 +255,7 @@ namespace SoulSplitter.Splitters
             switch (s.TimingType)
             {
                 default:
-                    throw new Exception($"Unsupported timing type {s.TimingType}");
+                    throw new ArgumentException($"Unsupported timing type {s.TimingType}");
 
                 case TimingType.Immediate:
                     _timerModel.Split();

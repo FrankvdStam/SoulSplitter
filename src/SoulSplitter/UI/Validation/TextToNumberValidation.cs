@@ -45,12 +45,11 @@ namespace SoulSplitter.UI.Validation
                 }
             }
 
-            if (value.GetType() != typeof(string))
+            if (!(value is string text))
             {
                 return new ValidationResult(false, "Input is not a valid text");
             }
 
-            var text = value as string;
             if (string.IsNullOrWhiteSpace(text) && IsRequired)
             {
                 return new ValidationResult(false, "Value is required");
@@ -59,7 +58,7 @@ namespace SoulSplitter.UI.Validation
             switch (NumericType)
             {
                 default:
-                    throw new Exception($"Unsupported type {NumericType}");
+                    throw new ArgumentException($"Unsupported type {NumericType}");
 
                 case NumericType.Int:
                     if (!int.TryParse(text, out int i))

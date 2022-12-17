@@ -29,9 +29,9 @@ namespace SoulSplitter.Splitters
 {
     public class SekiroSplitter : ISplitter
     {
-        private Sekiro _sekiro;
+        private readonly Sekiro _sekiro;
         private SekiroViewModel _sekiroViewModel;
-        private LiveSplitState _liveSplitState;
+        private readonly LiveSplitState _liveSplitState;
         
         public SekiroSplitter(LiveSplitState state)
         {
@@ -61,8 +61,17 @@ namespace SoulSplitter.Splitters
 
         public void Dispose()
         {
-            _liveSplitState.OnStart -= OnStart;
-            _liveSplitState.OnReset -= OnReset;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _liveSplitState.OnStart -= OnStart;
+                _liveSplitState.OnReset -= OnReset;
+            }
         }
 
         public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
@@ -149,7 +158,6 @@ namespace SoulSplitter.Splitters
                     //Blackscreens/meme loading screens - timer is running, but game is actually loading
                     if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && blackscreenActive)
                     {
-                        //Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
                         _sekiro.WriteInGameTimeMilliseconds(_inGameTime);
                     }
                     else
@@ -197,28 +205,20 @@ namespace SoulSplitter.Splitters
             {
                 if (!s.SplitTriggered)
                 {
-                    switch (s.SplitType)
+                    if (!s.SplitConditionMet)
                     {
-                        default:
-                            throw new Exception($"Unsupported split type {s.SplitType}");
+                        switch (s.SplitType)
+                        {
+                            default:
+                                throw new ArgumentException($"Unsupported split type {s.SplitType}");
 
-                        case SplitType.Boss:
-                        case SplitType.Bonfire:
-                        case SplitType.Flag:
-                            if (!s.SplitConditionMet)
-                            {
+                            case SplitType.Boss:
+                            case SplitType.Bonfire:
+                            case SplitType.Flag:
                                 s.SplitConditionMet = _sekiro.ReadEventFlag(s.Flag);
-                            }
+                                break;
 
-                            if (s.SplitConditionMet)
-                            {
-                                ResolveSplitTiming(s);
-                            }
-                            break;
-
-                        case SplitType.Position:
-                            if (!s.SplitConditionMet)
-                            {
+                            case SplitType.Position:
                                 if (s.Position.Position.X + s.Position.Size > _sekiroViewModel.CurrentPosition.X &&
                                     s.Position.Position.X - s.Position.Size < _sekiroViewModel.CurrentPosition.X &&
 
@@ -230,13 +230,13 @@ namespace SoulSplitter.Splitters
                                 {
                                     s.SplitConditionMet = true;
                                 }
-                            }
+                                break;
+                        }
+                    }
 
-                            if (s.SplitConditionMet)
-                            {
-                                ResolveSplitTiming(s);
-                            }
-                            break;
+                    if (s.SplitConditionMet)
+                    {
+                        ResolveSplitTiming(s);
                     }
                 }
             }
@@ -247,7 +247,7 @@ namespace SoulSplitter.Splitters
             switch (s.TimingType)
             {
                 default:
-                    throw new Exception($"Unsupported timing type {s.TimingType}");
+                    throw new ArgumentException($"Unsupported timing type {s.TimingType}");
 
                 case TimingType.Immediate:
                     _timerModel.Split();

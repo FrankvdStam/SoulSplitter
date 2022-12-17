@@ -37,8 +37,7 @@ namespace SoulMemory.DarkSouls2
             public string Name;
         }
 
-        //TODO: move name string to display name attribute on WarpType enum
-        public static ReadOnlyCollection<Bonfire> Bonfires = new ReadOnlyCollection<Bonfire>(new List<Bonfire>()
+        public static readonly ReadOnlyCollection<Bonfire> Bonfires = new ReadOnlyCollection<Bonfire>(new List<Bonfire>()
         {
             new Bonfire(WarpType.FireKeepersDwelling    , 167903232, 2650 , "Fire Keepers' Dwelling"),
             new Bonfire(WarpType.TheFarFire             , 168034304, 4650 , "The Far Fire"),

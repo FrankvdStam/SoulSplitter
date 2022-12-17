@@ -132,7 +132,7 @@ namespace SoulMemory.Native
         public static void Execute(this Process process, IntPtr startAddress, IntPtr? parameter = null)
         {
             process.NtSuspendProcess();
-            IntPtr thread = IntPtr.Zero;
+            IntPtr thread;
             if(parameter.HasValue)
             {
                 thread = CreateRemoteThread(process.Handle, IntPtr.Zero, 0, startAddress, parameter.Value, 0, IntPtr.Zero);

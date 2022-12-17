@@ -29,9 +29,9 @@ namespace SoulSplitter.Splitters
 {
     public class DarkSouls2Splitter : ISplitter
     {
-        private DarkSouls2 _darkSouls2;
+        private readonly DarkSouls2 _darkSouls2;
         private DarkSouls2ViewModel _darkSouls2ViewModel;
-        private LiveSplitState _liveSplitState;
+        private readonly LiveSplitState _liveSplitState;
         
         public DarkSouls2Splitter(LiveSplitState state)
         {
@@ -61,9 +61,19 @@ namespace SoulSplitter.Splitters
 
         public void Dispose()
         {
-            _liveSplitState.OnStart -= OnStart;
-            _liveSplitState.OnReset -= OnReset;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _liveSplitState.OnStart -= OnStart;
+                _liveSplitState.OnReset -= OnReset;
+            }
+        }
+
 
         public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
         {
@@ -176,35 +186,26 @@ namespace SoulSplitter.Splitters
             {
                 if (!s.SplitTriggered)
                 {
-                    switch (s.SplitType)
+                    if (!s.SplitConditionMet)
                     {
-                        default:
-                            throw new Exception($"Unsupported split type {s.SplitType}");
-                            
-                        case DarkSouls2SplitType.Flag:
-                            if (!s.SplitConditionMet)
-                            {
-                                s.SplitConditionMet = _darkSouls2.ReadEventFlag(s.Flag);
-                            }
-                            break;
+                        switch (s.SplitType)
+                        {
+                            default:
+                                throw new ArgumentException($"Unsupported split type {s.SplitType}");
 
-                        case DarkSouls2SplitType.BossKill:
-                            if (!s.SplitConditionMet)
-                            {
-                                s.SplitConditionMet = _darkSouls2.GetBossKillCount(s.BossKill.BossType) == s.BossKill.Count;
-                            }
-                            break;
+                            case DarkSouls2SplitType.Flag:
+                                s.SplitConditionMet = _darkSouls2.ReadEventFlag(s.Flag);                                
+                                break;
 
-                        case DarkSouls2SplitType.Attribute:
-                            if (!s.SplitConditionMet)
-                            {
-                                s.SplitConditionMet = _darkSouls2.GetAttribute(s.Attribute.AttributeType) >= s.Attribute.Level;
-                            }
-                            break;
+                            case DarkSouls2SplitType.BossKill:
+                                s.SplitConditionMet = _darkSouls2.GetBossKillCount(s.BossKill.BossType) == s.BossKill.Count;                                
+                                break;
 
-                        case DarkSouls2SplitType.Position:
-                            if (!s.SplitConditionMet)
-                            {
+                            case DarkSouls2SplitType.Attribute:
+                                s.SplitConditionMet = _darkSouls2.GetAttribute(s.Attribute.AttributeType) >= s.Attribute.Level;                                
+                                break;
+
+                            case DarkSouls2SplitType.Position:
                                 if (s.Position.X + _boxSize > _darkSouls2ViewModel.CurrentPosition.X &&
                                     s.Position.X - _boxSize < _darkSouls2ViewModel.CurrentPosition.X &&
 
@@ -216,9 +217,8 @@ namespace SoulSplitter.Splitters
                                 {
                                     s.SplitConditionMet = true;
                                 }
-                            }
-
-                            break;
+                                break;
+                        }
                     }
 
                     if (s.SplitConditionMet)
@@ -234,7 +234,7 @@ namespace SoulSplitter.Splitters
             switch (s.TimingType)
             {
                 default:
-                    throw new Exception($"Unsupported timing type {s.TimingType}");
+                    throw new ArgumentException($"Unsupported timing type {s.TimingType}");
 
                 case TimingType.Immediate:
                     _timerModel.Split();

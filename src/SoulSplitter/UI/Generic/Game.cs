@@ -16,7 +16,7 @@
 
 namespace SoulSplitter.UI.Generic
 {
-    public enum Game : int
+    public enum Game
     {
         DarkSouls1 = 0,
         DarkSouls2 = 1,

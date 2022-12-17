@@ -30,8 +30,7 @@ namespace SoulSplitter.Splitters
 {
     public class DarkSouls1Splitter : ISplitter
     {
-       // private LiveSplitState _liveSplitState;
-        private IDarkSouls1 _darkSouls1;
+        private readonly IDarkSouls1 _darkSouls1;
         private DarkSouls1ViewModel _darkSouls1ViewModel;
 
         public DarkSouls1Splitter(ITimerModel timerModel, IDarkSouls1 darkSouls1)
@@ -76,8 +75,17 @@ namespace SoulSplitter.Splitters
 
         public void Dispose()
         {
-            _timerModel.CurrentState.OnStart -= OnStart;
-            _timerModel.CurrentState.OnReset -= OnReset;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _timerModel.CurrentState.OnStart -= OnStart;
+                _timerModel.CurrentState.OnReset -= OnReset;
+            }
         }
 
         private void OnStart(object sender, EventArgs e)
@@ -224,7 +232,7 @@ namespace SoulSplitter.Splitters
                         switch (s.SplitType)
                         {
                             default:
-                                throw new Exception($"Unsupported split type {s.SplitType}");
+                                throw new ArgumentException($"Unsupported split type {s.SplitType}");
 
                             case SplitType.Boss:
                             case SplitType.Flag:
@@ -280,7 +288,7 @@ namespace SoulSplitter.Splitters
             switch (s.TimingType)
             {
                 default:
-                    throw new Exception($"Unsupported timing type {s.TimingType}");
+                    throw new ArgumentException($"Unsupported timing type {s.TimingType}");
 
                 case TimingType.Immediate:
                     _timerModel.Split();

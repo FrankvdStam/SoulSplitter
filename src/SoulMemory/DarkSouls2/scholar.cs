@@ -146,7 +146,6 @@ namespace SoulMemory.DarkSouls2
 
             var offset = r8d * 0x8 + 0x20;
             var vector = _eventFlagManager.CreatePointerFromAddress(offset);
-            //ulong result = 0;
 
             for (int i = 0; i < 100; i++) //Replaced infinite while with for loop, in case some memes occur and the function never returns
             {

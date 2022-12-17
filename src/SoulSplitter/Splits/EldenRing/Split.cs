@@ -30,7 +30,7 @@ namespace SoulSplitter.Splits.EldenRing
             switch (EldenRingSplitType)
             {
                 default:
-                    throw new Exception($"unsupported split type {EldenRingSplitType}");
+                    throw new ArgumentException($"unsupported split type {EldenRingSplitType}");
 
                 case EldenRingSplitType.Boss:
                     Boss = (Boss)split;

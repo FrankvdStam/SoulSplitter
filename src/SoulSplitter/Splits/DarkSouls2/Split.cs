@@ -30,7 +30,7 @@ namespace SoulSplitter.Splits.DarkSouls2
             switch (SplitType)
             {
                 default:
-                    throw new Exception($"unsupported split type {SplitType}");
+                    throw new ArgumentException($"unsupported split type {SplitType}");
 
                 case DarkSouls2SplitType.Position:
                     Position = (Vector3f)split;

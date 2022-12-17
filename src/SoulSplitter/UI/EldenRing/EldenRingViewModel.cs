@@ -97,7 +97,7 @@ namespace SoulSplitter.UI.EldenRing
                 switch (NewSplitType)
                 {
                     default:
-                        throw new Exception($"split type not supported: {NewSplitType}");
+                        throw new ArgumentException($"split type not supported: {NewSplitType}");
 
                     case null:
                         break;
@@ -287,7 +287,7 @@ namespace SoulSplitter.UI.EldenRing
             switch (NewSplitType)
             {
                 default:
-                    throw new Exception($"split type not supported: {NewSplitType}");
+                    throw new ArgumentException($"split type not supported: {NewSplitType}");
 
                 case EldenRingSplitType.Boss:
                     if (hierarchicalSplitType.Children.All(i => (Boss)i.Split != NewSplitBoss))

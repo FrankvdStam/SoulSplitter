@@ -125,8 +125,6 @@ namespace SoulSplitter.UI.Generic
 
         private bool FilterItem(object value)
         {
-            //var type = value.GetType();
-
             if (value == null) return false;
             if (Text.Length == 0) return true;
 
