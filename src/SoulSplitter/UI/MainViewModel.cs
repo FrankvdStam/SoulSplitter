@@ -28,6 +28,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.Native;
+using SoulSplitter.soulmemory_rs;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.DarkSouls3;
@@ -287,22 +288,7 @@ namespace SoulSplitter.UI
 
         private void RunEventFlagLogger(object sender)
         {
-            var games = new List<string>()
-            {
-                "darksoulsremastered",
-                "darksoulsii",
-                "darksoulsiii",
-                "sekiro",
-                "eldenring",
-            };
-
-            var process = Process.GetProcesses().FirstOrDefault(p => games.Contains(p.ProcessName.ToLower()));
-            var path = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(MainControl)).Location) + @"\soulinjectee.dll";
-
-            if (process != null && File.Exists(path))
-            {
-                process.InjectDll(path);
-            }
+            SoulMemoryRs.Launch();
         }
 
         [XmlIgnore]

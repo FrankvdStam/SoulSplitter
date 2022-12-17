@@ -38,7 +38,7 @@ namespace cli
         {
 
 
-            //TestUi();return;
+            TestUi();return;
             ////ValidatePatterns(); return;
             //
             GameLoop<EldenRing>((er) =>

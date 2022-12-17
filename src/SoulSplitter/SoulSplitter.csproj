@@ -72,6 +72,7 @@
     <Compile Include="Migrations\Migrator.cs" />
     <Compile Include="Migrations\XmlExtensions.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="soulmemory-rs\SoulMemoryRs.cs" />
     <Compile Include="Splits\DarkSouls1\BonfireState.cs" />
     <Compile Include="Splits\DarkSouls1\ItemState.cs" />
     <Compile Include="Splitters\TimerState.cs" />
@@ -216,9 +217,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SoulInjectee.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="soulmemory-rs\x64\launcher.exe" />
+    <EmbeddedResource Include="soulmemory-rs\x64\soulmemory_rs.dll" />
+    <EmbeddedResource Include="soulmemory-rs\x86\launcher.exe" />
+    <EmbeddedResource Include="soulmemory-rs\x86\soulmemory_rs.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
