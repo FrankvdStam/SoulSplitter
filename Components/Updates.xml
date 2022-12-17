@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.3.0">
+        <files>
+            <file path="Components/SoulMemory.dll"   status="changed"/>
+            <file path="Components/SoulSplitter.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Added error window</change>
+        </changelog>
+    </update>
     <update version="1.2.6">
         <files>
             <file path="Components/SoulMemory.dll"   status="changed"/>

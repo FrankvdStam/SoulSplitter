@@ -1260,8 +1260,9 @@ namespace SoulMemory.EldenRing
         [AnnotationAttribute(Name = "[Unknown] Mushroom 400271")]
         UnknownMushroom = 400271,
 
-        [AnnotationAttribute(Name = "[Castle Sol] Haligtree Secret Medallion (Left) 400280")]
-        CastleSolHaligtreeSecretMedallionLeft = 400280,
+        //duplicate of 1051587800
+        //[AnnotationAttribute(Name = "[Castle Sol] Haligtree Secret Medallion (Left) 400280")]
+        //CastleSolHaligtreeSecretMedallionLeft = 400280,
 
         [AnnotationAttribute(Name = "[Unknown] 400281")]
         Unknown____ = 400281,
