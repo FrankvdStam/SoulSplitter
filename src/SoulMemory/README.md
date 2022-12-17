@@ -1,7 +1,7 @@
 ﻿# SoulMemory
 
-[![build](https://img.shields.io/github/workflow/status/FrankvdStam/SoulSplitter/build)](https://github.com/FrankvdStam/SoulSplitter/actions) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter) [![NuGet version (SoulMemory)](https://img.shields.io/nuget/v/SoulMemory)](https://www.nuget.org/packages/SoulMemory/)  
-![GitHub last commit](https://img.shields.io/github/last-commit/FrankvdStam/SoulSplitter) ![GitHub repo size](https://img.shields.io/github/repo-size/FrankvdStam/SoulSplitter)  
+[![build](https://img.shields.io/github/actions/workflow/status/FrankvdStam/SoulSplitter/build.yml?branch=main)](https://github.com/FrankvdStam/SoulSplitter/actions) 
+[![Quality Gate Status](http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=alert_status&token=dcf5066558434982e851acb72b72235195d99b6e)](http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter) [![NuGet version (SoulMemory)](https://img.shields.io/nuget/v/SoulMemory)](https://www.nuget.org/packages/SoulMemory/)  
 <a href="https://ko-fi.com/wasted1" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a> [![build](https://img.shields.io/badge/-Discord-blue)](https://discord.com/users/281116269921566721) <a href="https://www.youtube.com/@1wasted"><img src="https://img.shields.io/badge/-YouTube-red"></a>
 
 Backing library of [SoulSplitter](https://github.com/FrankvdStam/SoulSplitter).

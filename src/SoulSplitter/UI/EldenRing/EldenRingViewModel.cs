@@ -332,8 +332,6 @@ namespace SoulSplitter.UI.EldenRing
                     break;
             }
 
-            //NewSplitTimingType = null;
-            //NewSplitType = null;
             NewSplitBoss = null;
             NewSplitGrace = null;
             NewSplitFlag = null;
@@ -418,9 +416,6 @@ namespace SoulSplitter.UI.EldenRing
         public static ObservableCollection<BossViewModel> Bosses { get; set; } = new ObservableCollection<BossViewModel>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new BossViewModel(i)));
         public static ObservableCollection<GraceViewModel> Graces { get; set; } = new ObservableCollection<GraceViewModel>(Enum.GetValues(typeof(Grace)).Cast<Grace>().Select(i => new GraceViewModel(i)));
         public static ObservableCollection<ItemPickupViewModel> ItemPickups { get; set; } = new ObservableCollection<ItemPickupViewModel>(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new ItemPickupViewModel(i)));
-
-
-        //public static ObservableCollection<ItemViewModel> Items { get; set; } = new ObservableCollection<ItemViewModel>(Item.LookupTable.Select(i => new ItemViewModel(i)));
 
         #region INotifyPropertyChanged
 

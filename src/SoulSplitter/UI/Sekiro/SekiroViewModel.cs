@@ -49,7 +49,7 @@ namespace SoulSplitter.UI.Sekiro
             switch (NewSplitType)
             {
                 default:
-                    throw new Exception($"{NewSplitType} not supported");
+                    throw new ArgumentException($"{NewSplitType} not supported");
             
                 case SplitType.Boss:
                 case SplitType.Bonfire:
@@ -69,7 +69,7 @@ namespace SoulSplitter.UI.Sekiro
             switch (NewSplitType)
             {
                 default:
-                    throw new Exception($"{NewSplitType} not supported");
+                    throw new ArgumentException($"{NewSplitType} not supported");
 
                 case SplitType.Boss:
                 case SplitType.Bonfire:

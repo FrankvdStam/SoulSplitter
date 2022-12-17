@@ -59,7 +59,7 @@ namespace SoulSplitter.UI.DarkSouls3
             switch (NewSplitType)
             {
                 default:
-                    throw new Exception($"{NewSplitType} not supported");
+                    throw new ArgumentException($"{NewSplitType} not supported");
 
                 case SplitType.Boss:
                 case SplitType.Bonfire:

@@ -267,22 +267,22 @@ namespace SoulSplitter.Splitters
                                 break;
 
                             case EldenRingSplitType.Position:
-                                if (_eldenRingViewModel.CurrentPosition.Area == s.Position.Area &&
-                                    _eldenRingViewModel.CurrentPosition.Block == s.Position.Block &&
-                                    _eldenRingViewModel.CurrentPosition.Region == s.Position.Region &&
-                                    _eldenRingViewModel.CurrentPosition.Size == s.Position.Size)
+                                if (
+                                    _eldenRingViewModel.CurrentPosition.Area    == s.Position.Area &&
+                                    _eldenRingViewModel.CurrentPosition.Block   == s.Position.Block &&
+                                    _eldenRingViewModel.CurrentPosition.Region  == s.Position.Region &&
+                                    _eldenRingViewModel.CurrentPosition.Size    == s.Position.Size &&
+
+                                    s.Position.X + 5.0f > _eldenRingViewModel.CurrentPosition.X &&
+                                    s.Position.X - 5.0f < _eldenRingViewModel.CurrentPosition.X &&
+
+                                    s.Position.Y + 5.0f > _eldenRingViewModel.CurrentPosition.Y &&
+                                    s.Position.Y - 5.0f < _eldenRingViewModel.CurrentPosition.Y &&
+
+                                    s.Position.Z + 5.0f > _eldenRingViewModel.CurrentPosition.Z &&
+                                    s.Position.Z - 5.0f < _eldenRingViewModel.CurrentPosition.Z)
                                 {
-                                    if (s.Position.X + 5.0f > _eldenRingViewModel.CurrentPosition.X &&
-                                        s.Position.X - 5.0f < _eldenRingViewModel.CurrentPosition.X &&
-
-                                        s.Position.Y + 5.0f > _eldenRingViewModel.CurrentPosition.Y &&
-                                        s.Position.Y - 5.0f < _eldenRingViewModel.CurrentPosition.Y &&
-
-                                        s.Position.Z + 5.0f > _eldenRingViewModel.CurrentPosition.Z &&
-                                        s.Position.Z - 5.0f < _eldenRingViewModel.CurrentPosition.Z)
-                                    {
-                                        s.SplitConditionMet = true;
-                                    }
+                                    s.SplitConditionMet = true;
                                 }
                                 break;
                         }
