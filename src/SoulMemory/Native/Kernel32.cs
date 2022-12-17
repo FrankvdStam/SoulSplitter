@@ -15,47 +15,170 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics;
+using System.Net;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SoulMemory.Native
 {
     public static class Kernel32
     {
-        [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
-
-        [DllImport("kernel32.dll")]
-        public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out uint lpNumberOfBytesWritten);
-
-        [DllImport("kernel32.dll")]
-        public static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
-
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
-
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint flAllocationType, uint flProtect);
-
-        [DllImport("kernel32.dll")]
-        public static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint dwFreeType);
-
-        [DllImport("kernel32.dll")]
-        public static extern bool CloseHandle(IntPtr hObject);
+        #region Read process memory ==================================================================================================================
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool IsWow64Process(IntPtr processHandle, out bool wow64Process);
+        private static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
+
+        public static ResultOk<byte[]> ReadProcessMemory(this Process process, long address, int size)
+        {
+            var buffer = new byte[size];
+            var bytesRead = 0;
+            var result = ReadProcessMemory(process.Handle, (IntPtr)address, buffer, buffer.Length, ref bytesRead);
+
+            if(!result || bytesRead != size)
+            {
+                return Result.Err();
+            }
+            return Result.Ok(buffer);
+        }
+
+        public static T ReadMemory<T>(this Process process, long address, [CallerMemberName] string callerMemberName = null)
+        {
+            var type = typeof(T);
+            var size = Marshal.SizeOf(type);
+            var bytes = process.ReadProcessMemory(address, size).Unwrap(callerMemberName);
+            var handle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
+            var result = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), type);
+            handle.Free();
+            return result;
+        }
+
+        #endregion
+
+        #region Write process memory ==================================================================================================================
+
+        [DllImport("kernel32.dll")]
+        private static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out uint lpNumberOfBytesWritten);
+
+        public static Result WriteProcessMemory(this Process process, long address, byte[] buffer)
+        {
+            var result = WriteProcessMemory(process.Handle, (IntPtr)address, buffer, (uint)buffer.Length, out uint bytesWritten);
+
+            if (!result || bytesWritten != buffer.Length)
+            {
+                return Result.Err();
+            }
+            return Result.Ok();
+        }
+
+        #endregion
+
+        #region misc process  ==================================================================================================================
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool IsWow64Process(IntPtr processHandle, out bool wow64Process);
+
+        public static ResultOk<bool> Is64Bit(this Process process)
+        {
+            var result = IsWow64Process(process.Handle, out bool isWow64Result);
+            if (!result)
+            {
+                return Result.Err();
+            }
+            return Result.Ok(!isWow64Result);
+        }
+
+        #endregion
+
+        #region Allocations ==================================================================================================================
+
+
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint flAllocationType, uint flProtect);
+
+        public static IntPtr Allocate(this Process process, int size)
+        {
+            return VirtualAllocEx(process.Handle, IntPtr.Zero, (IntPtr)size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+        }
+
+        [DllImport("kernel32.dll")]
+        private static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint dwFreeType);
+
+        public static void Free(this Process process, IntPtr pointer) => VirtualFreeEx(process.Handle, pointer, (IntPtr)0, MEM_RELEASE);
+
+        #endregion
+
+        #region Execute ==================================================================================================================
+
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+
+        [DllImport("kernel32.dll")]
+        private static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
+
+        [DllImport("kernel32.dll")]
+        private static extern bool CloseHandle(IntPtr hObject);
+
+        public static void Execute(this Process process, byte[] instructions, IntPtr? parameter = null)
+        {
+            var address = process.Allocate(instructions.Length);
+            process.WriteProcessMemory((long)address, instructions);
+            process.Execute(address, parameter);
+            process.Free(address);
+        }
+
+        public static void Execute(this Process process, IntPtr startAddress, IntPtr? parameter = null)
+        {
+            process.NtSuspendProcess();
+            IntPtr thread = IntPtr.Zero;
+            if(parameter.HasValue)
+            {
+                thread = CreateRemoteThread(process.Handle, IntPtr.Zero, 0, startAddress, parameter.Value, 0, IntPtr.Zero);
+            }
+            else
+            {
+                thread = CreateRemoteThread(process.Handle, IntPtr.Zero, 0, startAddress, IntPtr.Zero, 0, IntPtr.Zero);
+            }
+            WaitForSingleObject(thread, 5000);
+            process.NtResumeProcess();
+            CloseHandle(thread);
+        }
+
+        #endregion
+
+        #region DLL injection ==================================================================================================================
 
         [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
         internal static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr GetModuleHandle(string lpModuleName);
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
 
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
+        public static void InjectDll(this Process process, string dllPath)
+        {
+            //Make sure path is null terminated
+            if(!dllPath.EndsWith("\0"))
+            {
+                dllPath = dllPath + '\0';
+            }
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
-        private static extern bool FreeLibrary(IntPtr hModule);
+            //Write the name of the dll to be injected into a buffer
+            var dllFilepathPointer = process.Allocate(dllPath.Length * Marshal.SizeOf(typeof(char)));
+            process.WriteProcessMemory((long)dllFilepathPointer, Encoding.Default.GetBytes(dllPath));
+
+            //Get the address of LoadLibraryA
+            var loadLibraryA = Kernel32.GetProcAddress(Kernel32.GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+
+            //Execute LoadLibraryA inside the target process with the dll path as parameter
+            process.Execute(loadLibraryA, dllFilepathPointer);
+
+            //Cleanup
+            process.Free(dllFilepathPointer);
+        }
+
+        #endregion
 
 
         public const uint PAGE_EXECUTE_READWRITE = 0x40;

@@ -215,7 +215,7 @@ namespace SoulMemory.DarkSouls1
             var itemList2Len = _playerGameData.ReadInt32(equipInventoryDataSubOffset);
             var itemList2 = _playerGameData.ReadInt32(equipInventoryDataSubOffset + 40);
 
-            var bytes = _process.ReadMemory((IntPtr)itemList2, itemList2Len * 0x1c);
+            var bytes = _process.ReadProcessMemory(itemList2, itemList2Len * 0x1c).Unwrap();
             var items = ItemReader.GetCurrentInventoryItems(bytes, itemList2Len, itemCount, keyCount);
 
             return items;
@@ -401,7 +401,7 @@ namespace SoulMemory.DarkSouls1
                 throw new DllNotFoundException($"${name} not found");
             }
 
-            return _process.ReadMemory<int>(module.BaseAddress + 0x38E58);
+            return _process.ReadMemory<int>(module.BaseAddress.ToInt64() + 0x38E58);
         }
 
 
@@ -451,7 +451,7 @@ e:  41 ff d6                call   r14
 
             var getRegionAddress = _getRegion.BaseAddress;
             IntPtr callPtr = (IntPtr)getRegionAddress;
-            IntPtr resultPtr = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)0x4, Kernel32.MEM_COMMIT, Kernel32.PAGE_READWRITE);
+            IntPtr resultPtr = _process.Allocate(0x4);
 
             // build asm and replace the function pointers
             byte[] asm = LoadDefuseOutput(IsJapaneseAsm);
@@ -460,21 +460,9 @@ e:  41 ff d6                call   r14
             byte[] resultBytes = BitConverter.GetBytes((ulong)resultPtr);
             Array.Copy(resultBytes, 0, asm, 0x13, 8);
 
-            //Allocate memory and write asm, create thread
-            IntPtr address = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)asm.Length, Kernel32.MEM_COMMIT, Kernel32.PAGE_EXECUTE_READWRITE);
-            _process.WriteMemory(address, asm);
-            
-            //Suspend, call asm, resume
-            Ntdll.NtSuspendProcess(_process.Handle);
-            IntPtr thread = Kernel32.CreateRemoteThread(_process.Handle, IntPtr.Zero, 0, address, IntPtr.Zero, 0, IntPtr.Zero);
-            Kernel32.WaitForSingleObject(thread, 5000);
-            Ntdll.NtResumeProcess(_process.Handle);
-
-            //Read result, cleanup
-            Kernel32.CloseHandle(thread);
-            var isJapanese = _process.ReadMemory<int>(resultPtr) == 0;
-            Kernel32.VirtualFreeEx(_process.Handle, resultPtr, (IntPtr)0x4, Kernel32.MEM_RELEASE);
-            
+            _process.Execute(asm);
+            var isJapanese = _process.ReadMemory<int>(resultPtr.ToInt64()) == 0;
+            _process.Free(resultPtr);
             return isJapanese;
         }
     }

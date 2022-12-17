@@ -27,7 +27,7 @@ using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
 using SoulMemory;
-using SoulMemory.Memory;
+using SoulMemory.Native;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.DarkSouls3;

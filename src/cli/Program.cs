@@ -23,6 +23,8 @@ using System.Threading;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
 using SoulMemory.EldenRing;
+using SoulMemory.Sekiro;
+using SoulMemory.Native;
 using SoulMemory;
 
 #pragma warning disable CS0162
@@ -34,23 +36,29 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();return;
-            //ValidatePatterns(); return;
 
+
+            //TestUi();return;
+            ////ValidatePatterns(); return;
+            //
             GameLoop<EldenRing>((er) =>
             {
                 Console.WriteLine(er.GetInGameTimeMilliseconds());
                 Console.WriteLine(er.GetPosition());
                 Console.WriteLine(er.ReadEventFlag((uint)SoulMemory.EldenRing.ItemPickup.LDChapelOfAnticipationTarnishedsWizenedFinger));
             });
-                        
 
-            GameLoop<DarkSouls1>((ds1) =>
+
+            //GameLoop<DarkSouls1>((ds1) =>
+            //{
+            //    Console.WriteLine(ds1.GetInGameTimeMilliseconds());
+            //    Console.WriteLine(ds1.ReadEventFlag((uint)SoulMemory.DarkSouls1.Boss.AsylumDemon));
+            //    Console.WriteLine(ds1.GetSaveFileLocation());
+            //});
+
+            GameLoop<Sekiro>((game) =>
             {
-                Console.WriteLine(ds1.GetInGameTimeMilliseconds());
-                Console.WriteLine(ds1.ReadEventFlag((uint)SoulMemory.DarkSouls1.Boss.AsylumDemon));
-                Console.WriteLine(ds1.GetSaveFileLocation());
-                ds1.ReadEventFlag(11000530);
+                Console.WriteLine(game.GetInGameTimeMilliseconds());
             });
         }
 
@@ -60,21 +68,30 @@ namespace cli
             var game = new T();
             while (true)
             {
-                var result = game.TryRefresh();
-                if(result.IsErr)
+                try
                 {
-                    var err = result.GetErr();
-                    Console.Clear();
-                    Console.WriteLine(err.ToString());
-                    Console.Out.Flush();
-                    Thread.Sleep(3000);
-                    Console.Clear();
+                    var result = game.TryRefresh();
+                    if (result.IsErr)
+                    {
+                        var err = result.GetErr();
+                        Console.Clear();
+                        Console.WriteLine(err.ToString());
+                        Console.Out.Flush();
+                        Thread.Sleep(3000);
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        display.Invoke(game);
+                        Thread.Sleep(16);
+                        Console.SetCursorPosition(0, 0);
+                    }
                 }
-                else
+                catch(Exception e)
                 {
-                    display.Invoke(game);
-                    Thread.Sleep(16);
-                    Console.SetCursorPosition(0, 0);
+                    Console.Clear();
+                    Console.WriteLine(e.ToString());
+                    Thread.Sleep(3000);
                 }
             }
         }

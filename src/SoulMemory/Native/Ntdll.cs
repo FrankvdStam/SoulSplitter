@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace SoulMemory.Native
@@ -22,9 +23,18 @@ namespace SoulMemory.Native
     public static class Ntdll
     {
         [DllImport("ntdll.dll", SetLastError = true)]
-        public static extern IntPtr NtSuspendProcess(IntPtr hProcess);
+        private static extern IntPtr NtSuspendProcess(IntPtr hProcess);
+        public static void NtSuspendProcess(this Process process)
+        {
+            NtSuspendProcess(process.Handle);
+        }
+
 
         [DllImport("ntdll.dll", SetLastError = true)]
-        public static extern IntPtr NtResumeProcess(IntPtr hProcess);
+        private static extern IntPtr NtResumeProcess(IntPtr hProcess);
+        public static void NtResumeProcess(this Process process)
+        {
+            NtResumeProcess(process.Handle);
+        }
     }
 }

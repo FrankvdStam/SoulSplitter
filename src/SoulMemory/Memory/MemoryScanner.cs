@@ -44,12 +44,9 @@ namespace SoulMemory.Memory
             }
 
             //Gather some information about the process that can be reused throughout the resolving process
-            var bytes = new byte[process.MainModule.ModuleMemorySize];
-            int read = 0;
-            Kernel32.ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, bytes, bytes.Length, ref read);
             var baseAddress = process.MainModule.BaseAddress.ToInt64();
-            Kernel32.IsWow64Process(process.Handle, out bool isWow64Result);
-            var is64Bit = !isWow64Result;
+            var bytes = process.ReadProcessMemory(baseAddress, process.MainModule.ModuleMemorySize).Unwrap();
+            var is64Bit = process.Is64Bit().Unwrap();
 
             //Resolve nodes with the above data
             var errors = new List<string>();

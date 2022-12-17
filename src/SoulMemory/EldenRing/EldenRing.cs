@@ -584,9 +584,7 @@ namespace SoulMemory.EldenRing
             long igtFixEntryPoint = _igtFix.GetAddress();
 
             //Check if the byte at the injection address is a jmp instruction
-            var readBuffer = new byte[1];
-            int readBytes = 0;
-            Kernel32.ReadProcessMemory(_process.Handle, (IntPtr)igtFixEntryPoint, readBuffer, readBuffer.Length, ref readBytes);
+            var readBuffer = _process.ReadProcessMemory(igtFixEntryPoint, 1).Unwrap();
             if (readBuffer[0] == 0xE9)
             {
                 return true; //code already injected. Return.
@@ -614,11 +612,11 @@ namespace SoulMemory.EldenRing
 
 
             //fix body
-            var frac = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)sizeof(double), Kernel32.MEM_COMMIT, Kernel32.PAGE_EXECUTE_READWRITE);
-            var scale = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)sizeof(float), Kernel32.MEM_COMMIT, Kernel32.PAGE_EXECUTE_READWRITE);
+            var frac = _process.Allocate(sizeof(double));
+            var scale = _process.Allocate(sizeof(float));
 
             var buffer = BitConverter.GetBytes(0.96f);
-            Kernel32.WriteProcessMemory(_process.Handle, scale, buffer.ToArray(), (uint)buffer.Length, out uint written);
+            _process.WriteProcessMemory((long)scale, buffer);
 
             var igtFixCode = new List<byte>(){
                 0x53,                        //push   rbx
@@ -669,18 +667,24 @@ namespace SoulMemory.EldenRing
             Trace.WriteLine(str);
 
             //Write fixes to game memory
-            Ntdll.NtSuspendProcess(_process.Handle);
-            
-            var result = Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)codeCave, igtFixCode.ToArray(), (uint)igtFixCode.Count, out uint bytesWritten);
-            result &= Kernel32.WriteProcessMemory(_process.Handle, (IntPtr)igtFixEntryPoint, igtFixDetourCode.ToArray(), (uint)igtFixDetourCode.Count, out bytesWritten);
+            _process.NtSuspendProcess();
+
+            if(_process.WriteProcessMemory(codeCave,           igtFixCode.ToArray()).IsErr)
+            {
+                return false;
+            }
+
+            if (_process.WriteProcessMemory(igtFixEntryPoint,   igtFixDetourCode.ToArray()).IsErr)
+            {
+                return false;
+            }
 
             //Apply nologo
             _noLogo.WriteBytes(null, new byte[]{0x90, 0x90});
-            
-            
-            Ntdll.NtResumeProcess(_process.Handle);
 
-            return result;
+            _process.NtResumeProcess();
+
+            return true;
         }
 
         public static string ByteArrayToString(byte[] ba)

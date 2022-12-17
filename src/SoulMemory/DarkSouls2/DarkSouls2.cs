@@ -45,8 +45,7 @@ namespace SoulMemory.DarkSouls2
                         return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, "Dark Souls 2 vanilla/scholar not running."));
                     }
 
-                    Kernel32.IsWow64Process(process.Handle, out bool isWow64Result);
-                    var isScholar = !isWow64Result;
+                    var isScholar = process.Is64Bit().Unwrap();
                     
                     if (isScholar)
                     {

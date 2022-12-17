@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Runtime.CompilerServices;
 
 namespace SoulMemory
 {
@@ -193,11 +194,11 @@ namespace SoulMemory
             return resultOk.IsOk;
         }
 
-        public TOk Unwrap()
+        public TOk Unwrap([CallerMemberName] string callerMemberName = null)
         {
             if (!IsOk)
             {
-                throw new UnwrapException("Called unwrap on a failed Result");
+                throw new UnwrapException($"Called unwrap on a failed Result in {callerMemberName}");
             }
 
             return _ok;

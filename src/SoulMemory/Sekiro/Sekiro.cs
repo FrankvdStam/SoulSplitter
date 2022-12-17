@@ -376,8 +376,8 @@ namespace SoulMemory.Sekiro
                 case 70066176:
                         // if the first 4 bytes at found logo code matches 74 30 48 8D or 75 30 48 8D to account for changes already being applied
                         
-                    logoCodeBytesPointFive = _process.ReadMemory<uint>(_process.MainModule.BaseAddress + 0xE1B1AB);
-                    logoCodeBytesPointSix = _process.ReadMemory<uint>(_process.MainModule.BaseAddress + 0xE1B51B);
+                    logoCodeBytesPointFive = _process.ReadMemory<uint>(_process.MainModule.BaseAddress.ToInt64() + 0xE1B1AB);
+                    logoCodeBytesPointSix = _process.ReadMemory<uint>(_process.MainModule.BaseAddress.ToInt64() + 0xE1B51B);
                     
                     if(logoCodeBytesPointFive == 0x8D483074 || logoCodeBytesPointFive == 0x8D483075){
                         version = "1.05";
@@ -395,12 +395,12 @@ namespace SoulMemory.Sekiro
             }
             
             //TutorialMsgDialog (Tutorial popups that pause the game)
-            IntPtr TutorialMsgDialog = (IntPtr)0;
+            long TutorialMsgDialog = 0;
             //CSTutorialDialog (Little noise making tutorial popups that come up on the left)
-            IntPtr CSTutorialDialog = (IntPtr)0;
+            long CSTutorialDialog = 0;
             //CSMenuTutorialDialog (Tutorial messages in the pause and warp menus)
-            IntPtr CSMenuTutorialDialog = (IntPtr)0;
-            
+            long CSMenuTutorialDialog = 0;
+
             // locating message dialog addresses
             // Cheat Engine -> Memory View
             // in the memory view window
@@ -418,7 +418,7 @@ namespace SoulMemory.Sekiro
             // to confirm, add a breakpoint to the instruction and trigger the dialog in-game. if the instruction is correct, the game should pause only when the dialog is triggered.
 
             //no logo
-            IntPtr noLogo = (IntPtr)0; //no logo mod
+            long noLogo = 0; //no logo mod
                 // Cheat Engine -> Memory View
                 // in the memory view window -> Search -> find assembly code
                 //je *
@@ -436,13 +436,13 @@ namespace SoulMemory.Sekiro
                 //mov rdi,rax
 
             //timer mod
-            IntPtr igtFixEntryPoint = (IntPtr)0;
-                //cvttss2si rax, xmm0                      <---
-                //add     [rcx+9Ch], eax  ; timer_update
-                //mov     rax, cs:qword_143B47CF0
-                //cmp     dword ptr [rax+9Ch], 0D693A018h
-                //jbe     short loc_1407A8D41
-            IntPtr igtFixCodeLoc = (IntPtr)0; //Start of TutorialMsgDialog constructor. This is dead code after applying the no-tut mod so the timer mod can be injected here
+            long igtFixEntryPoint = 0;
+            //cvttss2si rax, xmm0                      <---
+            //add     [rcx+9Ch], eax  ; timer_update
+            //mov     rax, cs:qword_143B47CF0
+            //cmp     dword ptr [rax+9Ch], 0D693A018h
+            //jbe     short loc_1407A8D41
+            long igtFixCodeLoc = 0; //Start of TutorialMsgDialog constructor. This is dead code after applying the no-tut mod so the timer mod can be injected here
             
             // finding igtFixCodeLoc address
             // TutorialMsgDialog should be located first.
@@ -452,36 +452,36 @@ namespace SoulMemory.Sekiro
             
             switch(version){
             case "1.02":
-                TutorialMsgDialog    = (IntPtr)0x140DC7A8E;
-                CSTutorialDialog     = (IntPtr)0x140D6EB98;
-                CSMenuTutorialDialog = (IntPtr)0x140D6D51C;
-                noLogo               = (IntPtr)0x140DEBF2B;
-                igtFixEntryPoint     = (IntPtr)0x1407A8D19;
-                igtFixCodeLoc        = (IntPtr)0x140DBE2D0;
+                TutorialMsgDialog    = 0x140DC7A8E;
+                CSTutorialDialog     = 0x140D6EB98;
+                CSMenuTutorialDialog = 0x140D6D51C;
+                noLogo               = 0x140DEBF2B;
+                igtFixEntryPoint     = 0x1407A8D19;
+                igtFixCodeLoc        = 0x140DBE2D0;
                 break;
             case "1.03":
-                TutorialMsgDialog = (IntPtr)0x140DC83BE;
-                CSTutorialDialog = (IntPtr)0x140D6F4C8;
-                CSMenuTutorialDialog = (IntPtr)0x140D6DE4C;
-                noLogo = (IntPtr)0x140DEC85B;
-                igtFixEntryPoint = (IntPtr)0x1407A8D99;
-                igtFixCodeLoc = (IntPtr)0x140DBEC00;
+                TutorialMsgDialog    = 0x140DC83BE;
+                CSTutorialDialog     = 0x140D6F4C8;
+                CSMenuTutorialDialog = 0x140D6DE4C;
+                noLogo               = 0x140DEC85B;
+                igtFixEntryPoint     = 0x1407A8D99;
+                igtFixCodeLoc        = 0x140DBEC00;
                 break;
             case "1.05":
-                TutorialMsgDialog = (IntPtr)0x140DEF53D;
-                CSTutorialDialog = (IntPtr)0x140D94BC8;
-                CSMenuTutorialDialog = (IntPtr)0x140D934BC;
-                noLogo = (IntPtr)0x140E1B1AB;
-                igtFixEntryPoint = (IntPtr)0x1407B1C89;
-                igtFixCodeLoc = (IntPtr)0x140DE5B60;
+                TutorialMsgDialog    = 0x140DEF53D;
+                CSTutorialDialog     = 0x140D94BC8;
+                CSMenuTutorialDialog = 0x140D934BC;
+                noLogo               = 0x140E1B1AB;
+                igtFixEntryPoint     = 0x1407B1C89;
+                igtFixCodeLoc        = 0x140DE5B60;
                 break;
             case "1.06":
-                TutorialMsgDialog = (IntPtr)0x140DEF8AD;
-                CSTutorialDialog = (IntPtr)0x140D94F38;
-                CSMenuTutorialDialog = (IntPtr)0x140D9382C;
-                noLogo = (IntPtr)0x140E1B51B;
-                igtFixEntryPoint = (IntPtr)0x1407B1C89;
-                igtFixCodeLoc = (IntPtr)0x140DE5ED0;
+                TutorialMsgDialog    = 0x140DEF8AD;
+                CSTutorialDialog     = 0x140D94F38;
+                CSMenuTutorialDialog = 0x140D9382C;
+                noLogo               = 0x140E1B51B;
+                igtFixEntryPoint     = 0x1407B1C89;
+                igtFixCodeLoc        = 0x140DE5ED0;
                 break;  
             default:
                 throw new NotImplementedException();
@@ -490,11 +490,11 @@ namespace SoulMemory.Sekiro
             
             //fix detour
             var igtFixDetourCode = new List<byte>(){0xE9};
-            int detourTarget = (int) (igtFixCodeLoc.ToInt64()-(igtFixEntryPoint.ToInt64()+5));
+            int detourTarget = (int) (igtFixCodeLoc-(igtFixEntryPoint+5));
             igtFixDetourCode.AddRange(BitConverter.GetBytes(detourTarget));
-            
+
             //fix body
-            var frac = Kernel32.VirtualAllocEx(_process.Handle, IntPtr.Zero, (IntPtr)sizeof(double), Kernel32.MEM_COMMIT, Kernel32.PAGE_EXECUTE_READWRITE);
+            var frac = _process.Allocate(sizeof(double));
             var igtFixCode = new List<byte>(){
                 0x53, //push rbx
                 0x48, 0xBB //mov rbx, fracAddress
@@ -525,27 +525,27 @@ namespace SoulMemory.Sekiro
                 0xE9 //jmp return igtFixEntryPoint +5
                 });
 
-            int jmpTarget = (int)((igtFixEntryPoint.ToInt64()+5)-(igtFixCodeLoc.ToInt64()+103+5));
+            int jmpTarget = (int)((igtFixEntryPoint+5)-(igtFixCodeLoc+103+5));
             igtFixCode.AddRange(BitConverter.GetBytes(jmpTarget));
-            
+
 
             //Write fixes to game memory
-            Ntdll.NtSuspendProcess(_process.Handle);
+            _process.NtSuspendProcess();
 
             //No Tutorials
             var result = true;
-            result &= _process.WriteMemory(TutorialMsgDialog,new byte[] {0x75});
-            result &= _process.WriteMemory(CSTutorialDialog, new byte[] {0x75});
-            result &= _process.WriteMemory(CSMenuTutorialDialog, new byte[] {0x75});
+            result &= _process.WriteProcessMemory(TutorialMsgDialog,new byte[] {0x75});
+            result &= _process.WriteProcessMemory(CSTutorialDialog, new byte[] {0x75});
+            result &= _process.WriteProcessMemory(CSMenuTutorialDialog, new byte[] {0x75});
 
             //No logo 
-            result &= _process.WriteMemory(noLogo, new byte[] {0x75});
+            result &= _process.WriteProcessMemory(noLogo, new byte[] {0x75});
 
             //No broken timer
-            result &= _process.WriteMemory(igtFixCodeLoc, igtFixCode.ToArray());
-            result &= _process.WriteMemory(igtFixEntryPoint, igtFixDetourCode.ToArray()); 
-          
-            Ntdll.NtResumeProcess(_process.Handle);
+            result &= _process.WriteProcessMemory(igtFixCodeLoc, igtFixCode.ToArray());
+            result &= _process.WriteProcessMemory(igtFixEntryPoint, igtFixDetourCode.ToArray());
+
+            _process.NtResumeProcess();
             return result;
         }
 

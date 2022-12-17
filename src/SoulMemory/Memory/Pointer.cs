@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SoulMemory.Memory
@@ -95,20 +96,15 @@ namespace SoulMemory.Memory
                 var address = ptr + offset;
 
                 //Not the last offset = resolve as pointer
-                int unused = 0;
                 if (i + 1 < offsets.Count)
                 {
                     if (Is64Bit)
                     {
-                        var buffer = new byte[8];
-                        Kernel32.ReadProcessMemory(Process.Handle, (IntPtr)address, buffer, buffer.Length, ref unused);
-                        ptr = BitConverter.ToInt64(buffer, 0);
+                        ptr = Process.ReadMemory<long>(address);
                     }
                     else
                     {
-                        var buffer = new byte[4];
-                        Kernel32.ReadProcessMemory(Process.Handle, (IntPtr)address, buffer, buffer.Length, ref unused);
-                        ptr = BitConverter.ToInt32(buffer, 0);
+                        ptr = Process.ReadMemory<int>(address);
                     }
 
                     debugStringBuilder?.Append($"\r\n[0x{debugCopy:x} + 0x{offset:x}]: 0x{ptr:x}");
@@ -155,13 +151,9 @@ namespace SoulMemory.Memory
 
         private byte[] ReadMemory(long? offset, int length)
         {
-
-            int bytesRead = 0;
-            byte[] buffer = new byte[length];
-
             if (!_initialized)
             {
-                return buffer;
+                return new byte[length];
             }
 
             var offsetsCopy = Offsets.ToList();
@@ -170,9 +162,13 @@ namespace SoulMemory.Memory
                 offsetsCopy.Add(offset.Value);
             }
 
-            var address = (IntPtr)ResolveOffsets(offsetsCopy);
-            Kernel32.ReadProcessMemory(Process.Handle, address, buffer, length, ref bytesRead);
-            return buffer;
+            var address = ResolveOffsets(offsetsCopy);
+            var result = Process.ReadProcessMemory(address, length);
+            if(result.IsErr)
+            {
+                return new byte[length];
+            }
+            return result.Unwrap();
         }
 
         private void WriteMemory(long? offset, byte[] bytes)
@@ -183,7 +179,7 @@ namespace SoulMemory.Memory
                 offsetsCopy.Add(offset.Value);
             }
             var address = ResolveOffsets(offsetsCopy);
-            Kernel32.WriteProcessMemory(Process.Handle, (IntPtr)address, bytes, (uint)bytes.Length, out uint written);
+            Process.WriteProcessMemory(address, bytes).Unwrap();
         }
 
         public bool IsNullPtr()
@@ -276,37 +272,6 @@ namespace SoulMemory.Memory
         }
 
         #endregion
-
-        #endregion
-
-        #region Assembly
-
-        private IntPtr Allocate(uint size, uint flProtect = Kernel32.PAGE_READWRITE)
-        {
-            return Kernel32.VirtualAllocEx(Process.Handle, IntPtr.Zero, (IntPtr)size, Kernel32.MEM_COMMIT, flProtect);
-        }
-
-        private void Free(IntPtr address)
-        {
-            Kernel32.VirtualFreeEx(Process.Handle, address, IntPtr.Zero, Kernel32.MEM_RELEASE);
-        }
-
-        public uint Execute(IntPtr address, uint timeout = 0xFFFFFFFF)
-        {
-            IntPtr thread = Kernel32.CreateRemoteThread(Process.Handle, IntPtr.Zero, 0, address, IntPtr.Zero, 0, IntPtr.Zero);
-            uint result = Kernel32.WaitForSingleObject(thread, timeout);
-            Kernel32.CloseHandle(thread);
-            return result;
-        }
-
-        public uint Execute(byte[] bytes, uint timeout = 0xFFFFFFFF)
-        {
-            IntPtr address = Allocate((uint)bytes.Length, Kernel32.PAGE_EXECUTE_READWRITE);
-            Kernel32.WriteProcessMemory(Process.Handle, address, bytes, (uint)bytes.Length, out _);
-            uint result = Execute(address, timeout);
-            Free(address);
-            return result;
-        }
 
         #endregion
     }
