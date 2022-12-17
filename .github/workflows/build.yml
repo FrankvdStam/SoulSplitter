@@ -53,9 +53,9 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.exclusions=src/cli/Program.cs
-          msbuild SoulSplitter.sln -t:rebuild -property:Configuration=Debug -property:OutputPath=build
+          msbuild SoulSplitter.sln -t:rebuild -property:Configuration=Debug
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       - name: run NUnit tests
         shell: powershell
-        run: packages\NUnit.ConsoleRunner.3.15.0\tools\nunit3-console.exe tests\SoulSplitter.Tests\build\SoulSplitter.Tests.dll  tests\SoulMemory.Tests\build\SoulMemory.Tests.dll
+        run: packages\NUnit.ConsoleRunner.3.15.0\tools\nunit3-console.exe tests\SoulMemory.Tests\bin\x64\Debug\SoulMemory.Tests.dll tests\SoulSplitter.Tests\bin\x64\Debug\SoulSplitter.Tests.dll
