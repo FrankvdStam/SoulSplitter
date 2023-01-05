@@ -36,6 +36,13 @@ namespace SoulSplitter.UI.Generic
         }
         private string _description = "";
 
+        public bool State
+        {
+            get => _state;
+            set => SetField(ref _state, value);
+        }
+        private bool _state;
+
         public override string ToString()
         {
             return $"{Flag} {Description}";

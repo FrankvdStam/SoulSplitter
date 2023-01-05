@@ -31,6 +31,7 @@ namespace SoulSplitter.Splitters
     {
         private readonly DarkSouls2 _darkSouls2;
         private DarkSouls2ViewModel _darkSouls2ViewModel;
+        private MainViewModel _mainViewModel;
         private readonly LiveSplitState _liveSplitState;
         
         public DarkSouls2Splitter(LiveSplitState state)
@@ -45,8 +46,12 @@ namespace SoulSplitter.Splitters
             _timerModel.CurrentState = state;
         }
 
+        public void SetViewModel(MainViewModel mainViewModel)
+        {
+            _mainViewModel = mainViewModel;
+        }
         #region 
-        
+
         private void OnStart(object sender, EventArgs e)
         {
             StartTimer();
@@ -86,6 +91,11 @@ namespace SoulSplitter.Splitters
             UpdateTimer();
 
             UpdateAutoSplitter();
+
+            mainViewModel.TryAndHandleError(() =>
+            {
+                mainViewModel.FlagTrackerViewModel.Update(_darkSouls2);
+            });
 
             return Result.Ok();
         }

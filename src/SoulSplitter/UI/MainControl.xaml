@@ -59,7 +59,7 @@
 
         <DockPanel 
             Margin="3">
-            <TextBlock VerticalAlignment="Center" Text=" SoulSplitter "    DockPanel.Dock="Left" FontWeight="Bold" FontSize="15"/>
+            <TextBlock VerticalAlignment="Center" Text=" SoulSplitter "     DockPanel.Dock="Left" FontWeight="Bold" FontSize="15"/>
             <TextBlock VerticalAlignment="Center" Text="version "           DockPanel.Dock="Left"/>
             <TextBlock VerticalAlignment="Center" Text="{Binding Version}"  DockPanel.Dock="Left"/>
 
@@ -91,6 +91,20 @@
                 Height="25"
                 Command="{Binding CommandRunEventFlagLogger}">
                 <materialDesign:PackIcon Kind="Console"/>
+            </Button>
+
+            <!-- Open event flag tracker -->
+            <Button
+                DockPanel.Dock="Right"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="1"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Open event flag tracker"
+                Width="25"
+                Height="25"
+                Command="{Binding CommandOpenFlagTrackerWindow}">
+                <materialDesign:PackIcon Kind="CrosshairsGps"/>
             </Button>
 
             <!-- Help -->

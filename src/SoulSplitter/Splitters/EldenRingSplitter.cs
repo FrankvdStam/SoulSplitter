@@ -46,6 +46,12 @@ namespace SoulSplitter.Splitters
             _timerModel.CurrentState = state;
         }
 
+        private MainViewModel _mainViewModel;
+        public void SetViewModel(MainViewModel mainViewModel)
+        {
+            _mainViewModel = mainViewModel;
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -104,6 +110,11 @@ namespace SoulSplitter.Splitters
             mainViewModel.TryAndHandleError(() =>
             {
                 UpdateAutoSplitter();
+            });
+
+            mainViewModel.TryAndHandleError(() =>
+            {
+                mainViewModel.FlagTrackerViewModel.Update(_eldenRing);
             });
 
             return result;

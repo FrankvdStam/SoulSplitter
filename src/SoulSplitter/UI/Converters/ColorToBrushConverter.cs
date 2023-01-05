@@ -14,26 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Memory;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Media;
 
-namespace SoulMemory
+namespace SoulSplitter.UI.Converters
 {
-    public interface IGame
+    internal class ColorToBrushConverter : IValueConverter
     {
-        /// <summary>
-        /// Refresh attachment to a game
-        /// </summary>
-        ResultErr<RefreshError> TryRefresh();
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is Color color)
+            {
+                return new SolidColorBrush(color);
+            }
 
-        /// <summary>
-        /// Returns a structure that defines the memory layout of certain game structs and values
-        /// Can be resolved and used to read memory, or to be scanned against a file to validate correctness of the structure
-        /// </summary>
-        TreeBuilder GetTreeBuilder();
+            throw new NotSupportedException($"Type not supported {targetType}");
+        }
 
-        /// <summary>
-        /// Read an event flag from the game and return it's state
-        /// </summary>
-        bool ReadEventFlag(uint eventFlagId);
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

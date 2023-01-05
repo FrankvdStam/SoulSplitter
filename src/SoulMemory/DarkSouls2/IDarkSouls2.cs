@@ -24,7 +24,5 @@ namespace SoulMemory.DarkSouls2
         int GetBossKillCount(BossType bossType);
         int GetAttribute(Attribute attribute);
         bool IsLoading();
-        bool ReadEventFlag(uint eventFlagId);
-
     }
 }

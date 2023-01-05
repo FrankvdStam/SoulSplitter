@@ -43,7 +43,6 @@
                     </Button>
                 </StackPanel>
 
-                
 
                 <materialDesign:ColorPicker Margin="5" Color="{Binding BackgroundColor}" Width="200" Height="200" HorizontalAlignment="Left"/>
 

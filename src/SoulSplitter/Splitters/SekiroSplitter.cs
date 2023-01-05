@@ -45,8 +45,14 @@ namespace SoulSplitter.Splitters
             _timerModel.CurrentState = state;
         }
 
+        private MainViewModel _mainViewModel;
+        public void SetViewModel(MainViewModel mainViewModel)
+        {
+            _mainViewModel = mainViewModel;
+        }
+
         #region 
-        
+
         private void OnStart(object sender, EventArgs e)
         {
             StartTimer();
@@ -100,6 +106,11 @@ namespace SoulSplitter.Splitters
             mainViewModel.TryAndHandleError(() =>
             {
                 UpdateAutoSplitter();
+            });
+
+            mainViewModel.TryAndHandleError(() =>
+            {
+                mainViewModel.FlagTrackerViewModel.Update(_sekiro);
             });
 
             return result;

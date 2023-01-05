@@ -20,7 +20,6 @@ namespace SoulMemory.DarkSouls1
 {
     public interface IDarkSouls1 : IGame
     {
-        bool ReadEventFlag(uint eventFlagId);
         int GetAttribute(Attribute attribute);
         bool IsWarpRequested();
         bool IsPlayerLoaded();

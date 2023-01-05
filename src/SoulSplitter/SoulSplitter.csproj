@@ -76,6 +76,7 @@
     <Compile Include="Splits\DarkSouls1\BonfireState.cs" />
     <Compile Include="Splits\DarkSouls1\ItemState.cs" />
     <Compile Include="Splitters\TimerState.cs" />
+    <Compile Include="UI\Converters\ColorToBrushConverter.cs" />
     <Compile Include="UI\Converters\SplitTypeVisibilityConverter.cs" />
     <Compile Include="UI\Generic\AddRemoveSplits.xaml.cs">
       <DependentUpon>AddRemoveSplits.xaml</DependentUpon>
@@ -84,6 +85,7 @@
     <Compile Include="UI\Generic\FlagControl.xaml.cs">
       <DependentUpon>FlagControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Generic\FlagTrackerViewModel.cs" />
     <Compile Include="UI\Generic\SplitsTree.xaml.cs">
       <DependentUpon>SplitsTree.xaml</DependentUpon>
     </Compile>
@@ -95,6 +97,9 @@
     </Compile>
     <Compile Include="UI\ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FlagTrackerWindow.xaml.cs">
+      <DependentUpon>FlagTrackerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Validation\TextToNumberValidation.cs" />
     <Compile Include="Splits\DarkSouls1\Attribute.cs" />
@@ -211,6 +216,10 @@
     <Page Include="UI\Sekiro\SekiroControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\FlagTrackerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Forms.Integration;
 using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
@@ -48,6 +49,7 @@ namespace SoulSplitter.UI
             CommandClearErrors = new RelayCommand(ClearErrors, (o) => Errors.Count > 0);
             CommandAddError = new RelayCommand(AddErrorCommand, (o) => true);
             CommandShowErrors = new RelayCommand(ShowErrorWindow, (o) => true);
+            CommandOpenFlagTrackerWindow = new RelayCommand(OpenFlagTrackerWindow, (o) => true);
         }
 
         public void Update(MainViewModel mainViewModel)
@@ -58,6 +60,7 @@ namespace SoulSplitter.UI
             DarkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
             SekiroViewModel = mainViewModel.SekiroViewModel;
             EldenRingViewModel = mainViewModel.EldenRingViewModel;
+            FlagTrackerViewModel = mainViewModel.FlagTrackerViewModel;
         }
 
 
@@ -106,6 +109,13 @@ namespace SoulSplitter.UI
             set => SetField(ref _eldenRingViewModel, value);
         }
         private EldenRingViewModel _eldenRingViewModel = new EldenRingViewModel();
+
+        public FlagTrackerViewModel FlagTrackerViewModel
+        {
+            get => _flagTrackerViewModel;
+            set => SetField(ref _flagTrackerViewModel, value);
+        }
+        private FlagTrackerViewModel _flagTrackerViewModel = new FlagTrackerViewModel();
 
         #endregion
 
@@ -308,6 +318,7 @@ namespace SoulSplitter.UI
                 mainControl.DataContext = this;
 
                 _settingsWindow = new Window();
+                //ElementHost.EnableModelessKeyboardInterop(_settingsWindow);
                 _settingsWindow.Title = "SoulSplitter settings";
                 _settingsWindow.Content = mainControl;
                 _settingsWindow.Closing += (s, arg) =>
@@ -317,6 +328,33 @@ namespace SoulSplitter.UI
                 };
             }
             _settingsWindow.Show();
+        }
+        
+
+        [XmlIgnore]
+        public RelayCommand CommandOpenFlagTrackerWindow
+        {
+            get => _commandOpenFlagTrackerWindow;
+            set => SetField(ref _commandOpenFlagTrackerWindow, value);
+        }
+        private RelayCommand _commandOpenFlagTrackerWindow;
+
+        private FlagTrackerWindow _flagTrackerWindow;
+        private void OpenFlagTrackerWindow(object sender)
+        {
+            if (_flagTrackerWindow == null)
+            {
+                _flagTrackerWindow = new FlagTrackerWindow();
+                ElementHost.EnableModelessKeyboardInterop(_flagTrackerWindow);
+                _flagTrackerWindow.DataContext = FlagTrackerViewModel;
+
+                _flagTrackerWindow.Closing += (s, arg) =>
+                {
+                    _flagTrackerWindow.Hide();
+                    arg.Cancel = true;
+                };
+            }
+            _flagTrackerWindow.Show();
         }
 
 

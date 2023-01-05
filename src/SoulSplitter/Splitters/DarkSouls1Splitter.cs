@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Forms;
 using LiveSplit.Model;
 using SoulMemory;
 using SoulMemory.DarkSouls1;
@@ -31,10 +32,11 @@ namespace SoulSplitter.Splitters
     public class DarkSouls1Splitter : ISplitter
     {
         private readonly IDarkSouls1 _darkSouls1;
-        private DarkSouls1ViewModel _darkSouls1ViewModel;
+        private MainViewModel _mainViewModel;
 
-        public DarkSouls1Splitter(ITimerModel timerModel, IDarkSouls1 darkSouls1)
+        public DarkSouls1Splitter(ITimerModel timerModel, IDarkSouls1 darkSouls1, MainViewModel mainViewModel)
         {
+            _mainViewModel = mainViewModel;
             _darkSouls1 = darkSouls1;
             _timerModel = timerModel;
             _timerModel.CurrentState.OnStart += OnStart;
@@ -42,13 +44,13 @@ namespace SoulSplitter.Splitters
             _timerModel.CurrentState.IsGameTimePaused = true;
         }
 
+        public void SetViewModel(MainViewModel mainViewModel)
+        {
+            _mainViewModel = mainViewModel;
+        }
+
         public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
         {
-            mainViewModel.TryAndHandleError(() =>
-            {
-                _darkSouls1ViewModel = mainViewModel.DarkSouls1ViewModel;
-            });
-
             var result = _darkSouls1.TryRefresh();
             if (result.IsErr)
             {
@@ -57,18 +59,11 @@ namespace SoulSplitter.Splitters
 
             mainViewModel.TryAndHandleError(() =>
             {
-                _darkSouls1ViewModel.CurrentPosition = _darkSouls1.GetPosition();
+                mainViewModel.DarkSouls1ViewModel.CurrentPosition = _darkSouls1.GetPosition();
             });
 
-            mainViewModel.TryAndHandleError(() =>
-            {
-                UpdateTimer();
-            });
-
-            mainViewModel.TryAndHandleError(() =>
-            {
-                UpdateAutoSplitter();
-            });
+            mainViewModel.TryAndHandleError(UpdateTimer);
+            mainViewModel.TryAndHandleError(UpdateAutoSplitter);
 
             return result;
         }
@@ -111,7 +106,7 @@ namespace SoulSplitter.Splitters
 
         private void StartTimer()
         {
-            if (_darkSouls1ViewModel.ResetInventoryIndices)
+            if (_mainViewModel.DarkSouls1ViewModel.ResetInventoryIndices)
             {
                 _darkSouls1.ResetInventoryIndices();
             }
@@ -130,6 +125,7 @@ namespace SoulSplitter.Splitters
             _inGameTime = 0;
             _previousIgt = 0;
             _previousCredits = false;
+            _mainViewModel.FlagTrackerViewModel.Reset();
         }
 
         private void UpdateTimer()
@@ -137,7 +133,7 @@ namespace SoulSplitter.Splitters
             switch (_timerState)
             {
                 case TimerState.WaitForStart:
-                    if (_darkSouls1ViewModel.StartAutomatically)
+                    if (_mainViewModel.DarkSouls1ViewModel.StartAutomatically)
                     {
                         var igt = _darkSouls1.GetInGameTimeMilliseconds();
                         if (igt > 0 && igt < 150)
@@ -187,6 +183,12 @@ namespace SoulSplitter.Splitters
                     _previousCredits = credits;
                     _previousIgt = currentIgt;
                     _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
+
+                    //Update flag tracker only when the timer is running
+                    _mainViewModel.TryAndHandleError(() =>
+                    {
+                        _mainViewModel.FlagTrackerViewModel.Update(_darkSouls1);
+                    });
                     break;
             }
         }
@@ -206,7 +208,7 @@ namespace SoulSplitter.Splitters
         private void StartAutoSplitting()
         {
             _splits = (
-                from timingType in _darkSouls1ViewModel.SplitsViewModel.Splits
+                from timingType in _mainViewModel.DarkSouls1ViewModel.SplitsViewModel.Splits
                 from splitType in timingType.Children
                 from split in splitType.Children
                 select new Split(timingType.TimingType, splitType.SplitType, split.Split)
@@ -244,14 +246,14 @@ namespace SoulSplitter.Splitters
                                 break;
 
                             case SplitType.Position:
-                                if (s.Position.Position.X + s.Position.Size > _darkSouls1ViewModel.CurrentPosition.X &&
-                                    s.Position.Position.X - s.Position.Size < _darkSouls1ViewModel.CurrentPosition.X &&
+                                if (s.Position.Position.X + s.Position.Size > _mainViewModel.DarkSouls1ViewModel.CurrentPosition.X &&
+                                    s.Position.Position.X - s.Position.Size < _mainViewModel.DarkSouls1ViewModel.CurrentPosition.X &&
 
-                                    s.Position.Position.Y + s.Position.Size > _darkSouls1ViewModel.CurrentPosition.Y &&
-                                    s.Position.Position.Y - s.Position.Size < _darkSouls1ViewModel.CurrentPosition.Y &&
+                                    s.Position.Position.Y + s.Position.Size > _mainViewModel.DarkSouls1ViewModel.CurrentPosition.Y &&
+                                    s.Position.Position.Y - s.Position.Size < _mainViewModel.DarkSouls1ViewModel.CurrentPosition.Y &&
 
-                                    s.Position.Position.Z + s.Position.Size > _darkSouls1ViewModel.CurrentPosition.Z &&
-                                    s.Position.Position.Z - s.Position.Size < _darkSouls1ViewModel.CurrentPosition.Z)
+                                    s.Position.Position.Z + s.Position.Size > _mainViewModel.DarkSouls1ViewModel.CurrentPosition.Z &&
+                                    s.Position.Position.Z - s.Position.Size < _mainViewModel.DarkSouls1ViewModel.CurrentPosition.Z)
                                 {
                                     s.SplitConditionMet = true;
                                 }

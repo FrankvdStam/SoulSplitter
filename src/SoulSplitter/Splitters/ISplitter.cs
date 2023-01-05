@@ -23,5 +23,6 @@ namespace SoulSplitter.Splitters
     internal interface ISplitter : IDisposable
     {
         ResultErr<RefreshError> Update(MainViewModel mainViewModel);
+        void SetViewModel(MainViewModel mainViewModel);
     }
 }
