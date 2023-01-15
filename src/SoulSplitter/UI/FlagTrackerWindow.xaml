@@ -29,6 +29,7 @@
                     <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
                     <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
                     <converters:ColorToHexTextConverter x:Key="ColorToHexTextConverter"/>
+                    <validation:TextToRgbHexConverter x:Key="TextToRgbHexConverter"/>
                     <system:Int32 x:Key="InputCategory" >0</system:Int32>
                     <system:Int32 x:Key="InputFlag"     >1</system:Int32>
                     <system:Int32 x:Key="InputButtons"  >2</system:Int32>
@@ -151,6 +152,8 @@
                         <RowDefinition Height="40"  />
                         <RowDefinition Height="40"  />
                         <RowDefinition Height="40"  />
+                        <RowDefinition Height="40"  />
+                        <RowDefinition Height="40"  />
                     </Grid.RowDefinitions>
 
                     <Label
@@ -168,8 +171,15 @@
 
                     <TextBox
                         Grid.Row="2"
-                        Margin="5"
-                        Text="{Binding BackgroundColor, Converter={StaticResource ColorToHexTextConverter}}"/>
+                        Margin="5">
+                        <TextBox.Text>
+                            <Binding UpdateSourceTrigger="PropertyChanged" Path="BackgroundColor" Converter="{StaticResource ColorToHexTextConverter}">
+                                <Binding.ValidationRules>
+                                    <validation:TextToRgbHexConverter/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                     <Label 
                         Grid.Row="3"
@@ -186,11 +196,27 @@
 
                     <TextBox
                         Grid.Row="5"
+                        Margin="5">
+                        <TextBox.Text>
+                            <Binding UpdateSourceTrigger="PropertyChanged" Path="TextColor" Converter="{StaticResource ColorToHexTextConverter}">
+                                <Binding.ValidationRules>
+                                    <validation:TextToRgbHexConverter/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+
+                    <Slider 
                         Margin="5"
-                        Text="{Binding TextColor, Converter={StaticResource ColorToHexTextConverter}}"/>
-                    
-                    <TextBox 
                         Grid.Row="6"
+                        Minimum="20" 
+                        Maximum="400"
+                        Value="{Binding TotalPercentageFontSize}"/>
+
+                    <TextBox 
+                        Margin="5"
+                        Grid.Row="7"
+                        materialDesign:HintAssist.HelperText="Total percentage font size"
                         ToolTip="Total percentage font size">
                         <TextBox.Text>
                             <Binding Path="TotalPercentageFontSize">
@@ -202,7 +228,7 @@
                     </TextBox>
 
                     <TextBox 
-                        Grid.Row="7"
+                        Grid.Row="8"
                         ToolTip="Total percentage font size">
                         <TextBox.Text>
                             <Binding Path="CategoryPercentageFontSize">
@@ -232,12 +258,12 @@
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="50" />
-                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="6*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock  FontSize="{Binding CategoryPercentageFontSize}" Text="{Binding CategoryName}" />
-                            <TextBlock  Grid.Column="1" FontSize="{Binding CategoryPercentageFontSize}" Text="{Binding PercentageDone, StringFormat={}{0:#0.0'%'}}" />
+                            <TextBlock FontSize="{Binding CategoryPercentageFontSize}" Text="{Binding CategoryName}" />
+                            <TextBlock Grid.Column="1" FontSize="{Binding CategoryPercentageFontSize}" Text="{Binding PercentageDone, StringFormat={}{0:#0.0'%'}}" />
                             <ProgressBar Grid.Column="2" Minimum="0" Maximum="100" Value="{Binding PercentageDone}" />
                         </Grid>
                     </DataTemplate>
@@ -251,8 +277,6 @@
                 FontSize="{Binding TotalPercentageFontSize}"
                 Foreground="{Binding TextColor, Converter={StaticResource ColorToBrushConverter}}"
                 Text="{Binding PercentageDone, StringFormat={}{0:#0.0'%'}}"/>
-
-
         </Grid>
     </Grid>
 </Window>

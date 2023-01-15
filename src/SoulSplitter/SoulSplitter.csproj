@@ -165,6 +165,7 @@
     <Compile Include="UI\MainViewModel.cs" />
     <Compile Include="UI\Converters\EnumDisplayNameConverter.cs" />
     <Compile Include="Splitters\TimingMethod.cs" />
+    <Compile Include="UI\Validation\TextToRgbHexConverter.cs" />
     <Compile Include="VersionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
