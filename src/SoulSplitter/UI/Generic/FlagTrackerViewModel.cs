@@ -23,6 +23,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Xml.Serialization;
 
 namespace SoulSplitter.UI.Generic
@@ -210,13 +211,6 @@ namespace SoulSplitter.UI.Generic
         }
         private double _inputColumnWidth = 400;
 
-        public double UiCustomizationColumnWidth
-        {
-            get => _uiCustomizationColumnWidth;
-            set => SetField(ref _uiCustomizationColumnWidth, value);
-        }
-        private double _uiCustomizationColumnWidth = 400;
-
         public double CategoryPercentagesRowHeight
         {
             get => _categoryPercentagesRowHeight;
@@ -237,6 +231,20 @@ namespace SoulSplitter.UI.Generic
             set => SetField(ref _totalPercentageFontSize, value);
         }
         private int _totalPercentageFontSize = 60;
+
+        public Color BackgroundColor
+        {
+            get => _backgroundColor;
+            set => SetField(ref _backgroundColor, value);
+        }
+        private Color _backgroundColor;
+
+        public Color TextColor
+        {
+            get => _textColor;
+            set => SetField(ref _textColor, value);
+        }
+        private Color _textColor;
 
         #endregion
 
