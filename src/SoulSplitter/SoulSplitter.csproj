@@ -76,6 +76,7 @@
     <Compile Include="Splits\DarkSouls1\BonfireState.cs" />
     <Compile Include="Splits\DarkSouls1\ItemState.cs" />
     <Compile Include="Splitters\TimerState.cs" />
+    <Compile Include="UI\Converters\ColorToHexTextConverter.cs" />
     <Compile Include="UI\Converters\ColorToBrushConverter.cs" />
     <Compile Include="UI\Converters\SplitTypeVisibilityConverter.cs" />
     <Compile Include="UI\Generic\AddRemoveSplits.xaml.cs">

@@ -28,6 +28,7 @@
                 <ResourceDictionary>
                     <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
                     <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+                    <converters:ColorToHexTextConverter x:Key="ColorToHexTextConverter"/>
                     <system:Int32 x:Key="InputCategory" >0</system:Int32>
                     <system:Int32 x:Key="InputFlag"     >1</system:Int32>
                     <system:Int32 x:Key="InputButtons"  >2</system:Int32>
@@ -142,12 +143,14 @@
                     Grid.Column="2" 
                     Grid.RowSpan="4">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="210"/>
-                        <RowDefinition Height="35" />
-                        <RowDefinition Height="210"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="30"  />
+                        <RowDefinition Height="210" />
+                        <RowDefinition Height="40"  />
+                        <RowDefinition Height="35"  />
+                        <RowDefinition Height="210" />
+                        <RowDefinition Height="40"  />
+                        <RowDefinition Height="40"  />
+                        <RowDefinition Height="40"  />
                     </Grid.RowDefinitions>
 
                     <Label
@@ -163,21 +166,31 @@
                         Height="200"
                         HorizontalAlignment="Left"/>
 
-                    <Label 
+                    <TextBox
                         Grid.Row="2"
+                        Margin="5"
+                        Text="{Binding BackgroundColor, Converter={StaticResource ColorToHexTextConverter}}"/>
+
+                    <Label 
+                        Grid.Row="3"
                         Content="Text color" 
                         Margin="5"/>
 
                     <materialDesign:ColorPicker
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Margin="5"
                         Color="{Binding TextColor}"
                         Width="200"
                         Height="200"
                         HorizontalAlignment="Left"/>
 
+                    <TextBox
+                        Grid.Row="5"
+                        Margin="5"
+                        Text="{Binding TextColor, Converter={StaticResource ColorToHexTextConverter}}"/>
+                    
                     <TextBox 
-                        Grid.Row="4"
+                        Grid.Row="6"
                         ToolTip="Total percentage font size">
                         <TextBox.Text>
                             <Binding Path="TotalPercentageFontSize">
@@ -189,7 +202,7 @@
                     </TextBox>
 
                     <TextBox 
-                        Grid.Row="5"
+                        Grid.Row="7"
                         ToolTip="Total percentage font size">
                         <TextBox.Text>
                             <Binding Path="CategoryPercentageFontSize">

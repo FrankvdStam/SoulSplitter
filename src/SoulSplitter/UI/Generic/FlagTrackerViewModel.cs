@@ -237,14 +237,14 @@ namespace SoulSplitter.UI.Generic
             get => _backgroundColor;
             set => SetField(ref _backgroundColor, value);
         }
-        private Color _backgroundColor;
+        private Color _backgroundColor = Color.FromRgb(4, 244, 4);
 
         public Color TextColor
         {
             get => _textColor;
             set => SetField(ref _textColor, value);
         }
-        private Color _textColor;
+        private Color _textColor = Color.FromRgb(0, 0, 0);
 
         #endregion
 
