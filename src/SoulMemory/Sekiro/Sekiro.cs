@@ -33,6 +33,10 @@ namespace SoulMemory.Sekiro
         private readonly Pointer _position = new Pointer();
         private readonly Pointer _fadeSystem = new Pointer();
 
+        private readonly Pointer _saveChecksum = new Pointer();
+        private readonly Pointer _saveSteamId = new Pointer();
+        private readonly Pointer _saveSlot = new Pointer();
+
 
         #region Refresh/init/reset ================================================================================================================================
 
@@ -40,6 +44,10 @@ namespace SoulMemory.Sekiro
 
         public TreeBuilder GetTreeBuilder()
         {
+
+            //treeBuilder
+            //    .ScanRelative("MenuMan", "48 8b 05 ? ? ? ? 0f b6 d1 48 8b 88 08 33 00 00", 3, 7);
+
             var treeBuilder = new TreeBuilder();
             treeBuilder
                 .ScanRelative("SprjEventFlagMan", "48 8b 0d ? ? ? ? 48 89 5c 24 50 48 89 6c 24 58 48 89 74 24 60", 3, 7)
@@ -63,12 +71,23 @@ namespace SoulMemory.Sekiro
                 .ScanRelative("SprjFadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7)
                     .AddPointer(_fadeSystem, 0x0, 0x8);
 
+            //These 3 save file related AOB's where found by Uberhalit, thanks for letting me use them!
+            //https://github.com/uberhalit/SimpleSekiroSavegameHelper/
+            //MIT licensed https://github.com/uberhalit/SimpleSekiroSavegameHelper/blob/master/LICENSE
             treeBuilder
-                .ScanRelative("MenuMan", "48 8b 05 ? ? ? ? 0f b6 d1 48 8b 88 08 33 00 00", 3, 7);
+                .ScanAbsolute("Save checksum", "38 84 0C ? ? ? ? ? ? FF ? 48 ? ? 83 ? 10 72", 7)
+                    .AddPointer(_saveChecksum);
+
+            treeBuilder
+                .ScanAbsolute("Save SteamID", "45 84 FF ? ? B9 06 00 00 00 EB ? B9 07 00 00 00", 3)
+                    .AddPointer(_saveSteamId);
+
+            treeBuilder
+                .ScanAbsolute("Save slot", "48 8B 05 ? ? ? ? 40 38 B8 ? ? ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? B8 06 00 00 00", 14)
+                    .AddPointer(_saveSlot);
 
             return treeBuilder;
         }
-         
 
         private ResultErr<RefreshError> InitPointers()
         {
@@ -87,6 +106,8 @@ namespace SoulMemory.Sekiro
                 {
                     return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "B3Mods init failed"));
                 }
+
+                ApplySavefileMods();
 
                 return Result.Ok();
             }
@@ -284,6 +305,18 @@ namespace SoulMemory.Sekiro
 
         #endregion
 
+        #region Savefile mods
+
+        //All credit goes to Uberhalit, for finding the byte patterns https://github.com/uberhalit/SimpleSekiroSavegameHelper
+        private void ApplySavefileMods()
+        {
+            _saveChecksum.WriteBytes(null, new byte[] { 0x90, 0x90 });
+            _saveSteamId.WriteByte(null, 0xeb);
+            _saveSlot.WriteByte(null, 0xeb);
+        }
+
+        #endregion
+
         #region B3LYP's timer & mods
         //All credit goes to B3LYP, https://github.com/pawREP
         /*
@@ -351,7 +384,7 @@ namespace SoulMemory.Sekiro
                 }
                 '''
                     */
-        
+
         private bool InitB3Mods()
         {
             /*We have to wait a little for SteamDRM to decrypt the exe.

@@ -26,6 +26,7 @@ using SoulMemory.EldenRing;
 using SoulMemory.Sekiro;
 using SoulMemory.Native;
 using SoulMemory;
+using SoulSplitter.UI.Generic;
 
 #pragma warning disable CS0162
 
@@ -36,8 +37,13 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            GameLoop<Sekiro>((s) => 
+            {
+                Console.WriteLine(s.GetInGameTimeMilliseconds());
+            });
 
 
+            ValidatePatterns(); return;
             TestUi();return;
             ////ValidatePatterns(); return;
             //
@@ -119,8 +125,8 @@ namespace cli
                 //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
-                //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
-                ("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
+                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
+                //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
             };
 
             foreach(var validatable in validatables)

@@ -47,7 +47,7 @@ namespace SoulSplitter.Tests.Splitters
             darkSouls1.Setup(ds1 => ds1.TryRefresh()).Returns(Result.Ok());
 
             //Finally create the splitter with all its dependencies
-            var ds1Splitter = new DarkSouls1Splitter(timerModel.Object, darkSouls1.Object);
+            var ds1Splitter = new DarkSouls1Splitter(timerModel.Object, darkSouls1.Object, mainViewModel);
             return (timerModel, mainViewModel, darkSouls1, ds1Splitter);
         }
 

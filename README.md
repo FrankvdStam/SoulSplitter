@@ -58,6 +58,8 @@ Thanks [CapitaineToinon](https://github.com/CapitaineToinon/LiveSplit.DarkSoulsI
 
 Thanks [Blade](https://github.com/bladecoding/DarkSouls3RemoveIntroScreens) for the nologo code!  
 
+Thanks [Uberhalit](https://github.com/uberhalit) for the Sekiro savefile mod from his tool: https://github.com/uberhalit/SimpleSekiroSavegameHelper
+
 I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
 
 [![Alt jetbrainslogo](./jetbrains/jetbrains.svg)](https://www.jetbrains.com/?from=SoulSplitter)
