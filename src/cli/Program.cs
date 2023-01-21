@@ -37,6 +37,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi(); return;
+
             GameLoop<Sekiro>((s) => 
             {
                 Console.WriteLine(s.GetInGameTimeMilliseconds());
@@ -44,7 +46,7 @@ namespace cli
 
 
             ValidatePatterns(); return;
-            TestUi();return;
+            
             ////ValidatePatterns(); return;
             //
             GameLoop<EldenRing>((er) =>
@@ -114,7 +116,29 @@ namespace cli
                 mainControl.MainViewModel.EldenRingViewModel.AddSplit();
             }
 
+            var flagTrackerViewModel = mainControl.MainViewModel.FlagTrackerViewModel;
+            flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel { CategoryName = "Undead burg", EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
+            {
+                new FlagDescription{ Flag = 162, Description = "stuff", State = true},
+                new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
+                new FlagDescription{ Flag = 31, Description = "more stuff", State = true},
+                new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
+                new FlagDescription{ Flag = 124, Description = "more stuff", State = false},
+                new FlagDescription{ Flag = 415, Description = "more stuff", State = false},
+            }});
+
+            flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel { CategoryName = "Firelink shrine", EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
+            {
+                new FlagDescription{ Flag = 162, Description = "stuff", State = true},
+                new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
+                new FlagDescription{ Flag = 31, Description = "more stuff", State = true},
+                new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
+                new FlagDescription{ Flag = 124, Description = "more stuff", State = false},
+                new FlagDescription{ Flag = 415, Description = "more stuff", State = false},
+            }});
+            
             form.ShowDialog();
+
         }
 
         #region Validate patterns 

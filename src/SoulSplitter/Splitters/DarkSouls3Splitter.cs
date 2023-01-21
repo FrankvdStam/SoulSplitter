@@ -33,9 +33,9 @@ namespace SoulSplitter.Splitters
         private readonly DarkSouls3 _darkSouls3;
         private DarkSouls3ViewModel _darkSouls3ViewModel;
 
-        public DarkSouls3Splitter(LiveSplitState state)
+        public DarkSouls3Splitter(LiveSplitState state, DarkSouls3 darkSouls)
         {
-            _darkSouls3 = new DarkSouls3();
+            _darkSouls3 = darkSouls;
             _liveSplitState = state;
             _liveSplitState.OnStart += OnStart;
             _liveSplitState.OnReset += OnReset;
@@ -71,11 +71,13 @@ namespace SoulSplitter.Splitters
         {
             StartTimer();
             StartAutoSplitting();
+            _mainViewModel.FlagTrackerViewModel.Start();
         }
 
         private void OnReset(object sender, TimerPhase timerPhase)
         {
             ResetTimer();
+            _mainViewModel.FlagTrackerViewModel.Reset();
         }
 
 

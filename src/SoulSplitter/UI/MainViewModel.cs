@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms.Integration;
 using System.Windows.Media;
 using System.Xml;

@@ -33,9 +33,9 @@ namespace SoulSplitter.Splitters
         private SekiroViewModel _sekiroViewModel;
         private readonly LiveSplitState _liveSplitState;
         
-        public SekiroSplitter(LiveSplitState state)
+        public SekiroSplitter(LiveSplitState state, Sekiro sekiro)
         {
-            _sekiro = new Sekiro();
+            _sekiro = sekiro;
             _liveSplitState = state;
             _liveSplitState.OnStart += OnStart;
             _liveSplitState.OnReset += OnReset;
@@ -57,12 +57,14 @@ namespace SoulSplitter.Splitters
         {
             StartTimer();
             StartAutoSplitting();
+            _mainViewModel.FlagTrackerViewModel.Start();
         }
 
         private void OnReset(object sender, TimerPhase timerPhase)
         {
             ResetTimer();
             ResetAutoSplitting();
+            _mainViewModel.FlagTrackerViewModel.Reset();
         }
 
         public void Dispose()

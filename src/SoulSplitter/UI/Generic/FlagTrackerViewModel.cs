@@ -15,12 +15,15 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory;
+using SoulMemory.EldenRing;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -131,38 +134,68 @@ namespace SoulSplitter.UI.Generic
         #endregion
 
         #region update/reset
+        private List<(FlagTrackerCategoryViewModel category, FlagDescription eventFlag)> _lookup;
+        private int _currentIndex = 0;
+
+        public void Start()
+        {
+            _lookup = EventFlagCategories.SelectMany(i => i.EventFlags, (category, eventFlag) => (category, eventFlag)).ToList();
+            _currentIndex = 0;
+        }
 
         public void Update(IGame game)
         {
-            if(!EventFlagCategories.Any())
+            if(!EventFlagCategories.Any() || _lookup == null)
             {
                 return;
             }
 
-            var totalFlags = 0;
-            var totalDone = 0;
-            foreach (var category in EventFlagCategories)
+            //Keep track of changed categories, their total percentage will need to be updated
+            var changedCategories = new List<FlagTrackerCategoryViewModel>();
+
+            //Check the next x flags
+            for(int i = 0; i < FlagsPerFrame; i++)
             {
-                //category.PercentageDone = 0.0f;
-                foreach (var eventFlag in category.EventFlags)
+                var (category, flag) = _lookup[_currentIndex];
+                if (!flag.State)
                 {
-                    if(!eventFlag.State)
+                    flag.State = game.ReadEventFlag(flag.Flag);
+                    
+                    //If flag state has changed, recalculate category percentage later
+                    if(flag.State)
                     {
-                        eventFlag.State = game.ReadEventFlag(eventFlag.Flag);
+                        changedCategories.Add(category);
                     }
                 }
+
+                //Calc next index
+                _currentIndex++;
+                if(_currentIndex >= _lookup.Count)
+                {
+                    _currentIndex = 0;
+                }
+            }
+
+            //Recalculate total percentage of categories that changed
+            foreach(var category in changedCategories)
+            {
                 var done = category.EventFlags.Count(i => i.State);
                 category.PercentageDone = (done / (float)category.EventFlags.Count) * 100.0f;
-
-                totalFlags += category.EventFlags.Count;
-                totalDone += done;
             }
-            PercentageDone = (totalDone / (float)totalFlags) * 100.0f;
+
+            //Recalculate total percentage of all flags (only if there is a change)
+            if(changedCategories.Any())
+            {
+                var done = _lookup.Count(i => i.eventFlag.State);
+                PercentageDone = (done / (float)_lookup.Count) * 100.0f;
+            }
         }
 
 
         public void Reset()
         {
+            _lookup = null;
+            _currentIndex = 0;
             PercentageDone = 0;
             foreach (var category in EventFlagCategories)
             {
@@ -218,12 +251,12 @@ namespace SoulSplitter.UI.Generic
         }
         private double _categoryPercentagesRowHeight = 300;
 
-        public int CategoryPercentageFontSize
+        public double CategoryPercentageFontSize
         {
             get => _categoryPercentageFontSize;
             set => SetField(ref _categoryPercentageFontSize, value);
         }
-        private int _categoryPercentageFontSize = 30;
+        private double _categoryPercentageFontSize = 30.0;
 
         public int TotalPercentageFontSize
         {
@@ -245,6 +278,13 @@ namespace SoulSplitter.UI.Generic
             set => SetField(ref _textColor, value);
         }
         private Color _textColor = Color.FromRgb(0, 0, 0);
+
+        public int FlagsPerFrame
+        {
+            get => _flagsPerFrame;
+            set => SetField(ref _flagsPerFrame, value);
+        }
+        private int _flagsPerFrame = 10;
 
         #endregion
 

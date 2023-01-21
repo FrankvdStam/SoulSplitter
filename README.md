@@ -1,25 +1,23 @@
 # SoulSplitter
 
 [![build](https://img.shields.io/github/actions/workflow/status/FrankvdStam/SoulSplitter/build.yml?branch=main)](https://github.com/FrankvdStam/SoulSplitter/actions) 
-[![Quality Gate Status](http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=alert_status&token=dcf5066558434982e851acb72b72235195d99b6e)](http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa) ![github__version](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter) [![NuGet version (SoulMemory)](https://img.shields.io/nuget/v/SoulMemory)](https://www.nuget.org/packages/SoulMemory/)  
+[![Quality Gate Status](http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=alert_status&token=dcf5066558434982e851acb72b72235195d99b6e)](http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa) [![releases](https://img.shields.io/github/v/release/FrankvdStam/SoulSplitter)](https://github.com/FrankvdStam/SoulSplitter/releases) [![NuGet version (SoulMemory)](https://img.shields.io/nuget/v/SoulMemory)](https://www.nuget.org/packages/SoulMemory/)  
 [![youtube](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg)](https://ko-fi.com/wasted1) [![discord](https://img.shields.io/badge/-Discord-blue)](https://discord.com/users/281116269921566721) [![youtube](https://img.shields.io/badge/-YouTube-red)](https://www.youtube.com/@1wasted)
-
-
-
-
-
 
 Souls games speedrun timer, load remover and autosplitter  
 Currently the official timer for Dark Souls 1, Dark Souls 3, Elden Ring and Sekiro  
 
 
 # Installation
+
 You can find detailed installation instructions with screenshots here: https://github.com/FrankvdStam/SoulSplitter/wiki/Installation
 
 # Wiki
+
 Not everything is documented, the things that are documented can be found on the [wiki](https://github.com/FrankvdStam/SoulSplitter/wiki).
 
 # Contact
+
 If you are having trouble, have questions, feature requests or anything else, come find me on discord. Feel free to ping me (@wasted) in the help channel of the respective soulsgame on the speedsouls server, or DM me by user wasted#2747 (DM's are open, no need to send a friend request).
 
 # Credits

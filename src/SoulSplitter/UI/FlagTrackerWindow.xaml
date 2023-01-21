@@ -29,6 +29,7 @@
                     <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
                     <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
                     <converters:ColorToHexTextConverter x:Key="ColorToHexTextConverter"/>
+                    <converters:DoubleToGridLengthConverter x:Key="DoubleToGridLengthConverter"/>
                     <validation:TextToRgbHexConverter x:Key="TextToRgbHexConverter"/>
                     <system:Int32 x:Key="InputCategory" >0</system:Int32>
                     <system:Int32 x:Key="InputFlag"     >1</system:Int32>
@@ -42,7 +43,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{Binding InputColumnWidth, Mode=TwoWay}"/>
+            <ColumnDefinition Width="{Binding InputColumnWidth, Mode=TwoWay, Converter={StaticResource DoubleToGridLengthConverter}}"/>
             <ColumnDefinition Width="5"/> <!-- Splitter column -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -118,21 +119,34 @@
                         ItemsSource="{Binding EventFlagCategories}"
                         SelectedItemChanged="TreeView_SelectedItemChanged">
                         <TreeView.Resources>
+
+
                             <HierarchicalDataTemplate DataType="{x:Type generic:FlagTrackerCategoryViewModel}" ItemsSource="{Binding EventFlags}">
+
+                                <!-- Category names -->
                                 <TextBlock Text="{Binding CategoryName}"/>
-                            </HierarchicalDataTemplate>
-                            <HierarchicalDataTemplate DataType="{x:Type generic:FlagDescription}">
-                                <TextBlock Text="{Binding Path=.}" Tag="{Binding State}">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" Value="True">
-                                                    <Setter Property="Background" Value="Green"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
+
+                                <!-- flags -->
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}"/>
+                                    </DataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+
+                                <!-- Background color of flags based on state -->
+                                <HierarchicalDataTemplate.ItemContainerStyle>
+                                    <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignTreeViewItem}">
+                                        <Setter Property="Foreground" Value="Purple"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=DataContext.State, RelativeSource={RelativeSource Self}}" Value="True">
+                                                <Setter Property="Foreground" Value="Green"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=DataContext.State, RelativeSource={RelativeSource Self}}" Value="False">
+                                                <Setter Property="Foreground" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </HierarchicalDataTemplate.ItemContainerStyle>
                             </HierarchicalDataTemplate>
                         </TreeView.Resources>
                     </TreeView>
@@ -227,8 +241,15 @@
                         </TextBox.Text>
                     </TextBox>
 
-                    <TextBox 
+                    <Slider 
+                        Margin="5"
                         Grid.Row="8"
+                        Minimum="20" 
+                        Maximum="400"
+                        Value="{Binding CategoryPercentageFontSize}"/>
+                    
+                    <TextBox 
+                        Grid.Row="9"
                         ToolTip="Total percentage font size">
                         <TextBox.Text>
                             <Binding Path="CategoryPercentageFontSize">
@@ -248,7 +269,7 @@
             Grid.Column="2" 
             Grid.RowSpan="4">
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding CategoryPercentagesRowHeight, Mode=TwoWay}"/>
+                <RowDefinition Height="{Binding CategoryPercentagesRowHeight, Mode=TwoWay, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                 <RowDefinition Height="5"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -262,8 +283,18 @@
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="6*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock FontSize="{Binding CategoryPercentageFontSize}" Text="{Binding CategoryName}" />
-                            <TextBlock Grid.Column="1" FontSize="{Binding CategoryPercentageFontSize}" Text="{Binding PercentageDone, StringFormat={}{0:#0.0'%'}}" />
+                            
+                            <TextBlock
+                                Text="{Binding CategoryName}"
+                                FontSize="{Binding DataContext.CategoryPercentageFontSize, RelativeSource={RelativeSource AncestorType={x:Type ui:FlagTrackerWindow}}}"
+                                Foreground="{Binding DataContext.TextColor, Converter={StaticResource ColorToBrushConverter}, RelativeSource={RelativeSource AncestorType={x:Type ui:FlagTrackerWindow}}}"/>
+                            
+                            <TextBlock
+                                Text="{Binding PercentageDone, StringFormat={}{0:#0.0'%'}}"
+                                Grid.Column="1"
+                                FontSize="{Binding DataContext.CategoryPercentageFontSize, RelativeSource={RelativeSource AncestorType={x:Type ui:FlagTrackerWindow}}}"
+                                Foreground="{Binding DataContext.TextColor, Converter={StaticResource ColorToBrushConverter}, RelativeSource={RelativeSource AncestorType={x:Type ui:FlagTrackerWindow}}}"/>
+                            
                             <ProgressBar Grid.Column="2" Minimum="0" Maximum="100" Value="{Binding PercentageDone}" />
                         </Grid>
                     </DataTemplate>

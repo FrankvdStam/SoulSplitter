@@ -33,10 +33,10 @@ namespace SoulSplitter.Splitters
         private EldenRingViewModel _eldenRingViewModel;
         private readonly LiveSplitState _liveSplitState;
 
-        public EldenRingSplitter(LiveSplitState state)
+        public EldenRingSplitter(LiveSplitState state, EldenRing eldenRing)
         {
             _liveSplitState = state;
-            _eldenRing = new EldenRing();
+            _eldenRing = eldenRing;
 
             _liveSplitState.OnStart += OnStart;
             _liveSplitState.OnReset += OnReset;
@@ -140,17 +140,16 @@ namespace SoulSplitter.Splitters
         //However, we still need this event when players start the timer manually.
         private void OnStart(object sender, EventArgs e)
         {
-            if (_timerState != TimerState.Running)
-            {
-                StartTimer();
-                StartAutoSplitting(_eldenRingViewModel);
-            }
+            StartTimer();
+            StartAutoSplitting(_eldenRingViewModel);
+            _mainViewModel.FlagTrackerViewModel.Start();
         }
 
         private void OnReset(object sender, TimerPhase timerPhase)
         {
             ResetTimer();
             ResetAutoSplitting();
+            _mainViewModel.FlagTrackerViewModel.Reset();
         }
 
         #region Timer

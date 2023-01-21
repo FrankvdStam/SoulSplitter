@@ -87,11 +87,13 @@ namespace SoulSplitter.Splitters
         {
             StartTimer();
             StartAutoSplitting();
+            _mainViewModel.FlagTrackerViewModel.Start();
         }
 
         private void OnReset(object sender, TimerPhase timerPhase)
         {
             ResetTimer();
+            _mainViewModel.FlagTrackerViewModel.Reset();
         }
 
         #region Timer

@@ -34,9 +34,9 @@ namespace SoulSplitter.Splitters
         private MainViewModel _mainViewModel;
         private readonly LiveSplitState _liveSplitState;
         
-        public DarkSouls2Splitter(LiveSplitState state)
+        public DarkSouls2Splitter(LiveSplitState state, DarkSouls2 darkSouls2)
         {
-            _darkSouls2 = new DarkSouls2();
+            _darkSouls2 = darkSouls2;
             _liveSplitState = state;
             _liveSplitState.OnStart += OnStart;
             _liveSplitState.OnReset += OnReset;
@@ -50,6 +50,7 @@ namespace SoulSplitter.Splitters
         {
             _mainViewModel = mainViewModel;
         }
+
         #region 
 
         private void OnStart(object sender, EventArgs e)

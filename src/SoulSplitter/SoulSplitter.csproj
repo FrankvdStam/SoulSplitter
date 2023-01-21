@@ -78,6 +78,7 @@
     <Compile Include="Splitters\TimerState.cs" />
     <Compile Include="UI\Converters\ColorToHexTextConverter.cs" />
     <Compile Include="UI\Converters\ColorToBrushConverter.cs" />
+    <Compile Include="UI\Converters\DoubleToGridLengthConverter.cs" />
     <Compile Include="UI\Converters\SplitTypeVisibilityConverter.cs" />
     <Compile Include="UI\Generic\AddRemoveSplits.xaml.cs">
       <DependentUpon>AddRemoveSplits.xaml</DependentUpon>

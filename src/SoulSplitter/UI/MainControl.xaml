@@ -131,7 +131,6 @@
                 BadgeForeground="{Binding BadgeForegroundBrush}"
                 Badge="{Binding ErrorCount}">
                 <Button
-                    Visibility="{Binding BadgeVisibility}"
                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                     ToolTip="Show errors"
                     Width="25"

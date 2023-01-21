@@ -37,7 +37,7 @@ namespace SoulSplitter
 
         private LiveSplitState _liveSplitState;
         private ISplitter _splitter = null;
-        private Game? _selectedGame = null;
+        private IGame _game = null;
         private DateTime _lastFailedRefresh = DateTime.MinValue;
         public SoulComponent(LiveSplitState state = null)
         {
@@ -46,6 +46,9 @@ namespace SoulSplitter
             SelectGameFromLiveSplitState(_liveSplitState);
         }
 
+        /// <summary>
+        /// Called by livesplit every frame
+        /// </summary>
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
             Dispatcher.CurrentDispatcher.Invoke(() =>
@@ -85,6 +88,8 @@ namespace SoulSplitter
             });
         }
 
+
+        private Game? _selectedGame = null;
         private ResultErr<RefreshError> UpdateSplitter(MainViewModel mainViewModel, LiveSplitState state)
         {
             //Detect game change, initialize the correct splitter
@@ -101,28 +106,32 @@ namespace SoulSplitter
                 switch (mainViewModel.SelectedGame)
                 {
                     case Game.DarkSouls1:
-                        _splitter = new DarkSouls1Splitter(new TimerModel { CurrentState = state }, new SoulMemory.DarkSouls1.DarkSouls1(), mainViewModel);
+                        _game = new SoulMemory.DarkSouls1.DarkSouls1();
+                        _splitter = new DarkSouls1Splitter(new TimerModel { CurrentState = state }, (SoulMemory.DarkSouls1.DarkSouls1)_game, mainViewModel);
                         break;
 
                     case Game.DarkSouls2:
-                        _splitter = new DarkSouls2Splitter(state);
+                        _game = new SoulMemory.DarkSouls2.DarkSouls2();
+                        _splitter = new DarkSouls2Splitter(state, (SoulMemory.DarkSouls2.DarkSouls2)_game);
                         break;
 
                     case Game.DarkSouls3:
-                        _splitter = new DarkSouls3Splitter(state);
+                        _game = new SoulMemory.DarkSouls3.DarkSouls3();
+                        _splitter = new DarkSouls3Splitter(state, (SoulMemory.DarkSouls3.DarkSouls3)_game);
                         break;
 
                     case Game.Sekiro:
-                        _splitter = new SekiroSplitter(state);
+                        _game = new SoulMemory.Sekiro.Sekiro();
+                        _splitter = new SekiroSplitter(state, (SoulMemory.Sekiro.Sekiro)_game);
                         break;
 
                     case Game.EldenRing:
-                        _splitter = new EldenRingSplitter(state);
+                        _game = new SoulMemory.EldenRing.EldenRing();
+                        _splitter = new EldenRingSplitter(state, (SoulMemory.EldenRing.EldenRing)_game);
                         break;
                 }
             }
 
-            //Update splitter instance with correct VM
             if(_splitter == null)
             {
                 throw new InvalidOperationException("Splitter object is null");
@@ -207,7 +216,6 @@ namespace SoulSplitter
             });
         }
 
-
         public readonly MainControl MainControl;
         public readonly ElementHost ElementHost;
 
@@ -216,7 +224,9 @@ namespace SoulSplitter
             return ElementHost;
         }
 
-
+        /// <summary>
+        /// Reads the game name from livesplit and tries to write the appropriate game to the view model
+        /// </summary>
         private void SelectGameFromLiveSplitState(LiveSplitState s)
         {
             Dispatcher.CurrentDispatcher.Invoke(() =>
