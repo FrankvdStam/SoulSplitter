@@ -63,7 +63,7 @@ Easily configure automatic splitting based on the in-game route you are running.
 Easily track arbitrary event flags for 100% style runs, or all bosses in Elden Ring. Background colors and fontsize can be adjusted to be OBS/stream overlay friendly.
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/37239092/214541960-6c55cd75-91b2-4f10-9cd2-3eaaed16356d.png">
+    <img src="https://user-images.githubusercontent.com/37239092/214557544-2abeb450-beaa-4c93-8e46-38dd079c2731.png">
 </p>
 
 
