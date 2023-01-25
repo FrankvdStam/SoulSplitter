@@ -1,6 +1,6 @@
 ﻿<h1 align="center">
   <br>
-  <img src="../../resources/soulsplitter.png" width="400"/><br>
+  <img src="../../resources/soulsplitter.png" width="350"/><br>
   SoulMemory
   <br>
 </h1>
