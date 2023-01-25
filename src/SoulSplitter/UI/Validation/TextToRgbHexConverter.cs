@@ -26,12 +26,9 @@ namespace SoulSplitter.UI.Validation
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value is string hex)
+            if (value is string hex && _rgbValidator.Match(hex).Success)
             {
-                if(_rgbValidator.Match(hex).Success)
-                {
-                    return new ValidationResult(true, null);
-                }
+                return new ValidationResult(true, null);
             }
             return new ValidationResult(false, $"{value} is not a valid RGB hex");
         }

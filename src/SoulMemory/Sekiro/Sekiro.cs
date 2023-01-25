@@ -45,8 +45,7 @@ namespace SoulMemory.Sekiro
         public TreeBuilder GetTreeBuilder()
         {
 
-            //treeBuilder
-            //    .ScanRelative("MenuMan", "48 8b 05 ? ? ? ? 0f b6 d1 48 8b 88 08 33 00 00", 3, 7);
+            //MenuMan AOB is 48 8b 05 ? ? ? ? 0f b6 d1 48 8b 88 08 33 00 00 3, 7
 
             var treeBuilder = new TreeBuilder();
             treeBuilder

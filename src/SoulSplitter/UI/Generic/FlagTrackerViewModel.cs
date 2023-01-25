@@ -270,14 +270,14 @@ namespace SoulSplitter.UI.Generic
             get => _backgroundColor;
             set => SetField(ref _backgroundColor, value);
         }
-        private Color _backgroundColor = Color.FromRgb(4, 244, 4);
+        private Color _backgroundColor = Colors.White;
 
         public Color TextColor
         {
             get => _textColor;
             set => SetField(ref _textColor, value);
         }
-        private Color _textColor = Color.FromRgb(0, 0, 0);
+        private Color _textColor = Colors.Black;
 
         public int FlagsPerFrame
         {

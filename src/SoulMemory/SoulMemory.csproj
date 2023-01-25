@@ -20,7 +20,7 @@
     <AssemblyVersion>$(PackageVersion)</AssemblyVersion>
     <FileVersion>$(PackageVersion)</FileVersion>
     <IncludeSymbols>False</IncludeSymbols>
-    <ApplicationIcon></ApplicationIcon>
+    <ApplicationIcon>soulsplitter.ico</ApplicationIcon>
     <PackageIcon>soulsplitter.png</PackageIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
@@ -37,6 +37,9 @@
     <Compile Remove="resources\**" />
     <EmbeddedResource Remove="resources\**" />
     <None Remove="resources\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="soulsplitter.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

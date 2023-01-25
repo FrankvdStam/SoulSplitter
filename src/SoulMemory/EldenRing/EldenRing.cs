@@ -359,7 +359,7 @@ namespace SoulMemory.EldenRing
 
         #region Read event flag
 
-        public bool ReadEventFlag(uint flagId)
+        public bool ReadEventFlag(uint eventFlagId)
         {
             var divisor = _virtualMemoryFlag.ReadInt32(0x1c);
             //This check does not exist in the games code; reading 0 here means something isn't initialized yet and we should check this flag again later.
@@ -368,8 +368,8 @@ namespace SoulMemory.EldenRing
                 return false;
             }
 
-            var category = (flagId / divisor); //stored in rax after; div r8d
-            var leastSignificantDigits = flagId - (category * divisor);//stored in r11 after; sub r11d,r8d
+            var category = (eventFlagId / divisor); //stored in rax after; div r8d
+            var leastSignificantDigits = eventFlagId - (category * divisor);//stored in r11 after; sub r11d,r8d
 
             var currentElement = _virtualMemoryFlag.CreatePointerFromAddress(0x38); //rdx
             var currentSubElement = currentElement.CreatePointerFromAddress(0x8);   //rcx
