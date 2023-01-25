@@ -26,6 +26,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.Integration;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml;
 using System.Xml.Serialization;
 using SoulMemory;
@@ -226,7 +227,6 @@ namespace SoulSplitter.UI
             {
                 _errorWindow = new ErrorWindow();
                 _errorWindow.DataContext = this;
-                _errorWindow.Title = "SoulSplitter errors";
                 _errorWindow.Closing += (s, arg) =>
                 {
                     _errorWindow.Hide();
@@ -321,6 +321,7 @@ namespace SoulSplitter.UI
                 _settingsWindow = new Window();
                 //ElementHost.EnableModelessKeyboardInterop(_settingsWindow);
                 _settingsWindow.Title = "SoulSplitter settings";
+                _settingsWindow.Icon = BitmapFrame.Create(new Uri("soulsplitter.ico"));
                 _settingsWindow.Content = mainControl;
                 _settingsWindow.Closing += (s, arg) =>
                 {
@@ -368,6 +369,7 @@ namespace SoulSplitter.UI
         }
         private RelayCommand _commandAddError;
 
+        //For debugging purposes
         private void AddErrorCommand(object param)
         {
             AddException(new Exception("adf"));

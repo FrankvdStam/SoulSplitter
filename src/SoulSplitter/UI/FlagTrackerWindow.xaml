@@ -11,6 +11,7 @@
         xmlns:validation="clr-namespace:SoulSplitter.UI.Validation"
         mc:Ignorable="d"
         Title="Event Flag Tracker"
+        Icon="../soulsplitter.ico"
         Width="{Binding WindowWidth, Mode=TwoWay}"
         Height="{Binding WindowHeight, Mode=TwoWay}"
         d:DataContext="{d:DesignInstance generic:FlagTrackerViewModel, IsDesignTimeCreatable=True}">
@@ -281,7 +282,9 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="1*" />
+                                <!--
                                 <ColumnDefinition Width="6*" />
+                                -->
                             </Grid.ColumnDefinitions>
                             
                             <TextBlock
@@ -294,8 +297,9 @@
                                 Grid.Column="1"
                                 FontSize="{Binding DataContext.CategoryPercentageFontSize, RelativeSource={RelativeSource AncestorType={x:Type ui:FlagTrackerWindow}}}"
                                 Foreground="{Binding DataContext.TextColor, Converter={StaticResource ColorToBrushConverter}, RelativeSource={RelativeSource AncestorType={x:Type ui:FlagTrackerWindow}}}"/>
-                            
+                            <!--
                             <ProgressBar Grid.Column="2" Minimum="0" Maximum="100" Value="{Binding PercentageDone}" />
+                            -->
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

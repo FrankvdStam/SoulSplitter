@@ -39,6 +39,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulSplitter.Tests", "tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulMemory.Tests", "tests\SoulMemory.Tests\SoulMemory.Tests.csproj", "{8E761529-D49C-4854-9434-42E2EE97471F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{564D80BA-1417-4E5B-A110-166574298772}"
+	ProjectSection(SolutionItems) = preProject
+		resources\soulsplitter1.png = resources\soulsplitter1.png
+		resources\soulsplitter2.png = resources\soulsplitter2.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
