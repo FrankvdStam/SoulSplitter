@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="resources/soulsplitter.png" width="400"/><br>
+  <img src="resources/soulsplitter.png" width="350"/><br>
   SoulSplitter
   <br>
 </h1>
@@ -8,11 +8,11 @@
 <h4 align="center">A livesplit plugin for souls-games</h4>
 
 <p align="center">
-  <a href="#features">Features</a> •
-  <a href="#installation">Installation</a> •
-  <a href="https://github.com/FrankvdStam/SoulSplitter/wiki">Wiki</a> •
-  <a href="#credits">Contact</a> •
-  <a href="#credits">Credits</a> •
+  <a href="#features">Features</a> â€¢
+  <a href="#installation">Installation</a> â€¢
+  <a href="https://github.com/FrankvdStam/SoulSplitter/wiki">Wiki</a> â€¢
+  <a href="#credits">Contact</a> â€¢
+  <a href="#credits">Credits</a> â€¢
   <a href="https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE">License</a>
 </p>
 
