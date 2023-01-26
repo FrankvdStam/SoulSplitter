@@ -106,8 +106,9 @@ Thank you all!
 Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions to the speedrunning community:  
 - writing the initial MIGT code injection for Elden Ring
 - writing the original Sekiro plugin, which features have been included
-- OG ds3 plugin, together with [Jiiks](https://github.com/Jiiks/)  
+- OG ds3 plugin, together with [Jiiks](https://github.com/Jiiks/)
 <br/>
+
 - Thanks Pav, for the Elden Ring cheat engine table
 - Thanks [Johndisandonato](https://github.com/veeenu), pretty much always willing to exhange some ideas about tech stuff
 - [Yapped](https://github.com/vawser/Yapped-Rune-Bear) helped speed up mapping event flags to bosses and graces
