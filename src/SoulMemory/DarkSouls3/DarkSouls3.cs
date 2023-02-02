@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using SoulMemory.Memory;
 using Pointer = SoulMemory.Memory.Pointer;
@@ -35,6 +36,7 @@ namespace SoulMemory.DarkSouls3
         private readonly Pointer _sprjChrPhysicsModule = new Pointer();
         private long _igtOffset;
 
+        public Process GetProcess() => _process;
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsiii", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
@@ -107,7 +109,7 @@ namespace SoulMemory.DarkSouls3
                 return RefreshError.FromException(e);
             }
         }
-
+        
         private void ResetPointers()
         {
             _gameDataMan.Clear();
@@ -137,7 +139,7 @@ namespace SoulMemory.DarkSouls3
 
             return DarkSouls3Version.Later;
         }
-       
+        
         public bool IsLoading()
         {
             if (_loading == null)

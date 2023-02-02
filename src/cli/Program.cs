@@ -24,7 +24,6 @@ using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
 using SoulMemory.EldenRing;
 using SoulMemory.Sekiro;
-using SoulMemory.Native;
 using SoulMemory;
 using SoulSplitter.UI.Generic;
 
@@ -37,12 +36,30 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi(); return;
-
-            GameLoop<Sekiro>((s) => 
+            var sekiro = new Sekiro();
+            sekiro.TryRefresh();
+            
+            var flagWatcher = new FlagWatcher(sekiro, Enumerable.Range(6000, 1000).ToList().Select(i => (uint)i));
+            while (true)
             {
-                Console.WriteLine(s.GetInGameTimeMilliseconds());
-            });
+                if (sekiro.TryRefresh().IsOk)
+                {
+                    var before1 = sekiro.ReadEventFlag(6051);
+                    var before2 = sekiro.ReadEventFlag(6059);
+
+                    sekiro.WriteEventFlag(6051, true);
+                    sekiro.WriteEventFlag(6059, true);
+
+                    var after1 = sekiro.ReadEventFlag(6051);
+                    var after2 = sekiro.ReadEventFlag(6059);
+
+                    var changes = flagWatcher.Update();
+                    foreach (var change in changes)
+                    {
+                        Console.WriteLine($"{change.Key} {change.Value}");
+                    }
+                }
+            }
 
 
             ValidatePatterns(); return;
@@ -119,22 +136,22 @@ namespace cli
             var flagTrackerViewModel = mainControl.MainViewModel.FlagTrackerViewModel;
             flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel { CategoryName = "Undead burg", EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
             {
-                new FlagDescription{ Flag = 162, Description = "stuff", State = true},
+                new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
                 new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                new FlagDescription{ Flag = 31, Description = "more stuff", State = true},
+                new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
                 new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 124, Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 415, Description = "more stuff", State = false},
+                new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
+                new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
             }});
 
             flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel { CategoryName = "Firelink shrine", EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
             {
-                new FlagDescription{ Flag = 162, Description = "stuff", State = true},
+                new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
                 new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                new FlagDescription{ Flag = 31, Description = "more stuff", State = true},
+                new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
                 new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 124, Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 415, Description = "more stuff", State = false},
+                new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
+                new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
             }});
             
             form.ShowDialog();

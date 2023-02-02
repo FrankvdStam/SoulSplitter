@@ -25,6 +25,7 @@ namespace SoulMemory.DarkSouls1
     public class DarkSouls1 : IDarkSouls1
     {
         private IDarkSouls1 _darkSouls1;
+        public Process GetProcess() => _darkSouls1?.GetProcess();
         public int GetAttribute(Attribute attribute) => _darkSouls1?.GetAttribute(attribute) ?? 0;
         public bool ReadEventFlag(uint eventFlagId) => _darkSouls1?.ReadEventFlag(eventFlagId) ?? false;
         public bool IsWarpRequested() => _darkSouls1?.IsWarpRequested() ?? false;

@@ -27,6 +27,7 @@ using SoulSplitter.UI.Generic;
 using System.Windows.Threading;
 using System.Windows.Forms.Integration;
 using SoulMemory;
+using SoulMemory.Sekiro;
 
 namespace SoulSplitter
 {
@@ -39,6 +40,7 @@ namespace SoulSplitter
         private ISplitter _splitter = null;
         private IGame _game = null;
         private DateTime _lastFailedRefresh = DateTime.MinValue;
+        private bool _previousBitBlt = false;
         public SoulComponent(LiveSplitState state = null)
         {
             (ElementHost, MainControl) = MainControl.GetElementHostMainControl();
@@ -55,6 +57,7 @@ namespace SoulSplitter
             {
                 try
                 {
+                    //MainControl.BitBlt();
                     _liveSplitState = state;
 
                     //Timeout for 5 sec after a refresh fails
@@ -79,6 +82,8 @@ namespace SoulSplitter
                             _lastFailedRefresh = DateTime.Now;
                         }
                     }
+
+                    SetBitBlt();
                 }
                 catch (Exception e)
                 {
@@ -86,6 +91,31 @@ namespace SoulSplitter
                     MainControl.MainViewModel.AddException(e);
                 }
             });
+        }
+
+        private void SetBitBlt()
+        {
+            if (_game is Sekiro sekiro)
+            {
+                if (sekiro.BitBlt)
+                {
+                    MainControl.BitBlt();
+                }
+
+                if (_previousBitBlt && sekiro.BitBlt)
+                {
+                    MainControl.ResetBitBlt();
+                }
+                _previousBitBlt = sekiro.BitBlt;
+            }
+            else
+            {
+                if (_previousBitBlt)
+                {
+                    _previousBitBlt = false;
+                    MainControl.ResetBitBlt();
+                }
+            }
         }
 
 

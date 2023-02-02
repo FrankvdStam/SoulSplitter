@@ -332,7 +332,6 @@ namespace SoulSplitter.UI
             _settingsWindow.Show();
         }
         
-
         [XmlIgnore]
         public RelayCommand CommandOpenFlagTrackerWindow
         {

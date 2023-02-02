@@ -31,6 +31,7 @@ namespace SoulMemory.DarkSouls2
         private readonly Pointer _attributes       = new Pointer();
 
         #region Refresh/init/reset ================================================================================================================================
+        public Process GetProcess() => _process;
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsii", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
@@ -66,7 +67,7 @@ namespace SoulMemory.DarkSouls2
                 return RefreshError.FromException(e);
             }
         }
-
+        
         private void ResetPointers()
         {
             _eventFlagManager.Clear();
@@ -77,7 +78,7 @@ namespace SoulMemory.DarkSouls2
         }
 
         #endregion
-
+        
         public Vector3f GetPosition()
         {
             if (_position == null)

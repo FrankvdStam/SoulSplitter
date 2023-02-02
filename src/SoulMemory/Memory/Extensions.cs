@@ -33,6 +33,24 @@ namespace SoulMemory.Memory
             return BitConverter.ToString(bytes).Replace("-", " ");
         }
 
+        public static string ToHexFileString(this byte[] bytes)
+        {
+            var sb = new StringBuilder();
+            var newline = 0;
+            foreach (var b in bytes)
+            {
+                sb.AppendFormat("{0:x2}", b);
+                newline++;
+
+                if (newline >= 10)
+                {
+                    sb.AppendLine();
+                    newline = 0;
+                }
+            }
+            return sb.ToString();
+        }
+
         public static string GetDisplayName(this Enum enumValue)
         {
             var displayName = enumValue

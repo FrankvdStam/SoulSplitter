@@ -74,6 +74,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Migrations\Migrator.cs" />
     <Compile Include="Migrations\XmlExtensions.cs" />
+    <Compile Include="Native\Gdi32.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="soulmemory-rs\SoulMemoryRs.cs" />
     <Compile Include="Splits\DarkSouls1\BonfireState.cs" />
@@ -240,6 +241,7 @@
   <ItemGroup>
     <Resource Include="soulsplitter.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

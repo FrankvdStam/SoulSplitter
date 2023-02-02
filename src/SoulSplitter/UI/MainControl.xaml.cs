@@ -14,8 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using SoulSplitter.Native;
+using winforms = System.Windows.Forms;
 
 namespace SoulSplitter.UI
 {
@@ -42,6 +47,46 @@ namespace SoulSplitter.UI
             elementHost.Child = mainControl;
             elementHost.Dock = System.Windows.Forms.DockStyle.Fill;
             return (elementHost, mainControl);
+        }
+        
+        private Color _stash = Color.White;
+        public void BitBlt()
+        {
+            try
+            {
+                var form = winforms.Application.OpenForms[0];
+                using (var graphics = form.CreateGraphics())
+                {
+                    var hdc = graphics.GetHdc();
+                    var color = Gdi32.BitBlt(hdc, 0, 0);
+                    if (color != _stash)
+                    {
+                        graphics.ReleaseHdc();
+                        Debug.WriteLine(color);
+                        color = Color.FromArgb(color.ToArgb() ^ 0xffffff);
+                        _stash = color;
+                        graphics.DrawRectangle(new Pen(color), 0, 0, 1, 1);
+                    }
+                }
+            }
+            catch
+            {
+                //Ignored
+            }
+        }
+
+        public void ResetBitBlt()
+        {
+            try
+            {
+                _stash = Color.White;
+                var form = winforms.Application.OpenForms[0];
+                form.Invalidate();
+            }
+            catch
+            {
+                //Ignored
+            }
         }
 
         public static (System.Windows.Forms.Form, System.Windows.Forms.Integration.ElementHost, MainControl) GetTestForm()

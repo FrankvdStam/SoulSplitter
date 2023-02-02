@@ -16,9 +16,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using LiveSplit.Model;
 using SoulMemory;
+using SoulMemory.Memory;
 using SoulMemory.Sekiro;
 using SoulSplitter.Splits.Sekiro;
 using SoulSplitter.UI;
@@ -84,6 +88,7 @@ namespace SoulSplitter.Splitters
 
         public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
         {
+
             mainViewModel.TryAndHandleError(() =>
             {
                 _sekiroViewModel = mainViewModel.SekiroViewModel;
@@ -277,6 +282,5 @@ namespace SoulSplitter.Splitters
             }
         }
         #endregion
-        
     }
 }

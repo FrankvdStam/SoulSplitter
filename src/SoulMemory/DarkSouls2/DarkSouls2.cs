@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using SoulMemory.Memory;
@@ -25,7 +26,7 @@ namespace SoulMemory.DarkSouls2
     public class DarkSouls2 : IDarkSouls2
     {
         private IDarkSouls2 _darkSouls2;
-
+        public Process GetProcess() => _darkSouls2.GetProcess();
         public Vector3f GetPosition() => _darkSouls2?.GetPosition() ?? new Vector3f();
         public bool IsLoading() => _darkSouls2?.IsLoading() ?? false;
         public bool ReadEventFlag(uint eventFlagId) => _darkSouls2?.ReadEventFlag(eventFlagId) ?? false;

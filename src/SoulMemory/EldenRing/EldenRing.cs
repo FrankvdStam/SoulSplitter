@@ -58,6 +58,8 @@ namespace SoulMemory.EldenRing
 
 
         #region Refresh/init/reset ================================================================================================
+        public Process GetProcess() => _process;
+
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "eldenring", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
@@ -137,7 +139,7 @@ namespace SoulMemory.EldenRing
         }
 
 
-        public ResultErr<RefreshError> InitPointers()
+        private ResultErr<RefreshError> InitPointers()
         {
             try
             {
@@ -173,7 +175,7 @@ namespace SoulMemory.EldenRing
                 return RefreshError.FromException(e);
             }
         }
-
+        
         private void ResetPointers()
         {
             _igt.Clear();

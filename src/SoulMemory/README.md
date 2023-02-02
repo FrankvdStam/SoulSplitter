@@ -73,6 +73,7 @@ Bellow are the API's available on each object. They are subject to change over t
 ResultErr<RefreshError> TryRefresh()                 //Tries to refresh attachment to the specific game, refreshes memory paths. Call this every frame or 60 times per second
 TreeBuilder GetTreeBuilder()                         //Returns an object that contains the relevant memory structure. Used internally, if unsure you can leave it alone
 bool ReadEventFlag(uint eventFlagId)                 //Read an event flag from the specific game. Not implemented in Dark Souls 2 (more info about event flags on the wiki: https://github.com/FrankvdStam/SoulSplitter/wiki/Eventflags)
+Process GetProcess()                                 //Get a raw process handle, from which you can implement your own systems
 ```
 
 ### DarkSouls1 (PTDE & remastered)

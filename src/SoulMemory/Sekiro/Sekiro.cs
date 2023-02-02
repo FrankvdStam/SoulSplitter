@@ -17,7 +17,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
+using System.Threading.Tasks;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 
@@ -26,31 +30,30 @@ namespace SoulMemory.Sekiro
     public class Sekiro : IGame
     {
         private Process _process;
-        private readonly Pointer _sprjEventFlagMan = new Pointer();
+        private readonly Pointer _eventFlagMan = new Pointer();
         private readonly Pointer _fieldArea = new Pointer();
         private readonly Pointer _worldChrManImp = new Pointer();
         private readonly Pointer _igt = new Pointer();
         private readonly Pointer _position = new Pointer();
         private readonly Pointer _fadeSystem = new Pointer();
-
         private readonly Pointer _saveChecksum = new Pointer();
         private readonly Pointer _saveSteamId = new Pointer();
         private readonly Pointer _saveSlot = new Pointer();
-
-
+        
         #region Refresh/init/reset ================================================================================================================================
 
+        public Process GetProcess() => _process;
+        
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "sekiro", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
         {
-
             //MenuMan AOB is 48 8b 05 ? ? ? ? 0f b6 d1 48 8b 88 08 33 00 00 3, 7
 
             var treeBuilder = new TreeBuilder();
             treeBuilder
-                .ScanRelative("SprjEventFlagMan", "48 8b 0d ? ? ? ? 48 89 5c 24 50 48 89 6c 24 58 48 89 74 24 60", 3, 7)
-                    .AddPointer(_sprjEventFlagMan, 0);
+                .ScanRelative("EventFlagMan", "48 8b 0d ? ? ? ? 48 89 5c 24 50 48 89 6c 24 58 48 89 74 24 60", 3, 7)
+                    .AddPointer(_eventFlagMan, 0);
 
             treeBuilder
                 .ScanRelative("FieldArea", "48 8b 0d ? ? ? ? 48 85 c9 74 26 44 8b 41 28 48 8d 54 24 40", 3, 7)
@@ -67,7 +70,7 @@ namespace SoulMemory.Sekiro
             //.CreatePointer(out _igt, 0x0, 0x70) new game cycle
 
             treeBuilder
-                .ScanRelative("SprjFadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7)
+                .ScanRelative("FadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7)
                     .AddPointer(_fadeSystem, 0x0, 0x8);
 
             //These 3 save file related AOB's where found by Uberhalit, thanks for letting me use them!
@@ -84,7 +87,7 @@ namespace SoulMemory.Sekiro
             treeBuilder
                 .ScanAbsolute("Save slot", "48 8B 05 ? ? ? ? 40 38 B8 ? ? ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? B8 06 00 00 00", 14)
                     .AddPointer(_saveSlot);
-
+            
             return treeBuilder;
         }
 
@@ -100,7 +103,7 @@ namespace SoulMemory.Sekiro
                 {
                     return result;
                 }
-
+                
                 if (!InitB3Mods())
                 {
                     return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "B3Mods init failed"));
@@ -108,6 +111,11 @@ namespace SoulMemory.Sekiro
 
                 ApplySavefileMods();
 
+                Task.Run(() =>
+                {
+                    BitBlt = this.GetBitBlt(_files, _bitBltValues);
+                });
+                
                 return Result.Ok();
             }
             catch (Exception e)
@@ -115,14 +123,16 @@ namespace SoulMemory.Sekiro
                 return RefreshError.FromException(e);
             }
         }
-
+        
+        
         private void ResetPointers()
         {
-            _sprjEventFlagMan.Clear();
+            _eventFlagMan.Clear();
             _fieldArea.Clear();
             _worldChrManImp.Clear();
             _igt.Clear();
             _position.Clear();
+            BitBlt = false;
         }
 
         #endregion
@@ -140,9 +150,6 @@ namespace SoulMemory.Sekiro
 
         public bool IsPlayerLoaded()
         {
-            if (_worldChrManImp == null)
-                return false;
-
             return _worldChrManImp.ReadInt64(0x88) != 0;
         }
 
@@ -153,18 +160,51 @@ namespace SoulMemory.Sekiro
 
         public bool IsBlackscreenActive()
         {
-            if (_fadeSystem == null)
-            {
-                return false;
-            }
-
             //0x2dc best candidate so far.
             return _fadeSystem.ReadInt32(0x2dc) != 0;
         }
-               
-        #region Read event flag ================================================================================================================
+        
+        #region event flags ================================================================================================================
+
+        public void WriteEventFlag(uint eventFlagId, bool eventFlagValue)
+        {
+            var resultAddress = GetEventFlagAddress(eventFlagId);
+            if (resultAddress.IsOk)
+            {
+                var pointer = resultAddress.Unwrap();
+
+                var valueOffset = (long)((uint)((int)eventFlagId % 1000) >> 5) * 4;
+                var value = pointer.ReadUInt32(valueOffset);
+                var mask = 1 << (0x1f - ((byte)((int)eventFlagId % 1000) & 0x1f) & 0x1f);
+
+                var newValue = value;
+                if (eventFlagValue)
+                {
+                    newValue |= (uint)mask;
+                }
+                else
+                {
+                    newValue &= ~(uint)mask;
+                }
+                pointer.WriteUint32(valueOffset, newValue);
+            }
+        }
 
         public bool ReadEventFlag(uint eventFlagId)
+        {
+            var resultAddress = GetEventFlagAddress(eventFlagId);
+            if (resultAddress.IsOk)
+            {
+                var pointer = resultAddress.Unwrap();
+                var value = pointer.ReadUInt32((long)((uint)((int)eventFlagId % 1000) >> 5) * 4);
+                var mask = 1 << (0x1f - ((byte)((int)eventFlagId % 1000) & 0x1f) & 0x1f);
+                var result = value & mask;
+                return result != 0;
+            }
+            return false;
+        }
+
+        private ResultOk<Pointer> GetEventFlagAddress(uint eventFlagId)
         {
             var eventFlagIdDiv10000000 = (int)(eventFlagId / 10000000) % 10;
             var eventFlagArea = (int)(eventFlagId / 100000) % 100;
@@ -178,12 +218,6 @@ namespace SoulMemory.Sekiro
             }
             else
             {
-                //Not implementing a case where Global_FieldArea_Ptr == (FieldArea *)0x0. I think it will just do some initialization there.
-                if (_fieldArea.IsNullPtr())
-                {
-                    return false;
-                }
-
                 var worldInfoOwner = _fieldArea.Append(0x18).CreatePointerFromAddress();
 
                 //Flag stored in world related struct? Looks like the game is reading a size, and then looping over a vector of structs (size 0x38)
@@ -238,25 +272,23 @@ namespace SoulMemory.Sekiro
                 }
             }
 
-            var ptr = _sprjEventFlagMan.Append(0x218, eventFlagIdDiv10000000 * 0x18, 0x0);
+            var ptr = _eventFlagMan.Append(0x218, eventFlagIdDiv10000000 * 0x18, 0x0);
 
             if (ptr.IsNullPtr() || flagWorldBlockInfoCategory < 0)
             {
-                return false;
+                return Result.Err();
             }
 
+            //Whats with this name... -_-
             var resultPointerAddress = new Pointer();
             resultPointerAddress.Initialize(ptr.Process, ptr.Is64Bit, (eventFlagIdDiv1000 << 4) + ptr.GetAddress() + flagWorldBlockInfoCategory * 0xa8, 0x0);
-            if (!resultPointerAddress.IsNullPtr())
+            if (resultPointerAddress.IsNullPtr())
             {
-                var value = resultPointerAddress.ReadUInt32((long)((uint)((int)eventFlagId % 1000) >> 5) * 4);
-                var mask = 1 << (0x1f - ((byte)((int)eventFlagId % 1000) & 0x1f) & 0x1f);
-                var result = value & mask;
-                return result != 0;
+                return Result.Err();
             }
-            return false;
+            return Result.Ok(resultPointerAddress);
         }
-
+        
         //Ghidra, sekiro 1.06, at 1406c63f0, sekiro.exe + 0x6c63f0
         //
         //
@@ -313,6 +345,43 @@ namespace SoulMemory.Sekiro
             _saveSteamId.WriteByte(null, 0xeb);
             _saveSlot.WriteByte(null, 0xeb);
         }
+
+        #endregion
+
+        #region BitBlt
+
+        public bool BitBlt
+        {
+            get
+            {
+                lock (_bitBltLock)
+                {
+                    return _bitBlt;
+                }
+            }
+            private set
+            {
+                lock (_bitBltLock)
+                {
+                    _bitBlt = value;
+                }
+            }
+        }
+
+        private bool _bitBlt = false;
+        private readonly object _bitBltLock = new object();
+
+        private readonly List<string> _files = new List<string>{ "sekiro.exe", "data1.bdt", "data2.bdt", "data3.bdt", "data4.bdt", "data5.bdt" };
+
+        private readonly List<string> _bitBltValues = new List<string>
+        {
+            "0E 0A 84 07 C7 8E 89 6A 73 D8 F2 7D A3 D4 C0 CC",
+            "BE B9 5E E1 B9 87 29 19 4D A3 05 FD EB 63 1A 70",
+            "77 59 13 22 FC 7B 93 F8 8C 94 94 95 BC E9 D0 89",
+            "8D 88 50 B7 69 62 40 F5 26 EA 90 CA A9 39 93 54",
+            "97 31 E0 AB 34 BC 42 C3 F5 EE CF 64 F8 38 7B A9",
+            "6C 50 A5 31 44 52 25 9E 12 0C 3D 8B E2 66 3E 0D",
+        };
 
         #endregion
 

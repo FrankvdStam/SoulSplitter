@@ -56,6 +56,9 @@ namespace SoulMemory.DarkSouls1
         private readonly Pointer _netBonfireDb = new Pointer();
         private readonly Pointer _saveInfo = new Pointer();
         private readonly Pointer _menuMan = new Pointer();
+
+        public Process GetProcess() => _process;
+
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksouls", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder() 
@@ -124,8 +127,9 @@ namespace SoulMemory.DarkSouls1
                 return RefreshError.FromException(e);
             }
         }
+        
         #endregion
-
+        
         public int GetAttribute(Attribute attribute) => _playerGameData?.ReadInt32((long)attribute) ?? 0;
 
         public int GetInGameTimeMilliseconds() => _gameDataMan?.ReadInt32(0x68) ?? 0;

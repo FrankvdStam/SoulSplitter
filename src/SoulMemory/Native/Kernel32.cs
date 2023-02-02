@@ -15,12 +15,14 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using static SoulMemory.Native.Kernel32;
 
 namespace SoulMemory.Native
 {
@@ -51,10 +53,51 @@ namespace SoulMemory.Native
             var bytes = process.ReadProcessMemory(address, size).Unwrap(callerMemberName);
             var handle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
             var result = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), type);
+            //TODO: find a conversion method that doesn't allocate memory
+            //var test = (T)Convert.ChangeType(bytes, typeof(T));
             handle.Free();
             return result;
         }
 
+        [DllImport("kernel32.dll")]
+        private static extern int VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MemoryBasicInformation64 lpBuffer, uint dwLength);
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MemoryBasicInformation64
+        {
+            public ulong BaseAddress;
+            public ulong AllocationBase;
+            public int AllocationProtect;
+            public int __alignment1;
+            public ulong RegionSize;
+            public int State;
+            public int Protect;
+            public int Type;
+            public int __alignment2;
+        }
+
+        public static ResultOk<List<MemoryBasicInformation64>> GetMemoryRegions(this Process process)
+        {
+            if (process?.MainModule == null)
+            {
+                return Result.Err();
+            }
+
+            var result = new List<MemoryBasicInformation64>();
+            var maxAddress = (process.MainModule.BaseAddress + process.MainModule.ModuleMemorySize).ToInt64();
+            long address = process.MainModule.BaseAddress.ToInt64();
+
+            while (address < maxAddress)
+            {
+                var queryEx = VirtualQueryEx(process.Handle, (IntPtr)address, out MemoryBasicInformation64 memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
+                if (queryEx == 0)
+                {
+                    return Result.Err();
+                }
+                result.Add(memoryBasicInformation64);
+                address = (long)memoryBasicInformation64.BaseAddress + (long)memoryBasicInformation64.RegionSize;
+            }
+            return Result.Ok(result);
+        }
         #endregion
 
         #region Write process memory ==================================================================================================================

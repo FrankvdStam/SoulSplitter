@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
+using System.Diagnostics;
 using SoulMemory.Memory;
 
 namespace SoulMemory
@@ -35,5 +37,11 @@ namespace SoulMemory
         /// Read an event flag from the game and return it's state
         /// </summary>
         bool ReadEventFlag(uint eventFlagId);
+
+        /// <summary>
+        /// Get a reference to the game process
+        /// Will only be a valid reference until the next call to TryRefresh
+        /// </summary>
+        Process GetProcess();
     }
 }

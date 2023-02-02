@@ -62,6 +62,8 @@ namespace SoulMemory.DarkSouls1
         private int? _steamId3;
         private bool? _isJapanese;
 
+        public Process GetProcess() => _process;
+
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsremastered", InitPointers, ResetPointers);
 
         private void ResetPointers()
@@ -150,7 +152,7 @@ namespace SoulMemory.DarkSouls1
             return treeBuilder;
         }
         #endregion
-
+        
         public int GetAttribute(Attribute attribute) => _playerGameData?.ReadInt32(0x8 + (long)attribute) ?? 0;
 
         public int GetInGameTimeMilliseconds() => _gameDataMan?.ReadInt32(0xa4) ?? 0;
