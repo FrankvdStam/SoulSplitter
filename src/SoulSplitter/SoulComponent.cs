@@ -102,7 +102,7 @@ namespace SoulSplitter
                     MainControl.BitBlt();
                 }
 
-                if (_previousBitBlt && sekiro.BitBlt)
+                if (_previousBitBlt && !sekiro.BitBlt)
                 {
                     MainControl.ResetBitBlt();
                 }

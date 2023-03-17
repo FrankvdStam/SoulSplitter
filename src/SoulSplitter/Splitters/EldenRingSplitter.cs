@@ -75,12 +75,18 @@ namespace SoulSplitter.Splitters
                 _eldenRingViewModel = mainViewModel.EldenRingViewModel;
             });
 
+
+            ResultErr<RefreshError> result = null;
+            
             //Refresh attachment to ER process
-            var result = _eldenRing.TryRefresh();
-            if (result.IsErr)
+            mainViewModel.TryAndHandleError(() =>
             {
-                mainViewModel.AddRefreshError(result.GetErr());
-            }
+                result = _eldenRing.TryRefresh();
+                if (result.IsErr)
+                {
+                    mainViewModel.AddRefreshError(result.GetErr());
+                }
+            });
 
             var shouldExit = false;
             mainViewModel.TryAndHandleError(() =>

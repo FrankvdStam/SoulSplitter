@@ -41,8 +41,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulMemory.Tests", "tests\S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{564D80BA-1417-4E5B-A110-166574298772}"
 	ProjectSection(SolutionItems) = preProject
+		resources\soulsplitter.ico = resources\soulsplitter.ico
+		resources\soulsplitter.png = resources\soulsplitter.png
 		resources\soulsplitter1.png = resources\soulsplitter1.png
 		resources\soulsplitter2.png = resources\soulsplitter2.png
+		resources\soulsplitter3.png = resources\soulsplitter3.png
+		resources\soulsplitter4.png = resources\soulsplitter4.png
 	EndProjectSection
 EndProject
 Global
