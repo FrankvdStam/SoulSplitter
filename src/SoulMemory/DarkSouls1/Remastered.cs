@@ -403,7 +403,7 @@ namespace SoulMemory.DarkSouls1
                 throw new DllNotFoundException($"${name} not found");
             }
 
-            return _process.ReadMemory<int>(module.BaseAddress.ToInt64() + 0x38E58);
+            return _process.ReadMemory<int>(module.BaseAddress.ToInt64() + 0x38E58).Unwrap();
         }
 
 
@@ -463,7 +463,7 @@ e:  41 ff d6                call   r14
             Array.Copy(resultBytes, 0, asm, 0x13, 8);
 
             _process.Execute(asm);
-            var isJapanese = _process.ReadMemory<int>(resultPtr.ToInt64()) == 0;
+            var isJapanese = _process.ReadMemory<int>(resultPtr.ToInt64()).Unwrap() == 0;
             _process.Free(resultPtr);
             return isJapanese;
         }

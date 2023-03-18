@@ -82,6 +82,11 @@ namespace SoulMemory.Memory
 
         private long ResolveOffsets(List<long> offsets, StringBuilder debugStringBuilder = null)
         {
+            if (Process == null)
+            {
+                return 0;
+            }
+
             debugStringBuilder?.Append($" 0x{BaseAddress:x}");
 
             long ptr = BaseAddress;
@@ -100,11 +105,11 @@ namespace SoulMemory.Memory
                 {
                     if (Is64Bit)
                     {
-                        ptr = Process.ReadMemory<long>(address);
+                        ptr = Process.ReadMemory<long>(address).Unwrap();
                     }
                     else
                     {
-                        ptr = Process.ReadMemory<int>(address);
+                        ptr = Process.ReadMemory<int>(address).Unwrap();
                     }
 
                     debugStringBuilder?.Append($"\r\n[0x{debugCopy:x} + 0x{offset:x}]: 0x{ptr:x}");

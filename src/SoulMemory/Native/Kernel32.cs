@@ -35,6 +35,11 @@ namespace SoulMemory.Native
 
         public static ResultOk<byte[]> ReadProcessMemory(this Process process, long address, int size)
         {
+            if (process == null)
+            {
+                return Result.Err();
+            }
+
             var buffer = new byte[size];
             var bytesRead = 0;
             var result = ReadProcessMemory(process.Handle, (IntPtr)address, buffer, buffer.Length, ref bytesRead);
@@ -46,17 +51,24 @@ namespace SoulMemory.Native
             return Result.Ok(buffer);
         }
 
-        public static T ReadMemory<T>(this Process process, long address, [CallerMemberName] string callerMemberName = null)
+        public static ResultOk<T> ReadMemory<T>(this Process process, long address, [CallerMemberName] string callerMemberName = null)
         {
+            if (process == null)
+            {
+                return Result.Err();
+            }
+            
             var type = typeof(T);
             var size = Marshal.SizeOf(type);
             var bytes = process.ReadProcessMemory(address, size).Unwrap(callerMemberName);
             var handle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
             var result = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), type);
+
+            handle.Free();
+            return Result.Ok(result);
+
             //TODO: find a conversion method that doesn't allocate memory
             //var test = (T)Convert.ChangeType(bytes, typeof(T));
-            handle.Free();
-            return result;
         }
 
         [DllImport("kernel32.dll")]

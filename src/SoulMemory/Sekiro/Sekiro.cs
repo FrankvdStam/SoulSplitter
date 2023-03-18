@@ -477,8 +477,8 @@ namespace SoulMemory.Sekiro
                 case 70066176:
                         // if the first 4 bytes at found logo code matches 74 30 48 8D or 75 30 48 8D to account for changes already being applied
                         
-                    logoCodeBytesPointFive = _process.ReadMemory<uint>(_process.MainModule.BaseAddress.ToInt64() + 0xE1B1AB);
-                    logoCodeBytesPointSix = _process.ReadMemory<uint>(_process.MainModule.BaseAddress.ToInt64() + 0xE1B51B);
+                    logoCodeBytesPointFive = _process.ReadMemory<uint>(_process.MainModule.BaseAddress.ToInt64() + 0xE1B1AB).Unwrap();
+                    logoCodeBytesPointSix = _process.ReadMemory<uint>(_process.MainModule.BaseAddress.ToInt64() + 0xE1B51B).Unwrap();
                     
                     if(logoCodeBytesPointFive == 0x8D483074 || logoCodeBytesPointFive == 0x8D483075){
                         version = "1.05";

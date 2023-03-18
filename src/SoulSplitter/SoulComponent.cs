@@ -160,6 +160,7 @@ namespace SoulSplitter
                         _splitter = new EldenRingSplitter(state, (SoulMemory.EldenRing.EldenRing)_game);
                         break;
                 }
+                _splitter.SetViewModel(mainViewModel);
             }
 
             if(_splitter == null)
