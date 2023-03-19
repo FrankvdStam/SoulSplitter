@@ -135,6 +135,9 @@ namespace SoulSplitter
                 _selectedGame = mainViewModel.SelectedGame;
                 switch (mainViewModel.SelectedGame)
                 {
+                    default:
+                        throw new InvalidOperationException("Splitter object is null");
+
                     case Game.DarkSouls1:
                         _game = new SoulMemory.DarkSouls1.DarkSouls1();
                         _splitter = new DarkSouls1Splitter(new TimerModel { CurrentState = state }, (SoulMemory.DarkSouls1.DarkSouls1)_game, mainViewModel);
