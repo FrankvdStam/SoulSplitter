@@ -25,11 +25,11 @@
         <img src="https://img.shields.io/badge/-Discord-blue"/>
     </a>
     <br/>
-    <a href="https://ko-fi.com/wasted1">
-        <img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg"/>
-    </a>
     <a href="https://www.youtube.com/@1wasted">
         <img src="https://img.shields.io/badge/-YouTube-red"/>
+    </a>
+    <a href="https://ko-fi.com/wasted1">
+        <img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg"/>
     </a>
 </p>
 
