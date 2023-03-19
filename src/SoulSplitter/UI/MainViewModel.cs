@@ -19,9 +19,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.Integration;
@@ -38,6 +41,7 @@ using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.EldenRing;
 using SoulSplitter.UI.Generic;
 using SoulSplitter.UI.Sekiro;
+using Brush = System.Windows.Media.Brush;
 
 namespace SoulSplitter.UI
 {
@@ -319,9 +323,13 @@ namespace SoulSplitter.UI
                 mainControl.DataContext = this;
 
                 _settingsWindow = new Window();
-                //ElementHost.EnableModelessKeyboardInterop(_settingsWindow);
+                ElementHost.EnableModelessKeyboardInterop(_settingsWindow);
                 _settingsWindow.Title = "SoulSplitter settings";
-                _settingsWindow.Icon = BitmapFrame.Create(new Uri("soulsplitter.ico"));
+                var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/SoulSplitter;component/soulsplitter.ico"))?.Stream;
+                if (iconStream != null)
+                {
+                    _settingsWindow.Icon = BitmapFrame.Create(iconStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                }
                 _settingsWindow.Content = mainControl;
                 _settingsWindow.Closing += (s, arg) =>
                 {

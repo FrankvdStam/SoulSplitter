@@ -36,6 +36,11 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+            return;
+            
+
+
             var sekiro = new Sekiro();
             sekiro.TryRefresh();
             
