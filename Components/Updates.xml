@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.4.0">
+        <files>
+            <file path="Components/SoulMemory.dll"   status="changed"/>
+            <file path="Components/SoulSplitter.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Added game agnostic event flag tracker for 100% runs</change>
+            <change>Settings can now be viewed in a separate window, to combat windows UI scaling memes</change>
+            <change>Added Uberhalit's savefile mod for sekiro - when the plugin attaches to the game, it will install a mod that allows you to load savefiles from your fellow runners</change>
+        </changelog>
+    </update>
     <update version="1.3.0">
         <files>
             <file path="Components/SoulMemory.dll"   status="changed"/>
