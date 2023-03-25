@@ -83,7 +83,7 @@ namespace SoulSplitter
                         }
                     }
 
-                    SetBitBlt();
+                    //SetBitBlt();
                 }
                 catch (Exception e)
                 {

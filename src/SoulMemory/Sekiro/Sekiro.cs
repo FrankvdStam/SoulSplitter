@@ -111,10 +111,10 @@ namespace SoulMemory.Sekiro
 
                 ApplySavefileMods();
 
-                Task.Run(() =>
-                {
-                    BitBlt = this.GetBitBlt(_files, _bitBltValues);
-                });
+                //Task.Run(() =>
+                //{
+                //    BitBlt = this.GetBitBlt(_files, _bitBltValues);
+                //});
                 
                 return Result.Ok();
             }
