@@ -36,6 +36,17 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            GameLoop<EldenRing>((er) =>
+            {
+                Console.WriteLine(er.GetInGameTimeMilliseconds());
+                Console.WriteLine(er.GetPosition());
+                Console.WriteLine(er.ReadEventFlag((uint)SoulMemory.EldenRing.ItemPickup.LDChapelOfAnticipationTarnishedsWizenedFinger));
+            });
+
+            return;
+
+
+            ValidatePatterns(); return;
             TestUi();
             return;
             
@@ -67,16 +78,10 @@ namespace cli
             }
 
 
-            ValidatePatterns(); return;
             
             ////ValidatePatterns(); return;
             //
-            GameLoop<EldenRing>((er) =>
-            {
-                Console.WriteLine(er.GetInGameTimeMilliseconds());
-                Console.WriteLine(er.GetPosition());
-                Console.WriteLine(er.ReadEventFlag((uint)SoulMemory.EldenRing.ItemPickup.LDChapelOfAnticipationTarnishedsWizenedFinger));
-            });
+            
 
 
             //GameLoop<DarkSouls1>((ds1) =>
@@ -171,8 +176,8 @@ namespace cli
                 //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
-                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
-                //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
+                //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
+                ("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
             };
 
             foreach(var validatable in validatables)

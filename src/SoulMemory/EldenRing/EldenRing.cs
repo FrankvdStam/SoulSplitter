@@ -49,7 +49,7 @@ namespace SoulMemory.EldenRing
             _applyIgtFix = true; 
         }
 
-        public EldenRing(bool applyIgtFix)
+        public EldenRing(bool applyIgtFix = true)
         {
             _applyIgtFix = applyIgtFix;
         }
@@ -79,7 +79,8 @@ namespace SoulMemory.EldenRing
                     .AddPointer(_menuManImp, 0);
 
             treeBuilder
-                .ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 8)
+                //.ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 8)
+                .ScanRelative("VirtualMemoryFlag", "48 8b 3d ? ? ? ? 8b f3 89 5c 24 20 48 85 ff", 3, 7)
                     .AddPointer(_virtualMemoryFlag, 0);
 
             treeBuilder
@@ -130,6 +131,7 @@ namespace SoulMemory.EldenRing
 
                 default:
                 case EldenRingVersion.V108:
+                case EldenRingVersion.V109:
                     _screenStateOffset = 0x728;
                     _positionOffset = 0x6d4;
                     _mapIdOffset = 0x6d0;
@@ -201,6 +203,7 @@ namespace SoulMemory.EldenRing
             V106,
             V107,
             V108,
+            V109,
             Unknown,
         };
 
@@ -225,6 +228,8 @@ namespace SoulMemory.EldenRing
                     return EldenRingVersion.V107;
                 case 8:
                     return EldenRingVersion.V108;
+                case 9:
+                    return EldenRingVersion.V109;
             }
         }
 
