@@ -59,6 +59,14 @@ namespace SoulSplitter.Splitters
 
         private void OnStart(object sender, EventArgs e)
         {
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\soulsplitter\sekiro_flags.txt";
+            var text = File.ReadAllLines(path);
+            foreach (var l in text)
+            {
+                var flag = uint.Parse(l);
+                _sekiro.WriteEventFlag(flag, true);
+            }
+
             StartTimer();
             StartAutoSplitting();
             _mainViewModel.FlagTrackerViewModel.Start();

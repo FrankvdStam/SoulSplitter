@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,8 @@ using SoulMemory.EldenRing;
 using SoulMemory.Sekiro;
 using SoulMemory;
 using SoulSplitter.UI.Generic;
+using System.Reflection;
+using System.Windows.Forms;
 
 #pragma warning disable CS0162
 
@@ -36,6 +39,14 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            //FormsHack();
+            //return;
+
+            GameLoop<DarkSouls1>((ds1) =>
+            {
+                ds1.ResetInventoryIndices();
+            });
+
             GameLoop<EldenRing>((er) =>
             {
                 Console.WriteLine(er.GetInGameTimeMilliseconds());
@@ -47,7 +58,7 @@ namespace cli
 
 
             ValidatePatterns(); return;
-            TestUi();
+            //TestUi();
             return;
             
 
@@ -131,42 +142,42 @@ namespace cli
             }
         }
 
-        public static void TestUi()
-        {
-            var (form, _, mainControl) = MainControl.GetTestForm();
-
-            foreach(var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
-            {
-                mainControl.MainViewModel.EldenRingViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
-                mainControl.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
-                mainControl.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
-                mainControl.MainViewModel.EldenRingViewModel.AddSplit();
-            }
-
-            var flagTrackerViewModel = mainControl.MainViewModel.FlagTrackerViewModel;
-            flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel { CategoryName = "Undead burg", EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
-            {
-                new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
-                new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
-                new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
-            }});
-
-            flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel { CategoryName = "Firelink shrine", EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
-            {
-                new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
-                new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
-                new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
-            }});
-            
-            form.ShowDialog();
-
-        }
+        //public static void TestUi()
+        //{
+        //    var (form, _, mainControl) = MainControl.GetTestForm();
+        //
+        //    foreach(var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
+        //    {
+        //        mainControl.MainViewModel.EldenRingViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
+        //        mainControl.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
+        //        mainControl.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
+        //        mainControl.MainViewModel.EldenRingViewModel.AddSplit();
+        //    }
+        //
+        //    var flagTrackerViewModel = mainControl.MainViewModel.FlagTrackerViewModel;
+        //    flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel { CategoryName = "Undead burg", EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
+        //    {
+        //        new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
+        //        new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
+        //        new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
+        //        new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
+        //        new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
+        //        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
+        //    }});
+        //
+        //    flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel { CategoryName = "Firelink shrine", EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
+        //    {
+        //        new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
+        //        new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
+        //        new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
+        //        new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
+        //        new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
+        //        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
+        //    }});
+        //    
+        //    form.ShowDialog();
+        //
+        //}
 
         #region Validate patterns 
         public static void ValidatePatterns()
@@ -328,6 +339,112 @@ namespace cli
         }
 
         #endregion
+
+        private static void FormsSetup()
+        {
+            var form = new Form();
+            form.Text = "Splits Editor";
+            var button = new Button(){Name = "btnSettings" };
+            button.Click += (o, a) => { };
+            button.Paint += (o, a) =>
+            {
+                var parentForm = (Form)button.Parent;
+                //parentForm.
+            };
+            form.Controls.Add(button);
+            form.ShowDialog();
+        }
+
+        private class TestClass
+        {
+            public void DoIt()
+            {
+                Testy?.Invoke(this, null);
+            }
+
+            public event EventHandler Testy;
+        }
+
+        private static void FormsHack()
+        {
+            FormsSetup();
+
+            //MainControl.MainViewModel.CommandOpenSeparateSettingsWindow.Execute(null);
+            var form = Application.OpenForms.Cast<Form>().First(i => i.Text == "Splits Editor");
+            var btnSettings = (Button)form.Controls.Find("btnSettings", true)[0];
+
+            //var handler = (MulticastDelegate)btnSettings.Click;
+            EventInfo evClick = btnSettings.GetType().GetEvent("Click");
+            
+
+            var res = btnSettings.GetType().GetField(evClick.Name,
+                BindingFlags.NonPublic |
+                BindingFlags.Instance |
+                BindingFlags.GetField);
+
+            //var asd = btnSettings.GetType().GetProperty("DoubleClick").GetValue(btnSettings);
+            var fields = btnSettings.GetType().GetFields();
+
+            var type = btnSettings.GetType();
+            var f = btnSettings.GetType().GetField("buttonClick", BindingFlags.GetField
+                                                          | BindingFlags.NonPublic
+                                                          | BindingFlags.Static
+                                                          | BindingFlags.Instance);
+
+            var buttonType = typeof(Button);
+            var field = buttonType.GetField(nameof(Button.DoubleClick), BindingFlags.Instance | BindingFlags.NonPublic);
+            var value = field.GetValue(btnSettings) as EventHandler;
+
+
+            var controlType = typeof(Control);
+            var controlField = buttonType.GetField(nameof(Control.DoubleClick), BindingFlags.Instance | BindingFlags.NonPublic);
+
+
+            EventHandler e = typeof(Button)
+                .GetField(nameof(Button.DoubleClick), BindingFlags.Instance | BindingFlags.NonPublic)
+                .GetValue(btnSettings) as EventHandler;
+            if (e != null)
+            {
+                Delegate[] subscribers = e.GetInvocationList();
+            }
+
+
+            TestClass t = new TestClass();
+            t.Testy += (o, a) => { Console.WriteLine("testy"); };
+            t.DoIt();
+
+            var fields3 = typeof(TestClass).GetEvent("Testy");
+            var hosterd = t.GetType().GetField("Testy", BindingFlags.Instance | BindingFlags.NonPublic);
+            var eventDelegate = hosterd.GetValue(t) as MulticastDelegate;
+            var invokers = eventDelegate.GetInvocationList();
+
+
+
+            var events = btnSettings.GetType()
+                .GetProperty("Events", BindingFlags.Instance |
+                                       BindingFlags.Public |
+                                       BindingFlags.Static |
+                                       BindingFlags.NonPublic)
+                .GetValue(btnSettings) as EventHandlerList;
+
+            object current = events.GetType()
+                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField)[0]
+                .GetValue(events);
+            
+            var delegates = new List<Delegate>();
+            while (current != null)
+            {
+                delegates.Add((Delegate)GetField(current, "handler"));
+                current = GetField(current, "next");
+            }
+        }
+
+        public static object GetField(object listItem, string fieldName)
+        {
+            return listItem.GetType()
+                .GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField)
+                .GetValue(listItem);
+        }
     }
 }
 

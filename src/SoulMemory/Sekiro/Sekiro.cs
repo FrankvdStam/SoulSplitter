@@ -104,10 +104,10 @@ namespace SoulMemory.Sekiro
                     return result;
                 }
                 
-                if (!InitB3Mods())
-                {
-                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "B3Mods init failed"));
-                }
+                //if (!InitB3Mods())
+                //{
+                //    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "B3Mods init failed"));
+                //}
 
                 ApplySavefileMods();
 
@@ -635,9 +635,13 @@ namespace SoulMemory.Sekiro
 
             //No Tutorials
             var result = true;
-            result &= _process.WriteProcessMemory(TutorialMsgDialog,new byte[] {0x75});
-            result &= _process.WriteProcessMemory(CSTutorialDialog, new byte[] {0x75});
-            result &= _process.WriteProcessMemory(CSMenuTutorialDialog, new byte[] {0x75});
+            
+            _process.ReadProcessMemory(TutorialMsgDialog, 1);
+            _process.ReadProcessMemory(CSTutorialDialog, 1);
+            _process.ReadProcessMemory(CSMenuTutorialDialog, 1);
+            //result &= _process.WriteProcessMemory(TutorialMsgDialog,new byte[] {0x75});
+            //result &= _process.WriteProcessMemory(CSTutorialDialog, new byte[] {0x75});
+            //result &= _process.WriteProcessMemory(CSMenuTutorialDialog, new byte[] {0x75});
 
             //No logo 
             result &= _process.WriteProcessMemory(noLogo, new byte[] {0x75});

@@ -32,6 +32,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml;
 using System.Xml.Serialization;
+using MaterialDesignThemes.Wpf;
 using SoulMemory;
 using SoulMemory.Native;
 using SoulSplitter.soulmemory_rs;
@@ -51,7 +52,7 @@ namespace SoulSplitter.UI
         {
             CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage, (o) => true);
             CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger, (o) => true);
-            CommandOpenSeparateSettingsWindow = new RelayCommand(OpenSeparateSettingsWindow, (o) => true);
+            //CommandOpenSeparateSettingsWindow = new RelayCommand(OpenSeparateSettingsWindow, (o) => true);
             CommandClearErrors = new RelayCommand(ClearErrors, (o) => Errors.Count > 0);
             CommandAddError = new RelayCommand(AddErrorCommand, (o) => true);
             CommandShowErrors = new RelayCommand(ShowErrorWindow, (o) => true);
@@ -306,39 +307,39 @@ namespace SoulSplitter.UI
             SoulMemoryRs.Launch();
         }
 
-        [XmlIgnore]
-        public RelayCommand CommandOpenSeparateSettingsWindow
-        {
-            get => _commandOpenSeparateSettingsWindow;
-            set => SetField(ref _commandOpenSeparateSettingsWindow, value);
-        }
-        private RelayCommand _commandOpenSeparateSettingsWindow;
-
-        private Window _settingsWindow;
-        private void OpenSeparateSettingsWindow(object sender)
-        {
-            if (_settingsWindow == null)
-            {
-                var mainControl = new MainControl();
-                mainControl.DataContext = this;
-
-                _settingsWindow = new Window();
-                ElementHost.EnableModelessKeyboardInterop(_settingsWindow);
-                _settingsWindow.Title = "SoulSplitter settings";
-                var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/SoulSplitter;component/soulsplitter.ico"))?.Stream;
-                if (iconStream != null)
-                {
-                    _settingsWindow.Icon = BitmapFrame.Create(iconStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                }
-                _settingsWindow.Content = mainControl;
-                _settingsWindow.Closing += (s, arg) =>
-                {
-                    _settingsWindow.Hide();
-                    arg.Cancel = true;
-                };
-            }
-            _settingsWindow.Show();
-        }
+        //[XmlIgnore]
+        //public RelayCommand CommandOpenSeparateSettingsWindow
+        //{
+        //    get => _commandOpenSeparateSettingsWindow;
+        //    set => SetField(ref _commandOpenSeparateSettingsWindow, value);
+        //}
+        //private RelayCommand _commandOpenSeparateSettingsWindow;
+        //
+        //private Window _settingsWindow;
+        //private void OpenSeparateSettingsWindow(object sender)
+        //{
+        //    if (_settingsWindow == null)
+        //    {
+        //        var mainControl = new MainControl();
+        //        mainControl.DataContext = this;
+        //        
+        //        _settingsWindow = new Window();
+        //        ElementHost.EnableModelessKeyboardInterop(_settingsWindow);
+        //        _settingsWindow.Title = "SoulSplitter settings";
+        //        var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/SoulSplitter;component/soulsplitter.ico"))?.Stream;
+        //        if (iconStream != null)
+        //        {
+        //            _settingsWindow.Icon = BitmapFrame.Create(iconStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+        //        }
+        //        _settingsWindow.Content = mainControl;
+        //        _settingsWindow.Closing += (s, arg) =>
+        //        {
+        //            _settingsWindow.Hide();
+        //            arg.Cancel = true;
+        //        };
+        //    }
+        //    _settingsWindow.ShowDialog();
+        //}
         
         [XmlIgnore]
         public RelayCommand CommandOpenFlagTrackerWindow

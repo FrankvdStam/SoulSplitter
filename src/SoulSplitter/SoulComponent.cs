@@ -19,12 +19,13 @@ using LiveSplit.UI;
 using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Windows.Forms;
 using System.Xml;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
-using System.Windows.Threading;
 using System.Windows.Forms.Integration;
 using SoulMemory;
 using SoulMemory.Sekiro;
@@ -41,9 +42,13 @@ namespace SoulSplitter
         private IGame _game = null;
         private DateTime _lastFailedRefresh = DateTime.MinValue;
         private bool _previousBitBlt = false;
+        private MainWindow _mainWindow;
+
         public SoulComponent(LiveSplitState state = null)
         {
-            (ElementHost, MainControl) = MainControl.GetElementHostMainControl();
+            _mainWindow = new MainWindow();
+            ElementHost.EnableModelessKeyboardInterop(_mainWindow);
+
             _liveSplitState = state;
             SelectGameFromLiveSplitState(_liveSplitState);
         }
@@ -53,7 +58,7 @@ namespace SoulSplitter
         /// </summary>
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
-            Dispatcher.CurrentDispatcher.Invoke(() =>
+            _mainWindow.Dispatcher.Invoke(() =>
             {
                 try
                 {
@@ -67,7 +72,7 @@ namespace SoulSplitter
                     }
 
                     //Result will internally be added to the error list already.
-                    var result = UpdateSplitter(MainControl.MainViewModel, state);
+                    var result = UpdateSplitter(_mainWindow.MainViewModel, state);
                     if(result.IsErr)
                     {
                         var err = result.GetErr();
@@ -88,7 +93,7 @@ namespace SoulSplitter
                 catch (Exception e)
                 {
                     Logger.Log(e);
-                    MainControl.MainViewModel.AddException(e);
+                    _mainWindow.MainViewModel.AddException(e);
                 }
             });
         }
@@ -99,12 +104,12 @@ namespace SoulSplitter
             {
                 if (sekiro.BitBlt)
                 {
-                    MainControl.BitBlt();
+                    _mainWindow.BitBlt();
                 }
 
                 if (_previousBitBlt && !sekiro.BitBlt)
                 {
-                    MainControl.ResetBitBlt();
+                    _mainWindow.ResetBitBlt();
                 }
                 _previousBitBlt = sekiro.BitBlt;
             }
@@ -113,7 +118,7 @@ namespace SoulSplitter
                 if (_previousBitBlt)
                 {
                     _previousBitBlt = false;
-                    MainControl.ResetBitBlt();
+                    _mainWindow.ResetBitBlt();
                 }
             }
         }
@@ -174,6 +179,93 @@ namespace SoulSplitter
             return _splitter.Update(mainViewModel);
         }
 
+        #region splits editor settings button
+
+        private Button _customShowSettingsButton;
+        public System.Windows.Forms.Control GetSettingsControl(LayoutMode mode)
+        {
+            var stackTrace = new StackTrace();
+            var caller = stackTrace.GetFrame(1).GetMethod().Name;
+            if (caller == "AddComponent")
+            {
+                _mainWindow.ShowDialog();
+            }
+            
+            if (_customShowSettingsButton == null)
+            {
+                _customShowSettingsButton = new Button();
+                _customShowSettingsButton.Text = "SoulSplitter settings";
+                _customShowSettingsButton.Click += (o, a) => _mainWindow.Dispatcher.Invoke(() => _mainWindow.ShowDialog());
+                _customShowSettingsButton.Paint += (o, a) =>
+                {
+                    try
+                    {
+                        var form = (Form)_customShowSettingsButton.Parent.Parent.Parent;
+                        form.DialogResult = DialogResult.OK; //Ok triggers livesplit to save
+                        form.Close();
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Log(e);
+                    }
+                };
+            }
+            
+            return _customShowSettingsButton;
+        }
+
+
+        ////Hijack the splits editor settings button to open a WPF window instead of a form
+        ////private Control _settingsButton;
+        //private EventHandler _settingsClickEvent;
+        //private Form _splitsEditorForm;
+        //private Button _settingsButton;
+        //private bool _settingsHijacked = false;
+        //
+        //private void HijackSettingButton()
+        //{
+        //    try
+        //    {
+        //        //Get reference to splits editor, use it to find the instance of the settings button
+        //        var form = Application.OpenForms.Cast<Form>().FirstOrDefault(i => i.Text == "Splits Editor");
+        //        if (form == null)
+        //        {
+        //            return;
+        //        }
+        //        _splitsEditorForm = form;
+        //        _settingsButton = (Button)_splitsEditorForm.Controls.Find("btnSettings", true)[0];
+        //
+        //        //Get events through reflection, fill list with all handlers
+        //        //Should only contain one handler, which shows the settings dialog and saves the xml on success
+        //        _settingsClickEvent = _settingsButton.GetProperty("Events").GetField("head").GetField("handler") as EventHandler;
+        //        
+        //        //Remove the event from the button
+        //        _settingsButton.Click -= _settingsClickEvent;
+        //        
+        //        //Replace with our own event, which guarantees the original event is called after
+        //        _settingsButton.Click += OpenSettingsHack;
+        //
+        //        _settingsHijacked = true;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Logger.Log("Failed to hijack settings button", e);
+        //    }
+        //}
+        //
+        //private void OpenSettingsHack(object sender, EventArgs args)
+        //{
+        //    MainControl.Dispatcher.Invoke(() =>
+        //    {
+        //        MainControl.MainViewModel.CommandOpenSeparateSettingsWindow.Execute(null);
+        //        _settingsClickEvent.Invoke(null, null);
+        //    });
+        //    
+        //}
+
+        #endregion region
+        
+
         #region drawing ===================================================================================================================
         public IDictionary<string, Action> ContextMenuControls => new Dictionary<string, Action>();
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
@@ -213,9 +305,9 @@ namespace SoulSplitter
         public XmlNode GetSettings(XmlDocument document)
         {
             XmlElement root = document.CreateElement("Settings");
-            Dispatcher.CurrentDispatcher.Invoke(() =>
+            _mainWindow.Dispatcher.Invoke(() =>
             {
-                var xml = MainControl.MainViewModel.Serialize();
+                var xml = _mainWindow.MainViewModel.Serialize();
                 XmlDocumentFragment fragment = document.CreateDocumentFragment();
                 fragment.InnerXml = xml;
                 root.AppendChild(fragment);
@@ -225,7 +317,7 @@ namespace SoulSplitter
 
         public void SetSettings(XmlNode settings)
         {
-            Dispatcher.CurrentDispatcher.Invoke(() =>
+            _mainWindow.Dispatcher.Invoke(() =>
             {
                 try
                 {
@@ -238,32 +330,24 @@ namespace SoulSplitter
                     var vm = MainViewModel.Deserialize(settings.InnerXml);
                     if (vm != null)
                     {
-                        MainControl.MainViewModel = vm;
-                        _splitter?.SetViewModel(MainControl.MainViewModel);
+                        _mainWindow.MainViewModel = vm;
+                        _splitter?.SetViewModel(_mainWindow.MainViewModel);
                     }
                 }
                 catch
                 {
-                    MainControl.MainViewModel = new MainViewModel();
+                    _mainWindow.MainViewModel = new MainViewModel();
                     SelectGameFromLiveSplitState(_liveSplitState);
                 }
             });
         }
-
-        public readonly MainControl MainControl;
-        public readonly ElementHost ElementHost;
-
-        public System.Windows.Forms.Control GetSettingsControl(LayoutMode mode)
-        {
-            return ElementHost;
-        }
-
+        
         /// <summary>
         /// Reads the game name from livesplit and tries to write the appropriate game to the view model
         /// </summary>
         private void SelectGameFromLiveSplitState(LiveSplitState s)
         {
-            Dispatcher.CurrentDispatcher.Invoke(() =>
+            _mainWindow.Dispatcher.Invoke(() =>
             {
                 if (!string.IsNullOrWhiteSpace(s?.Run?.GameName))
                 {
@@ -272,24 +356,24 @@ namespace SoulSplitter
                     {
                         case "darksouls":
                         case "darksoulsremastered":
-                            MainControl.MainViewModel.SelectedGame = Game.DarkSouls1;
+                            _mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
                             break;
 
                         case "darksoulsii":
-                            MainControl.MainViewModel.SelectedGame = Game.DarkSouls2;
+                            _mainWindow.MainViewModel.SelectedGame = Game.DarkSouls2;
                             break;
 
                         case "darksoulsiii":
-                            MainControl.MainViewModel.SelectedGame = Game.DarkSouls3;
+                            _mainWindow.MainViewModel.SelectedGame = Game.DarkSouls3;
                             break;
 
                         case "sekiro":
                         case "sekiro:shadowsdietwice":
-                            MainControl.MainViewModel.SelectedGame = Game.Sekiro;
+                            _mainWindow.MainViewModel.SelectedGame = Game.Sekiro;
                             break;
 
                         case "eldenring":
-                            MainControl.MainViewModel.SelectedGame = Game.EldenRing;
+                            _mainWindow.MainViewModel.SelectedGame = Game.EldenRing;
                             break;
                     }
                 }

@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -57,6 +58,23 @@ namespace SoulSplitter
                 serializer.Serialize(writer, obj);
                 return stream.ToString();
             }
+        }
+
+        public static object GetProperty(this object target, string name)
+        {
+            var type = target.GetType();
+            var property = type.GetProperty(name, BindingFlags.Instance |
+                                       BindingFlags.Public |
+                                       BindingFlags.Static |
+                                       BindingFlags.NonPublic);
+            return property?.GetValue(target);
+        }
+
+        public static object GetField(this object target, string name)
+        {
+            var type = target.GetType();
+            var field = type.GetField(name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField);
+            return field?.GetValue(target);
         }
     }
 }
