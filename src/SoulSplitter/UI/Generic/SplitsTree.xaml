@@ -22,7 +22,7 @@
              xmlns:local="clr-namespace:SoulSplitter.UI.Generic"
              xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance local:BaseViewModel, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance local:SplitsTree, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -44,10 +44,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-
+    
     <TreeView
-        ItemsSource="{Binding  SplitsViewModel.Splits}"
+        ItemsSource="{Binding SplitsViewModel.Splits, RelativeSource={RelativeSource AncestorType=UserControl}}"
         SelectedItemChanged="TreeView_OnSelectedItemChanged">
         <TreeView.Resources>
             <HierarchicalDataTemplate DataType="{x:Type local:SplitTimingViewModel}" ItemsSource="{Binding Children}">

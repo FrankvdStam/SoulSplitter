@@ -384,6 +384,20 @@ namespace SoulSplitter.UI
 
         #endregion
 
+        #region Favorites
+
+
+
+        public SplitsViewModel FavoriteSplits
+        {
+            get => _favoriteSplits;
+            set => SetField(ref _favoriteSplits, value);
+        }
+        private SplitsViewModel _favoriteSplits = new SplitsViewModel();
+
+
+        #endregion
+
         #region Serializing
         public string Serialize()
         {

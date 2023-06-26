@@ -36,6 +36,9 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+            return;
+
             GameLoop<EldenRing>((er) =>
             {
                 Console.WriteLine(er.GetInGameTimeMilliseconds());

@@ -33,7 +33,7 @@ namespace SoulSplitter.UI.Generic
             CopyGamePositionCommand = new RelayCommand(CopyGamePosition, (o) => true);
             RemoveSplitCommand = new RelayCommand(RemoveSplit, (o) => SplitsViewModel.SelectedSplit != null);
         }
-
+        
         #region Field visibility
 
         #region new splits ============================================================================================================================================

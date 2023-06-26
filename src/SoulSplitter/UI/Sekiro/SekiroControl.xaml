@@ -223,7 +223,9 @@
         <generic:AddRemoveSplits Grid.Row="{StaticResource AddRemoveSplitRow}"/>
 
         <!-- row ============================================================================================================================================================================================== -->
-        <generic:SplitsTree Grid.Row="{StaticResource SplitsTreeRow}" />
+        <generic:SplitsTree 
+            SplitsViewModel="{Binding SplitsViewModel}" 
+            Grid.Row="{StaticResource SplitsTreeRow}" />
 
         <!-- row ============================================================================================================================================================================================== -->
 

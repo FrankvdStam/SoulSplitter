@@ -28,18 +28,28 @@ namespace SoulSplitter.UI.Generic
         {
             InitializeComponent();
         }
+        
+        public static readonly DependencyProperty SplitsViewModelDependencyProperty =
+            DependencyProperty.Register(nameof(SplitsViewModel), typeof(SplitsViewModel), typeof(SplitsTree),
+                new FrameworkPropertyMetadata(new SplitsViewModel(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
+        public SplitsViewModel SplitsViewModel
+        {
+            get =>(SplitsViewModel)GetValue(SplitsViewModelDependencyProperty);
+            set => SetValue(SplitsViewModelDependencyProperty, value);
+        }
+        
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (sender is TreeView treeView && treeView.DataContext is BaseViewModel baseViewModel)
+            if (sender is TreeView treeView)
             {
                 if (treeView.SelectedItem is SplitViewModel splitViewModel)
                 {
-                    baseViewModel.SplitsViewModel.SelectedSplit = splitViewModel;
+                    SplitsViewModel.SelectedSplit = splitViewModel;
                 }
                 else
                 {
-                    baseViewModel.SplitsViewModel.SelectedSplit = null;
+                    SplitsViewModel.SelectedSplit = null;
                 }
             }
         }
