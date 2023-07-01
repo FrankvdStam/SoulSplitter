@@ -74,7 +74,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="45"/>
             <RowDefinition Height="70"/>
-            <RowDefinition Height="152"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- row ============================================================================================================================================================================================== -->
