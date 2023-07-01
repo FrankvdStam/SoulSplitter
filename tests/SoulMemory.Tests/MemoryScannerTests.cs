@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using SoulMemory.Memory;
 using System.Linq;
 
-namespace SoulMemory.Tests.MemoryV2
+namespace SoulMemory.Tests
 {
     [TestFixture]
     public class MemoryScannerTests
