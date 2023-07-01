@@ -15,17 +15,11 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory;
-using SoulMemory.EldenRing;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Xml.Serialization;
 

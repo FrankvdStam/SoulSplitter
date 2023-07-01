@@ -15,13 +15,11 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using LiveSplit.ComponentUtil;
-using SoulSplitter.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace SoulSplitter.soulmemory_rs
 {

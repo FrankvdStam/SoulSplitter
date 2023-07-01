@@ -18,12 +18,11 @@ using System;
 using System.Globalization;
 using System.Xml;
 using SoulMemory;
-using SoulSplitter.Migrations;
 using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.Generic;
 using SoulSplitter.UI.Sekiro;
 
-namespace SoulSplitter
+namespace SoulSplitter.Migrations
 {
     internal static class Migrator
     {

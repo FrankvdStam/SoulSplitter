@@ -24,12 +24,11 @@ using System.Xml;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
-using System.Windows.Threading;
-using System.Windows.Forms.Integration;
 using SoulMemory;
 using SoulMemory.Sekiro;
 using System.Diagnostics;
 using System.Windows.Forms;
+using SoulSplitter.Migrations;
 
 namespace SoulSplitter
 {

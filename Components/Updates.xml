@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.4.4">
+        <files>
+            <file path="Components/SoulMemory.dll"   status="changed"/>
+            <file path="Components/SoulSplitter.dll" status="changed"/>
+            <file path="Components/soulinjectee.dll" status="removed"/>
+        </files>
+        <changelog>
+            <change>Settings are in a custom window, no longer in livesplit's tiny settings window</change>
+            <change>Fix splits tree auto resizing for sekiro</change>
+        </changelog>
+    </update>
     <update version="1.4.3">
         <files>
             <file path="Components/SoulMemory.dll"   status="changed"/>

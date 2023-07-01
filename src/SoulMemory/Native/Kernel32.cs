@@ -17,12 +17,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Text;
-using static SoulMemory.Native.Kernel32;
 
 namespace SoulMemory.Native
 {
