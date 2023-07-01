@@ -136,7 +136,7 @@ namespace cli
 
         public static void TestUi()
         {
-            var (form, _, mainControl) = MainControl.GetTestForm();
+            var (form, _, mainControl) = MainWindow.GetTestForm();
 
             foreach(var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
             {

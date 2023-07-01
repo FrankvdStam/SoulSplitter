@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
@@ -27,26 +28,24 @@ namespace SoulSplitter.UI
     /// <summary>
     /// Interaction logic for MainControl.xaml
     /// </summary>
-    public partial class MainControl : UserControl
+    public partial class MainWindow : Window
     {
-        public MainControl()
+        public MainWindow()
         {
             InitializeComponent();
+            Closing += Window_Closing;
         }
-      
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+        }
+
         public MainViewModel MainViewModel
         {
             get => (MainViewModel)DataContext;
             set => ((MainViewModel)DataContext).Update(value);
-        }
-        
-        public static (System.Windows.Forms.Integration.ElementHost, MainControl) GetElementHostMainControl()
-        {
-            var mainControl = new MainControl();
-            var elementHost = new System.Windows.Forms.Integration.ElementHost();
-            elementHost.Child = mainControl;
-            elementHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            return (elementHost, mainControl);
         }
         
         private Color _stash = Color.White;
@@ -89,7 +88,7 @@ namespace SoulSplitter.UI
             }
         }
 
-        public static (System.Windows.Forms.Form, System.Windows.Forms.Integration.ElementHost, MainControl) GetTestForm()
+        public static (System.Windows.Forms.Form, System.Windows.Forms.Integration.ElementHost, MainWindow) GetTestForm()
         {
             var form = new System.Windows.Forms.Form();
             form.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -99,7 +98,11 @@ namespace SoulSplitter.UI
             form.MinimumSize = new System.Drawing.Size(520, 600);
             form.AcceptButton = new System.Windows.Forms.Button() { Text = "Ok", Size = new System.Drawing.Size(75, 23) };
 
-            var (elementHost, mainControl) = GetElementHostMainControl();
+            var mainControl = new MainWindow();
+            var elementHost = new System.Windows.Forms.Integration.ElementHost();
+            elementHost.Child = mainControl;
+            elementHost.Dock = System.Windows.Forms.DockStyle.Fill;
+
             form.Controls.Add(elementHost);
 
             return (form, elementHost, mainControl);

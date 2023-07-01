@@ -164,8 +164,8 @@
     <Compile Include="UI\Generic\FilteredComboBox.cs" />
     <Compile Include="UI\Generic\Game.cs" />
     <Compile Include="UI\Converters\GameToSelectedIndexConverter.cs" />
-    <Compile Include="UI\MainControl.xaml.cs">
-      <DependentUpon>MainControl.xaml</DependentUpon>
+    <Compile Include="UI\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MainViewModel.cs" />
     <Compile Include="UI\Converters\EnumDisplayNameConverter.cs" />
@@ -216,7 +216,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainControl.xaml">
+    <Page Include="UI\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

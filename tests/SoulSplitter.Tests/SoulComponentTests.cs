@@ -93,7 +93,7 @@ namespace SoulSplitter.Tests
             var component = new SoulComponent(liveSplitStateMock.Object);
             component.SetSettings(doc);
 
-            var componentViewModel = component.MainControl.MainViewModel;
+            var componentViewModel = component.MainWindow.MainViewModel;
             Assert.AreEqual(2, componentViewModel.SekiroViewModel.SplitsViewModel.Splits.Count);
             Assert.AreEqual(3, componentViewModel.SekiroViewModel.SplitsViewModel.Splits.First().Children.Count);
         }
@@ -108,7 +108,7 @@ namespace SoulSplitter.Tests
             var component = new SoulComponent(liveSplitStateMock.Object);
             component.SetSettings(doc);
 
-            var componentViewModel = component.MainControl.MainViewModel;
+            var componentViewModel = component.MainWindow.MainViewModel;
             Assert.AreEqual(2, componentViewModel.DarkSouls3ViewModel.SplitsViewModel.Splits.Count);
             Assert.AreEqual(3, componentViewModel.DarkSouls3ViewModel.SplitsViewModel.Splits.First().Children.Count);
             Assert.AreEqual(21, componentViewModel.DarkSouls3ViewModel.SplitsViewModel.Splits.First().Children.First().Children.Count);

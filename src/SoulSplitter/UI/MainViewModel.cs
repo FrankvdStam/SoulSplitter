@@ -319,7 +319,7 @@ namespace SoulSplitter.UI
         {
             if (_settingsWindow == null)
             {
-                var mainControl = new MainControl();
+                var mainControl = new MainWindow();
                 mainControl.DataContext = this;
 
                 _settingsWindow = new Window();

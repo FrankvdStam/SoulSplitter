@@ -28,6 +28,8 @@ using System.Windows.Threading;
 using System.Windows.Forms.Integration;
 using SoulMemory;
 using SoulMemory.Sekiro;
+using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace SoulSplitter
 {
@@ -41,9 +43,10 @@ namespace SoulSplitter
         private IGame _game = null;
         private DateTime _lastFailedRefresh = DateTime.MinValue;
         private bool _previousBitBlt = false;
+        public readonly MainWindow MainWindow;
         public SoulComponent(LiveSplitState state = null)
         {
-            (ElementHost, MainControl) = MainControl.GetElementHostMainControl();
+            MainWindow = new MainWindow();
             _liveSplitState = state;
             SelectGameFromLiveSplitState(_liveSplitState);
         }
@@ -53,7 +56,7 @@ namespace SoulSplitter
         /// </summary>
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
-            Dispatcher.CurrentDispatcher.Invoke(() =>
+            MainWindow.Dispatcher.Invoke(() =>
             {
                 try
                 {
@@ -67,7 +70,7 @@ namespace SoulSplitter
                     }
 
                     //Result will internally be added to the error list already.
-                    var result = UpdateSplitter(MainControl.MainViewModel, state);
+                    var result = UpdateSplitter(MainWindow.MainViewModel, state);
                     if(result.IsErr)
                     {
                         var err = result.GetErr();
@@ -88,7 +91,7 @@ namespace SoulSplitter
                 catch (Exception e)
                 {
                     Logger.Log(e);
-                    MainControl.MainViewModel.AddException(e);
+                    MainWindow.MainViewModel.AddException(e);
                 }
             });
         }
@@ -99,12 +102,12 @@ namespace SoulSplitter
             {
                 if (sekiro.BitBlt)
                 {
-                    MainControl.BitBlt();
+                    MainWindow.BitBlt();
                 }
 
                 if (_previousBitBlt && !sekiro.BitBlt)
                 {
-                    MainControl.ResetBitBlt();
+                    MainWindow.ResetBitBlt();
                 }
                 _previousBitBlt = sekiro.BitBlt;
             }
@@ -113,7 +116,7 @@ namespace SoulSplitter
                 if (_previousBitBlt)
                 {
                     _previousBitBlt = false;
-                    MainControl.ResetBitBlt();
+                    MainWindow.ResetBitBlt();
                 }
             }
         }
@@ -213,9 +216,9 @@ namespace SoulSplitter
         public XmlNode GetSettings(XmlDocument document)
         {
             XmlElement root = document.CreateElement("Settings");
-            Dispatcher.CurrentDispatcher.Invoke(() =>
+            MainWindow.Dispatcher.Invoke(() =>
             {
-                var xml = MainControl.MainViewModel.Serialize();
+                var xml = MainWindow.MainViewModel.Serialize();
                 XmlDocumentFragment fragment = document.CreateDocumentFragment();
                 fragment.InnerXml = xml;
                 root.AppendChild(fragment);
@@ -225,7 +228,7 @@ namespace SoulSplitter
 
         public void SetSettings(XmlNode settings)
         {
-            Dispatcher.CurrentDispatcher.Invoke(() =>
+            MainWindow.Dispatcher.Invoke(() =>
             {
                 try
                 {
@@ -238,32 +241,56 @@ namespace SoulSplitter
                     var vm = MainViewModel.Deserialize(settings.InnerXml);
                     if (vm != null)
                     {
-                        MainControl.MainViewModel = vm;
-                        _splitter?.SetViewModel(MainControl.MainViewModel);
+                        MainWindow.MainViewModel = vm;
+                        _splitter?.SetViewModel(MainWindow.MainViewModel);
                     }
                 }
                 catch
                 {
-                    MainControl.MainViewModel = new MainViewModel();
+                    MainWindow.MainViewModel = new MainViewModel();
                     SelectGameFromLiveSplitState(_liveSplitState);
                 }
             });
         }
 
-        public readonly MainControl MainControl;
-        public readonly ElementHost ElementHost;
-
+        private Button _customShowSettingsButton;
         public System.Windows.Forms.Control GetSettingsControl(LayoutMode mode)
         {
-            return ElementHost;
-        }
+            var stackTrace = new StackTrace();
+            var caller = stackTrace.GetFrame(1).GetMethod().Name;
+            if (caller == "AddComponent")
+            {
+                MainWindow.ShowDialog();
+            }
 
+            if (_customShowSettingsButton == null)
+            {
+                _customShowSettingsButton = new Button();
+                _customShowSettingsButton.Text = "SoulSplitter settings";
+                _customShowSettingsButton.Click += (o, a) => MainWindow.Dispatcher.Invoke(() => MainWindow.ShowDialog());
+                _customShowSettingsButton.Paint += (o, a) =>
+                {
+                    try
+                    {
+                        var form = (Form)_customShowSettingsButton.Parent.Parent.Parent;
+                        form.DialogResult = DialogResult.OK; //Ok triggers livesplit to save
+                        form.Close();
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Log(e);
+                    }
+                };
+            }
+
+            return _customShowSettingsButton;
+        }
         /// <summary>
         /// Reads the game name from livesplit and tries to write the appropriate game to the view model
         /// </summary>
         private void SelectGameFromLiveSplitState(LiveSplitState s)
         {
-            Dispatcher.CurrentDispatcher.Invoke(() =>
+            MainWindow.Dispatcher.Invoke(() =>
             {
                 if (!string.IsNullOrWhiteSpace(s?.Run?.GameName))
                 {
@@ -272,24 +299,24 @@ namespace SoulSplitter
                     {
                         case "darksouls":
                         case "darksoulsremastered":
-                            MainControl.MainViewModel.SelectedGame = Game.DarkSouls1;
+                            MainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
                             break;
 
                         case "darksoulsii":
-                            MainControl.MainViewModel.SelectedGame = Game.DarkSouls2;
+                            MainWindow.MainViewModel.SelectedGame = Game.DarkSouls2;
                             break;
 
                         case "darksoulsiii":
-                            MainControl.MainViewModel.SelectedGame = Game.DarkSouls3;
+                            MainWindow.MainViewModel.SelectedGame = Game.DarkSouls3;
                             break;
 
                         case "sekiro":
                         case "sekiro:shadowsdietwice":
-                            MainControl.MainViewModel.SelectedGame = Game.Sekiro;
+                            MainWindow.MainViewModel.SelectedGame = Game.Sekiro;
                             break;
 
                         case "eldenring":
-                            MainControl.MainViewModel.SelectedGame = Game.EldenRing;
+                            MainWindow.MainViewModel.SelectedGame = Game.EldenRing;
                             break;
                     }
                 }
