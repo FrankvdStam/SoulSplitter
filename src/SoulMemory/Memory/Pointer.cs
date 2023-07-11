@@ -220,6 +220,16 @@ namespace SoulMemory.Memory
             return ReadMemory(offset, 1)[0];
         }
 
+        public short ReadInt16(long? offset = null)
+        {
+            return BitConverter.ToInt16(ReadMemory(offset, 2), 0);
+        }
+
+        public ushort ReadUInt16(long? offset = null)
+        {
+            return BitConverter.ToUInt16(ReadMemory(offset, 2), 0);
+        }
+
         public byte[] ReadBytes(int size, long? offset = null)
         {
             return ReadMemory(offset, size);
@@ -232,6 +242,20 @@ namespace SoulMemory.Memory
         #endregion
 
         #region Write
+
+        public void WriteInt16(short value) => WriteInt16(null, value);
+
+        public void WriteInt16(long? offset, short value)
+        {
+            WriteMemory(offset, BitConverter.GetBytes(value));
+        }
+
+        public void WriteUInt16(ushort value) => WriteUInt16(null, value);
+
+        public void WriteUInt16(long? offset, ushort value)
+        {
+            WriteMemory(offset, BitConverter.GetBytes(value));
+        }
 
         public void WriteInt32(int value) => WriteInt32(null, value);
 
@@ -274,7 +298,7 @@ namespace SoulMemory.Memory
         {
             WriteMemory(offset, BitConverter.GetBytes(value));
         }
-
+        
         #endregion
 
         #endregion

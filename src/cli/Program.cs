@@ -25,6 +25,7 @@ using SoulMemory.DarkSouls1;
 using SoulMemory.EldenRing;
 using SoulMemory.Sekiro;
 using SoulMemory;
+using SoulMemory.DarkSouls1.Parameters;
 using SoulSplitter.UI.Generic;
 
 #pragma warning disable CS0162
@@ -36,9 +37,17 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();
-            return;
+            var asdf = ParamReader.GenerateFromXml(File.ReadAllText(
+                @"C:\Users\Frank\Desktop\DS modders tools\DSMapStudio-1.08\Assets\Paramdex\DS1R\Defs\ItemLotParam.xml"));
 
+
+            GameLoop<DarkSouls1>((ds1) =>
+            {
+                ds1.GetTestValue();
+            });
+
+
+            
             GameLoop<EldenRing>((er) =>
             {
                 Console.WriteLine(er.GetInGameTimeMilliseconds());
@@ -177,10 +186,10 @@ namespace cli
             var validatables = new List<(string Name, IGame Game, string Directory)>()
             {
                 //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
-                //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
+                ("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
                 //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
-                ("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
+                //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
             };
 
             foreach(var validatable in validatables)

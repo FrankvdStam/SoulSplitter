@@ -31,12 +31,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using SoulMemory.DarkSouls1.Parameters;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using Pointer = SoulMemory.Memory.Pointer;
@@ -45,6 +45,28 @@ namespace SoulMemory.DarkSouls1
 {
     public class Remastered : IDarkSouls1
     {
+        public object GetTestValue()
+        {
+            if (_soloParamMan.IsNullPtr())
+            {
+                return null;
+            }
+
+            var paramResCap = _soloParamMan.CreatePointerFromAddress(0x570);
+            var headerStart = paramResCap.CreatePointerFromAddress(0x38);
+            
+            var parameters = ParamReader.ReadParam<ItemLotParam>(headerStart);
+            var bkh2 = parameters.Find(i => i.Id == 27901000);
+            bkh2.LotItemBasePoint01 = 0;
+            bkh2.LotItemBasePoint01 = 100;
+            bkh2.LotItemBasePoint02 = 0;
+            bkh2.LotItemBasePoint02 = 100;
+
+            return new object();
+        }
+        
+
+
         #region Refresh/init/reset ================================================================================================================================
 
         private Process _process;
@@ -59,6 +81,7 @@ namespace SoulMemory.DarkSouls1
         private readonly Pointer _netBonfireDb = new Pointer();
         private readonly Pointer _menuMan = new Pointer();
         private readonly Pointer _getRegion = new Pointer();
+        private readonly Pointer _soloParamMan = new Pointer();
         private int? _steamId3;
         private bool? _isJapanese;
 
@@ -78,6 +101,7 @@ namespace SoulMemory.DarkSouls1
             _netBonfireDb.Clear();
             _menuMan.Clear();
             _getRegion.Clear();
+            _soloParamMan.Clear();
             _steamId3 = null;
             _isJapanese = null;
         }
@@ -149,6 +173,13 @@ namespace SoulMemory.DarkSouls1
                     .AddPointer(_getRegion, 0)
                     ;
 
+            //570 - itemlot
+            //1C8 - npcparam
+            treeBuilder
+                .ScanRelative("SoloParamMan", "4C 8B 05 ? ? ? ? 48 63 C9 48 8D 04 C9", 3, 7)
+                    .AddPointer(_soloParamMan, 0)
+                    ;
+
             return treeBuilder;
         }
         #endregion
@@ -182,7 +213,6 @@ namespace SoulMemory.DarkSouls1
             return _gameMan.ReadByte(0x19) == 1;
         }
 
-        public object GetTestValue() => GetInventory();
         
         public bool AreCreditsRolling()
         {

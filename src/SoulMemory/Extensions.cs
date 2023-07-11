@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Xml;
 
 namespace SoulMemory
 {
@@ -40,6 +41,19 @@ namespace SoulMemory
                 return true;
             }
             return false;
+        }
+
+        public static XmlNode GetChildNodeByName(this XmlNode node, string childName)
+        {
+            var lower = childName.ToLower();
+            foreach (XmlNode child in node.ChildNodes)
+            {
+                if (child.LocalName.ToLower() == lower)
+                {
+                    return child;
+                }
+            }
+            throw new ArgumentException($"{childName} not found");
         }
     }
 }
