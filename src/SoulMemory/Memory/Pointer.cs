@@ -239,6 +239,22 @@ namespace SoulMemory.Memory
         {
             return BitConverter.ToSingle(ReadMemory(offset, 4), 0);
         }
+
+        public string ReadUnicodeString(out int length, int maxSize = 1000, long? offset = null)
+        {
+            var data = ReadMemory(offset, maxSize);
+            length = 0;
+            for (int i = 1; i < data.Length; i++)
+            {
+                if (data[i - 1] == 0 && data[i] == 0)
+                {
+                    length = i;
+                    break;
+                }
+            }
+
+            return Encoding.Unicode.GetString(data);
+        }
         #endregion
 
         #region Write

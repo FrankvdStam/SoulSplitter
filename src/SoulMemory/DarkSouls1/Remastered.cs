@@ -52,15 +52,33 @@ namespace SoulMemory.DarkSouls1
                 return null;
             }
 
+            var msgman = _soloParamMan.Copy();
+            msgman.BaseAddress = 0x141d1b748;
+            msgman.Offsets = new List<long>() { 0 };
+            var weaponNames = msgman.CreatePointerFromAddress(0x358);
+
+            ParamReader.ReadText(weaponNames);
+
+            for (int i = 0; i < 62; i++)
+            {
+                _loadingScreenItems.WriteUint32(i * 4, 0x0010DC68);
+            }
+
+
             var paramResCap = _soloParamMan.CreatePointerFromAddress(0x570);
             var headerStart = paramResCap.CreatePointerFromAddress(0x38);
             
             var parameters = ParamReader.ReadParam<ItemLotParam>(headerStart);
-            var bkh2 = parameters.Find(i => i.Id == 27901000);
-            bkh2.LotItemBasePoint01 = 0;
-            bkh2.LotItemBasePoint01 = 100;
-            bkh2.LotItemBasePoint02 = 0;
-            bkh2.LotItemBasePoint02 = 100;
+
+            var bkh = parameters.Find(i => i.Id == 27901000);
+            bkh.LotItemBasePoint01 = 0;
+            bkh.LotItemBasePoint02 = 100;
+            bkh.LotItemBasePoint03 = 0;
+
+            foreach (var param in parameters)
+            {
+
+            }
 
             return new object();
         }
@@ -82,6 +100,7 @@ namespace SoulMemory.DarkSouls1
         private readonly Pointer _menuMan = new Pointer();
         private readonly Pointer _getRegion = new Pointer();
         private readonly Pointer _soloParamMan = new Pointer();
+        private readonly Pointer _loadingScreenItems = new Pointer();
         private int? _steamId3;
         private bool? _isJapanese;
 
@@ -102,6 +121,7 @@ namespace SoulMemory.DarkSouls1
             _menuMan.Clear();
             _getRegion.Clear();
             _soloParamMan.Clear();
+            _loadingScreenItems.Clear();
             _steamId3 = null;
             _isJapanese = null;
         }
@@ -179,6 +199,11 @@ namespace SoulMemory.DarkSouls1
                 .ScanRelative("SoloParamMan", "4C 8B 05 ? ? ? ? 48 63 C9 48 8D 04 C9", 3, 7)
                     .AddPointer(_soloParamMan, 0)
                     ;
+
+            treeBuilder
+                .ScanRelative("LoadingScreenItems", "48 8d 0d ? ? ? ? 8b 0c 81 89 8f 20 02 00 00", 3, 7)
+                .AddPointer(_loadingScreenItems)
+                ;
 
             return treeBuilder;
         }

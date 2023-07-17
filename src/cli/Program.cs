@@ -37,10 +37,6 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            var asdf = ParamReader.GenerateFromXml(File.ReadAllText(
-                @"C:\Users\Frank\Desktop\DS modders tools\DSMapStudio-1.08\Assets\Paramdex\DS1R\Defs\ItemLotParam.xml"));
-
-
             GameLoop<DarkSouls1>((ds1) =>
             {
                 ds1.GetTestValue();

@@ -20,12 +20,12 @@ using System.Text;
 
 namespace SoulMemory.DarkSouls1.Parameters
 {
-    public class ParamTableEntry
+    public class TextTableEntry
     {
-        public int Id { get; set; }
+        public int ItemLowRange { get; set; }
         public uint DataOffset { get; set; }
-        public uint NameOffset { get; set; }
+        public uint ItemHighRange { get; set; }
 
-        public override string ToString() => Id.ToString();
+        public override string ToString() => ItemLowRange.ToString();
     }
 }
