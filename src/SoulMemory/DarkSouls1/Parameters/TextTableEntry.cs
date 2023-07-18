@@ -22,7 +22,7 @@ namespace SoulMemory.DarkSouls1.Parameters
 {
     public class TextTableEntry
     {
-        public int ItemLowRange { get; set; }
+        public uint ItemLowRange { get; set; }
         public uint DataOffset { get; set; }
         public uint ItemHighRange { get; set; }
 

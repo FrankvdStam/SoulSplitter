@@ -19,7 +19,7 @@ using SoulMemory.Memory;
 
 namespace SoulMemory.DarkSouls1.Parameters
 {
-    internal class ItemLotParam : BaseParam
+    public class ItemLotParam : BaseParam
     {
         public ItemLotParam(Pointer pointer, ArraySegment<byte> arraySegment, ParamTableEntry paramTableEntry) : base(pointer, arraySegment, paramTableEntry)
         {

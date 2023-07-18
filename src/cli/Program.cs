@@ -39,7 +39,11 @@ namespace cli
         {
             GameLoop<DarkSouls1>((ds1) =>
             {
-                ds1.GetTestValue();
+                if (ds1.GetTestValue() != null)
+                {
+                    Console.WriteLine("installed");
+                    return;
+                }
             });
 
 

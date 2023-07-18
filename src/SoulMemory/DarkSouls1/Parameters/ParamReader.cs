@@ -27,9 +27,9 @@ namespace SoulMemory.DarkSouls1.Parameters
 {
     public static class ParamReader
     {
-        public static void ReadText(Pointer textBasePointer)
+        public static List<TextTableEntry> GetTextTables(Pointer textBasePointer)
         {
-            var dataOffset = textBasePointer.ReadUInt16(0x14);
+            //var dataOffset = textBasePointer.ReadUInt16(0x14);
             var rowCount = textBasePointer.ReadUInt16(0xc);
             
             var tableBytes = textBasePointer.ReadBytes(12 * rowCount, 0x18);
@@ -41,21 +41,14 @@ namespace SoulMemory.DarkSouls1.Parameters
 
                 var textTableEntry = new TextTableEntry
                 {
-                    ItemLowRange = BitConverter.ToInt32(tableBytes, offset),
+                    ItemLowRange = BitConverter.ToUInt32(tableBytes, offset),
                     DataOffset = BitConverter.ToUInt32(tableBytes, offset + 0x4),
                     ItemHighRange = BitConverter.ToUInt32(tableBytes, offset + 0x8),
                 };
                 data.Add(textTableEntry);
             }
-            var bkh = data.Find(i => i.ItemHighRange == 1105000);
-            var textOffset = textBasePointer.ReadInt32(dataOffset + bkh.DataOffset * 4);
-            var text = Encoding.Unicode.GetString(textBasePointer.ReadBytes(1000, textOffset));
-            var bkhText = textBasePointer.ReadUnicodeString(out int length, offset: textOffset);
 
-            var replacementBytes = Encoding.Unicode.GetBytes("DuckMod!\n\nDroprates have been modified.");
-            var bytes = new byte[length];
-            Array.Copy(replacementBytes, bytes, replacementBytes.Length);
-            textBasePointer.WriteBytes(textOffset, bytes);
+            return data;
         }
 
         public static List<T> ReadParam<T>(Pointer paramBasePointer) where T : BaseParam

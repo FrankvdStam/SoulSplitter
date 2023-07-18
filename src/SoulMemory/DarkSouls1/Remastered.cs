@@ -35,6 +35,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using SoulMemory.DarkSouls1.Parameters;
 using SoulMemory.Memory;
@@ -51,39 +53,39 @@ namespace SoulMemory.DarkSouls1
             {
                 return null;
             }
-
-            var msgman = _soloParamMan.Copy();
-            msgman.BaseAddress = 0x141d1b748;
-            msgman.Offsets = new List<long>() { 0 };
-            var weaponNames = msgman.CreatePointerFromAddress(0x358);
-
-            ParamReader.ReadText(weaponNames);
+            
+            WriteWeaponDescription(1105000, "100% droprate mod\n\nDroprates have been modified.");
 
             for (int i = 0; i < 62; i++)
             {
                 _loadingScreenItems.WriteUint32(i * 4, 0x0010DC68);
             }
-
-
-            var paramResCap = _soloParamMan.CreatePointerFromAddress(0x570);
-            var headerStart = paramResCap.CreatePointerFromAddress(0x38);
             
-            var parameters = ParamReader.ReadParam<ItemLotParam>(headerStart);
-
-            var bkh = parameters.Find(i => i.Id == 27901000);
-            bkh.LotItemBasePoint01 = 0;
-            bkh.LotItemBasePoint02 = 100;
-            bkh.LotItemBasePoint03 = 0;
-
-            foreach (var param in parameters)
+            WriteItemLotParam(27901000, (bkh) =>
             {
-
-            }
+                bkh.LotItemBasePoint01 = 0;
+                bkh.LotItemBasePoint02 = 100;
+                bkh.LotItemBasePoint03 = 0;
+            });
 
             return new object();
         }
-        
 
+        /// <summary>
+        /// Provides an accessor to an itemLotParam. Do not capture this object; it's lifecycle will be managed efficiently. Only modify the itemlots via this accessor.
+        /// </summary>
+        public void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor)
+        {
+            if (!_itemLotParams.Any())
+            {
+                var paramResCap = _soloParamMan.CreatePointerFromAddress(0x570);
+                var headerStart = paramResCap.CreatePointerFromAddress(0x38);
+                _itemLotParams = ParamReader.ReadParam<ItemLotParam>(headerStart);
+            }
+
+            var itemLotParam = _itemLotParams.Find(i => i.Id == rowId);
+            accessor(itemLotParam);
+        }
 
         #region Refresh/init/reset ================================================================================================================================
 
@@ -101,8 +103,37 @@ namespace SoulMemory.DarkSouls1
         private readonly Pointer _getRegion = new Pointer();
         private readonly Pointer _soloParamMan = new Pointer();
         private readonly Pointer _loadingScreenItems = new Pointer();
+        private readonly Pointer _msgMan = new Pointer();
         private int? _steamId3;
         private bool? _isJapanese;
+        private List<ItemLotParam> _itemLotParams = new List<ItemLotParam>();
+        private List<TextTableEntry> _weaponDescriptionsTable = new List<TextTableEntry>();
+
+        public void WriteWeaponDescription(uint weaponId, string description)
+        {
+            var weaponDescriptionsPointer = _msgMan.CreatePointerFromAddress(0x358);
+
+            if (!_weaponDescriptionsTable.Any())
+            {
+                _weaponDescriptionsTable = ParamReader.GetTextTables(weaponDescriptionsPointer);
+            }
+
+            var weaponDescription = _weaponDescriptionsTable.Find(i => i.ItemHighRange == weaponId);
+
+            var dataOffset = weaponDescriptionsPointer.ReadInt32(0x14);
+            var textOffset = weaponDescriptionsPointer.ReadInt32(dataOffset + weaponDescription.DataOffset * 4);
+            weaponDescriptionsPointer.ReadUnicodeString(out int length, offset: textOffset);
+            
+            var buffer = Encoding.Unicode.GetBytes(description);
+            var bytes = new byte[length];
+            Array.Copy(buffer, bytes, buffer.Length);
+            weaponDescriptionsPointer.WriteBytes(textOffset, bytes);
+        }
+
+        public void WriteItemLot(uint rowId, uint itemLotId)
+        {
+
+        }
 
         public Process GetProcess() => _process;
 
@@ -122,6 +153,9 @@ namespace SoulMemory.DarkSouls1
             _getRegion.Clear();
             _soloParamMan.Clear();
             _loadingScreenItems.Clear();
+            _msgMan.Clear();
+            _itemLotParams.Clear();
+            _weaponDescriptionsTable.Clear();
             _steamId3 = null;
             _isJapanese = null;
         }
@@ -203,6 +237,11 @@ namespace SoulMemory.DarkSouls1
             treeBuilder
                 .ScanRelative("LoadingScreenItems", "48 8d 0d ? ? ? ? 8b 0c 81 89 8f 20 02 00 00", 3, 7)
                 .AddPointer(_loadingScreenItems)
+                ;
+
+            treeBuilder
+                .ScanRelative("MsgMan", "48 8b 35 ? ? ? ? 33 db 8b f9 8b ea 83 f9 5c", 3, 7)
+                .AddPointer(_msgMan, 0)
                 ;
 
             return treeBuilder;
