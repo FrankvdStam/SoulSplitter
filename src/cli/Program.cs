@@ -37,13 +37,34 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            DropMod dropMod = null;
+            bool init = false;
             GameLoop<DarkSouls1>((ds1) =>
             {
-                if (ds1.GetTestValue() != null)
+
+                var remastered = (Remastered)ds1.GetTestValue();
+                
+                if (dropMod == null)
                 {
-                    Console.WriteLine("installed");
-                    return;
+                    dropMod = new DropMod(remastered);
+                    dropMod.InitAllAchievements();
                 }
+                else
+                {
+                    dropMod.UpdateAllAchievements();
+                }
+
+
+
+                //if (!init)
+                //{
+                //    init = remastered.DropModInit();
+                //    Console.WriteLine("installed");
+                //}
+                //else
+                //{
+                //    remastered.DropModUpdate();
+                //}
             });
 
 

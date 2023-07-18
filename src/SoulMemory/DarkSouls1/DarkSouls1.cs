@@ -63,7 +63,7 @@ namespace SoulMemory.DarkSouls1
                     {
                         _darkSouls1 = new Remastered();
                     }
-                    return Result.Ok();
+                    return _darkSouls1.TryRefresh();
                 }
                 else
                 {

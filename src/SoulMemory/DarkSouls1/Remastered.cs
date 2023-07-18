@@ -31,6 +31,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory.DarkSouls1.Parameters;
+using SoulMemory.Memory;
+using SoulMemory.Native;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,37 +41,152 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using SoulMemory.DarkSouls1.Parameters;
-using SoulMemory.Memory;
-using SoulMemory.Native;
 using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.DarkSouls1
 {
     public class Remastered : IDarkSouls1
     {
-        public object GetTestValue()
+        public bool DropModInit()
         {
-            if (_soloParamMan.IsNullPtr())
+            if (_msgMan.IsNullPtr())
             {
-                return null;
+                return false;
             }
-            
+
+
             WriteWeaponDescription(1105000, "100% droprate mod\n\nDroprates have been modified.");
 
             for (int i = 0; i < 62; i++)
             {
                 _loadingScreenItems.WriteUint32(i * 4, 0x0010DC68);
             }
-            
-            WriteItemLotParam(27901000, (bkh) =>
+
+            DropModReset();
+
+            return true;
+        }
+
+        public void DropModReset()
+        {
+            _switchSilverKnightStraightSword = true;
+            _switchSilverKnightSpear = true;
+            _switchGiantStoneSword = true;
+
+            WriteItemLotParam(27901000, (itemLot) =>
             {
-                bkh.LotItemBasePoint01 = 0;
-                bkh.LotItemBasePoint02 = 100;
-                bkh.LotItemBasePoint03 = 0;
+                itemLot.LotItemBasePoint01 = 0;
+                itemLot.LotItemBasePoint02 = 100;
+                itemLot.LotItemBasePoint03 = 0;
             });
 
-            return new object();
+            WriteItemLotParam(24100000, (itemLot) =>
+            {
+                itemLot.LotItemBasePoint01 = 0;
+                itemLot.LotItemBasePoint02 = 100;
+                itemLot.LotItemBasePoint03 = 0;
+            });
+
+            WriteItemLotParam(24100300, (itemLot) =>
+            {
+                itemLot.LotItemBasePoint01 = 0;
+                itemLot.LotItemBasePoint02 = 100;
+                itemLot.LotItemBasePoint03 = 0;
+            });
+
+            WriteItemLotParam(23800000, (itemLot) =>
+            {
+                itemLot.LotItemBasePoint01 = 0;
+                itemLot.LotItemBasePoint02 = 100;
+                itemLot.LotItemBasePoint03 = 0;
+            });
+
+        }
+
+        private bool _switchSilverKnightStraightSword = true;
+        private bool _switchSilverKnightSpear = true;
+        private bool _switchGiantStoneSword = true;
+
+        public void DropModUpdate()
+        {
+            void SwitchItemLotIfRequired(ref bool shouldSwitch, List<Item> inventory, ItemType itemType, int rowId, Action<ItemLotParam> switchAction)
+            {
+                if (shouldSwitch && inventory.Any(i => i.ItemType == itemType))
+                {
+                    Console.WriteLine($"switching lot {rowId}");
+                    WriteItemLotParam(rowId, switchAction);
+                    shouldSwitch = false;
+                }
+            }
+
+            if (_switchSilverKnightStraightSword || _switchSilverKnightSpear || _switchGiantStoneSword)
+            {
+                var inventory = GetInventory();
+
+                SwitchItemLotIfRequired(ref _switchSilverKnightStraightSword, inventory, ItemType.SilverKnightStraightSword, 24100000, (itemLot) =>
+                {
+                    itemLot.LotItemBasePoint01 = 0;
+                    itemLot.LotItemBasePoint02 = 0;
+                    itemLot.LotItemBasePoint03 = 100;
+
+                });
+
+                SwitchItemLotIfRequired(ref _switchSilverKnightSpear, inventory, ItemType.SilverKnightSpear, 24100300, (itemLot) =>
+                {
+                    itemLot.LotItemBasePoint01 = 0;
+                    itemLot.LotItemBasePoint02 = 0;
+                    itemLot.LotItemBasePoint03 = 100;
+                });
+
+                SwitchItemLotIfRequired(ref _switchGiantStoneSword, inventory, ItemType.StoneGreatsword, 23800000, (itemLot) =>
+                {
+                    itemLot.LotItemBasePoint01 = 0;
+                    itemLot.LotItemBasePoint02 = 0;
+                    itemLot.LotItemBasePoint03 = 100;
+                });
+            }
+        }
+
+        public void SetLoadingScreenItem(uint item)
+        {
+            for (int i = 0; i < 62; i++)
+            {
+                _loadingScreenItems.WriteUint32(i * 4, item);
+            }
+        }
+
+        private void SetGuaranteedDrop(uint itemId)
+        {
+
+
+
+        }
+
+
+        public object GetTestValue()
+        {
+            return this;
+
+            //if (_soloParamMan.IsNullPtr())
+            //{
+            //    return null;
+            //}
+            //
+            //WriteWeaponDescription(1105000, "100% droprate mod\n\nDroprates have been modified.");
+            //
+            //for (int i = 0; i < 62; i++)
+            //{
+            //    _loadingScreenItems.WriteUint32(i * 4, 0x0010DC68);
+            //}
+            //
+            //WriteItemLotParam(27901000, (bkh) =>
+            //{
+            //    bkh.LotItemBasePoint01 = 0;
+            //    bkh.LotItemBasePoint02 = 100;
+            //    bkh.LotItemBasePoint03 = 0;
+            //});
+            //
+            //return new object();
         }
 
         /// <summary>
@@ -128,11 +246,6 @@ namespace SoulMemory.DarkSouls1
             var bytes = new byte[length];
             Array.Copy(buffer, bytes, buffer.Length);
             weaponDescriptionsPointer.WriteBytes(textOffset, bytes);
-        }
-
-        public void WriteItemLot(uint rowId, uint itemLotId)
-        {
-
         }
 
         public Process GetProcess() => _process;
