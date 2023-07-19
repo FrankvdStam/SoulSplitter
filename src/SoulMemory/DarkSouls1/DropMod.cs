@@ -40,7 +40,7 @@ namespace SoulMemory.DarkSouls1
 
         public void InitAllAchievements()
         {
-            _remastered.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear\nGiant Stone Sword/Shield\nChanneler's Trident\nSouvenir of Reprisal\n\n\n\n\n\nBy Ducksual & Wasted");
+            _remastered.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\n\n\n\n\n\nBy Ducksual & Wasted");
             _remastered.SetLoadingScreenItem(1004000);
             
             //trident
