@@ -120,7 +120,7 @@ namespace SoulMemory.DarkSouls1
             new SwitchableDrop(ItemType.BlackKnightSword         , 27900000, 1105000, 1474000),
 
             //Asylum
-            new SwitchableDrop(ItemType.BlackKnightSword         , 27907000, 1105000, 1474000),
+            new SwitchableDrop(ItemType.BlackKnightSword         , 27907000, 310000 , 1474000),
 
             //Catacombs
             new SwitchableDrop(ItemType.BlackKnightGreataxe      , 27902000, 753000 , 1474000),
