@@ -47,164 +47,6 @@ namespace SoulMemory.DarkSouls1
 {
     public class Remastered : IDarkSouls1
     {
-        public bool DropModInit()
-        {
-            if (_msgMan.IsNullPtr())
-            {
-                return false;
-            }
-
-
-            WriteWeaponDescription(1105000, "100% droprate mod\n\nDroprates have been modified.");
-
-            for (int i = 0; i < 62; i++)
-            {
-                _loadingScreenItems.WriteUint32(i * 4, 0x0010DC68);
-            }
-
-            DropModReset();
-
-            return true;
-        }
-
-        public void DropModReset()
-        {
-            _switchSilverKnightStraightSword = true;
-            _switchSilverKnightSpear = true;
-            _switchGiantStoneSword = true;
-
-            WriteItemLotParam(27901000, (itemLot) =>
-            {
-                itemLot.LotItemBasePoint01 = 0;
-                itemLot.LotItemBasePoint02 = 100;
-                itemLot.LotItemBasePoint03 = 0;
-            });
-
-            WriteItemLotParam(24100000, (itemLot) =>
-            {
-                itemLot.LotItemBasePoint01 = 0;
-                itemLot.LotItemBasePoint02 = 100;
-                itemLot.LotItemBasePoint03 = 0;
-            });
-
-            WriteItemLotParam(24100300, (itemLot) =>
-            {
-                itemLot.LotItemBasePoint01 = 0;
-                itemLot.LotItemBasePoint02 = 100;
-                itemLot.LotItemBasePoint03 = 0;
-            });
-
-            WriteItemLotParam(23800000, (itemLot) =>
-            {
-                itemLot.LotItemBasePoint01 = 0;
-                itemLot.LotItemBasePoint02 = 100;
-                itemLot.LotItemBasePoint03 = 0;
-            });
-
-        }
-
-        private bool _switchSilverKnightStraightSword = true;
-        private bool _switchSilverKnightSpear = true;
-        private bool _switchGiantStoneSword = true;
-
-        public void DropModUpdate()
-        {
-            void SwitchItemLotIfRequired(ref bool shouldSwitch, List<Item> inventory, ItemType itemType, int rowId, Action<ItemLotParam> switchAction)
-            {
-                if (shouldSwitch && inventory.Any(i => i.ItemType == itemType))
-                {
-                    Console.WriteLine($"switching lot {rowId}");
-                    WriteItemLotParam(rowId, switchAction);
-                    shouldSwitch = false;
-                }
-            }
-
-            if (_switchSilverKnightStraightSword || _switchSilverKnightSpear || _switchGiantStoneSword)
-            {
-                var inventory = GetInventory();
-
-                SwitchItemLotIfRequired(ref _switchSilverKnightStraightSword, inventory, ItemType.SilverKnightStraightSword, 24100000, (itemLot) =>
-                {
-                    itemLot.LotItemBasePoint01 = 0;
-                    itemLot.LotItemBasePoint02 = 0;
-                    itemLot.LotItemBasePoint03 = 100;
-
-                });
-
-                SwitchItemLotIfRequired(ref _switchSilverKnightSpear, inventory, ItemType.SilverKnightSpear, 24100300, (itemLot) =>
-                {
-                    itemLot.LotItemBasePoint01 = 0;
-                    itemLot.LotItemBasePoint02 = 0;
-                    itemLot.LotItemBasePoint03 = 100;
-                });
-
-                SwitchItemLotIfRequired(ref _switchGiantStoneSword, inventory, ItemType.StoneGreatsword, 23800000, (itemLot) =>
-                {
-                    itemLot.LotItemBasePoint01 = 0;
-                    itemLot.LotItemBasePoint02 = 0;
-                    itemLot.LotItemBasePoint03 = 100;
-                });
-            }
-        }
-
-        public void SetLoadingScreenItem(uint item)
-        {
-            for (int i = 0; i < 62; i++)
-            {
-                _loadingScreenItems.WriteUint32(i * 4, item);
-            }
-        }
-
-        private void SetGuaranteedDrop(uint itemId)
-        {
-
-
-
-        }
-
-
-        public object GetTestValue()
-        {
-            return this;
-
-            //if (_soloParamMan.IsNullPtr())
-            //{
-            //    return null;
-            //}
-            //
-            //WriteWeaponDescription(1105000, "100% droprate mod\n\nDroprates have been modified.");
-            //
-            //for (int i = 0; i < 62; i++)
-            //{
-            //    _loadingScreenItems.WriteUint32(i * 4, 0x0010DC68);
-            //}
-            //
-            //WriteItemLotParam(27901000, (bkh) =>
-            //{
-            //    bkh.LotItemBasePoint01 = 0;
-            //    bkh.LotItemBasePoint02 = 100;
-            //    bkh.LotItemBasePoint03 = 0;
-            //});
-            //
-            //return new object();
-        }
-
-        /// <summary>
-        /// Provides an accessor to an itemLotParam. Do not capture this object; it's lifecycle will be managed efficiently. Only modify the itemlots via this accessor.
-        /// </summary>
-        public void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor)
-        {
-            if (!_itemLotParams.Any())
-            {
-                var paramResCap = _soloParamMan.CreatePointerFromAddress(0x570);
-                var headerStart = paramResCap.CreatePointerFromAddress(0x38);
-                _itemLotParams = ParamReader.ReadParam<ItemLotParam>(headerStart);
-            }
-
-            var itemLotParam = _itemLotParams.Find(i => i.Id == rowId);
-            accessor(itemLotParam);
-        }
-
         #region Refresh/init/reset ================================================================================================================================
 
         private Process _process;
@@ -226,27 +68,6 @@ namespace SoulMemory.DarkSouls1
         private bool? _isJapanese;
         private List<ItemLotParam> _itemLotParams = new List<ItemLotParam>();
         private List<TextTableEntry> _weaponDescriptionsTable = new List<TextTableEntry>();
-
-        public void WriteWeaponDescription(uint weaponId, string description)
-        {
-            var weaponDescriptionsPointer = _msgMan.CreatePointerFromAddress(0x358);
-
-            if (!_weaponDescriptionsTable.Any())
-            {
-                _weaponDescriptionsTable = ParamReader.GetTextTables(weaponDescriptionsPointer);
-            }
-
-            var weaponDescription = _weaponDescriptionsTable.Find(i => i.ItemHighRange == weaponId);
-
-            var dataOffset = weaponDescriptionsPointer.ReadInt32(0x14);
-            var textOffset = weaponDescriptionsPointer.ReadInt32(dataOffset + weaponDescription.DataOffset * 4);
-            weaponDescriptionsPointer.ReadUnicodeString(out int length, offset: textOffset);
-            
-            var buffer = Encoding.Unicode.GetBytes(description);
-            var bytes = new byte[length];
-            Array.Copy(buffer, bytes, buffer.Length);
-            weaponDescriptionsPointer.WriteBytes(textOffset, bytes);
-        }
 
         public Process GetProcess() => _process;
 
@@ -339,9 +160,7 @@ namespace SoulMemory.DarkSouls1
                 .ScanAbsolute("GetRegion", "40 53 48 83 ec 20 bb 02 00 00 00", 0)
                     .AddPointer(_getRegion, 0)
                     ;
-
-            //570 - itemlot
-            //1C8 - npcparam
+            
             treeBuilder
                 .ScanRelative("SoloParamMan", "4C 8B 05 ? ? ? ? 48 63 C9 48 8D 04 C9", 3, 7)
                     .AddPointer(_soloParamMan, 0)
@@ -349,13 +168,13 @@ namespace SoulMemory.DarkSouls1
 
             treeBuilder
                 .ScanRelative("LoadingScreenItems", "48 8d 0d ? ? ? ? 8b 0c 81 89 8f 20 02 00 00", 3, 7)
-                .AddPointer(_loadingScreenItems)
-                ;
+                    .AddPointer(_loadingScreenItems)
+                    ;
 
             treeBuilder
                 .ScanRelative("MsgMan", "48 8b 35 ? ? ? ? 33 db 8b f9 8b ea 83 f9 5c", 3, 7)
-                .AddPointer(_msgMan, 0)
-                ;
+                    .AddPointer(_msgMan, 0)
+                    ;
 
             return treeBuilder;
         }
@@ -673,6 +492,53 @@ e:  41 ff d6                call   r14
             var isJapanese = _process.ReadMemory<int>(resultPtr.ToInt64()).Unwrap() == 0;
             _process.Free(resultPtr);
             return isJapanese;
+        }
+
+        public void SetLoadingScreenItem(int index, uint item)
+        {
+            _loadingScreenItems.WriteUint32(index * 4, item);
+        }
+
+        public object GetTestValue()
+        {
+            return this;
+        }
+
+        /// <summary>
+        /// Provides an accessor to an itemLotParam. Do not capture this object; it's lifecycle will be managed efficiently. Only modify the itemlots via this accessor.
+        /// </summary>
+        public void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor)
+        {
+            if (!_itemLotParams.Any())
+            {
+                var paramResCap = _soloParamMan.CreatePointerFromAddress(0x570);
+                var headerStart = paramResCap.CreatePointerFromAddress(0x38);
+                _itemLotParams = ParamReader.ReadParam<ItemLotParam>(headerStart);
+            }
+
+            var itemLotParam = _itemLotParams.Find(i => i.Id == rowId);
+            accessor(itemLotParam);
+        }
+
+        public void WriteWeaponDescription(uint weaponId, string description)
+        {
+            var weaponDescriptionsPointer = _msgMan.CreatePointerFromAddress(0x358);
+
+            if (!_weaponDescriptionsTable.Any())
+            {
+                _weaponDescriptionsTable = ParamReader.GetTextTables(weaponDescriptionsPointer);
+            }
+
+            var weaponDescription = _weaponDescriptionsTable.Find(i => i.ItemHighRange == weaponId);
+
+            var dataOffset = weaponDescriptionsPointer.ReadInt32(0x14);
+            var textOffset = weaponDescriptionsPointer.ReadInt32(dataOffset + weaponDescription.DataOffset * 4);
+            weaponDescriptionsPointer.ReadUnicodeString(out int length, offset: textOffset);
+
+            var buffer = Encoding.Unicode.GetBytes(description);
+            var bytes = new byte[length];
+            Array.Copy(buffer, bytes, buffer.Length);
+            weaponDescriptionsPointer.WriteBytes(textOffset, bytes);
         }
     }
 }

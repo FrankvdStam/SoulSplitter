@@ -27,6 +27,7 @@ using SoulMemory.Sekiro;
 using SoulMemory;
 using SoulMemory.DarkSouls1.Parameters;
 using SoulSplitter.UI.Generic;
+using System.Security.Cryptography;
 
 #pragma warning disable CS0162
 
@@ -37,99 +38,65 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            DropMod dropMod = null;
-            bool init = false;
-            GameLoop<DarkSouls1>((ds1) =>
-            {
-
-                var remastered = (Remastered)ds1.GetTestValue();
-                
-                if (dropMod == null)
-                {
-                    dropMod = new DropMod(remastered);
-                    dropMod.InitAllAchievements();
-                }
-                else
-                {
-                    dropMod.UpdateAllAchievements();
-                }
-
-
-
-                //if (!init)
-                //{
-                //    init = remastered.DropModInit();
-                //    Console.WriteLine("installed");
-                //}
-                //else
-                //{
-                //    remastered.DropModUpdate();
-                //}
-            });
-
-
-            
-            GameLoop<EldenRing>((er) =>
-            {
-                Console.WriteLine(er.GetInGameTimeMilliseconds());
-                Console.WriteLine(er.GetPosition());
-                Console.WriteLine(er.ReadEventFlag((uint)SoulMemory.EldenRing.ItemPickup.LDChapelOfAnticipationTarnishedsWizenedFinger));
-            });
-
-            return;
-
-
-            ValidatePatterns(); return;
-            TestUi();
-            return;
-            
-
-
-            var sekiro = new Sekiro();
-            sekiro.TryRefresh();
-            
-            var flagWatcher = new FlagWatcher(sekiro, Enumerable.Range(6000, 1000).ToList().Select(i => (uint)i));
-            while (true)
-            {
-                if (sekiro.TryRefresh().IsOk)
-                {
-                    var before1 = sekiro.ReadEventFlag(6051);
-                    var before2 = sekiro.ReadEventFlag(6059);
-
-                    sekiro.WriteEventFlag(6051, true);
-                    sekiro.WriteEventFlag(6059, true);
-
-                    var after1 = sekiro.ReadEventFlag(6051);
-                    var after2 = sekiro.ReadEventFlag(6059);
-
-                    var changes = flagWatcher.Update();
-                    foreach (var change in changes)
-                    {
-                        Console.WriteLine($"{change.Key} {change.Value}");
-                    }
-                }
-            }
-
-
-            
-            ////ValidatePatterns(); return;
-            //
-            
-
-
-            //GameLoop<DarkSouls1>((ds1) =>
-            //{
-            //    Console.WriteLine(ds1.GetInGameTimeMilliseconds());
-            //    Console.WriteLine(ds1.ReadEventFlag((uint)SoulMemory.DarkSouls1.Boss.AsylumDemon));
-            //    Console.WriteLine(ds1.GetSaveFileLocation());
-            //});
-
-            GameLoop<Sekiro>((game) =>
-            {
-                Console.WriteLine(game.GetInGameTimeMilliseconds());
-            });
+            DropModAA();
         }
 
+
+        private static void DropModBkh()
+        {
+            DropMod((ds, d) => d.InitBkh(), (ds, d) => {});
+        }
+
+        private static void DropModAA()
+        {
+            DropMod((ds, d) => d.InitAllAchievements(), (ds, d) => d.UpdateAllAchievements());
+        }
+
+        private static void DropMod(Action<DarkSouls1, DropMod> install, Action<DarkSouls1, DropMod> update)
+        {
+            var darkSouls1 = new DarkSouls1();
+            var dropMod = new DropMod(darkSouls1);
+            var hasInitialized = false;
+            while (true)
+            {
+                try
+                {
+                    var result = darkSouls1.TryRefresh();
+
+                    //Detect first time attaching 
+                    if (!hasInitialized && result.IsOk)
+                    {
+                        Thread.Sleep(3000); //Let the game boot
+                        install(darkSouls1, dropMod);
+                        hasInitialized = true;
+                    }
+                    
+                    if (result.IsErr)
+                    {
+                        hasInitialized = false;
+                        var err = result.GetErr();
+                        Console.Clear();
+                        Console.WriteLine(err.ToString());
+                        Console.Out.Flush();
+                        Thread.Sleep(3000);
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        update(darkSouls1, dropMod);
+                        Thread.Sleep(16);
+                        Console.SetCursorPosition(0, 0);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Clear();
+                    Console.WriteLine(e.ToString());
+                    Thread.Sleep(3000);
+                    hasInitialized = false;
+                }
+            }
+        }
 
         private static void GameLoop<T>(Action<T> display) where T : IGame, new()
         {
@@ -206,8 +173,8 @@ namespace cli
         {
             var validatables = new List<(string Name, IGame Game, string Directory)>()
             {
-                //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
-                ("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
+                ("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
+                //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
                 //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
                 //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),

@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory.DarkSouls1.Parameters;
+using System;
 using System.Collections.Generic;
 
 namespace SoulMemory.DarkSouls1
@@ -33,6 +35,9 @@ namespace SoulMemory.DarkSouls1
         BonfireState GetBonfireState(Bonfire bonfire);
         string GetSaveFileLocation();
         int GetSaveFileGameTimeMilliseconds(string path, int slot);
+        void WriteWeaponDescription(uint weaponId, string description);
+        void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor);
+        void SetLoadingScreenItem(int index, uint item);
 
 #if DEBUG
         object GetTestValue();

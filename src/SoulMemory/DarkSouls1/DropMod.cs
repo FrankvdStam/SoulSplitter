@@ -19,34 +19,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SoulMemory.DarkSouls1.Parameters;
+using SoulMemory.EldenRing;
 
 namespace SoulMemory.DarkSouls1
 {
     public class DropMod
     {
-        private readonly Remastered _remastered;
+        private readonly DarkSouls1 _darkSouls;
 
-        public DropMod(Remastered remastered)
+        public DropMod(DarkSouls1 darkSouls)
         {
-            _remastered = remastered;
+            _darkSouls = darkSouls;
         }
 
         public void InitBkh()
         {
-            _remastered.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\n\n\n\n\n\n\n\n\n\nBy Ducksual & Wasted");
-            _remastered.SetLoadingScreenItem(0x0010DC68);
+            _darkSouls.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\n\n\n\n\n\n\n\n\n\nBy Ducksual & Wasted");
+            for (int i = 0; i < 62; i++)
+            {
+                _darkSouls.SetLoadingScreenItem(i, 1105000);
+            }
             GuaranteeDrop(27901000, 1105000);
         }
 
         public void InitAllAchievements()
         {
-            _remastered.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\n\n\n\n\n\nBy Ducksual & Wasted");
-            _remastered.SetLoadingScreenItem(1004000);
+            _darkSouls.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\n\n\n\n\n\nBy Ducksual & Wasted");
+
+            for (int i = 0; i < 62; i++)
+            {
+                _darkSouls.SetLoadingScreenItem(i, 1004000);
+            }
             
             //trident
             GuaranteeDrop(23700000, 1004000);
             GuaranteeDrop(23700100, 1004000);
             GuaranteeDrop(23700200, 1004000);
+
+            //Eye of death
+            GuaranteeDrop(32700000, 109);
+            GuaranteeDrop(32700100, 109);
 
             //Souvenir
             GuaranteeDrop(23100000, 374);
@@ -59,7 +71,7 @@ namespace SoulMemory.DarkSouls1
 
         public void UpdateAllAchievements()
         {
-            var items = _remastered.GetInventory();
+            var items = _darkSouls.GetInventory();
 
             foreach (SwitchableDrop temp in _switchableWeapons)
             {
@@ -84,7 +96,7 @@ namespace SoulMemory.DarkSouls1
 
         private void GuaranteeDrop(int rowId, int itemId)
         {
-            _remastered.WriteItemLotParam(rowId, (itemLot) =>
+            _darkSouls.WriteItemLotParam(rowId, (itemLot) =>
             {
                 itemLot.LotItemBasePoint01 = (ushort)(itemLot.LotItemId01 == itemId ? 100 : 0);
                 itemLot.LotItemBasePoint02 = (ushort)(itemLot.LotItemId02 == itemId ? 100 : 0);

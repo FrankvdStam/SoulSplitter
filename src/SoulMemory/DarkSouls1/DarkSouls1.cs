@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory.DarkSouls1.Parameters;
 using SoulMemory.Memory;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,11 @@ namespace SoulMemory.DarkSouls1
         public BonfireState GetBonfireState(Bonfire bonfire) => _darkSouls1?.GetBonfireState(bonfire) ?? BonfireState.Unknown;
         public string GetSaveFileLocation() => _darkSouls1?.GetSaveFileLocation();
         public int GetSaveFileGameTimeMilliseconds(string path, int slot) => _darkSouls1?.GetSaveFileGameTimeMilliseconds(path, slot) ?? 0;
-       
+        public void WriteWeaponDescription(uint weaponId, string description) => _darkSouls1?.WriteWeaponDescription(weaponId, description);
+        public void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor) => _darkSouls1?.WriteItemLotParam(rowId, accessor);
+        public void SetLoadingScreenItem(int index, uint item) => _darkSouls1?.SetLoadingScreenItem(index, item);
+
+
         public TreeBuilder GetTreeBuilder() => _darkSouls1.GetTreeBuilder();
 
         public ResultErr<RefreshError> TryRefresh()

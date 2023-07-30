@@ -35,7 +35,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
+using SoulMemory.DarkSouls1.Parameters;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 
@@ -56,6 +58,11 @@ namespace SoulMemory.DarkSouls1
         private readonly Pointer _netBonfireDb = new Pointer();
         private readonly Pointer _saveInfo = new Pointer();
         private readonly Pointer _menuMan = new Pointer();
+        private readonly Pointer _soloParamMan = new Pointer();
+        private readonly Pointer _msgMan = new Pointer();
+        private readonly Pointer _loadingScreenItems = new Pointer();
+        private List<ItemLotParam> _itemLotParams = new List<ItemLotParam>();
+        private List<TextTableEntry> _weaponDescriptionsTable = new List<TextTableEntry>();
 
         public Process GetProcess() => _process;
 
@@ -99,6 +106,22 @@ namespace SoulMemory.DarkSouls1
                 .ScanAbsolute("SaveInfo", "8b 0d ? ? ? ? 39 35 ? ? ? ? 73 05 b9", 2) //00 00 00 00 66 89 0D ? ? ? ? C3 CC CC CC CC CC 83 3D
                     .AddPointer(_saveInfo, 0);
 
+            treeBuilder
+                .ScanAbsolute("SoloParamMan", "83 c4 0c 89 35 ? ? ? ? 5e c3 a3", 5)
+                    .AddPointer(_soloParamMan, 0, 0);
+
+            treeBuilder
+                .ScanAbsolute("LoadingScreenItems", "8b 96 10 01 00 00 8b 04 95 ? ? ? ? 8d be 08 01 00 00", 9)
+                    .AddPointer(_loadingScreenItems, 0);
+            
+
+            treeBuilder
+                .ScanAbsolute("MsgMan", "c7 44 24 18 ff ff ff ff a3 ? ? ? ? e8 ? ? ? ? 8b 4c 24 10", 9)
+                    .AddPointer(_msgMan, 0, 0);
+
+
+            //83 c4 0c 89 35 ? ? ? ? 5e c3 a3
+
             return treeBuilder;
         }
         
@@ -113,6 +136,11 @@ namespace SoulMemory.DarkSouls1
             _netBonfireDb.Clear();
             _menuMan.Clear();
             _saveInfo.Clear();
+            _soloParamMan.Clear();
+            _msgMan.Clear();
+            _loadingScreenItems.Clear();
+            _itemLotParams.Clear();
+            _weaponDescriptionsTable.Clear();
         }
 
         private ResultErr<RefreshError> InitPointers()
@@ -226,14 +254,13 @@ namespace SoulMemory.DarkSouls1
         }
 
 
+        
+
 
         public object GetTestValue()
         {
-            if (_gameMan == null)
-            {
-                return 0;
-            }
-            return _gameMan.ReadByte(0x11);
+            WriteWeaponDescription(1105000, "asdf");
+            return null;
         }
 
         public int GetSaveFileGameTimeMilliseconds(string path, int slot)
@@ -368,6 +395,53 @@ namespace SoulMemory.DarkSouls1
             }
         
             return Path.Combine(path, "DRAKS0005.sl2");
+        }
+
+        public void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor)
+        {
+            if (!_itemLotParams.Any())
+            {
+                var paramResCap = _soloParamMan.CreatePointerFromAddress(0x2b8);
+                var headerStart = paramResCap.CreatePointerFromAddress(0x20);
+                _itemLotParams = ParamReader.ReadParam<ItemLotParam>(headerStart);
+            }
+
+            var itemLotParam = _itemLotParams.Find(i => i.Id == rowId);
+            accessor(itemLotParam);
+        }
+
+        public void WriteWeaponDescription(uint weaponId, string description)
+        {
+            //weaponName 0x1d0 - 0x30
+            //weaponInfo 0x1cc - 0x58
+            //weaponCaption 0x1ac - 0x68
+            
+            //var weaponDescriptionsPointer = _msgMan.CreatePointerFromAddress(0x1ac);
+            var weaponDescriptionsPointer = _msgMan.CreatePointerFromAddress(0x68);
+
+            if (!_weaponDescriptionsTable.Any())
+            {
+                _weaponDescriptionsTable = ParamReader.GetTextTables(weaponDescriptionsPointer);
+            }
+
+            var weaponDescription = _weaponDescriptionsTable.Find(i => i.ItemHighRange == weaponId);
+
+            var dataPointer = weaponDescriptionsPointer.CreatePointerFromAddress(0x14);
+            var textOffset = dataPointer.ReadInt32(weaponDescription.DataOffset * 4);
+            var str = weaponDescriptionsPointer.ReadUnicodeString(out int length, offset: textOffset);
+            
+            var buffer = Encoding.Unicode.GetBytes(description);
+            var bytes = new byte[length];
+            Array.Copy(buffer, bytes, buffer.Length);
+            weaponDescriptionsPointer.WriteBytes(textOffset, bytes);
+        }
+
+        public void SetLoadingScreenItem(int index, uint item)
+        {
+            if (index < 62)
+            {
+                _loadingScreenItems.WriteUint32(index * 4, item);
+            }
         }
     }
 }
