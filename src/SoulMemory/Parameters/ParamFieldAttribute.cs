@@ -14,21 +14,40 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.Parameters
 {
     internal class ParamFieldAttribute : System.Attribute
     {
         public int Offset;
         public ParamType ParamType;
-
+        public int? ArraySize = null;
+        
         public ParamFieldAttribute(int offset, ParamType paramType)
         {
             Offset = offset;
             ParamType = paramType;
+        }
+
+        public ParamFieldAttribute(int offset, ParamType paramType, int arraySize)
+        {
+            Offset = offset;
+            ParamType = paramType;
+            ArraySize = arraySize;
+        }
+
+    }
+
+    internal class ParamBitFieldAttribute : System.Attribute
+    {
+        public string ParamFieldName;
+        public int BitsOffset;
+        public int Bits;
+
+        public ParamBitFieldAttribute(string paramFieldName, int bitsOffset, int bits)
+        {
+            ParamFieldName = paramFieldName;
+            BitsOffset = bitsOffset;
+            Bits = bits;
         }
     }
 }

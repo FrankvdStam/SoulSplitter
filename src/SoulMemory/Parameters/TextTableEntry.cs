@@ -18,14 +18,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.Parameters
 {
-    public class ParamTableEntry
+    public class TextTableEntry
     {
-        public int Id { get; set; }
+        public uint ItemLowRange { get; set; }
         public uint DataOffset { get; set; }
-        public uint NameOffset { get; set; }
+        public uint ItemHighRange { get; set; }
 
-        public override string ToString() => Id.ToString();
+        public override string ToString() => ItemLowRange.ToString();
     }
 }

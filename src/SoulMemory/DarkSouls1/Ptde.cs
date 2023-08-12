@@ -40,6 +40,7 @@ using System.Text;
 using SoulMemory.DarkSouls1.Parameters;
 using SoulMemory.Memory;
 using SoulMemory.Native;
+using SoulMemory.Parameters;
 
 namespace SoulMemory.DarkSouls1
 {

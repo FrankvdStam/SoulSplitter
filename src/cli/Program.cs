@@ -28,23 +28,41 @@ using SoulMemory;
 using SoulMemory.DarkSouls1.Parameters;
 using SoulSplitter.UI.Generic;
 using System.Security.Cryptography;
+using SoulMemory.Parameters;
 
 #pragma warning disable CS0162
 
 namespace cli
 {
     internal class Program
-    {        
+    {
         [STAThread]
         static void Main(string[] args)
         {
-            DropModAA();
+            //GenerateParams();
+
+            GameLoop<DarkSouls1>((souls1 =>
+            {
+                souls1.WriteWeaponDescription(1105000, "Testy");
+                //1105000
+                souls1.WriteItemLotParam(27901000, param =>
+                {
+                    param.LotItemBasePoint01 = 0;
+                    param.LotItemBasePoint02 = 100;
+                    param.LotItemBasePoint03 = 0;
+
+                    param.LotItemNum02 = 99;
+
+                });
+            }));
+
+
         }
 
 
         private static void DropModBkh()
         {
-            DropMod((ds, d) => d.InitBkh(), (ds, d) => {});
+            DropMod((ds, d) => d.InitBkh(), (ds, d) => { });
         }
 
         private static void DropModAA()
@@ -70,7 +88,7 @@ namespace cli
                         install(darkSouls1, dropMod);
                         hasInitialized = true;
                     }
-                    
+
                     if (result.IsErr)
                     {
                         hasInitialized = false;
@@ -122,7 +140,7 @@ namespace cli
                         Console.SetCursorPosition(0, 0);
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.Clear();
                     Console.WriteLine(e.ToString());
@@ -135,7 +153,7 @@ namespace cli
         {
             var (form, _, mainControl) = MainWindow.GetTestForm();
 
-            foreach(var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
+            foreach (var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
             {
                 mainControl.MainViewModel.EldenRingViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
                 mainControl.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
@@ -144,7 +162,10 @@ namespace cli
             }
 
             var flagTrackerViewModel = mainControl.MainViewModel.FlagTrackerViewModel;
-            flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel { CategoryName = "Undead burg", EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
+            flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
+            {
+                CategoryName = "Undead burg",
+                EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
             {
                 new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
                 new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
@@ -152,9 +173,13 @@ namespace cli
                 new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
                 new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
                 new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
-            }});
+            }
+            });
 
-            flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel { CategoryName = "Firelink shrine", EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
+            flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
+            {
+                CategoryName = "Firelink shrine",
+                EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
             {
                 new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
                 new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
@@ -162,8 +187,9 @@ namespace cli
                 new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
                 new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
                 new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
-            }});
-            
+            }
+            });
+
             form.ShowDialog();
 
         }
@@ -180,7 +206,7 @@ namespace cli
                 //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
             };
 
-            foreach(var validatable in validatables)
+            foreach (var validatable in validatables)
             {
                 var tree = validatable.Game.GetTreeBuilder();
                 var files = Directory.EnumerateFiles(validatable.Directory).ToList();
@@ -189,7 +215,7 @@ namespace cli
 
                 var s = new Stopwatch();
                 s.Start();
-                
+
                 if (!SoulMemory.Memory.MemoryScanner.TryValidatePatterns(tree, files, out List<(string fileName, string patternName, long count)> errors))
                 {
                     foreach (var error in errors)
@@ -325,6 +351,49 @@ namespace cli
 
                 Thread.Sleep(16);
             }
+        }
+
+        #endregion
+
+        #region Param generation
+
+        private static void GenerateParams()
+        {
+            var classHeader = @"// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+// Copyright (c) 2022 Frank van der Stam.
+// https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, version 3.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+using SoulMemory.Memory;
+using SoulMemory.Parameters;
+using System;
+
+namespace SoulMemory.DarkSouls1.Parameters
+{";
+
+            var files = Directory.EnumerateFiles(@"C:\Users\Frank\Desktop\DS modders tools\DSMapStudio-1.08\Assets\Paramdex\DS1R\Defs").ToList();
+            foreach (var f in files)
+            {
+                var fileName = Path.GetFileName(f);
+                var className = fileName.Replace(".xml", "");
+                fileName = fileName.Replace(".xml", ".cs");
+                var result = ParamClassGenerator.GenerateFromXml(File.ReadAllText(f), className, classHeader);
+                File.WriteAllText(@"C:\temp\" + fileName, result);
+            }
+
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
         }
 
         #endregion

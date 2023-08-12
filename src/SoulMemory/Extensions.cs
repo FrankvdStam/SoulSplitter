@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace SoulMemory
@@ -55,5 +56,29 @@ namespace SoulMemory
             }
             throw new ArgumentException($"{childName} not found");
         }
+
+        public static IEnumerable<XmlNode> Enumerate(this XmlNodeList list)
+        {
+            foreach (XmlNode node in list)
+            {
+                yield return node;
+            }
+        }
+
+        public static bool IsBitSet(this long l, int index)
+        {
+            return (l & ((long)0x1 << index)) != 0;
+        }
+
+        public static long SetBit(this long l, int index)
+        {
+            return l | ((long)0x1 << index);
+        }
+
+        public static long ClearBit(this long l, int index)
+        {
+            return l & ~((long)0x1 << index);
+        }
+
     }
 }

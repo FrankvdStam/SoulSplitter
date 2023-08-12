@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.Parameters
 {
-    internal enum ParamType
+    public enum ParamType
     {
         U8,
         I8,
@@ -25,5 +25,6 @@ namespace SoulMemory.DarkSouls1.Parameters
         U32,
         I32,
         F32,
+        Dummy8,
     }
 }

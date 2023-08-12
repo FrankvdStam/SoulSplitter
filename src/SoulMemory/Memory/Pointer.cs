@@ -303,6 +303,12 @@ namespace SoulMemory.Memory
             WriteMemory(offset, new byte[] { value });
         }
 
+        public void WriteSByte(long? offset, sbyte value)
+        {
+            var b = unchecked((byte)value);
+            WriteMemory(offset, new byte[] { b });
+        }
+
         public void WriteBytes(long? offset, byte[] value)
         {
             WriteMemory(offset, value);
