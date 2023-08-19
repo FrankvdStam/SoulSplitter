@@ -39,8 +39,6 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            //GenerateParams();
-
             GameLoop<DarkSouls1>((souls1 =>
             {
                 souls1.WriteWeaponDescription(1105000, "Testy");
@@ -55,8 +53,6 @@ namespace cli
 
                 });
             }));
-
-
         }
 
 
