@@ -41,7 +41,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
 
                 <ResourceDictionary>
-                    <converters:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
                     <converters:SplitTypeVisibilityConverter      x:Key="SplitTypeVisibilityConverter"/>
 
                     <!-- Grid row definitions -->

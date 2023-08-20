@@ -28,7 +28,9 @@ using SoulMemory;
 using SoulMemory.DarkSouls1.Parameters;
 using SoulSplitter.UI.Generic;
 using System.Security.Cryptography;
+using System.Text;
 using SoulMemory.Parameters;
+using Item = SoulMemory.DarkSouls1.Item;
 
 #pragma warning disable CS0162
 
@@ -39,20 +41,9 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            GameLoop<DarkSouls1>((souls1 =>
-            {
-                souls1.WriteWeaponDescription(1105000, "Testy");
-                //1105000
-                souls1.WriteItemLotParam(27901000, param =>
-                {
-                    param.LotItemBasePoint01 = 0;
-                    param.LotItemBasePoint02 = 100;
-                    param.LotItemBasePoint03 = 0;
 
-                    param.LotItemNum02 = 99;
 
-                });
-            }));
+            TestUi();
         }
 
 
@@ -147,17 +138,16 @@ namespace cli
 
         public static void TestUi()
         {
-            var (form, _, mainControl) = MainWindow.GetTestForm();
-
+            var mainWindow = new MainWindow();
             foreach (var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
             {
-                mainControl.MainViewModel.EldenRingViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
-                mainControl.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
-                mainControl.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
-                mainControl.MainViewModel.EldenRingViewModel.AddSplit();
+                mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
+                mainWindow.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
+                mainWindow.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
+                mainWindow.MainViewModel.EldenRingViewModel.AddSplit();
             }
 
-            var flagTrackerViewModel = mainControl.MainViewModel.FlagTrackerViewModel;
+            var flagTrackerViewModel = mainWindow.MainViewModel.FlagTrackerViewModel;
             flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
             {
                 CategoryName = "Undead burg",
@@ -186,8 +176,26 @@ namespace cli
             }
             });
 
-            form.ShowDialog();
+            foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
+            {
+                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
+                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
+                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
+                mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
+            }
 
+            foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
+            {
+                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.OnLoading;
+                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
+                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
+                mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
+            }
+
+            mainWindow.MainViewModel.DarkSouls1ViewModel.CurrentPosition = new Vector3f(0.14f, 4.14f, 1523.4f);
+                mainWindow.WindowShouldHide = false;
+            mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
+            var result = mainWindow.ShowDialog();
         }
 
         #region Validate patterns 

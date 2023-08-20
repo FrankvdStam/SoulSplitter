@@ -37,7 +37,6 @@
 
                 <ResourceDictionary>
                     <converters:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
-                    <converters:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
                     <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
                 </ResourceDictionary>
 

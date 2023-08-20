@@ -75,6 +75,12 @@
     <Compile Include="Migrations\Migrator.cs" />
     <Compile Include="Migrations\XmlExtensions.cs" />
     <Compile Include="Native\Gdi32.cs" />
+    <Compile Include="UIv2\SplitSettingsControl.xaml.cs">
+      <DependentUpon>SplitSettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Converters\ObservableCollectionToVisibilityConverter.cs" />
+    <Compile Include="UI\Converters\SplitTypeVisibilityConverter.cs" />
+    <Compile Include="UI\Generic\BoolDescriptionViewModel.cs" />
     <Compile Include="UI\Generic\RelayCommand.cs" />
     <Compile Include="soulmemory-rs\SoulMemoryRs.cs" />
     <Compile Include="Splits\DarkSouls1\BonfireState.cs" />
@@ -83,7 +89,7 @@
     <Compile Include="UI\Converters\ColorToHexTextConverter.cs" />
     <Compile Include="UI\Converters\ColorToBrushConverter.cs" />
     <Compile Include="UI\Converters\DoubleToGridLengthConverter.cs" />
-    <Compile Include="UI\Converters\SplitTypeVisibilityConverter.cs" />
+    <Compile Include="UI\Converters\EnumToVisibilityConverter.cs" />
     <Compile Include="UI\Generic\AddRemoveSplits.xaml.cs">
       <DependentUpon>AddRemoveSplits.xaml</DependentUpon>
     </Compile>
@@ -180,6 +186,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UIv2\SplitSettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\DarkSouls1\DarkSouls1Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

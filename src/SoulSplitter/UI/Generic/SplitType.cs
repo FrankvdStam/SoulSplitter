@@ -14,34 +14,35 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory;
 using System.ComponentModel.DataAnnotations;
 
 namespace SoulSplitter.UI.Generic
 {
     public enum SplitType
     {
-        [Display(Name = "Bonfire")]
+        [Annotation(Name = "Bonfire/Grace/Idol")]
         Bonfire,
 
-        [Display(Name = "Boss")]
+        [Annotation(Name = "Boss")]
         Boss,
 
-        [Display(Name = "Position")]
+        [Annotation(Name = "Position")]
         Position,
 
-        [Display(Name = "Attribute")]
+        [Annotation(Name = "Attribute")]
         Attribute,
 
-        [Display(Name = "Flag")]
+        [Annotation(Name = "Flag")]
         Flag,
 
-        [Display(Name = "Iventory item")]
+        [Annotation(Name = "Iventory item")]
         Item,
 
-        [Display(Name = "Item pickup")]
+        [Annotation(Name = "Item pickup")]
         ItemPickup,
 
-        [Display(Name = "Credits")]
+        [Annotation(Name = "Credits")]
         Credits,
     }
 }

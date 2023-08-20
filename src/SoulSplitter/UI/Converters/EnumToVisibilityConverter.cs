@@ -15,27 +15,46 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
-using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.Converters
 {
-    internal class SplitTypeVisibilityConverter : IValueConverter
+    internal class EnumToVisibilityConverter : IMultiValueConverter, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var result =
-                value is SplitType splitType &&
-                parameter is string s &&
-                Enum.TryParse(s, out SplitType target) &&
-                splitType == target;
-
-            if (result)
+            var valueEnum = (Enum)value;
+            var paramEnum = (Enum)parameter;
+            if (valueEnum != null && valueEnum.Equals(paramEnum))
             {
                 return Visibility.Visible;
             }
             return Visibility.Collapsed;
+        }
+
+        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            var valueEnums = values.Cast<Enum>().ToList();
+            var paramEnums = ((object[])parameter).Cast<Enum>().ToList();
+
+            if (valueEnums.Count != paramEnums.Count)
+            {
+                throw new ArgumentException("value count should match parameter count");
+            }
+
+            if (valueEnums.Where((t, i) => !t.Equals(paramEnums[i])).Any())
+            {
+                return Visibility.Collapsed;
+            }
+
+            return Visibility.Visible;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

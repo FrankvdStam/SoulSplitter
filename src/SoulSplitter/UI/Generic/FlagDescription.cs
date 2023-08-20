@@ -53,17 +53,12 @@ namespace SoulSplitter.UI.Generic
         {
             if (EqualityComparer<U>.Default.Equals(field, value)) return false;
             field = value;
-            OnPropertyChanged(propertyName ?? "");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
             return true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
+        
         #endregion
     }
 }

@@ -15,27 +15,26 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Windows;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
-using SoulSplitter.UI.Generic;
+using System.Windows;
 
 namespace SoulSplitter.UI.Converters
 {
-    internal class SplitTypeVisibilityConverter : IValueConverter
+    public class ObservableCollectionToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var result =
-                value is SplitType splitType &&
-                parameter is string s &&
-                Enum.TryParse(s, out SplitType target) &&
-                splitType == target;
-
-            if (result)
+            if (value is ICollection collection)
             {
-                return Visibility.Visible;
+                return collection.Count != 0 ? Visibility.Visible : Visibility.Collapsed;
             }
-            return Visibility.Collapsed;
+            throw new NotSupportedException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

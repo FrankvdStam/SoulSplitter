@@ -14,22 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.ComponentModel.DataAnnotations;
+using SoulMemory;
 
 namespace SoulSplitter.UI.Generic
 {
     public enum TimingType
     {
-        [Display(Name = "immediate")]
+        [Annotation(Name = "immediate")]
         Immediate,
         
-        [Display(Name = "on loading")]
+        [Annotation(Name = "on loading")]
         OnLoading,
 
-        [Display(Name = "on blackscreen")]
+        [Annotation(Name = "on blackscreen")]
         OnBlackscreen,
 
-        [Display(Name = "on warp")]
+        [Annotation(Name = "on warp")]
         OnWarp,
     }
 }

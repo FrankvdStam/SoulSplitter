@@ -35,11 +35,13 @@ namespace SoulSplitter.UI
             Closing += Window_Closing;
         }
 
+        public bool WindowShouldHide = true;
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             Hide();
-            e.Cancel = true;
+            e.Cancel = WindowShouldHide;
         }
+        
 
         public MainViewModel MainViewModel
         {
@@ -85,26 +87,6 @@ namespace SoulSplitter.UI
             {
                 //Ignored
             }
-        }
-
-        public static (System.Windows.Forms.Form, System.Windows.Forms.Integration.ElementHost, MainWindow) GetTestForm()
-        {
-            var form = new System.Windows.Forms.Form();
-            form.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            form.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            form.ClientSize = new System.Drawing.Size(504, 562);
-            form.MaximumSize = new System.Drawing.Size(520, 10000);
-            form.MinimumSize = new System.Drawing.Size(520, 600);
-            form.AcceptButton = new System.Windows.Forms.Button() { Text = "Ok", Size = new System.Drawing.Size(75, 23) };
-
-            var mainControl = new MainWindow();
-            var elementHost = new System.Windows.Forms.Integration.ElementHost();
-            elementHost.Child = mainControl;
-            elementHost.Dock = System.Windows.Forms.DockStyle.Fill;
-
-            form.Controls.Add(elementHost);
-
-            return (form, elementHost, mainControl);
         }
     }
 }

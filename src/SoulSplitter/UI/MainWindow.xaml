@@ -27,7 +27,11 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:darkSouls3="clr-namespace:SoulSplitter.UI.DarkSouls3"
         xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
-        xmlns:converters="clr-namespace:SoulSplitter.UI.Converters">
+        xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
+        xmlns:uIv2="clr-namespace:SoulSplitter.UIv2"
+        Title="SoulSplitter settings"
+        Icon="../soulsplitter.ico"
+        xmlns:generic="clr-namespace:SoulSplitter.UI.Generic">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -51,7 +55,15 @@
         <ui:MainViewModel/>
     </Window.DataContext>
 
-    <Grid Background="White">
+    <Grid 
+        Background="White" 
+          >
+<!-- 
+        
+        Height="{Binding ElementName=Window, Path=ActualHeight}"
+        Width="{Binding ElementName=Window, Path=ActualWidth}"  
+        -->
+
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
@@ -161,7 +173,27 @@
             SelectedIndex="{Binding SelectedGame, Converter={StaticResource GameToSelectedIndexConverter}}">
        
             <TabItem Header ="Dark Souls 1">
-                <darkSouls1:DarkSouls1Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls1ViewModel}"/>
+                
+
+                    <uIv2:SplitSettingsControl
+                        Game="DarkSouls1"
+                        BooleanFlags="{Binding DarkSouls1ViewModel.BooleanFlags}"
+                        TimingTypes="{Binding DarkSouls1ViewModel.TimingTypes}"
+                        SplitTypes="{Binding DarkSouls1ViewModel.SplitTypes}"
+                        Bosses="{Binding DarkSouls1ViewModel.Bosses}"
+                        Attributes="{Binding DarkSouls1ViewModel.Attributes}"
+                        Bonfires="{Binding DarkSouls1ViewModel.Bonfires}"
+                        Items="{Binding DarkSouls1ViewModel.Items}"
+                        GamePosition="{Binding DarkSouls1ViewModel.CurrentPosition}"
+                        SplitsViewModel="{Binding DarkSouls1ViewModel.SplitsViewModel}"
+                        AddSplit="{Binding DarkSouls1ViewModel.AddSplitCommand}"
+                        >
+                    </uIv2:SplitSettingsControl>
+
+<!--
+                    <darkSouls1:DarkSouls1Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls1ViewModel}"/>
+-->
+                
             </TabItem>
 
             <TabItem Header ="Dark Souls 2">

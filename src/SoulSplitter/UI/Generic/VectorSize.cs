@@ -37,9 +37,16 @@ namespace SoulSplitter.UI.Generic
         }
         private float _size = 5.0f;
 
+        public string Description
+        {
+            get => _description;
+            set => SetField(ref _description, value);
+        }
+        private string _description = "";
+
         public override string ToString()
         {
-            return $"{Position}, size {Size}";
+            return $"{Position}, size {Size}, {Description}";
         }
 
         #region INotifyPropertyChanged
