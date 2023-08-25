@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography;
+using System.Xml.Serialization;
 
 namespace SoulMemory.DarkSouls1
 {
@@ -854,6 +855,7 @@ namespace SoulMemory.DarkSouls1
         UsableItems,
     }
 
+    [XmlType(Namespace = "SoulMemory.DarkSouls1")]
     public enum ItemType
     {
             [Annotation(Name = "Catarina Helm", Description = nameof(ItemCategory.Armor))]

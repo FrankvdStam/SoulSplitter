@@ -75,6 +75,7 @@
     <Compile Include="Migrations\Migrator.cs" />
     <Compile Include="Migrations\XmlExtensions.cs" />
     <Compile Include="Native\Gdi32.cs" />
+    <Compile Include="Splits\FlatSplit.cs" />
     <Compile Include="UIv2\SplitSettingsControl.xaml.cs">
       <DependentUpon>SplitSettingsControl.xaml</DependentUpon>
     </Compile>
@@ -101,6 +102,7 @@
     <Compile Include="UI\Generic\SplitsTree.xaml.cs">
       <DependentUpon>SplitsTree.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Generic\SplitTemplateSelector.cs" />
     <Compile Include="UI\Generic\SplitType.cs" />
     <Compile Include="UI\Generic\BaseViewModel.cs" />
     <Compile Include="UI\Generic\HierarchicalViewModel.cs" />

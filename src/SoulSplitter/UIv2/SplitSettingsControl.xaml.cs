@@ -26,6 +26,7 @@ using System.Windows.Controls;
 using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.EldenRing;
+using SoulSplitter.Splits;
 
 namespace SoulSplitter.UIv2
 {
@@ -37,16 +38,95 @@ namespace SoulSplitter.UIv2
         public SplitSettingsControl()
         {
             CopyGamePositionCommand = new RelayCommand(CopyGamePosition, (o) => true);
-            AddSplitCommand = new RelayCommand(AddSplitFunc, (o) => true);
+            AddSplitCommand = new RelayCommand(AddSplitFunc, CanAddSplit);
             InitializeComponent();
         }
 
 
         #region Add split logic
 
+        private bool CanAddSplit(object param)
+        {
+            switch (SelectedSplitType)
+            {
+                case SplitType.Boss:
+                    return SelectedBoss != null;
+
+                case SplitType.Attribute:
+                    if (Game == Game.DarkSouls1)
+                    {
+                        return SelectedAttribute != null && AttributeLevel > 0 && AttributeLevel <= 99;
+                    }
+                    break;
+
+                case SplitType.Bonfire:
+                    if (Game == Game.DarkSouls1)
+                    {
+                        return SelectedBonfire != null && SelectedBonfireState != null;
+                    }
+                    break;
+
+                case SplitType.Item:
+                    return SelectedItem != null;
+
+                case SplitType.Position:
+                    return Position != null;
+
+                case SplitType.Flag:
+                    return FlagDescription != null;
+
+                default:
+                    throw new InvalidOperationException($"unsupported split type {SelectedSplitType}");
+            }
+            throw new InvalidOperationException($"Unhandled case {SelectedSplitType}");
+        }
+
         private void AddSplitFunc(object parameter)
         {
-            AddSplit.Execute(null);
+            var flatSplit = new FlatSplit
+            {
+                TimingType = SelectedTimingType,
+                SplitType = SelectedSplitType
+            };
+            
+            switch (SelectedSplitType)
+            {
+                case SplitType.Boss:
+                    flatSplit.Split = SelectedBoss;
+                    break;
+
+                case SplitType.Attribute:
+                    if (Game == Game.DarkSouls1)
+                    {
+                        flatSplit.Split = new Splits.DarkSouls1.Attribute(){ AttributeType = (SoulMemory.DarkSouls1.Attribute)SelectedAttribute, Level = AttributeLevel};
+                        break;
+                    }
+                    break;
+
+                case SplitType.Bonfire:
+                    if (Game == Game.DarkSouls1)
+                    {
+                        flatSplit.Split = new Splits.DarkSouls1.BonfireState(){ Bonfire = (SoulMemory.DarkSouls1.Bonfire)SelectedBonfire, State = (SoulMemory.DarkSouls1.BonfireState)SelectedBonfireState };
+                        break;
+                    }
+                    break;
+
+                case SplitType.Item:
+                    flatSplit.Split = SelectedItem;
+                    break;
+
+                case SplitType.Position:
+                    flatSplit.Split = new VectorSize{Description = Position.Description, Position = new Vector3f(Position.Position.X, Position.Position.Y, Position.Position.Z), Size = Position.Size};
+                    break;
+
+                case SplitType.Flag:
+                    flatSplit.Split = new FlagDescription{Description = FlagDescription.Description, Flag = FlagDescription.Flag};
+                    break;
+
+                default:
+                    throw new InvalidOperationException($"unsupported split type {SelectedSplitType}");
+            }
+            AddSplit.Execute(flatSplit);
         }
 
 
@@ -240,7 +320,7 @@ namespace SoulSplitter.UIv2
             get => _attributeLevel;
             set => SetField(ref _attributeLevel, value);
         }
-        private int _attributeLevel;
+        private int _attributeLevel = 10;
 
         public Enum SelectedItem
         {

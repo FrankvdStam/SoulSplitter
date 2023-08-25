@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Serialization;
 using SoulMemory.DarkSouls1;
+using SoulSplitter.Splits;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.UI.Generic;
 using Attribute = SoulMemory.DarkSouls1.Attribute;
@@ -33,18 +34,18 @@ namespace SoulSplitter.UI.DarkSouls1
             AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
         }
 
-        public bool ResetInventoryIndices
-        {
-            get => _resetInventoryIndices;
-            set => SetField(ref _resetInventoryIndices, value);
-        }
-
-        private bool _resetInventoryIndices = true;
-
+        public new bool StartAutomatically => BooleanFlags[0].Value;
+        public bool ResetInventoryIndices => BooleanFlags[1].Value;
+        
         #region add/remove splits ============================================================================================================================================
 
         private bool CanAddSplit(object param)
         {
+            if (param is FlatSplit f)
+            {
+
+            }
+
             if (!NewSplitTimingType.HasValue || !NewSplitType.HasValue)
             {
                 return false;
@@ -78,43 +79,50 @@ namespace SoulSplitter.UI.DarkSouls1
 
         private void AddSplit(object param)
         {
-            object split = null;
-            switch (NewSplitType)
+            if (param is FlatSplit f)
             {
-                default:
-                    throw new ArgumentException($"{NewSplitType} not supported");
-
-                case SplitType.Boss:
-                case SplitType.Attribute:
-                    split = NewSplitValue;
-                    break;
-
-                case SplitType.Position:
-                    split = Position;
-                    break;
-
-                case SplitType.Flag:
-                    split = FlagDescription;
-                    break;
-
-                case SplitType.Bonfire:
-                    split = NewSplitBonfireState;
-                    break;
-
-                case SplitType.Item:
-                    split = NewSplitItemState;
-                    break;
-
-                case SplitType.Credits:
-                    split = "Credits";
-                    break;
+                SplitsViewModel.AddSplit(f.TimingType, f.SplitType, f.Split);
             }
-
-            SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);
-
-            NewSplitTimingType = null;
-            NewSplitEnabledSplitType = false;
-            NewSplitType = null;
+            //
+            //return;
+            //
+            //object split = null;
+            //switch (NewSplitType)
+            //{
+            //    default:
+            //        throw new ArgumentException($"{NewSplitType} not supported");
+            //
+            //    case SplitType.Boss:
+            //    case SplitType.Attribute:
+            //        split = NewSplitValue;
+            //        break;
+            //
+            //    case SplitType.Position:
+            //        split = Position;
+            //        break;
+            //
+            //    case SplitType.Flag:
+            //        split = FlagDescription;
+            //        break;
+            //
+            //    case SplitType.Bonfire:
+            //        split = NewSplitBonfireState;
+            //        break;
+            //
+            //    case SplitType.Item:
+            //        split = NewSplitItemState;
+            //        break;
+            //
+            //    case SplitType.Credits:
+            //        split = "Credits";
+            //        break;
+            //}
+            //
+            //SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);
+            //
+            //NewSplitTimingType = null;
+            //NewSplitEnabledSplitType = false;
+            //NewSplitType = null;
         }
 
 

@@ -143,6 +143,7 @@
             Visibility="{Binding SelectedSplitType, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EnumToVisibilityConverter}, ConverterParameter={x:Static generic:SplitType.Boss}}"
             DisplayMemberPath="Name"
             SelectedValuePath="Value"
+            SelectedValue="{Binding SelectedBoss, RelativeSource={RelativeSource AncestorType=UserControl}}"
             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
             IsEditable="True"
             IsTextSearchEnabled="False"
@@ -335,7 +336,7 @@
                 materialDesign:HintAssist.Hint="X"
                 materialDesign:HintAssist.HelperText="{Binding GamePosition.X, RelativeSource={RelativeSource AncestorType=UserControl}}">
                 <TextBox.Text>
-                    <Binding Path="Position.Position.X">
+                    <Binding Path="Position.Position.X" RelativeSource="{RelativeSource AncestorType=UserControl}">
                         <Binding.ValidationRules>
                             <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
                         </Binding.ValidationRules>
@@ -470,21 +471,108 @@
         </Button>
 
         <!-- row ============================================================================================================================================================================================== -->
+        <!-- SelectedItemChanged="TreeView_OnSelectedItemChanged" -->
         <TreeView
             Grid.Row="{StaticResource RowSplitsTree}"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             ItemsSource="{Binding SplitsViewModel.Splits, RelativeSource={RelativeSource AncestorType=UserControl}}"
-            SelectedItemChanged="TreeView_OnSelectedItemChanged">
+            >
+            
             <TreeView.Resources>
+                
+                <!-- Templates for individual splits -->
+
+                <!-- Enum -->
+                <DataTemplate x:Key="EnumTemplate" DataType="{x:Type system:Enum}">
+                    <TextBlock Text="{Binding ., Converter={StaticResource EnumDisplayNameConverter}}"/>
+                </DataTemplate>
+
+                <!-- Position -->
+                <DataTemplate x:Key="VectorSizeTemplate" DataType="{x:Type generic:VectorSize}">
+                    <Grid
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox
+                            Margin="5"
+                            Grid.Column="0"
+                            materialDesign:HintAssist.Hint="X"
+                            materialDesign:HintAssist.HelperText="{Binding GamePosition.X, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                            <TextBox.Text>
+                                <Binding Path="Position.X">
+                                    <Binding.ValidationRules>
+                                        <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBox
+                            Margin="5"
+                            Grid.Column="1"
+                            materialDesign:HintAssist.Hint="Y"
+                            materialDesign:HintAssist.HelperText="{Binding GamePosition.Y, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                            <TextBox.Text>
+                                <Binding Path="Position.Y">
+                                    <Binding.ValidationRules>
+                                        <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBox
+                            Margin="5"
+                            Grid.Column="2"
+                            materialDesign:HintAssist.Hint="Z"
+                            materialDesign:HintAssist.HelperText="{Binding GamePosition.Z, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                            <TextBox.Text>
+                                <Binding Path="Position.Z">
+                                    <Binding.ValidationRules>
+                                        <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox Grid.Column="3" Text="{Binding Size}" />
+                        <TextBox Grid.Column="4" Text="{Binding Description}" />
+                    </Grid>
+                </DataTemplate>
+
+                <generic:SplitTemplateSelector 
+                    EnumTemplate="{StaticResource EnumTemplate}"
+                    VectorSizeTemplate="{StaticResource VectorSizeTemplate}"
+                    x:Key="SplitTemplateSelector"/>
+
+
+
+
+                <!-- Split timing -->
                 <HierarchicalDataTemplate DataType="{x:Type generic:SplitTimingViewModel}" ItemsSource="{Binding Children}">
                     <TextBlock Text="{Binding TimingType, Converter={StaticResource EnumDisplayNameConverter}}"/>
                 </HierarchicalDataTemplate>
+
+                <!-- Split type -->
                 <HierarchicalDataTemplate DataType="{x:Type generic:SplitTypeViewModel}" ItemsSource="{Binding Children}">
                     <TextBlock Text="{Binding SplitType, Converter={StaticResource EnumDisplayNameConverter}}"/>
                 </HierarchicalDataTemplate>
+
+                <!-- Split itself -->
                 <HierarchicalDataTemplate DataType="{x:Type generic:SplitViewModel}">
                     <TextBlock Text="{Binding Split, Converter={StaticResource SplitObjectToDescriptionConverter}}"/>
+
+<!--
+                    <ContentControl Content="{Binding Split}" ContentTemplateSelector="{StaticResource SplitTemplateSelector}"/>
+                    -->
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
         </TreeView>

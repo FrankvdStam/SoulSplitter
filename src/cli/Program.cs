@@ -43,7 +43,7 @@ namespace cli
         {
 
 
-            TestUi();
+            TestUi(false);
         }
 
 
@@ -136,64 +136,70 @@ namespace cli
             }
         }
 
-        public static void TestUi()
+        public static void TestUi(bool withTestData = true)
         {
             var mainWindow = new MainWindow();
-            foreach (var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
+            mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
+
+            if (withTestData)
             {
-                mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
-                mainWindow.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
-                mainWindow.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
-                mainWindow.MainViewModel.EldenRingViewModel.AddSplit();
+                foreach (var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
+                {
+                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
+                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
+                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
+                    mainWindow.MainViewModel.EldenRingViewModel.AddSplit();
+                }
+
+                var flagTrackerViewModel = mainWindow.MainViewModel.FlagTrackerViewModel;
+                flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
+                {
+                    CategoryName = "Undead burg",
+                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
+                    {
+                        new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
+                        new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
+                        new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
+                        new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
+                        new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
+                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
+                    }
+                });
+
+                flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
+                {
+                    CategoryName = "Firelink shrine",
+                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
+                    {
+                        new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
+                        new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
+                        new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
+                        new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
+                        new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
+                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
+                    }
+                });
+
+                foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
+                {
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
+                }
+
+                foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
+                {
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.OnLoading;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
+                }
+
+                mainWindow.MainViewModel.DarkSouls1ViewModel.CurrentPosition = new Vector3f(0.14f, 4.14f, 1523.4f);
+                
             }
 
-            var flagTrackerViewModel = mainWindow.MainViewModel.FlagTrackerViewModel;
-            flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
-            {
-                CategoryName = "Undead burg",
-                EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
-            {
-                new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
-                new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
-                new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
-            }
-            });
-
-            flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
-            {
-                CategoryName = "Firelink shrine",
-                EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
-            {
-                new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
-                new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
-                new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
-            }
-            });
-
-            foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
-            {
-                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
-                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
-                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
-                mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
-            }
-
-            foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
-            {
-                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.OnLoading;
-                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
-                mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
-                mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
-            }
-
-            mainWindow.MainViewModel.DarkSouls1ViewModel.CurrentPosition = new Vector3f(0.14f, 4.14f, 1523.4f);
-                mainWindow.WindowShouldHide = false;
             mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
             var result = mainWindow.ShowDialog();
         }

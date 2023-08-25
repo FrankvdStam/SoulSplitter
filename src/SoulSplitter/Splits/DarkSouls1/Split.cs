@@ -50,7 +50,7 @@ namespace SoulSplitter.Splits.DarkSouls1
                     break;
 
                 case SplitType.Item:
-                    ItemState = (ItemState)split;
+                    ItemType = (ItemType)split;
                     break;
 
                 case SplitType.Bonfire:
@@ -66,8 +66,8 @@ namespace SoulSplitter.Splits.DarkSouls1
         public readonly SplitType SplitType;
         
         public readonly Boss Boss;
+        public readonly ItemType ItemType;
         public readonly Attribute Attribute;
-        public readonly ItemState ItemState;
         public readonly BonfireState BonfireState;
         public readonly VectorSize Position;
         public readonly uint Flag;

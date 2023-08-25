@@ -268,7 +268,7 @@ namespace SoulSplitter.Splitters
                                 {
                                     inventory = _darkSouls1.GetInventory();
                                 }
-                                s.SplitConditionMet = inventory.Any(i => i.ItemType == s.ItemState.ItemType);
+                                s.SplitConditionMet = inventory.Any(i => i.ItemType == s.ItemType);
                                 break;
 
                             case SplitType.Credits:
