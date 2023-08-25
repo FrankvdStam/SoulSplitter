@@ -29,6 +29,7 @@ using SoulMemory.DarkSouls1.Parameters;
 using SoulSplitter.UI.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using SoulMemory.ArmoredCore6;
 using SoulMemory.Parameters;
 using Item = SoulMemory.DarkSouls1.Item;
 
@@ -41,7 +42,14 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-
+            GameLoop<ArmoredCore6>((ac6) =>
+            {
+                var result1 = ac6.ReadEventFlag(2101102201);
+                ac6.WriteEventFlag(2101102201, true);
+                
+                var result2 = ac6.ReadEventFlag(2101102202);
+                var result3 = ac6.ReadEventFlag(2300);
+            });
 
             TestUi(false);
         }
