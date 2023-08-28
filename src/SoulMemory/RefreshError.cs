@@ -60,5 +60,6 @@ namespace SoulMemory
         ProcessExited,
         MainModuleNull,
         AccessDenied,
+        ModLoadFailed,
     }
 }

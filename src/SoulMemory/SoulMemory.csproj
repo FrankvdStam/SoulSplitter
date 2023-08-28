@@ -6,7 +6,7 @@
     <Platforms>x64</Platforms>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>SoulMemory</Title>
-    <Version>1.4.4</Version>
+    <Version>1.4.5</Version>
     <Authors>Frank v.d. Stam</Authors>
     <PackageProjectUrl>https://github.com/FrankvdStam/SoulSplitter</PackageProjectUrl>
     <RepositoryUrl>https://github.com/FrankvdStam/SoulSplitter</RepositoryUrl>
@@ -39,7 +39,13 @@
     <None Remove="resources\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="soulsmods\x64\soulsmods.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="soulsplitter.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="soulsmods\x64\soulsmods.dll" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

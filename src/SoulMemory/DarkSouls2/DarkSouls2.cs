@@ -24,6 +24,7 @@ namespace SoulMemory.DarkSouls2
 {
     public class DarkSouls2 : IDarkSouls2
     {
+        public int GetInGameTimeMilliseconds() => 0;
         private IDarkSouls2 _darkSouls2;
         public Process GetProcess() => _darkSouls2.GetProcess();
         public Vector3f GetPosition() => _darkSouls2?.GetPosition() ?? new Vector3f();

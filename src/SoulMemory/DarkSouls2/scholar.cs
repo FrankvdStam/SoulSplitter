@@ -33,7 +33,7 @@ namespace SoulMemory.DarkSouls2
         #region Refresh/init/reset ================================================================================================================================
         public Process GetProcess() => _process;
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsii", InitPointers, ResetPointers);
-
+        public int GetInGameTimeMilliseconds() => 0;
         public TreeBuilder GetTreeBuilder()
         {
             var treeBuilder = new TreeBuilder();

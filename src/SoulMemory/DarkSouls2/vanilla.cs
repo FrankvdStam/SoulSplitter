@@ -34,7 +34,7 @@ namespace SoulMemory.DarkSouls2
         public Process GetProcess() => _process;
 
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsii", InitPointers, ResetPointers);
-
+        public int GetInGameTimeMilliseconds() => 0;
         private void ResetPointers()
         {
             _eventFlagManager.Clear();

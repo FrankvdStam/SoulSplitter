@@ -60,9 +60,10 @@ namespace SoulSplitter.Tests.Splitters
             var (timerModel, mainViewModel, darkSouls1, ds1Splitter) = CreateMock();
 
             //Configure UI settings
-            mainViewModel.DarkSouls1ViewModel.BooleanFlags[0].Value = shouldAutoStart;
-            mainViewModel.DarkSouls1ViewModel.BooleanFlags[1].Value = shouldResetInventoryIndices;
-
+            mainViewModel.DarkSouls1ViewModel.StartAutomatically = shouldAutoStart;
+            mainViewModel.DarkSouls1ViewModel.ResetInventoryIndices = shouldResetInventoryIndices;
+            //mainViewModel.DarkSouls1ViewModel.BooleanFlags[0].Value = shouldAutoStart;
+            //mainViewModel.DarkSouls1ViewModel.BooleanFlags[1].Value = shouldResetInventoryIndices;
             //Setup mocks
             var igt = 0;
             darkSouls1.Setup(ds1 => ds1.GetInGameTimeMilliseconds()).Returns(() => { return igt; });
@@ -107,7 +108,7 @@ namespace SoulSplitter.Tests.Splitters
         public void AutoStartResetAutoStartTest()
         {
             var (timerModel, mainViewModel, darkSouls1, ds1Splitter) = CreateMock();
-            mainViewModel.DarkSouls1ViewModel.BooleanFlags[0].Value = true;
+            mainViewModel.DarkSouls1ViewModel.StartAutomatically = true;
 
             var igt = 0;
             darkSouls1.Setup(ds1 => ds1.GetInGameTimeMilliseconds()).Returns(() => { return igt; });
@@ -149,8 +150,10 @@ namespace SoulSplitter.Tests.Splitters
             var testSplits = MockAutoSplitData.TestCases.Where(i => i.GameType == UI.GameType.DarkSouls1).ToList();
 
             //Configure UI settings
-            mainViewModel.DarkSouls1ViewModel.BooleanFlags[0].Value = true;
-            mainViewModel.DarkSouls1ViewModel.BooleanFlags[1].Value = true;
+            mainViewModel.DarkSouls1ViewModel.StartAutomatically = true;
+            mainViewModel.DarkSouls1ViewModel.ResetInventoryIndices = true;
+            //mainViewModel.DarkSouls1ViewModel.BooleanFlags[0].Value = true;
+            //mainViewModel.DarkSouls1ViewModel.BooleanFlags[1].Value = true;
 
             foreach (var split in testSplits)
             {

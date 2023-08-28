@@ -76,11 +76,14 @@
     <Compile Include="Migrations\XmlExtensions.cs" />
     <Compile Include="Native\Gdi32.cs" />
     <Compile Include="Splits\FlatSplit.cs" />
+    <Compile Include="Splitters\ArmoredCore6Splitter.cs" />
+    <Compile Include="Splitters\BaseSplitter.cs" />
     <Compile Include="UIv2\SplitSettingsControl.xaml.cs">
       <DependentUpon>SplitSettingsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Converters\ObservableCollectionToVisibilityConverter.cs" />
     <Compile Include="UI\Converters\SplitTypeVisibilityConverter.cs" />
+    <Compile Include="UI\DarkSouls1\DarkSouls1ViewModelRefactor.cs" />
     <Compile Include="UI\Generic\BoolDescriptionViewModel.cs" />
     <Compile Include="UI\Generic\RelayCommand.cs" />
     <Compile Include="soulmemory-rs\SoulMemoryRs.cs" />

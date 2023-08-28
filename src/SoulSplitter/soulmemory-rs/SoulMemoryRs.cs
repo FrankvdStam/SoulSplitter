@@ -35,6 +35,7 @@ namespace SoulSplitter.soulmemory_rs
                 "darksoulsiii",
                 "sekiro",
                 "eldenring",
+                "armoredcore6",
             };
 
             var process = Process.GetProcesses().FirstOrDefault(p => games.Contains(p.ProcessName.ToLower()));
@@ -50,14 +51,9 @@ namespace SoulSplitter.soulmemory_rs
             OverwriteFile("SoulSplitter.soulmemory_rs.x86.launcher.exe"     , Path.Combine(basePath, @"x86\launcher.exe"));
             OverwriteFile("SoulSplitter.soulmemory_rs.x86.soulmemory_rs.dll", Path.Combine(basePath, @"x86\soulmemory_rs.dll"));
 
-            if(process.Is64Bit())
-            {
-                Process.Start(Path.Combine(basePath, @"x64\launcher.exe"));
-            }
-            else
-            {
-                Process.Start(Path.Combine(basePath, @"x86\launcher.exe"));
-            }
+            Process.Start(process.Is64Bit()
+                ? Path.Combine(basePath, @"x64\launcher.exe")
+                : Path.Combine(basePath, @"x86\launcher.exe"));
         }
 
         private static void OverwriteFile(string manifestResourceName, string path)

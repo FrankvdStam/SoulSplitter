@@ -25,7 +25,6 @@ using SoulSplitter.Splitters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
 using SoulMemory;
-using SoulMemory.Sekiro;
 using System.Diagnostics;
 using System.Windows.Forms;
 using SoulSplitter.Migrations;
@@ -97,7 +96,7 @@ namespace SoulSplitter
 
         private void SetBitBlt()
         {
-            if (_game is Sekiro sekiro)
+            if (_game is SoulMemory.Sekiro.Sekiro sekiro)
             {
                 if (sekiro.BitBlt)
                 {
@@ -163,6 +162,11 @@ namespace SoulSplitter
                     case Game.EldenRing:
                         _game = new SoulMemory.EldenRing.EldenRing();
                         _splitter = new EldenRingSplitter(state, (SoulMemory.EldenRing.EldenRing)_game);
+                        break;
+
+                    case Game.ArmoredCore6:
+                        _game = new SoulMemory.ArmoredCore6.ArmoredCore6();
+                        _splitter = new ArmoredCore6Splitter(state, (SoulMemory.ArmoredCore6.ArmoredCore6)_game);
                         break;
                 }
                 _splitter.SetViewModel(mainViewModel);
@@ -316,6 +320,10 @@ namespace SoulSplitter
 
                         case "eldenring":
                             MainWindow.MainViewModel.SelectedGame = Game.EldenRing;
+                            break;
+
+                        case "armoredcore6":
+                            MainWindow.MainViewModel.SelectedGame = Game.ArmoredCore6;
                             break;
                     }
                 }

@@ -42,16 +42,12 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+            return;
             GameLoop<ArmoredCore6>((ac6) =>
             {
-                var result1 = ac6.ReadEventFlag(2101102201);
-                ac6.WriteEventFlag(2101102201, true);
-                
-                var result2 = ac6.ReadEventFlag(2101102202);
-                var result3 = ac6.ReadEventFlag(2300);
+                Console.WriteLine(ac6.GetInGameTimeMilliseconds());
             });
-
-            TestUi(false);
         }
 
 

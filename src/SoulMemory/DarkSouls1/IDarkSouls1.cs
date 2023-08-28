@@ -25,7 +25,6 @@ namespace SoulMemory.DarkSouls1
         int GetAttribute(Attribute attribute);
         bool IsWarpRequested();
         bool IsPlayerLoaded();
-        int GetInGameTimeMilliseconds();
         int NgCount();
         int GetCurrentSaveSlot();
         Vector3f GetPosition();

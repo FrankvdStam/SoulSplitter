@@ -19,10 +19,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Serialization;
 using SoulMemory.DarkSouls1;
-using SoulSplitter.Splits;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.UI.Generic;
-using Attribute = SoulMemory.DarkSouls1.Attribute;
 using BonfireState = SoulMemory.DarkSouls1.BonfireState;
 
 namespace SoulSplitter.UI.DarkSouls1
@@ -34,18 +32,17 @@ namespace SoulSplitter.UI.DarkSouls1
             AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
         }
 
-        public new bool StartAutomatically => BooleanFlags[0].Value;
-        public bool ResetInventoryIndices => BooleanFlags[1].Value;
-        
+        public bool ResetInventoryIndices
+        {
+            get => _resetInventoryIndices;
+            set => SetField(ref _resetInventoryIndices, value);
+        }
+        private bool _resetInventoryIndices = true;
+
         #region add/remove splits ============================================================================================================================================
 
         private bool CanAddSplit(object param)
         {
-            if (param is FlatSplit f)
-            {
-
-            }
-
             if (!NewSplitTimingType.HasValue || !NewSplitType.HasValue)
             {
                 return false;
@@ -79,50 +76,42 @@ namespace SoulSplitter.UI.DarkSouls1
 
         private void AddSplit(object param)
         {
-            if (param is FlatSplit f)
+            object split = null;
+            switch (NewSplitType)
             {
-                SplitsViewModel.AddSplit(f.TimingType, f.SplitType, f.Split);
+                default:
+                    throw new ArgumentException($"{NewSplitType} not supported");
+
+                case SplitType.Boss:
+                case SplitType.Attribute:
+                    split = NewSplitValue;
+                    break;
+
+                case SplitType.Position:
+                    split = Position;
+                    break;
+
+                case SplitType.Flag:
+                    split = FlagDescription;
+                    break;
+
+                case SplitType.Bonfire:
+                    split = NewSplitBonfireState;
+                    break;
+
+                case SplitType.Item:
+                    split = NewSplitItemState;
+                    break;
+
+                case SplitType.Credits:
+                    split = "Credits";
+                    break;
             }
-            //
-            //return;
-            //
-            //object split = null;
-            //switch (NewSplitType)
-            //{
-            //    default:
-            //        throw new ArgumentException($"{NewSplitType} not supported");
-            //
-            //    case SplitType.Boss:
-            //    case SplitType.Attribute:
-            //        split = NewSplitValue;
-            //        break;
-            //
-            //    case SplitType.Position:
-            //        split = Position;
-            //        break;
-            //
-            //    case SplitType.Flag:
-            //        split = FlagDescription;
-            //        break;
-            //
-            //    case SplitType.Bonfire:
-            //        split = NewSplitBonfireState;
-            //        break;
-            //
-            //    case SplitType.Item:
-            //        split = NewSplitItemState;
-            //        break;
-            //
-            //    case SplitType.Credits:
-            //        split = "Credits";
-            //        break;
-            //}
-            //
-            //SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);
-            //
-            //NewSplitTimingType = null;
-            //NewSplitEnabledSplitType = false;
-            //NewSplitType = null;
+            SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);
+
+            NewSplitTimingType = null;
+            NewSplitEnabledSplitType = false;
+            NewSplitType = null;
         }
 
 
@@ -162,7 +151,6 @@ namespace SoulSplitter.UI.DarkSouls1
                 }
             }
         }
-
         private SplitType? _newSplitType = null;
 
         [XmlIgnore]
@@ -171,7 +159,6 @@ namespace SoulSplitter.UI.DarkSouls1
             get => _newSplitBonfireState;
             set => SetField(ref _newSplitBonfireState, value);
         }
-
         private Splits.DarkSouls1.BonfireState _newSplitBonfireState;
 
         [XmlIgnore]
@@ -180,40 +167,16 @@ namespace SoulSplitter.UI.DarkSouls1
             get => _newSplitItemState;
             set => SetField(ref _newSplitItemState, value);
         }
-
         private ItemState _newSplitItemState;
 
         #endregion
 
         #region Static UI source data ============================================================================================================================================
-        public ObservableCollection<BoolDescriptionViewModel> BooleanFlags { get; set; } = new ObservableCollection<BoolDescriptionViewModel>()
-        {
-            new BoolDescriptionViewModel(){ Description = "Start automatically",     Value = true },
-            new BoolDescriptionViewModel(){ Description = "Reset inventory indices", Value = true }
-        };
 
-        public static ObservableCollection<EnumFlagViewModel<TimingType>> TimingTypes { get; set; } = new ObservableCollection<EnumFlagViewModel<TimingType>>()
-        {
-            new EnumFlagViewModel<TimingType>(TimingType.Immediate),
-            new EnumFlagViewModel<TimingType>(TimingType.OnLoading),
-            new EnumFlagViewModel<TimingType>(TimingType.OnWarp),
-        };
+        public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<Boss>>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
+        public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = new ObservableCollection<EnumFlagViewModel<Bonfire>>(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
+        public static ObservableCollection<Item> Items { get; set; } = new ObservableCollection<Item>(Item.AllItems);
 
-        public static ObservableCollection<EnumFlagViewModel<SplitType>> SplitTypes { get; set; } = new ObservableCollection<EnumFlagViewModel<SplitType>>()
-        {
-            new EnumFlagViewModel<SplitType>(SplitType.Boss),
-            new EnumFlagViewModel<SplitType>(SplitType.Attribute),
-            new EnumFlagViewModel<SplitType>(SplitType.Bonfire),
-            new EnumFlagViewModel<SplitType>(SplitType.Item),
-            new EnumFlagViewModel<SplitType>(SplitType.Position),
-            new EnumFlagViewModel<SplitType>(SplitType.Flag),
-        };
-        
-        public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = EnumFlagViewModel<Boss>.GetEnumViewModels(); //new ObservableCollection<EnumFlagViewModel<Boss>>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
-        public static ObservableCollection<EnumFlagViewModel<Attribute>> Attributes { get; set; } = EnumFlagViewModel<Attribute>.GetEnumViewModels(); //new ObservableCollection<EnumFlagViewModel<Attribute>>(Enum.GetValues(typeof(Attribute)).Cast<Attribute>().Select(i => new EnumFlagViewModel<Attribute>(i)));
-        public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = EnumFlagViewModel<Bonfire>.GetEnumViewModels();// new ObservableCollection<EnumFlagViewModel<Bonfire>>(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
-        public static ObservableCollection<EnumFlagViewModel<ItemType>> Items { get; set; } = EnumFlagViewModel<ItemType>.GetEnumViewModels();
-        
         #endregion
     }
 }

@@ -16,9 +16,8 @@
 
 using SoulMemory.Memory;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
+using System.Management;
 
 namespace SoulMemory.ArmoredCore6
 {
@@ -27,6 +26,8 @@ namespace SoulMemory.ArmoredCore6
         private Process _process = null;
         private readonly Pointer _csEventFlagMan = new Pointer();
         private readonly Pointer _noLogo = new Pointer();
+        private readonly Pointer _incrementIgt = new Pointer();
+        private readonly Pointer _fd4Time = new Pointer();
 
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "armoredcore6", InitPointers, ResetPointers);
 
@@ -41,6 +42,12 @@ namespace SoulMemory.ArmoredCore6
             treeBuilder
                 .ScanAbsolute("NoLogo", "33 f6 89 75 97 40 38 75 77 ? ? 48 89 31", 9)
                     .AddPointer(_noLogo);
+            
+            treeBuilder
+                .ScanRelative("FD4Time", "48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d", 3, 7)
+                    .AddPointer(_fd4Time, 0);
+
+            
 
             return treeBuilder;
         }
@@ -56,10 +63,8 @@ namespace SoulMemory.ArmoredCore6
                     return result;
                 }
 
-                //no logo
                 _noLogo.WriteBytes(null, new byte[]{0x90, 0x90});
-
-                return Result.Ok();
+                return InjectMods();
             }
             catch (Exception e)
             {
@@ -73,6 +78,31 @@ namespace SoulMemory.ArmoredCore6
             }
         }
 
+        private ResultErr<RefreshError> InjectMods()
+        {
+            Exception exception = null;
+            try
+            {
+                soulsmods.Soulsmods.Inject(_process);
+            }
+            catch(Exception e) { exception = e; } 
+            
+            foreach(ProcessModule module in _process.Modules)
+            {
+                if (module.ModuleName == "soulsmods.dll")
+                {
+                    return Result.Ok();
+                }
+            }
+
+            if (exception != null)
+            {
+                return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, exception));
+            }
+
+            return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, "module not loaded"));
+        }
+
         private void ResetPointers()
         {
             _csEventFlagMan.Clear();
@@ -80,6 +110,8 @@ namespace SoulMemory.ArmoredCore6
         }
 
         public Process GetProcess() => _process;
+
+        public int GetInGameTimeMilliseconds() => _fd4Time.ReadInt32(0x114);
 
         #region Read event flag
 

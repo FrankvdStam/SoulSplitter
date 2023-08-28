@@ -174,7 +174,7 @@
        
             <TabItem Header ="Dark Souls 1">
                 
-
+<!--
                     <uIv2:SplitSettingsControl
                         Game="DarkSouls1"
                         BooleanFlags="{Binding DarkSouls1ViewModel.BooleanFlags}"
@@ -189,10 +189,9 @@
                         AddSplit="{Binding DarkSouls1ViewModel.AddSplitCommand}"
                         >
                     </uIv2:SplitSettingsControl>
-
-<!--
-                    <darkSouls1:DarkSouls1Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls1ViewModel}"/>
 -->
+                    <darkSouls1:DarkSouls1Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls1ViewModel}"/>
+
                 
             </TabItem>
 
@@ -210,6 +209,10 @@
 
             <TabItem Header="Elden Ring">
                 <eldenRing:EldenRingControl DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.EldenRingViewModel}"/>
+            </TabItem>
+
+            <TabItem Header="Armored Core">
+
             </TabItem>
 
             <!--

@@ -23,6 +23,6 @@ namespace SoulSplitter.UI.Generic
         DarkSouls3 = 2,
         Sekiro = 3,
         EldenRing = 4,
-        EventFlags = 5,
+        ArmoredCore6 = 5,
     }
 }

@@ -42,5 +42,10 @@ namespace SoulMemory
         /// Will only be a valid reference until the next call to TryRefresh
         /// </summary>
         Process GetProcess();
+
+        /// <summary>
+        /// Get the current millis 
+        /// </summary>
+        int GetInGameTimeMilliseconds();
     }
 }
