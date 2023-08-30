@@ -190,6 +190,7 @@ namespace SoulSplitter.UI.Generic
      XmlInclude(typeof(Splits.DarkSouls1.Attribute)),
      XmlInclude(typeof(SoulMemory.DarkSouls1.Boss)),
      XmlInclude(typeof(SoulMemory.DarkSouls1.ItemType)),
+     XmlInclude(typeof(Splits.DarkSouls1.ItemState)),
 
      XmlInclude(typeof(SoulMemory.DarkSouls3.Boss)),
      XmlInclude(typeof(SoulMemory.DarkSouls3.Bonfire)),

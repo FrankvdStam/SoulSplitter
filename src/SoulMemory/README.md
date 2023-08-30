@@ -75,6 +75,7 @@ Bellow are the API's available on each object. They are subject to change over t
 ResultErr<RefreshError> TryRefresh();                //Tries to refresh attachment to the specific game, refreshes memory paths. Call this every frame or 60 times per second
 TreeBuilder GetTreeBuilder();                        //Returns an object that contains the relevant memory structure. Used internally, if unsure you can leave it alone
 bool ReadEventFlag(uint eventFlagId);                //Read an event flag from the specific game. Not implemented in Dark Souls 2 (more info about event flags on the wiki: https://github.com/FrankvdStam/SoulSplitter/wiki/Eventflags)
+int GetInGameTimeMilliseconds();                     //Get the ellapsed millis from the current loaded character
 Process GetProcess();                                //Get a raw process handle, from which you can implement your own systems
 ```
 
@@ -83,7 +84,6 @@ Process GetProcess();                                //Get a raw process handle,
 int GetAttribute(Attribute attribute);               //Read an attribute (one of the player's levels)
 bool IsWarpRequested();                              //True if a loading screen is visible, and a warp was requested via a bonfire, homeward bone, darksign or homeward miracle
 bool IsPlayerLoaded();                               //True if the player object is loaded in memory
-int GetInGameTimeMilliseconds();                     //Returns the amount of milliseconds played on the current savefile. Returns 0 in the main menu
 int NgCount();                                       //Returns what the current NG+ cycle is
 int GetCurrentSaveSlot();                            //Returns what the current, or last loaded save slot is
 Vector3f GetPosition();                              //Returns the players position in a vector of 3 floats
@@ -106,7 +106,6 @@ bool IsLoading();                                    //Returns true when a loadi
 ```C#
 bool IsLoading();                                    //Returns true when a loading screen is visible
 bool IsPlayerLoaded();                               //Returns true when the player object is loaded into memory
-int GetInGameTimeMilliseconds();                     //Returns the amount of milliseconds played on the current savefile. Returns 0 in the main menu
 void WriteInGameTimeMilliseconds(int millis);        //Overwrite the game's in game time with a new value (used in blackscreen removal to create the illusion of a paused timer)
 Vector3f GetPosition();                              //Returns the players position in a vector of 3 floats
 int ReadAttribute(Attribute attribute);              //Read an attribute (one of the player's levels)
@@ -118,7 +117,6 @@ bool BlackscreenActive()                             //Reads a combination of fl
 Refeshing Sekiro will install nologo and notutorial mods into the game. Additionally it installs a fix to the imprecise in game time.
 
 ```C#
-int GetInGameTimeMilliseconds();                     //Returns the amount of milliseconds played on the current savefile. Returns 0 in the main menu
 void WriteInGameTimeMilliseconds(int value);         //Overwrite the game's in game time with a new value (used in blackscreen removal to create the illusion of a paused timer)
 bool IsPlayerLoaded();                               //Returns true when the player object is loaded into memory
 Vector3f GetPlayerPosition();                        //Returns the players position in a vector of 3 floats
@@ -136,7 +134,14 @@ bool IsPlayerLoaded();                               //Returns true if the playe
 ScreenState GetScreenState();                        //Returns the current "screenstate", can be InGame/Loading/MainMenu/Unknown
 bool IsBlackscreenActive();                          //Reads a combination of flags in memory to determine of a blackscreen is active
 List<Item> ReadInventory();                          //Reads the player's inventory. A part of the inventory seems stored in event flags (especially key-items) so be warned: some things might not be in this list
-int GetInGameTimeMilliseconds();                     //Returns the amount of milliseconds played on the current savefile. Returns 0 in the main menu
 void WriteInGameTimeMilliseconds(int milliseconds);  //Overwrite the game's in game time with a new value (used in blackscreen removal to create the illusion of a paused timer)
 void ResetIgt();                                     //Overwrite the game's in game time with 0 (used to prepare NG+ save files)
+```
+
+### Armored Core 6
+
+Refreshing Armored Core 6 will install nologo & a fix to the imprecise in game timer
+
+```C#
+//No game specific functions yet, only IGame functions available
 ```

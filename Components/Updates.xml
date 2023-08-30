@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.4.6">
+        <files>
+            <file path="Components/SoulMemory.dll"   status="changed"/>
+            <file path="Components/SoulSplitter.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>AC6: fix auto select correct tab</change>
+        </changelog>
+    </update>
     <update version="1.4.5">
         <files>
             <file path="Components/SoulMemory.dll"   status="changed"/>

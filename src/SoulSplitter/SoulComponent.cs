@@ -323,6 +323,7 @@ namespace SoulSplitter
                             break;
 
                         case "armoredcore6":
+                        case "armoredcorevi:firesofrubicon":
                             MainWindow.MainViewModel.SelectedGame = Game.ArmoredCore6;
                             break;
                     }
