@@ -18,11 +18,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Forms;
 using LiveSplit.Model;
 using SoulMemory;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.UI;
+using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splitters
@@ -169,7 +171,7 @@ namespace SoulSplitter.Splitters
 
                         //When the credits are active, show savefile time as well
                         (credits && credits != _previousCredits)
-                        
+
                         )
                     {
                         Debug.WriteLine("Read savefile time");
@@ -198,7 +200,7 @@ namespace SoulSplitter.Splitters
         #region Autosplitting
 
         private List<Split> _splits = new List<Split>();
-       
+
 
         public void ResetAutoSplitting()
         {
@@ -268,7 +270,7 @@ namespace SoulSplitter.Splitters
                                 {
                                     inventory = _darkSouls1.GetInventory();
                                 }
-                                s.SplitConditionMet = inventory.Any(i => i.ItemType == s.ItemType);
+                                s.SplitConditionMet = inventory.Any(i => i.ItemType == s.ItemState.ItemType);
                                 break;
 
                             case SplitType.Credits:
@@ -276,7 +278,7 @@ namespace SoulSplitter.Splitters
                                 break;
                         }
                     }
-                    
+
                     if (s.SplitConditionMet)
                     {
                         ResolveSplitTiming(s);

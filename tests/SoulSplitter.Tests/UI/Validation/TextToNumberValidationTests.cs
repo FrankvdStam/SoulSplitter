@@ -14,36 +14,40 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using NUnit.Framework;
 using SoulSplitter.UI.Validation;
 using System.Collections.Generic;
 using System.Globalization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SoulSplitter.Tests.UI.Validation
 {
-    [TestFixture]
+    [TestClass]
     public class TextToNumberValidationTests
     {
-        private static IEnumerable<TestCaseData> TestCases
+        private static IEnumerable<object?[]> TestCases
         {
             get
             {
-                yield return new TestCaseData("123", false, false, NumericType.Uint).Returns(true);
-                yield return new TestCaseData("-123", false, false, NumericType.Uint).Returns(false);
-                yield return new TestCaseData("-123", false, true, NumericType.Int).Returns(true);
-                yield return new TestCaseData("123.3", false, true, NumericType.Int).Returns(false);
-                yield return new TestCaseData("123.3", false, true, NumericType.Float).Returns(true);
-                yield return new TestCaseData("", true, true, NumericType.Float).Returns(false);
-                yield return new TestCaseData("asd", true, true, NumericType.Float).Returns(false);
-                yield return new TestCaseData(null, true, true, NumericType.Float).Returns(false);
+                return new []
+                {
+                    new object?[] { "123"  , false, false, NumericType.Uint , true },
+                    new object?[] { "-123" , false, false, NumericType.Uint , false},
+                    new object?[] { "-123" , false, true , NumericType.Int  , true },
+                    new object?[] { "123.3", false, true , NumericType.Int  , false},
+                    new object?[] { "123.3", false, true , NumericType.Float, true },
+                    new object?[] { ""     , true , true , NumericType.Float, false},
+                    new object?[] { "asd"  , true , true , NumericType.Float, false},
+                    new object?[] { null   , true , true , NumericType.Float, false},
+                };
             }
         }
-
-        [Test, TestCaseSource("TestCases")]
-        public bool TestDataTypes(object value, bool isRequired, bool allowNegative, NumericType numericType)
+    
+        [TestMethod]
+        [DynamicData(nameof(TestCases))]
+        public void TestDataTypes(object? value, bool isRequired, bool allowNegative, NumericType numericType, bool expected)
         {
             var validator = new TextToNumberValidation { AllowNegative = allowNegative, IsRequired = isRequired, NumericType = numericType };
-            return validator.Validate(value, CultureInfo.InvariantCulture).IsValid;
+            Assert.AreEqual(expected, validator.Validate(value, CultureInfo.InvariantCulture).IsValid);
         }
     }
 }

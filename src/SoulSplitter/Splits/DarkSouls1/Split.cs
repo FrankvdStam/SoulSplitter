@@ -36,7 +36,7 @@ namespace SoulSplitter.Splits.DarkSouls1
                     Boss = (Boss)split;
                     Flag = (uint)Boss;
                     break;
-                    
+
                 case SplitType.Attribute:
                     Attribute = (Attribute)split;
                     break;
@@ -44,13 +44,13 @@ namespace SoulSplitter.Splits.DarkSouls1
                 case SplitType.Position:
                     Position = (VectorSize)split;
                     break;
-                    
+
                 case SplitType.Flag:
                     Flag = ((FlagDescription)split).Flag;
                     break;
 
                 case SplitType.Item:
-                    ItemType = (ItemType)split;
+                    ItemState = (ItemState)split;
                     break;
 
                 case SplitType.Bonfire:
@@ -64,10 +64,10 @@ namespace SoulSplitter.Splits.DarkSouls1
 
         public readonly TimingType TimingType;
         public readonly SplitType SplitType;
-        
+
         public readonly Boss Boss;
-        public readonly ItemType ItemType;
         public readonly Attribute Attribute;
+        public readonly ItemState ItemState;
         public readonly BonfireState BonfireState;
         public readonly VectorSize Position;
         public readonly uint Flag;
@@ -76,12 +76,12 @@ namespace SoulSplitter.Splits.DarkSouls1
         /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
         /// </summary>
         public bool SplitConditionMet = false;
-        
+
         /// <summary>
         /// True after this split object cause a split. No longer need to check split conditions
         /// </summary>
         public bool SplitTriggered = false;
-        
+
         public bool Quitout = false;
     }
 }

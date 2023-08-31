@@ -20,29 +20,31 @@ using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 using LiveSplit.Model;
-using Moq;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 using SoulMemory;
+using SoulSplitter.Net6.Tests;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Tests
 {
-    [TestFixture]
-    [Apartment(ApartmentState.STA)]
+    [TestClass]
+    //[Apartment(ApartmentState.STA)]
     public class SoulComponentTests
     {
-        [Test]
+        [TestMethodSTA]
         public void GetSettingsTest()
         {
-            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
-            var component = new SoulComponent(liveSplitStateMock.Object);
+            var liveSplitStateMock = Substitute.For<LiveSplitState>(null, null, null, null, null);
+            var component = new SoulComponent(liveSplitStateMock);
             var doc = new XmlDocument();
             var settings = component.GetSettings(doc);
-            Assert.IsNotEmpty(settings.OuterXml);
+            Assert.IsNotNull(settings.OuterXml);
+            Assert.AreNotSame("", settings.OuterXml);
         }
 
-        [Test]
+        [TestMethod]
         public void SetSettingsTest()
         {
             var viewModel = new MainViewModel();
@@ -57,7 +59,7 @@ namespace SoulSplitter.Tests
 
             Assert.AreEqual(viewModel.EldenRingViewModel.StartAutomatically, deserializedViewModel.EldenRingViewModel.StartAutomatically);
             
-            var vectorSize = deserializedViewModel.SekiroViewModel.SplitsViewModel.Splits.FirstOrDefault().Children.FirstOrDefault().Children.FirstOrDefault().Split;
+            var vectorSize = deserializedViewModel.SekiroViewModel.SplitsViewModel.Splits.FirstOrDefault()!.Children.FirstOrDefault()!.Children.FirstOrDefault()!.Split;
 
             Assert.AreEqual(typeof(VectorSize), vectorSize.GetType());
             Assert.AreEqual(1.0f, ((VectorSize)vectorSize).Position.X);
@@ -83,14 +85,14 @@ namespace SoulSplitter.Tests
             }
         }
 
-        [Test]
+        [TestMethodSTA]
         public void SekiroMigration1_1_0Test()
         {
             var doc = new XmlDocument();
             doc.LoadXml(XmlData.SekiroMigration1_1_0);
 
-            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
-            var component = new SoulComponent(liveSplitStateMock.Object);
+            var liveSplitStateMock = Substitute.For<LiveSplitState>(null, null, null, null, null);
+            var component = new SoulComponent(liveSplitStateMock);
             component.SetSettings(doc);
 
             var componentViewModel = component.MainWindow.MainViewModel;
@@ -98,14 +100,14 @@ namespace SoulSplitter.Tests
             Assert.AreEqual(3, componentViewModel.SekiroViewModel.SplitsViewModel.Splits.First().Children.Count);
         }
 
-        [Test]
+        [TestMethodSTA]
         public void Ds3Migration_1_9_0_Test()
         {
             var doc = new XmlDocument();
             doc.LoadXml(XmlData.DarkSouls3Migration_1_9_0);
 
-            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
-            var component = new SoulComponent(liveSplitStateMock.Object);
+            var liveSplitStateMock = Substitute.For<LiveSplitState>(null, null, null, null, null);
+            var component = new SoulComponent(liveSplitStateMock);
             component.SetSettings(doc);
 
             var componentViewModel = component.MainWindow.MainViewModel;
