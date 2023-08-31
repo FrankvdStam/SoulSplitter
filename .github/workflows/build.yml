@@ -22,6 +22,12 @@ jobs:
       - name: dotnet restore
         run: dotnet restore
 
+        #for old framework projects
+      - uses: nuget/setup-nuget@v1
+  
+      - name: nuget restore
+        run: nuget restore SoulSplitter.sln
+
         #Setup sonarqube dependencies, run scan
       - name: Set up JDK 11
         uses: actions/setup-java@v1
@@ -53,8 +59,12 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.exclusions=src/cli/Program.cs
-          msbuild SoulSplitter.sln -t:rebuild -t:restore -property:Configuration=Debug
+          msbuild SoulSplitter.sln -t:rebuild -property:Configuration=Debug
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
           
-      - name: dotnet test
-        run: dotnet test tests\SoulSplitter.Tests\bin\Debug\net6.0-windows\SoulSplitter.Tests.dll tests\SoulMemory.Tests\bin\Debug\net6.0\SoulMemory.Tests.dll
+      - name: SoulMemory tests
+        run: dotnet test tests\SoulMemory.Tests\SoulMemory.Tests.csproj
+
+      - name: SoulSplitter tests
+        run: dotnet test tests\SoulSplitter.Tests\SoulSplitter.Tests.csproj
+        
