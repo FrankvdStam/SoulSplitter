@@ -35,7 +35,7 @@ jobs:
           }
 
 
-         #Setup Setup dotnet & restore dependencies.
+        #Setup Setup dotnet & restore dependencies.
       - name: setup dotnet
         uses: actions/setup-dotnet@v3
 
@@ -82,12 +82,15 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.exclusions=src/cli/Program.cs
-          msbuild SoulSplitter.sln -t:rebuild -property:Configuration=Debug
+          msbuild src\soulsplitter\soulsplitter.csproj  -t:rebuild -property:Configuration=Debug -property:Platform=x64
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-          
+
       - name: SoulMemory tests
-        run: dotnet test tests\SoulMemory.Tests\SoulMemory.Tests.csproj
+        run: |
+          msbuild tests\SoulMemory.Tests\SoulMemory.Tests.csproj -property:platform=x64
+          dotnet test tests\SoulMemory.Tests\bin\x64\Debug\net6.0\SoulMemory.Tests.dll
 
       - name: SoulSplitter tests
-        run: dotnet test tests\SoulSplitter.Tests\SoulSplitter.Tests.csproj
-        
+        run: |
+          msbuild tests\SoulSplitter.Tests\SoulSplitter.Tests.csproj -property:platform=x64
+          dotnet test tests\SoulSplitter.Tests\bin\x64\Debug\net6.0-windows\SoulSplitter.Tests.dll
