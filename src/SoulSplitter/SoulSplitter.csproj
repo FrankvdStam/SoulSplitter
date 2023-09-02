@@ -25,6 +25,10 @@
     </PropertyGroup>
     
     <ItemGroup>
+      <None Remove="soulmemory-rs\x64\launcher.exe" />
+      <None Remove="soulmemory-rs\x64\soulmemory_rs.dll" />
+      <None Remove="soulmemory-rs\x86\launcher.exe" />
+      <None Remove="soulmemory-rs\x86\soulmemory_rs.dll" />
       <None Remove="soulsplitter.ico" />
     </ItemGroup>
     <ItemGroup>
@@ -60,6 +64,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="soulmemory-rs\x64\launcher.exe" />
+      <EmbeddedResource Include="soulmemory-rs\x64\soulmemory_rs.dll" />
+      <EmbeddedResource Include="soulmemory-rs\x86\launcher.exe" />
+      <EmbeddedResource Include="soulmemory-rs\x86\soulmemory_rs.dll" />
       <EmbeddedResource Include="soulsplitter.ico" />
     </ItemGroup>
 

@@ -28,6 +28,7 @@ namespace SoulMemory.ArmoredCore6
         private readonly Pointer _noLogo = new Pointer();
         private readonly Pointer _incrementIgt = new Pointer();
         private readonly Pointer _fd4Time = new Pointer();
+        private readonly Pointer _menuMan = new Pointer();
 
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "armoredcore6", InitPointers, ResetPointers);
 
@@ -47,6 +48,9 @@ namespace SoulMemory.ArmoredCore6
                 .ScanRelative("FD4Time", "48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d", 3, 7)
                     .AddPointer(_fd4Time, 0);
 
+            treeBuilder
+                .ScanRelative("CSMenuMan", "48 8b 35 ? ? ? ? 33 db 89 5c 24 20", 3, 7)
+                    .AddPointer(_menuMan, 0);
             
 
             return treeBuilder;
@@ -112,6 +116,12 @@ namespace SoulMemory.ArmoredCore6
         public Process GetProcess() => _process;
 
         public int GetInGameTimeMilliseconds() => _fd4Time.ReadInt32(0x114);
+
+        public bool IsLoadingScreenVisible()
+        {
+            var value = _menuMan.ReadInt32(0x8e4);
+            return value != 0;
+        }
 
         #region Read event flag
 

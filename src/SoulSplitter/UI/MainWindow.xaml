@@ -28,6 +28,7 @@
         xmlns:darkSouls3="clr-namespace:SoulSplitter.UI.DarkSouls3"
         xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
         xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
+        xmlns:uIv2="clr-namespace:SoulSplitter.UIv2"
         Title="SoulSplitter settings"
         Icon="../soulsplitter.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -81,20 +82,6 @@
             <TextBlock VerticalAlignment="Center" Text="{Binding Version}"  DockPanel.Dock="Left"/>
 
             <!-- Due to the nature of the dockpanel control, these items are reversed in code vs how they are drawn -->
-
-            <!-- Open external window
-            <Button
-                DockPanel.Dock="Right"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="1"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Open this settings menu in a window outside of livesplit"
-                Width="25"
-                Height="25"
-                Command="{Binding CommandOpenSeparateSettingsWindow}">
-                <materialDesign:PackIcon Kind="Monitor"/>
-            </Button> -->
             
             <!-- Run event flag logger -->
             <Button
@@ -217,7 +204,14 @@
             </TabItem>
 
             <TabItem Header="Armored Core">
-
+                <uIv2:SplitSettingsControl
+                    Game="ArmoredCore6"
+                    TimingTypes="{Binding ArmoredCore6ViewModel.TimingTypes}"
+                    SplitTypes="{Binding ArmoredCore6ViewModel.SplitTypes}"
+                    AddSplit="{Binding ArmoredCore6ViewModel.AddSplitCommand}"
+                    RemoveSplit="{Binding ArmoredCore6ViewModel.RemoveSplitCommand}"
+                    SplitsViewModel="{Binding ArmoredCore6ViewModel.SplitsViewModel}"
+                    />
             </TabItem>
 
             <!--

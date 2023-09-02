@@ -17,15 +17,12 @@
 using LiveSplit.Model;
 using SoulMemory;
 using SoulMemory.ArmoredCore6;
-using SoulMemory.DarkSouls1;
-using SoulMemory.Sekiro;
 using SoulSplitter.UI;
-using SoulSplitter.UI.Sekiro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SoulSplitter.Splits.ArmoredCore6;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splitters
 {
@@ -56,6 +53,7 @@ namespace SoulSplitter.Splitters
             }
 
             mainViewModel.TryAndHandleError(UpdateTimer);
+            mainViewModel.TryAndHandleError(UpdateAutoSplitter);
 
             mainViewModel.TryAndHandleError(() =>
             {
@@ -64,7 +62,7 @@ namespace SoulSplitter.Splitters
 
             return result;
         }
-        
+
         public void SetViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
@@ -73,6 +71,7 @@ namespace SoulSplitter.Splitters
         private void OnStart(object sender, EventArgs e)
         {
             StartTimer();
+            StartAutoSplitting();
             _mainViewModel.FlagTrackerViewModel.Start();
         }
 
@@ -119,20 +118,86 @@ namespace SoulSplitter.Splitters
 
         private void UpdateTimer()
         {
-            switch (_timerState)
+            if (_timerState == TimerState.Running)
             {
-                case TimerState.Running:
-                    var currentIgt = _armoredCore6.GetInGameTimeMilliseconds();
-                    if (currentIgt > _inGameTime)
-                    {
-                        _inGameTime = currentIgt;
-                    }
-                    _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
-                    break;
-
+                var currentIgt = _armoredCore6.GetInGameTimeMilliseconds();
+                if (currentIgt > _inGameTime)
+                {
+                    _inGameTime = currentIgt;
+                }
+                _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
             }
         }
 
+        #endregion
+
+        #region Autosplitting
+
+        private List<Split> _splits = new List<Split>();
+
+        private void StartAutoSplitting()
+        {
+            _splits = (
+                from timingType in _mainViewModel.ArmoredCore6ViewModel.SplitsViewModel.Splits
+                from splitType in timingType.Children
+                from split in splitType.Children
+                select new Split(timingType.TimingType, splitType.SplitType, split.Split)
+            ).ToList();
+        }
+
+        private void UpdateAutoSplitter()
+        {
+            if (_timerState != TimerState.Running)
+            {
+                return;
+            }
+
+            foreach (var s in _splits)
+            {
+                if (!s.SplitTriggered)
+                {
+                    if (!s.SplitConditionMet)
+                    {
+                        switch (s.SplitType)
+                        {
+                            default:
+                                throw new ArgumentException($"Unsupported split type {s.SplitType}");
+                                
+                            case SplitType.Flag:
+                                s.SplitConditionMet = _armoredCore6.ReadEventFlag(s.Flag);
+                                break;
+                        }
+                    }
+
+                    if (s.SplitConditionMet)
+                    {
+                        ResolveSplitTiming(s);
+                    }
+                }
+            }
+        }
+
+        private void ResolveSplitTiming(Split s)
+        {
+            switch (s.TimingType)
+            {
+                default:
+                    throw new ArgumentException($"Unsupported timing type {s.TimingType}");
+
+                case TimingType.Immediate:
+                    _timerModel.Split();
+                    s.SplitTriggered = true;
+                    break;
+
+                case TimingType.OnLoading:
+                    if (_armoredCore6.IsLoadingScreenVisible())
+                    {
+                        _timerModel.Split();
+                        s.SplitTriggered = true;
+                    }
+                    break;
+            }
+        }
         #endregion
     }
 }

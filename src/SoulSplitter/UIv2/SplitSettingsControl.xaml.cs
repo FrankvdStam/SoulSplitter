@@ -39,6 +39,7 @@ namespace SoulSplitter.UIv2
         {
             CopyGamePositionCommand = new RelayCommand(CopyGamePosition, (o) => true);
             AddSplitCommand = new RelayCommand(AddSplitFunc, CanAddSplit);
+            RemoveSplitCommand = new RelayCommand(RemoveSplitFunc, CanRemoveSplit);
             InitializeComponent();
         }
 
@@ -129,7 +130,8 @@ namespace SoulSplitter.UIv2
             AddSplit.Execute(flatSplit);
         }
 
-
+        private bool CanRemoveSplit(object param) => SplitsViewModel.SelectedSplit != null;
+        private void RemoveSplitFunc(object parameter) => RemoveSplit?.Execute(parameter);
 
         #endregion
 
@@ -237,6 +239,16 @@ namespace SoulSplitter.UIv2
         {
             get => (RelayCommand)GetValue(AddSplitDependencyProperty);
             set => SetValue(AddSplitDependencyProperty, value);
+        }
+
+        public static readonly DependencyProperty RemoveSplitDependencyProperty =
+            DependencyProperty.Register(nameof(RemoveSplit), typeof(RelayCommand), typeof(SplitSettingsControl),
+                new FrameworkPropertyMetadata(new RelayCommand(null), FrameworkPropertyMetadataOptions.None));
+
+        public RelayCommand RemoveSplit
+        {
+            get => (RelayCommand)GetValue(RemoveSplitDependencyProperty);
+            set => SetValue(RemoveSplitDependencyProperty, value);
         }
 
         #endregion

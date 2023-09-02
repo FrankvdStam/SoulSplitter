@@ -476,6 +476,7 @@
             Grid.Row="{StaticResource RowSplitsTree}"
             Grid.Column="0"
             Grid.ColumnSpan="2"
+            SelectedItemChanged="TreeView_OnSelectedItemChanged"
             ItemsSource="{Binding SplitsViewModel.Splits, RelativeSource={RelativeSource AncestorType=UserControl}}"
             >
             

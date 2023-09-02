@@ -35,6 +35,7 @@ using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.EldenRing;
 using SoulSplitter.UI.Generic;
 using SoulSplitter.UI.Sekiro;
+using SoulSplitter.ViewModels.Games;
 using Brush = System.Windows.Media.Brush;
 
 namespace SoulSplitter.UI
@@ -45,7 +46,6 @@ namespace SoulSplitter.UI
         {
             CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage, (o) => true);
             CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger, (o) => true);
-            CommandOpenSeparateSettingsWindow = new RelayCommand(OpenSeparateSettingsWindow, (o) => true);
             CommandClearErrors = new RelayCommand(ClearErrors, (o) => Errors.Count > 0);
             CommandAddError = new RelayCommand(AddErrorCommand, (o) => true);
             CommandShowErrors = new RelayCommand(ShowErrorWindow, (o) => true);
@@ -60,6 +60,7 @@ namespace SoulSplitter.UI
             DarkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
             SekiroViewModel = mainViewModel.SekiroViewModel;
             EldenRingViewModel = mainViewModel.EldenRingViewModel;
+            ArmoredCore6ViewModel = mainViewModel.ArmoredCore6ViewModel;
             FlagTrackerViewModel = mainViewModel.FlagTrackerViewModel;
         }
 
@@ -109,6 +110,13 @@ namespace SoulSplitter.UI
             set => SetField(ref _eldenRingViewModel, value);
         }
         private EldenRingViewModel _eldenRingViewModel = new EldenRingViewModel();
+
+        public ArmoredCore6ViewModel ArmoredCore6ViewModel
+        {
+            get => _armoredCore6ViewModel;
+            set => SetField(ref _armoredCore6ViewModel, value);
+        }
+        private ArmoredCore6ViewModel _armoredCore6ViewModel = new ArmoredCore6ViewModel();
 
         public FlagTrackerViewModel FlagTrackerViewModel
         {
@@ -299,40 +307,6 @@ namespace SoulSplitter.UI
         {
             SoulMemoryRs.Launch();
         }
-
-        [XmlIgnore]
-        public RelayCommand CommandOpenSeparateSettingsWindow
-        {
-            get => _commandOpenSeparateSettingsWindow;
-            set => SetField(ref _commandOpenSeparateSettingsWindow, value);
-        }
-        private RelayCommand _commandOpenSeparateSettingsWindow;
-
-        private Window _settingsWindow;
-        private void OpenSeparateSettingsWindow(object sender)
-        {
-            if (_settingsWindow == null)
-            {
-                var mainControl = new MainWindow();
-                mainControl.DataContext = this;
-
-                _settingsWindow = new Window();
-                ElementHost.EnableModelessKeyboardInterop(_settingsWindow);
-                _settingsWindow.Title = "SoulSplitter settings";
-                var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/SoulSplitter;component/soulsplitter.ico"))?.Stream;
-                if (iconStream != null)
-                {
-                    _settingsWindow.Icon = BitmapFrame.Create(iconStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                }
-                _settingsWindow.Content = mainControl;
-                _settingsWindow.Closing += (s, arg) =>
-                {
-                    _settingsWindow.Hide();
-                    arg.Cancel = true;
-                };
-            }
-            _settingsWindow.Show();
-        }
         
         [XmlIgnore]
         public RelayCommand CommandOpenFlagTrackerWindow
@@ -377,21 +351,7 @@ namespace SoulSplitter.UI
         }
 
         #endregion
-
-        #region Favorites
-
-
-
-        public SplitsViewModel FavoriteSplits
-        {
-            get => _favoriteSplits;
-            set => SetField(ref _favoriteSplits, value);
-        }
-        private SplitsViewModel _favoriteSplits = new SplitsViewModel();
-
-
-        #endregion
-
+        
         #region Serializing
         public string Serialize()
         {

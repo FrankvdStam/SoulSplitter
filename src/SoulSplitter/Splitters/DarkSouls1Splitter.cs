@@ -200,13 +200,7 @@ namespace SoulSplitter.Splitters
         #region Autosplitting
 
         private List<Split> _splits = new List<Split>();
-
-
-        public void ResetAutoSplitting()
-        {
-            _splits.Clear();
-        }
-
+        
         private void StartAutoSplitting()
         {
             _splits = (
