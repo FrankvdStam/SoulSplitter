@@ -14,10 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+extern alias SystemDrawing;
+using SystemDrawing::System.Drawing;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Windows;
 using SoulSplitter.Native;
 using winforms = System.Windows.Forms;
@@ -32,6 +33,7 @@ namespace SoulSplitter.UI
         public MainWindow()
         {
             InitializeComponent();
+            //Icon. = IconHelper.SoulSplitterIcon;
             Closing += Window_Closing;
         }
 

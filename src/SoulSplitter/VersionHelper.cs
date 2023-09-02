@@ -22,7 +22,7 @@ namespace SoulSplitter
     {
         public static Version Version
         { 
-            get 
+            get
             {
                 var version = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 return new Version(version.FileMajorPart, version.FileMinorPart, version.FileBuildPart);

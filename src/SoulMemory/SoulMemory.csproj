@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/FrankvdStam/SoulSplitter</PackageProjectUrl>
     <RepositoryUrl>https://github.com/FrankvdStam/SoulSplitter</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>Dark Souls; Dark Souls 2; Dark Souls 3; Sekiro; Sekiro: Shadows Die Twice; Elden Ring;</PackageTags>
+    <PackageTags>Dark Souls; Dark Souls 2; Dark Souls 3; Sekiro; Sekiro: Shadows Die Twice; Elden Ring; Armored Core 6;</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Copyright>(c) 2022 by Frank van der Stam, GPL-v3 licensed</Copyright>
@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.4" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">

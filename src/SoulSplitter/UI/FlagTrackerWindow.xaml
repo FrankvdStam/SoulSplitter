@@ -14,7 +14,14 @@
         Icon="../soulsplitter.ico"
         Width="{Binding WindowWidth, Mode=TwoWay}"
         Height="{Binding WindowHeight, Mode=TwoWay}"
-        d:DataContext="{d:DesignInstance generic:FlagTrackerViewModel, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance generic:FlagTrackerViewModel, IsDesignTimeCreatable=True}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Window.Resources>
         <ResourceDictionary>

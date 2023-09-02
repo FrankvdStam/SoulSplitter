@@ -28,10 +28,15 @@
         xmlns:darkSouls3="clr-namespace:SoulSplitter.UI.DarkSouls3"
         xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
         xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
-        xmlns:uIv2="clr-namespace:SoulSplitter.UIv2"
         Title="SoulSplitter settings"
         Icon="../soulsplitter.ico"
-        xmlns:generic="clr-namespace:SoulSplitter.UI.Generic">
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Window.Resources>
         <ResourceDictionary>

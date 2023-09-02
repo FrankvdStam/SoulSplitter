@@ -10,7 +10,14 @@
         Height="600"
         Title="SoulSplitter errors"
         Icon="../soulsplitter.ico"
-        d:DataContext="{d:DesignInstance ui:MainViewModel, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance ui:MainViewModel, IsDesignTimeCreatable=True}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Window.Resources>
         <ResourceDictionary>

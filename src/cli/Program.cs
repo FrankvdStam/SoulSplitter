@@ -32,6 +32,7 @@ using System.Text;
 using SoulMemory.ArmoredCore6;
 using SoulMemory.Parameters;
 using Item = SoulMemory.DarkSouls1.Item;
+using System.Windows.Documents;
 
 #pragma warning disable CS0162
 
@@ -43,6 +44,11 @@ namespace cli
         static void Main(string[] args)
         {
             TestUi();
+            return;
+            var result = Path.Combine(@"C:\projects\Dark souls\SoulSplitter\src\SoulSplitter", @"..\..\..\LiveSplit\LiveSplit\bin\Debug\Components");
+
+
+           
             return;
             GameLoop<ArmoredCore6>((ac6) =>
             {

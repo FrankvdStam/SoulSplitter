@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+extern alias SystemDrawing;
+using SystemDrawing::System.Drawing;
 using LiveSplit.Model;
 using LiveSplit.UI;
 using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Xml;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
