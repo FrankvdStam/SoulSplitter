@@ -39,8 +39,11 @@ namespace SoulSplitter.UI.Converters
             {
                 try
                 {
-                    var color = System.Drawing.ColorTranslator.FromHtml(hex);
-                    return Color.FromRgb(color.R, color.G, color.B);
+                    int rgb = System.Convert.ToInt32(hex.Remove(0, 1), 16);
+                    var r = (byte)((rgb & 0xff0000) >> 16);
+                    var g = (byte)((rgb & 0xff00) >> 8);
+                    var b = (byte)(rgb & 0xff);
+                    return Color.FromRgb(r, g, b);
                 }
                 catch
                 {

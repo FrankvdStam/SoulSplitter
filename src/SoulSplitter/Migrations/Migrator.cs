@@ -35,14 +35,14 @@ namespace SoulSplitter.Migrations
                 MigrateSekiro_1_1_0(settings);
             }
 
-            if(version <= Version.Parse("1.9.0"))
+            if(version <= Version.Parse("1.1.9"))
             {
-                MigrateDs3_1_9_0(settings);
+                MigrateDs3_1_1_9(settings);
             }
         }
 
-        #region MigrateDs3_1_9_0 ============================================================================================================================================================
-        private static void MigrateDs3_1_9_0(XmlNode settings)
+        #region MigrateDs3_1_1_9 ============================================================================================================================================================
+        private static void MigrateDs3_1_1_9(XmlNode settings)
         {
             var mainViewModel = settings.GetChildNodeByName("MainViewModel");
             var darkSouls3ViewModel = mainViewModel.GetChildNodeByName("DarkSouls3ViewModel");

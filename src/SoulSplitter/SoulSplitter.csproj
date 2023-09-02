@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
     <PropertyGroup>
-        <TargetFramework>net461</TargetFramework>
+        <TargetFramework>net481</TargetFramework>
         <PlatformTarget>x64</PlatformTarget>
         <UseWPF>true</UseWPF>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
@@ -32,8 +32,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MaterialDesignColors" Version="2.0.4" />
-        <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
+        <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
+        <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
     </ItemGroup>
 
     <ItemGroup>
