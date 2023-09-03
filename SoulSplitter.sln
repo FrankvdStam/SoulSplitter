@@ -20,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\issues.yml = .github\workflows\issues.yml
 		LICENSE = LICENSE
 		README.md = README.md
+		soulsplitter.runsettings = soulsplitter.runsettings
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{622B105C-C5BF-49B3-BEBD-FC5845B27CA0}"
