@@ -17,9 +17,11 @@
 using SoulMemory.Memory;
 using SoulMemory.Parameters;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SoulMemory.DarkSouls1.Parameters
 {
+    [ExcludeFromCodeCoverage]
     public class AiStandardInfo : BaseParam
     {
         public AiStandardInfo(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
