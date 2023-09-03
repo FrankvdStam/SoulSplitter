@@ -14,15 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
 
 namespace SoulMemory.Parameters
 {
     public static class ParamData
     {
-        public static readonly Dictionary<ParamType, int> ParamByteSize = new Dictionary<ParamType, int>()
+        public static readonly ReadOnlyDictionary<ParamType, int> ParamByteSize = new ReadOnlyDictionary<ParamType, int>(new Dictionary<ParamType, int>()
         {
             { ParamType.Dummy8, 1 },
             { ParamType.U8,     1 },
@@ -32,9 +31,9 @@ namespace SoulMemory.Parameters
             { ParamType.U32,    4 },
             { ParamType.I32,    4 },
             { ParamType.F32,    4 },
-        };
+        });
 
-        public static readonly Dictionary<ParamType, string> ParamToSharpTypeString = new Dictionary<ParamType, string>()
+        public static readonly ReadOnlyDictionary<ParamType, string> ParamToSharpTypeString = new ReadOnlyDictionary<ParamType, string>(new Dictionary<ParamType, string>()
         {
             { ParamType.Dummy8, "byte"   },
             { ParamType.U8,     "byte"   },
@@ -44,9 +43,9 @@ namespace SoulMemory.Parameters
             { ParamType.U32,    "uint"   },
             { ParamType.I32,    "int"    },
             { ParamType.F32,    "float"  },
-        };
+        });
 
-        public static readonly Dictionary<string, ParamType> ParamStrings = new Dictionary<string, ParamType>()
+        public static readonly ReadOnlyDictionary<string, ParamType> ParamStrings = new ReadOnlyDictionary<string, ParamType>(new Dictionary<string, ParamType>()
         {
             { "dummy8", ParamType.Dummy8 },
             { "u8",     ParamType.U8     },
@@ -56,6 +55,6 @@ namespace SoulMemory.Parameters
             { "u32",    ParamType.U32    },
             { "s32",    ParamType.I32    },
             { "f32",    ParamType.F32    },
-        };
+        });
     }
 }
