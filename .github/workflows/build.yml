@@ -12,44 +12,44 @@ jobs:
         with:
           fetch-depth: 0
        
-      - name: Install component on windows 2022
-        shell: pwsh
-        run: |
-          Set-Location "C:\Program Files (x86)\Microsoft Visual Studio\Installer\"
-          $InstallPath = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise"
-          $componentsToAdd = @(
-            "Microsoft.Net.Component.4.6.1.SDK",
-            "Microsoft.Net.Component.4.6.1.TargetingPack"
-          )
-          [string]$workloadArgs = $componentsToAdd | ForEach-Object {" --add " +  $_}
-          $Arguments = ('/c', "vs_installer.exe", 'modify', '--installPath', "`"$InstallPath`"",$workloadArgs, '--quiet', '--norestart', '--nocache')
-          $process = Start-Process -FilePath cmd.exe -ArgumentList $Arguments -Wait -PassThru -WindowStyle Hidden
-          if ($process.ExitCode -eq 0)
-          {
-              Write-Host "components have been successfully added"
-          }
-          else
-          {
-              Write-Host "components were not installed"
-              exit 1
-          }
+    #  - name: Install component on windows 2022
+    #    shell: pwsh
+    #    run: |
+    #      Set-Location "C:\Program Files (x86)\Microsoft Visual Studio\Installer\"
+    #      $InstallPath = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise"
+    #      $componentsToAdd = @(
+    #        "Microsoft.Net.Component.4.6.1.SDK",
+    #        "Microsoft.Net.Component.4.6.1.TargetingPack"
+    #      )
+    #      [string]$workloadArgs = $componentsToAdd | ForEach-Object {" --add " +  $_}
+    #      $Arguments = ('/c', "vs_installer.exe", 'modify', '--installPath', "`"$InstallPath`"",$workloadArgs, '--quiet', '--norestart', '--nocache')
+    #      $process = Start-Process -FilePath cmd.exe -ArgumentList $Arguments -Wait -PassThru -WindowStyle Hidden
+    #      if ($process.ExitCode -eq 0)
+    #      {
+    #          Write-Host "components have been successfully added"
+    #      }
+    #      else
+    #      {
+    #          Write-Host "components were not installed"
+    #          exit 1
+    #      }
 
 
         #Setup Setup dotnet & restore dependencies.
       - name: setup dotnet
         uses: actions/setup-dotnet@v3
 
-      - name: setup-msbuild
-        uses: microsoft/setup-msbuild@v1.1
+    #  - name: setup-msbuild
+    #    uses: microsoft/setup-msbuild@v1.1
 
       - name: dotnet restore
         run: dotnet restore
 
-        #for old framework projects
-      - uses: nuget/setup-nuget@v1
+    #    #for old framework projects
+    #  - uses: nuget/setup-nuget@v1
   
-      - name: nuget restore
-        run: nuget restore SoulSplitter.sln
+    #  - name: nuget restore
+    #    run: nuget restore SoulSplitter.sln
 
         #Setup sonarqube dependencies, run scan
       - name: Set up JDK 11
@@ -82,15 +82,8 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.exclusions=src/cli/Program.cs
-          msbuild src\soulsplitter\soulsplitter.csproj  -t:rebuild -property:Configuration=Debug -property:Platform=x64
+          dotnet build src\SoulSplitter\SoulSplitter.csproj -t:rebuild -property:Configuration=Debug -property:Platform=x64
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
-      - name: SoulMemory tests
-        run: |
-          msbuild tests\SoulMemory.Tests\SoulMemory.Tests.csproj -property:platform=x64
-          dotnet test tests\SoulMemory.Tests\bin\x64\Debug\net6.0\SoulMemory.Tests.dll
-
-      - name: SoulSplitter tests
-        run: |
-          msbuild tests\SoulSplitter.Tests\SoulSplitter.Tests.csproj -property:platform=x64
-          dotnet test tests\SoulSplitter.Tests\bin\x64\Debug\net6.0-windows\SoulSplitter.Tests.dll
+      - name: Run tests
+        run: dotnet test
