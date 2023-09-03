@@ -43,15 +43,20 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            
+
             TestUi();
             return;
 
-
-           
-            return;
-            GameLoop<ArmoredCore6>((ac6) =>
+            GameLoop<DarkSouls1>((ds1) =>
             {
-                Console.WriteLine(ac6.GetInGameTimeMilliseconds());
+                Console.WriteLine(ds1.GetInventory());
+            });
+
+            return;
+            GameLoop<DarkSouls1>((ds1) =>
+            {
+                Console.WriteLine(ds1.GetInventory());
             });
         }
 
