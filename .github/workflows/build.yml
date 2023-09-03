@@ -49,9 +49,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.exclusions=src/cli/Program.cs /d:sonar.cs.opencover.reportsPaths=TestResults/**/*.coverage
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.exclusions=src/cli/Program.cs /d:sonar.cs.opencover.reportsPaths=TestResults/*.xml
           dotnet build
-          dotnet test --collect:"Code Coverage"
+          dotnet test tests\soulmemory.tests\soulmemory.tests.csproj -p:CollectCoverage=true -p:CoverletOutput=..\..\TestResults\soulmemory.tests.opencover.xml -p:CoverletOutputFormat=opencover
+          dotnet test tests\soulsplitter.tests\soulsplitter.tests.csproj -p:CollectCoverage=true -p:CoverletOutput=..\..\TestResults\soulsplitter.tests.opencover.xml -p:CoverletOutputFormat=opencover
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       
