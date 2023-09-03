@@ -45,7 +45,6 @@ namespace cli
         {
             TestUi();
             return;
-            var result = Path.Combine(@"C:\projects\Dark souls\SoulSplitter\src\SoulSplitter", @"..\..\..\LiveSplit\LiveSplit\bin\Debug\Components");
 
 
            
@@ -212,6 +211,7 @@ namespace cli
 
             mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
             var result = mainWindow.ShowDialog();
+            mainWindow.Close();
         }
 
         #region Validate patterns 
@@ -219,11 +219,12 @@ namespace cli
         {
             var validatables = new List<(string Name, IGame Game, string Directory)>()
             {
-                ("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
+                //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
                 //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
                 //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
+                ("Armored Core 6"           , new ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
             };
 
             foreach (var validatable in validatables)

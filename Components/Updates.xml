@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.4.8">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+            <file path="Components/MaterialDesignThemes.Wpf.dll"    status="changed"/>
+            <file path="Components/MaterialDesignThemes.Wpf.xml"    status="changed"/>
+        </files>
+        <changelog>
+            <change>Added AC6 event flag splits</change>
+            <change>Upgrade to .NET 4.8.1</change>
+            <change>Upgrade UI lib to latest version</change>
+        </changelog>
+    </update>
     <update version="1.4.7">
         <files>
             <file path="Components/SoulMemory.dll"   status="changed"/>

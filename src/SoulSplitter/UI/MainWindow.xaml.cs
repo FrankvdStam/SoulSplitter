@@ -16,7 +16,6 @@
 
 extern alias SystemDrawing;
 using SystemDrawing::System.Drawing;
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
@@ -33,15 +32,17 @@ namespace SoulSplitter.UI
         public MainWindow()
         {
             InitializeComponent();
-            //Icon. = IconHelper.SoulSplitterIcon;
             Closing += Window_Closing;
         }
 
         public bool WindowShouldHide = true;
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            Hide();
-            e.Cancel = WindowShouldHide;
+            if (WindowShouldHide)
+            {
+                Hide();
+                e.Cancel = true;
+            }
         }
         
 
