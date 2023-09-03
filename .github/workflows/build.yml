@@ -18,6 +18,9 @@ jobs:
         
       - name: dotnet restore
         run: dotnet restore
+
+      - name: Run tests
+        run: dotnet test --collect:"XPlat Code Coverage"
         
         #Setup sonarqube dependencies, run scan
       - name: Set up JDK 11
@@ -49,9 +52,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.exclusions=src/cli/Program.cs
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.exclusions=src/cli/Program.cs /d:sonar.cs.opencover.reportsPaths=TestResults\**\*.xml
           dotnet build src\SoulSplitter\SoulSplitter.csproj -t:rebuild -property:Configuration=Debug -property:Platform=x64
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
-      - name: Run tests
-        run: dotnet test
+      
