@@ -8,7 +8,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <Platforms>x64</Platforms>
-    <RunSettingsFilePath>..\..\.runsettings</RunSettingsFilePath>
+    <RunSettingsFilePath>soulsplitter.runsettings</RunSettingsFilePath>
   </PropertyGroup>
 
   <ItemGroup>
