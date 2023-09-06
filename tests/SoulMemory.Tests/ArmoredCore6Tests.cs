@@ -15,32 +15,16 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SoulMemory.MemoryV2;
 using NSubstitute;
-using SoulMemory.Memory;
 using SoulMemory.MemoryV2.Memory;
 using SoulMemory.MemoryV2.PointerTreeBuilder;
+using SoulMemory.MemoryV2.Process;
 
 namespace SoulMemory.Tests
 {
     [TestClass]
     public class ArmoredCore6Tests
     {
-        [TestInitialize]
-        public void Init()
-        {
-            _mockProcessHook = new MockProcessHook();
-            _armoredCore6 = new SoulMemory.MemoryV2.ArmoredCore6(_mockProcessHook);
-        }
-
-        private SoulMemory.MemoryV2.ArmoredCore6 _armoredCore6;
-        private MockProcessHook _mockProcessHook;
-
         [TestMethod]
         public void Initialize_Without_Process()
         {
@@ -56,5 +40,56 @@ namespace SoulMemory.Tests
             Assert.IsTrue(ac6.TryRefresh().IsOk);
         }
 
+        private readonly byte[] Ac6Memory = new byte[]
+        {
+            0x48, 0x8b, 0x35, 0x20, 0x4a, 0xdf, 0x03, 0x83, 0xf8, 0xff, 0x0f, 0x44, 0xc1, //CSEventFlagMan
+            //0x33, 0xf6, 0x89, 0x75, 0x97, 0x40, 0x38, 0x75, 0x77, 0x? , 0x? , 0x48, 0x89, 0x31, //NoLogo
+            //0x48, 0x8b, 0x0d, 0x? , 0x? , 0x? , 0x? , 0x0f, 0x28, 0xc8, 0xf3, 0x0f, 0x59, 0x0d, //FD4Time
+            //0x48, 0x8b, 0x35, 0x? , 0x? , 0x? , 0x? , 0x33, 0xdb, 0x89, 0x5c, 0x24, 0x20, //CSMenuMan
+        };
+
+
+        [TestMethod]
+        public void ReadMemTest()
+        {
+            var mock = Substitute.For<IProcessHook>();
+            mock.PointerTreeBuilder.Returns(new PointerTreeBuilder());
+            mock
+                .TryRefresh()
+                .Returns(i =>
+                {
+                    var fd4Time = mock.PointerTreeBuilder.Tree.First(i => i.Name == "FD4Time").Pointers.First();
+                    fd4Time.Pointer.Path.Add(new PointerPath() { Offset = 0x144DA2F48 });
+                    return Result.Ok();
+                });
+
+            mock
+                .ReadBytes(Arg.Any<long>(), Arg.Any<int>())
+                .Returns(i =>
+                {
+                    var address = (long)i[0];
+                    var size = (int)i[1];
+
+                    if (address == 0x144DA2F48 && size == 8)
+                    {
+                        return BitConverter.GetBytes(0x7FF46F5C04B0);
+                    }
+
+                    if (address == 0x7FF46F5C04B0 + 0x114 && size == 4)
+                    {
+                        return BitConverter.GetBytes(50681);
+                    }
+
+                    Assert.Fail();
+                    return new byte[]{};
+                });
+
+            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            Assert.IsTrue(ac6.TryRefresh().IsOk);
+            
+
+            var igt = ac6.GetInGameTimeMilliseconds();
+            Assert.AreEqual(50681, igt);
+        }
     }
 }

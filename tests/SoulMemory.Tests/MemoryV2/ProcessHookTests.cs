@@ -14,17 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.MemoryV2;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using SoulMemory.MemoryV2.Memory;
-using SoulMemory.MemoryV2.PointerTreeBuilder;
+using SoulMemory.MemoryV2.Process;
 
 namespace SoulMemory.Tests.MemoryV2
 {

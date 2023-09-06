@@ -14,58 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Native;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using SoulMemory.Native;
 
-namespace SoulMemory.MemoryV2.Memory
+namespace SoulMemory.MemoryV2.Process
 {
-    public enum ProcessRefreshResult
-    {
-        ProcessNotRunning,
-        Initialized,
-        Exited,
-        Error,
-        Refreshed,
-    }
-
-    public class ProcessWrapperModule
-    {
-        public string ModuleName { get; set; }
-        
-        public string FileName { get; set; }
-        
-        public IntPtr BaseAddress { get; set; }
-        
-        public int ModuleMemorySize { get; set; }
-
-        public static ProcessWrapperModule FromProcessModule(ProcessModule module)
-        {
-            return new ProcessWrapperModule
-            {
-                ModuleName = module.ModuleName,
-                FileName = module.FileName,
-                BaseAddress = module.BaseAddress,
-                ModuleMemorySize = module.ModuleMemorySize,
-            };
-        }
-    }
-
-    public interface IProcessWrapper : IMemory
-    {
-        ProcessRefreshResult TryRefresh(string name, out Exception exception);
-        ProcessWrapperModule GetMainModule();
-        List<ProcessWrapperModule> GetProcessModules();
-        Process GetProcess();
-        bool Is64Bit();
-    }
-
     public class ProcessWrapper : IProcessWrapper
     {
-        private Process _process;
-        public Process GetProcess() => _process;
+        private System.Diagnostics.Process _process;
+        public System.Diagnostics.Process GetProcess() => _process;
         public bool Is64Bit() => _process.Is64Bit();
         public ProcessWrapperModule GetMainModule() => _process.MainModule == null ? null : ProcessWrapperModule.FromProcessModule(_process.MainModule);
 
@@ -92,7 +52,7 @@ namespace SoulMemory.MemoryV2.Memory
                 //Process not attached - find it in the process list
                 if (_process == null)
                 {
-                    _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == name.ToLower() && !i.HasExited);
+                    _process = System.Diagnostics.Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == name.ToLower() && !i.HasExited);
                     if (_process == null)
                     {
                         return ProcessRefreshResult.ProcessNotRunning;

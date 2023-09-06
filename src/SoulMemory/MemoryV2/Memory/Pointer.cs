@@ -22,17 +22,6 @@ using System.Text;
 
 namespace SoulMemory.MemoryV2.Memory
 {
-    public class PointerPath
-    {
-        public long Offset;
-        public long Address;
-
-        public override string ToString()
-        {
-            return $"0x{Offset:x8} - 0x{Address:x8}";
-        }
-    }
-
     public class Pointer : IMemory
     {
         public readonly IMemory Memory;

@@ -72,14 +72,14 @@ namespace SoulMemory.MemoryV2.Memory
         /// Refresh a process instance
         /// </summary>
         /// <returns></returns>
-        public static ResultErr<RefreshError> TryRefresh(ref Process process, string name, Func<ResultErr<RefreshError>> initialize, Action reset)
+        public static ResultErr<RefreshError> TryRefresh(ref System.Diagnostics.Process process, string name, Func<ResultErr<RefreshError>> initialize, Action reset)
         {
             try
             {
                 //Process not attached - find it in the process list
                 if (process == null)
                 {
-                    process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == name.ToLower() && !i.HasExited);
+                    process = System.Diagnostics.Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == name.ToLower() && !i.HasExited);
                     if (process == null)
                     {
                         return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, $"Process {name} not running or inaccessible. Try running livesplit as admin."));

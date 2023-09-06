@@ -14,32 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Diagnostics;
-using SoulMemory.MemoryV2.PointerTreeBuilder;
-using SoulMemory.MemoryV2.Process;
 
-namespace SoulMemory.Tests
+namespace SoulMemory.MemoryV2.Process
 {
-    public class MockProcessHook : IProcessHook
+    public class ProcessWrapperModule
     {
-        public byte[] ReadBytes(long offset, int length)
+        public string ModuleName { get; set; }
+        public string FileName { get; set; }
+        public IntPtr BaseAddress { get; set; }
+        public int ModuleMemorySize { get; set; }
+
+        public static ProcessWrapperModule FromProcessModule(ProcessModule module)
         {
-            return new byte[] { };
+            return new ProcessWrapperModule
+            {
+                ModuleName = module.ModuleName,
+                FileName = module.FileName,
+                BaseAddress = module.BaseAddress,
+                ModuleMemorySize = module.ModuleMemorySize,
+            };
         }
-
-        public void WriteBytes(long offset, byte[] bytes)
-        {
-        }
-
-        public Process GetProcess()
-        {
-            return null;
-        }
-
-        public ResultErr<RefreshError> TryRefresh() => Result.Ok();
-
-        public event Func<ResultErr<RefreshError>>? Hooked;
-        public event Action<Exception>? Exited;
-        public PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder();
     }
 }
