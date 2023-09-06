@@ -17,18 +17,23 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Xml.Linq;
+using SoulMemory.Memory;
 using SoulMemory.MemoryV2.Memory;
 using SoulMemory.Native;
+using IMemory = SoulMemory.MemoryV2.Memory.IMemory;
+using MemoryExtensions = SoulMemory.MemoryV2.Memory.MemoryExtensions;
+using Pointer = SoulMemory.MemoryV2.Memory.Pointer;
 
 namespace SoulMemory.MemoryV2
 {
-    public class Example : IGame
+    public class ArmoredCore6 : IGame
     {
         private readonly IProcessHook _armoredCore6;
 
-        public Example() : this(null) { }
+        public ArmoredCore6() : this(null) { }
 
-        public Example(IProcessHook processHook = null)
+        public ArmoredCore6(IProcessHook processHook = null)
         {
             _armoredCore6 = processHook ?? new ProcessHook("armoredcore6");
             
@@ -84,7 +89,7 @@ namespace SoulMemory.MemoryV2
             if (result.IsOk)
             {
                 var address = result.Unwrap();
-                var read = _armoredCore6.ReadInt32(address);
+                var read = MemoryExtensions.ReadInt32(_armoredCore6, address);
                 var write = read;
                 if (value)
                 {
@@ -94,7 +99,7 @@ namespace SoulMemory.MemoryV2
                 {
                     write &= ~mask;
                 }
-                _armoredCore6.WriteInt32(address, write);
+                MemoryExtensions.WriteInt32(_armoredCore6, address, write);
             }
         }
         
@@ -104,7 +109,7 @@ namespace SoulMemory.MemoryV2
             if (result.IsOk)
             {
                 var address = result.Unwrap();
-                var read = _armoredCore6.ReadInt32(address);
+                var read = MemoryExtensions.ReadInt32(_armoredCore6, address);
                 return (read & mask) != 0;
             }
         
@@ -188,10 +193,7 @@ namespace SoulMemory.MemoryV2
         
         #endregion
     }
-
-
-
-
+    
     public interface IProcessHook : IMemory
     {
         /// <summary>
@@ -227,88 +229,82 @@ namespace SoulMemory.MemoryV2
             _name = name;
         }
 
-        private Process _process;
         private readonly string _name;
-        
-        public Process GetProcess() => _process;
+
+        public Process GetProcess() => ProcessWrapper.GetProcess();
+
         public event Func<ResultErr<RefreshError>> Hooked;
         public event Action<Exception> Exited;
+
+
+        public IProcessWrapper ProcessWrapper = new ProcessWrapper();
         public PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder.PointerTreeBuilder();
 
         #region Refresh =================================================================================================================================================
-
+        
         /// <summary>
         /// Refresh attachment to a process
         /// </summary>
         /// <returns></returns>
         public ResultErr<RefreshError> TryRefresh()
         {
-            try
+            var processRefreshResult = ProcessWrapper.TryRefresh(_name, out Exception e);
+            switch (processRefreshResult)
             {
-                //Process not attached - find it in the process list
-                if (_process == null)
-                {
-                    _process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == _name.ToLower() && !i.HasExited);
-                    if (_process == null)
-                    {
-                        return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, $"Process {_name} not running or inaccessible. Try running livesplit as admin."));
-                    }
-                    else
-                    {
-                        if (_process.MainModule == null)
-                        {
-                            return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, "Main module is null. Try running as admin."));
-                        }
+                case ProcessRefreshResult.ProcessNotRunning:
+                    return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, $"Process {_name} not running or inaccessible. Try running livesplit as admin."));
 
-                        var baseAddress = _process.MainModule.BaseAddress.ToInt64();
-                        var memorySize = _process.MainModule.ModuleMemorySize;
-                        var is64Bit = _process.Is64Bit();
 
-                        var pointerScanResult = PointerTreeBuilder.TryResolvePointers(this, baseAddress, memorySize, is64Bit);
-                        if (pointerScanResult.IsErr)
-                        {
-                            return pointerScanResult;
-                        }
-
-                        return Hooked?.Invoke() ?? Result.Ok();
-                    }
-                }
-                //Process is attached, make sure it is still running
-                else
-                {
-                    if (_process.HasExited)
+                //Run scans when process is initialized
+                case ProcessRefreshResult.Initialized:
+                    var mainModule = ProcessWrapper.GetMainModule();
+                    if (mainModule == null)
                     {
-                        _process = null;
-                        Exited?.Invoke(null);
-                        return Result.Err(new RefreshError(RefreshErrorReason.ProcessExited));
+                        return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, "Main module is null. Try running as admin."));
                     }
 
-                    //Nothing going on, process still running
+                    var baseAddress = mainModule.BaseAddress.ToInt64();
+                    var memorySize = mainModule.ModuleMemorySize;
+                    var is64Bit = ProcessWrapper.Is64Bit();
+
+                    var pointerScanResult = PointerTreeBuilder.TryResolvePointers(this, baseAddress, memorySize, is64Bit);
+                    if (pointerScanResult.IsErr)
+                    {
+                        return pointerScanResult;
+                    }
+                    return Hooked?.Invoke() ?? Result.Ok();
+
+
+                //Standard refresh
+                case ProcessRefreshResult.Refreshed:
                     return Result.Ok();
-                }
-            }
-            catch (Exception e)
-            {
-                _process = null;
-                Exited?.Invoke(e);
-                
-                if (e.Message == "Access is denied")
-                {
-                    return Result.Err(new RefreshError(RefreshErrorReason.AccessDenied, "Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin."));
-                }
 
-                return RefreshError.FromException(e);
+
+                case ProcessRefreshResult.Exited:
+                    Exited?.Invoke(null);
+                    return Result.Err(new RefreshError(RefreshErrorReason.ProcessExited));
+
+                case ProcessRefreshResult.Error:
+                    Exited?.Invoke(e);
+                    if (e.Message == "Access is denied")
+                    {
+                        return Result.Err(new RefreshError(RefreshErrorReason.AccessDenied, "Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin."));
+                    }
+                    return RefreshError.FromException(e);
+                    
+                default:
+                    throw new NotImplementedException($"{processRefreshResult}");
             }
         }
 
         #endregion
-        
+
         #region IMemory
 
-        public byte[] ReadBytes(long offset, int length) => _process.ReadProcessMemory(offset, length).Unwrap();
-        public void WriteBytes(long offset, byte[] bytes) => _process.WriteProcessMemory(offset, bytes).Unwrap();
+        public byte[] ReadBytes(long offset, int length) => ProcessWrapper.ReadBytes(offset, length);
+        public void WriteBytes(long offset, byte[] bytes) => ProcessWrapper.WriteBytes(offset, bytes);
 
         #endregion
-
+        
     }
 }

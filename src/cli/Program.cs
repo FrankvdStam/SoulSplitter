@@ -36,6 +36,7 @@ using Item = SoulMemory.DarkSouls1.Item;
 using System.Windows.Documents;
 using System.Windows.Forms.VisualStyles;
 using SoulMemory.MemoryV2;
+using ArmoredCore6 = SoulMemory.MemoryV2.ArmoredCore6;
 
 #pragma warning disable CS0162
 
@@ -47,8 +48,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            var ac6 = new ArmoredCore6();
-            GameLoop<Example>((e) =>
+            var ac6 = new SoulMemory.ArmoredCore6.ArmoredCore6();
+            GameLoop<ArmoredCore6>((e) =>
             {
                 ac6.TryRefresh();
 
@@ -246,7 +247,7 @@ namespace cli
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
                 //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
                 //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
-                ("Armored Core 6"           , new ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
+                ("Armored Core 6"           , new SoulMemory.ArmoredCore6.ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
             };
 
             foreach (var validatable in validatables)
