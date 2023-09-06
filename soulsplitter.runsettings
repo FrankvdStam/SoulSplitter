@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RunSettings>
-    <RunConfiguration>
-        <TargetFramework>net6.0</TargetFramework>
-        <TargetPlatform>x64</TargetPlatform>
-        <Platforms>x64</Platforms>
-        <ResultsDirectory>TestResults</ResultsDirectory>
-    </RunConfiguration>
-</RunSettings>
