@@ -14,28 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Memory
+namespace SoulMemory.MemoryV2.PointerTreeBuilder
 {
-    public class PointerAppender
+    public enum PointerNodeType
     {
-        private readonly PointerNode _pointerNode;
-        internal PointerAppender(PointerNode pointerNode)
-        {
-            _pointerNode = pointerNode;
-        }
-
-        public PointerAppender AddPointer(Pointer pointer, params long[] offsets)
-        {
-            var node = new PointerNode
-            {
-                NodeType = NodeType.Pointer,
-                Name = _pointerNode.Name,
-                Pattern = _pointerNode.Pattern,
-                Offsets = offsets,
-                Pointer = pointer,
-            };
-            _pointerNode.Pointers.Add(node);
-            return this;
-        }
+        RelativeScan,
+        AbsoluteScan,
+        Pointer,
     }
 }

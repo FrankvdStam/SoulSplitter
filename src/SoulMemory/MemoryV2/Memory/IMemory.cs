@@ -14,28 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Memory
+namespace SoulMemory.MemoryV2.Memory
 {
-    public class PointerAppender
+    public interface IMemory
     {
-        private readonly PointerNode _pointerNode;
-        internal PointerAppender(PointerNode pointerNode)
-        {
-            _pointerNode = pointerNode;
-        }
-
-        public PointerAppender AddPointer(Pointer pointer, params long[] offsets)
-        {
-            var node = new PointerNode
-            {
-                NodeType = NodeType.Pointer,
-                Name = _pointerNode.Name,
-                Pattern = _pointerNode.Pattern,
-                Offsets = offsets,
-                Pointer = pointer,
-            };
-            _pointerNode.Pointers.Add(node);
-            return this;
-        }
+        byte[] ReadBytes(long offset, int length);
+        void WriteBytes(long offset, byte[] bytes);
     }
 }

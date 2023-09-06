@@ -16,7 +16,7 @@
 
 namespace SoulMemory.Memory
 {
-    internal enum NodeType
+    public enum NodeType
     {
         RelativeScan,
         AbsoluteScan,

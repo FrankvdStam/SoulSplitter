@@ -14,31 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System;
+using SoulMemory.MemoryV2.Memory;
 
-namespace SoulMemory.Memory
+namespace SoulMemory.MemoryV2
 {
-    internal class Node
+    public class ByteArrayMemory : IMemory
     {
-        public NodeType NodeType;
+        private byte[] _data;
+        public ByteArrayMemory(byte[] data)
+        {
+            _data = data;
+        }
 
-        //Used for scans
-        public string Name = "";
-        public string Pattern = "";
+        public byte[] ReadBytes(long offset, int length)
+        {
+            var buffer = new byte[length];
+            Array.Copy(_data, offset, buffer, 0, length);
+            return buffer;
+        }
 
-        //Used for relative scans
-        public long AddressOffset;
-        public long InstructionSize;
-
-        //used for absolute scans
-        public long? Offset;
-
-        //used for pointers
-        public long[] Offsets = new long[] { };
-        public Pointer Pointer = new Pointer();
-
-        public List<Node> Pointers = new List<Node>();
-
-        public override string ToString() => Name;
+        public void WriteBytes(long offset, byte[] bytes)
+        {
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                _data[offset + i] = bytes[i];
+            }
+        }
     }
 }

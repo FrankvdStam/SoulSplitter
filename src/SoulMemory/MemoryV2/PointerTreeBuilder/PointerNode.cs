@@ -14,28 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Memory
-{
-    public class PointerAppender
-    {
-        private readonly PointerNode _pointerNode;
-        internal PointerAppender(PointerNode pointerNode)
-        {
-            _pointerNode = pointerNode;
-        }
+using System.Collections.Generic;
+using SoulMemory.MemoryV2.Memory;
 
-        public PointerAppender AddPointer(Pointer pointer, params long[] offsets)
-        {
-            var node = new PointerNode
-            {
-                NodeType = NodeType.Pointer,
-                Name = _pointerNode.Name,
-                Pattern = _pointerNode.Pattern,
-                Offsets = offsets,
-                Pointer = pointer,
-            };
-            _pointerNode.Pointers.Add(node);
-            return this;
-        }
+namespace SoulMemory.MemoryV2.PointerTreeBuilder
+{
+    public class PointerNode
+    {
+        public PointerNodeType PointerNodeType;
+
+        //Used for scans
+        public string Name = "";
+        public string Pattern = "";
+
+        //Used for relative scans
+        public long AddressOffset;
+        public long InstructionSize;
+
+        //used for absolute scans
+        public long? Offset;
+
+        //used for pointers
+        public long[] Offsets = new long[] { };
+        public Pointer Pointer;// = new Pointer();
+
+        public List<PointerNode> Pointers = new List<PointerNode>();
+
+        public override string ToString() => Name;
     }
 }

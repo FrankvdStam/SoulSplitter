@@ -25,11 +25,11 @@ namespace SoulMemory.Memory
     /// </summary>
     public class TreeBuilder
     {
-        internal List<Node> Tree = new List<Node>();
+        public List<PointerNode> Tree = new List<PointerNode>();
 
         public PointerAppender ScanRelative(string name, string pattern, long addressOffset, long instructionSize)
         {
-            var node = new Node
+            var node = new PointerNode
             {
                 NodeType = NodeType.RelativeScan,
                 Name = name,
@@ -43,7 +43,7 @@ namespace SoulMemory.Memory
 
         public PointerAppender ScanAbsolute(string name, string pattern, long? offset)
         {
-            var node = new Node
+            var node = new PointerNode
             {
                 NodeType = NodeType.AbsoluteScan,
                 Name = name,

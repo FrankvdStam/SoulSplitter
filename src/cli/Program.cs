@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -33,6 +34,8 @@ using SoulMemory.ArmoredCore6;
 using SoulMemory.Parameters;
 using Item = SoulMemory.DarkSouls1.Item;
 using System.Windows.Documents;
+using System.Windows.Forms.VisualStyles;
+using SoulMemory.MemoryV2;
 
 #pragma warning disable CS0162
 
@@ -40,10 +43,24 @@ namespace cli
 {
     internal class Program
     {
+
         [STAThread]
         static void Main(string[] args)
         {
-            
+            var ac6 = new ArmoredCore6();
+            GameLoop<Example>((e) =>
+            {
+                ac6.TryRefresh();
+
+                Console.WriteLine(e.GetInGameTimeMilliseconds());
+
+                Console.WriteLine(ac6.ReadEventFlag(8031));
+                Console.WriteLine(ac6.ReadEventFlag(2108905300));
+
+                Console.WriteLine(e.ReadEventFlag(8031));
+                Console.WriteLine(e.ReadEventFlag(2108905300));
+
+            });
 
             TestUi();
             return;

@@ -14,87 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Native;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using SoulMemory.MemoryV2.PointerTreeBuilder;
 
-namespace SoulMemory.Memory
+namespace SoulMemory.MemoryV2.Memory
 {
     public static class MemoryScanner
     {
-        #region Resolving pointers ==============================================================================================================================
-
-        /// <summary>
-        /// Resolve pointers to their correct address by scanning for patterns in a running process
-        /// </summary>
-        /// <param name="treeBuilder"></param>
-        /// <param name="process"></param>
-        /// <param name="errors"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        public static ResultErr<RefreshError> TryResolvePointers(TreeBuilder treeBuilder, Process process)
-        {
-            if (process.MainModule == null)
-            {
-                return Result.Err(new RefreshError(RefreshErrorReason.MainModuleNull, "Main module is null. Try running as admin."));
-            }
-
-            //Gather some information about the process that can be reused throughout the resolving process
-            var baseAddress = process.MainModule.BaseAddress.ToInt64();
-            var bytes = process.ReadProcessMemory(baseAddress, process.MainModule.ModuleMemorySize).Unwrap();
-            var is64Bit = process.Is64Bit().Unwrap();
-
-            //Resolve nodes with the above data
-            var errors = new List<string>();
-            foreach (var node in treeBuilder.Tree)
-            {
-                long scanResult = 0;
-                bool success = false;
-                switch (node.NodeType)
-                {
-                    default:
-                        return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Incorrect node type at base level: {node.NodeType}"));
-
-                    case NodeType.RelativeScan:
-                        success = bytes.TryScanRelative(baseAddress, node, out scanResult);
-                        break;
-
-                    case NodeType.AbsoluteScan:
-                        success = bytes.TryScanAbsolute(baseAddress, node, out scanResult);
-                        break;
-                }
-
-                if (success)
-                {
-                    foreach (var p in node.Pointers)
-                    {
-                        p.Pointer.Initialize(process, is64Bit, scanResult, p.Offsets);
-                    }
-                }
-                else
-                {
-                    errors.Add(node.Name);
-                }
-            }
-
-            if (errors.Any())
-            {
-                return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, $"Scans failed for {string.Join(",", errors)}"));
-            }
-            return Result.Ok();
-        }
-        #endregion
-
         #region Validate patterns from file ==============================================================================================================================
 
         /// <summary>
         /// Validate patterns in a TreeBuilder by counting the patterns in a given file.
         /// </summary>
-        public static bool TryValidatePatterns(TreeBuilder treeBuilder, List<string> filepaths, out List<(string fileName, string patternName, long count)> errors)
+        public static bool TryValidatePatterns(PointerTreeBuilder.PointerTreeBuilder treeBuilder, List<string> filepaths, out List<(string fileName, string patternName, long count)> errors)
         {
             var files = new List<(string name, byte[] bytes)>();
 
@@ -107,7 +44,7 @@ namespace SoulMemory.Memory
             var errorsList = new List<(string fileName, string patternName, long count)>();
 
             //Count every pattern in every file; any count that returns something other than 1 is either missing or not exclusive, and thus erroneaus
-            Parallel.For(0, files.Count, i => 
+            Parallel.For(0, files.Count, i =>
             {
                 foreach (var n in treeBuilder.Tree)
                 {
@@ -115,7 +52,7 @@ namespace SoulMemory.Memory
                     var count = files[i].bytes.BoyerMooreCount(pattern); //BoyerMooreCount
                     if (count != 1)
                     {
-                        lock(errorLock)
+                        lock (errorLock)
                         {
                             errorsList.Add((files[i].name, n.Name, count));
                         }
@@ -185,7 +122,7 @@ namespace SoulMemory.Memory
         /// Scan a previously created buffer of bytes for a given pattern, then interpret the data as AMD64 assembly, where the target address is a relative address
         /// Returns the static address of the given instruction
         /// </summary>
-        private static bool TryScanRelative(this byte[] bytes, long baseAddress, PointerNode pointerNode, out long result)
+        public static bool TryScanRelative(this byte[] bytes, long baseAddress, PointerNode pointerNode, out long result)
         {
             result = 0;
             var pattern = pointerNode.Pattern.ToBytePattern();
@@ -201,7 +138,7 @@ namespace SoulMemory.Memory
         /// <summary>
         /// Scan a previously created buffer of bytes for a given pattern, then interpret the data as assembly, where the target address is an absolute address
         /// </summary>
-        private static bool TryScanAbsolute(this byte[] bytes, long baseAddress, PointerNode pointerNode, out long result)
+        public static bool TryScanAbsolute(this byte[] bytes, long baseAddress, PointerNode pointerNode, out long result)
         {
             result = 0;
             var pattern = pointerNode.Pattern.ToBytePattern();
