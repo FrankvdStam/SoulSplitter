@@ -145,5 +145,60 @@ namespace SoulMemory.Tests.MemoryV2
             Assert.AreEqual(87.85, memory.ReadDouble(27));
             Assert.AreEqual(87.85, ptr.ReadDouble(19));
         }
+
+
+        [TestMethod]
+        public void Memory_Simple_Write()
+        {
+            var memory = new ByteArrayMemory(new byte[40]);
+
+            memory.WriteInt32(0x0, 123456);
+            Assert.AreEqual(123456, memory.ReadInt32(0x0));
+
+            memory.WriteInt32(0x20, 654321);
+            Assert.AreEqual(654321, memory.ReadInt32(0x20));
+        }
+
+
+        [TestMethod]
+        public void Pointer64_Write()
+        {
+            var memory = new ByteArrayMemory(new byte[40]);
+            //Ptr to 0x20
+            memory.WriteInt32(0x0, 0x20);
+
+            memory.Pointer64(0x0).WriteInt32(0x0, 1);
+            memory.Pointer64(0x0).WriteInt32(0x4, 2);
+
+            Assert.AreEqual(1, memory.ReadInt32(0x20));
+            Assert.AreEqual(2, memory.ReadInt32(0x24));
+        }
+
+        [TestMethod]
+        public void Pointer64_Jump_Write_Test()
+        {
+            var memory = new ByteArrayMemory(PointerJumpsTestData);
+
+            memory.Pointer64(0x0, 0x0, 0x0, 0x0).WriteInt32(0x0, 1);
+            Assert.AreEqual(1, memory.Pointer64(0x0, 0x0, 0x0, 0x0).ReadInt32(0x0));
+
+            memory.Pointer64(0x0).Pointer64(0x0).Pointer64(0x0).Pointer64(0x0).WriteInt32(0x0, 2);
+            Assert.AreEqual(2, memory.Pointer64(0x0, 0x0, 0x0, 0x0).ReadInt32(0x0));
+        }
+
+        [TestMethod]
+        public void Pointer64_RelativeScan_BaseAddress()
+        {
+            var memory = new ByteArrayMemory(new byte[0x20]);
+
+            //pointers with a base address are special, they are the result of an absolute pointer scan.
+            //Resolving offsets start from a base, rather than from 0
+
+            var pointer = new Pointer(memory);
+            pointer.AbsoluteOffset = 0x10;
+            pointer.WriteInt32(0x0, 1);
+
+            Assert.AreEqual(1, memory.ReadInt32(0x10));
+        }
     }
 }

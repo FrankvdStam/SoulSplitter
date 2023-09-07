@@ -38,7 +38,7 @@ namespace SoulMemory.Tests
             mock.PointerTreeBuilder.Returns(new PointerTreeBuilder());
             mock.TryRefresh().Returns(Result.Err(new RefreshError(refreshError)));
 
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.AreEqual(refreshError, ac6.TryRefresh().GetErr().Reason);
 
             mock.TryRefresh().Returns(Result.Ok());
@@ -52,7 +52,7 @@ namespace SoulMemory.Tests
             mock.PointerTreeBuilder.Returns(new PointerTreeBuilder());
             mock.TryRefresh().Returns(Result.Ok());
 
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
         }
         
@@ -62,7 +62,7 @@ namespace SoulMemory.Tests
             var mock = new MockProcessHook();
             mock.SetPointer("FD4Time", 0, 0x7FF46F5C04B0);
             
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
 
             mock.WriteInt32(0x7FF46F5C04B0 + 0x114, 504123);
@@ -78,7 +78,7 @@ namespace SoulMemory.Tests
             var mock = new MockProcessHook();
             mock.SetPointer("FD4Time", 0, 0x7FF46F5C04B0);
 
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
 
             ac6.WriteInGameTimeMilliseconds(40);
@@ -94,7 +94,7 @@ namespace SoulMemory.Tests
             var mock = new MockProcessHook();
             mock.SetPointer("CSMenuMan", 0, 0x7FF46F5C04B0);
 
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
 
             mock.WriteInt32(0x7FF46F5C04B0 + 0x8e4, 1);
@@ -137,7 +137,7 @@ namespace SoulMemory.Tests
             
             //Category read will return with error, resulting in false evaluation of the flag
 
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
 
             Assert.IsFalse(ac6.ReadEventFlag(2103505405));
@@ -164,7 +164,7 @@ namespace SoulMemory.Tests
             
             //Pointers resolve to the same address, read will return with error, resulting in false evaluation of the flag
 
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
 
             Assert.IsFalse(ac6.ReadEventFlag(2103505405));
@@ -194,7 +194,7 @@ namespace SoulMemory.Tests
             //early exit
             mock.WriteInt32(currentElementPtr + 0x28, 2);
             
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
 
             Assert.IsFalse(ac6.ReadEventFlag(2103505405));
@@ -226,7 +226,7 @@ namespace SoulMemory.Tests
 
             mock.WriteInt32(calculatedPtr + 50, 0);
 
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
 
             Assert.IsFalse(ac6.ReadEventFlag(2103505405));
@@ -259,7 +259,7 @@ namespace SoulMemory.Tests
             
             mock.WriteInt32(calculatedPtr + 50, 4);
 
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
 
             Assert.IsTrue(ac6.ReadEventFlag(2103505405));
@@ -298,7 +298,7 @@ namespace SoulMemory.Tests
             var calculatePtr = (10 * 10) + 0x7FF46FA00000;
             mock.WriteInt32(calculatePtr + 50, 4);
 
-            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
 
             Assert.IsTrue(ac6.ReadEventFlag(2103505405));

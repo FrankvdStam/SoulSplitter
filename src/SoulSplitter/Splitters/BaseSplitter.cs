@@ -26,7 +26,7 @@ using SoulSplitter.UI;
 
 namespace SoulSplitter.Splitters
 {
-    abstract class BaseSplitter
+    public abstract class BaseSplitter : ISplitter
     {
         protected readonly IGame _game;
         protected readonly LiveSplitState _liveSplitState;
@@ -47,6 +47,17 @@ namespace SoulSplitter.Splitters
             _timerModel = new TimerModel();
             _timerModel.CurrentState = state;
         }
+        public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
+        {
+            var refreshResult = _game.TryRefresh();
+            if (refreshResult.IsErr)
+            {
+                return refreshResult;
+            }
+
+            _mainViewModel.TryAndHandleError(() => _mainViewModel.FlagTrackerViewModel.Update(_game));
+            return OnUpdate();
+        }
 
         public void SetViewModel(MainViewModel mainViewModel)
         {
@@ -60,13 +71,16 @@ namespace SoulSplitter.Splitters
             _inGameTime = _game.GetInGameTimeMilliseconds();
             _mainViewModel.FlagTrackerViewModel.Start();
             _timerModel.Start();
+            OnStart();
         }
 
         private void InternalReset(object sender, TimerPhase timerPhase)
         {
             _timerState = TimerState.WaitForStart;
             _inGameTime = 0;
+            _mainViewModel.FlagTrackerViewModel.Reset();
             _timerModel.Reset();
+            OnReset();
         }
 
         #region Disposing
@@ -87,6 +101,7 @@ namespace SoulSplitter.Splitters
         }
 
         public virtual void OnStart() { }
+        public virtual ResultErr<RefreshError> OnUpdate() { return Result.Ok();}
         public virtual void OnReset() { }
 
         #endregion

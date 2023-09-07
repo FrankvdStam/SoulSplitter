@@ -26,13 +26,13 @@ using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splitters
 {
-    internal class ArmoredCore6Splitter : ISplitter
+    internal class ArmoredCore6Splitter_asdf : ISplitter
     {
         private readonly ArmoredCore6 _armoredCore6;
         private MainViewModel _mainViewModel;
         private readonly LiveSplitState _liveSplitState;
 
-        public ArmoredCore6Splitter(LiveSplitState state, ArmoredCore6 armoredCore6)
+        public ArmoredCore6Splitter_asdf(LiveSplitState state, ArmoredCore6 armoredCore6)
         {
             _armoredCore6 = armoredCore6;
             _liveSplitState = state;

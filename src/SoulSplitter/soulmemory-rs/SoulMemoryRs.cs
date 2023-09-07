@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using SoulMemory.MemoryV2.Process;
 
 namespace SoulSplitter.soulmemory_rs
 {
@@ -44,6 +45,14 @@ namespace SoulSplitter.soulmemory_rs
                 return;
             }
 
+            //Make sure its not already loaded
+            var wrapper = new ProcessWrapper();
+            wrapper.TryRefresh(process.ProcessName, out Exception e);
+            if (e != null || wrapper.GetProcessModules().Any(i => i.ModuleName == "soulmemory_rs.dll"))
+            {
+                return;
+            }
+            
             var basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "soulsplitter");
 
             OverwriteFile("SoulSplitter.soulmemory_rs.x64.launcher.exe"     , Path.Combine(basePath, @"x64\launcher.exe"));

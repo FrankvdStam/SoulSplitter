@@ -113,7 +113,7 @@ namespace SoulMemory.Tests.MemoryV2
             var refreshResult = processHook.TryRefresh();
 
             Assert.AreEqual(RefreshErrorReason.ScansFailed, refreshResult.GetErr().Reason);
-            Assert.AreEqual("Scans failed for TestScan1,TestScan2", refreshResult.GetErr().Message);
+            Assert.AreEqual("Scans failed for TestScan1, TestScan2", refreshResult.GetErr().Message);
             Assert.AreEqual(0, processHook.ExitedExceptions.Count);
             Assert.AreEqual(0, processHook.ExitedInvokedCount);
             Assert.AreEqual(0, processHook.HookedInvokedCount);

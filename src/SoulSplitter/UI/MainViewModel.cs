@@ -305,7 +305,7 @@ namespace SoulSplitter.UI
 
         private void RunEventFlagLogger(object sender)
         {
-            SoulMemoryRs.Launch();
+            TryAndHandleError(SoulMemoryRs.Launch);
         }
         
         [XmlIgnore]

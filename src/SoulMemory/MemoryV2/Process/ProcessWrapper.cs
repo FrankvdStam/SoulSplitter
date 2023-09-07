@@ -85,8 +85,16 @@ namespace SoulMemory.MemoryV2.Process
 
         #region IMemory
 
-        public byte[] ReadBytes(long offset, int length) => _process.ReadProcessMemory(offset, length).Unwrap();
-        public void WriteBytes(long offset, byte[] bytes) => _process.WriteProcessMemory(offset, bytes).Unwrap();
+        public byte[] ReadBytes(long offset, int length)
+        {
+            if (_process == null)
+            {
+                return new byte[length];
+            }
+            return _process?.ReadProcessMemoryNoError(offset, length);
+        }
+
+        public void WriteBytes(long offset, byte[] bytes) => _process?.WriteProcessMemoryNoError(offset, bytes);
 
         #endregion
     }

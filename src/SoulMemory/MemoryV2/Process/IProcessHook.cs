@@ -22,9 +22,10 @@ namespace SoulMemory.MemoryV2.Process
     public interface IProcessHook : IMemory
     {
         /// <summary>
-        /// Get access to the underlying process
+        /// Get process wrapper object for more low level access
         /// </summary>
-        System.Diagnostics.Process GetProcess();
+        /// <returns></returns>
+        IProcessWrapper ProcessWrapper { get; set; }
 
         /// <summary>
         /// Call this often to refresh memory

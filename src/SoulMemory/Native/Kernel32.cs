@@ -30,6 +30,14 @@ namespace SoulMemory.Native
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
 
+        public static byte[] ReadProcessMemoryNoError(this Process process, long address, int size)
+        {
+            var buffer = new byte[size];
+            var bytesRead = 0;
+            ReadProcessMemory(process.Handle, (IntPtr)address, buffer, buffer.Length, ref bytesRead);
+            return buffer;
+        }
+
         public static ResultOk<byte[]> ReadProcessMemory(this Process process, long address, int size)
         {
             if (process == null)
@@ -113,6 +121,8 @@ namespace SoulMemory.Native
 
         [DllImport("kernel32.dll")]
         private static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out uint lpNumberOfBytesWritten);
+
+        public static void WriteProcessMemoryNoError(this Process process, long address, byte[] buffer) => WriteProcessMemory(process, address, buffer);
 
         public static Result WriteProcessMemory(this Process process, long address, byte[] buffer)
         {

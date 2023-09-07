@@ -14,89 +14,88 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Memory;
+using SoulMemory.MemoryV2.Memory;
+using SoulMemory.MemoryV2.Process;
 using System;
 using System.Diagnostics;
-using System.Management;
+using System.Linq;
 
 namespace SoulMemory.ArmoredCore6
 {
     public class ArmoredCore6 : IGame
     {
-        private Process _process = null;
-        private readonly Pointer _csEventFlagMan = new Pointer();
-        private readonly Pointer _noLogo = new Pointer();
-        private readonly Pointer _incrementIgt = new Pointer();
-        private readonly Pointer _fd4Time = new Pointer();
-        private readonly Pointer _menuMan = new Pointer();
+        private readonly IProcessHook _armoredCore6;
 
-        public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "armoredcore6", InitPointers, ResetPointers);
+        public ArmoredCore6() : this(null) { }
 
-
-        public TreeBuilder GetTreeBuilder()
+        public ArmoredCore6(IProcessHook processHook = null)
         {
-            var treeBuilder = new TreeBuilder();
-            treeBuilder
+            _armoredCore6 = processHook ?? new ProcessHook("armoredcore6");
+
+            _eventFlagMan = new Pointer(_armoredCore6);
+            _noLogo = new Pointer(_armoredCore6);
+            _fd4Time = new Pointer(_armoredCore6);
+            _menuMan = new Pointer(_armoredCore6);
+
+            _armoredCore6.PointerTreeBuilder
                 .ScanRelative("CSEventFlagMan", "48 8b 35 20 4a df 03 83 f8 ff 0f 44 c1", 3, 7)
-                    .AddPointer(_csEventFlagMan, 0)
-                    .AddPointer(_noLogo, 0);
-            treeBuilder
+                    .AddPointer(_eventFlagMan, 0, 0);
+
+            _armoredCore6.PointerTreeBuilder
                 .ScanAbsolute("NoLogo", "33 f6 89 75 97 40 38 75 77 ? ? 48 89 31", 9)
                     .AddPointer(_noLogo);
-            
-            treeBuilder
+
+            _armoredCore6.PointerTreeBuilder
                 .ScanRelative("FD4Time", "48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d", 3, 7)
-                    .AddPointer(_fd4Time, 0);
+                    .AddPointer(_fd4Time, 0, 0);
 
-            treeBuilder
+            _armoredCore6.PointerTreeBuilder
                 .ScanRelative("CSMenuMan", "48 8b 35 ? ? ? ? 33 db 89 5c 24 20", 3, 7)
-                    .AddPointer(_menuMan, 0);
-            
+                    .AddPointer(_menuMan, 0, 0);
 
-            return treeBuilder;
-        }
-
-        private ResultErr<RefreshError> InitPointers()
-        {
-            try
+            _armoredCore6.Hooked += () =>
             {
-                var treeBuilder = GetTreeBuilder();
-                var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
-                if (result.IsErr)
-                {
-                    return result;
-                }
-
-                _noLogo.WriteBytes(null, new byte[]{0x90, 0x90});
+                _noLogo.WriteBytes(0x0, new byte[] { 0x90, 0x90 });
                 return InjectMods();
-            }
-            catch (Exception e)
-            {
-                if (e.Message == "Access is denied")
-                {
-                    _process = null;
-                    return Result.Err(new RefreshError(RefreshErrorReason.AccessDenied, "Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin."));
-                }
-
-                return RefreshError.FromException(e);
-            }
+            };
         }
+
+        private readonly Pointer _eventFlagMan;
+        private readonly Pointer _noLogo;
+        private readonly Pointer _fd4Time;
+        private readonly Pointer _menuMan;
+
+        public int GetInGameTimeMilliseconds() => _fd4Time.ReadInt32(0x114);
+        public void WriteInGameTimeMilliseconds(int milliseconds) => _fd4Time.WriteInt32(0x114, milliseconds);
+
+        public bool IsLoadingScreenVisible()
+        {
+            var value = _menuMan.ReadInt32(0x8e4);
+            return value != 0;
+        }
+
+        public ResultErr<RefreshError> TryRefresh() => _armoredCore6.TryRefresh();
+
+        public SoulMemory.Memory.TreeBuilder GetTreeBuilder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Process GetProcess() => _armoredCore6.ProcessWrapper.GetProcess();
 
         private ResultErr<RefreshError> InjectMods()
         {
             Exception exception = null;
             try
             {
-                soulsmods.Soulsmods.Inject(_process);
+                soulsmods.Soulsmods.Inject(_armoredCore6.ProcessWrapper.GetProcess());
             }
-            catch(Exception e) { exception = e; } 
-            
-            foreach(ProcessModule module in _process.Modules)
+            catch (Exception e) { exception = e; }
+
+            var module = _armoredCore6.ProcessWrapper.GetProcessModules().Find(i => i.ModuleName == "soulsmods.dll");
+            if (module != null)
             {
-                if (module.ModuleName == "soulsmods.dll")
-                {
-                    return Result.Ok();
-                }
+                return Result.Ok();
             }
 
             if (exception != null)
@@ -107,31 +106,15 @@ namespace SoulMemory.ArmoredCore6
             return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, "module not loaded"));
         }
 
-        private void ResetPointers()
-        {
-            _csEventFlagMan.Clear();
-            _noLogo.Clear();
-        }
-
-        public Process GetProcess() => _process;
-
-        public int GetInGameTimeMilliseconds() => _fd4Time.ReadInt32(0x114);
-
-        public bool IsLoadingScreenVisible()
-        {
-            var value = _menuMan.ReadInt32(0x8e4);
-            return value != 0;
-        }
-
-        #region Read event flag
+        #region Read event flag ==================================================================================================================
 
         public void WriteEventFlag(uint eventFlagId, bool value)
         {
             var result = GetEventFlagAddress(eventFlagId, out int mask);
             if (result.IsOk)
             {
-                var pointer = result.Unwrap();
-                var read = pointer.ReadInt32();
+                var address = result.Unwrap();
+                var read = _armoredCore6.ReadInt32(address);
                 var write = read;
                 if (value)
                 {
@@ -141,7 +124,7 @@ namespace SoulMemory.ArmoredCore6
                 {
                     write &= ~mask;
                 }
-                pointer.WriteInt32(write);
+                _armoredCore6.WriteInt32(address, write);
             }
         }
 
@@ -150,19 +133,19 @@ namespace SoulMemory.ArmoredCore6
             var result = GetEventFlagAddress(eventFlagId, out int mask);
             if (result.IsOk)
             {
-                var pointer = result.Unwrap();
-                var read = pointer.ReadInt32();
+                var address = result.Unwrap();
+                var read = _armoredCore6.ReadInt32(address);
                 return (read & mask) != 0;
             }
 
             return false;
         }
 
-        public ResultOk<Pointer> GetEventFlagAddress(uint eventFlagId, out int mask)
+        private ResultOk<long> GetEventFlagAddress(uint eventFlagId, out int mask)
         {
             mask = 0;
 
-            var divisor = _csEventFlagMan.ReadInt32(0x1c);
+            var divisor = _eventFlagMan.ReadInt32(0x1c);
             //This check does not exist in the games code; reading 0 here means something isn't initialized yet and we should check this flag again later.
             if (divisor == 0)
             {
@@ -172,28 +155,28 @@ namespace SoulMemory.ArmoredCore6
             var category = (eventFlagId / divisor); //stored in rax after; div r8d
             var leastSignificantDigits = eventFlagId - (category * divisor); //stored in r11 after; sub r11d,r8d
 
-            var currentElement = _csEventFlagMan.CreatePointerFromAddress(0x38); //rdx
-            var currentSubElement = currentElement.CreatePointerFromAddress(0x8); //rcx
+            var currentElement = _eventFlagMan.Pointer64(0x38); //rdx
+            var currentSubElement = currentElement.Pointer64(0x8); //rcx
 
             while (currentSubElement.ReadByte(0x19) == '\0') //cmp [rcx+19],r9l -> r9 get's cleared before this instruction and will always be 0
             {
                 if (currentSubElement.ReadInt32(0x20) < category)
                 {
-                    currentSubElement = currentSubElement.CreatePointerFromAddress(0x10);
+                    currentSubElement = currentSubElement.Pointer64(0x10);
                 }
                 else
                 {
                     currentElement = currentSubElement;
-                    currentSubElement = currentSubElement.CreatePointerFromAddress(0x0);
+                    currentSubElement = currentSubElement.Pointer64(0x0);
                 }
             }
 
-            if (currentElement.GetAddress() == currentSubElement.GetAddress() || category < currentElement.ReadInt32(0x20))
+            if (category < currentElement.ReadInt32(0x20))
             {
-                currentElement = currentSubElement;
+                return Result.Err();
             }
 
-            if (currentElement.GetAddress() != currentSubElement.GetAddress())
+            if (currentElement.ResolveOffsets() != currentSubElement.ResolveOffsets())
             {
                 var mysteryValue = currentElement.ReadInt32(0x28) - 1;
 
@@ -217,8 +200,8 @@ namespace SoulMemory.ArmoredCore6
                 }
                 else
                 {
-                    calculatedPointer = (_csEventFlagMan.ReadInt32(0x20) * currentElement.ReadInt32(0x30)) +
-                                        _csEventFlagMan.ReadInt64(0x28);
+                    calculatedPointer = (_eventFlagMan.ReadInt32(0x20) * currentElement.ReadInt32(0x30)) +
+                                        _eventFlagMan.ReadInt64(0x28);
                 }
 
                 if (calculatedPointer != 0)
@@ -226,10 +209,7 @@ namespace SoulMemory.ArmoredCore6
                     var thing = 7 - (leastSignificantDigits & 7);
                     mask = 1 << (int)thing;
                     var shifted = leastSignificantDigits >> 3;
-
-                    var pointer = new Pointer();
-                    pointer.Initialize(_process, _csEventFlagMan.Is64Bit, calculatedPointer + shifted);
-                    return Result.Ok(pointer);
+                    return Result.Ok(calculatedPointer + shifted);
                 }
             }
 

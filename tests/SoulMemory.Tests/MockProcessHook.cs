@@ -25,6 +25,7 @@ namespace SoulMemory.Tests
     public class MockProcessHook : IProcessHook
     {
         public Dictionary<long, byte[]> Data = new Dictionary<long, byte[]>();
+
         public byte[] ReadBytes(long offset, int length)
         {
             var data = Data[offset];
@@ -55,12 +56,13 @@ namespace SoulMemory.Tests
             Data[offset] = bytes;
         }
 
-        public Process GetProcess()
+        public Process? GetProcess()
         {
             return null;
         }
 
         public List<(string name, int index, long address)> PointerValues = new List<(string name, int index, long address)>();
+
         public void SetPointer(string name, int index, long address)
         {
             //"Self jump"
@@ -81,8 +83,12 @@ namespace SoulMemory.Tests
             return Result.Ok();
         }
 
+#pragma warning disable CS0067
         public event Func<ResultErr<RefreshError>>? Hooked;
         public event Action<Exception>? Exited;
+#pragma warning restore CS0067
+
         public PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder();
+        public IProcessWrapper ProcessWrapper { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

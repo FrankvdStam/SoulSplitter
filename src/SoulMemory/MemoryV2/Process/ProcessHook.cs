@@ -27,12 +27,14 @@ namespace SoulMemory.MemoryV2.Process
 
         private readonly string _name;
 
+
+        public IProcessWrapper ProcessWrapper { get; set; } = new ProcessWrapper();
+
         public System.Diagnostics.Process GetProcess() => ProcessWrapper.GetProcess();
 
         public event Func<ResultErr<RefreshError>> Hooked;
         public event Action<Exception> Exited;
         
-        public IProcessWrapper ProcessWrapper = new ProcessWrapper();
         public PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder.PointerTreeBuilder();
 
         #region Refresh =================================================================================================================================================

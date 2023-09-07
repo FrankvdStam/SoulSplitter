@@ -24,19 +24,10 @@ using System.Threading;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
 using SoulMemory.EldenRing;
-using SoulMemory.Sekiro;
 using SoulMemory;
-using SoulMemory.DarkSouls1.Parameters;
 using SoulSplitter.UI.Generic;
-using System.Security.Cryptography;
-using System.Text;
 using SoulMemory.ArmoredCore6;
 using SoulMemory.Parameters;
-using Item = SoulMemory.DarkSouls1.Item;
-using System.Windows.Documents;
-using System.Windows.Forms.VisualStyles;
-using SoulMemory.MemoryV2;
-using ArmoredCore6 = SoulMemory.MemoryV2.ArmoredCore6;
 
 #pragma warning disable CS0162
 
@@ -49,18 +40,9 @@ namespace cli
         static void Main(string[] args)
         {
 
-            var ac6 = new SoulMemory.ArmoredCore6.ArmoredCore6();
             GameLoop<ArmoredCore6>((e) =>
             {
-                ac6.TryRefresh();
-
                 Console.WriteLine(e.GetInGameTimeMilliseconds());
-
-                Console.WriteLine(ac6.ReadEventFlag(8031));
-                Console.WriteLine(ac6.ReadEventFlag(2108905300));
-
-                Console.WriteLine(e.ReadEventFlag(8031));
-                Console.WriteLine(e.ReadEventFlag(2108905300));
 
             });
 

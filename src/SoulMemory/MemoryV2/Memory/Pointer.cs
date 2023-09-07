@@ -26,6 +26,7 @@ namespace SoulMemory.MemoryV2.Memory
     {
         public readonly IMemory Memory;
         public List<PointerPath> Path;
+        public long AbsoluteOffset = 0;
 
         public Pointer(IMemory memory)
         {
@@ -51,7 +52,7 @@ namespace SoulMemory.MemoryV2.Memory
 
         public long ResolveOffsets()
         {
-            long currentAddress = 0;
+            long currentAddress = AbsoluteOffset;//0 for standard pointers. Only has a value when coming from an absolute scan
 
             //Resolve offsets
             foreach (var step in Path)

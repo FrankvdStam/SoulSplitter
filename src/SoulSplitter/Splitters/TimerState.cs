@@ -16,7 +16,7 @@
 
 namespace SoulSplitter.Splitters
 {
-    internal enum TimerState
+    public enum TimerState
     {
         WaitForStart,
         Running,

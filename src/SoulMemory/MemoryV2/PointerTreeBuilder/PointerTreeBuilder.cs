@@ -43,7 +43,7 @@ namespace SoulMemory.MemoryV2.PointerTreeBuilder
             return new PointerAppender(node);
         }
 
-        public PointerAppender ScanAbsolute(string name, string pattern, long? offset)
+        public PointerAppender ScanAbsolute(string name, string pattern, long offset)
         {
             var node = new PointerNode
             {
@@ -78,25 +78,32 @@ namespace SoulMemory.MemoryV2.PointerTreeBuilder
 
                     case PointerNodeType.RelativeScan:
                         success = bytes.TryScanRelative(baseAddress, node, out scanResult);
+                        if (success)
+                        {
+                            foreach (var p in node.Pointers)
+                            {
+                                var temp = node.Offsets.ToList();
+                                temp.Insert(0, scanResult);
+                                var offsets = temp.ToArray();
+
+                                p.Pointer.Path = offsets.Select(i => new PointerPath { Address = 0, Offset = i }).ToList();
+                            }
+                        }
                         break;
 
                     case PointerNodeType.AbsoluteScan:
                         success = bytes.TryScanAbsolute(baseAddress, node, out scanResult);
+                        if (success)
+                        {
+                            foreach (var p in node.Pointers)
+                            {
+                                p.Pointer.AbsoluteOffset = scanResult;
+                            }
+                        }
                         break;
                 }
 
-                if (success)
-                {
-                    foreach (var p in node.Pointers)
-                    {
-                        var temp = node.Offsets.ToList();
-                        temp.Insert(0, scanResult);
-                        var offsets = temp.ToArray();
-
-                        p.Pointer.Path = offsets.Select(i => new PointerPath { Address = 0, Offset = i }).ToList();
-                    }
-                }
-                else
+                if (!success)
                 {
                     errors.Add(node.Name);
                 }
@@ -104,7 +111,7 @@ namespace SoulMemory.MemoryV2.PointerTreeBuilder
 
             if (errors.Any())
             {
-                return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, $"Scans failed for {string.Join(",", errors)}"));
+                return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, $"Scans failed for {string.Join(", ", errors)}"));
             }
             return Result.Ok();
         }
