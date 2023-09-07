@@ -15,6 +15,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Diagnostics;
+using SoulMemory.DarkSouls2;
+using SoulMemory.MemoryV2.Memory;
 using SoulMemory.MemoryV2.PointerTreeBuilder;
 using SoulMemory.MemoryV2.Process;
 
@@ -22,13 +24,35 @@ namespace SoulMemory.Tests
 {
     public class MockProcessHook : IProcessHook
     {
+        public Dictionary<long, byte[]> Data = new Dictionary<long, byte[]>();
         public byte[] ReadBytes(long offset, int length)
         {
-            return new byte[] { };
+            var data = Data[offset];
+            if (data.Length != length)
+            {
+                throw new ArgumentException("Data size mismatch");
+            }
+
+            return data;
         }
 
         public void WriteBytes(long offset, byte[] bytes)
         {
+            //Allow overwriting existing key
+            if (!Data.ContainsKey(offset))
+            {
+                //check for overlap
+                var end = offset + bytes.Length;
+                foreach (var item in Data)
+                {
+                    if (offset <= item.Key && item.Key < end)
+                    {
+                        throw new ArgumentException("Found overlap");
+                    }
+                }
+            }
+
+            Data[offset] = bytes;
         }
 
         public Process GetProcess()
@@ -36,7 +60,26 @@ namespace SoulMemory.Tests
             return null;
         }
 
-        public ResultErr<RefreshError> TryRefresh() => Result.Ok();
+        public List<(string name, int index, long address)> PointerValues = new List<(string name, int index, long address)>();
+        public void SetPointer(string name, int index, long address)
+        {
+            //"Self jump"
+            Data[address] = BitConverter.GetBytes(address);
+            PointerValues.Add((name, index, address));
+        }
+        
+
+        public ResultErr<RefreshError> TryRefresh()
+        {
+            foreach (var ptrValue in PointerValues)
+            {
+                var node = PointerTreeBuilder.Tree.First(i => i.Name == ptrValue.name);
+                node = node.Pointers[ptrValue.index];
+                node.Pointer.Path.Add(new PointerPath{Offset = ptrValue.address});
+            }
+            
+            return Result.Ok();
+        }
 
         public event Func<ResultErr<RefreshError>>? Hooked;
         public event Action<Exception>? Exited;

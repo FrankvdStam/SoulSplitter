@@ -26,70 +26,284 @@ namespace SoulMemory.Tests
     public class ArmoredCore6Tests
     {
         [TestMethod]
-        public void Initialize_Without_Process()
+        [DataRow(RefreshErrorReason.ProcessNotRunning)]
+        [DataRow(RefreshErrorReason.ScansFailed)]
+        [DataRow(RefreshErrorReason.AccessDenied)]
+        [DataRow(RefreshErrorReason.ModLoadFailed)]
+        [DataRow(RefreshErrorReason.MainModuleNull)]
+        [DataRow(RefreshErrorReason.ProcessExited)]
+        public void Refresh_Error(RefreshErrorReason refreshError)
         {
             var mock = Substitute.For<IProcessHook>();
             mock.PointerTreeBuilder.Returns(new PointerTreeBuilder());
-            mock.TryRefresh().Returns(Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning)));
+            mock.TryRefresh().Returns(Result.Err(new RefreshError(refreshError)));
 
             var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
-            Assert.AreEqual(RefreshErrorReason.ProcessNotRunning, ac6.TryRefresh().GetErr().Reason);
-            Assert.AreEqual(RefreshErrorReason.ProcessNotRunning, ac6.TryRefresh().GetErr().Reason);
+            Assert.AreEqual(refreshError, ac6.TryRefresh().GetErr().Reason);
 
             mock.TryRefresh().Returns(Result.Ok());
             Assert.IsTrue(ac6.TryRefresh().IsOk);
         }
 
-        private readonly byte[] Ac6Memory = new byte[]
-        {
-            0x48, 0x8b, 0x35, 0x20, 0x4a, 0xdf, 0x03, 0x83, 0xf8, 0xff, 0x0f, 0x44, 0xc1, //CSEventFlagMan
-            //0x33, 0xf6, 0x89, 0x75, 0x97, 0x40, 0x38, 0x75, 0x77, 0x? , 0x? , 0x48, 0x89, 0x31, //NoLogo
-            //0x48, 0x8b, 0x0d, 0x? , 0x? , 0x? , 0x? , 0x0f, 0x28, 0xc8, 0xf3, 0x0f, 0x59, 0x0d, //FD4Time
-            //0x48, 0x8b, 0x35, 0x? , 0x? , 0x? , 0x? , 0x33, 0xdb, 0x89, 0x5c, 0x24, 0x20, //CSMenuMan
-        };
-
-
         [TestMethod]
-        public void ReadMemTest()
+        public void Refresh_Success()
         {
             var mock = Substitute.For<IProcessHook>();
             mock.PointerTreeBuilder.Returns(new PointerTreeBuilder());
-            mock
-                .TryRefresh()
-                .Returns(i =>
-                {
-                    var fd4Time = mock.PointerTreeBuilder.Tree.First(i => i.Name == "FD4Time").Pointers.First();
-                    fd4Time.Pointer.Path.Add(new PointerPath() { Offset = 0x144DA2F48 });
-                    return Result.Ok();
-                });
-
-            mock
-                .ReadBytes(Arg.Any<long>(), Arg.Any<int>())
-                .Returns(i =>
-                {
-                    var address = (long)i[0];
-                    var size = (int)i[1];
-
-                    if (address == 0x144DA2F48 && size == 8)
-                    {
-                        return BitConverter.GetBytes(0x7FF46F5C04B0);
-                    }
-
-                    if (address == 0x7FF46F5C04B0 + 0x114 && size == 4)
-                    {
-                        return BitConverter.GetBytes(50681);
-                    }
-
-                    Assert.Fail();
-                    return new byte[]{};
-                });
+            mock.TryRefresh().Returns(Result.Ok());
 
             var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
-            
-
-            var igt = ac6.GetInGameTimeMilliseconds();
-            Assert.AreEqual(50681, igt);
         }
+        
+        [TestMethod]
+        public void ReadIgt()
+        {
+            var mock = new MockProcessHook();
+            mock.SetPointer("FD4Time", 0, 0x7FF46F5C04B0);
+            
+            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            Assert.IsTrue(ac6.TryRefresh().IsOk);
+
+            mock.WriteInt32(0x7FF46F5C04B0 + 0x114, 504123);
+            Assert.AreEqual(504123, ac6.GetInGameTimeMilliseconds());
+
+            mock.WriteInt32(0x7FF46F5C04B0 + 0x114, 31535);
+            Assert.AreEqual(31535, ac6.GetInGameTimeMilliseconds());
+        }
+
+        [TestMethod]
+        public void WriteIgt()
+        {
+            var mock = new MockProcessHook();
+            mock.SetPointer("FD4Time", 0, 0x7FF46F5C04B0);
+
+            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            Assert.IsTrue(ac6.TryRefresh().IsOk);
+
+            ac6.WriteInGameTimeMilliseconds(40);
+            Assert.AreEqual(40, ac6.GetInGameTimeMilliseconds());
+
+            ac6.WriteInGameTimeMilliseconds(70);
+            Assert.AreEqual(70, ac6.GetInGameTimeMilliseconds());
+        }
+
+        [TestMethod]
+        public void ReadIsLoading()
+        {
+            var mock = new MockProcessHook();
+            mock.SetPointer("CSMenuMan", 0, 0x7FF46F5C04B0);
+
+            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            Assert.IsTrue(ac6.TryRefresh().IsOk);
+
+            mock.WriteInt32(0x7FF46F5C04B0 + 0x8e4, 1);
+            Assert.IsTrue(ac6.IsLoadingScreenVisible());
+
+            mock.WriteInt32(0x7FF46F5C04B0 + 0x8e4, 0);
+            Assert.IsFalse(ac6.IsLoadingScreenVisible());
+        }
+
+        #region ReadEventFlag ==========================================================================================
+
+        [TestMethod]
+        public void ReadEventFlag_Loop_Exit_With_Error()
+        {
+            var eventFlagManPtr       = 0x7FF46F5C04B0;
+            var currentElementPtr     = 0x7FF46F600000;
+            var currentSubElementPtr  = 0x7FF46F900000;
+            var currentSubElementPtr2 = 0x7FF46FA00000;
+            var currentSubElementPtr3 = 0x7FF46FC00000;
+
+
+            var mock = new MockProcessHook();
+            mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
+
+            mock.WriteInt32(eventFlagManPtr   + 0x1c, 1000);
+            mock.WriteInt64(eventFlagManPtr   + 0x38, currentElementPtr);//current element
+            mock.WriteInt64(currentElementPtr + 0x8 , currentSubElementPtr);//current sub element
+            
+            //while loop first branch
+            mock.WriteByte(currentSubElementPtr + 0x19, 0);
+            mock.WriteInt32(currentSubElementPtr + 0x20, 2103506);
+            mock.WriteInt64(currentSubElementPtr + 0x0, currentSubElementPtr2);
+
+            //while loop 2nd branch
+            mock.WriteByte(currentSubElementPtr2 + 0x19, 0);
+            mock.WriteInt32(currentSubElementPtr2 + 0x20, 100);
+            mock.WriteInt64(currentSubElementPtr2 + 0x10, currentSubElementPtr3);
+
+            mock.WriteByte(currentSubElementPtr3 + 0x19, 1); //end loop
+            
+            //Category read will return with error, resulting in false evaluation of the flag
+
+            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            Assert.IsTrue(ac6.TryRefresh().IsOk);
+
+            Assert.IsFalse(ac6.ReadEventFlag(2103505405));
+        }
+
+        [TestMethod]
+        public void ReadEventFlag_Pointers_Resolve_To_Same_Address()
+        {
+            var eventFlagManPtr = 0x7FF46F5C04B0;
+            var currentElementPtr = 0x7FF46F600000;
+
+            var mock = new MockProcessHook();
+            mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
+
+            mock.WriteInt32(eventFlagManPtr + 0x1c, 1000);
+            mock.WriteInt64(eventFlagManPtr + 0x38, currentElementPtr);//current element
+            mock.WriteInt64(currentElementPtr + 0x8, currentElementPtr);//current sub element
+
+            //Skip loop
+            mock.WriteByte(currentElementPtr + 0x19, 1);
+
+            //skip category exit
+            mock.WriteInt32(currentElementPtr + 0x20, 50);
+            
+            //Pointers resolve to the same address, read will return with error, resulting in false evaluation of the flag
+
+            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            Assert.IsTrue(ac6.TryRefresh().IsOk);
+
+            Assert.IsFalse(ac6.ReadEventFlag(2103505405));
+        }
+
+
+        [TestMethod]
+        public void ReadEventFlag_MysteryValue_Early_Exit()
+        {
+            var eventFlagManPtr = 0x7FF46F5C04B0;
+            var currentElementPtr = 0x7FF46F600000;
+            var currentSubElementPtr = 0x7FF46F900000;
+            
+            var mock = new MockProcessHook();
+            mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
+
+            mock.WriteInt32(eventFlagManPtr + 0x1c, 1000);
+            mock.WriteInt64(eventFlagManPtr + 0x38, currentElementPtr);//current element
+            mock.WriteInt64(currentElementPtr + 0x8, currentSubElementPtr);//current sub element
+
+            //Skip loop
+            mock.WriteByte(currentSubElementPtr + 0x19, 1);
+
+            //skip category exit
+            mock.WriteInt32(currentElementPtr + 0x20, 50);
+
+            //early exit
+            mock.WriteInt32(currentElementPtr + 0x28, 2);
+            
+            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            Assert.IsTrue(ac6.TryRefresh().IsOk);
+
+            Assert.IsFalse(ac6.ReadEventFlag(2103505405));
+        }
+
+        [TestMethod]
+        public void ReadEventFlag_MysteryValue_Offset_0x30_0()
+        {
+            var eventFlagManPtr = 0x7FF46F5C04B0;
+            var currentElementPtr = 0x7FF46F600000;
+            var currentSubElementPtr = 0x7FF46F900000;
+            var calculatedPtr = 0x7FF46FA00000;
+
+            var mock = new MockProcessHook();
+            mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
+
+            mock.WriteInt32(eventFlagManPtr + 0x1c, 1000);
+            mock.WriteInt64(eventFlagManPtr + 0x38, currentElementPtr);//current element
+            mock.WriteInt64(currentElementPtr + 0x8, currentSubElementPtr);//current sub element
+
+            //Skip loop
+            mock.WriteByte(currentSubElementPtr + 0x19, 1);
+
+            //skip category exit
+            mock.WriteInt32(currentElementPtr + 0x20, 50);
+            
+            mock.WriteInt32(currentElementPtr + 0x28, 6);
+            mock.WriteInt64(currentElementPtr + 0x30, calculatedPtr);
+
+            mock.WriteInt32(calculatedPtr + 50, 0);
+
+            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            Assert.IsTrue(ac6.TryRefresh().IsOk);
+
+            Assert.IsFalse(ac6.ReadEventFlag(2103505405));
+        }
+
+        [TestMethod]
+        public void ReadEventFlag_MysteryValue_Offset_0x30_4()
+        {
+            var eventFlagManPtr = 0x7FF46F5C04B0;
+            var currentElementPtr = 0x7FF46F600000;
+            var currentSubElementPtr = 0x7FF46F900000;
+            var calculatedPtr = 0x7FF46FA00000;
+
+            var mock = new MockProcessHook();
+            mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
+
+            mock.WriteInt32(eventFlagManPtr + 0x1c, 1000);
+            mock.WriteInt64(eventFlagManPtr + 0x38, currentElementPtr);//current element
+            mock.WriteInt64(currentElementPtr + 0x8, currentSubElementPtr);//current sub element
+
+            //Skip loop
+            mock.WriteByte(currentSubElementPtr + 0x19, 1);
+
+            //skip category exit
+            mock.WriteInt32(currentElementPtr + 0x20, 50);
+
+            //mystery value
+            mock.WriteInt32(currentElementPtr + 0x28, 6);
+            mock.WriteInt64(currentElementPtr + 0x30, calculatedPtr);
+            
+            mock.WriteInt32(calculatedPtr + 50, 4);
+
+            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            Assert.IsTrue(ac6.TryRefresh().IsOk);
+
+            Assert.IsTrue(ac6.ReadEventFlag(2103505405));
+        }
+
+        [TestMethod]
+        public void ReadEventFlag_MysteryValue_Calculate_Ptr()
+        {
+            var eventFlagManPtr = 0x7FF46F5C04B0;
+            var currentElementPtr = 0x7FF46F600000;
+            var currentSubElementPtr = 0x7FF46F900000;
+
+            var mock = new MockProcessHook();
+            mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
+
+            mock.WriteInt32(eventFlagManPtr + 0x1c, 1000);
+            mock.WriteInt64(eventFlagManPtr + 0x38, currentElementPtr);//current element
+            mock.WriteInt64(currentElementPtr + 0x8, currentSubElementPtr);//current sub element
+
+            //Skip loop
+            mock.WriteByte(currentSubElementPtr + 0x19, 1);
+
+            //skip category exit
+            mock.WriteInt32(currentElementPtr + 0x20, 50);
+
+            //mystery value
+            mock.WriteInt32(currentElementPtr + 0x28, 1);
+            mock.WriteInt64(currentElementPtr + 0x30, 20);
+
+            //calculate ptr (probably a bit crazy calculated, the biggest offset probably is the 64bit read at offset 0x28)
+            mock.WriteInt32(eventFlagManPtr + 0x20, 10);
+            mock.WriteInt32(currentElementPtr + 0x30, 10);
+            mock.WriteInt64(eventFlagManPtr + 0x28, 0x7FF46FA00000);
+
+            //flag value
+            var calculatePtr = (10 * 10) + 0x7FF46FA00000;
+            mock.WriteInt32(calculatePtr + 50, 4);
+
+            var ac6 = new SoulMemory.MemoryV2.ArmoredCore6(mock);
+            Assert.IsTrue(ac6.TryRefresh().IsOk);
+
+            Assert.IsTrue(ac6.ReadEventFlag(2103505405));
+        }
+        
+        #endregion
     }
 }

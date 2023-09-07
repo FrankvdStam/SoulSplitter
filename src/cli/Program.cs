@@ -48,6 +48,7 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+
             var ac6 = new SoulMemory.ArmoredCore6.ArmoredCore6();
             GameLoop<ArmoredCore6>((e) =>
             {

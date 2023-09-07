@@ -58,6 +58,7 @@ namespace SoulMemory.MemoryV2
         private readonly Pointer _menuMan;
 
         public int GetInGameTimeMilliseconds() => _fd4Time.ReadInt32(0x114);
+        public void WriteInGameTimeMilliseconds(int milliseconds) => _fd4Time.WriteInt32(0x114, milliseconds);
 
         public bool IsLoadingScreenVisible()
         {
@@ -139,9 +140,9 @@ namespace SoulMemory.MemoryV2
                 }
             }
 
-            if (currentElement.ResolveOffsets() == currentSubElement.ResolveOffsets() || category < currentElement.ReadInt32(0x20))
+            if (category < currentElement.ReadInt32(0x20))
             {
-                currentElement = currentSubElement;
+                return Result.Err();
             }
         
             if (currentElement.ResolveOffsets() != currentSubElement.ResolveOffsets())
