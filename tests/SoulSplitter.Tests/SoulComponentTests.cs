@@ -59,7 +59,7 @@ namespace SoulSplitter.Tests
 
             Assert.AreEqual(viewModel.EldenRingViewModel.StartAutomatically, deserializedViewModel.EldenRingViewModel.StartAutomatically);
             
-            var vectorSize = deserializedViewModel.SekiroViewModel.SplitsViewModel.Splits.FirstOrDefault()!.Children.FirstOrDefault()!.Children.FirstOrDefault()!.Split;
+            var vectorSize = deserializedViewModel.SekiroViewModel.SplitsViewModel.Splits.FirstOrDefault().Children.FirstOrDefault().Children.FirstOrDefault().Split;
 
             Assert.AreEqual(typeof(VectorSize), vectorSize.GetType());
             Assert.AreEqual(1.0f, ((VectorSize)vectorSize).Position.X);

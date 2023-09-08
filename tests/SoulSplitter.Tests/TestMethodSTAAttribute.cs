@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SoulSplitter.Net6.Tests
@@ -22,7 +23,7 @@ namespace SoulSplitter.Net6.Tests
     {
         public override TestResult[] Execute(ITestMethod testMethod)
         {
-            TestResult? result = null;
+            TestResult result = null;
             var thread = new Thread(() => 
             {
                 result = testMethod.Invoke(null);
@@ -30,7 +31,7 @@ namespace SoulSplitter.Net6.Tests
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
-            return new []{ result! };
+            return new []{ result };
         }
     }
 }

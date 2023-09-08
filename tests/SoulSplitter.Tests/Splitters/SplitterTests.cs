@@ -191,7 +191,7 @@ namespace SoulSplitter.Tests.Splitters
                         break;
        
                     case SplitType.Bonfire:
-                        darkSouls1.GetBonfireState(((Splits.DarkSouls1.BonfireState)split.Split).Bonfire!.Value).Returns(((Splits.DarkSouls1.BonfireState)split.Split).State);
+                        darkSouls1.GetBonfireState(((Splits.DarkSouls1.BonfireState)split.Split).Bonfire.Value).Returns(((Splits.DarkSouls1.BonfireState)split.Split).State);
                         break;
        
                     case SplitType.Position:
@@ -238,7 +238,7 @@ namespace SoulSplitter.Tests.Splitters
                 //It seems like GameTime might be updated from somewhere else. The logic inside livesplit is complicated.
                 //I noticed that its value (in millis) can be 51.6 after setting it to 50.0
                 //If this asserts starts being funny, just get rid of it.
-                Assert.AreEqual(igt, timerModel.CurrentState.CurrentTime.GameTime!.Value.TotalMilliseconds);
+                Assert.AreEqual(igt, timerModel.CurrentState.CurrentTime.GameTime.Value.TotalMilliseconds);
 
                 darkSouls1.GetPosition().Returns(new SoulMemory.Vector3f());//reset position
             }

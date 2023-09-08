@@ -24,27 +24,27 @@ namespace SoulSplitter.Tests.UI.Validation
     [TestClass]
     public class TextToNumberValidationTests
     {
-        private static IEnumerable<object?[]> TestCases
+        private static IEnumerable<object[]> TestCases
         {
             get
             {
                 return new []
                 {
-                    new object?[] { "123"  , false, false, NumericType.Uint , true },
-                    new object?[] { "-123" , false, false, NumericType.Uint , false},
-                    new object?[] { "-123" , false, true , NumericType.Int  , true },
-                    new object?[] { "123.3", false, true , NumericType.Int  , false},
-                    new object?[] { "123.3", false, true , NumericType.Float, true },
-                    new object?[] { ""     , true , true , NumericType.Float, false},
-                    new object?[] { "asd"  , true , true , NumericType.Float, false},
-                    new object?[] { null   , true , true , NumericType.Float, false},
+                    new object[] { "123"  , false, false, NumericType.Uint , true },
+                    new object[] { "-123" , false, false, NumericType.Uint , false},
+                    new object[] { "-123" , false, true , NumericType.Int  , true },
+                    new object[] { "123.3", false, true , NumericType.Int  , false},
+                    new object[] { "123.3", false, true , NumericType.Float, true },
+                    new object[] { ""     , true , true , NumericType.Float, false},
+                    new object[] { "asd"  , true , true , NumericType.Float, false},
+                    new object[] { null   , true , true , NumericType.Float, false},
                 };
             }
         }
     
         [TestMethod]
         [DynamicData(nameof(TestCases))]
-        public void TestDataTypes(object? value, bool isRequired, bool allowNegative, NumericType numericType, bool expected)
+        public void TestDataTypes(object value, bool isRequired, bool allowNegative, NumericType numericType, bool expected)
         {
             var validator = new TextToNumberValidation { AllowNegative = allowNegative, IsRequired = isRequired, NumericType = numericType };
             Assert.AreEqual(expected, validator.Validate(value, CultureInfo.InvariantCulture).IsValid);

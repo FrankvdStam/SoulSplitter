@@ -42,7 +42,7 @@ namespace SoulSplitter.Tests.UI
         [DynamicData(nameof(TestCases))]
         public void AddSplitTest(GameType gameType, AddSplit addSplit, TimingType timingType, SplitType splitType, object split)
         {
-            BaseViewModel? viewModel = null;
+            BaseViewModel viewModel = null;
             switch(gameType)
             {
                 case GameType.DarkSouls1:
@@ -98,7 +98,7 @@ namespace SoulSplitter.Tests.UI
                 var expectedTimingTypes = new Dictionary<TimingType, int>();
                 var expectedSplitTypes = new Dictionary<SplitType, int>();
 
-                BaseViewModel? viewModel = null;
+                BaseViewModel viewModel = null;
                 switch (gameType.Key)
                 {
                     case GameType.DarkSouls1:
