@@ -14,28 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Globalization;
 using System.Windows.Data;
-using System.Windows.Media;
 
-namespace SoulSplitter.UI.Converters
+namespace SoulSplitter.Tests.UI.Converters
 {
-    public class ColorToBrushConverter : IValueConverter
+    internal static class ConverterExtensions
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <summary>
+        /// Calls IValueConverter.Convert, fills in some standard values for all parameters
+        /// </summary>
+        public static object Convert(this IValueConverter converter, object value)
         {
-            if (value is Color color)
-            {
-                return new SolidColorBrush(color);
-            }
-
-            throw new NotSupportedException($"Type not supported {targetType}");
+            return converter.Convert(value, typeof(ConverterExtensions), null, Thread.CurrentThread.CurrentCulture);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <summary>
+        /// Calls IValueConverter.ConvertBack, fills in some standard values for all parameters
+        /// </summary>
+        public static object ConvertBack(this IValueConverter converter, object value)
         {
-            throw new NotImplementedException();
+            return converter.ConvertBack(value, typeof(ConverterExtensions), null, Thread.CurrentThread.CurrentCulture);
         }
     }
 }
