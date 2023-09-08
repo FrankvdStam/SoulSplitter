@@ -15,27 +15,35 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/FrankvdStam/SoulSplitter/actions">
-        <img src="https://img.shields.io/github/actions/workflow/status/FrankvdStam/SoulSplitter/build.yml?branch=main"/>
-    </a>
     <a href="http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa">
         <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=alert_status&token=dcf5066558434982e851acb72b72235195d99b6e"/>
+    </a>
+    <a href="http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa">
+        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=ncloc&token=dcf5066558434982e851acb72b72235195d99b6e"/>
+    </a>
+    <a href="http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa">
+        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=coverage&token=dcf5066558434982e851acb72b72235195d99b6e"/>
+    </a>
+    <a href="http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa">
+        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=sqale_rating&token=dcf5066558434982e851acb72b72235195d99b6e"/>
+    </a>
+    <br/>
+    <a href="https://github.com/FrankvdStam/SoulSplitter/actions">
+        <img src="https://img.shields.io/github/actions/workflow/status/FrankvdStam/SoulSplitter/build.yml?branch=main"/>
     </a>
     <a href="https://www.nuget.org/packages/SoulMemory/">
         <img src="https://img.shields.io/nuget/v/SoulMemory"/>
     </a>
-    <br/>
+     <a href="https://discord.com/users/281116269921566721">
+        <img src="https://img.shields.io/badge/-Discord-blue"/>
+    </a>
     <a href="https://www.youtube.com/@1wasted">
         <img src="https://img.shields.io/badge/-YouTube-red"/>
     </a>
     <a href="https://ko-fi.com/wasted1">
         <img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg"/>
-    </a>    
-    <a href="https://discord.com/users/281116269921566721">
-        <img src="https://img.shields.io/badge/-Discord-blue"/>
     </a>
 </p>
-
 This library provides an API that lets you read/write from/to running fromsoft games (Dark Soul 1, Dark Souls 2, Dark Souls 3, Sekiro: Shadows die twice and Elden Ring). It uses the Win32 API to achieve this. It is build mainly with speedrunning in mind and focuses on timer and autosplitter features.
 
 ## Example usage
