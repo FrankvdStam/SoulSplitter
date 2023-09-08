@@ -21,7 +21,7 @@ using System.Windows.Media;
 
 namespace SoulSplitter.UI.Converters
 {
-    internal class ColorToHexTextConverter : IValueConverter
+    public class ColorToHexTextConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
