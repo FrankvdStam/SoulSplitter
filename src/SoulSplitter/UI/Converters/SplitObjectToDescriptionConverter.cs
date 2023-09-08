@@ -31,16 +31,6 @@ namespace SoulSplitter.UI.Converters
                 return e.GetDisplayName();
             }
 
-            if (value is Item i)
-            {
-                return i.Name;
-            }
-
-            if (value is FlagDescription f)
-            {
-                return f.ToString();
-            }
-
             if (value is uint u)
             {
                 return u;
