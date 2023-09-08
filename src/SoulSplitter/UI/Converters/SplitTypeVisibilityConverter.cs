@@ -21,7 +21,7 @@ using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.Converters
 {
-    internal class SplitTypeVisibilityConverter : IValueConverter
+    public class SplitTypeVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

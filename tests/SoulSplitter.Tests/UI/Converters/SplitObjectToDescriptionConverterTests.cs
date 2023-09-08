@@ -15,16 +15,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulMemory.EldenRing;
 using SoulSplitter.UI.Converters;
 using SoulSplitter.UI.Generic;
-using Attribute = SoulMemory.DarkSouls1.Attribute;
 
 namespace SoulSplitter.Tests.UI.Converters
 {
@@ -44,7 +38,7 @@ namespace SoulSplitter.Tests.UI.Converters
         {
             var converter = new SplitObjectToDescriptionConverter();
             Assert.AreEqual("12345 Test flag", converter.Convert(new FlagDescription(){ Description = "Test flag", Flag = 12345}));
-            Assert.AreEqual("Dexterity 10", converter.Convert(new SoulSplitter.Splits.DarkSouls1.Attribute{AttributeType = Attribute.Dexterity, Level = 10}));
+            Assert.AreEqual("Dexterity 10", converter.Convert(new SoulSplitter.Splits.DarkSouls1.Attribute{AttributeType = SoulMemory.DarkSouls1.Attribute.Dexterity, Level = 10}));
         }
 
         [TestMethod]
