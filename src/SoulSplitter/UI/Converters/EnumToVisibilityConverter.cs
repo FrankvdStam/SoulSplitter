@@ -21,13 +21,13 @@ using System.Windows.Data;
 
 namespace SoulSplitter.UI.Converters
 {
-    internal class EnumToVisibilityConverter : IMultiValueConverter, IValueConverter
+    public class EnumToVisibilityConverter : IMultiValueConverter, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var valueEnum = (Enum)value;
             var paramEnum = (Enum)parameter;
-            if (valueEnum != null && valueEnum.Equals(paramEnum))
+            if (valueEnum != null && paramEnum != null && valueEnum.Equals(paramEnum))
             {
                 return Visibility.Visible;
             }
@@ -36,6 +36,11 @@ namespace SoulSplitter.UI.Converters
 
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (values == null || parameter == null)
+            {
+                throw new ArgumentException($"{nameof(values)} and {nameof(parameter)} can't be null");
+            }
+
             var valueEnums = values.Cast<Enum>().ToList();
             var paramEnums = ((object[])parameter).Cast<Enum>().ToList();
 
@@ -54,7 +59,7 @@ namespace SoulSplitter.UI.Converters
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
