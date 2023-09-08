@@ -21,7 +21,7 @@ using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.Converters
 {
-    internal class GameToSelectedIndexConverter : IValueConverter
+    public class GameToSelectedIndexConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

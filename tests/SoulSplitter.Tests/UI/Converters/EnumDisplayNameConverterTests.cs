@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SoulSplitter.UI.Converters;
 
@@ -23,10 +24,29 @@ namespace SoulSplitter.Tests.UI.Converters
     public class EnumDisplayNameConverterTests
     {
         [TestMethod]
-        public void Convert_Ds1_Boss()
+        public void Convert_Enums()
         {
             var converter = new EnumDisplayNameConverter();
             Assert.AreEqual("Capra Demon", converter.Convert(SoulMemory.DarkSouls1.Boss.CapraDemon));
+            Assert.AreEqual("Abandoned Cave", converter.Convert(SoulMemory.EldenRing.Grace.AbandonedCave));
+        }
+
+        [TestMethod]
+        public void Convert_Unsupported_Type()
+        {
+            var converter = new EnumDisplayNameConverter();
+            Assert.AreEqual("", converter.Convert(20));
+            Assert.AreEqual("", converter.Convert(new object()));
+            Assert.AreEqual("", converter.Convert("test"));
+        }
+
+        [TestMethod]
+        public void ConvertBack_Exception()
+        {
+            var converter = new EnumDisplayNameConverter();
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(20));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new object()));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack("test"));
         }
     }
 }
