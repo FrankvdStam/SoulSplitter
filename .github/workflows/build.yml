@@ -25,7 +25,7 @@ jobs:
         with:
           distribution: 'microsoft'
           java-version: '17'
-          java-package: jre
+          java-package: jdk
      
       - name: Cache SonarQube packages
         uses: actions/cache@v1
