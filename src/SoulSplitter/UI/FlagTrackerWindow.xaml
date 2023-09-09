@@ -34,11 +34,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
 
                 <ResourceDictionary>
-                    <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
                     <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
                     <converters:ColorToHexTextConverter x:Key="ColorToHexTextConverter"/>
                     <converters:DoubleToGridLengthConverter x:Key="DoubleToGridLengthConverter"/>
-                    <validation:TextToRgbHexConverter x:Key="TextToRgbHexConverter"/>
+
                     <system:Int32 x:Key="InputCategory" >0</system:Int32>
                     <system:Int32 x:Key="InputFlag"     >1</system:Int32>
                     <system:Int32 x:Key="InputButtons"  >2</system:Int32>
@@ -197,7 +196,7 @@
                         <TextBox.Text>
                             <Binding UpdateSourceTrigger="PropertyChanged" Path="BackgroundColor" Converter="{StaticResource ColorToHexTextConverter}">
                                 <Binding.ValidationRules>
-                                    <validation:TextToRgbHexConverter/>
+                                    <validation:TextToRgbHexValidator/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
@@ -222,7 +221,7 @@
                         <TextBox.Text>
                             <Binding UpdateSourceTrigger="PropertyChanged" Path="TextColor" Converter="{StaticResource ColorToHexTextConverter}">
                                 <Binding.ValidationRules>
-                                    <validation:TextToRgbHexConverter/>
+                                    <validation:TextToRgbHexValidator/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>

@@ -20,7 +20,7 @@ using System.Windows.Controls;
 
 namespace SoulSplitter.UI.Validation
 {
-    internal class TextToRgbHexConverter : ValidationRule
+    public class TextToRgbHexValidator : ValidationRule
     {
         private static readonly Regex RgbValidator = new Regex("^#(?:[0-9a-fA-F]{3}){1,2}$");
 
