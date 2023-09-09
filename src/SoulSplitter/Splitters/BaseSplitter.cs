@@ -36,7 +36,7 @@ namespace SoulSplitter.Splitters
         protected TimerState _timerState = TimerState.WaitForStart;
 
 
-        public BaseSplitter(LiveSplitState state, IGame game)
+        protected BaseSplitter(LiveSplitState state, IGame game)
         {
             _liveSplitState = state;
             _liveSplitState.OnStart += InternalStart;
