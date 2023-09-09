@@ -275,7 +275,7 @@ namespace SoulMemory.Parameters
             public long Offset;
         }
 
-        private class Field : BaseField
+        private sealed class Field : BaseField
         {
             public Field(long offset, string name, ParamType paramType, int? arraySize = null)
             {
@@ -289,7 +289,7 @@ namespace SoulMemory.Parameters
             public int? ArraySize;
         }
 
-        private class Bitfield : BaseField
+        private sealed class Bitfield : BaseField
         {
             public Bitfield(long offset, ParamType paramType)
             {
