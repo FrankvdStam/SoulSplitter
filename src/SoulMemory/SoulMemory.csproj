@@ -35,7 +35,7 @@
   </PropertyGroup>
     <ItemGroup>
         <SonarQubeSetting Include="sonar.exclusions">
-            <Value>src/SoulMemory/DarkSouls1/Parameters/*.cs</Value>
+            <Value>src\SoulMemory\DarkSouls1\Parameters\*.cs</Value>
         </SonarQubeSetting>
     </ItemGroup>
     <ItemGroup>
