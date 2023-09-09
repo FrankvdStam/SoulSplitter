@@ -20,6 +20,9 @@ using System.Collections.Generic;
 
 namespace SoulMemory.MemoryV2.Process
 {
+    /// <summary>
+    /// Abstract away the functionality from System.Diagnostics.Process, to make it injectable and testable
+    /// </summary>
     public interface IProcessWrapper : IMemory
     {
         ProcessRefreshResult TryRefresh(string name, out Exception exception);

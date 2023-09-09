@@ -16,12 +16,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Xml;
 
 namespace SoulMemory.Parameters
 {
+    [ExcludeFromCodeCoverage]
     public static class ParamClassGenerator
     {
         public static string GenerateFromXml(string xml, string className, string classHeader)

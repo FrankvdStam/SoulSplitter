@@ -16,10 +16,12 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace SoulMemory.Native
 {
+    [ExcludeFromCodeCoverage]
     public static class Ntdll
     {
         [DllImport("ntdll.dll", SetLastError = true)]
