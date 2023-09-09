@@ -34,8 +34,8 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
     <ItemGroup>
-        <SonarQubeSetting Include="sonar.coverage.exclusions">
-            <Value>src\SoulMemory\DarkSouls1\Parameters\*.cs</Value>
+        <SonarQubeSetting Include="sonar.exclusions">
+            <Value>DarkSouls1\Parameters\*.cs</Value>
         </SonarQubeSetting>
     </ItemGroup>
     <ItemGroup>
