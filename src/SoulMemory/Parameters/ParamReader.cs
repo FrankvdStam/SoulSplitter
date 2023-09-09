@@ -80,7 +80,6 @@ namespace SoulMemory.Parameters
 
                 var rowBasePointer = paramBasePointer.Copy();
                 rowBasePointer.Offsets.Clear();
-                //var baseasdf = (IntPtr)paramBasePointer.ReadInt32();
                 rowBasePointer.BaseAddress = paramBasePointer.BaseAddress + dataOffset + i * rowSize;
                
                 parameters.Add(
