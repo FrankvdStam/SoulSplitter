@@ -428,7 +428,7 @@ namespace SoulMemory.DarkSouls1
 
             var dataPointer = weaponDescriptionsPointer.CreatePointerFromAddress(0x14);
             var textOffset = dataPointer.ReadInt32(weaponDescription.DataOffset * 4);
-            var str = weaponDescriptionsPointer.ReadUnicodeString(out int length, offset: textOffset);
+            weaponDescriptionsPointer.ReadUnicodeString(out int length, offset: textOffset);
             
             var buffer = Encoding.Unicode.GetBytes(description);
             var bytes = new byte[length];
