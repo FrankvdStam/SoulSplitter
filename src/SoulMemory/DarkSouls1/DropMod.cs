@@ -78,7 +78,6 @@ namespace SoulMemory.DarkSouls1
                 var s = temp; //structs need to be put in a variable in order to be mutable. Meme.
                 if (s.ShouldSwitch && items.Any(j => j.ItemType == s.SwitchItem))
                 {
-                    //Console.WriteLine($"Switching {s.RowId} {s.SwitchItem}");
                     GuaranteeDrop(s.RowId, s.ItemId2);
                     s.ShouldSwitch = false;
                 }
@@ -110,7 +109,7 @@ namespace SoulMemory.DarkSouls1
         }
         
 
-        private List<SwitchableDrop> _switchableWeapons = new List<SwitchableDrop>()
+        private readonly List<SwitchableDrop> _switchableWeapons = new List<SwitchableDrop>()
         {
             //Darkroot
             new SwitchableDrop(ItemType.StoneGreatsword          , 23800000, 306000 , 1503000),
