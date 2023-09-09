@@ -83,8 +83,6 @@ namespace SoulSplitter
                             _lastFailedRefresh = DateTime.Now;
                         }
                     }
-
-                    //SetBitBlt();
                 }
                 catch (Exception e)
                 {
