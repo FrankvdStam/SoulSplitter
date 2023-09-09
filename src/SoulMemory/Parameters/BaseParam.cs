@@ -28,28 +28,28 @@ namespace SoulMemory.Parameters
 {
     public abstract class BaseParam
     {
-        private List<(PropertyInfo propertyInfo, ParamFieldAttribute paramFieldAttribute)> ParamFieldPropertyCache;
-        private List<(PropertyInfo propertyInfo, ParamBitFieldAttribute paramFieldAttribute)> ParamBitfieldPropertyCache;
+        private readonly List<(PropertyInfo propertyInfo, ParamFieldAttribute paramFieldAttribute)> _paramFieldPropertyCache;
+        private readonly List<(PropertyInfo propertyInfo, ParamBitFieldAttribute paramFieldAttribute)> _paramBitfieldPropertyCache;
 
         protected BaseParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry)
         {
             BasePointer = basePointer;
             Id = paramTableEntry.Id;
 
-            ParamFieldPropertyCache = GetType()
+            _paramFieldPropertyCache = GetType()
                 .GetProperties()
                 .Where(i => i.IsDefined(typeof(ParamFieldAttribute)))
                 .Select(i => (i, i.GetCustomAttribute<ParamFieldAttribute>()))
                 .OrderBy(i => i.Item2.Offset)
                 .ToList();
 
-            ParamBitfieldPropertyCache = GetType()
+            _paramBitfieldPropertyCache = GetType()
                 .GetProperties()
                 .Where(i => i.IsDefined(typeof(ParamBitFieldAttribute)))
                 .Select(i => (i, i.GetCustomAttribute<ParamBitFieldAttribute>()))
                 .ToList();
 
-            foreach (var field in ParamFieldPropertyCache)
+            foreach (var field in _paramFieldPropertyCache)
             {
                 var fieldOffset = offset + field.paramFieldAttribute.Offset;
                 var paramType = field.paramFieldAttribute.ParamType;
@@ -156,7 +156,7 @@ namespace SoulMemory.Parameters
 
         protected T GetbitfieldValue<T>(T field, [CallerMemberName] string propertyName = null)
         {
-            var bitfield = ParamBitfieldPropertyCache.First(i => i.propertyInfo.Name == propertyName);
+            var bitfield = _paramBitfieldPropertyCache.First(i => i.propertyInfo.Name == propertyName);
             var currentValue = (long)Convert.ChangeType(field, typeof(long));
             
             var bitIndex = 0;
@@ -176,7 +176,7 @@ namespace SoulMemory.Parameters
 
         protected void SetBitfieldValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
-            var bitfield = ParamBitfieldPropertyCache.First(i => i.propertyInfo.Name == propertyName);
+            var bitfield = _paramBitfieldPropertyCache.First(i => i.propertyInfo.Name == propertyName);
             var currentValue = (long)Convert.ChangeType(field, typeof(long));
             var newValue = (long)Convert.ChangeType(value, typeof(long));
 
