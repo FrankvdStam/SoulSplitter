@@ -21,7 +21,7 @@ namespace SoulMemory.MemoryV2
 {
     public class ByteArrayMemory : IMemory
     {
-        private byte[] _data;
+        private readonly byte[] _data;
         public ByteArrayMemory(byte[] data)
         {
             _data = data;
