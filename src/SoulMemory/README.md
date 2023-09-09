@@ -143,7 +143,6 @@ ScreenState GetScreenState();                        //Returns the current "scre
 bool IsBlackscreenActive();                          //Reads a combination of flags in memory to determine of a blackscreen is active
 List<Item> ReadInventory();                          //Reads the player's inventory. A part of the inventory seems stored in event flags (especially key-items) so be warned: some things might not be in this list
 void WriteInGameTimeMilliseconds(int milliseconds);  //Overwrite the game's in game time with a new value (used in blackscreen removal to create the illusion of a paused timer)
-void ResetIgt();                                     //Overwrite the game's in game time with 0 (used to prepare NG+ save files)
 ```
 
 ### Armored Core 6

@@ -94,18 +94,10 @@ namespace SoulSplitter.Splitters
                 mainViewModel.AddRefreshError(result.GetErr());
             }
 
-            var shouldExit = false;
-            mainViewModel.TryAndHandleError(() =>
+            if (_darkSouls3ViewModel.LockIgtToZero)
             {
-                if (_darkSouls3ViewModel.LockIgtToZero)
-                {
-                    _darkSouls3.WriteInGameTimeMilliseconds(0);
-                    shouldExit = true; //Don't allow the timer to run when IGT is locked
-                }
-            });
-            if(shouldExit)
-            {
-                return Result.Ok();
+                mainViewModel.TryAndHandleError(() => _darkSouls3.WriteInGameTimeMilliseconds(0));
+                return Result.Ok(); //Don't allow the timer to run when IGT is locked
             }
 
             mainViewModel.TryAndHandleError(() =>

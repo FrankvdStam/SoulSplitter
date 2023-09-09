@@ -555,10 +555,6 @@ namespace SoulMemory.EldenRing
             _igt.WriteInt32(milliseconds);
         }
 
-        public void ResetIgt()
-        {
-            _igt.WriteInt32(0);
-        }
         #endregion
 
         #region B3's IGT fix
