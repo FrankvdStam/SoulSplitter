@@ -31,7 +31,7 @@ namespace SoulMemory.Memory
 
     public class ByteArrayMemory : IMemory
     {
-        private byte[] _data;
+        private readonly byte[] _data;
         public ByteArrayMemory(byte[] data)
         {
             _data = data;
