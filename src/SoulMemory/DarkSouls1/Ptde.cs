@@ -416,8 +416,7 @@ namespace SoulMemory.DarkSouls1
             //weaponName 0x1d0 - 0x30
             //weaponInfo 0x1cc - 0x58
             //weaponCaption 0x1ac - 0x68
-            
-            //var weaponDescriptionsPointer = _msgMan.CreatePointerFromAddress(0x1ac);
+
             var weaponDescriptionsPointer = _msgMan.CreatePointerFromAddress(0x68);
 
             if (!_weaponDescriptionsTable.Any())
