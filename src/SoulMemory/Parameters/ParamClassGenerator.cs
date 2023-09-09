@@ -213,7 +213,7 @@ namespace SoulMemory.Parameters
                     currentBitfield.Bitfields.Add((currentField.Name, currentField.Bits.Value));
 
                     //Check if this is the last bitfield in this sequence
-                    if (nextField == null || nextField?.Bits == null)
+                    if (nextField?.Bits == null)
                     {
                         result.Add(currentBitfield);
                         currentBitfield = null;
