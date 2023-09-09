@@ -34,27 +34,27 @@ namespace SoulSplitter.Tests.UI.Converters
         {
             var converter = new GameToSelectedIndexConverter();
 
-            Assert.AreEqual(0, converter.Convert(Game.DarkSouls1));
-            Assert.AreEqual(1, converter.Convert(Game.DarkSouls2));
-            Assert.AreEqual(2, converter.Convert(Game.DarkSouls3));
-            Assert.AreEqual(3, converter.Convert(Game.Sekiro));
-            Assert.AreEqual(4, converter.Convert(Game.EldenRing));
-            Assert.AreEqual(5, converter.Convert(Game.ArmoredCore6));
+            Assert.AreEqual(0, converter.Convert(Game.DarkSouls1, null, null, null));
+            Assert.AreEqual(1, converter.Convert(Game.DarkSouls2, null, null, null));
+            Assert.AreEqual(2, converter.Convert(Game.DarkSouls3, null, null, null));
+            Assert.AreEqual(3, converter.Convert(Game.Sekiro, null, null, null));
+            Assert.AreEqual(4, converter.Convert(Game.EldenRing, null, null, null));
+            Assert.AreEqual(5, converter.Convert(Game.ArmoredCore6, null, null, null));
 
-            Assert.AreEqual(Game.DarkSouls1  , converter.ConvertBack(0));
-            Assert.AreEqual(Game.DarkSouls2  , converter.ConvertBack(1));
-            Assert.AreEqual(Game.DarkSouls3  , converter.ConvertBack(2));
-            Assert.AreEqual(Game.Sekiro      , converter.ConvertBack(3));
-            Assert.AreEqual(Game.EldenRing   , converter.ConvertBack(4));
-            Assert.AreEqual(Game.ArmoredCore6, converter.ConvertBack(5));
+            Assert.AreEqual(Game.DarkSouls1  , converter.ConvertBack(0, null, null, null));
+            Assert.AreEqual(Game.DarkSouls2  , converter.ConvertBack(1, null, null, null));
+            Assert.AreEqual(Game.DarkSouls3  , converter.ConvertBack(2, null, null, null));
+            Assert.AreEqual(Game.Sekiro      , converter.ConvertBack(3, null, null, null));
+            Assert.AreEqual(Game.EldenRing   , converter.ConvertBack(4, null, null, null));
+            Assert.AreEqual(Game.ArmoredCore6, converter.ConvertBack(5, null, null, null));
 
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert(""));
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert(1));
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert(new object()));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert("", null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert(1, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert(new object(), null, null, null));
 
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(""));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(Game.ArmoredCore6));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new object()));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack("", null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(Game.ArmoredCore6, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new object(), null, null, null));
         }
     }
 }

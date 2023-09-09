@@ -37,7 +37,7 @@ namespace SoulSplitter.Tests.UI.Converters
                 B = 4,
             };
 
-            var brush = converter.Convert(color);
+            var brush = converter.Convert(color, null, null, null);
             Assert.IsInstanceOfType<SolidColorBrush>(brush);
             Assert.AreEqual("#01020304", ((SolidColorBrush)brush).Color.ToString());
         }
@@ -46,14 +46,14 @@ namespace SoulSplitter.Tests.UI.Converters
         public void Convert_Exception()
         {
             var converter = new ColorToBrushConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert("test"));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert("test", null, null, null));
         }
 
         [TestMethod]
         public void ConvertBack_Exception()
         {
             var converter = new BoolToVisibilityConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new SolidColorBrush()));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new SolidColorBrush(), null, null, null));
         }
     }
 }

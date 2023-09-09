@@ -32,38 +32,38 @@ namespace SoulSplitter.Tests.UI.Converters
         public void Convert()
         {
             var converter = new ColorToHexTextConverter();
-            Assert.AreEqual("#000000", converter.Convert(Colors.Black));
-            Assert.AreEqual("#8A2BE2", converter.Convert(Colors.BlueViolet));
-            Assert.AreEqual("#8B0000", converter.Convert(Colors.DarkRed));
+            Assert.AreEqual("#000000", converter.Convert(Colors.Black, null, null, null));
+            Assert.AreEqual("#8A2BE2", converter.Convert(Colors.BlueViolet, null, null, null));
+            Assert.AreEqual("#8B0000", converter.Convert(Colors.DarkRed, null, null, null));
         }
 
         [TestMethod]
         public void Convert_Throws()
         {
             var converter = new ColorToHexTextConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert((long)1234));
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert((float)1.4));
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert("asdf"));
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert(new object()));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert((long)1234, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert((float)1.4, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert("Test", null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert(new object(), null, null, null));
         }
 
         [TestMethod]
         public void ConvertBack()
         {
             var converter = new ColorToHexTextConverter();
-            Assert.AreEqual(converter.Convert(Colors.Black)     , "#000000");
-            Assert.AreEqual(converter.Convert(Colors.BlueViolet), "#8A2BE2");
-            Assert.AreEqual(converter.Convert(Colors.DarkRed)   , "#8B0000");
+            Assert.AreEqual(Colors.Black     , converter.ConvertBack("#000000", null, null, null));
+            Assert.AreEqual(Colors.BlueViolet, converter.ConvertBack("#8A2BE2", null, null, null));
+            Assert.AreEqual(Colors.DarkRed   , converter.ConvertBack("#8B0000", null, null, null));
         }
 
         [TestMethod]
         public void Convert_Back_Throws()
         {
             var converter = new ColorToHexTextConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((long)1234));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((float)1.4));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new object()));
-            Assert.ThrowsException<ArgumentException>(() => converter.ConvertBack("asdf"));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((long)1234, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((float)1.4, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new object(), null, null, null));
+            Assert.ThrowsException<ArgumentException>(()     => converter.ConvertBack("Test", null, null, null));
         }
     }
 }

@@ -28,36 +28,36 @@ namespace SoulSplitter.Tests.UI.Converters
         public void Convert()
         {
             var converter = new DoubleToGridLengthConverter();
-            Assert.AreEqual(new GridLength(10.0), converter.Convert((double)10.0));
-            Assert.AreEqual(new GridLength(1234.5678), converter.Convert((double)1234.5678));
+            Assert.AreEqual(new GridLength(10.0), converter.Convert((double)10.0, null, null, null));
+            Assert.AreEqual(new GridLength(1234.5678), converter.Convert((double)1234.5678, null, null, null));
         }
 
         [TestMethod]
         public void Convert_Throws()
         {
             var converter = new DoubleToGridLengthConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert((long)1234));
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert((float)1.4));
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert("asdf"));
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert(new object()));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert((long)1234, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert((float)1.4, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert("test", null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert(new object(), null, null, null));
         }
 
         [TestMethod]
         public void ConvertBack()
         {
             var converter = new DoubleToGridLengthConverter();
-            Assert.AreEqual((double)10.0     , converter.ConvertBack(new GridLength(10.0)));
-            Assert.AreEqual((double)1234.5678, converter.ConvertBack(new GridLength(1234.5678)));
+            Assert.AreEqual((double)10.0     , converter.ConvertBack(new GridLength(10.0), null, null, null));
+            Assert.AreEqual((double)1234.5678, converter.ConvertBack(new GridLength(1234.5678), null, null, null));
         }
 
         [TestMethod]
         public void ConvertBack_Throws()
         {
             var converter = new DoubleToGridLengthConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((long)1234));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((float)1.4));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack("asdf"));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new object()));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((long)1234, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((float)1.4, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack("test", null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new object(), null, null, null));
         }
     }
 }
