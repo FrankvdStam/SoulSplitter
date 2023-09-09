@@ -30,7 +30,7 @@ namespace SoulMemory.MemoryV2.Memory
 
         public Pointer(IMemory memory)
         {
-            if (memory is Pointer p)
+            if (memory is Pointer)
             {
                 throw new ArgumentException("Can't initialize pointer object with another pointer.", nameof(memory));
             }
@@ -41,7 +41,7 @@ namespace SoulMemory.MemoryV2.Memory
 
         public Pointer(IMemory memory, params long[] offsets)
         {
-            if (memory is Pointer p)
+            if (memory is Pointer)
             {
                 throw new ArgumentException("Can't initialize pointer object with another pointer.", nameof(memory));
             }
