@@ -13,6 +13,7 @@
         <PackageReadmeFile>../../README.md</PackageReadmeFile>
         <PackageLicenseFile>../../LICENSE</PackageLicenseFile>
         <Copyright>(c) 2022 by Frank van der Stam, GPL-v3 licensed</Copyright>
+        <SonarQubeExclude>true</SonarQubeExclude>
 	</PropertyGroup>
 	
 	<ItemGroup>

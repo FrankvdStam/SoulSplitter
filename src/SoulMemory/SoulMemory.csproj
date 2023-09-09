@@ -33,7 +33,12 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
-  <ItemGroup>
+    <ItemGroup>
+        <SonarQubeSetting Include="sonar.exclusions">
+            <Value>src/SoulMemory/DarkSouls1/Parameters/*.cs</Value>
+        </SonarQubeSetting>
+    </ItemGroup>
+    <ItemGroup>
     <Compile Remove="resources\**" />
     <EmbeddedResource Remove="resources\**" />
     <None Remove="resources\**" />
