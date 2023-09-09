@@ -416,8 +416,7 @@ namespace SoulMemory.DarkSouls1
             //weaponName 0x1d0 - 0x30
             //weaponInfo 0x1cc - 0x58
             //weaponCaption 0x1ac - 0x68
-            
-            //var weaponDescriptionsPointer = _msgMan.CreatePointerFromAddress(0x1ac);
+
             var weaponDescriptionsPointer = _msgMan.CreatePointerFromAddress(0x68);
 
             if (!_weaponDescriptionsTable.Any())
@@ -429,7 +428,7 @@ namespace SoulMemory.DarkSouls1
 
             var dataPointer = weaponDescriptionsPointer.CreatePointerFromAddress(0x14);
             var textOffset = dataPointer.ReadInt32(weaponDescription.DataOffset * 4);
-            var str = weaponDescriptionsPointer.ReadUnicodeString(out int length, offset: textOffset);
+            weaponDescriptionsPointer.ReadUnicodeString(out int length, offset: textOffset);
             
             var buffer = Encoding.Unicode.GetBytes(description);
             var bytes = new byte[length];

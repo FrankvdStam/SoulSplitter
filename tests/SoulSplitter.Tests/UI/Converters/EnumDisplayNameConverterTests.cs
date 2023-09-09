@@ -27,26 +27,26 @@ namespace SoulSplitter.Tests.UI.Converters
         public void Convert_Enums()
         {
             var converter = new EnumDisplayNameConverter();
-            Assert.AreEqual("Capra Demon", converter.Convert(SoulMemory.DarkSouls1.Boss.CapraDemon));
-            Assert.AreEqual("Abandoned Cave", converter.Convert(SoulMemory.EldenRing.Grace.AbandonedCave));
+            Assert.AreEqual("Capra Demon", converter.Convert(SoulMemory.DarkSouls1.Boss.CapraDemon, null, null, null));
+            Assert.AreEqual("Abandoned Cave", converter.Convert(SoulMemory.EldenRing.Grace.AbandonedCave, null, null, null));
         }
 
         [TestMethod]
         public void Convert_Unsupported_Type()
         {
             var converter = new EnumDisplayNameConverter();
-            Assert.AreEqual("", converter.Convert(20));
-            Assert.AreEqual("", converter.Convert(new object()));
-            Assert.AreEqual("", converter.Convert("test"));
+            Assert.AreEqual("", converter.Convert(20, null, null, null));
+            Assert.AreEqual("", converter.Convert(new object(), null, null, null));
+            Assert.AreEqual("", converter.Convert("test", null, null, null));
         }
 
         [TestMethod]
         public void ConvertBack_Exception()
         {
             var converter = new EnumDisplayNameConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(20));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new object()));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack("test"));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(20, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new object(), null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack("test", null, null, null));
         }
     }
 }

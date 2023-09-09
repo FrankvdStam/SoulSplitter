@@ -213,7 +213,7 @@ namespace SoulMemory.Parameters
                     currentBitfield.Bitfields.Add((currentField.Name, currentField.Bits.Value));
 
                     //Check if this is the last bitfield in this sequence
-                    if (nextField == null || nextField?.Bits == null)
+                    if (nextField?.Bits == null)
                     {
                         result.Add(currentBitfield);
                         currentBitfield = null;
@@ -275,7 +275,7 @@ namespace SoulMemory.Parameters
             public long Offset;
         }
 
-        private class Field : BaseField
+        private sealed class Field : BaseField
         {
             public Field(long offset, string name, ParamType paramType, int? arraySize = null)
             {
@@ -289,7 +289,7 @@ namespace SoulMemory.Parameters
             public int? ArraySize;
         }
 
-        private class Bitfield : BaseField
+        private sealed class Bitfield : BaseField
         {
             public Bitfield(long offset, ParamType paramType)
             {

@@ -79,9 +79,11 @@ namespace SoulMemory.DarkSouls3
         {
             try
             {
-                if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
+                var versionString = _process?.MainModule?.FileVersionInfo.ProductVersion ?? "Read failed";
+
+                if (!Version.TryParse(versionString, out Version v))
                 {
-                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {_process?.MainModule?.FileVersionInfo?.ProductVersion}"));
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {versionString}"));
                 }
 
                 //Clear count: 0x78 -> likely subject to the same shift that happens to IGT offset

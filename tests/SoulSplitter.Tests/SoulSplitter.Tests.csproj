@@ -8,6 +8,7 @@
     <UseWPF>true</UseWPF>
     <Platforms>x64</Platforms>
     <ImplicitUsings>disable</ImplicitUsings>
+    <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
 
   <ItemGroup>

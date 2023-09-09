@@ -43,18 +43,6 @@ namespace SoulMemory.EldenRing
         private long _mapIdOffset;
         private long _playerInsOffset;
         
-        public EldenRing() 
-        {
-            _applyIgtFix = true; 
-        }
-
-        public EldenRing(bool applyIgtFix = true)
-        {
-            _applyIgtFix = applyIgtFix;
-        }
-
-        private readonly bool _applyIgtFix;
-
 
         #region Refresh/init/reset ================================================================================================
         public Process GetProcess() => _process;
@@ -144,9 +132,10 @@ namespace SoulMemory.EldenRing
         {
             try
             {
-                if (!Version.TryParse(_process.MainModule.FileVersionInfo.ProductVersion, out Version v))
+                var versionString = _process?.MainModule?.FileVersionInfo.ProductVersion ?? "Read failed";
+                if (!Version.TryParse(versionString, out Version v))
                 {
-                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {_process?.MainModule?.FileVersionInfo?.ProductVersion}"));
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {versionString}"));
                 }
 
                 InitializeOffsets(v);
@@ -158,7 +147,7 @@ namespace SoulMemory.EldenRing
                     return result;
                 }
 
-                if (_applyIgtFix && !ApplyIgtFix())
+                if (!ApplyIgtFix())
                 {
                     return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "MIGT injection failed"));
                 }
@@ -555,10 +544,6 @@ namespace SoulMemory.EldenRing
             _igt.WriteInt32(milliseconds);
         }
 
-        public void ResetIgt()
-        {
-            _igt.WriteInt32(0);
-        }
         #endregion
 
         #region B3's IGT fix

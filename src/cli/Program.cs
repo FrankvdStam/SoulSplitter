@@ -18,8 +18,10 @@ using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
@@ -27,6 +29,7 @@ using SoulMemory.EldenRing;
 using SoulMemory;
 using SoulSplitter.UI.Generic;
 using SoulMemory.ArmoredCore6;
+using SoulMemory.MemoryV2.Process;
 using SoulMemory.Parameters;
 
 #pragma warning disable CS0162
@@ -118,9 +121,15 @@ namespace cli
             }
         }
 
-        private static void GameLoop<T>(Action<T> display) where T : IGame, new()
+        private static void GameLoop<T>(Action<T> display) where T : IGame
         {
-            var game = new T();
+            var game = (T)Activator.CreateInstance(
+                typeof(T),
+                BindingFlags.CreateInstance | BindingFlags.Public | BindingFlags.Instance | BindingFlags.OptionalParamBinding, 
+                null, 
+                new object[] { }, 
+                CultureInfo.CurrentCulture);
+
             while (true)
             {
                 try

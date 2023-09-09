@@ -24,7 +24,7 @@ using SoulMemory.Native;
 
 namespace SoulMemory.soulsmods
 {
-    public class Soulsmods
+    public static class Soulsmods
     {
         public static void Inject(Process process)
         {

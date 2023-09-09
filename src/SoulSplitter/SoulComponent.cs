@@ -59,7 +59,6 @@ namespace SoulSplitter
             {
                 try
                 {
-                    //MainControl.BitBlt();
                     _liveSplitState = state;
 
                     //Timeout for 5 sec after a refresh fails
@@ -84,8 +83,6 @@ namespace SoulSplitter
                             _lastFailedRefresh = DateTime.Now;
                         }
                     }
-
-                    //SetBitBlt();
                 }
                 catch (Exception e)
                 {

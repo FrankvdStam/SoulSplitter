@@ -88,19 +88,11 @@ namespace SoulSplitter.Splitters
                 }
             });
 
-            var shouldExit = false;
-            mainViewModel.TryAndHandleError(() =>
+            //Lock IGT to 0 if requested
+            if (_eldenRingViewModel.LockIgtToZero)
             {
-                //Lock IGT to 0 if requested
-                if (_eldenRingViewModel.LockIgtToZero)
-                {
-                    _eldenRing.ResetIgt();
-                    shouldExit = true;//Don't allow other features to be used while locking the timer
-                }
-            });
-            if(shouldExit)
-            {
-                return Result.Ok();
+                mainViewModel.TryAndHandleError(() => _eldenRing.WriteInGameTimeMilliseconds(0));
+                return Result.Ok();//Don't allow other features to be used while locking the timer
             }
 
             mainViewModel.TryAndHandleError(() =>
@@ -194,7 +186,7 @@ namespace SoulSplitter.Splitters
                         var igt = _eldenRing.GetInGameTimeMilliseconds();
                         if (igt > 0 && igt < 150)
                         {
-                            _eldenRing.ResetIgt();
+                            _eldenRing.WriteInGameTimeMilliseconds(0);
                             StartTimer();
                             _timerModel.Start();
                             StartAutoSplitting(_eldenRingViewModel);

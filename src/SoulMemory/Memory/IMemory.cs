@@ -31,7 +31,7 @@ namespace SoulMemory.Memory
 
     public class ByteArrayMemory : IMemory
     {
-        private byte[] _data;
+        private readonly byte[] _data;
         public ByteArrayMemory(byte[] data)
         {
             _data = data;
@@ -60,37 +60,6 @@ namespace SoulMemory.Memory
             {
                 _data[offset.Value + i] = bytes[i];
             }
-        }
-    }
-
-    public class ProcessMemory : IMemory
-    {
-        private Process _process;
-        public ProcessMemory(Process process)
-        {
-            _process = process;
-        }
-
-        public byte[] ReadBytes(long? offset, int length)
-        {
-            ResultOk<byte[]> result = null;
-            if (offset != null)
-            {
-                result = _process.ReadProcessMemory(offset.Value, length);
-            }
-
-            if (result != null && result.IsOk)
-            {
-                return result.Unwrap();
-            }
-
-            var buffer = new byte[length];
-            return buffer;
-        }
-
-        public void WriteBytes(long? offset, byte[] bytes)
-        {
-            _process.WriteProcessMemory(offset.Value, bytes);
         }
     }
 

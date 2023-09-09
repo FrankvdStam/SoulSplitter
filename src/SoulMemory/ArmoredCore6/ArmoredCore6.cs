@@ -25,9 +25,7 @@ namespace SoulMemory.ArmoredCore6
     public class ArmoredCore6 : IGame
     {
         private readonly IProcessHook _armoredCore6;
-
-        public ArmoredCore6() : this(null) { }
-
+        
         public ArmoredCore6(IProcessHook processHook = null)
         {
             _armoredCore6 = processHook ?? new ProcessHook("armoredcore6");

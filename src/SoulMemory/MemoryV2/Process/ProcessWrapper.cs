@@ -31,12 +31,7 @@ namespace SoulMemory.MemoryV2.Process
 
         public List<ProcessWrapperModule> GetProcessModules()
         {
-            var result = new List<ProcessWrapperModule>();
-            foreach (var pm in _process.Modules)
-            {
-                result.Add(ProcessWrapperModule.FromProcessModule((ProcessModule)pm));
-            }
-            return result;
+            return (from object pm in _process.Modules select ProcessWrapperModule.FromProcessModule((ProcessModule)pm)).ToList();
         }
 
         /// <summary>
@@ -91,7 +86,7 @@ namespace SoulMemory.MemoryV2.Process
             {
                 return new byte[length];
             }
-            return _process?.ReadProcessMemoryNoError(offset, length);
+            return _process.ReadProcessMemoryNoError(offset, length);
         }
 
         public void WriteBytes(long offset, byte[] bytes) => _process?.WriteProcessMemoryNoError(offset, bytes);

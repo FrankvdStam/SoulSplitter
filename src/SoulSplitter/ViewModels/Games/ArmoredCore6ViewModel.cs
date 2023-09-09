@@ -35,7 +35,7 @@ namespace SoulSplitter.ViewModels.Games
 
         private bool CanAddSplit(object param)
         {
-            if (param is FlatSplit flatSplit)
+            if (param is FlatSplit)
             {
                 return true;
             }
