@@ -29,7 +29,6 @@ namespace SoulMemory.Parameters
     {
         public static List<TextTableEntry> GetTextTables(Pointer textBasePointer)
         {
-            //var dataOffset = textBasePointer.ReadUInt16(0x14);
             var rowCount = textBasePointer.ReadUInt16(0xc);
 
             var tableBytes = textBasePointer.ReadBytes(12 * rowCount, 0x18);
