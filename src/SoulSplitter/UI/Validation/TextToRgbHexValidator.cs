@@ -20,13 +20,13 @@ using System.Windows.Controls;
 
 namespace SoulSplitter.UI.Validation
 {
-    internal class TextToRgbHexConverter : ValidationRule
+    public class TextToRgbHexValidator : ValidationRule
     {
-        private static readonly Regex _rgbValidator = new Regex("^#(?:[0-9a-fA-F]{3}){1,2}$");
+        private static readonly Regex RgbValidator = new Regex("^#(?:[0-9a-fA-F]{3}){1,2}$");
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value is string hex && _rgbValidator.Match(hex).Success)
+            if (value is string hex && RgbValidator.Match(hex).Success)
             {
                 return new ValidationResult(true, null);
             }

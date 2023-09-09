@@ -15,19 +15,21 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace SoulMemory.Native
 {
+    [ExcludeFromCodeCoverage]
     internal static class User32
     {
         [DllImport("user32.dll")]
-        public static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint ProcessId);
+        private static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint processId);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr GetForegroundWindow();
+        private static extern IntPtr GetForegroundWindow();
 
-        public static uint GetForegroundProcessID()
+        public static uint GetForegroundProcessId()
         {
             IntPtr hWnd = GetForegroundWindow();
             GetWindowThreadProcessId(hWnd, out uint pid);

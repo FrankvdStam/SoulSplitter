@@ -19,6 +19,9 @@ using SoulMemory.MemoryV2.Memory;
 
 namespace SoulMemory.MemoryV2.Process
 {
+    /// <summary>
+    /// Abstracts a hooked process and makes it injectable and testable
+    /// </summary>
     public interface IProcessHook : IMemory
     {
         /// <summary>
