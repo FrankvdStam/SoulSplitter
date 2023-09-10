@@ -93,7 +93,9 @@ namespace SoulMemory.DarkSouls3
                         _igtOffset = 0xa4;
                         break;
 
+                    case DarkSouls3Version.Earlier:
                     case DarkSouls3Version.V104:
+                    case DarkSouls3Version.V105:
                         _igtOffset = 0x9c;
                         break;
 
@@ -127,18 +129,31 @@ namespace SoulMemory.DarkSouls3
 
         public enum DarkSouls3Version
         {
+            Earlier,
             V104,
+            V105,
             Later,
         };
 
         public static DarkSouls3Version GetVersion(Version v)
         {
-            if (v.Minor <= 4)
+            switch (v.Minor)
             {
-                return DarkSouls3Version.V104;
-            }
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    return DarkSouls3Version.Earlier;
 
-            return DarkSouls3Version.Later;
+                case 4:
+                    return DarkSouls3Version.V104;
+
+                case 5:
+                    return DarkSouls3Version.V105;
+
+                default:
+                    return DarkSouls3Version.Later;
+            }
         }
         
         public bool IsLoading()

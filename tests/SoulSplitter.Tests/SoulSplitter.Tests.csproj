@@ -34,6 +34,7 @@
     <Reference Include="LiveSplit.Core">
       <HintPath>..\..\packages\LiveSplit.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
 
 </Project>

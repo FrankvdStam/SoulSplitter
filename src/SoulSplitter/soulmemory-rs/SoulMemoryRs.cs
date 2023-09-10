@@ -21,10 +21,17 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using SoulMemory.MemoryV2.Process;
+using System.Net.Http;
+using System.Text;
+using LiveSplit.Web;
+using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization;
+using System.Runtime.InteropServices.ComTypes;
+using LiveSplit.Model;
 
 namespace SoulSplitter.soulmemory_rs
 {
-    internal static class SoulMemoryRs
+    public static class SoulMemoryRs
     {
         public static void Launch()
         {

@@ -29,8 +29,10 @@ using SoulMemory.EldenRing;
 using SoulMemory;
 using SoulSplitter.UI.Generic;
 using SoulMemory.ArmoredCore6;
+using SoulMemory.DarkSouls3;
 using SoulMemory.MemoryV2.Process;
 using SoulMemory.Parameters;
+using SoulSplitter.soulmemory_rs;
 
 #pragma warning disable CS0162
 
@@ -42,8 +44,7 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-
-            GameLoop<ArmoredCore6>((e) =>
+            GameLoop<DarkSouls3>((e) =>
             {
                 Console.WriteLine(e.GetInGameTimeMilliseconds());
 
@@ -51,6 +52,16 @@ namespace cli
 
             TestUi();
             return;
+            var client = new SoulMemoryWebClient();
+            var res = client.GetEventFlags().Unwrap();
+
+            GameLoop<ArmoredCore6>((e) =>
+            {
+                Console.WriteLine(e.GetInGameTimeMilliseconds());
+
+            });
+
+           
 
             GameLoop<DarkSouls1>((ds1) =>
             {

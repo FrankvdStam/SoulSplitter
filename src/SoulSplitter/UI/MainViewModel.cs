@@ -35,7 +35,9 @@ using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.EldenRing;
 using SoulSplitter.UI.Generic;
 using SoulSplitter.UI.Sekiro;
+using SoulSplitter.ViewModels.EventFlagLogger;
 using SoulSplitter.ViewModels.Games;
+using SoulSplitter.Views;
 using Brush = System.Windows.Media.Brush;
 
 namespace SoulSplitter.UI
@@ -305,6 +307,9 @@ namespace SoulSplitter.UI
 
         private void RunEventFlagLogger(object sender)
         {
+            var window = new EventFlagLoggerWindow();
+            window.DataContext = new EventFlagLoggerViewModel();
+            window.Show();
             TryAndHandleError(SoulMemoryRs.Launch);
         }
         
