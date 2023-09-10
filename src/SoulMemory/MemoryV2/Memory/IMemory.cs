@@ -16,6 +16,9 @@
 
 namespace SoulMemory.MemoryV2.Memory
 {
+    /// <summary>
+    /// Abstracts a resource that can be read from and written to
+    /// </summary>
     public interface IMemory
     {
         byte[] ReadBytes(long offset, int length);

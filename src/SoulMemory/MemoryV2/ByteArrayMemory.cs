@@ -19,6 +19,9 @@ using SoulMemory.MemoryV2.Memory;
 
 namespace SoulMemory.MemoryV2
 {
+    /// <summary>
+    /// IMemory access to an array of memory. Allows resolving pointers and reading data/writing data.
+    /// </summary>
     public class ByteArrayMemory : IMemory
     {
         private readonly byte[] _data;

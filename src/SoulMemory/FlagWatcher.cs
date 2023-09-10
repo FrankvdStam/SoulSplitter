@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace SoulMemory
@@ -22,6 +23,7 @@ namespace SoulMemory
     /// <summary>
     /// Util to easily track event flag changes, helps with debugging.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class FlagWatcher
     {
         public FlagWatcher(IGame game, IEnumerable<uint> flags)
