@@ -6,7 +6,7 @@
     <Platforms>x64</Platforms>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>SoulMemory</Title>
-    <Version>1.5.0</Version>
+    <Version>1.5.1</Version>
     <Authors>Frank v.d. Stam</Authors>
     <PackageProjectUrl>https://github.com/FrankvdStam/SoulSplitter</PackageProjectUrl>
     <RepositoryUrl>https://github.com/FrankvdStam/SoulSplitter</RepositoryUrl>

@@ -29,6 +29,7 @@ using SoulMemory.EldenRing;
 using SoulMemory;
 using SoulSplitter.UI.Generic;
 using SoulMemory.ArmoredCore6;
+using SoulMemory.DarkSouls3;
 using SoulMemory.MemoryV2.Process;
 using SoulMemory.Parameters;
 
@@ -43,7 +44,7 @@ namespace cli
         static void Main(string[] args)
         {
 
-            GameLoop<ArmoredCore6>((e) =>
+            GameLoop<DarkSouls3>((e) =>
             {
                 Console.WriteLine(e.GetInGameTimeMilliseconds());
 
