@@ -93,7 +93,9 @@ namespace SoulMemory.DarkSouls3
                         _igtOffset = 0xa4;
                         break;
 
+                    case DarkSouls3Version.Earlier:
                     case DarkSouls3Version.V104:
+                    case DarkSouls3Version.V105:
                         _igtOffset = 0x9c;
                         break;
 
@@ -105,12 +107,12 @@ namespace SoulMemory.DarkSouls3
                 var treeBuilder = GetTreeBuilder();
                 return MemoryScanner.TryResolvePointers(treeBuilder, _process);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return RefreshError.FromException(e);
             }
         }
-        
+
         private void ResetPointers()
         {
             _gameDataMan.Clear();
@@ -127,20 +129,33 @@ namespace SoulMemory.DarkSouls3
 
         public enum DarkSouls3Version
         {
+            Earlier,
             V104,
+            V105,
             Later,
         };
 
         public static DarkSouls3Version GetVersion(Version v)
         {
-            if (v.Minor <= 4)
+            switch (v.Minor)
             {
-                return DarkSouls3Version.V104;
-            }
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    return DarkSouls3Version.Earlier;
 
-            return DarkSouls3Version.Later;
+                case 4:
+                    return DarkSouls3Version.V104;
+
+                case 5:
+                    return DarkSouls3Version.V105;
+
+                default:
+                    return DarkSouls3Version.Later;
+            }
         }
-        
+
         public bool IsLoading()
         {
             if (_loading == null)
@@ -178,7 +193,7 @@ namespace SoulMemory.DarkSouls3
 
         public Vector3f GetPosition()
         {
-            if(_sprjChrPhysicsModule == null)
+            if (_sprjChrPhysicsModule == null)
             {
                 return new Vector3f();
             }
@@ -209,9 +224,9 @@ namespace SoulMemory.DarkSouls3
         public bool ReadEventFlag(uint eventFlagId)
         {
             var eventFlagIdDiv10000000 = (int)(eventFlagId / 10000000) % 10;
-            var eventFlagArea          = (int)(eventFlagId / 100000  ) % 100;
-            var eventFlagIdDiv10000    = (int)(eventFlagId / 10000   ) % 10;
-            var eventFlagIdDiv1000     = (int)(eventFlagId / 1000    ) % 10;
+            var eventFlagArea = (int)(eventFlagId / 100000) % 100;
+            var eventFlagIdDiv10000 = (int)(eventFlagId / 10000) % 10;
+            var eventFlagIdDiv1000 = (int)(eventFlagId / 1000) % 10;
 
             //14000002
 
