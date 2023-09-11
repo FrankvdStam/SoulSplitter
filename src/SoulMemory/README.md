@@ -16,16 +16,16 @@
 
 <p align="center">
     <a href="http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa">
-        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=alert_status&token=dcf5066558434982e851acb72b72235195d99b6e"/>
+        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=alert_status&token=dcf5066558434982e851acb72b72235195d99b6e&branch=main"/>
     </a>
     <a href="http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa">
-        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=ncloc&token=dcf5066558434982e851acb72b72235195d99b6e"/>
+        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=ncloc&token=dcf5066558434982e851acb72b72235195d99b6e&branch=main"/>
     </a>
     <a href="http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa">
-        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=coverage&token=dcf5066558434982e851acb72b72235195d99b6e"/>
+        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=coverage&token=dcf5066558434982e851acb72b72235195d99b6e&branch=main"/>
     </a>
     <a href="http://wastedbox.nl:9000/dashboard?id=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa">
-        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=sqale_rating&token=dcf5066558434982e851acb72b72235195d99b6e"/>
+        <img src="http://wastedbox.nl:9000/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=sqale_rating&token=dcf5066558434982e851acb72b72235195d99b6e&branch=main"/>
     </a>
     <br/>
     <a href="https://github.com/FrankvdStam/SoulSplitter/actions">
