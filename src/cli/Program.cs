@@ -43,8 +43,9 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            ValidatePatterns();
 
-            GameLoop<DarkSouls3>((e) =>
+            GameLoop<ArmoredCore6>((e) =>
             {
                 Console.WriteLine(e.GetInGameTimeMilliseconds());
 
