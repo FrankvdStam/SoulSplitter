@@ -19,6 +19,7 @@ using SoulMemory.MemoryV2.Process;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using SoulMemory.MemoryV2.PointerTreeBuilder;
 
 namespace SoulMemory.ArmoredCore6
 {
@@ -36,7 +37,7 @@ namespace SoulMemory.ArmoredCore6
             _menuMan = new Pointer(_armoredCore6);
 
             _armoredCore6.PointerTreeBuilder
-                .ScanRelative("CSEventFlagMan", "48 8b 35 20 4a df 03 83 f8 ff 0f 44 c1", 3, 7)
+                .ScanRelative("CSEventFlagMan", "48 8b 35 ? ? ? ? 83 f8 ff 0f 44 c1", 3, 7)
                     .AddPointer(_eventFlagMan, 0, 0);
 
             _armoredCore6.PointerTreeBuilder
@@ -76,7 +77,19 @@ namespace SoulMemory.ArmoredCore6
 
         public SoulMemory.Memory.TreeBuilder GetTreeBuilder()
         {
-            throw new NotImplementedException();
+            var builder = new SoulMemory.Memory.TreeBuilder();
+            foreach (var node in _armoredCore6.PointerTreeBuilder.Tree)
+            {
+                if (node.PointerNodeType == PointerNodeType.RelativeScan)
+                {
+                    builder.ScanRelative(node.Name, node.Pattern, node.AddressOffset, node.InstructionSize);
+                }
+                if (node.PointerNodeType == PointerNodeType.AbsoluteScan)
+                {
+                    builder.ScanAbsolute(node.Name, node.Pattern, node.AddressOffset);
+                }
+            }
+            return builder;
         }
 
         public Process GetProcess() => _armoredCore6.ProcessWrapper.GetProcess();

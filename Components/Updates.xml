@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.5.2">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+        </files>
+        <changelog>
+            <change>AC6 fix pattern scan for 1.1.2</change>
+            <change>AC6 fix event flag logger hook being removed by anti cheat</change>
+        </changelog>
+    </update>
     <update version="1.5.1">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed"/>
