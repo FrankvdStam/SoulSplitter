@@ -19,6 +19,7 @@ using NSubstitute;
 using SoulMemory.MemoryV2.Memory;
 using SoulMemory.MemoryV2.PointerTreeBuilder;
 using SoulMemory.MemoryV2.Process;
+using SoulMemory.Tests.Mocks;
 
 namespace SoulMemory.Tests
 {
@@ -59,7 +60,7 @@ namespace SoulMemory.Tests
         [TestMethod]
         public void ReadIgt()
         {
-            var mock = new MockProcessHook();
+            var mock = new ProcessHookMock();
             mock.SetPointer("FD4Time", 0, 0x7FF46F5C04B0);
             
             var ac6 = new ArmoredCore6.ArmoredCore6(mock);
@@ -75,7 +76,7 @@ namespace SoulMemory.Tests
         [TestMethod]
         public void WriteIgt()
         {
-            var mock = new MockProcessHook();
+            var mock = new ProcessHookMock();
             mock.SetPointer("FD4Time", 0, 0x7FF46F5C04B0);
 
             var ac6 = new ArmoredCore6.ArmoredCore6(mock);
@@ -91,7 +92,7 @@ namespace SoulMemory.Tests
         [TestMethod]
         public void ReadIsLoading()
         {
-            var mock = new MockProcessHook();
+            var mock = new ProcessHookMock();
             mock.SetPointer("CSMenuMan", 0, 0x7FF46F5C04B0);
 
             var ac6 = new ArmoredCore6.ArmoredCore6(mock);
@@ -116,7 +117,7 @@ namespace SoulMemory.Tests
             var currentSubElementPtr3 = 0x7FF46FC00000;
 
 
-            var mock = new MockProcessHook();
+            var mock = new ProcessHookMock();
             mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
 
             mock.WriteInt32(eventFlagManPtr   + 0x1c, 1000);
@@ -149,7 +150,7 @@ namespace SoulMemory.Tests
             var eventFlagManPtr = 0x7FF46F5C04B0;
             var currentElementPtr = 0x7FF46F600000;
 
-            var mock = new MockProcessHook();
+            var mock = new ProcessHookMock();
             mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
 
             mock.WriteInt32(eventFlagManPtr + 0x1c, 1000);
@@ -178,7 +179,7 @@ namespace SoulMemory.Tests
             var currentElementPtr = 0x7FF46F600000;
             var currentSubElementPtr = 0x7FF46F900000;
             
-            var mock = new MockProcessHook();
+            var mock = new ProcessHookMock();
             mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
 
             mock.WriteInt32(eventFlagManPtr + 0x1c, 1000);
@@ -208,7 +209,7 @@ namespace SoulMemory.Tests
             var currentSubElementPtr = 0x7FF46F900000;
             var calculatedPtr = 0x7FF46FA00000;
 
-            var mock = new MockProcessHook();
+            var mock = new ProcessHookMock();
             mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
 
             mock.WriteInt32(eventFlagManPtr + 0x1c, 1000);
@@ -240,7 +241,7 @@ namespace SoulMemory.Tests
             var currentSubElementPtr = 0x7FF46F900000;
             var calculatedPtr = 0x7FF46FA00000;
 
-            var mock = new MockProcessHook();
+            var mock = new ProcessHookMock();
             mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
 
             mock.WriteInt32(eventFlagManPtr + 0x1c, 1000);
@@ -272,7 +273,7 @@ namespace SoulMemory.Tests
             var currentElementPtr = 0x7FF46F600000;
             var currentSubElementPtr = 0x7FF46F900000;
 
-            var mock = new MockProcessHook();
+            var mock = new ProcessHookMock();
             mock.SetPointer("CSEventFlagMan", 0, eventFlagManPtr);
 
             mock.WriteInt32(eventFlagManPtr + 0x1c, 1000);

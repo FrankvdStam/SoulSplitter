@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Windows.Forms;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
 using SoulMemory.EldenRing;
@@ -43,6 +44,8 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+            return;
             ValidatePatterns();
 
             GameLoop<ArmoredCore6>((e) =>
@@ -227,8 +230,12 @@ namespace cli
             }
 
             mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
-            var result = mainWindow.ShowDialog();
-            mainWindow.Close();
+
+            mainWindow.Dispatcher.Invoke(() =>
+            {
+                var result = mainWindow.ShowDialog();
+                mainWindow.Close();
+            });
         }
 
         #region Validate patterns 
