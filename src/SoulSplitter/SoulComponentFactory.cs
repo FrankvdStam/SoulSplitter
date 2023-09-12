@@ -28,7 +28,7 @@ namespace SoulSplitter
     {
         public string ComponentName => SoulComponent.Name;
 
-        public string Description => "Elden Ring plugin for IGT/RTA with load removal";
+        public string Description => "Souls games plugin for IGT/RTA with load removal";
 
         public ComponentCategory Category => ComponentCategory.Control;
 

@@ -29,7 +29,7 @@
         xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
         xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
         xmlns:uIv2="clr-namespace:SoulSplitter.UIv2"
-        Title="SoulSplitter settings"
+        Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
         Icon="../soulsplitter.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"

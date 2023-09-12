@@ -45,6 +45,7 @@ namespace SoulMemory.Tests.MemoryV2
         public int HookedInvokedCount = 0;
     }
 
+    
 
     [TestClass]
     public class ProcessHookTests
@@ -59,7 +60,7 @@ namespace SoulMemory.Tests.MemoryV2
 
             var processHook = new ProcessHookTester();
             processHook.ProcessWrapper = mockProcessWrapper;
-            
+
             var refreshResult = processHook.TryRefresh();
 
             Assert.AreEqual(RefreshErrorReason.ProcessNotRunning, refreshResult.GetErr().Reason);
@@ -77,12 +78,12 @@ namespace SoulMemory.Tests.MemoryV2
             var anyException = Arg.Any<Exception>();
             mockProcessWrapper.TryRefresh(anyStringArg, out anyException).Returns(ProcessRefreshResult.Initialized);
             mockProcessWrapper.GetMainModule().Returns((ProcessWrapperModule?)null);
-            
+
             var processHook = new ProcessHookTester();
             processHook.ProcessWrapper = mockProcessWrapper;
-            
+
             var refreshResult = processHook.TryRefresh();
-            
+
             Assert.AreEqual(RefreshErrorReason.ScansFailed, refreshResult.GetErr().Reason);
             Assert.AreEqual("Main module is null. Try running as admin.", refreshResult.GetErr().Message);
             Assert.AreEqual(0, processHook.ExitedExceptions.Count);
@@ -132,7 +133,7 @@ namespace SoulMemory.Tests.MemoryV2
                 ModuleMemorySize = 2,
             });
             mockProcessWrapper.Is64Bit().Returns(true);
-            mockProcessWrapper.ReadBytes(100, 2).Returns(new byte[]{0x01,0x01});
+            mockProcessWrapper.ReadBytes(100, 2).Returns(new byte[] { 0x01, 0x01 });
 
             var processHook = new ProcessHookTester();
             processHook.ProcessWrapper = mockProcessWrapper;
@@ -172,7 +173,7 @@ namespace SoulMemory.Tests.MemoryV2
             var anyStringArg = Arg.Any<string>();
             var anyException = Arg.Any<Exception>();
             mockProcessWrapper.TryRefresh(anyStringArg, out anyException).Returns(ProcessRefreshResult.Exited);
-           
+
             var processHook = new ProcessHookTester();
             processHook.ProcessWrapper = mockProcessWrapper;
 
