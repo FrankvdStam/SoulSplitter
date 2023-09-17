@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Text;
 
 namespace SoulMemory
 {
@@ -48,7 +49,19 @@ namespace SoulMemory
 
         public override string ToString()
         {
-            return $"{Reason} {Message ?? ""} {Exception?.ToString() ?? ""}";
+            var sb = new StringBuilder(Reason.ToString());
+            if (!string.IsNullOrWhiteSpace(Message))
+            {
+                sb.Append(" - ");
+                sb.Append(Message);
+            }
+            if (Exception != null)
+            {
+                sb.Append(" - ");
+                sb.Append(Exception);
+            }
+
+            return sb.ToString();
         }
     }
 
