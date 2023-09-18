@@ -158,45 +158,33 @@ namespace SoulMemory.DarkSouls3
 
         public bool IsLoading()
         {
-            if (_loading == null)
-            {
-                return true;
-            }
-            return _loading?.ReadInt32(-0x1) != 0;
+            return _loading.ReadInt32(-0x1) != 0;
         }
 
         public bool BlackscreenActive()
         {
-            return _blackscreen?.ReadInt32() != 0;
+            return _blackscreen.ReadInt32() != 0;
         }
 
         public bool Attached => _process != null;
 
         public bool IsPlayerLoaded()
         {
-            if (_playerIns != null)
-            {
-                return _playerIns.ReadInt64() != 0;
-            }
-            return false;
+            return _playerIns.ReadInt64() != 0;
         }
 
         public void WriteInGameTimeMilliseconds(int millis)
         {
-            _gameDataMan?.WriteInt32(_igtOffset, millis);
+            _gameDataMan.WriteInt32(_igtOffset, millis);
         }
 
         public int GetInGameTimeMilliseconds()
         {
-            return _gameDataMan?.ReadInt32(_igtOffset) ?? 0;
+            return _gameDataMan.ReadInt32(_igtOffset);
         }
 
         public Vector3f GetPosition()
         {
-            if (_sprjChrPhysicsModule == null)
-            {
-                return new Vector3f();
-            }
             return new Vector3f
             (
                 _sprjChrPhysicsModule.ReadFloat(0x80),
@@ -209,7 +197,7 @@ namespace SoulMemory.DarkSouls3
 
         public int ReadAttribute(Attribute attribute)
         {
-            if (_playerGameData != null && _newMenuSystem != null && IsPlayerLoaded() && _newMenuSystem.ReadInt32(0x88) != 3)
+            if (IsPlayerLoaded() && _newMenuSystem.ReadInt32(0x88) != 3)
             {
                 return _playerGameData.ReadInt32((long)attribute);
             }
