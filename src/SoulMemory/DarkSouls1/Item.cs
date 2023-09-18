@@ -17,11 +17,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace SoulMemory.DarkSouls1
 {
+    [ExcludeFromCodeCoverage]
     public class Item
     {
         public Item(string name, int id, ItemType itemType, ItemCategory category, int stackLimit, ItemUpgrade upgrade)
