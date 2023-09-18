@@ -359,3 +359,6 @@ Components/*.zip
 
 /target
 Cargo.lock
+
+tests/SoulMemory.Tests/coverage.opencover.xml
+tests/SoulSplitter.Tests/coverage.opencover.xml
