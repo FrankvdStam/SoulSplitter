@@ -30,6 +30,7 @@ namespace SoulMemory.Tests
             Assert.IsTrue(result.IsOk);
             Assert.IsFalse(result.IsErr);
             Assert.That.DoesNotThrow(result.Unwrap);
+            Assert.AreEqual("Ok", result.ToString());
         }
 
         [TestMethod]
@@ -39,8 +40,10 @@ namespace SoulMemory.Tests
 
             Assert.IsNotNull(result);
             Assert.IsFalse(result.IsOk);
+            Assert.IsFalse(result);
             Assert.IsTrue(result.IsErr);
             Assert.ThrowsException<UnwrapException>(result.Unwrap);
+            Assert.AreEqual("Err", result.ToString());
         }
 
         [TestMethod]
@@ -50,9 +53,11 @@ namespace SoulMemory.Tests
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.IsOk);
+            Assert.IsTrue(result);
             Assert.IsFalse(result.IsErr);
             Assert.That.DoesNotThrow(() => result.Unwrap());
             Assert.AreEqual("test", result.Unwrap());
+            Assert.AreEqual("Ok: test", result.ToString());
         }
 
         [TestMethod]
@@ -62,8 +67,10 @@ namespace SoulMemory.Tests
 
             Assert.IsNotNull(result);
             Assert.IsFalse(result.IsOk);
+            Assert.IsFalse(result);
             Assert.IsTrue(result.IsErr);
             Assert.ThrowsException<UnwrapException>(() => result.Unwrap());
+            Assert.AreEqual("Err", result.ToString());
         }
 
         [TestMethod]
@@ -73,9 +80,11 @@ namespace SoulMemory.Tests
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.IsOk);
+            Assert.IsTrue(result);
             Assert.IsFalse(result.IsErr);
             Assert.AreEqual(default, result.GetErr());
             Assert.That.DoesNotThrow(() => result.Unwrap());
+            Assert.AreEqual("Ok", result.ToString());
         }
 
         [TestMethod]
@@ -85,9 +94,37 @@ namespace SoulMemory.Tests
 
             Assert.IsNotNull(result);
             Assert.IsFalse(result.IsOk);
+            Assert.IsFalse(result);
             Assert.IsTrue(result.IsErr);
             Assert.ThrowsException<UnwrapException>(() => result.Unwrap());
             Assert.AreEqual("test", result.GetErr());
+            Assert.AreEqual("Err: test", result.ToString());
+        }
+
+        [TestMethod]
+        public void ResultOkErr_Ok()
+        {
+            Result<bool, string> result = Result.Ok(true);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsOk);
+            Assert.IsTrue(result);
+            Assert.IsFalse(result.IsErr);
+            Assert.IsTrue(result.Unwrap());
+            Assert.AreEqual(default, result.GetErr());
+            Assert.AreEqual("Ok: True", result.ToString());
+        }
+
+        [TestMethod]
+        public void ResultOkErr_Err()
+        {
+            Result<bool, string> result = Result.Err("test");
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsOk);
+            Assert.IsFalse(result);
+            Assert.IsTrue(result.IsErr);
+            Assert.ThrowsException<UnwrapException>(() => result.Unwrap());
+            Assert.AreEqual("test", result.GetErr());
+            Assert.AreEqual("Err: test", result.ToString());
         }
     }
 }

@@ -89,7 +89,6 @@ namespace SoulMemory
     /// <summary>
     /// Result with generic error type.
     /// </summary>
-    /// <typeparam name="TErr"></typeparam>
     public class ResultErr<TErr>
     {
         private readonly TErr _err;
@@ -148,7 +147,7 @@ namespace SoulMemory
 
         public override string ToString()
         {
-            return IsOk ? $"Ok" : $"Err {typeof(TErr)}";
+            return IsOk ? $"Ok" : $"Err: {_err}";
         }
     }
 
@@ -206,7 +205,7 @@ namespace SoulMemory
 
         public override string ToString()
         {
-            return IsOk ? $"Ok {typeof(TOk)}" : $"Err";
+            return IsOk ? $"Ok: {_ok}" : $"Err";
         }
     }
 
@@ -312,7 +311,7 @@ namespace SoulMemory
 
         public override string ToString()
         {
-            return IsOk ? $"Ok {typeof(TOk)}" : $"Err {typeof(TErr)}";
+            return IsOk ? $"Ok: {_ok}" : $"Err: {_err}";
         }
     }
 
@@ -320,7 +319,6 @@ namespace SoulMemory
     /// <summary>
     /// Container type, used in implicit conversions with the Result classes, for sugar syntax.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     public class Container<T>
     {
         public T Value;
