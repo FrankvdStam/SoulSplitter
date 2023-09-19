@@ -16,6 +16,7 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace SoulMemory.EldenRing
@@ -33,6 +34,7 @@ namespace SoulMemory.EldenRing
         Gem = 0x80000000
     }
 
+    [ExcludeFromCodeCoverage]
     public class Item
     {
         public Category Category;
