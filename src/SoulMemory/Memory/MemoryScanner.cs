@@ -142,7 +142,7 @@ namespace SoulMemory.Memory
                 //Process not attached - find it in the process list
                 if (process == null)
                 {
-                    process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == name.ToLower() && !i.HasExited);
+                    process = Process.GetProcesses().FirstOrDefault(i => string.Equals(i.ProcessName.ToLowerInvariant(), name.ToLowerInvariant(), StringComparison.InvariantCulture) && !i.HasExited);
                     if (process == null)
                     {
                         return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, $"Process {name} not running or inaccessible. Try running livesplit as admin."));
