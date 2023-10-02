@@ -94,7 +94,7 @@ Don't forget to set livesplit to compare against game time
 
 # Contact
 
-Make sure to checkout the [troubleshooting](https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting) page before you contact me. If you get stuck, you can find me in the [speedsouls discord](https://discord.gg/speedsouls), ping @wasted in any of the help channels, or DM [wasted#2747](https://discord.com/users/281116269921566721) directly with your questions.
+Make sure to checkout the [troubleshooting](https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting) page before you contact me. If you get stuck, you can find me in the [speedsouls discord](https://discord.gg/speedsouls) or the [Armored Core Speedrun discord](https://discord.gg/yKEDgcMw), ping @wasted in any of the help channels, or DM [wasted#2747](https://discord.com/users/281116269921566721) directly with your questions.
 
 If you find a bug you can let me know via the above methods, or you can [submit a github issue](https://github.com/FrankvdStam/SoulSplitter/issues/new).
 
