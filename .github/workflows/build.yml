@@ -63,11 +63,11 @@ jobs:
         shell: powershell
         run: dotnet build src\CliTimer\CliTimer.csproj -c release
 
-      #- name: Publish CliTimer
-      #- uses: actions/upload-artifact@v4
-      #  with:
-      #    name: CliTimer
-      #    path: |
-      #      src\CliTimer\bin\release\net481\CliTimer.exe
-      #      src\CliTimer\bin\release\net481\CliTimer.exe.config
-      #      src\CliTimer\bin\release\net481\SoulMemory.dll
+      - name: Publish CliTimer
+        uses: actions/upload-artifact@v4
+        with:
+          name: CliTimer
+          path: |
+            src\CliTimer\bin\release\net481\CliTimer.exe
+            src\CliTimer\bin\release\net481\CliTimer.exe.config
+            src\CliTimer\bin\release\net481\SoulMemory.dll
