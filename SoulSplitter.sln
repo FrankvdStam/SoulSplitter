@@ -48,6 +48,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulMemory.Tests", "tests\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulSplitter.Tests", "tests\SoulSplitter.Tests\SoulSplitter.Tests.csproj", "{13D6FF7F-E774-424C-940C-C76FF98D8916}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clitimer", "src\clitimer\clitimer.csproj", "{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -74,6 +76,10 @@ Global
 		{13D6FF7F-E774-424C-940C-C76FF98D8916}.Debug|x64.Build.0 = Debug|x64
 		{13D6FF7F-E774-424C-940C-C76FF98D8916}.Release|x64.ActiveCfg = Release|x64
 		{13D6FF7F-E774-424C-940C-C76FF98D8916}.Release|x64.Build.0 = Release|x64
+		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}.Debug|x64.ActiveCfg = Debug|x64
+		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}.Debug|x64.Build.0 = Debug|x64
+		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}.Release|x64.ActiveCfg = Release|x64
+		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{A30986D1-6B5A-415D-A737-AE0D9EF4CE9C} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
 		{A8FE4ABB-A952-49B0-B39A-9B3B4574587B} = {FCB71284-721B-4845-AF63-F80DD168D949}
 		{13D6FF7F-E774-424C-940C-C76FF98D8916} = {FCB71284-721B-4845-AF63-F80DD168D949}
+		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C356BE2C-9585-4CCF-A852-29C6DFCCD5A5}

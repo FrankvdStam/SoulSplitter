@@ -344,62 +344,6 @@ namespace cli
 
         #endregion
 
-        #region stand alone bs removal for ER
-        private static void StandAloneErBlackscreenRemoval()
-        {
-            Console.CursorVisible = false;
-            int _inGameTime = 0;
-            var _eldenRing = new EldenRing();
-            while (true)
-            {
-                //Refresh, display errors if there are any
-
-                var result = _eldenRing.TryRefresh();
-                if (result.IsErr)
-                {
-                    var err = result.GetErr();
-                    Console.Clear();
-                    Console.WriteLine(err.ToString());
-                    Console.Out.Flush();
-                    Thread.Sleep(3000);
-                    Console.Clear();
-                    continue;
-                }
-
-                //
-                var currentIgt = _eldenRing.GetInGameTimeMilliseconds();
-                var blackscreenActive = _eldenRing.IsBlackscreenActive();
-
-
-                //Blackscreens/meme loading screens - timer is running, but game is actually loading
-                if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && blackscreenActive)
-                {
-                    //Trace.WriteLine($"Writing IGT: {TimeSpan.FromMilliseconds(_inGameTime)}");
-                    _eldenRing.WriteInGameTimeMilliseconds(_inGameTime);
-                }
-                else
-                {
-                    if (currentIgt != 0)
-                    {
-                        _inGameTime = currentIgt;
-                    }
-                }
-
-                if (_inGameTime == 0)
-                {
-                    Console.SetCursorPosition(0, 1);
-                    Console.WriteLine("                                       ");
-                }
-
-                Console.SetCursorPosition(0, 1);
-                Console.WriteLine(TimeSpan.FromMilliseconds(_inGameTime).ToString(@"hh\:mm\:ss\.fff"));
-
-                Thread.Sleep(16);
-            }
-        }
-
-        #endregion
-
         #region Param generation
 
         private static void GenerateParams()
