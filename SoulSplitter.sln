@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cli", "src\cli\cli.csproj", "{93CF6900-8F5C-4364-9EAF-8992B883361B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cli", "src\Cli\Cli.csproj", "{93CF6900-8F5C-4364-9EAF-8992B883361B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulMemory", "src\SoulMemory\SoulMemory.csproj", "{03480F4F-F423-4144-90C6-CBDA68269374}"
 EndProject
@@ -48,7 +48,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulMemory.Tests", "tests\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulSplitter.Tests", "tests\SoulSplitter.Tests\SoulSplitter.Tests.csproj", "{13D6FF7F-E774-424C-940C-C76FF98D8916}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clitimer", "src\clitimer\clitimer.csproj", "{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CliTimer", "src\CliTimer\CliTimer.csproj", "{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
