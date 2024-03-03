@@ -48,6 +48,7 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
@@ -60,13 +61,13 @@ jobs:
 
       - name: Build CliTimer
         shell: powershell
-        run: dotnet build src\CliTimer\CliTimer.csproj --release
+        run: dotnet build src\CliTimer\CliTimer.csproj -c release
 
-      - name: Publish CliTimer
-      - uses: actions/upload-artifact@v4
-        with:
-          name: CliTimer
-          path: |
-            src\CliTimer\bin\release\net481\CliTimer.exe
-            src\CliTimer\bin\release\net481\CliTimer.exe.config
-            src\CliTimer\bin\release\net481\SoulMemory.dll
+      #- name: Publish CliTimer
+      #- uses: actions/upload-artifact@v4
+      #  with:
+      #    name: CliTimer
+      #    path: |
+      #      src\CliTimer\bin\release\net481\CliTimer.exe
+      #      src\CliTimer\bin\release\net481\CliTimer.exe.config
+      #      src\CliTimer\bin\release\net481\SoulMemory.dll
