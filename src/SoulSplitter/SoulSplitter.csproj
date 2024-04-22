@@ -5,7 +5,7 @@
         <UseWPF>true</UseWPF>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
         <Title>SoulSplitter</Title>
-        <Version>1.5.3</Version>
+        <Version>1.6.0</Version>
         <Authors>Frank v.d. Stam</Authors>
         <PackageProjectUrl>https://github.com/FrankvdStam/SoulSplitter</PackageProjectUrl>
         <RepositoryUrl>https://github.com/FrankvdStam/SoulSplitter</RepositoryUrl>
