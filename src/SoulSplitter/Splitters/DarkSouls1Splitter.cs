@@ -18,6 +18,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using LiveSplit.Model;
 using SoulMemory;
@@ -32,12 +35,14 @@ namespace SoulSplitter.Splitters
     public class DarkSouls1Splitter : ISplitter
     {
         private readonly IDarkSouls1 _darkSouls1;
+        private readonly DropMod _dropMod;
         private MainViewModel _mainViewModel;
 
         public DarkSouls1Splitter(ITimerModel timerModel, IDarkSouls1 darkSouls1, MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
             _darkSouls1 = darkSouls1;
+            _dropMod = new DropMod(_darkSouls1);
             _timerModel = timerModel;
             _timerModel.CurrentState.OnStart += OnStart;
             _timerModel.CurrentState.OnReset += OnReset;
@@ -55,6 +60,11 @@ namespace SoulSplitter.Splitters
             if (result.IsErr)
             {
                 mainViewModel.AddRefreshError(result.GetErr());
+                if (_mainViewModel.DarkSouls1ViewModel.DropModType != DropModType.None)
+                {
+                    _mainViewModel.DarkSouls1ViewModel.DropModRequestInitialisation = true;
+                }
+                return result;
             }
 
             mainViewModel.TryAndHandleError(() =>
@@ -64,6 +74,7 @@ namespace SoulSplitter.Splitters
 
             mainViewModel.TryAndHandleError(UpdateTimer);
             mainViewModel.TryAndHandleError(UpdateAutoSplitter);
+            mainViewModel.TryAndHandleError(UpdateDropMod);
 
             return result;
         }
@@ -94,6 +105,10 @@ namespace SoulSplitter.Splitters
         {
             ResetTimer();
             _mainViewModel.FlagTrackerViewModel.Reset();
+            if(_mainViewModel.DarkSouls1ViewModel.DropModType == DropModType.AllAchievements)
+            {
+                _dropMod.ResetAllAchievements();
+            }
         }
 
         #region Timer
@@ -357,6 +372,54 @@ namespace SoulSplitter.Splitters
                     _warpHasPlayerBeenUnloaded = false;
                     _isWarpRequested = false;
                 }
+            }
+        }
+        #endregion
+
+        #region Dropmod
+        private void UpdateDropMod()
+        {
+            var process = _darkSouls1.GetProcess();
+            
+
+            //Check exit request
+            if (_mainViewModel.DarkSouls1ViewModel.DropModRequestGameExit)
+            {
+                _mainViewModel.DarkSouls1ViewModel.DropModRequestGameExit = false;
+                _darkSouls1.GetProcess().Kill();
+                return;
+            }
+
+            //check init request
+            if(_mainViewModel.DarkSouls1ViewModel.DropModRequestInitialisation)
+            {
+                _mainViewModel.DarkSouls1ViewModel.DropModRequestInitialisation = false;
+                switch (_mainViewModel.DarkSouls1ViewModel.DropModType)
+                {
+                    default:
+                        throw new InvalidOperationException($"Invalid DropModType {_mainViewModel.DarkSouls1ViewModel.DropModType}");
+
+                    case DropModType.AnyPercent:                        
+                        _dropMod.InitBkh();
+                        break;
+
+                    case DropModType.AllAchievements:
+                        _dropMod.InitAllAchievements();
+                        break;
+                }
+            }
+
+            //update
+            switch (_mainViewModel.DarkSouls1ViewModel.DropModType)
+            {
+                default:
+                case DropModType.None:
+                case DropModType.AnyPercent:
+                    break;
+
+                case DropModType.AllAchievements:
+                    _dropMod.UpdateAllAchievements();
+                    break;
             }
         }
         #endregion

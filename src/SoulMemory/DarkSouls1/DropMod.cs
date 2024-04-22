@@ -25,9 +25,9 @@ namespace SoulMemory.DarkSouls1
 {
     public class DropMod
     {
-        private readonly DarkSouls1 _darkSouls;
+        private readonly IDarkSouls1 _darkSouls;
 
-        public DropMod(DarkSouls1 darkSouls)
+        public DropMod(IDarkSouls1 darkSouls)
         {
             _darkSouls = darkSouls;
         }

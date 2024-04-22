@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace SoulMemory.DarkSouls1
 {
@@ -68,6 +69,8 @@ namespace SoulMemory.DarkSouls1
                     {
                         _darkSouls1 = new Remastered();
                     }
+
+                    Thread.Sleep(4000); //let the game boot
                     return _darkSouls1.TryRefresh();
                 }
                 else

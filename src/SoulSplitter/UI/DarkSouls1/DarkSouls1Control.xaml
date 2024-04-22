@@ -42,15 +42,17 @@
 
                 <ResourceDictionary>
                     <converters:SplitTypeVisibilityConverter      x:Key="SplitTypeVisibilityConverter"/>
+                    <converters:DropModTypeConverter              x:Key="DropModTypeConverter"/>
 
                     <!-- Grid row definitions -->
                     <system:Int32 x:Key="StartAutomaticallyRow" >0</system:Int32>
                     <system:Int32 x:Key="ResetIndicesRow"       >1</system:Int32>
-                    <system:Int32 x:Key="SeparatorRow"          >2</system:Int32>
-                    <system:Int32 x:Key="SplitDefinitionRow"    >3</system:Int32>
-                    <system:Int32 x:Key="SplitTypeRow"          >4</system:Int32>
-                    <system:Int32 x:Key="AddRemoveSplitRow"     >5</system:Int32>
-                    <system:Int32 x:Key="SplitsTreeRow"         >6</system:Int32>
+                    <system:Int32 x:Key="DropModRow"            >2</system:Int32>
+                    <system:Int32 x:Key="SeparatorRow"          >3</system:Int32>
+                    <system:Int32 x:Key="SplitDefinitionRow"    >4</system:Int32>
+                    <system:Int32 x:Key="SplitTypeRow"          >5</system:Int32>
+                    <system:Int32 x:Key="AddRemoveSplitRow"     >6</system:Int32>
+                    <system:Int32 x:Key="SplitsTreeRow"         >7</system:Int32>
 
                     <CollectionViewSource Source="{Binding Bonfires}" x:Key="BonfiresCollectionViewSource">
                         <CollectionViewSource.GroupDescriptions>
@@ -73,12 +75,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="125"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="45"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
+        
 
         <!-- row ============================================================================================================================================================================================== -->
         <CheckBox 
@@ -95,6 +100,28 @@
             IsChecked="{Binding ResetInventoryIndices}"
             
             />
+
+        <!-- row ============================================================================================================================================================================================== -->
+        <StackPanel Orientation="Vertical" Grid.Row="{StaticResource DropModRow}">
+            <Separator/>
+            <Label Content="Dropmod settings"/>
+            <RadioButton 
+                Margin="5"                
+                IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls11:DropModType.None}}"
+                GroupName="DropModRadioButtonGroup">None</RadioButton>
+            
+            <RadioButton 
+                Margin="5"
+                IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls11:DropModType.AnyPercent}}"
+                ToolTip="Sets the droprate of the BKH to 100%"
+                GroupName="DropModRadioButtonGroup">Any%</RadioButton>
+            
+            <RadioButton 
+                Margin="5" 
+                IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls11:DropModType.AllAchievements}}"
+                ToolTip="Dynamically changes droprates based on what you still need in the run"
+                GroupName="DropModRadioButtonGroup">All achievements</RadioButton>
+        </StackPanel>
 
         <!-- row ============================================================================================================================================================================================== -->
         <Label 
