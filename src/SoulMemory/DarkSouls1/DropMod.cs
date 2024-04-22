@@ -25,16 +25,16 @@ namespace SoulMemory.DarkSouls1
 {
     public class DropMod
     {
-        private readonly DarkSouls1 _darkSouls;
+        private readonly IDarkSouls1 _darkSouls;
 
-        public DropMod(DarkSouls1 darkSouls)
+        public DropMod(IDarkSouls1 darkSouls)
         {
             _darkSouls = darkSouls;
         }
 
         public void InitBkh()
         {
-            _darkSouls.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\n\n\n\n\n\n\n\n\n\nBy Ducksual & Wasted");
+            _darkSouls.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\n\n\n\n\n\n\n\n\n\n");
             for (int i = 0; i < 62; i++)
             {
                 _darkSouls.SetLoadingScreenItem(i, 1105000);
@@ -44,7 +44,7 @@ namespace SoulMemory.DarkSouls1
 
         public void InitAllAchievements()
         {
-            _darkSouls.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\nEye of Death\n\n\n\n\nBy Ducksual & Wasted");
+            _darkSouls.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\nEye of Death\n\n\n\n\n");
 
             for (int i = 0; i < 62; i++)
             {

@@ -39,6 +39,41 @@ namespace SoulSplitter.UI.DarkSouls1
         }
         private bool _resetInventoryIndices = true;
 
+
+        public DropModType DropModType
+        {
+            get => _dropModType;
+            set
+            {
+                var oldValue = _dropModType;
+                SetField(ref _dropModType, value);
+                OnDropModSettingsChanged(oldValue, value);
+            }
+        }
+        private DropModType _dropModType = DropModType.None;
+
+        #region
+        [XmlIgnore]
+        public bool DropModRequestGameExit = false;
+
+        [XmlIgnore]
+        public bool DropModRequestInitialisation = false;
+        private void OnDropModSettingsChanged(DropModType oldValue, DropModType newValue)
+        {
+            //When dropmod is turned off, the game should be closed to ensure no modifications are left behind in memory
+            if ((oldValue == DropModType.AnyPercent || oldValue == DropModType.AllAchievements) && newValue == DropModType.None)
+            {
+                DropModRequestGameExit = true;
+            }
+
+            if(newValue != DropModType.None)
+            {
+                DropModRequestInitialisation = true;
+            }
+        }
+
+        #endregion
+
         #region add/remove splits ============================================================================================================================================
 
         private bool CanAddSplit(object param)
