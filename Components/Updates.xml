@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.6.1">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+        </files>
+        <changelog>
+            <change>Update soulmemory-rs (the event flag logger). Fix a bug where having a unicode character in your windows user-name would cause the event flag logger fail to start</change>
+        </changelog>
+    </update>
     <update version="1.6.0">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed"/>
