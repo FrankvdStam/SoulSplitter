@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  CARGO_TERM_COLOR: always
+
 jobs:
   build:
     name: Build
@@ -76,3 +79,6 @@ jobs:
             src\CliTimer\bin\release\net481\CliTimer.exe
             src\CliTimer\bin\release\net481\CliTimer.exe.config
             src\CliTimer\bin\release\net481\SoulMemory.dll
+
+      - name: soulmods build
+        run: cargo build --target x86_64-pc-windows-msvc --release --verbose

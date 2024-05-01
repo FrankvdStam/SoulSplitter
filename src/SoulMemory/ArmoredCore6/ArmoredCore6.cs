@@ -18,7 +18,6 @@ using SoulMemory.MemoryV2.Memory;
 using SoulMemory.MemoryV2.Process;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using SoulMemory.MemoryV2.PointerTreeBuilder;
 
 namespace SoulMemory.ArmoredCore6
