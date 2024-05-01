@@ -99,11 +99,11 @@ namespace SoulMemory.ArmoredCore6
             Exception exception = null;
             try
             {
-                soulsmods.Soulsmods.Inject(_armoredCore6.ProcessWrapper.GetProcess());
+                soulmods.Soulmods.Inject(_armoredCore6.ProcessWrapper.GetProcess());
             }
             catch (Exception e) { exception = e; }
 
-            var module = _armoredCore6.ProcessWrapper.GetProcessModules().Find(i => i.ModuleName == "soulsmods.dll");
+            var module = _armoredCore6.ProcessWrapper.GetProcessModules().Find(i => i.ModuleName == "soulmods.dll");
             if (module != null)
             {
                 return Result.Ok();
