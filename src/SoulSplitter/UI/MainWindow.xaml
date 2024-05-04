@@ -71,96 +71,103 @@
         -->
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <DockPanel 
-            Margin="3">
-            <TextBlock VerticalAlignment="Center" Text=" SoulSplitter "     DockPanel.Dock="Left" FontWeight="Bold" FontSize="15"/>
-            <TextBlock VerticalAlignment="Center" Text="version "           DockPanel.Dock="Left"/>
-            <TextBlock VerticalAlignment="Center" Text="{Binding Version}"  DockPanel.Dock="Left"/>
+        <materialDesign:ColorZone
+            Mode="PrimaryMid"
+            materialDesign:ElevationAssist.Elevation="Dp4">
+            <ToolBar
+                ToolBarTray.IsLocked="True"
+                ClipToBounds="False"
+                Foreground="White"
+                Background="{DynamicResource PrimaryHueMidBrush}">
+                <Menu
+                    Foreground="White">
+                    <MenuItem
+                        Header="File"
+                        Background="{DynamicResource PrimaryHueMidBrush}">
+                        <MenuItem 
+                            Background="{DynamicResource PrimaryHueMidBrush}"
+                            Header="Import settings" 
+                            
+                            Icon="{materialDesign:PackIcon Kind=FolderOpen}" 
+                            ToolTip="Import soulsplitter settings from file"/>
 
-            <!-- Due to the nature of the dockpanel control, these items are reversed in code vs how they are drawn -->
-            
-            <!-- Run event flag logger -->
-            <Button
-                DockPanel.Dock="Right"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="1"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Run event flag logger"
-                Width="25"
-                Height="25"
-                Command="{Binding CommandRunEventFlagLogger}">
-                <materialDesign:PackIcon Kind="Console"/>
-            </Button>
+                        <MenuItem 
+                            Background="{DynamicResource PrimaryHueMidBrush}"
+                            Header="Export settings"
+                            Icon="{materialDesign:PackIcon Kind=ContentSave}" 
+                            ToolTip="Export soulsplitter settings to file"/>
+                    </MenuItem>
+                </Menu>
 
-            <!-- Open event flag tracker -->
-            <Button
-                DockPanel.Dock="Right"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="1"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Open event flag tracker"
-                Width="25"
-                Height="25"
-                Command="{Binding CommandOpenFlagTrackerWindow}">
-                <materialDesign:PackIcon Kind="CrosshairsGps"/>
-            </Button>
-
-            <!-- Help -->
-            <Button
-                DockPanel.Dock="Right"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="1"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Open the troubleshooting page"
-                Width="25"
-                Height="25"
-                Command="{Binding CommandTroubleShooting}">
-                <materialDesign:PackIcon Kind="Help"/>
-            </Button>
-
-            <!-- Errors -->
-            <materialDesign:Badged
-                Margin="1"
-                DockPanel.Dock="Right"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                BadgeBackground="{Binding BadgeBackgroundBrush}"
-                BadgeForeground="{Binding BadgeForegroundBrush}"
-                Badge="{Binding ErrorCount}">
                 <Button
+                    Foreground="White"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    FontWeight="Normal"
+                    FontSize="15"
+                    Content="Help" 
+                    Command="{Binding CommandTroubleShooting}"
+                    ToolTip="Open help page"/>
+
+                <materialDesign:Badged
+                    BadgePlacementMode="Right"
+                    BadgeBackground="{Binding BadgeBackgroundBrush}"
+                    BadgeForeground="{Binding BadgeForegroundBrush}"
+                    Badge="{Binding ErrorCount}"
+                    ToolBar.OverflowMode="Never">
+                    <Button
+                        Foreground="White"
+                        Content="Errors"
+                        FontWeight="Normal"
+                        FontSize="15"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        ToolTip="Show error window" 
+                        Command="{Binding CommandShowErrors}"/>
+                </materialDesign:Badged>
+
+                <Menu
+                    Padding="3,0,0,0"
+                    Foreground="White">
+                    <MenuItem 
+                        
+                        Header="Tools"
+                        Background="{DynamicResource PrimaryHueMidBrush}">
+                        <MenuItem 
+                            Header="Event flag tracker" 
+                            Command="{Binding CommandOpenFlagTrackerWindow}"
+                            Icon="{materialDesign:PackIcon Kind=OrderBoolAscendingVariant}"
+                            ToolTip="Track event flag completion and translate it to a percentage. Stream friendly"/>
+                        <MenuItem
+                            Header="Event flag logger" 
+                            Command="{Binding CommandRunEventFlagLogger}"
+                            Icon="{materialDesign:PackIcon Kind=Console}"
+                            ToolTip="Open the event flag logger"/>
+                    </MenuItem>
+                </Menu>
+                
+                <!--
+                <Button
+                    DockPanel.Dock="Right"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="1"
                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                    ToolTip="Show errors"
+                    ToolTip="Add bogus error for testing"
                     Width="25"
                     Height="25"
-                    Command="{Binding CommandShowErrors}">
-                    <materialDesign:PackIcon Kind="ExclamationThick"/>
+                    Command="{Binding CommandAddError}">
+                    <materialDesign:PackIcon Kind="Plus"/>
                 </Button>
-            </materialDesign:Badged>
-            
-            <!-- Debug add error 
-            <Button
-                DockPanel.Dock="Right"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="1"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Add bogus error for testing"
-                Width="25"
-                Height="25"
-                Command="{Binding CommandAddError}">
-                <materialDesign:PackIcon Kind="Plus"/>
-            </Button>-->
-
-        </DockPanel>
+                -->
+            </ToolBar>
+        </materialDesign:ColorZone>
 
         <TabControl 
+            materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+            Style="{StaticResource MaterialDesignFilledTabControl}"
             Grid.Row="1"
             SelectedIndex="{Binding SelectedGame, Converter={StaticResource GameToSelectedIndexConverter}}">
        
