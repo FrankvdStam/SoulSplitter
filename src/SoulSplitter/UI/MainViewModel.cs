@@ -22,11 +22,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Xml;
 using System.Xml.Serialization;
+using Microsoft.Win32;
 using SoulMemory;
 using SoulSplitter.soulmemory_rs;
 using SoulSplitter.UI.DarkSouls1;
@@ -50,6 +51,8 @@ namespace SoulSplitter.UI
             CommandAddError = new RelayCommand(AddErrorCommand, (o) => true);
             CommandShowErrors = new RelayCommand(ShowErrorWindow, (o) => true);
             CommandOpenFlagTrackerWindow = new RelayCommand(OpenFlagTrackerWindow, (o) => true);
+            CommandImportSettingsFromFile = new RelayCommand(ImportSettings, (o) => true);
+            CommandExportSettingsFromFile = new RelayCommand(ExportSettings, (o) => true);
         }
 
         public void Update(MainViewModel mainViewModel)
@@ -272,7 +275,7 @@ namespace SoulSplitter.UI
             get => _badgeVisibilityInverse;
             set => SetField(ref _badgeVisibilityInverse, value);
         }
-        public Visibility _badgeVisibilityInverse = Visibility.Visible;
+        private Visibility _badgeVisibilityInverse = Visibility.Visible;
 
         [XmlIgnore]
         public ObservableCollection<ErrorViewModel> Errors { get; set; } = new ObservableCollection<ErrorViewModel>();
@@ -350,8 +353,59 @@ namespace SoulSplitter.UI
             AddException(new Exception("adf"));
         }
 
+        [XmlIgnore]
+        public RelayCommand CommandImportSettingsFromFile
+        {
+            get => _commandImportSettingsFromFile;
+            set => SetField(ref _commandImportSettingsFromFile, value);
+        }
+        private RelayCommand _commandImportSettingsFromFile;
+
+        private void ImportSettings(object sender)
+        {
+            TryAndHandleError(() =>
+            {
+                var openFileDialog = new Microsoft.Win32.OpenFileDialog();
+                openFileDialog.Filter = "XML-File | *.xml|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 0;
+
+                if (!openFileDialog.ShowDialog() ?? false || string.IsNullOrWhiteSpace(openFileDialog.FileName))
+                {
+                    return;
+                }
+
+                ImportXml = File.ReadAllText(openFileDialog.FileName);
+            });
+        }
+
+        [XmlIgnore] public string ImportXml = null;
+
+        [XmlIgnore]
+        public RelayCommand CommandExportSettingsFromFile
+        {
+            get => _commandExportSettingsFromFile;
+            set => SetField(ref _commandExportSettingsFromFile, value);
+        }
+        private RelayCommand _commandExportSettingsFromFile;
+
+        private void ExportSettings(object sender)
+        {
+            TryAndHandleError(() =>
+            {
+                var saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+                saveFileDialog.Filter = "XML-File | *.xml|All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 0;
+                if (!saveFileDialog.ShowDialog() ?? false || string.IsNullOrWhiteSpace(saveFileDialog.FileName))
+                {
+                    return;
+                }
+
+                var xml = Serialize();
+                File.WriteAllText(saveFileDialog.FileName, xml);
+            });
+        }
         #endregion
-        
+
         #region Serializing
         public string Serialize()
         {

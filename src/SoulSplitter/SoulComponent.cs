@@ -67,6 +67,11 @@ namespace SoulSplitter
                         return;
                     }
 
+                    if (MainWindow.MainViewModel.ImportXml != null)
+                    {
+                        ImportXml();
+                    }
+
                     //Result will internally be added to the error list already.
                     var result = UpdateSplitter(MainWindow.MainViewModel, state);
                     if(result.IsErr)
@@ -214,6 +219,26 @@ namespace SoulSplitter
         #endregion
 
         #region Xml settings ==============================================================================================================
+
+        private void ImportXml()
+        {
+            try
+            {
+                var xml = MainWindow.MainViewModel.ImportXml;
+                MainWindow.MainViewModel.ImportXml = null; //Don't get stuck in an import loop
+
+                var xmlDocument = new XmlDocument();
+                xmlDocument.LoadXml(xml);
+
+                SetSettings(xmlDocument);
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e);
+                MainWindow.MainViewModel.AddException(e);
+            }
+        }
+
         public XmlNode GetSettings(XmlDocument document)
         {
             XmlElement root = document.CreateElement("Settings");
@@ -237,7 +262,11 @@ namespace SoulSplitter
                     {
                         Migrator.Migrate(settings);
                     }
-                    catch { /* Ignored */ }
+                    catch (Exception migrationException)
+                    {
+                        Logger.Log(migrationException);
+                        MainWindow.MainViewModel.AddException(migrationException);
+                    }
 
                     var vm = MainViewModel.Deserialize(settings.InnerXml);
                     if (vm != null)
@@ -246,10 +275,13 @@ namespace SoulSplitter
                         _splitter?.SetViewModel(MainWindow.MainViewModel);
                     }
                 }
-                catch
+                catch (Exception e)
                 {
                     MainWindow.MainViewModel = new MainViewModel();
                     SelectGameFromLiveSplitState(_liveSplitState);
+
+                    Logger.Log(e);
+                    MainWindow.MainViewModel.AddException(e);
                 }
             });
         }

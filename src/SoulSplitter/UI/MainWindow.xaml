@@ -91,13 +91,14 @@
                         <MenuItem 
                             Background="{DynamicResource PrimaryHueMidBrush}"
                             Header="Import settings" 
-                            
+                            Command="{Binding CommandImportSettingsFromFile}"
                             Icon="{materialDesign:PackIcon Kind=FolderOpen}" 
                             ToolTip="Import soulsplitter settings from file"/>
 
                         <MenuItem 
                             Background="{DynamicResource PrimaryHueMidBrush}"
                             Header="Export settings"
+                            Command="{Binding CommandExportSettingsFromFile}"
                             Icon="{materialDesign:PackIcon Kind=ContentSave}" 
                             ToolTip="Export soulsplitter settings to file"/>
                     </MenuItem>
