@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections;
 using SoulMemory;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -41,6 +42,14 @@ namespace SoulSplitter.UI.Generic
             set => SetField(ref _percentageDone, value);
         }
         private float _percentageDone;
+
+        [XmlIgnore]
+        public string Progress
+        {
+            get => _progress;
+            set => SetField(ref _progress, value);
+        }
+        private string _progress;
 
         public ObservableCollection<FlagDescription> EventFlags { get; set; } = new ObservableCollection<FlagDescription>();
 
@@ -135,6 +144,27 @@ namespace SoulSplitter.UI.Generic
         {
             _lookup = EventFlagCategories.SelectMany(i => i.EventFlags, (category, eventFlag) => (category, eventFlag)).ToList();
             _currentIndex = 0;
+
+            switch (DisplayMode)
+            {
+                case EventFlagTrackerDisplayMode.Percentage:
+                    foreach (var category in EventFlagCategories)
+                    {
+                        category.Progress = "0.0%";
+                    }
+
+                    Progress = "0.0%";
+                    break;
+
+                case EventFlagTrackerDisplayMode.Count:
+                    foreach (var category in EventFlagCategories)
+                    {
+                        category.Progress = $"0/{category.EventFlags.Count}";
+                    }
+
+                    Progress = $"0/{EventFlagCategories.SelectMany(i => i.EventFlags).Count()}";
+                    break;
+            }
         }
 
         public void Update(IGame game)
@@ -170,19 +200,41 @@ namespace SoulSplitter.UI.Generic
                 }
             }
 
-            //Recalculate total percentage of categories that changed
-            foreach(var category in changedCategories)
+            switch(DisplayMode) 
             {
-                var done = category.EventFlags.Count(i => i.State);
-                category.PercentageDone = (done / (float)category.EventFlags.Count) * 100.0f;
+                case EventFlagTrackerDisplayMode.Percentage:
+                    //Recalculate total percentage of categories that changed
+                    foreach (var category in changedCategories)
+                    {
+                        var done = category.EventFlags.Count(i => i.State);
+                        var percentage = (done / (float)category.EventFlags.Count) * 100.0f;
+                        category.Progress = $"{percentage:0.00}%";
+                    }
+
+                    //Recalculate total percentage of all flags (only if there is a change)
+                    if (changedCategories.Any())
+                    {
+                        var done = _lookup.Count(i => i.eventFlag.State);
+                        PercentageDone = (done / (float)_lookup.Count) * 100.0f;
+                        Progress = $"{PercentageDone:0.00}%";
+                    }
+                    break;
+
+                case EventFlagTrackerDisplayMode.Count:
+                    foreach (var category in changedCategories)
+                    {
+                        var done = category.EventFlags.Count(i => i.State);
+                        category.Progress = $"{done}/{category.EventFlags.Count}";
+                    }
+
+                    if (changedCategories.Any())
+                    {
+                        var done = _lookup.Count(i => i.eventFlag.State);
+                        Progress = $"{done}/{_lookup.Count}";
+                    }
+                    break;
             }
 
-            //Recalculate total percentage of all flags (only if there is a change)
-            if(changedCategories.Any())
-            {
-                var done = _lookup.Count(i => i.eventFlag.State);
-                PercentageDone = (done / (float)_lookup.Count) * 100.0f;
-            }
         }
 
 
@@ -206,8 +258,22 @@ namespace SoulSplitter.UI.Generic
         #region UI bindable properties
         public ObservableCollection<FlagTrackerCategoryViewModel> EventFlagCategories { get; set; } = new ObservableCollection<FlagTrackerCategoryViewModel>();
 
+        public EventFlagTrackerDisplayMode DisplayMode
+        {
+            get => _displayMode;
+            set => SetField(ref _displayMode, value);
+        }
+        private EventFlagTrackerDisplayMode _displayMode = EventFlagTrackerDisplayMode.Percentage;
 
         #region UI customization
+
+        [XmlIgnore]
+        public string Progress
+        {
+            get => _progress;
+            set => SetField(ref _progress, value);
+        }
+        private string _progress;
 
         [XmlIgnore]
         public float PercentageDone
