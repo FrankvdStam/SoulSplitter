@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.6.2">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+        </files>
+        <changelog>
+            <change>Improve event flag logger UI. Can click a flag to copy it to clipboard now</change>
+            <change>Move tool icons into a proper menu</change>
+            <change>Add option to import/export soulsplitter's settings separately from livesplit's settings</change>
+            <change>Add option to the event flag logger to display a count instead of a percentage</change>
+        </changelog>
+    </update>
     <update version="1.6.1">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed"/>
