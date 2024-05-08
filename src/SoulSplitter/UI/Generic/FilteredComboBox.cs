@@ -48,6 +48,16 @@ namespace SoulSplitter.UI.Generic
             base.OnItemsSourceChanged(oldValue, newValue);
         }
 
+        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+        {
+            if (SelectedIndex != -1)
+            {
+                Text = string.Empty;
+                ClearFilter();
+            }
+            base.OnSelectionChanged(e);
+        }
+
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             switch (e.Key)
@@ -85,6 +95,7 @@ namespace SoulSplitter.UI.Generic
                     ClearFilter();
                     break;
                 default:
+                    var typedText = Text;
                     if (Text != oldFilter)
                     {
                         RefreshFilter();
@@ -94,7 +105,15 @@ namespace SoulSplitter.UI.Generic
                     }
 
                     base.OnKeyUp(e);
-                    currentFilter = Text;
+                    currentFilter = typedText;
+                    Text = typedText;
+                    EditableTextBox.SelectionStart = int.MaxValue;
+
+                    if (typedText == string.Empty)
+                    {
+                        SelectedValue = null;
+                        SelectedIndex = -1;
+                    }
                     break;
             }
         }
