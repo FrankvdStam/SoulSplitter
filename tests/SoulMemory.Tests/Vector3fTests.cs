@@ -28,7 +28,7 @@ namespace SoulMemory.Tests
             Assert.AreEqual(0.0f, vec.X);
             Assert.AreEqual(0.0f, vec.Y);
             Assert.AreEqual(0.0f, vec.Z);
-            Assert.AreEqual("0.00, 0.00, 0.00", vec.ToString());
+            Assert.AreEqual($"{0.0f:N2}, {0.0:N2}, {0.0:N2}", vec.ToString());
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace SoulMemory.Tests
             Assert.AreEqual(1.1f, vec.X);
             Assert.AreEqual(2.2f, vec.Y);
             Assert.AreEqual(3.3f, vec.Z);
-            Assert.AreEqual("1.10, 2.20, 3.30", vec.ToString());
+            Assert.AreEqual($"{1.1f:N2}, {2.20:N2}, {3.30:N2}", vec.ToString());
         }
 
         [TestMethod]
@@ -49,7 +49,7 @@ namespace SoulMemory.Tests
             Assert.AreEqual(1.1f, vec.X);
             Assert.AreEqual(2.2f, vec.Y);
             Assert.AreEqual(3.3f, vec.Z);
-            Assert.AreEqual("1.10, 2.20, 3.30", vec.ToString());
+            Assert.AreEqual($"{1.1f:N2}, {2.20:N2}, {3.30:N2}", vec.ToString());
         }
     }
 }
