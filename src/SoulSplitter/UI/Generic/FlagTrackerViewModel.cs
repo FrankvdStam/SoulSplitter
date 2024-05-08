@@ -34,15 +34,7 @@ namespace SoulSplitter.UI.Generic
             set => SetField(ref _categoryName, value);
         }
         private string _categoryName;
-
-        [XmlIgnore]
-        public float PercentageDone
-        {
-            get => _percentageDone;
-            set => SetField(ref _percentageDone, value);
-        }
-        private float _percentageDone;
-
+        
         [XmlIgnore]
         public string Progress
         {
@@ -150,10 +142,10 @@ namespace SoulSplitter.UI.Generic
                 case EventFlagTrackerDisplayMode.Percentage:
                     foreach (var category in EventFlagCategories)
                     {
-                        category.Progress = "0.0%";
+                        category.Progress = $"{0.0f:0.00}%";
                     }
 
-                    Progress = "0.0%";
+                    Progress = $"{0.0f:0.00}%";
                     break;
 
                 case EventFlagTrackerDisplayMode.Count:
@@ -215,8 +207,8 @@ namespace SoulSplitter.UI.Generic
                     if (changedCategories.Any())
                     {
                         var done = _lookup.Count(i => i.eventFlag.State);
-                        PercentageDone = (done / (float)_lookup.Count) * 100.0f;
-                        Progress = $"{PercentageDone:0.00}%";
+                        var percentageDone = (done / (float)_lookup.Count) * 100.0f;
+                        Progress = $"{percentageDone:0.00}%";
                     }
                     break;
 
@@ -242,10 +234,9 @@ namespace SoulSplitter.UI.Generic
         {
             _lookup = null;
             _currentIndex = 0;
-            PercentageDone = 0;
             foreach (var category in EventFlagCategories)
             {
-                category.PercentageDone = 0.0f;
+                category.Progress = "";
                 foreach(var eventFlag in category.EventFlags)
                 {
                     eventFlag.State = false;
@@ -274,15 +265,7 @@ namespace SoulSplitter.UI.Generic
             set => SetField(ref _progress, value);
         }
         private string _progress;
-
-        [XmlIgnore]
-        public float PercentageDone
-        {
-            get => _percentageDone;
-            set => SetField(ref _percentageDone, value);
-        }
-        private float _percentageDone;
-
+        
         public double WindowWidth
         {
             get => _windowWidth;

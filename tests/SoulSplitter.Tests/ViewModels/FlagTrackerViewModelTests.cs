@@ -79,9 +79,10 @@ namespace SoulSplitter.Tests.ViewModels
             
             flagTracker.Start();
             flagTracker.Update(game);
-            Assert.AreEqual(0.0f, category.PercentageDone);
 
             var percentage = 0.0f;
+            Assert.AreEqual($"{percentage:0.00}%", category.Progress);
+
             using (var enumerator = category.EventFlags.GetEnumerator())
             {
                 while (enumerator.MoveNext())
@@ -90,8 +91,8 @@ namespace SoulSplitter.Tests.ViewModels
                     Assert.IsNotNull(flag);
                     
                     Assert.AreEqual(false, flag.State);
-                    Assert.AreEqual(percentage, category.PercentageDone);
-                    Assert.AreEqual(percentage, flagTracker.PercentageDone);
+                    Assert.AreEqual($"{percentage:0.00}%", category.Progress);
+                    Assert.AreEqual($"{percentage:0.00}%", flagTracker.Progress);
                     
                     game.EventFlags[flag.Flag] = true;
                     percentage += 25.0f;
@@ -99,8 +100,8 @@ namespace SoulSplitter.Tests.ViewModels
                     flagTracker.Update(game);
 
                     Assert.AreEqual(true, flag.State);
-                    Assert.AreEqual(percentage, category.PercentageDone);
-                    Assert.AreEqual(percentage, flagTracker.PercentageDone);
+                    Assert.AreEqual($"{percentage:0.00}%", category.Progress);
+                    Assert.AreEqual($"{percentage:0.00}%", flagTracker.Progress);
                 }
             }
         }
