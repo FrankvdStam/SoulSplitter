@@ -81,10 +81,10 @@
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
       <Message Text="Building soulmods x64" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target x86_64-pc-windows-msvc --release" />
-      <Exec Command="copy /Y ..\..\target\x86_64-pc-windows-msvc\release\soulmods.dll soulmods\x64\soulmods.dll" />
+      <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x64\soulmods.dll"/>
 
       <Message Text="Building soulmods x86" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target=i686-pc-windows-msvc --release" />
-      <Exec Command="copy /Y ..\..\target\i686-pc-windows-msvc\release\soulmods.dll soulmods\x86\soulmods.dll" />
+      <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x86\soulmods.dll"/>
   </Target>
 </Project>
