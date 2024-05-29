@@ -45,12 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="soulmods\x64\soulmods.dll" />
+    <None Remove="soulmods\x86\soulmods.dll" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="soulsplitter.ico" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="soulmods\x64\soulmods.dll" />
+    <EmbeddedResource Include="soulmods\x86\soulmods.dll" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
@@ -72,4 +74,16 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="soulmods\x86\" />
+  </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+      <Message Text="Building soulmods x64" Importance="high" />
+      <Exec Command="cd $(SolutionDir)&#xD;&#xA;cargo build --target x86_64-pc-windows-msvc --release" />
+      <Exec Command="cd $(SolutionDir)&#xD;&#xA;copy /Y target\x86_64-pc-windows-msvc\release\soulmods.dll src\SoulMemory\soulmods\x64\soulmods.dll" />
+
+      <Message Text="Building soulmods x86" Importance="high" />
+      <Exec Command="cd $(SolutionDir)&#xD;&#xA;cargo build --target=i686-pc-windows-msvc --release" />
+      <Exec Command="cd $(SolutionDir)&#xD;&#xA;copy /Y target\i686-pc-windows-msvc\release\soulmods.dll src\SoulMemory\soulmods\x86\soulmods.dll" />
+  </Target>
 </Project>
