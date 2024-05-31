@@ -17,12 +17,23 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using SoulMemory.Native;
 
 namespace SoulMemory.soulmods
 {
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MorphemeMessage
+    {
+        public uint MessageId;
+        public uint EventActionCategory;
+    }
+
     public static class Soulmods
     {
+        
+
         public static void Inject(Process process)
         {
             var basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "soulsplitter");
@@ -36,6 +47,32 @@ namespace SoulMemory.soulmods
             }
         }
 
+        public static void GetMorphemeMessages(Process process)
+        {
+            //Get function address
+            var soulmods = process.GetModuleExportedFunctions("soulmods.dll");
+            var func = soulmods.First(i => i.name == "GetQueuedDarkSouls2MorphemeMessages").address;
+
+            //Get buffer size
+            var buffer = process.Allocate(4);
+            process.Execute((IntPtr)func, buffer);
+            var requestedSize = process.ReadMemory<uint>(buffer.ToInt64()).Unwrap();
+            process.Free(buffer);
+
+            //Get data of requestedSize
+            if (requestedSize > 0)
+            {
+                var totalSize = (int)(4 + (requestedSize * Marshal.SizeOf<MorphemeMessage>()));
+                buffer = process.Allocate(totalSize);
+                process.WriteProcessMemory(buffer.ToInt64(), BitConverter.GetBytes(requestedSize));
+                process.Execute((IntPtr)func, buffer);
+
+                var data = process.ReadProcessMemory(buffer.ToInt64(), totalSize).Unwrap();
+                process.Free(buffer);
+            }
+        }
+
+
         private static void OverwriteFile(string manifestResourceName, string path)
         {
             byte[] buffer;
@@ -45,7 +82,23 @@ namespace SoulMemory.soulmods
                 stream.Read(buffer, 0, buffer.Length);
             }
             Directory.CreateDirectory(Path.GetDirectoryName(path));
-            File.WriteAllBytes(path, buffer);
+
+            try
+            {
+                File.WriteAllBytes(path, buffer);
+
+            }
+            catch (IOException e)
+            {
+                if (e.Message.EndsWith("because it is being used by another process."))
+                {
+                    return;
+                }
+
+                throw;
+            }
+
+           
         }
     }
 }
