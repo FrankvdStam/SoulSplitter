@@ -54,10 +54,20 @@ namespace cli
             ds2.TryRefresh();
             ds2.TryRefresh();
             var process = ds2.GetProcess();
+            
             Soulmods.Inject(process);
             Thread.Sleep(2000); //allow DllMain to run
 
-            Soulmods.GetMorphemeMessages(process);
+
+            Stopwatch sw = new Stopwatch();
+
+            sw.Start();
+
+             Soulmods.GetMorphemeMessages(process);
+
+            sw.Stop();
+
+            Console.WriteLine("Elapsed={0}", sw.Elapsed);
 
 
 

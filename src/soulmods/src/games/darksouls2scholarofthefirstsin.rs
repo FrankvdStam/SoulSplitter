@@ -32,6 +32,35 @@ pub struct MorphemeMessage
     event_action_category: u32,
 }
 
+#[repr(C)]
+pub struct MorphemeMessageBuffer
+{
+    length: usize,
+    buffer: [MorphemeMessage; 10],
+}
+
+#[no_mangle]
+pub extern "C" fn GetQueuedDarkSouls2MorphemeMessages2(morpheme_message_buffer: &mut MorphemeMessageBuffer)
+{
+    unsafe
+    {
+        let mut queue = MORPHEME_QUEUE.as_mut().unwrap().lock().unwrap();
+        morpheme_message_buffer.length = if queue.len() > 10 { 10 } else { queue.len() };
+        for i in 0..morpheme_message_buffer.buffer.len()
+        {
+            if let Some(message) = queue.pop_front()
+            {
+                morpheme_message_buffer.buffer[i] = message;
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+}
+
+
 #[no_mangle]
 pub extern "C" fn GetQueuedDarkSouls2MorphemeMessages(raw_pointer: *mut u32)
 {

@@ -85,6 +85,32 @@ namespace SoulMemory.Native
             //var test = (T)Convert.ChangeType(bytes, typeof(T));
         }
 
+        public static Result WriteMemory<T>(this Process process, long address, T data, [CallerMemberName] string callerMemberName = null)
+        {
+            if (process == null)
+            {
+                return Result.Err();
+            }
+
+            var type = typeof(T);
+            var size = Marshal.SizeOf(type);
+            var bytes = new byte[size];
+            IntPtr ptr = IntPtr.Zero;
+            try
+            {
+                ptr = Marshal.AllocHGlobal(size);
+                Marshal.StructureToPtr(data, ptr, true);
+                Marshal.Copy(ptr, bytes, 0, size);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(ptr);
+            }
+
+            process.WriteProcessMemory(address, bytes);
+            return Result.Ok();
+        }
+
         public static string ReadAsciiString(this Process process, long address, int initialBufferSize = 20, [CallerMemberName] string callerMemberName = null)
         {
             var endByte = (byte)'\0';

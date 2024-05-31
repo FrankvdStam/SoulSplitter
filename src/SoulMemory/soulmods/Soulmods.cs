@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -28,6 +29,20 @@ namespace SoulMemory.soulmods
     {
         public uint MessageId;
         public uint EventActionCategory;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MorphemeMessageBuffer
+    {
+        public uint Length;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+        public MorphemeMessage[] Buffer;
+    }
+
+    [AttributeUsage(AttributeTargets.Method, Inherited = false)]
+    public class RustCallAttribute : Attribute
+    {
+        public string MethodName { get; set; }
     }
 
     public static class Soulmods
@@ -46,6 +61,31 @@ namespace SoulMemory.soulmods
                 process.InjectDll(dllPath64);
             }
         }
+
+        public static MorphemeMessageBuffer GetMorphemeMessages2(Process process) => process.RustCall<MorphemeMessageBuffer>("GetQueuedDarkSouls2MorphemeMessages2");
+        
+
+
+        private static List<(string name, long address)> _soulmodsMethods;
+        public static TSized RustCall<TSized>(this Process process, string function, TSized? parameter = null) where TSized : struct
+        {
+            if (_soulmodsMethods == null)
+            {
+                _soulmodsMethods = process.GetModuleExportedFunctions("soulmods.dll");
+            }
+            var functionPtr = _soulmodsMethods.First(i => i.name == function).address;
+
+            var buffer = process.Allocate(Marshal.SizeOf<TSized>());
+            if (parameter.HasValue)
+            {
+                process.WriteMemory(buffer.ToInt64(), parameter.Value);
+            }
+            process.Execute((IntPtr)functionPtr, buffer);
+            var result = process.ReadMemory<TSized>(buffer.ToInt64()).Unwrap();
+            process.Free(buffer);
+            return result;
+        }
+
 
         public static void GetMorphemeMessages(Process process)
         {
