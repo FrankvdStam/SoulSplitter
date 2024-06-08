@@ -453,9 +453,6 @@ namespace SoulMemory.EldenRing
         [AnnotationAttribute(Name = "Decaying Ekzykes - Caelid Highway South (Caelid)", Description = "Caelid")]
         DecayingEkzykesCaelidHighwaySouthCaelid = 1048370800,
 
-        [AnnotationAttribute(Name = "Monstrous Dog - Southwest of Caelid Highway South (Caelid)", Description = "Caelid")]
-        MonstrousDogSouthwestOfCaelidHighwaySouthCaelid = 1048400800,
-
         [AnnotationAttribute(Name = "Night's Cavalry - Southern Aeonia Swamp Bank (Caelid)", Description = "Caelid")]
         NightsCavalrySouthernAeoniaSwampBankCaelid = 1049370800,
 
