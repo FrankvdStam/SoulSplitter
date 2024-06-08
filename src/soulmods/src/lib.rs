@@ -14,14 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-//#[cfg(target_arch = "x86")]
-
-#[cfg(target_arch = "x86_64")]
-mod armoredcore6;
-#[cfg(target_arch = "x86_64")]
-use crate::armoredcore6::*;
+#[allow(unused_imports)]
+use crate::games::*;
 mod logger;
 mod console;
+mod games;
 
 use std::ffi::c_void;
 use std::thread;
@@ -58,20 +55,20 @@ pub unsafe extern "system" fn DllMain(
 
 fn dispatched_dll_main()
 {
-    if cfg!(debug_assertions) {
+    //if cfg!(debug_assertions) {
         init_console();
         init_log();
-    }
+    //}
 
     let process_name = Process::get_current_process_name().unwrap();
     info!("process: {}", process_name);
 
-    if process_name == "armoredcore6.exe"
+    #[cfg(target_arch = "x86_64")]
+    match process_name.to_lowercase().as_str()
     {
-        #[allow(unused_unsafe)]
-        unsafe {
-            #[cfg(target_arch = "x86_64")]
-            init_armoredcore6()
-        };
+        "armoredcore6.exe" => init_armoredcore6(),
+        "darksoulsii.exe" => init_scholar(),
+        _ => info!("no supported process found")
     }
+
 }

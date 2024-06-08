@@ -22,6 +22,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.ServiceModel.Channels;
 using System.Threading;
 using System.Windows.Forms;
 using SoulSplitter.UI;
@@ -30,9 +32,14 @@ using SoulMemory.EldenRing;
 using SoulMemory;
 using SoulSplitter.UI.Generic;
 using SoulMemory.ArmoredCore6;
+using SoulMemory.DarkSouls2;
 using SoulMemory.DarkSouls3;
 using SoulMemory.MemoryV2.Process;
+using SoulMemory.Native;
 using SoulMemory.Parameters;
+using SoulMemory.Sekiro;
+using SoulMemory.soulmods;
+using System.Runtime.InteropServices.ComTypes;
 
 #pragma warning disable CS0162
 
@@ -40,10 +47,65 @@ namespace cli
 {
     internal class Program
     {
-
         [STAThread]
         static void Main(string[] args)
         {
+            var ds2 = new DarkSouls2();
+            ds2.TryRefresh();
+            ds2.TryRefresh();
+            var process = ds2.GetProcess();
+            
+            Soulmods.Inject(process);
+            Thread.Sleep(2000); //allow DllMain to run
+
+
+            Stopwatch sw = new Stopwatch();
+
+            sw.Start();
+
+             Soulmods.GetMorphemeMessages(process);
+
+            sw.Stop();
+
+            Console.WriteLine("Elapsed={0}", sw.Elapsed);
+
+
+
+
+            return;
+
+            //[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+            //delegate void ProgressCallback(int value);
+
+            var soulmods = process.GetModuleExportedFunctions("soulmods.dll");
+            var func = soulmods.First(i => i.name == "GetQueuedDarkSouls2MorphemeMessages").address;
+
+            var buffer = process.Allocate(4);
+            process.Execute((IntPtr)func, buffer);
+
+            var size = process.ReadMemory<uint>(buffer.ToInt64()).Unwrap();
+            process.Free(buffer);
+
+            var totalSize = (int)(4 + (size * Marshal.SizeOf<MorphemeMessage>()));
+            buffer = process.Allocate(totalSize);
+            process.WriteProcessMemory(buffer.ToInt64(), BitConverter.GetBytes(size));
+            process.Execute((IntPtr)func, buffer);
+
+            var data = process.ReadProcessMemory(buffer.ToInt64(), totalSize).Unwrap();
+            
+
+            while (true)
+            {
+                Thread.Sleep(1000);
+            }
+
+            return;
+
+            GameLoop<Sekiro>((s) =>
+            {
+                s.WriteEventFlag(10, true);
+            });
+
             TestUi();
             return;
             ValidatePatterns();

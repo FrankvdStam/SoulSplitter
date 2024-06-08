@@ -9,7 +9,7 @@ crate-type = ["cdylib"]
 [dependencies]
 ilhook = "2.1.0"
 
-mem-rs = "0.1.4"
+mem-rs = "0.1.7"
 #mem-rs = { path="C:/projects/mem-rs" }
 lazy_static = "1.4.0"
 

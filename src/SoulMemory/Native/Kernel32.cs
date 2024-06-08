@@ -16,11 +16,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using SoulMemory.MemoryV2.Process;
+using SoulMemory.Native.Enums;
+using SoulMemory.Native.Structs;
+using SoulMemory.Native.Structs.Image;
+using SoulMemory.Native.Structs.Module;
+using SoulMemory.Native.Structs.Process;
 
 namespace SoulMemory.Native
 {
@@ -29,14 +38,12 @@ namespace SoulMemory.Native
     {
         #region Read process memory ==================================================================================================================
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
 
         public static byte[] ReadProcessMemoryNoError(this Process process, long address, int size)
         {
             var buffer = new byte[size];
             var bytesRead = 0;
-            ReadProcessMemory(process.Handle, (IntPtr)address, buffer, buffer.Length, ref bytesRead);
+            NativeMethods.ReadProcessMemory(process.Handle, (IntPtr)address, buffer, buffer.Length, ref bytesRead);
             return buffer;
         }
 
@@ -49,7 +56,7 @@ namespace SoulMemory.Native
 
             var buffer = new byte[size];
             var bytesRead = 0;
-            var result = ReadProcessMemory(process.Handle, (IntPtr)address, buffer, buffer.Length, ref bytesRead);
+            var result = NativeMethods.ReadProcessMemory(process.Handle, (IntPtr)address, buffer, buffer.Length, ref bytesRead);
 
             if(!result || bytesRead != size)
             {
@@ -78,21 +85,53 @@ namespace SoulMemory.Native
             //var test = (T)Convert.ChangeType(bytes, typeof(T));
         }
 
-        [DllImport("kernel32.dll")]
-        private static extern int VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MemoryBasicInformation64 lpBuffer, uint dwLength);
-        [StructLayout(LayoutKind.Sequential)]
-        public struct MemoryBasicInformation64
+        public static Result WriteMemory<T>(this Process process, long address, T data, [CallerMemberName] string callerMemberName = null)
         {
-            public ulong BaseAddress;
-            public ulong AllocationBase;
-            public int AllocationProtect;
-            public int __alignment1;
-            public ulong RegionSize;
-            public int State;
-            public int Protect;
-            public int Type;
-            public int __alignment2;
+            if (process == null)
+            {
+                return Result.Err();
+            }
+
+            var type = typeof(T);
+            var size = Marshal.SizeOf(type);
+            var bytes = new byte[size];
+            IntPtr ptr = IntPtr.Zero;
+            try
+            {
+                ptr = Marshal.AllocHGlobal(size);
+                Marshal.StructureToPtr(data, ptr, true);
+                Marshal.Copy(ptr, bytes, 0, size);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(ptr);
+            }
+
+            process.WriteProcessMemory(address, bytes);
+            return Result.Ok();
         }
+
+        public static string ReadAsciiString(this Process process, long address, int initialBufferSize = 20, [CallerMemberName] string callerMemberName = null)
+        {
+            var endByte = (byte)'\0';
+            var bytes = new byte[0];
+            while (!bytes.Contains(endByte))
+            {
+                if (initialBufferSize > 100000)
+                {
+                    throw new ArgumentException($"String at {address} is too big.");
+                }
+
+                bytes = process.ReadProcessMemory(address, initialBufferSize).Unwrap(callerMemberName);
+                initialBufferSize *= 2;
+            }
+
+            var endIndex = Array.IndexOf(bytes, endByte);
+            var str = Encoding.ASCII.GetString(bytes, 0, endIndex);
+            return str;
+        }
+        
+        
 
         public static ResultOk<List<MemoryBasicInformation64>> GetMemoryRegions(this Process process)
         {
@@ -107,7 +146,7 @@ namespace SoulMemory.Native
 
             while (address < maxAddress)
             {
-                var queryEx = VirtualQueryEx(process.Handle, (IntPtr)address, out MemoryBasicInformation64 memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
+                var queryEx = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)address, out MemoryBasicInformation64 memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
                 if (queryEx == 0)
                 {
                     return Result.Err();
@@ -121,14 +160,11 @@ namespace SoulMemory.Native
 
         #region Write process memory ==================================================================================================================
 
-        [DllImport("kernel32.dll")]
-        private static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out uint lpNumberOfBytesWritten);
-
         public static void WriteProcessMemoryNoError(this Process process, long address, byte[] buffer) => WriteProcessMemory(process, address, buffer);
 
         public static Result WriteProcessMemory(this Process process, long address, byte[] buffer)
         {
-            var result = WriteProcessMemory(process.Handle, (IntPtr)address, buffer, (uint)buffer.Length, out uint bytesWritten);
+            var result = NativeMethods.WriteProcessMemory(process.Handle, (IntPtr)address, buffer, (uint)buffer.Length, out uint bytesWritten);
 
             if (!result || bytesWritten != buffer.Length)
             {
@@ -141,12 +177,11 @@ namespace SoulMemory.Native
 
         #region misc process  ==================================================================================================================
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool IsWow64Process(IntPtr processHandle, out bool wow64Process);
+        
 
         public static ResultOk<bool> Is64Bit(this Process process)
         {
-            var result = IsWow64Process(process.Handle, out bool isWow64Result);
+            var result = NativeMethods.IsWow64Process(process.Handle, out bool isWow64Result);
             if (!result)
             {
                 return Result.Err();
@@ -159,31 +194,20 @@ namespace SoulMemory.Native
         #region Allocations ==================================================================================================================
 
 
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint flAllocationType, uint flProtect);
-
+       
         public static IntPtr Allocate(this Process process, int size)
         {
-            return VirtualAllocEx(process.Handle, IntPtr.Zero, (IntPtr)size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+            return NativeMethods.VirtualAllocEx(process.Handle, IntPtr.Zero, (IntPtr)size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
         }
 
-        [DllImport("kernel32.dll")]
-        private static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint dwFreeType);
 
-        public static void Free(this Process process, IntPtr pointer) => VirtualFreeEx(process.Handle, pointer, (IntPtr)0, MEM_RELEASE);
+        public static void Free(this Process process, IntPtr pointer) => NativeMethods.VirtualFreeEx(process.Handle, pointer, (IntPtr)0, MEM_RELEASE);
 
         #endregion
 
         #region Execute ==================================================================================================================
 
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
-
-        [DllImport("kernel32.dll")]
-        private static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
-
-        [DllImport("kernel32.dll")]
-        private static extern bool CloseHandle(IntPtr hObject);
+       
 
         public static void Execute(this Process process, byte[] instructions, IntPtr? parameter = null)
         {
@@ -196,29 +220,17 @@ namespace SoulMemory.Native
         public static void Execute(this Process process, IntPtr startAddress, IntPtr? parameter = null)
         {
             process.NtSuspendProcess();
-            IntPtr thread;
-            if(parameter.HasValue)
-            {
-                thread = CreateRemoteThread(process.Handle, IntPtr.Zero, 0, startAddress, parameter.Value, 0, IntPtr.Zero);
-            }
-            else
-            {
-                thread = CreateRemoteThread(process.Handle, IntPtr.Zero, 0, startAddress, IntPtr.Zero, 0, IntPtr.Zero);
-            }
-            WaitForSingleObject(thread, 5000);
+            IntPtr thread = NativeMethods.CreateRemoteThread(process.Handle, IntPtr.Zero, 0, startAddress, parameter ?? IntPtr.Zero, 0, IntPtr.Zero);
+            NativeMethods.WaitForSingleObject(thread, 5000);
             process.NtResumeProcess();
-            CloseHandle(thread);
+            NativeMethods.CloseHandle(thread);
         }
 
         #endregion
 
         #region DLL injection ==================================================================================================================
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
-        internal static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr GetModuleHandle(string lpModuleName);
+        
 
         public static void InjectDll(this Process process, string dllPath)
         {
@@ -229,14 +241,14 @@ namespace SoulMemory.Native
             }
 
             //Write the name of the dll to be injected into a buffer
-            var dllFilepathPointer = process.Allocate(dllPath.Length * Marshal.SizeOf(typeof(char)));
-            process.WriteProcessMemory((long)dllFilepathPointer, Encoding.Default.GetBytes(dllPath));
+            var dllFilepathPointer = process.Allocate(dllPath.Length * Marshal.SizeOf(typeof(UInt16)));
+            process.WriteProcessMemory((long)dllFilepathPointer, Encoding.Unicode.GetBytes(dllPath));
 
-            //Get the address of LoadLibraryA
-            var loadLibraryA = Kernel32.GetProcAddress(Kernel32.GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+            //Get the address of LoadLibraryW
+            var loadLibraryW = NativeMethods.GetProcAddress(NativeMethods.GetModuleHandleW("kernel32.dll"), "LoadLibraryW");
 
             //Execute LoadLibraryA inside the target process with the dll path as parameter
-            process.Execute(loadLibraryA, dllFilepathPointer);
+            process.Execute(loadLibraryW, dllFilepathPointer);
 
             //Cleanup
             process.Free(dllFilepathPointer);
@@ -244,6 +256,140 @@ namespace SoulMemory.Native
 
         #endregion
 
+        #region Remote modules ==================================================================================================================
+
+        
+
+        // To avoid cleaning the list,
+        // the number of modules is returned with a tuple
+        public static (IntPtr[] List, uint Length) GetProcessModules(this Process process)
+        {
+            uint arraySize = 256;
+            IntPtr[] processMods = new IntPtr[arraySize];
+            uint arrayBytesSize = arraySize * (uint)IntPtr.Size;
+            uint bytesCopied = 0;
+
+            // Loop until all modules are listed
+            // See: https://docs.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-enumprocessmodules#:~:text=If%20lpcbNeeded%20is%20greater%20than%20cb%2C%20increase%20the%20size%20of%20the%20array%20and%20call%20EnumProcessModules%20again.
+            // Stops if:
+            //   - EnumProcessModulesEx return 0 (call failed)
+            //   - All modules are listed
+            //   - The next size of the list is greater than uint.MaxValue
+            while (NativeMethods.EnumProcessModulesEx(process.Handle, processMods, arrayBytesSize, out bytesCopied, ListModules.LIST_MODULES_ALL) &&
+                   arrayBytesSize == bytesCopied && arraySize <= uint.MaxValue - 128)
+            {
+                arraySize += 128;
+                processMods = new IntPtr[arraySize];
+                arrayBytesSize = arraySize * (uint)IntPtr.Size;
+            }
+
+            var len = bytesCopied / IntPtr.Size;
+            return (List: processMods, Length: bytesCopied >> 2);
+        }
+
+
+        // get the parent process given a pid
+        public static List<MODULEENTRY32W> GetModulesViaSnapshot(this Process process)
+        {
+            var modules = new List<MODULEENTRY32W>();
+            IntPtr handleToSnapshot = IntPtr.Zero;
+
+            void CleanupSnapshot()
+            {
+                if (handleToSnapshot != IntPtr.Zero)
+                {
+                    NativeMethods.CloseHandle(handleToSnapshot);
+                    handleToSnapshot = IntPtr.Zero;
+                }
+            }
+            
+            try
+            {
+                MODULEENTRY32W procEntry = new MODULEENTRY32W();
+                procEntry.dwSize = (UInt32)Marshal.SizeOf(typeof(MODULEENTRY32W));
+                handleToSnapshot = NativeMethods.CreateToolhelp32Snapshot((uint)SnapshotFlags.Module | (uint)SnapshotFlags.Module32, (uint)process.Id);
+                if (NativeMethods.Module32FirstW(handleToSnapshot, ref procEntry))
+                {
+                    do
+                    {
+                        modules.Add(procEntry);
+                    } while (NativeMethods.Module32NextW(handleToSnapshot, ref procEntry));
+                }
+                else
+                {
+                    throw new Win32Exception(Marshal.GetLastWin32Error(), "Module32FirstW failed");
+                }
+            }
+            catch
+            {
+                CleanupSnapshot();
+                throw;
+            }
+            finally
+            {
+                CleanupSnapshot();
+            }
+            return modules;
+        }
+
+
+        
+
+        public static List<(string name, long address)> GetModuleExportedFunctions(this Process process, string hModuleName)
+        {
+            var modules = process.GetModulesViaSnapshot();
+            var module = modules.First(i => i.szModule.ToLowerInvariant() == hModuleName.ToLowerInvariant());
+
+            var moduleImageDosHeader = process.ReadMemory<IMAGE_DOS_HEADER>(module.modBaseAddr.ToInt64()).Unwrap();
+            //moduleImageDosHeader.isValid
+
+            uint exportTableAddress = 0;
+            if (Is64Bit(process).Unwrap())
+            {
+                var moduleImageNtHeaders = process.ReadMemory<IMAGE_NT_HEADERS64>(module.modBaseAddr.ToInt64() + moduleImageDosHeader.e_lfanew).Unwrap();
+                //moduleImageNtHeaders.isValid
+
+                exportTableAddress = moduleImageNtHeaders.OptionalHeader.ExportTable.VirtualAddress;
+            }
+            else
+            {
+                var moduleImageNtHeaders = process.ReadMemory<IMAGE_NT_HEADERS32>(module.modBaseAddr.ToInt64() + moduleImageDosHeader.e_lfanew).Unwrap();
+                //moduleImageNtHeaders.isValid
+
+                exportTableAddress = moduleImageNtHeaders.OptionalHeader.ExportTable.VirtualAddress;
+            }
+
+            var exportTable = process.ReadMemory<IMAGE_EXPORT_DIRECTORY>(module.modBaseAddr.ToInt64() + exportTableAddress).Unwrap();
+
+            var nameOffsetTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfNames;
+            var ordinalTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfNameOrdinals;
+            var functionOffsetTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfFunctions;
+
+            var functions = new List<(string name, long address)>();
+            for (var i = 0; i < exportTable.NumberOfNames; i++)
+            {
+                var EAT = module.modBaseAddr.ToInt64() + exportTable.AddressOfFunctions;
+
+                var EATPtr = (IntPtr)EAT;
+
+                //Function name offset is an array of 4byte numbers
+                var functionNameOffset = process.ReadMemory<uint>(nameOffsetTable + i * sizeof(uint)).Unwrap();
+                var functionName = process.ReadAsciiString(module.modBaseAddr.ToInt64() + functionNameOffset);
+
+                //Ordinal seems to be an index
+                var ordinal = process.ReadMemory<ushort>(ordinalTable + i * sizeof(ushort)).Unwrap();
+
+                //Function offset table is an array of 4byte numbers
+                var functionOffset = process.ReadMemory<uint>(functionOffsetTable + i * sizeof(uint)).Unwrap();
+                var functionAddress = module.modBaseAddr.ToInt64() + functionOffset;
+
+                functions.Add((functionName, functionAddress));
+            }
+
+            return functions;
+        }
+
+        #endregion
 
         public const uint PAGE_EXECUTE_READWRITE = 0x40;
         public const uint PAGE_READWRITE = 0x04;
@@ -256,6 +402,11 @@ namespace SoulMemory.Native
         public const int PROCESS_VM_OPERATION = 0x0008;
         public const int PROCESS_VM_WRITE = 0x0020;
         public const int PROCESS_VM_READ = 0x0010;
+
+        public const int LIST_MODULES_32BIT = 0x01;
+        public const int LIST_MODULES_64BIT = 0x02;
+        public const int LIST_MODULES_ALL = 0x03;
+
 
     }
 }
