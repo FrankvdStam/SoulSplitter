@@ -15,10 +15,12 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #[cfg(target_arch = "x86_64")]
-pub mod darksouls2scholarofthefirstsin;
+mod x64;
+
 #[cfg(target_arch = "x86_64")]
-pub use darksouls2scholarofthefirstsin::init_scholar;
-#[cfg(target_arch = "x86_64")]
-pub mod armoredcore6;
-#[cfg(target_arch = "x86_64")]
-pub use armoredcore6::init_armoredcore6;
+pub use
+{
+    crate::games::x64::armoredcore6::init_armoredcore6,
+    crate::games::x64::darksouls2scholarofthefirstsin::init_scholar,
+    crate::games::x64::eldenring::init_eldenring,
+};

@@ -55,10 +55,11 @@ pub unsafe extern "system" fn DllMain(
 
 fn dispatched_dll_main()
 {
-    //if cfg!(debug_assertions) {
+    if cfg!(debug_assertions)
+    {
         init_console();
         init_log();
-    //}
+    }
 
     let process_name = Process::get_current_process_name().unwrap();
     info!("process: {}", process_name);
@@ -68,6 +69,7 @@ fn dispatched_dll_main()
     {
         "armoredcore6.exe" => init_armoredcore6(),
         "darksoulsii.exe" => init_scholar(),
+        "eldenring.exe" => init_eldenring(),
         _ => info!("no supported process found")
     }
 
