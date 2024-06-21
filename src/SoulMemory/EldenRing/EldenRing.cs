@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using SoulMemory.Memory;
 using SoulMemory.Native;
@@ -155,6 +156,8 @@ namespace SoulMemory.EldenRing
                     _igt.Clear();
                     return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "MIGT injection failed"));
                 }
+
+                ApplyNoLogo();
 
                 return Result.Ok();
             }
@@ -310,8 +313,14 @@ namespace SoulMemory.EldenRing
             }
         }
 
-        public bool Attached => _process != null;
-        
+        private void ApplyNoLogo()
+        {
+            _process.NtSuspendProcess();
+            _noLogo.WriteBytes(null, new byte[] { 0x90, 0x90 });
+            _process.NtResumeProcess();
+        }
+
+
         #region Read inventory
         //Got some help from Nordgaren to read the inventory. Cheers!
         //https://github.com/Nordgaren/Erd-Tools
