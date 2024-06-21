@@ -24,8 +24,8 @@ mono_crash.*
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-x64/
-x86/
+#x64/
+#x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
@@ -362,3 +362,6 @@ Cargo.lock
 
 tests/SoulMemory.Tests/coverage.opencover.xml
 tests/SoulSplitter.Tests/coverage.opencover.xml
+
+src/SoulMemory/soulmods/x64/soulmods.dll
+src/SoulMemory/soulmods/x86/soulmods.dll
