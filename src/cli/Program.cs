@@ -40,6 +40,7 @@ using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
 using SoulMemory.soulmods;
 using System.Runtime.InteropServices.ComTypes;
+using System.Windows;
 
 #pragma warning disable CS0162
 
@@ -50,6 +51,20 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            var igt = new TimeSpan(0, 10, 46, 21, 20);
+            var rta = new TimeSpan(0, 11, 10, 27, 25);
+
+            igt = igt.Add(new TimeSpan(0, 0, 1, 990));
+            rta = rta.Add(new TimeSpan(0, 0, 0, 5, 280));
+
+            var igtMillis = igt.TotalMilliseconds;
+            var rtaMillis = rta.TotalMilliseconds;
+
+            var frac = igtMillis / rtaMillis;
+
+            return;
+
+
             GameLoop<EldenRing>((e) =>
             {
                 Console.WriteLine(e.GetInGameTimeMilliseconds());

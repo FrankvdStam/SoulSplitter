@@ -70,11 +70,7 @@ namespace SoulMemory.EldenRing
                 //.ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 8)
                 .ScanRelative("VirtualMemoryFlag", "44 89 7c 24 28 4c 8b 25 ? ? ? ? 4d 85 e4", 8, 7)
                     .AddPointer(_virtualMemoryFlag, 0x5);
-
-            treeBuilder
-                .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
-                    .AddPointer(_igtFix);
-
+            
             treeBuilder
                 .ScanAbsolute("NoLogo", "80 bf b8 00 00 00 00 ? ? 48 8b 05 ? ? ? ? 48 85 c0 75 2e 48 8d 0d", 7)
                     .AddPointer(_noLogo);
@@ -181,7 +177,6 @@ namespace SoulMemory.EldenRing
             _playerGameData.Clear();
             _inventory.Clear();
             _menuManImp.Clear();
-            _igtFix.Clear();
             _virtualMemoryFlag.Clear();
             _noLogo.Clear();
         }
