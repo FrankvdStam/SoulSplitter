@@ -574,8 +574,8 @@ namespace SoulMemory.EldenRing
         [AnnotationAttribute(Name = "Divine Tower of Liurnia", Description = "Liurnia of the Lakes")]
         DivineTowerOfLiurnia = 73422,
 
-        [AnnotationAttribute(Name = "Uld Palace Ruins", Description = "Liurnia of the Lakes")]
-        UldPalaceRuins = 76200,
+        [AnnotationAttribute(Name = "Lake-Facing Cliffs", Description = "Liurnia of the Lakes")]
+        LakeFacingCliffs = 76200,
 
         [AnnotationAttribute(Name = "Liurnia Lake Shore", Description = "Liurnia of the Lakes")]
         LiurniaLakeShore = 76201,
@@ -1031,5 +1031,321 @@ namespace SoulMemory.EldenRing
 
         [AnnotationAttribute(Name = "Fourth Church of Marika", Description = "Weeping Peninsula")]
         FourthChurchOfMarika = 76162,
+
+        // The Realm of Shadow
+        [AnnotationAttribute(Name = "Theatre of the Divine Beast", Description = "Belurat, Tower Settlement")]
+        TheatreoftheDivineBeast = 72000,
+
+        [AnnotationAttribute(Name = "Belurat, Tower Settlement", Description = "Belurat, Tower Settlement")]
+        BeluratTowerSettlement = 72001,
+
+        [AnnotationAttribute(Name = "Small Private Altar", Description = "Belurat, Tower Settlement")]
+        SmallPrivateAltar = 72002,
+
+        [AnnotationAttribute(Name = "Stagefront", Description = "Belurat, Tower Settlement")]
+        Stagefront = 72003,
+
+        [AnnotationAttribute(Name = "Gate of Divinity", Description = "Enir-Ilim")]
+        GateofDivinity = 72010,
+
+        [AnnotationAttribute(Name = "Enir-Ilim: Outer Wall", Description = "Enir-Ilim")]
+        EnirIlimOuterWall = 72012,
+
+        [AnnotationAttribute(Name = "First Rise", Description = "Enir-Ilim")]
+        FirstRise = 72013,
+
+        [AnnotationAttribute(Name = "Spiral Rise", Description = "Enir-Ilim")]
+        SpiralRise = 72014,
+
+        [AnnotationAttribute(Name = "Cleansing Chamber Anteroom", Description = "Enir-Ilim")]
+        CleansingChamberAnteroom = 72015,
+
+        [AnnotationAttribute(Name = "Divine Gate Front Staircase", Description = "Enir-Ilim")]
+        DivineGateFrontStaircase = 72016,
+
+        [AnnotationAttribute(Name = "Main Gate Plaza", Description = "Shadow Keep")]
+        MainGatePlaza = 72101,
+
+        [AnnotationAttribute(Name = "Shadow Keep Main Gate", Description = "Shadow Keep")]
+        ShadowKeepMainGate = 72102,
+
+        [AnnotationAttribute(Name = "Church District Entrance", Description = "Shadow Keep, Church District")]
+        ChurchDistrictEntrance = 72106,
+
+        [AnnotationAttribute(Name = "Sunken Chapel", Description = "Shadow Keep, Church District")]
+        SunkenChapel = 72107,
+
+        [AnnotationAttribute(Name = "Tree,Worship Passage", Description = "Shadow Keep, Church District")]
+        TreeWorshipPassage = 72108,
+
+        [AnnotationAttribute(Name = "Tree,Worship Sanctum", Description = "Shadow Keep, Church District")]
+        TreeWorshipSanctum = 72109,
+
+        [AnnotationAttribute(Name = "Messmer's Dark Chamber", Description = "Specimen Storehouse")]
+        MessmersDarkChamber = 72110,
+
+        [AnnotationAttribute(Name = "Storehouse, First Floor", Description = "Specimen Storehouse")]
+        StorehouseFirstFloor = 72111,
+
+        [AnnotationAttribute(Name = "Storehouse, Fourth Floor", Description = "Specimen Storehouse")]
+        StorehouseFourthFloor = 72112,
+
+        [AnnotationAttribute(Name = "Storehouse, Seventh Floor", Description = "Specimen Storehouse")]
+        StorehouseSeventhFloor = 72113,
+
+        [AnnotationAttribute(Name = "Dark Chamber Entrance", Description = "Specimen Storehouse")]
+        DarkChamberEntrance = 72114,
+
+        [AnnotationAttribute(Name = "Storehouse, Back Section", Description = "Specimen Storehouse")]
+        StorehouseBackSection = 72116,
+
+        [AnnotationAttribute(Name = "Storehouse, Loft", Description = "Specimen Storehouse")]
+        StorehouseLoft = 72117,
+
+        [AnnotationAttribute(Name = "West Rampart", Description = "Specimen Storehouse")]
+        WestRampart = 72120,
+
+        [AnnotationAttribute(Name = "Garden of Deep Purple", Description = "Stone Coffin Fissure")]
+        GardenofDeepPurple = 72200,
+
+        [AnnotationAttribute(Name = "Stone Coffin Fissure", Description = "Stone Coffin Fissure")]
+        StoneCoffinFissure = 72201,
+
+        [AnnotationAttribute(Name = "Fissure Cross", Description = "Stone Coffin Fissure")]
+        FissureCross = 72202,
+
+        [AnnotationAttribute(Name = "Fissure Waypoint", Description = "Stone Coffin Fissure")]
+        FissureWaypoint = 72203,
+
+        [AnnotationAttribute(Name = "Fissure Depths", Description = "Stone Coffin Fissure")]
+        FissureDepths = 72204,
+
+        [AnnotationAttribute(Name = "Finger Birthing Grounds", Description = "Scadu Altus")]
+        FingerBirthingGrounds = 72500,
+
+        [AnnotationAttribute(Name = "Discussion Chamber", Description = "Midra's Manse")]
+        DiscussionChamber = 72800,
+
+        [AnnotationAttribute(Name = "Manse Hall", Description = "Midra's Manse")]
+        ManseHall = 72801,
+
+        [AnnotationAttribute(Name = "Midra's Library", Description = "Midra's Manse")]
+        MidrasLibrary = 72802,
+
+        [AnnotationAttribute(Name = "Second Floor Chamber", Description = "Midra's Manse")]
+        SecondFloorChamber = 72803,
+
+        [AnnotationAttribute(Name = "Fog Rift Catacombs", Description = "Gravesite Plain")]
+        FogRiftCatacombs = 74000,
+
+        [AnnotationAttribute(Name = "Ruined Forge Lava Intake", Description = "Gravesite Plain")]
+        RuinedForgeLavaIntake = 74200,
+
+        [AnnotationAttribute(Name = "Rivermouth Cave", Description = "Gravesite Plain")]
+        RivermouthCave = 74300,
+
+        [AnnotationAttribute(Name = "Dragon's Pit", Description = "Gravesite Plain")]
+        DragonsPit = 74301,
+
+        [AnnotationAttribute(Name = "Dragon's Pit Terminus", Description = "Gravesite Plain")]
+        DragonsPitTerminus = 74351,
+
+        [AnnotationAttribute(Name = "Cliffroad Terminus", Description = "Gravesite Plain")]
+        CliffroadTerminus = 76804,
+
+        [AnnotationAttribute(Name = "Main Gate Cross", Description = "Gravesite Plain")]
+        MainGateCross = 76803,
+
+        [AnnotationAttribute(Name = "Gravesite Plain", Description = "Gravesite Plain")]
+        GravesitePlain = 76800,
+
+        [AnnotationAttribute(Name = "Three,Path Cross", Description = "Gravesite Plain")]
+        ThreePathCross = 76802,
+
+        [AnnotationAttribute(Name = "Greatbridge, North", Description = "Gravesite Plain")]
+        GreatbridgeNorth = 76805,
+
+        [AnnotationAttribute(Name = "Scorched Ruins", Description = "Gravesite Plain")]
+        ScorchedRuins = 76801,
+
+        [AnnotationAttribute(Name = "Ellac River Cave", Description = "Gravesite Plain")]
+        EllacRiverCave = 76812,
+
+        [AnnotationAttribute(Name = "Castle Front", Description = "Gravesite Plain")]
+        CastleFront = 76813,
+
+        [AnnotationAttribute(Name = "Pillar Path Waypoint", Description = "Gravesite Plain")]
+        PillarPathWaypoint = 76811,
+
+        [AnnotationAttribute(Name = "Pillar Path Cross", Description = "Gravesite Plain")]
+        PillarPathCross = 76810,
+
+        [AnnotationAttribute(Name = "Belurat Gaol", Description = "Gravesite Plain")]
+        BeluratGaol = 74100,
+
+        [AnnotationAttribute(Name = "Ellac River Downstream", Description = "Gravesite Plain")]
+        EllacRiverDownstream = 76830,
+
+        [AnnotationAttribute(Name = "Charo's Hidden Grave", Description = "Charo's Hidden Grave")]
+        CharosHiddenGrave = 76841,
+
+        [AnnotationAttribute(Name = "Lamenter's Gaol", Description = "Charo's Hidden Grave")]
+        LamentersGaol = 74102,
+
+        [AnnotationAttribute(Name = "Castle Ensis Checkpoint", Description = "Castle Ensis")]
+        CastleEnsisCheckpoint = 76821,
+
+        [AnnotationAttribute(Name = "Ensis Moongazing Grounds", Description = "Castle Ensis")]
+        EnsisMoongazingGrounds = 76823,
+
+        [AnnotationAttribute(Name = "Castle,Lord's Chamber", Description = "Castle Ensis")]
+        CastleLordsChamber = 76822,
+
+        [AnnotationAttribute(Name = "Cerulean Coast West", Description = "Cerulean Coast")]
+        CeruleanCoastWest = 76832,
+
+        [AnnotationAttribute(Name = "The Fissure", Description = "Cerulean Coast")]
+        TheFissure = 76833,
+
+        [AnnotationAttribute(Name = "Cerulean Coast Cross", Description = "Cerulean Coast")]
+        CeruleanCoastCross = 76835,
+
+        [AnnotationAttribute(Name = "Cerulean Coast", Description = "Cerulean Coast")]
+        CeruleanCoast = 76831,
+
+        [AnnotationAttribute(Name = "Finger Ruins of Rhia", Description = "Cerulean Coast")]
+        FingerRuinsofRhia = 76834,
+
+        [AnnotationAttribute(Name = "Grand Altar of Dragon Communion", Description = "Foot of the Jagged Peak")]
+        GrandAltarofDragonCommunion = 76840,
+
+        [AnnotationAttribute(Name = "Divided Falls", Description = "Abyssal Woods")]
+        DividedFalls = 76861,
+
+        [AnnotationAttribute(Name = "Abyssal Woods", Description = "Abyssal Woods")]
+        AbyssalWoods = 76860,
+
+        [AnnotationAttribute(Name = "Forsaken Graveyard", Description = "Abyssal Woods")]
+        ForsakenGraveyard = 76862,
+
+        [AnnotationAttribute(Name = "Church Ruins", Description = "Abyssal Woods")]
+        ChurchRuins = 76864,
+
+        [AnnotationAttribute(Name = "Woodland Trail", Description = "Abyssal Woods")]
+        WoodlandTrail = 76863,
+
+        [AnnotationAttribute(Name = "Foot of the Jagged Peak", Description = "Foot of the Jagged Peak")]
+        FootoftheJaggedPeak = 76850,
+
+        [AnnotationAttribute(Name = "Jagged Peak Mountainside", Description = "Jagged Peak")]
+        JaggedPeakMountainside = 76851,
+
+        [AnnotationAttribute(Name = "Jagged Peak Summit", Description = "Jagged Peak")]
+        JaggedPeakSummit = 76852,
+
+        [AnnotationAttribute(Name = "Rest of the Dread Dragon", Description = "Jagged Peak")]
+        RestoftheDreadDragon = 76853,
+
+        [AnnotationAttribute(Name = "Ancient Ruins, Grand Stairway", Description = "Ancient Ruins of Rauh")]
+        AncientRuinsGrandStairway = 76944,
+
+        [AnnotationAttribute(Name = "Church of the Bud", Description = "Ancient Ruins of Rauh")]
+        ChurchoftheBud = 76945,
+
+        [AnnotationAttribute(Name = "Church of the Bud, Main Entrance", Description = "Ancient Ruins of Rauh")]
+        ChurchoftheBudMainEntrance = 76943,
+
+        [AnnotationAttribute(Name = "Rauh Ancient Ruins, West", Description = "Ancient Ruins of Rauh")]
+        RauhAncientRuinsWest = 76942,
+
+        [AnnotationAttribute(Name = "Rauh Ancient Ruins, East", Description = "Ancient Ruins of Rauh")]
+        RauhAncientRuinsEast = 76941,
+
+        [AnnotationAttribute(Name = "Viaduct Minor Tower", Description = "Ancient Ruins of Rauh")]
+        ViaductMinorTower = 76940,
+
+        [AnnotationAttribute(Name = "Temple Town Ruins", Description = "Rauh Base")]
+        TempleTownRuins = 76913,
+
+        [AnnotationAttribute(Name = "Ravine North", Description = "Rauh Base")]
+        RavineNorth = 76914,
+
+        [AnnotationAttribute(Name = "Scorpion River Catacombs", Description = "Rauh Base")]
+        ScorpionRiverCatacombs = 74001,
+
+        [AnnotationAttribute(Name = "Taylew's Ruined Forge", Description = "Rauh Base")]
+        TaylewsRuinedForge = 74203,
+
+        [AnnotationAttribute(Name = "Ancient Ruins Base", Description = "Rauh Base")]
+        AncientRuinsBase = 76912,
+
+        [AnnotationAttribute(Name = "Darklight Catacombs", Description = "Scadu Altus")]
+        DarklightCatacombs = 74002,
+
+        [AnnotationAttribute(Name = "Bonny Gaol", Description = "Scadu Altus")]
+        BonnyGaol = 74101,
+
+        [AnnotationAttribute(Name = "Highroad Cross", Description = "Scadu Altus")]
+        HighroadCross = 76900,
+
+        [AnnotationAttribute(Name = "Scadu Altus, West", Description = "Scadu Altus")]
+        ScaduAltusWest = 76907,
+
+        [AnnotationAttribute(Name = "Moorth Highway, South", Description = "Scadu Altus")]
+        MoorthHighwaySouth = 76908,
+
+        [AnnotationAttribute(Name = "Fort of Reprimand", Description = "Scadu Altus")]
+        FortofReprimand = 76909,
+
+        [AnnotationAttribute(Name = "Behind the Fort of Reprimand", Description = "Scadu Altus")]
+        BehindtheFortofReprimand = 76910,
+
+        [AnnotationAttribute(Name = "Moorth Ruins", Description = "Scadu Altus")]
+        MoorthRuins = 76902,
+
+        [AnnotationAttribute(Name = "Bonny Village", Description = "Scadu Altus")]
+        BonnyVillage = 76903,
+
+        [AnnotationAttribute(Name = "Castle Watering Hole", Description = "Scadu Altus")]
+        CastleWateringHole = 76916,
+
+        [AnnotationAttribute(Name = "Ruined Forge of Starfall Past", Description = "Scadu Altus")]
+        RuinedForgeofStarfallPast = 74202,
+
+        [AnnotationAttribute(Name = "Scaduview Cross", Description = "Scadu Altus")]
+        ScaduviewCross = 76911,
+
+        [AnnotationAttribute(Name = "Recluses' River Downstream", Description = "Scadu Altus")]
+        ReclusesRiverDownstream = 76918,
+
+        [AnnotationAttribute(Name = "Recluses' River Upstream", Description = "Scadu Altus")]
+        ReclusesRiverUpstream = 76917,
+
+        [AnnotationAttribute(Name = "Bridge Leading to the Village", Description = "Scadu Altus")]
+        BridgeLeadingtotheVillage = 76904,
+
+        [AnnotationAttribute(Name = "Cathedral of Manus Metyr", Description = "Scadu Altus")]
+        CathedralofManusMetyr = 76906,
+
+        [AnnotationAttribute(Name = "Church District Highroad", Description = "Scadu Altus")]
+        ChurchDistrictHighroad = 76905,
+
+        [AnnotationAttribute(Name = "Scaduview", Description = "Scaduview")]
+        Scaduview = 76930,
+
+        [AnnotationAttribute(Name = "Shadow Keep, Back Gate", Description = "Scaduview")]
+        ShadowKeepBackGate = 76931,
+
+        [AnnotationAttribute(Name = "Fingerstone Hill", Description = "Scaduview")]
+        FingerstoneHill = 76936,
+
+        [AnnotationAttribute(Name = "Hinterland Bridge", Description = "Scaduview")]
+        HinterlandBridge = 76937,
+
+        [AnnotationAttribute(Name = "Hinterland", Description = "Scaduview")]
+        Hinterland = 76935,
+
+        [AnnotationAttribute(Name = "Scadutree Base", Description = "Scaduview")]
+        ScadutreeBase = 76960,
     }
 }

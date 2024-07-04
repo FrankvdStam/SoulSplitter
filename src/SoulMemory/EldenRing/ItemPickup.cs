@@ -9628,6 +9628,1299 @@ namespace SoulMemory.EldenRing
         [AnnotationAttribute(Name = "[Consecrated Snowfield - Consecrated Snowfield Catacombs Entrance] Rune Arc 1050557900")]
         ConsecratedSnowfieldConsecratedSnowfieldCatacombsEntranceRuneArc = 1050557900,
 
+        // DLC Items
+        [AnnotationAttribute(Name = "[Shadow Keep] Main-gauche 21007020")]
+        ShadowKeepMaingauche = 21007020,
+
+        [AnnotationAttribute(Name = "[Stone Coffin Fissure] Velvet Sword of St. Trina 22007150")]
+        StoneCoffinFissureVelvetSwordofStTrina = 22007150,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Demi-Human Queen Marigga] Star-Lined Sword 530845")]
+        GravesitePlainDemiHumanQueenMariggaStarLinedSword = 530845,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Carian Sorcery Sword 2047447820")]
+        GravesitePlainWestCastleEnsisCarianSorcerySword = 2047447820,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Stone-Sheathed Sword 2045477900")]
+        RauhBaseRavineNorthStoneSheathedSword = 2045477900,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light 2045477500")]
+        RauhBaseRavineNorthSwordofLight = 2045477500,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light +1 2045477510")]
+        RauhBaseRavineNorthSwordofLight1 = 2045477510,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light +2 2045477520")]
+        RauhBaseRavineNorthSwordofLight2 = 2045477520,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light +3 2045477530")]
+        RauhBaseRavineNorthSwordofLight3 = 2045477530,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light +4 2045477540")]
+        RauhBaseRavineNorthSwordofLight4 = 2045477540,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light +5 2045477550")]
+        RauhBaseRavineNorthSwordofLight5 = 2045477550,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light +6 2045477560")]
+        RauhBaseRavineNorthSwordofLight6 = 2045477560,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light +7 2045477570")]
+        RauhBaseRavineNorthSwordofLight7 = 2045477570,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light +8 2045477580")]
+        RauhBaseRavineNorthSwordofLight8 = 2045477580,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light +9 2045477590")]
+        RauhBaseRavineNorthSwordofLight9 = 2045477590,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Sword of Light +10 2045477600")]
+        RauhBaseRavineNorthSwordofLight10 = 2045477600,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness 2045477700")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness = 2045477700,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness +1 2045477710")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness1 = 2045477710,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness +2 2045477720")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness2 = 2045477720,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness +3 2045477730")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness3 = 2045477730,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness +4 2045477740")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness4 = 2045477740,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness +5 2045477750")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness5 = 2045477750,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness +6 2045477760")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness6 = 2045477760,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness +7 2045477770")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness7 = 2045477770,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness +8 2045477780")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness8 = 2045477780,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness +9 2045477790")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness9 = 2045477790,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Sword of Darkness +10 2045477800")]
+        ScaduAltusCastleWateringHoleSoutheastSwordofDarkness10 = 2045477800,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Blackgaol Knight] Greatsword of Solitude, Solitude Set 530820")]
+        GravesitePlainBlackgaolKnightGreatswordofSolitude = 530820,
+
+        [AnnotationAttribute(Name = "[Ruined Forge of Starfall Past] Ancient Meteoric Ore Greatsword 42027000")]
+        RuinedForgeofStarfallPastAncientMeteoricOreGreatsword = 42027000,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Moonrithyll, Carian Knight] Moonrithyll's Knight Sword 530865")]
+        GravesitePlainMoonrithyllCarianKnightMoonrithyllsKnightSword = 530865,
+
+        [AnnotationAttribute(Name = "[Shadow Keep] Queelign's Greatsword 400692")]
+        ShadowKeepQueelignsGreatsword = 400692,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Ravine South] Spirit Sword 2047397000")]
+        CeruleanCoastRavineSouthSpiritSword = 2047397000,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim - Hornsent] Falx, Hornsent Set 400614")]
+        EnirIlimHornsentFalx = 400614,
+
+        [AnnotationAttribute(Name = "[Belurat - Horned Warrior] Horned Warrior's Sword 20007993")]
+        BeluratHornedWarriorHornedWarriorsSword = 20007993,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim, or earlier places] Freyja's Greatsword, Freyja's Set 400602")]
+        EnirIlimFreyjasGreatsword = 400602,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim - Horned Warrior] Horned Warrior's Greatsword 20017991")]
+        EnirIlimHornedWarriorHornedWarriorsGreatsword = 20017991,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Cathedral of Manus Metyr] Sword of Night 400671")]
+        ScaduAltusCathedralofManusMetyrSwordofNight = 400671,
+
+        [AnnotationAttribute(Name = "[Belurat] Euporia 20007330")]
+        BeluratEuporia = 20007330,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Black Knight] Black Steel Twinblade 2048467710")]
+        ScaduAltusBlackKnightBlackSteelTwinblade = 2048467710,
+
+        [AnnotationAttribute(Name = "[Finger Ruins of Rhia - Climb to Finger-Weaver's Hovel] Flowerstone Gavel 400704")]
+        FingerRuinsofRhiaClimbtoFingerWeaversHovelFlowerstoneGavel = 400704,
+
+        [AnnotationAttribute(Name = "[Taylew's Ruined Forge] Smithscript Greathammer 42037160")]
+        TaylewsRuinedForgeSmithscriptGreathammer = 42037160,
+
+        [AnnotationAttribute(Name = "[Ruined Forge Lava Intake] Anvil Hammer 42007000")]
+        RuinedForgeLavaIntakeAnvilHammer = 42007000,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Black Knight] Black Steel Greathammer 2048417980")]
+        GravesitePlainBlackKnightBlackSteelGreathammer = 2048417980,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Bloodfiend] Bloodfiend's Arm 2045417950")]
+        GravesitePlainBloodfiendBloodfiendsArm = 2045417950,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - North Fog Rift Fort] Serpent Flail 2047457900")]
+        GravesitePlainNorthFogRiftFortSerpentFlail = 2047457900,
+
+        [AnnotationAttribute(Name = "[Taylew's Ruined Forge] Smithscript Axe 42037100")]
+        TaylewsRuinedForgeSmithscriptAxe = 42037100,
+
+        [AnnotationAttribute(Name = "[Fog Rift Catacombs - Death Knight] Death Knight's Twin Axes, Crimson Amber Medallion +3 520700")]
+        FogRiftCatacombsDeathKnightDeathKnightsTwinAxes = 520700,
+
+        [AnnotationAttribute(Name = "[Scorpion River Catacombs - Death Knight] Death Knight's Longhaft Axe 520710")]
+        ScorpionRiverCatacombsDeathKnightDeathKnightsLonghaftAxe = 520710,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Main Bonny Village] Bonny Butchering Knife 2050447050")]
+        ScaduAltusMainBonnyVillageBonnyButcheringKnife = 2050447050,
+
+        [AnnotationAttribute(Name = "[Ruined Forge of Starfall Past] Smithscript Spear 42027050")]
+        RuinedForgeofStarfallPastSmithscriptSpear = 42027050,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - East of Ensis Castle Front] Swift Spear 2047437030")]
+        GravesitePlainEastofEnsisCastleFrontSwiftSpear = 2047437030,
+
+        [AnnotationAttribute(Name = "[Ancient Ruins Base - Bloodfiend] Bloodfiend's Sacred Spear 2047477950")]
+        AncientRuinsBaseBloodfiendBloodfiendsSacredSpear = 2047477950,
+
+        [AnnotationAttribute(Name = "[Abyssal Woods - Jori, Elder Inquisitor] Barbed Staff-Spear 510610")]
+        AbyssalWoodsJoriElderInquisitorBarbedStaffSpear = 510610,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - South of Church of Consolation] Spirit Glaive 2048407010")]
+        GravesitePlainSouthofChurchofConsolationSpiritGlaive = 2048407010,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Bridge Leading to the Village] Tooth Whip 2051447000")]
+        ScaduAltusBridgeLeadingtotheVillageToothWhip = 2051447000,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Thiollier's Hidden Needle, Thiollier's Set 400634")]
+        EnirIlimThiolliersHiddenNeedle = 400634,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Church of Benediction] Pata 2046407000")]
+        GravesitePlainChurchofBenedictionPata = 2046407000,
+
+        [AnnotationAttribute(Name = "[Belurat] Poisoned Hand 20007300")]
+        BeluratPoisonedHand = 20007300,
+
+        [AnnotationAttribute(Name = "[Abyssal Woods - Madding Hand] Madding Hand 2052427500")]
+        AbyssalWoodsMaddingHandMaddingHand = 2052427500,
+
+        [AnnotationAttribute(Name = "[Bonny Gaol] Shield of Night 41017220")]
+        BonnyGaolShieldofNight = 41017220,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Swordhand of Night Anna] Claws of Night 400672")]
+        ScaduAltusSwordhandofNightAnnaClawsofNight = 400672,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Crucible Knight Devonia] Devonia's Hammer 2045477400")]
+        RauhBaseCrucibleKnightDevoniaDevoniasHammer = 2045477400,
+
+        [AnnotationAttribute(Name = "[Midra's Manse] Nanaya's Torch 28007100")]
+        MidrasManseNanayasTorch = 28007100,
+
+        [AnnotationAttribute(Name = "[Lamenter's Gaol] Lamenting Visage 41027130")]
+        LamentersGaolLamentingVisage = 41027130,
+
+        [AnnotationAttribute(Name = "[Taylew's Ruined Forge] Smithscript Shield 42037120")]
+        TaylewsRuinedForgeSmithscriptShield = 42037120,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Wolf Crest Shield 2047447830")]
+        GravesitePlainWestCastleEnsisWolfCrestShield = 2047447830,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - South of Dragon Lake] Serpent Crest Shield 580400")]
+        GravesitePlainSouthofDragonLakeSerpentCrestShield = 580400,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Redmane Freyja] Golden Lion Shield 400600")]
+        GravesitePlainRedmaneFreyjaGoldenLionShield = 400600,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Black Knight Garrew] Black Steel Greatshield 530955")]
+        GravesitePlainBlackKnightGarrewBlackSteelGreatshield = 530955,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Belurat Main Gate Cross] Verdigris Greatshield, Verdigris Set 400645")]
+        GravesitePlainBeluratMainGateCrossVerdigrisGreatshield = 400645,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Count Ymir, Mother of Fingers] Maternal Staff, High Priest Set, Ymir's Bell Bearing 400664")]
+        ScaduAltusCountYmirMotherofFingersMaternalStaff = 400664,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Bonny Village North Tree and Overlook] Dryleaf Seal 2050457020")]
+        ScaduAltusBonnyVillageNorthTreeandOverlookDryleafSeal = 2050457020,
+
+        [AnnotationAttribute(Name = "[Shadow Keep] Fire Knight's Seal 21007650")]
+        ShadowKeepFireKnightsSeal = 21007650,
+
+        [AnnotationAttribute(Name = "[Belurat] Bone Bow 20007600")]
+        BeluratBoneBow = 20007600,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse - Needle Knight Leda] Ansbach's Longbow 400595")]
+        SpecimenStorehouseNeedleKnightLedaAnsbachsLongbow = 400595,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse - Sir Ansbach] Ansbach's Longbow 400623")]
+        SpecimenStorehouseSirAnsbachAnsbachsLongbow = 400623,
+
+        [AnnotationAttribute(Name = "[Foot of the Jagged Peak - Foot of the Jagged Peak] Igon's Greatbow with Ash of War: Igon's Drake Hunt, Igon's Set, Igon's Bell Bearing 400712")]
+        FootoftheJaggedPeakFootoftheJaggedPeakIgonsGreatbowwithAshofWarIgonsDrakeHunt = 400712,
+
+        [AnnotationAttribute(Name = "[Foot of the Jagged Peak - Foot of the Jagged Peak] Igon's Greatbow, Igon's Set, Igon's Bell Bearing 400714")]
+        FootoftheJaggedPeakFootoftheJaggedPeakIgonsGreatbow = 400714,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Igon] Igon's Greatbow, Igon's Set, Igon's Bell Bearing 400711")]
+        GravesitePlainIgonIgonsGreatbow = 400711,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Southeast Poison Swamp] Repeating Crossbow 2049437000")]
+        GravesitePlainSoutheastPoisonSwampRepeatingCrossbow = 2049437000,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - East of Ensis Castle Front] Spread Crossbow 2047437010")]
+        GravesitePlainEastofEnsisCastleFrontSpreadCrossbow = 2047437010,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Road to Manus Metyr] Rabbath's Cannon 2051467900")]
+        ScaduAltusRoadtoManusMetyrRabbathsCannon = 2051467900,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Moorth Ruins] Dryleaf Arts with Ash of War: Palm Blast, Dane's Hat 400730")]
+        ScaduAltusMoorthRuinsDryleafArtswithAshofWarPalmBlast = 400730,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Dane's Footwork 400732")]
+        EnirIlimDanesFootwork = 400732,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Firespark Perfume Bottle 2047447840")]
+        GravesitePlainWestCastleEnsisFiresparkPerfumeBottle = 2047447840,
+
+        [AnnotationAttribute(Name = "[Lamenter's Gaol] Chilling Perfume Bottle 41027100")]
+        LamentersGaolChillingPerfumeBottle = 41027100,
+
+        [AnnotationAttribute(Name = "[Abyssal Woods - Abandoned Church] Frenzyflame Perfume Bottle 2053417000")]
+        AbyssalWoodsAbandonedChurchFrenzyflamePerfumeBottle = 2053417000,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - South of Church of Consolation] Lightning Perfume Bottle 2048407000")]
+        GravesitePlainSouthofChurchofConsolationLightningPerfumeBottle = 2048407000,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Dueling Shield with Ash of War: Shield Strike 21017150")]
+        SpecimenStorehouseDuelingShieldwithAshofWarShieldStrike = 21017150,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Carian Thrusting Shield 21017620")]
+        SpecimenStorehouseCarianThrustingShield = 21017620,
+
+        [AnnotationAttribute(Name = "[Ruined Forge Lava Intake] Smithscript Dagger 42007150")]
+        RuinedForgeLavaIntakeSmithscriptDagger = 42007150,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - North of Scorched Ruins] Backhand Blade with Ash of War: Blind Spot 2047427700")]
+        GravesitePlainNorthofScorchedRuinsBackhandBladewithAshofWarBlindSpot = 2047427700,
+
+        [AnnotationAttribute(Name = "[Ruined Forge of Starfall Past] Smithscript Cirque 42027060")]
+        RuinedForgeofStarfallPastSmithscriptCirque = 42027060,
+
+        [AnnotationAttribute(Name = "[Dragon's Pit - Ancient Dragon-Man] Dragon-Hunter's Great Katana 520810")]
+        DragonsPitAncientDragonManDragonHuntersGreatKatana = 520810,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Rakshasa] Rakshasa's Great Katana, Rakshasa Set 530830")]
+        ScaduAltusRakshasaRakshasasGreatKatana = 530830,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Dragon Lake] Great Katana with Ash of War: Overhead Stance 2045447010")]
+        GravesitePlainDragonLakeGreatKatanawithAshofWarOverheadStance = 2045447010,
+
+        [AnnotationAttribute(Name = "[Dragon's Pit - Ancient Dragon-Man] Dragon-Hunter's Great Katana 520810")]
+        DragonsPitAncientDragonManDragonHuntersGreatKatana_ = 520810,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Milady 2047447800")]
+        GravesitePlainWestCastleEnsisMilady = 2047447800,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim - Needle Knight Leda] Leda's Sword 510420")]
+        EnirIlimNeedleKnightLedaLedasSword = 510420,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Logur, the Beast Claw] Beast Claw (Weapon 68500000) with Ash of War: Savage Claws 2047407980")]
+        GravesitePlainLogurtheBeastClawBeastClawWeapon68500000withAshofWarSavageClaws = 2047407980,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Red Bear] Red Bear's Claw, Iron Rivet Set 530900")]
+        RauhBaseRedBearRedBearsClaw = 530900,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Main Bonny Village] Dryleaf Set 2050447720")]
+        ScaduAltusMainBonnyVillageDryleafSet = 2050447720,
+
+        [AnnotationAttribute(Name = "[Scaduview - Albinauric Archer] Gaius's Greaves 2049490900")]
+        ScaduviewAlbinauricArcherGaiussGreaves = 2049490900,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Church of Benediction] Oathseeker Knight Helm 2046407001")]
+        GravesitePlainChurchofBenedictionOathseekerKnightHelm = 2046407001,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Leda's Armor 400598")]
+        EnirIlimLedasArmor = 400598,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Church of Benediction] Oathseeker Knight Gauntlets 2046407003")]
+        GravesitePlainChurchofBenedictionOathseekerKnightGauntlets = 2046407003,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Church of Benediction] Oathseeker Knight Greaves 2046407004")]
+        GravesitePlainChurchofBenedictionOathseekerKnightGreaves = 2046407004,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Church of Benediction] Oathseeker Knight Armor 2046407002")]
+        GravesitePlainChurchofBenedictionOathseekerKnightArmor = 2046407002,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Ralva the Great Red Bear] Pelt of Ralva 530930")]
+        ScaduAltusRalvatheGreatRedBearPeltofRalva = 530930,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Dancer of Ranah] Dancer's Set, Dancing Blade of Ranah 530810")]
+        CeruleanCoastDancerofRanahDancersSet = 530810,
+
+        [AnnotationAttribute(Name = "[Bonny Gaol] Night Set 41017300")]
+        BonnyGaolNightSet = 41017300,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse - Sir Ansbach] Ansbach's Set 400622")]
+        SpecimenStorehouseSirAnsbachAnsbachsSet = 400622,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Ansbach's Set, Furious Blade of Ansbach, Obsidian Lamina 400624")]
+        EnirIlimAnsbachsSet = 400624,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Ansbach's Set, Ansbach's Longbow, Letter for Freyja 400625")]
+        SpecimenStorehouseAnsbachsSet = 400625,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - Fire Knight] Death Mask Helm 21007995")]
+        ShadowKeepFireKnightDeathMaskHelm = 21007995,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse - Fire Knight] Winged Serpent Helm, Ash of War: Flame Spear 21017991")]
+        SpecimenStorehouseFireKnightWingedSerpentHelm = 21017991,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - Fire Knight] Salza's Hood, Rain of Fire 21027991")]
+        ShadowKeepFireKnightSalzasHood = 21027991,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Northwest Great Red Bear Area] Highland Warrior Set 2044477010")]
+        RauhBaseNorthwestGreatRedBearAreaHighlandWarriorSet = 2044477010,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Moorth Highway Camp] Highland Warrior Set 2049457200")]
+        ScaduAltusMoorthHighwayCampHighlandWarriorSet = 2049457200,
+
+        [AnnotationAttribute(Name = "[Darklight Catacombs] Death Knight Set 40027130")]
+        DarklightCatacombsDeathKnightSet = 40027130,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Gravebird Helm 20017500")]
+        EnirIlimGravebirdHelm = 20017500,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Rot Area] Gravebird's Blackquill Armor 2045467070")]
+        RauhBaseRotAreaGravebirdsBlackquillArmor = 2045467070,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Pillar Path Waypoint] Gravebird Bracelets 2048427020")]
+        GravesitePlainPillarPathWaypointGravebirdBracelets = 2048427020,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Poison Swamp] Gravebird Anklets 2049467010")]
+        ScaduAltusPoisonSwampGravebirdAnklets = 2049467010,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Dragon Lake] Gravebird Armor 2045447020")]
+        GravesitePlainDragonLakeGravebirdArmor = 2045447020,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Circlet of Light 20017981")]
+        EnirIlimCircletofLight = 20017981,
+
+        [AnnotationAttribute(Name = "[Belurat] Divine Beast Head 20007810")]
+        BeluratDivineBeastHead = 20007810,
+
+        [AnnotationAttribute(Name = "[Stone Coffin Fissure] St. Trina's Blossom 400740")]
+        StoneCoffinFissureStTrinasBlossom = 400740,
+
+        [AnnotationAttribute(Name = "[Belurat Gaol] Greatjar 41007250")]
+        BeluratGaolGreatjar = 41007250,
+
+        [AnnotationAttribute(Name = "[Scorpion River Catacombs] Imp Head (Lion) 40017070")]
+        ScorpionRiverCatacombsImpHeadLion = 40017070,
+
+        [AnnotationAttribute(Name = "[Scorpion River Catacombs - Death Knight] Cerulean Amber Medallion +3 520711")]
+        ScorpionRiverCatacombsDeathKnightCeruleanAmberMedallion3 = 520711,
+
+        [AnnotationAttribute(Name = "[Darklight Catacombs] Viridian Amber Medallion +3 40027020")]
+        DarklightCatacombsViridianAmberMedallion3 = 40027020,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Temple Town Ruins] Two-Headed Turtle Talisman 2046457000")]
+        RauhBaseTempleTownRuinsTwoHeadedTurtleTalisman = 2046457000,
+
+        [AnnotationAttribute(Name = "[Bonny Gaol] Stalwart Horn Charm +2 41017020")]
+        BonnyGaolStalwartHornCharm2 = 41017020,
+
+        [AnnotationAttribute(Name = "[Belurat - Ulcerated Tree Spirit] Immunizing Horn Charm +2 20007991")]
+        BeluratUlceratedTreeSpiritImmunizingHornCharm2 = 20007991,
+
+        [AnnotationAttribute(Name = "[Lamenter's Gaol] Clarifying Horn Charm +2 41027210")]
+        LamentersGaolClarifyingHornCharm2 = 41027210,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Rot Area] Mottled Necklace +2 2045467900")]
+        RauhBaseRotAreaMottledNecklace2 = 2045467900,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Spelldrake Talisman +3 2047447190")]
+        GravesitePlainWestCastleEnsisSpelldrakeTalisman3 = 2047447190,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Southeast Poison Swamp] Flamedrake Talisman +3 2049437270")]
+        GravesitePlainSoutheastPoisonSwampFlamedrakeTalisman3 = 2049437270,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Boltdrake Talisman +3 21017100")]
+        SpecimenStorehouseBoltdrakeTalisman3 = 21017100,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Church District Highroad] Golden Braid 2051477510")]
+        ScaduAltusChurchDistrictHighroadGoldenBraid = 2051477510,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Pearldrake Talisman +3 21017120")]
+        SpecimenStorehousePearldrakeTalisman3 = 21017120,
+
+        [AnnotationAttribute(Name = "[Finger Ruins of Rhia - Northwest] Crimson Seed Talisman +1 2050407000")]
+        FingerRuinsofRhiaNorthwestCrimsonSeedTalisman1 = 2050407000,
+
+        [AnnotationAttribute(Name = "[Finger Ruins of Dheo - West] Cerulean Seed Talisman +1 2053467600")]
+        FingerRuinsofDheoWestCeruleanSeedTalisman1 = 2053467600,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Church of Benediction] Blessed Blue Dew Talisman 2046407700")]
+        GravesitePlainChurchofBenedictionBlessedBlueDewTalisman = 2046407700,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Northeast Great Red Bear Area] Fine Crucible Feather Talisman 2045487000")]
+        RauhBaseNortheastGreatRedBearAreaFineCrucibleFeatherTalisman = 2045487000,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Cliffroad Terminus] Outer God Heirloom 2045417800")]
+        GravesitePlainCliffroadTerminusOuterGodHeirloom = 2045417800,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Moorth Ruins] Shattered Stone Talisman 2049447090")]
+        ScaduAltusMoorthRuinsShatteredStoneTalisman = 2049447090,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Temple Town Ruins] Two-Handed Sword Talisman 2046457910")]
+        RauhBaseTempleTownRuinsTwoHandedSwordTalisman = 2046457910,
+
+        [AnnotationAttribute(Name = "[Belurat - Fire Knight Queelign] Crusade Insignia 400694")]
+        BeluratFireKnightQueelignCrusadeInsignia = 400694,
+
+        [AnnotationAttribute(Name = "[Finger Ruins of Rhia - Winter-Lantern] Aged One's Exultation 2051417700")]
+        FingerRuinsofRhiaWinterLanternAgedOnesExultation = 2051417700,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - North Fog Rift Fort] Arrow's Soaring Sting Talisman 2047457910")]
+        GravesitePlainNorthFogRiftFortArrowsSoaringStingTalisman = 2047457910,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Bloodfiend Cave] Pearl Shield Talisman 2047477900")]
+        RauhBaseBloodfiendCavePearlShieldTalisman = 2047477900,
+
+        [AnnotationAttribute(Name = "[Belurat] Dried Bouquet 20007630")]
+        BeluratDriedBouquet = 20007630,
+
+        [AnnotationAttribute(Name = "[Ruined Forge of Starfall Past] Smithing Talisman 42027030")]
+        RuinedForgeofStarfallPastSmithingTalisman = 42027030,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Greatbridge North] Ailment Talisman 2046447030")]
+        GravesitePlainGreatbridgeNorthAilmentTalisman = 2046447030,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Needle Knight Leda] Retaliatory Crossed-Tree 400592")]
+        ScaduAltusNeedleKnightLedaRetaliatoryCrossedTree = 400592,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Needle Knight Leda] Lacerating Crossed-Tree 400590")]
+        ScaduAltusNeedleKnightLedaLaceratingCrossedTree = 400590,
+
+        [AnnotationAttribute(Name = "[Scaduview - Scadutree Chalice] Sharpshot Talisman 2049497510")]
+        ScaduviewScadutreeChaliceSharpshotTalisman = 2049497510,
+
+        [AnnotationAttribute(Name = "[Stone Coffin Fissure - Thiollier] St. Trina's Smile 400632")]
+        StoneCoffinFissureThiollierStTrinasSmile = 400632,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Elder's Hovel] Talisman of the Dread 2049427000")]
+        GravesitePlainEldersHovelTalismanoftheDread = 2049427000,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Count Ymir, High Priest] Beloved Stardust, Ruins Map (2nd) 400661")]
+        ScaduAltusCountYmirHighPriestBelovedStardust = 400661,
+
+        [AnnotationAttribute(Name = "[Shadow Keep] Talisman of Lord's Bestowal 21007070")]
+        ShadowKeepTalismanofLordsBestowal = 21007070,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Fire Spritestone Cave] Verdigris Discus 2046477720")]
+        RauhBaseFireSpritestoneCaveVerdigrisDiscus = 2046477720,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Rellana's Cameo 2047447700")]
+        GravesitePlainWestCastleEnsisRellanasCameo = 2047447700,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Scorched Ruins] Blade of Mercy 2047417800")]
+        GravesitePlainScorchedRuinsBladeofMercy = 2047417800,
+
+        [AnnotationAttribute(Name = "[Ancient Ruins of Rauh - South Church of the Bud] Talisman of All Crucibles 2044457900")]
+        AncientRuinsofRauhSouthChurchoftheBudTalismanofAllCrucibles = 2044457900,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Fire Spritestone Cave] Ash of War: Dryleaf Whirlwind 2046477150")]
+        RauhBaseFireSpritestoneCaveAshofWarDryleafWhirlwind = 2046477150,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Black Knight Edredd] Ash of War: Aspects of the Crucible: Wings 530965")]
+        GravesitePlainBlackKnightEdreddAshofWarAspectsoftheCrucibleWings = 530965,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Scarab] Ash of War: Piercing Throw 540902")]
+        GravesitePlainScarabAshofWarPiercingThrow = 540902,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Scarab] Ash of War: Scattershot Throw 540910")]
+        ScaduAltusScarabAshofWarScattershotThrow = 540910,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - West Rampart] Ash of War: Wall of Sparks 21027020")]
+        ShadowKeepWestRampartAshofWarWallofSparks = 21027020,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Scarab] Ash of War: Rolling Sparks 540904")]
+        ScaduAltusScarabAshofWarRollingSparks = 540904,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Scarab] Ash of War: Raging Beast 540906")]
+        ScaduAltusScarabAshofWarRagingBeast = 540906,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - Needle Knight Leda] Ash of War: Swift Slash 400594")]
+        ShadowKeepNeedleKnightLedaAshofWarSwiftSlash = 400594,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - East Castle Ensis] Ash of War: Wing Stance 2048447810")]
+        GravesitePlainEastCastleEnsisAshofWarWingStance = 2048447810,
+
+        [AnnotationAttribute(Name = "[Fog Rift Catacombs] Ash of War: Blinkbolt 40007900")]
+        FogRiftCatacombsAshofWarBlinkbolt = 40007900,
+
+        [AnnotationAttribute(Name = "[Belurat - Fire Knight Queelign] Ash of War: Flame Skewer, Prayer Room Key 400696")]
+        BeluratFireKnightQueelignAshofWarFlameSkewer = 400696,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - South of Dragon Lake] Ash of War: Savage Lion's Claw 2045437700")]
+        GravesitePlainSouthofDragonLakeAshofWarSavageLionsClaw = 2045437700,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Scarab] Ash of War: Carian Sovereignty 540900")]
+        ScaduAltusScarabAshofWarCarianSovereignty = 540900,
+
+        [AnnotationAttribute(Name = "[Belurat] Ash of War: Shriek of Sorrow 20007410")]
+        BeluratAshofWarShriekofSorrow = 20007410,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Death Rite Bird] Ash of War: Ghostflame Call 530855")]
+        CeruleanCoastDeathRiteBirdAshofWarGhostflameCall = 530855,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Scarab] Ash of War: The Poison Flower Blooms Twice 540916")]
+        RauhBaseScarabAshofWarThePoisonFlowerBloomsTwice = 540916,
+
+        [AnnotationAttribute(Name = "[Jagged Peak - Between Jagged Peak Mountainside and Summit] Rock Heart 580420")]
+        JaggedPeakBetweenJaggedPeakMountainsideandSummitRockHeart = 580420,
+
+        [AnnotationAttribute(Name = "[Lamenter's Gaol - Lamenter] Lamenter's Mask 520770")]
+        LamentersGaolLamenterLamentersMask = 520770,
+
+        [AnnotationAttribute(Name = "[Shadow Keep] Iris of Grace 21007800")]
+        ShadowKeepIrisofGrace = 21007800,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - West Rampart] Iris of Grace 21027040")]
+        ShadowKeepWestRampartIrisofGrace = 21027040,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - Ulcerated Tree Spirit] Iris of Occultation 21007993")]
+        ShadowKeepUlceratedTreeSpiritIrisofOccultation = 21007993,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Omenkiller] Iris of Occultation 2049437940")]
+        GravesitePlainOmenkillerIrisofOccultation = 2049437940,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Thiollier] Thiollier's Concoction 400630")]
+        GravesitePlainThiollierThiolliersConcoction = 400630,
+
+        [AnnotationAttribute(Name = "[Lamenter's Gaol] Prattling Pate \"Lamentation\" 41027010")]
+        LamentersGaolPrattlingPateLamentation = 41027010,
+
+        [AnnotationAttribute(Name = "[Scaduview - Commander Gaius] Remembrance of the Wild Boar Rider 510640")]
+        ScaduviewCommanderGaiusRemembranceoftheWildBoarRider = 510640,
+
+        [AnnotationAttribute(Name = "[Scaduview - Scadutree Avatar] Remembrance of the Shadow Sunflower, Miquella's Great Rune 510620")]
+        ScaduviewScadutreeAvatarRemembranceoftheShadowSunflower = 510620,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Rellana, Twin Moon Knight] Remembrance of the Twin Moon Knight 510900")]
+        GravesitePlainRellanaTwinMoonKnightRemembranceoftheTwinMoonKnight = 510900,
+
+        [AnnotationAttribute(Name = "[Ancient Ruins of Rauh - Romina, Saint of the Bud] Remembrance of the Saint of the Bud 510600")]
+        AncientRuinsofRauhRominaSaintoftheBudRemembranceoftheSaintoftheBud = 510600,
+
+        [AnnotationAttribute(Name = "[Belurat - Divine Beast Dancing Lion] Remembrance of the Dancing Lion 510400")]
+        BeluratDivineBeastDancingLionRemembranceoftheDancingLion = 510400,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim - Radahn, Consort of Miquella] Remembrance of a God and a Lord 510430")]
+        EnirIlimRadahnConsortofMiquellaRemembranceofaGodandaLord = 510430,
+
+        [AnnotationAttribute(Name = "[Midra's Manse - Midra, Lord of Frenzied Flame] Remembrance of the Lord of Frenzied Flame 510560")]
+        MidrasManseMidraLordofFrenziedFlameRemembranceoftheLordofFrenziedFlame = 510560,
+
+        [AnnotationAttribute(Name = "[Finger Birthing Grounds - Metyr, Mother of Fingers] Remembrance of the Mother of Fingers 510550")]
+        FingerBirthingGroundsMetyrMotherofFingersRemembranceoftheMotherofFingers = 510550,
+
+        [AnnotationAttribute(Name = "[Stone Coffin Fissure - Putrescent Knight] Remembrance of Putrescence 510480")]
+        StoneCoffinFissurePutrescentKnightRemembranceofPutrescence = 510480,
+
+        [AnnotationAttribute(Name = "[Ancient Ruins of Rauh - East Ruins North Pit and Tunnels] Bondstone 2046487010")]
+        AncientRuinsofRauhEastRuinsNorthPitandTunnelsBondstone = 2046487010,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Fire Spritestone Cave] Fire Spritestone 2046477060")]
+        RauhBaseFireSpritestoneCaveFireSpritestone = 2046477060,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Ulcerated Tree Spirit] Horned Bairn 2047437980")]
+        GravesitePlainUlceratedTreeSpiritHornedBairn = 2047437980,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Southern Nameless Mausoleum] Perfumed Oil of Ranah 2046387070")]
+        CeruleanCoastSouthernNamelessMausoleumPerfumedOilofRanah = 2046387070,
+
+        [AnnotationAttribute(Name = "[Lamenter's Gaol] Call of Tibia 41027110")]
+        LamentersGaolCallofTibia = 41027110,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Cerulean Coast] Call of Tibia 2048397030")]
+        CeruleanCoastCeruleanCoastCallofTibia = 2048397030,
+
+        [AnnotationAttribute(Name = "[Midra's Manse] Surging Frenzied Flame 3x 28007050")]
+        MidrasManseSurgingFrenziedFlame3x = 28007050,
+
+        [AnnotationAttribute(Name = "[Shadow Keep] Golden Vow (Goods 2003170) 21007040")]
+        ShadowKeepGoldenVowGoods2003170 = 21007040,
+
+        [AnnotationAttribute(Name = "[Shadow Keep] Golden Vow (Goods 2003170) 3x 21007090")]
+        ShadowKeepGoldenVowGoods20031703x = 21007090,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Furnace Golem Area] Golden Vow (Goods 2003170) 2x 2048467010")]
+        ScaduAltusFurnaceGolemAreaGoldenVowGoods20031702x = 2048467010,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Fire Coil 21017040")]
+        SpecimenStorehouseFireCoil = 21017040,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Fire Coil 2x 21017410")]
+        SpecimenStorehouseFireCoil2x = 21017410,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Fire Coil 3x 21017630")]
+        SpecimenStorehouseFireCoil3x = 21017630,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Church of Consolation] Fire Coil 2x 2048417000")]
+        GravesitePlainChurchofConsolationFireCoil2x = 2048417000,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Cathedral of Manus Metyr] Glinting Nail 2x 2051457000")]
+        ScaduAltusCathedralofManusMetyrGlintingNail2x = 2051457000,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Sunwarmth Stone 2x 20017480")]
+        EnirIlimSunwarmthStone2x = 20017480,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Glintblade Trio 2047447090")]
+        GravesitePlainWestCastleEnsisGlintbladeTrio = 2047447090,
+
+        [AnnotationAttribute(Name = "[Scaduview - Fallingstar Beast] Gravitational Missile 530960")]
+        ScaduviewFallingstarBeastGravitationalMissile = 530960,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - Ulcerated Tree Spirit] Mantle of Thorns 21007991")]
+        ShadowKeepUlceratedTreeSpiritMantleofThorns = 21007991,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Impenetrable Thorns 21017510")]
+        SpecimenStorehouseImpenetrableThorns = 21017510,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Cerulean Coast] Rings of Spectral Light 2048397050")]
+        CeruleanCoastCeruleanCoastRingsofSpectralLight = 2048397050,
+
+        [AnnotationAttribute(Name = "[Stone Coffin Fissure] Mass of Putrescence 22007210")]
+        StoneCoffinFissureMassofPutrescence = 22007210,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Moorth Highway Camp] Heal from Afar 2049457500")]
+        ScaduAltusMoorthHighwayCampHealfromAfar = 2049457500,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - Golden Hippopotamus] Aspects of the Crucible: Thorns, Scadutree Fragment 2x 510440")]
+        ShadowKeepGoldenHippopotamusAspectsoftheCrucibleThorns = 510440,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Ravine North] Aspects of the Crucible: Bloom 2045477040")]
+        RauhBaseRavineNorthAspectsoftheCrucibleBloom = 2045477040,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Church District Highroad] Minor Erdtree 2051477500")]
+        ScaduAltusChurchDistrictHighroadMinorErdtree = 2051477500,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Wrath from Afar 21017780")]
+        SpecimenStorehouseWrathfromAfar = 21017780,
+
+        [AnnotationAttribute(Name = "[Stone Coffin Fissure - Leonine Misbegotten] Multilayered Ring of Light 22007900")]
+        StoneCoffinFissureLeonineMisbegottenMultilayeredRingofLight = 22007900,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Rugalea the Great Red Bear] Roar of Rugalea 530905")]
+        RauhBaseRugaleatheGreatRedBearRoarofRugalea = 530905,
+
+        [AnnotationAttribute(Name = "[Scorpion River Catacombs] Knight's Lightning Spear 40017080")]
+        ScorpionRiverCatacombsKnightsLightningSpear = 40017080,
+
+        [AnnotationAttribute(Name = "[Finger Ruins of Rhia - Dragon Communion Priestess] Dragonbolt of Florissax 400702")]
+        FingerRuinsofRhiaDragonCommunionPriestessDragonboltofFlorissax = 400702,
+
+        [AnnotationAttribute(Name = "[Fog Rift Catacombs] Electrocharge 40007090")]
+        FogRiftCatacombsElectrocharge = 40007090,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Scorpion River Catacombs Entrance] Pest-Thread Spears 2044467040")]
+        RauhBaseScorpionRiverCatacombsEntrancePestThreadSpears = 2044467040,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Bonny Village North Tree and Overlook] Cherishing Fingers 400666")]
+        ScaduAltusBonnyVillageNorthTreeandOverlookCherishingFingers = 400666,
+
+        [AnnotationAttribute(Name = "[Belurat - Hornsent Grandam] Watchful Spirit 400721")]
+        BeluratHornsentGrandamWatchfulSpirit = 400721,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Moorth Ruins] Golden Arcs 2049447900")]
+        ScaduAltusMoorthRuinsGoldenArcs = 2049447900,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Giant Golden Arc 2050467910")]
+        ScaduAltusCastleWateringHoleSoutheastGiantGoldenArc = 2050467910,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Temple Town Ruins] Spiraltree Seal 580410")]
+        RauhBaseTempleTownRuinsSpiraltreeSeal_ = 580410,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Spira 20017230")]
+        EnirIlimSpira = 20017230,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Divine Beast Dancing Lion] Divine Beast Tornado 530940")]
+        RauhBaseDivineBeastDancingLionDivineBeastTornado = 530940,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Scorpion River Catacombs Entrance] Divine Bird Feathers 2044467110")]
+        RauhBaseScorpionRiverCatacombsEntranceDivineBirdFeathers = 2044467110,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Fire Serpent 21017650")]
+        SpecimenStorehouseFireSerpent = 21017650,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Igon] Igon's Furled Finger 400710")]
+        GravesitePlainIgonIgonsFurledFinger = 400710,
+
+        [AnnotationAttribute(Name = "[Belurat] Well Depths Key 20007510")]
+        BeluratWellDepthsKey = 20007510,
+
+        [AnnotationAttribute(Name = "[Lamenter's Gaol] Gaol Upper Level Key 41027000")]
+        LamentersGaolGaolUpperLevelKey = 41027000,
+
+        [AnnotationAttribute(Name = "[Lamenter's Gaol] Gaol Lower Level Key 41027320")]
+        LamentersGaolGaolLowerLevelKey = 41027320,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Hornsent] Cross Map 400610")]
+        GravesitePlainHornsentCrossMap = 400610,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Hornsent] New Cross Map 400611")]
+        GravesitePlainHornsentNewCrossMap = 400611,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Count Ymir, High Priest] Hole-Laden Necklace, Ruins Map 400660")]
+        ScaduAltusCountYmirHighPriestHoleLadenNecklace = 400660,
+
+        [AnnotationAttribute(Name = "[Jagged Peak - Bayle the Dread] Heart of Bayle 510630")]
+        JaggedPeakBayletheDreadHeartofBayle = 510630,
+
+        [AnnotationAttribute(Name = "[Belurat] Storeroom Key 20007480")]
+        BeluratStoreroomKey = 20007480,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Secret Rite Scroll 21017340")]
+        SpecimenStorehouseSecretRiteScroll = 21017340,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse - Sir Ansbach] Letter for Freyja 400620")]
+        SpecimenStorehouseSirAnsbachLetterforFreyja = 400620,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Count Ymir, High Priest] Ruins Map (3rd) 400662")]
+        ScaduAltusCountYmirHighPriestRuinsMap3rd = 400662,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Moore] Black Syrup 400642")]
+        GravesitePlainMooreBlackSyrup = 400642,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse - Base Serpent Messmer] Messmer's Kindling, Remembrance of the Impaler 510460")]
+        SpecimenStorehouseBaseSerpentMessmerMessmersKindling = 510460,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Northwest Entrance] Furnace Keeper's Note 2049477000")]
+        ScaduAltusCastleWateringHoleNorthwestEntranceFurnaceKeepersNote = 2049477000,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Castle Cross Message 2047447710")]
+        GravesitePlainWestCastleEnsisCastleCrossMessage = 2047447710,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Fire Spritestone Cave] Ancient Ruins Cross Message 2047477000")]
+        RauhBaseFireSpritestoneCaveAncientRuinsCrossMessage = 2047477000,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Highroad Cross] Monk's Missive 2048457510")]
+        ScaduAltusHighroadCrossMonksMissive = 2048457510,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Storehouse Cross Message 21017180")]
+        SpecimenStorehouseStorehouseCrossMessage = 21017180,
+
+        [AnnotationAttribute(Name = "[Midra's Manse] Torn Diary Page 28007010")]
+        MidrasManseTornDiaryPage = 28007010,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Moorth Ruins] Message from Leda 580600")]
+        ScaduAltusMoorthRuinsMessagefromLeda = 580600,
+
+        [AnnotationAttribute(Name = "[Belurat] Tower of Shadow Message 20007830")]
+        BeluratTowerofShadowMessage = 20007830,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Church of Benediction] \"Incursion\" Painting 580100")]
+        GravesitePlainChurchofBenedictionIncursionPainting = 580100,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - North of Scorched Ruins] \"The Sacred Tower\" Painting 580110")]
+        GravesitePlainNorthofScorchedRuinsTheSacredTowerPainting = 580110,
+
+        [AnnotationAttribute(Name = "[Shadow Keep] \"Domain of Dragons\" Painting 580120")]
+        ShadowKeepDomainofDragonsPainting = 580120,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Scorched Ruins] Map: Gravesite Plain 62080")]
+        GravesitePlainScorchedRuinsMapGravesitePlain = 62080,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Highroad Cross] Map: Scadu Altus 62081")]
+        ScaduAltusHighroadCrossMapScaduAltus = 62081,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Cerulean Coast Cross] Map: Southern Shore 62082")]
+        CeruleanCoastCeruleanCoastCrossMapSouthernShore = 62082,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Temple Town Ruins] Map: Rauh Ruins 62083")]
+        RauhBaseTempleTownRuinsMapRauhRuins = 62083,
+
+        [AnnotationAttribute(Name = "[Abyssal Woods - Big Tree West of Church] Map: Abyss 62084")]
+        AbyssalWoodsBigTreeWestofChurchMapAbyss = 62084,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Belurat Main Gate Cross] Moore's Bell Bearing 400644")]
+        GravesitePlainBeluratMainGateCrossMooresBellBearing = 400644,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Scorched Ruins] Herbalist's Bell Bearing 2047407710")]
+        GravesitePlainScorchedRuinsHerbalistsBellBearing = 2047407710,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Greatbridge North] Mushroom-Seller's Bell Bearing [1] 2046447710")]
+        GravesitePlainGreatbridgeNorthMushroomSellersBellBearing1 = 2046447710,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Scorched Ruins] Mushroom-Seller's Bell Bearing [2] 2047417110")]
+        GravesitePlainScorchedRuinsMushroomSellersBellBearing2 = 2047417110,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Road to Manus Metyr] Greasemonger's Bell Bearing 2051467500")]
+        ScaduAltusRoadtoManusMetyrGreasemongersBellBearing = 2051467500,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Main Bonny Village] Moldmonger's Bell Bearing 2050447730")]
+        ScaduAltusMainBonnyVillageMoldmongersBellBearing = 2050447730,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Road to Manus Metyr] Spellmachinist's Bell Bearing 2051467020")]
+        ScaduAltusRoadtoManusMetyrSpellmachinistsBellBearing = 2051467020,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Cliffroad Terminus] String-Seller's Bell Bearing 2045417710")]
+        GravesitePlainCliffroadTerminusStringSellersBellBearing = 2045417710,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Bonny Village North] O Mother 2050457510")]
+        ScaduAltusBonnyVillageNorthOMother = 2050457510,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Kindred of Rot] Forager Brood Cookbook [6] 68510")]
+        ScaduAltusKindredofRotForagerBroodCookbook6 = 68510,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Kindred of Rot] Forager Brood Cookbook [1] 68520")]
+        GravesitePlainKindredofRotForagerBroodCookbook1 = 68520,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Kindred of Rot] Forager Brood Cookbook [2] 68530")]
+        GravesitePlainKindredofRotForagerBroodCookbook2 = 68530,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Kindred of Rot] Forager Brood Cookbook [3] 68540")]
+        GravesitePlainKindredofRotForagerBroodCookbook3 = 68540,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Kindred of Rot] Forager Brood Cookbook [4] 68550")]
+        ScaduAltusKindredofRotForagerBroodCookbook4 = 68550,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Kindred of Rot] Forager Brood Cookbook [5] 68560")]
+        ScaduAltusKindredofRotForagerBroodCookbook5 = 68560,
+
+        [AnnotationAttribute(Name = "[Jagged Peak - Jagged Peak Mountainside] Igon's Cookbook [2] 68570")]
+        JaggedPeakJaggedPeakMountainsideIgonsCookbook2 = 68570,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Road to Manus Metyr] Finger-Weaver's Cookbook [2] 68580")]
+        ScaduAltusRoadtoManusMetyrFingerWeaversCookbook2 = 68580,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Scorched Ruins] Greater Potentate's Cookbook [1] 68590")]
+        GravesitePlainScorchedRuinsGreaterPotentatesCookbook1 = 68590,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Cathedral of Manus Metyr] Greater Potentate's Cookbook [4] 68600")]
+        ScaduAltusCathedralofManusMetyrGreaterPotentatesCookbook4 = 68600,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Church of Benediction] Greater Potentate's Cookbook [5] 68610")]
+        GravesitePlainChurchofBenedictionGreaterPotentatesCookbook5 = 68610,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - North of Scorched Ruins] Greater Potentate's Cookbook [12] 68620")]
+        GravesitePlainNorthofScorchedRuinsGreaterPotentatesCookbook12 = 68620,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Southeast Poison Swamp] Greater Potentate's Cookbook [7] 68630")]
+        GravesitePlainSoutheastPoisonSwampGreaterPotentatesCookbook7 = 68630,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Scorpion River Catacombs Entrance] Greater Potentate's Cookbook [9] 68640")]
+        RauhBaseScorpionRiverCatacombsEntranceGreaterPotentatesCookbook9 = 68640,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Greatbridge North] Greater Potentate's Cookbook [10] 68650")]
+        GravesitePlainGreatbridgeNorthGreaterPotentatesCookbook10 = 68650,
+
+        [AnnotationAttribute(Name = "[Belurat Gaol] Greater Potentate's Cookbook [11] 68660")]
+        BeluratGaolGreaterPotentatesCookbook11 = 68660,
+
+        [AnnotationAttribute(Name = "[Finger Ruins of Rhia - Far Northwest] Mad Craftsman's Cookbook [2] 68670")]
+        FingerRuinsofRhiaFarNorthwestMadCraftsmansCookbook2 = 68670,
+
+        [AnnotationAttribute(Name = "[Rauh Base - West Scorpion River] Greater Potentate's Cookbook [8] 68680")]
+        RauhBaseWestScorpionRiverGreaterPotentatesCookbook8 = 68680,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - North Fog Rift Fort] Greater Potentate's Cookbook [3] 68690")]
+        GravesitePlainNorthFogRiftFortGreaterPotentatesCookbook3 = 68690,
+
+        [AnnotationAttribute(Name = "[Ruined Forge Lava Intake] Greater Potentate's Cookbook [13] 68700")]
+        RuinedForgeLavaIntakeGreaterPotentatesCookbook13 = 68700,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Ravine South] Greater Potentate's Cookbook [14] 68710")]
+        CeruleanCoastRavineSouthGreaterPotentatesCookbook14 = 68710,
+
+        [AnnotationAttribute(Name = "[Finger Ruins of Rhia - Far Northeast] Greater Potentate's Cookbook [6] 68720")]
+        FingerRuinsofRhiaFarNortheastGreaterPotentatesCookbook6 = 68720,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Ellac Greatbridge] Greater Potentate's Cookbook [2] 68730")]
+        GravesitePlainEllacGreatbridgeGreaterPotentatesCookbook2 = 68730,
+
+        [AnnotationAttribute(Name = "[Fog Rift Catacombs] Ancient Dragon Knight's Cookbook [1] 68740")]
+        FogRiftCatacombsAncientDragonKnightsCookbook1 = 68740,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Pillar Path Waypoint] Mad Craftsman's Cookbook [1] 68750")]
+        GravesitePlainPillarPathWaypointMadCraftsmansCookbook1 = 68750,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Cerulean Coast Cross] St. Trina Disciple's Cookbook [1] 68760")]
+        CeruleanCoastCeruleanCoastCrossStTrinaDisciplesCookbook1 = 68760,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Moorth Ruins] Fire Knight's Cookbook [1] 68770")]
+        ScaduAltusMoorthRuinsFireKnightsCookbook1 = 68770,
+
+        [AnnotationAttribute(Name = "[Scorpion River Catacombs] Ancient Dragon Knight's Cookbook [2] 68780")]
+        ScorpionRiverCatacombsAncientDragonKnightsCookbook2 = 68780,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Loyal Knight's Cookbook 68790")]
+        GravesitePlainWestCastleEnsisLoyalKnightsCookbook = 68790,
+
+        [AnnotationAttribute(Name = "[Shadow Keep] Battlefield Priest's Cookbook [1] 68800")]
+        ShadowKeepBattlefieldPriestsCookbook1 = 68800,
+
+        [AnnotationAttribute(Name = "[Finger Ruins of Rhia - Climb to Finger-Weaver's Hovel] Igon's Cookbook [1] 68810")]
+        FingerRuinsofRhiaClimbtoFingerWeaversHovelIgonsCookbook1 = 68810,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Southeast Poison Swamp] Battlefield Priest's Cookbook [2] 68820")]
+        GravesitePlainSoutheastPoisonSwampBattlefieldPriestsCookbook2 = 68820,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Moore] Forager Brood Cookbook [7] 68830")]
+        GravesitePlainMooreForagerBroodCookbook7 = 68830,
+
+        [AnnotationAttribute(Name = "[Stone Coffin Fissure] St. Trina Disciple's Cookbook [3] 68840")]
+        StoneCoffinFissureStTrinaDisciplesCookbook3 = 68840,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Fingercreeper Beach Center] Grave Keeper's Cookbook [2] 68850")]
+        CeruleanCoastFingercreeperBeachCenterGraveKeepersCookbook2 = 68850,
+
+        [AnnotationAttribute(Name = "[Ancient Ruins of Rauh - East Ruins North Pit and Tunnels] Antiquity Scholar's Cookbook [2] 68860")]
+        AncientRuinsofRauhEastRuinsNorthPitandTunnelsAntiquityScholarsCookbook2 = 68860,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Tibia Mariner] Tibia's Cookbook 68870")]
+        CeruleanCoastTibiaMarinerTibiasCookbook = 68870,
+
+        [AnnotationAttribute(Name = "[Midra's Manse] Mad Craftsman's Cookbook [3] 68880")]
+        MidrasManseMadCraftsmansCookbook3 = 68880,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Furnace Golem Area] Battlefield Priest's Cookbook [3] 68890")]
+        ScaduAltusFurnaceGolemAreaBattlefieldPriestsCookbook3 = 68890,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Fire Knight's Cookbook [2] 68900")]
+        GravesitePlainWestCastleEnsisFireKnightsCookbook2 = 68900,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Shadow Commoner] Antiquity Scholar's Cookbook [1] 68910")]
+        RauhBaseShadowCommonerAntiquityScholarsCookbook1 = 68910,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Fingercreeper Beach Center] Finger-Weaver's Cookbook [1] 68920")]
+        CeruleanCoastFingercreeperBeachCenterFingerWeaversCookbook1 = 68920,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - West Rampart] Battlefield Priest's Cookbook [4] 68930")]
+        ShadowKeepWestRampartBattlefieldPriestsCookbook4 = 68930,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Southern Nameless Mausoleum] Grave Keeper's Cookbook [1] 68940")]
+        CeruleanCoastSouthernNamelessMausoleumGraveKeepersCookbook1 = 68940,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - The Fissure South] St. Trina Disciple's Cookbook [2] 68950")]
+        CeruleanCoastTheFissureSouthStTrinaDisciplesCookbook2 = 68950,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - West Rampart] Hefty Cracked Pot 66980")]
+        ShadowKeepWestRampartHeftyCrackedPot = 66980,
+
+        [AnnotationAttribute(Name = "[Belurat Gaol] Hefty Cracked Pot 66900")]
+        BeluratGaolHeftyCrackedPot = 66900,
+
+        [AnnotationAttribute(Name = "[Belurat Gaol] Hefty Cracked Pot 66910")]
+        BeluratGaolHeftyCrackedPot_ = 66910,
+
+        [AnnotationAttribute(Name = "[Belurat Gaol] Hefty Cracked Pot 66920")]
+        BeluratGaolHeftyCrackedPot__ = 66920,
+
+        [AnnotationAttribute(Name = "[Bonny Gaol] Hefty Cracked Pot 66930")]
+        BonnyGaolHeftyCrackedPot = 66930,
+
+        [AnnotationAttribute(Name = "[Lamenter's Gaol] Hefty Cracked Pot 66940")]
+        LamentersGaolHeftyCrackedPot = 66940,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Troll] Hefty Cracked Pot 66990")]
+        CeruleanCoastTrollHeftyCrackedPot = 66990,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Scorched Ruins] Hefty Cracked Pot 66950")]
+        GravesitePlainScorchedRuinsHeftyCrackedPot = 66950,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Main Bonny Village] Hefty Cracked Pot 66970")]
+        ScaduAltusMainBonnyVillageHeftyCrackedPot = 66970,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Main Bonny Village] Hefty Cracked Pot 66960")]
+        ScaduAltusMainBonnyVillageHeftyCrackedPot_ = 66960,
+
+        [AnnotationAttribute(Name = "[Belurat] Scadutree Fragment 20007620")]
+        BeluratScadutreeFragment = 20007620,
+
+        [AnnotationAttribute(Name = "[Belurat] Scadutree Fragment 20007820")]
+        BeluratScadutreeFragment_ = 20007820,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Scadutree Fragment 20017350")]
+        EnirIlimScadutreeFragment = 20017350,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Scadutree Fragment 20017470")]
+        EnirIlimScadutreeFragment_ = 20017470,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Scadutree Fragment 20017550")]
+        EnirIlimScadutreeFragment__ = 20017550,
+
+        [AnnotationAttribute(Name = "[Shadow Keep] Scadutree Fragment 21007400")]
+        ShadowKeepScadutreeFragment = 21007400,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Scadutree Fragment 21017200")]
+        SpecimenStorehouseScadutreeFragment = 21017200,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Scadutree Fragment 21017500")]
+        SpecimenStorehouseScadutreeFragment_ = 21017500,
+
+        [AnnotationAttribute(Name = "[Stone Coffin Fissure] Scadutree Fragment 22007000")]
+        StoneCoffinFissureScadutreeFragment = 22007000,
+
+        [AnnotationAttribute(Name = "[Ancient Ruins of Rauh - South Church of the Bud] Scadutree Fragment 2044457000")]
+        AncientRuinsofRauhSouthChurchoftheBudScadutreeFragment = 2044457000,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Belurat Main Gate Cross] Scadutree Fragment 2045427700")]
+        GravesitePlainBeluratMainGateCrossScadutreeFragment = 2045427700,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Three-Path Cross] Scadutree Fragment 2046427700")]
+        GravesitePlainThreePathCrossScadutreeFragment = 2046427700,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Temple Town Ruins] Scadutree Fragment 2046457040")]
+        RauhBaseTempleTownRuinsScadutreeFragment = 2046457040,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Hippopotamus] Scadutree Fragment 2046467000")]
+        RauhBaseHippopotamusScadutreeFragment = 2046467000,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Fire Spritestone Cave] Scadutree Fragment 2046477750")]
+        RauhBaseFireSpritestoneCaveScadutreeFragment = 2046477750,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Hippopotamus] Scadutree Fragment 2047397070")]
+        CeruleanCoastHippopotamusScadutreeFragment = 2047397070,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - South of Scorched Ruins] Scadutree Fragment 2047407100")]
+        GravesitePlainSouthofScorchedRuinsScadutreeFragment = 2047407100,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Scadutree Fragment 2047447720")]
+        GravesitePlainWestCastleEnsisScadutreeFragment = 2047447720,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - West Castle Ensis] Scadutree Fragment 2047447750")]
+        GravesitePlainWestCastleEnsisScadutreeFragment_ = 2047447750,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Church of the Crusade] Scadutree Fragment 2x 2047467500")]
+        ScaduAltusChurchoftheCrusadeScadutreeFragment2x = 2047467500,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Cerulean Coast Cross] Scadutree Fragment 2048377050")]
+        CeruleanCoastCeruleanCoastCrossScadutreeFragment = 2048377050,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Church of Consolation] Scadutree Fragment 2x 2048417700")]
+        GravesitePlainChurchofConsolationScadutreeFragment2x = 2048417700,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Pillar Path Cross] Scadutree Fragment 2048437700")]
+        GravesitePlainPillarPathCrossScadutreeFragment = 2048437700,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - East Castle Ensis] Scadutree Fragment 2048447500")]
+        GravesitePlainEastCastleEnsisScadutreeFragment = 2048447500,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Highroad Cross] Scadutree Fragment 2048457520")]
+        ScaduAltusHighroadCrossScadutreeFragment = 2048457520,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Furnace Golem Area] Scadutree Fragment 2048467510")]
+        ScaduAltusFurnaceGolemAreaScadutreeFragment = 2048467510,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Moorth Ruins] Scadutree Fragment 2049447530")]
+        ScaduAltusMoorthRuinsScadutreeFragment = 2049447530,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Moorth Highway Camp] Scadutree Fragment 2049457510")]
+        ScaduAltusMoorthHighwayCampScadutreeFragment = 2049457510,
+
+        [AnnotationAttribute(Name = "[Scaduview - Specimen Storehouse Exit] Scadutree Fragment 2049487000")]
+        ScaduviewSpecimenStorehouseExitScadutreeFragment = 2049487000,
+
+        [AnnotationAttribute(Name = "[Scaduview - Scadutree Chalice] Scadutree Fragment 2049497500")]
+        ScaduviewScadutreeChaliceScadutreeFragment = 2049497500,
+
+        [AnnotationAttribute(Name = "[Scaduview - Scadutree Chalice] Scadutree Fragment 2049497520")]
+        ScaduviewScadutreeChaliceScadutreeFragment_ = 2049497520,
+
+        [AnnotationAttribute(Name = "[Scaduview - Scadutree Chalice] Scadutree Fragment 2049497530")]
+        ScaduviewScadutreeChaliceScadutreeFragment__ = 2049497530,
+
+        [AnnotationAttribute(Name = "[Scaduview - Scadutree Chalice] Scadutree Fragment 2049497540")]
+        ScaduviewScadutreeChaliceScadutreeFragment___ = 2049497540,
+
+        [AnnotationAttribute(Name = "[Scaduview - Scadutree Chalice] Scadutree Fragment 2049497550")]
+        ScaduviewScadutreeChaliceScadutreeFragment____ = 2049497550,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Scaduview Cross] Scadutree Fragment 2050437010")]
+        ScaduAltusScaduviewCrossScadutreeFragment = 2050437010,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Scaduview Cross] Scadutree Fragment 2050437500")]
+        ScaduAltusScaduviewCrossScadutreeFragment_ = 2050437500,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Bonny Village North Tree and Overlook] Scadutree Fragment 2050457730")]
+        ScaduAltusBonnyVillageNorthTreeandOverlookScadutreeFragment = 2050457730,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Hippopotamus] Scadutree Fragment 2051447500")]
+        ScaduAltusHippopotamusScadutreeFragment = 2051447500,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Hippopotamus] Scadutree Fragment 2051447510")]
+        ScaduAltusHippopotamusScadutreeFragment_ = 2051447510,
+
+        [AnnotationAttribute(Name = "[Jagged Peak - Between Jagged Peak Mountainside and Summit] Scadutree Fragment 2053397020")]
+        JaggedPeakBetweenJaggedPeakMountainsideandSummitScadutreeFragment = 2053397020,
+
+        [AnnotationAttribute(Name = "[Abyssal Woods - Abandoned Church] Scadutree Fragment 2x 2053417500")]
+        AbyssalWoodsAbandonedChurchScadutreeFragment2x = 2053417500,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Shadow Commoner] Scadutree Fragment 2049440990")]
+        GravesitePlainShadowCommonerScadutreeFragment = 2049440990,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Shadow Commoner] Scadutree Fragment 2044417995")]
+        GravesitePlainShadowCommonerScadutreeFragment_ = 2044417995,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Shadow Commoner] Scadutree Fragment 2046477960")]
+        ScaduAltusShadowCommonerScadutreeFragment = 2046477960,
+
+        [AnnotationAttribute(Name = "[Ancient Ruins of Rauh - Shadow Commoner] Scadutree Fragment 2047417995")]
+        AncientRuinsofRauhShadowCommonerScadutreeFragment = 2047417995,
+
+        [AnnotationAttribute(Name = "[Belurat] Revered Spirit Ash 2x 20007170")]
+        BeluratReveredSpiritAsh2x = 20007170,
+
+        [AnnotationAttribute(Name = "[Belurat] Revered Spirit Ash 20007700")]
+        BeluratReveredSpiritAsh = 20007700,
+
+        [AnnotationAttribute(Name = "[Belurat] Revered Spirit Ash 20007800")]
+        BeluratReveredSpiritAsh_ = 20007800,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Revered Spirit Ash 2x 20017200")]
+        EnirIlimReveredSpiritAsh2x = 20017200,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Revered Spirit Ash 20017400")]
+        EnirIlimReveredSpiritAsh = 20017400,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Revered Spirit Ash 21017020")]
+        SpecimenStorehouseReveredSpiritAsh = 21017020,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Revered Spirit Ash 21017460")]
+        SpecimenStorehouseReveredSpiritAsh_ = 21017460,
+
+        [AnnotationAttribute(Name = "[Midra's Manse] Revered Spirit Ash 28007110")]
+        MidrasManseReveredSpiritAsh = 28007110,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Scorpion River Catacombs Entrance] Revered Spirit Ash 2044467000")]
+        RauhBaseScorpionRiverCatacombsEntranceReveredSpiritAsh = 2044467000,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Cliffroad Terminus] Revered Spirit Ash 2045417700")]
+        GravesitePlainCliffroadTerminusReveredSpiritAsh = 2045417700,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Greatbridge North] Revered Spirit Ash 2046447700")]
+        GravesitePlainGreatbridgeNorthReveredSpiritAsh = 2046447700,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Temple Town Ruins] Revered Spirit Ash 2046457720")]
+        RauhBaseTempleTownRuinsReveredSpiritAsh = 2046457720,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Scorched Ruins] Revered Spirit Ash 2047417700")]
+        GravesitePlainScorchedRuinsReveredSpiritAsh = 2047417700,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - East of Ensis Castle Front] Revered Spirit Ash 2047437700")]
+        GravesitePlainEastofEnsisCastleFrontReveredSpiritAsh = 2047437700,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Moorth Ruins] Revered Spirit Ash 2049447500")]
+        ScaduAltusMoorthRuinsReveredSpiritAsh = 2049447500,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Scaduview Cross] Revered Spirit Ash 2050437720")]
+        ScaduAltusScaduviewCrossReveredSpiritAsh = 2050437720,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Main Bonny Village] Revered Spirit Ash 2050447500")]
+        ScaduAltusMainBonnyVillageReveredSpiritAsh = 2050447500,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Revered Spirit Ash 2050467700")]
+        ScaduAltusCastleWateringHoleSoutheastReveredSpiritAsh = 2050467700,
+
+        [AnnotationAttribute(Name = "[Belurat - Shadow Commoner] Revered Spirit Ash 20007900")]
+        BeluratShadowCommonerReveredSpiritAsh = 20007900,
+
+        [AnnotationAttribute(Name = "[Midra's Manse - Fat Inquisitor] Revered Spirit Ash 20017900")]
+        MidrasManseFatInquisitorReveredSpiritAsh = 20017900,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim - Fat Inquisitor] Revered Spirit Ash 28007900")]
+        EnirIlimFatInquisitorReveredSpiritAsh = 28007900,
+
+        [AnnotationAttribute(Name = "[Ancient Ruins of Rauh - Shadow Commoner] Revered Spirit Ash 2044467950")]
+        AncientRuinsofRauhShadowCommonerReveredSpiritAsh = 2044467950,
+
+        [AnnotationAttribute(Name = "[Ancient Ruins of Rauh - Shadow Commoner] Revered Spirit Ash 2046477950")]
+        AncientRuinsofRauhShadowCommonerReveredSpiritAsh_ = 2046477950,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - South of Church of Consolation] Viridian Hidden Tear 65400")]
+        GravesitePlainSouthofChurchofConsolationViridianHiddenTear = 65400,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Furnace Golem Area] Crimsonburst Dried Tear 65410")]
+        ScaduAltusFurnaceGolemAreaCrimsonburstDriedTear = 65410,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Rot Area] Crimson-Sapping Cracked Tear 65420")]
+        RauhBaseRotAreaCrimsonSappingCrackedTear = 65420,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Cathedral of Manus Metyr] Cerulean-Sapping Cracked Tear 65430")]
+        ScaduAltusCathedralofManusMetyrCeruleanSappingCrackedTear = 65430,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Oil-Soaked Tear 65440")]
+        ScaduAltusCastleWateringHoleSoutheastOilSoakedTear = 65440,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Castle Watering Hole Southeast] Bloodsucking Cracked Tear 65450")]
+        ScaduAltusCastleWateringHoleSoutheastBloodsuckingCrackedTear = 65450,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Cerulean Coast West] Glovewort Crystal Tear 65460")]
+        CeruleanCoastCeruleanCoastWestGlovewortCrystalTear = 65460,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Three-Path Cross] Deflecting Hardtear 65470")]
+        GravesitePlainThreePathCrossDeflectingHardtear = 65470,
+
+        [AnnotationAttribute(Name = "[Bonny Gaol - Curseblade Labirith] Curseblade Meera 520760")]
+        BonnyGaolCursebladeLabirithCursebladeMeera = 520760,
+
+        [AnnotationAttribute(Name = "[Rivermouth Cave - Chief Bloodfiend] Bloodfiend Hexer's Ashes 520800")]
+        RivermouthCaveChiefBloodfiendBloodfiendHexersAshes = 520800,
+
+        [AnnotationAttribute(Name = "[Cerulean Coast - Cerulean Coast West] Gravebird Ashes 2046397040")]
+        CeruleanCoastCeruleanCoastWestGravebirdAshes = 2046397040,
+
+        [AnnotationAttribute(Name = "[Specimen Storehouse] Fire Knight Hilde 21017800")]
+        SpecimenStorehouseFireKnightHilde = 21017800,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Fire Spritestone Cave] Spider Scorpion Ashes 2046477020")]
+        RauhBaseFireSpritestoneCaveSpiderScorpionAshes = 2046477020,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Inquisitor Ashes 20017310")]
+        EnirIlimInquisitorAshes = 20017310,
+
+        [AnnotationAttribute(Name = "[Belurat Gaol - Demi-Human Swordmaster Onze] Demi-Human Swordsman Yosh 520750")]
+        BeluratGaolDemiHumanSwordmasterOnzeDemiHumanSwordsmanYosh = 520750,
+
+        [AnnotationAttribute(Name = "[Gravesite Plain - Southeast Poison Swamp] Messmer Soldier Ashes 2049437230")]
+        GravesitePlainSoutheastPoisonSwampMessmerSoldierAshes = 2049437230,
+
+        [AnnotationAttribute(Name = "[Fog Rift Catacombs] Black Knight Commander Andreas 40007810")]
+        FogRiftCatacombsBlackKnightCommanderAndreas = 40007810,
+
+        [AnnotationAttribute(Name = "[Scorpion River Catacombs] Black Knight Captain Huw 40017050")]
+        ScorpionRiverCatacombsBlackKnightCaptainHuw = 40017050,
+
+        [AnnotationAttribute(Name = "[Darklight Catacombs] Bigmouth Imp Ashes 40027220")]
+        DarklightCatacombsBigmouthImpAshes = 40027220,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Main Bonny Village] Man-Fly Ashes 2050447710")]
+        ScaduAltusMainBonnyVillageManFlyAshes = 2050447710,
+
+        [AnnotationAttribute(Name = "[Taylew's Ruined Forge] Taylew the Golem Smith 42037000")]
+        TaylewsRuinedForgeTaylewtheGolemSmith = 42037000,
+
+        [AnnotationAttribute(Name = "[Rauh Base - Temple Town Ruins] Divine Bird Warrior Ornis 2046457920")]
+        RauhBaseTempleTownRuinsDivineBirdWarriorOrnis = 2046457920,
+
+        [AnnotationAttribute(Name = "[Enir-Ilim] Horned Warrior Ashes 20017420")]
+        EnirIlimHornedWarriorAshes = 20017420,
+
+        [AnnotationAttribute(Name = "[Finger Ruins of Rhia - Dragon Communion Priestess] Ancient Dragon Florissax 400700")]
+        FingerRuinsofRhiaDragonCommunionPriestessAncientDragonFlorissax = 400700,
+
+        [AnnotationAttribute(Name = "[Scaduview - East of Fingerstone Hill Crater] Fingercreeper Ashes 2053487000")]
+        ScaduviewEastofFingerstoneHillCraterFingercreeperAshes = 2053487000,
+
+        [AnnotationAttribute(Name = "[Shadow Keep - Fire Knight Queelign] Fire Knight Queelign 400690")]
+        ShadowKeepFireKnightQueelignFireKnightQueelign = 400690,
+
+        [AnnotationAttribute(Name = "[Scadu Altus - Swordhand of Night Jolán] Swordhand of Night Jolán 400670")]
+        ScaduAltusSwordhandofNightJolanSwordhandofNightJolan = 400670,
 
     }
 }

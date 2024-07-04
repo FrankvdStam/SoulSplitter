@@ -297,7 +297,7 @@ namespace SoulMemory.EldenRing
         [AnnotationAttribute(Name = "Night's Cavalry - Agheel Lake North (Limgrave)", Description = "Limgrave")]
         NightsCavalryAgheelLakeNorthLimgrave = 1043370800,
 
-        [AnnotationAttribute(Name = "Death Rite Bird - Stormgate (Limgrave)", Description = "Limgrave")]
+        [AnnotationAttribute(Name = "Deathbird - Stormgate (Limgrave)", Description = "Limgrave")]
         DeathRiteBirdStormgateLimgrave = 1042380800,
 
         [AnnotationAttribute(Name = "Ball-Bearing Hunter - Warmaster's Shack (Limgrave)", Description = "Limgrave")]
@@ -318,7 +318,7 @@ namespace SoulMemory.EldenRing
         [AnnotationAttribute(Name = "Night's Cavalry - Castle Morne Approach (Weeping Penisula)", Description = "Weeping Peninsula")]
         NightsCavalryCastleMorneApproachWeepingPenisula = 1044320850,
 
-        [AnnotationAttribute(Name = "Death Rite Bird - Castle Morne Approach (Weeping Penisula)", Description = "Weeping Peninsula")]
+        [AnnotationAttribute(Name = "Deathbird - Castle Morne Approach (Weeping Penisula)", Description = "Weeping Peninsula")]
         DeathRiteBirdCastleMorneApproachWeepingPenisula = 1044320800,
 
         [AnnotationAttribute(Name = "Leonine Misbegotten - Castle Morne (Weeping Penisula)", Description = "Weeping Peninsula")]
@@ -420,11 +420,8 @@ namespace SoulMemory.EldenRing
         [AnnotationAttribute(Name = "Wormface - Woodfolk Ruins (Altus Plateau)", Description = "Altus Plateau")]
         WormfaceWoodfolkRuinsAltusPlateau = 1041530800,
 
-        [AnnotationAttribute(Name = "Night's Cavalry - Altus Highway Junction (Altus Plateau)", Description = "Altus Plateau")]
-        NightsCavalryAltusHighwayJunctionAltusPlateau = 1043530800,
-
-        [AnnotationAttribute(Name = "Death Rite Bird - Minor Erdtree (Capital Outskirts)", Description = "Capital Outskirts")]
-        DeathRiteBirdMinorErdtreeCapitalOutskirts = 1043530800,
+        [AnnotationAttribute(Name = "Deathbird - Minor Erdtree (Capital Outskirts)", Description = "Capital Outskirts")]
+        DeathRiteBirdMinorErdtreeCapitalOutskirts = 1044530800,
 
         [AnnotationAttribute(Name = "Ball-Bearing Hunter - Hermit Merchant's Shack (Capital Outskirts)", Description = "Capital Outskirts")]
         BallBearingHunterHermitMerchantsShackCapitalOutskirts = 1043530800,
@@ -530,5 +527,131 @@ namespace SoulMemory.EldenRing
 
         [AnnotationAttribute(Name = "Night's Cavalry - Altus Highway (Altus Plateau)", Description = "Altus Plateau")]
         NightsCavalryAltusHighwayAltusPlateau = 1039510800,
+
+        [AnnotationAttribute(Name = "Ghostflame Dragon - Gravesite Plain (Northwest)", Description = "Gravesite Plain")]
+        GhostflameDragonGravesitePlain = 2045440800,
+
+        [AnnotationAttribute(Name = "Blackgaol Knight - Western Nameless Mausoleum", Description = "Gravesite Plain")]
+        BlackgaolKnightWesternNamelessMausoleum = 2046410800,
+
+        [AnnotationAttribute(Name = "Chief Bloodfiend - Rivermouth Cave", Description = "Gravesite Plain")]
+        ChiefBloodfiendRivermouthCave = 43000800,
+
+        [AnnotationAttribute(Name = "Lamenter - Lamenter's Gaol", Description = "Gravesite Plain")]
+        LamenterLamentersGaol = 41020800,
+
+        [AnnotationAttribute(Name = "Demi-Human Swordmaster Onze - Belurat Gaol", Description = "Gravesite Plain")]
+        DemiHumanSwordmasterOnzeBeluratGaol = 41000800,
+
+        [AnnotationAttribute(Name = "Divine Beast Dancing Lion - Belurat, Tower Settlement", Description = "Belurat, Tower Settlement")]
+        DivineBeastDancingLionBeluratTowerSettlement = 20000800,
+
+        [AnnotationAttribute(Name = "Rellana, Twin Moon Knight - Castle Ensis", Description = "Castle Ensis")]
+        RellanaTwinMoonKnightCastleEnsis = 2048440800,
+
+        [AnnotationAttribute(Name = "Ghostflame Dragon", Description = "Scadu Altus")]
+        GhostflameDragon = 2049430800,
+
+        [AnnotationAttribute(Name = "Ralva the Great Red Bear", Description = "Scadu Altus")]
+        RalvatheGreatRedBear = 2049450800,
+
+        [AnnotationAttribute(Name = "Rugalea the Great Red Bear - Rauh Base (Northwest)", Description = "Scadu Altus")]
+        RugaleatheGreatRedBearRauhBase = 2044470800,
+
+        [AnnotationAttribute(Name = "Dryleaf Dane - Moorth Ruins", Description = "Scadu Altus")]
+        DryleafDaneMoorthRuins = 2049440800,
+
+        [AnnotationAttribute(Name = "Black Knight Edredd - Fort of Reprimand", Description = "Scadu Altus")]
+        BlackKnightEdreddFortofReprimand = 2049430850,
+
+        [AnnotationAttribute(Name = "Black Knight Garrew - Fog Rift Fort", Description = "Scadu Altus")]
+        BlackKnightGarrewFogRiftFort = 2047450800,
+
+        [AnnotationAttribute(Name = "Red Bear - Northern Nameless Mausoleum", Description = "Scadu Altus")]
+        RedBearNorthernNamelessMausoleum = 2046450800,
+
+        [AnnotationAttribute(Name = "Rakshasa - Eastern Nameless Mausoleum", Description = "Scadu Altus")]
+        RakshasaEasternNamelessMausoleum = 2051440800,
+
+        [AnnotationAttribute(Name = "Metyr, Mother of Fingers - Cathedral of Manus Metyr", Description = "Scadu Altus")]
+        MetyrMotherofFingersCathedralofManusMetyr = 25000800,
+
+        [AnnotationAttribute(Name = "Count Ymir, Mother of Fingers - Cathedral of Manus Metyr", Description = "Scadu Altus")]
+        CountYmirMotherofFingersCathedralofManusMetyr = 2051450800,
+
+        [AnnotationAttribute(Name = "Death Knight - Fog Rift Catacombs", Description = "Scadu Altus")]
+        DeathKnightFogRiftCatacombs = 40000800,
+
+        [AnnotationAttribute(Name = "Death Knight - Scorpion River Catacombs", Description = "Scadu Altus")]
+        DeathKnightScorpionRiverCatacombs = 40010800,
+
+        [AnnotationAttribute(Name = "Curseblade Labirith - Bonny Gaol", Description = "Scadu Altus")]
+        CursebladeLabirithBonnyGaol = 41010800,
+
+        [AnnotationAttribute(Name = "Golden Hippopotamus - Main Gate Plaza", Description = "Shadow Keep")]
+        GoldenHippopotamusMainGatePlaza = 21000850,
+
+        [AnnotationAttribute(Name = "Base Serpent Messmer - Messmer's Dark Chamber", Description = "Shadow Keep")]
+        BaseSerpentMessmerMessmersDarkChamber = 21010800,
+
+        [AnnotationAttribute(Name = "Divine Beast Dancing Lion - Ancient Ruins of Rauh", Description = "Ancient Ruins of Rauh")]
+        DivineBeastDancingLionAncientRuinsofRauh = 2046460800,
+
+        [AnnotationAttribute(Name = "Romina, Saint of the Bud - Church of the Bud", Description = "Church of the Bud")]
+        RominaSaintoftheBudChurchoftheBud = 2044450800,
+
+        [AnnotationAttribute(Name = "Ghostflame Dragon - Cerulean Coast", Description = "Cerulean Coast")]
+        GhostflameDragonCeruleanCoast = 2048380850,
+
+        [AnnotationAttribute(Name = "Dancer of Ranah - Southern Nameless Mausoleum", Description = "Cerulean Coast")]
+        DancerofRanahSouthernNamelessMausoleum = 2046380800,
+
+        [AnnotationAttribute(Name = "Putrescent Knight - Stone Coffin Fissure", Description = "Cerulean Coast")]
+        PutrescentKnightStoneCoffinFissure = 22000800,
+
+        [AnnotationAttribute(Name = "Death Rite Bird - Charo's Hidden Grave", Description = "Charo's Hidden Grave")]
+        DeathRiteBirdCharosHiddenGrave = 2047390800,
+
+        [AnnotationAttribute(Name = "Demi-Human Queen Marigga - Charo's Hidden Grave (West)", Description = "Charo's Hidden Grave")]
+        DemiHumanQueenMariggaCharosHiddenGrave = 2046400800,
+
+        [AnnotationAttribute(Name = "Jagged Peak Drake - Foot of the Jagged Peak", Description = "Jagged Peak")]
+        JaggedPeakDrakeFootoftheJaggedPeak = 2049410800,
+
+        [AnnotationAttribute(Name = "Jagged Peak Drake - Jagged Peak Mountainside", Description = "Jagged Peak")]
+        JaggedPeakDrakeJaggedPeakMountainside = 2052400800,
+
+        [AnnotationAttribute(Name = "Ancient Dragon-Man - Dragon's Pit", Description = "Jagged Peak")]
+        AncientDragonManDragonsPit = 43010800,
+
+        [AnnotationAttribute(Name = "Ancient Dragon Senessax - Jagged Peak Mountainside", Description = "Jagged Peak")]
+        AncientDragonSenessaxJaggedPeakMountainside = 2054390850,
+
+        [AnnotationAttribute(Name = "Bayle the Dread - Jagged Peak Summit", Description = "Jagged Peak")]
+        BayletheDreadJaggedPeakSummit = 2054390800,
+
+        [AnnotationAttribute(Name = "Tree Sentinel - Hinterland", Description = "Scaduview")]
+        TreeSentinelHinterland = 2050470800,
+
+        [AnnotationAttribute(Name = "Tree Sentinel - Hinterland Bridge", Description = "Scaduview")]
+        TreeSentinelHinterlandBridge = 2050480860,
+
+        [AnnotationAttribute(Name = "Fallingstar Beast - Fingerstone Hill", Description = "Scaduview")]
+        FallingstarBeastFingerstoneHill = 2052480800,
+
+        [AnnotationAttribute(Name = "Commander Gaius - Scaduview", Description = "Scaduview")]
+        CommanderGaiusScaduview = 2049480800,
+
+        [AnnotationAttribute(Name = "Scadutree Avatar - Scadutree Base", Description = "Scaduview")]
+        ScadutreeAvatarScadutreeBase = 2050480800,
+
+        [AnnotationAttribute(Name = "Jori, Elder Inquisitor - Darklight Catacombs", Description = "Abyssal Woods")]
+        JoriElderInquisitorDarklightCatacombs = 2052430800,
+
+        [AnnotationAttribute(Name = "Midra, Lord of Frenzied Flame - Midra's Manse", Description = "Abyssal Woods")]
+        MidraLordofFrenziedFlameMidrasManse = 28000800,
+
+        [AnnotationAttribute(Name = "Radahn, Consort of Miquella - Enir-Ilim", Description = "Enir-Ilim")]
+        RadahnConsortofMiquellaEnirIlim = 20010800,
     }
 }
