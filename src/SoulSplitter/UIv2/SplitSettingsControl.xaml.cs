@@ -73,6 +73,9 @@ namespace SoulSplitter.UIv2
                 case SplitType.Position:
                     return Position != null;
 
+                case SplitType.PresetFlag:
+                    return SelectedPresetFlag != null;
+
                 case SplitType.Flag:
                     return FlagDescription != null;
 
@@ -118,6 +121,10 @@ namespace SoulSplitter.UIv2
 
                 case SplitType.Position:
                     flatSplit.Split = new VectorSize{Description = Position.Description, Position = new Vector3f(Position.Position.X, Position.Position.Y, Position.Position.Z), Size = Position.Size};
+                    break;
+
+                case SplitType.PresetFlag:
+                    flatSplit.Split = SelectedPresetFlag;
                     break;
 
                 case SplitType.Flag:
@@ -178,6 +185,16 @@ namespace SoulSplitter.UIv2
         {
             get => (ObservableCollection<EnumFlagViewModel<Enum>>)GetValue(BossesDependencyProperty);
             set => SetValue(BossesDependencyProperty, value);
+        }
+
+        public static readonly DependencyProperty PresetFlagsDependencyProperty =
+            DependencyProperty.Register(nameof(PresetFlags), typeof(IList), typeof(SplitSettingsControl),
+                new FrameworkPropertyMetadata(new ObservableCollection<EnumFlagViewModel<Enum>>(), FrameworkPropertyMetadataOptions.None));
+
+        public ObservableCollection<EnumFlagViewModel<Enum>> PresetFlags
+        {
+            get => (ObservableCollection<EnumFlagViewModel<Enum>>)GetValue(PresetFlagsDependencyProperty);
+            set => SetValue(PresetFlagsDependencyProperty, value);
         }
 
         public static readonly DependencyProperty AttributesDependencyProperty =
@@ -304,6 +321,13 @@ namespace SoulSplitter.UIv2
             set => SetField(ref _selectedBoss, value);
         }
         private Enum _selectedBoss;
+
+        public Enum SelectedPresetFlag
+        {
+            get => _selectedPresetFlag;
+            set => SetField(ref _selectedPresetFlag, value);
+        }
+        private Enum _selectedPresetFlag;
 
         public Enum SelectedBonfire
         {

@@ -210,7 +210,13 @@
             </ComboBoxItem>
             -->
             
-            <ComboBoxItem Content="I trigger a flag">
+            <ComboBoxItem Content="I trigger a preset flag">
+                <ComboBoxItem.Tag>
+                    <generic:SplitType>PresetFlag</generic:SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="I trigger a custom flag">
                 <ComboBoxItem.Tag>
                     <generic:SplitType>Flag</generic:SplitType>
                 </ComboBoxItem.Tag>
@@ -329,6 +335,24 @@
             Grid.Row="{StaticResource SplitTypeRow}"
             Grid.Column="0"/>
 
+        <!-- PresetFlag -->
+        <generic:FilteredComboBox
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Grid.Column="0"
+            Margin="5"
+            Width="420"
+            HorizontalAlignment="Left"
+            ItemsSource="{Binding PresetFlags}"
+            SelectedValue="{Binding NewSplitValue}"
+            materialDesign:HintAssist.HelperText="what flag?"
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=PresetFlag}"
+            DisplayMemberPath="Name"
+            SelectedValuePath="Value"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            IsEditable="True"
+            IsTextSearchEnabled="False"
+            StaysOpenOnEdit="True" />
+            
         <!-- Flag -->
         <generic:FlagControl
             Grid.Row="{StaticResource SplitTypeRow}"

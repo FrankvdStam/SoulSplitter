@@ -1,0 +1,817 @@
+2|Dead, Gaping Dragon
+3|Dead, Bell Gargoyles
+4|Dead, Priscilla
+5|Dead, Sif
+6|Dead, Pinwheel
+7|Dead, Nito
+9|Dead, Chaos Witch Quelaag
+10|Dead, Bed of Chaos
+11|Dead, Iron Golem
+12|Dead, Ornstein & Smough
+13|Dead, 4 Kings
+14|Dead, Seath
+15|Dead, Gwyn
+16|Dead, Asylum Demon
+120|
+121|Changed on defeating Artorias and Kalameet
+151|Anor Londo, Darkmoon Knightess bonfire inactive
+250|Obtained, Weapon Smithbox
+251|Obtained, Armor Smithbox
+252|Obtained, Repairbox
+258|Obtained, Bottomless Box
+350|Until 363 removes Ember from inventory if handed in
+405|Set on Seath defeated
+600|4 bits used to count boss kills for Rhea (05.01.2022)
+703|Seemingly used to halt execution of a function. Not set anywhere
+706|Used to prevent warping from Painted World or the Duke's cell when set to off (added 09.03.2020)
+710|Displays 'By the power of the Lordvessel' message
+716|Obtained, Estus Flask
+719|Unknown, Obtained First Spell?
+735|For gravelording
+743|Touched Gwyndolin foggate
+744|Triggered PvE Sin, Able to Pay Absolution
+751|Player cursed (12.2.21)
+753|Egg head (12.2.21)
+755|Set by Oswald ESD on Absolution request (12.2.21)
+757|Display "You are cursed" message after crystallization + reload (12.2.21)
+758|Display "Ring of Sacrifice shattered" after dying with it active (12.2.21)
+759|Display "Rare Ring of Sacrifice shattered" after dying with it active (12.2.21)
+780|Obtained, Titanite Shard
+781|Obtained, Large Titanite Shard
+782|Obtained, Green Titanite Shard
+783|Obtained, Titanite Chunk
+784|Obtained, Blue Titanite Chunk
+785|Obtained, White Titanite Chunk
+786|Obtained, Red Titanite Chunk
+787|Obtained, Titanite Slab
+788|Obtained, Blue Titanite Slab
+789|Obtained, White Titanite Slab
+790|Obtained, Red Titanite Slab
+791|Obtained, Dragon Scale
+792|Obtained, Demon Titanite
+793|Obtained, Twinkling Titanite
+800|Dead, Sunlight Maggot Chaos Firebug
+812|Obtained, Firekeeper Soul (Blighttown)
+813|Obtained, Firekeeper Soul (Undead Parish)
+819|Make sure repairbox can only be bought once
+850|Covenant, None
+851|Covenant, Way of White
+853|Covenant, Warrior of Sunlight
+854|Covenant, Darkwraith
+855|Covenant, Path of the Dragon
+856|Covenant, Gravelord Servant
+857|Covenant, Forest Hunter
+858|Covenant, Darkmoon
+859|Covenant, Chaos Servant
+976|? on Sif killed
+979|Twin Humanities received from Quelaag?
+993|Changed on Guardian killed
+994|Changed on killing Artorias
+996|Changed on defeating Kalameet
+1000|Solaire, At First Position
+1001|Solaire, First Encounter Completed
+1002|Solaire, Hostile in Izalith
+1003|Solaire, Rescued in Izalith
+1004|Solaire, Hostile
+1005|Solaire, Dead
+1007|Solaire, At Altar of Sunlight
+1008|Solaire, In Anor Londo
+1009|Solaire, After Centipede Demon
+1011|Solaire, Dead in Izalith
+1012|Solaire, Summoneable in Kiln (added: 05.06.2021)
+1031|Darkmoon Knightess, At Starting Position?
+1033|Darkmoon Knightess, Hostile
+1034|Darkmoon Knightess, Dead
+1036|
+1061|Oscar, Hollow
+1062|Oscar, Dead (Hollow)
+1073|Oscar, Dead
+1091|Big Hat Logan, Rescued
+1092|Big Hat Logan, Spawns at Firelink
+1093|Big Hat Logan, Leaves Firelink For Duke's Prison
+1094|Big Hat Logan, Rescued in Duke's
+1096|Big Hat Logan, Hostile
+1097|Big Hat Logan, Dead
+1111|Griggs, Rescue Completed
+1112|Griggs, Initial Spawn at Firelink
+1113|Griggs, At Firelink After Logan Leaves (Sells More)
+1114|Griggs, Hostile
+1115|Griggs, Dead
+1117|Griggs, Hollow At Sen's Fortress
+1121|Dusk Golden Golem dead
+1122|Makes Broken Pendant drop? 2
+1123|Dusk finished summoning animation
+1125|Dusk, Dead
+1126|Makes Broken Pendant drop?
+1129|Dusk rescued from Manus
+1140|Anastacia, Initial State
+1141|Anastacia, Dead
+1142|Anastacia, Revived
+1146|Anastacia, Dead But Ready to Revive
+1171|Reah, At Firelink
+1173|Reah, In Tomb of the Giants
+1174|Reah, Rescued in Tomb of the Giants
+1175|Reah, In Undead Parish
+1176|Reah, Hostile
+1177|Reah, Dead
+1181|Reah, ? Hollow In Duke's Archives?
+1192|Petrus, Abandons Party
+1193|Petrus, Returned to Firelink
+1194|Petrus, After Paid Lautrec for Tip
+1197|Petrus, Hostile
+1198|Petrus, Dead
+1211|Vince, At Firelink
+1213|Vince, Hostile
+1214|Vince, Dead
+1216|Vince, In Tomb of the Giants
+1221|Nico, At Firelink
+1223|Nico, Hostile
+1224|Nico, Dead
+1226|Nico, In Tomb of the Giants
+1241|Gwyndolin, Disapproves
+1251|Laurentius, Rescue Completed
+1252|Laurentius, In Firelink Shrine
+1253|Laurentius, Hostile
+1254|Laurentius, Dead
+1256|Laurentius, Informed of Quelana
+1257|Laurentius, Hollow In Blighttown
+1272|Fair Lady, Dead
+1281|Eingyi, Steps Aside
+1283|Eingyi, Hostile
+1284|Eingyi, Dead
+1286|Eingyi, Gained His Trust
+1294|Quelana, Hostile
+1295|Quelana, Dead
+1311|Ingward, Unknown. Triggered placing Lordvessel?
+1312|Ingward, After Draining New Londo
+1313|Ingward, In Firelink Shrine
+1314|Ingward, Hostile
+1315|Ingward, Dead
+1321|Andre, Hostile
+1322|Andre, Dead
+1341|Vamos, Hostile
+1342|Vamos, Dead
+1361|Giant Blacksmith, Hostile
+1362|Giant Blacksmith, Dead
+1381|Rickert, Hostile
+1382|Rickert, Dead
+1400|Undead Merchant, Present
+1401|Undead Merchant, Hostile
+1402|Undead Merchant, Dead
+1410|Female Undead Merchant, Present
+1411|Female Undead Merchant, Hostile
+1412|Female Undead Merchant, Dead
+1420|Crestfallen Merchant, Starting Location
+1421|Crestfallen Merchant, Hostile
+1422|Crestfallen Merchant, Dead
+1430|Domhnall, Starting Location
+1431|Domhnall, Moved to Firelink
+1434|Domhnall, Hostile
+1435|Domhnall, Dead
+1461|Crestfallen Warrior, Hostile
+1462|Crestfallen Warrior, Dead
+1464|Crestfallen Warrior, Hollow in New Londo
+1490|Siegmeyer, Starting Location
+1491|Siegmeyer, Second Location (No Need to Interact Before 1493)
+1492|Siegmeyer, Second Location (Need to Interact Before 1493)
+1493|Siegmeyer, Anor Londo
+1494|Siegmeyer, Rescued in Anor Londo
+1497|Siegmeyer, At Firelink Shrine
+1501|Siegmeyer, In Blighttown
+1502|Siegmeyer, Rescued In Blighttown
+1503|Siegmeyer, In Lost Izalith
+1504|Siegmeyer, Goes to Attack Chaos Eaters
+1505|Siegmeyer, Chaos Eaters Defeated Without Him
+1506|Siegmeyer, Fails Chaos Eater Encounter
+1507|Siegmeyer, Survives Chaos Eater Encounter
+1511|Siegmeyer, Dead in Ash Lake
+1512|Siegmeyer, Hostile
+1513|Siegmeyer, Dead
+1541|Sieglinde, Trapped in Golem at Duke's
+1542|Sieglinde, Rescued in Duke's Archives
+1543|Sieglinde, At Firelink Shrine (1st Time)
+1545|Sieglinde, At Firelink Shrine (2nd Time)
+1546|Sieglinde, In Ash Lake
+1547|Sieglinde, Hostile
+1548|Sieglinde, Dead
+1570|Lautrec, Starting Location
+1571|Lautrec, Rescue Completed
+1572|Lautrec, In Firelink Shrine (After Rescue)
+1573|Lautrec, Temporaily Left Firelink
+1574|Lautrec, Hostile
+1575|Lautrec, Dead
+1577|Lautrec, In Firelink Shrine (After Escape)
+1578|Lautrec, In Anor Londo
+1603|Shiva, Hostile
+1604|Shiva, Dead
+1621|Patches, After Walking Over Catacombs Bridge
+1623|Patches, In Tomb of the Giants
+1624|Patches, After Kicked Into Pit
+1625|Patches, Hostile (cleric questline)
+1626|Patches, At Firelink Shrine
+1627|Patches, Hostile
+1628|Patches, Dead
+1641|Frampt, Snoring in Firelink Shrine
+1642|Frampt, Present in Firelink Shrine
+1644|Frampt, After Placing Lordvessel
+1647|Frampt, Disapproves and Leaves
+1650|? In Firelink?
+1671|Kaathe, Appears?
+1677|Kaathe, Disapproves and Leaves
+1700|Oswald, Starting Location
+1701|Oswald, Hostile
+1702|Oswald, Dead
+1711|Alvina, Disapproves and Leaves
+1763|Shiva's Bodyguard, Hostile
+1764|Shiva's Bodyguard, Dead
+1766|Shiva's Bodyguard, ?
+1821|Gough, Not Present
+1822|Gough, Hostile
+1823|Gough, Dead
+1841|Chester, Hostile
+1842|Chester, Dead
+1862|Ciaran, Gifted Artorias's Soul
+1863|Ciaran, Hostile
+1864|Ciaran, Dead
+1871|Elizabeth, Hostile (Unused)
+1872|Elizabeth, Dead
+8131|Estus Flask, Upgraded to +1
+8132|Estus Flask, Upgraded to +2
+8133|Estus Flask, Upgraded to +3
+8134|Estus Flask, Upgraded to +4
+8135|Estus Flask, Upgraded to +5
+8136|Estus Flask, Upgraded to +6
+8137|Estus Flask, Upgraded to +7
+131327|? on Sif's Gate character anim finished
+11000100|Depths, Shortcut door opened
+11000111|Depths, Door to Blighttown
+11000120|Depths, Bonfire door opened
+11000600|Depths, Large Ember chest opened
+11000800|Dead, The Depths, Giant Rat
+11000850|Dead, The Depths, Butcher's Dog
+11000851|Dead, The Depths, Butcher #2
+11000852|Dead, The Depths, Butcher #1
+11010000|Gargoyles, Cutscene triggered, fight starts when in Gargoyles Arena
+11010090|Undead Burg, Fog Gate
+11010100|Undead Burg, Shortcut Ladder
+11010101|Undead Burg, Gate to Female Merchant
+11010120|Undead Burg, Flaming Barrel kicked down
+11010140|Undead Burg, Master Key Door (to Gold Resin)
+11010160|Undead Burg, Shortcut Door to Lower Burg
+11010171|Undead Burg, Door to the Depths
+11010172|Undead Burg, Basement Key Door
+11010191|Undead Burg, Watchtower upper door
+11010192|Undead Burg, Watchtower lower door
+11010403|Lower Undead Burg, Large Soul of a Lost Undead corpse collapsed
+11010404|Lower Undead Burg, Sorcerer Set corpse collapsed
+11010586|Resting at Firelink Shrine
+11010591|Obtained, White Sign Soapstone
+11010594|Obtained, Miracle: Lightning Spear
+11010621|Undead Burg, Sunlight Altar gate open
+11010650|Undead Burg, Black Firebomb chest opened
+11010651|Undead Burg, Gold Pine Resin chest opened
+11010700|Undead Parish, First Bell of Awakening
+11010790|Undead Burg, Hellkite's First Appearance
+11010791|Undead Burg, Hellkite's Second Appearance
+11010860|Dead, Undead Burg, Havel
+11010861|Dead, Undead Burg, Black Knight
+11010863|Dead, Undead Parish, Berenike Knight
+11010865|Dead, Undead Parish, Channeler
+11010866|Dead, Undead Parish, Gate Hollow
+11010901|Boss Defeated, Taurus Demon
+11010902|Boss Defeated, Capra Demon
+11010903|Dead, Undead Parish, Boar
+11015031|Pray at the Altar of Sunlight
+11015390|Enter Gargoyle foggate
+11015392|Set on Gargoyle fight start (always)
+11015393|Halfway through Gargoyle foggate
+11015394|Set on Gargoyle fight start (always)
+11020300|Undead Parish, Elevator to Firelink active
+11020302|Undead Parish, Elevator to Firelink (left elevator down)
+11020575|Laurentius, Knows About Quelana
+11020599|Petrus, Gifts Copper Coin
+11020602|Laurentius, Gifts Pyromancy Flame
+11020700|Firelink Shrine, Lloyd's Talisman chest opened
+11020701|Firelink Shrine, Talisman chest opened
+11020702|Firelink Shrine, Homeward Bone chest opened
+11020703|Firelink Shrine, Cracked Red Eye Orb opened
+11025060|Firelink Shrine, Curled Up Like A Ball
+11025200|Firelink Shrine, Skeleton Stands Up
+11025201|Firelink Shrine, Skeleton Stands Up
+11025202|Firelink Shrine, Skeleton Stands Up
+11025203|Firelink Shrine, Skeleton Stands Up
+11025206|Firelink Shrine, Skeleton Stands Up
+11025207|Firelink Shrine, Skeleton Stands Up
+11025208|Firelink Shrine, Skeleton Stands Up
+11025209|Firelink Shrine, Skeleton Stands Up
+11025210|Firelink Shrine, Skeleton Stands Up
+11025211|Firelink Shrine, Skeleton Stands Up
+11025212|Firelink Shrine, Skeleton Stands Up
+11025213|Firelink Shrine, Skeleton Stands Up
+11100030|Painted World, Shortcut gate at the bonfire
+11100120|Painted World, Annex Key door
+11100135|Painted World, Main gate to Priscilla
+11200000|? on Sif fight started
+11200001|? on Sif killed
+11200002|? on Sif fight started
+11200101|? on Sif's Gate character anim finished
+11200110|Darkroot, Crest of Artorias door
+11200111|? on Touched Sif's Gate
+11200215|Touched Dusk Summon Sign
+11200530|Dusk freed from Golem?
+11200531|Dusk disappeared after saying 'yes' to her
+11200532|Dusk disappeared after saying 'No' to her
+11200533|Said yes to Dusk
+11200592|Alvina, Gift Cat Covenant Ring
+11200810|Dead, Darkroot Forest, Possessed Tree #2
+11200811|Dead, Darkroot Forest, Possessed Tree #1
+11200818|Dead, Darkroot Forest, Pharis
+11200900|Boss Defeated, Moonlight Butterfly
+11205310|Dusk finished summoning animation
+11205390|? on Sif cutscene triggered
+11205391|? on Sif cutscene triggered
+11205393|? on Sif cutscene triggered
+11205394|? on Sif fight started
+11205395|? on Sif killed
+11205396|? on Sif 0 HP
+11210000|Boss Defeated, Sanctuary Guardian
+11210001|Boss Defeated, Artorias
+11210002|Boss Defeated, Manus
+11210004|Boss Defeated, Kalameet
+11210005|Changed on defeating Kalameet
+11210021|Chasm of the Abyss, Sif Rescued
+11210025|Chasm of the Abyss, Illusory Wall
+11210030|Changed on entering Artorias Fight
+11210040|Set after passing the center of Kalameet burn area
+11210041|Player left Kalameet burn area additional flag
+11210050|First Kalameet encounter
+11210052|Kalameet burning area flag
+11210056|Kalameet burning area flag
+11210057|Kalameet burning area flag
+11210065|Kalameet comes flying to burn everything
+11210066|Kalameet burning area flag
+11210067|Kalameet burning area flag
+11210068|Kalameet burning area flag
+11210070|Kalameet burning area flag
+11210071|Kalameet burning area flag
+11210072|Kalameet burning area flag
+11210073|Kalameet burning area flag
+11210101|Oolacile, Elevator (Position - needs interaction beforehand)
+11210102|Oolacile, Elevator (Operability - combine w/ next)
+11210103|Oolacile, Elevator (Unlocked - combine w/ previous)
+11210110|Stepped off Royal Wood elevator 1
+11210111|Determines position of RW elevator 1 and which plate is active
+11210121|Royal Wood, Elevator #2 (Position)
+11210122|Royal Wood, Elevator #2 (Operability - combine w/ next)
+11210123|Royal Wood Skip Elevator active
+11210131|Chasm of the Abyss, Shortcut Elevator (Position)
+11210132|Chasm of the Abyss, Shortcut Elevator (Operability - combine w/ next)
+11210133|Chasm of the Abyss, Shortcut Elevator (Unlocked - combine w/ previous)
+11210141|Oolacile, Elevator to Chasm (Position)
+11210205|Oolacile, Sound Effect for Illusory Wall #1
+11210206|Oolacile, Sound Effect for Illusory Wall #2
+11210340|Chasm of the Abyss, Alvina 1st Warp
+11210341|Chasm of the Abyss, Alvina 2nd Warp
+11210345|Chasm of the Abyss, Alvina 3rd Warp
+11210346|Chasm of the Abyss, Alvina Gone?
+11210350|Kalameet Lizard killed
+11210537|Changed on triggering Artorias cutscene
+11210590|Gets you Ciaran's tracers (but there are only one of each, setting this repeatedly doesn't do anything)
+11210600|Royal Wood, Blue Titanite Slab chest opened
+11210605|Opened Kalameet Titanite Slab chest
+11210650|Oolacile, Crest Key Door
+11210681|Dead, Oolacile Township, Carving Mimic
+11210878|Set every second while in Battle of Stoicisim
+11210901|Dead, Oolacile, Chester Invasion
+11215000|Changed when entering Guardian fight
+11215002|Changed when entering Guardian fight
+11215003|Changed when entering Guardian fight
+11215004|Changed when entering Guardian fight
+11215005|Changed on Guardian killed
+11215006|Changed on Guardian killed
+11215010|Changed on entering Artorias Fight
+11215012|Changed on triggering Artorias cutscene
+11215013|Changed on entering Artorias Fight
+11215014|Changed on entering Artorias Fight
+11215015|Changed on killing Artorias
+11215051|Kalameet at 0 HP
+11215055|Player is in Kalameet burn area 2
+11215056|Player is in Kalameet burn area 1
+11215060|Went through Kalameet foggate
+11215062|Went through Kalameet foggate
+11215063|Triggered Kalameet fight
+11215064|Triggered Kalameet fight
+11215065|Changed on defeating Kalameet
+11215140|Gets set every like 40s while in the DLC
+11215141|Gets set every like 30s while in the DLC
+11215151|Set on Township bonfire rest
+11215152|Set on Township bonfire rest
+11215153|Set on Township bonfire rest
+11215221|Currently on Royal Wood elevator 1
+11217060|Changed on killing Artorias
+11217070|Changed on killing Artorias
+11217080|Changed on killing Artorias
+11217090|Changed on killing Artorias
+11300090|Catacombs, Fog Gate
+11300100|Catacombs, Breakaway Floor
+11300101|Catacombs, Breakaway Floor
+11300102|Catacombs, Breakaway Floor
+11300103|Catacombs, Breakaway Floor
+11300104|Catacombs, Breakaway Floor
+11300105|Catacombs, Breakaway Floor
+11300150|Catacombs, Giant Skeleton Jumps Down
+11300160|Catacombs, Illusory Wall
+11300210|Catacombs, Path to Vamos Open
+11300402|Catacombs, Bridge #1
+11300403|Catacombs, Bridge #2
+11300700|Catacombs, Spike Trap
+11300701|Catacombs, Spike Trap
+11300703|Catacombs, Spike Trap
+11300704|Catacombs, Spike Trap
+11300705|Catacombs, Spike Trap
+11300706|Catacombs, Spike Trap
+11300707|Catacombs, Spike Trap
+11300708|Catacombs, Spike Trap
+11300709|Catacombs, Spike Trap
+11300710|Catacombs, Spike Trap
+11300712|Catacombs, Spike Trap
+11300713|Catacombs, Spike Trap
+11300714|Catacombs, Spike Trap
+11300715|Catacombs, Spike Trap
+11300716|Catacombs, Spike Trap
+11300717|Catacombs, Spike Trap
+11300718|Catacombs, Spike Trap
+11300719|Catacombs, Spike Trap
+11300850|Dead, Catacombs, Necromancer #2
+11300851|Dead, Catacombs, Necromancer #4
+11300852|Dead, Catacombs, Necromancer #5
+11300853|Dead, Catacombs, Necromancer #3
+11300854|Dead, Catacombs, Necromancer #1
+11300855|Dead, Catacombs, Necromancer #6
+11300858|Dead, Catacombs, Prowling Demon
+11300859|Dead, Catacombs, Black Knight
+11300900|Catacombs, Door #1 (Lever Operated)
+11300901|Catacombs, Door #2 (Lever Operated)
+11305060|Catacombs, ? Related to: Path to Vamos Open?
+11305070|Catacombs, Skeleton Stands Up
+11305071|Catacombs, Skeleton Stands Up
+11305072|Catacombs, Skeleton Stands Up
+11305073|Catacombs, Skeleton Stands Up
+11305074|Catacombs, Skeleton Stands Up
+11305075|Catacombs, Skeleton Stands Up
+11305076|Catacombs, Skeleton Stands Up
+11305077|Catacombs, Skeleton Stands Up
+11305078|Catacombs, Skeleton Stands Up
+11305079|Catacombs, Skeleton Stands Up
+11305080|Catacombs, Skeleton Stands Up
+11305081|Catacombs, Skeleton Stands Up
+11305082|Catacombs, Skeleton Stands Up
+11305083|Catacombs, Skeleton Stands Up
+11305086|Catacombs, Skeleton Stands Up
+11305087|Catacombs, Skeleton Stands Up
+11305088|Catacombs, Skeleton Stands Up
+11305100|Catacombs, Relates to Necromancer #2
+11305101|Catacombs, Relates to Necromancer #2
+11305102|Catacombs, Relates to Necromancer #2
+11305103|Catacombs, Relates to Necromancer #2
+11305104|Catacombs, Relates to Necromancer #2
+11305105|Catacombs, Relates to Necromancer #2
+11305106|Catacombs, Relates to Necromancer #2
+11305107|Catacombs, Relates to Necromancer #2
+11305108|Catacombs, Relates to Necromancer #2
+11305109|Catacombs, Relates to Necromancer #2
+11305110|Catacombs, Relates to Necromancer #2
+11305111|Catacombs, Relates to Necromancer #2
+11305112|Catacombs, Relates to Necromancer #2
+11305113|Catacombs, Relates to Necromancer #2
+11305114|Catacombs, Relates to Necromancer #4
+11305115|Catacombs, Relates to Necromancer #4
+11305116|Catacombs, Relates to Necromancer #4
+11305117|Catacombs, Relates to Necromancer #4
+11305118|Catacombs, Relates to Necromancer #4
+11305119|Catacombs, Relates to Necromancer #4
+11305120|Catacombs, Relates to Necromancer #4
+11305121|Catacombs, Relates to Necromancer #4
+11305122|Catacombs, Relates to Necromancer #5
+11305123|Catacombs, Relates to Necromancer #5
+11305124|Catacombs, Relates to Necromancer #5
+11305125|Catacombs, Relates to Necromancer #5
+11305126|Catacombs, Relates to Necromancer #5
+11305127|Catacombs, Relates to Necromancer #5
+11305128|Catacombs, Relates to Necromancer #5
+11305129|Catacombs, Relates to Necromancer #3
+11305130|Catacombs, Relates to Necromancer #3
+11305131|Catacombs, Relates to Necromancer #3
+11305132|Catacombs, Relates to Necromancer #3
+11305133|Catacombs, Relates to Necromancer #3
+11305134|Catacombs, Relates to Necromancer #3
+11305135|Catacombs, Relates to Necromancer #1
+11305136|Catacombs, Relates to Necromancer #1
+11305137|Catacombs, Relates to Necromancer #1
+11305138|Catacombs, Relates to Necromancer #1
+11305139|Catacombs, Relates to Necromancer #1
+11305140|Catacombs, Relates to Necromancer #1
+11305141|Catacombs, Relates to Necromancer #1
+11305144|Catacombs, Relates to Necromancer #6
+11305145|Catacombs, Relates to Necromancer #6
+11305146|Catacombs, Relates to Necromancer #6
+11305147|Catacombs, Relates to Necromancer #6
+11305148|Catacombs, Relates to Necromancer #6
+11305149|Catacombs, Relates to Necromancer #6
+11305150|Catacombs, Relates to Necromancer #6
+11305210|Catacombs, Wisp
+11305211|Catacombs, Wisp
+11305212|Catacombs, Wisp
+11305213|Catacombs, Wisp
+11305214|Catacombs, Wisp
+11305215|Catacombs, Wisp
+11305216|Catacombs, Wisp
+11305217|Catacombs, Wisp
+11305218|Catacombs, Wisp
+11305219|Catacombs, Wisp
+11305223|Catacombs, Wisp
+11310090|Tomb of the Giants, Fog Gate
+11310100|Tomb of the Giants, Illusory Wall
+11310820|Dead, Tomb of the Giants, Black Knight
+11315060|Tomb of the Giants, Bone Tower in Pit
+11315061|Tomb of the Giants, Bone Tower in Pit
+11315062|Tomb of the Giants, Bone Tower in Pit
+11315063|Tomb of the Giants, Bone Tower in Pit
+11315070|Tomb of the Giants, Bone Tower by Silver Serpent Ring
+11315071|Tomb of the Giants, Bone Tower by Silver Serpent Ring
+11315072|Tomb of the Giants, Bone Tower by Silver Serpent Ring
+11315073|Tomb of the Giants, Bone Tower by Silver Serpent Ring
+11315074|Tomb of the Giants, Bone Tower by Silver Serpent Ring
+11400000|Quelaag, Cutscene triggered
+11400091|Blighttown, Fog Gate
+11400200|Rung the second bell, bell lever disabled
+11400850|Dead, Blighttown, Blowdart Sniper
+11400851|Dead, Blighttown, Blowdart Sniper
+11400853|Dead, Blighttown, Blowdart Sniper
+11400854|Dead, Blighttown, Blowdart Sniper.
+11400855|Dead, Blighttown, Blowdart Sniper
+11400856|Dead, Blighttown, Blowdart Sniper
+11400857|Dead, Blighttown, Blowdart Sniper
+11400858|Dead, Blighttown, Blowdart Sniper
+11410106|Dead, Lost Izalith, Daughter of Chaos
+11410340|Lost Izalith, Shortcut to Demon Ruins
+11410401|Demon Ruins, Elevator to Quelaag's Domain
+11410410|Boss Defeated, Demon Firesage
+11410533|Lost Izalith, After Talking to Rescued Solaire?
+11410801|Demon Ruins, Lava Drained
+11410900|Boss Defeated, Ceaseless Discharge
+11410901|Boss Defeated, Centipede Demon
+11415390|Lost Izalith, Enter Bed of Chaos Fog Gate
+11500091|Sen's Fortress, Pre-Bonfire fog gate
+11500100|Sen's Fortress, exited Cage Elevator
+11500101|Sen's Fortress, Cage Elevator
+11500102|Sen's Fortress, Cage Elevator open
+11500105|Sen's Fortress, Shortcut door at Hush
+11500110|Sen's Fortress, Empty Cage #2 open
+11500111|Sen's Fortress, Empty Cage #3 open
+11500112|Sen's Fortress, Big Hat Logan Cage open
+11500113|Sen's Fortress, Empty Cage #4 open
+11500115|Sen's Fortress, Empty Cage #1 open
+11500116|Sen's Fortress, Soul of a Hero Cage open
+11500200|Sen's Fortress is opened
+11500602|Sen's Fortress, 2x Large Titanite Shard chest opened
+11500604|Sen's Fortress, Divine Blessing chest opened
+11500609|Sen's Fortress, Flame Stoneplate Ring chest opened
+11500610|Sen's Fortress, Rare Ring of Sacrifice chest opened
+11500710|Sen's Fortess, Unknown (Boulder Trap?)
+11500711|Sen's Fortess, Unknown (Boulder Trap?)
+11500790|Sen's Fortess, Unknown (Boulder Trap?)
+11500795|Sen's Fortess, Unknown (Boulder Trap?)
+11500796|Sen's Fortess, Unknown (Boulder Trap?)
+11500803|Sen's Fortess, Boulder Lever (Facing Exterior Path?)
+11500806|Sen's Fortress, Boulder Lever (Facing Path to Logan?)
+11500809|Sen's Fortess, Boulder Lever (Facing Interoir Path?)
+11500812|Sen's Fortess, Boulder Lever (Facing Safe Drop?)
+11500850|Sen's Fortress, Boulder Lever (Operable?)
+11500860|Dead, Sen's Fortress, Undead Prince Ricard
+11500861|Dead, Sen's Fortress, Prowling Demon #4
+11500862|Dead, Sen's Fortress, Prowling Demon #3
+11500863|Dead, Sen's Fortress, Prowling Demon #2
+11500864|Dead, Sen's Fortress, Prowling Demon #1
+11500865|Dead, Sen's Fortress, Bomb-Tossing Giant
+11500867|Dead, Sen's Fortress, Chain-Pulling Giant
+11505052|Sen's Fortess, Unknown (Boulder Trap?)
+11505210|Sen's Fortess, Unknown (Boulder Trap?)
+11505211|Sen's Fortess, Unknown (Boulder Trap?)
+11505220|Sen's Fortess, Unknown (Boulder Trap?)
+11505221|Sen's Fortess, Unknown (Boulder Trap?)
+11505250|Sen's Fortress, Boulder Lever (Being Operated?)
+11505280|Sen's Fortress, First Arrow Trap
+11505281|Sen's Fortess, Second Arrow Trap
+11505282|Sen's Fortress, Third Arrow Trap
+11505283|Sen's Fortress, Arrow Trap #4 fired
+11505284|Sen's Fortess, Fourth Arrow Trap
+11505285|Sen's Fortress, Arrow Trap #5 fired
+11510090|Foggate after Rafters
+11510091|Foggate after Silver Knight Archers
+11510100|Anor Londo, Giant Chandelier
+11510110|Gwynevere Door opened
+11510120|Allows Darkmoon invasions in Dark AL. Is set to 1 twice a second while in MP-Zones in Dark AL with Gwyndolin alive
+11510200|Anor Londo, Large Doorway to Main Hall
+11510210|Anor Londo, Shortcut Door to Giant Blacksmith
+11510220|Anor Londo Elevator activated
+11510230|Display 'Contraption does not move' on Painted World painting
+11510251|Anor Londo, Shortcut Door to Solaire Bonfire
+11510257|Anor Londo, second shotcut door in cathedral
+11510272|Dark Anor Londo
+11510304|Disables Backstab on Staircase Elevator?
+11510310|Display 'Contraption does not move' on AL Staircase Elevator levers
+11510319|Moved off AL Staircase Elevator
+11510340|Started moving staircase elevator
+11510400|Dark Anor Londo Active
+11510521|Set on Darkmoon Knightess dead
+11510601|Chest at beginning of AL with Demon Titanite opened
+11510615|Anor Londo, Empty chest opened
+11510616|Anor Londo, Brass set chest opened
+11510617|Anor Londo, Twinkling Titanite chest opened
+11510618|Anor Londo, Demon Titanite chest opened
+11510851|Dead, Anor Londo, First Mimic
+11510863|Dark AL Knight 2 dead
+11510864|Dark AL Knight 1 dead
+11510900|Boss Defeated, Gwyndolin
+11515193|Set when sitting down on Darkmoon Tomb bonfire 2
+11515250|First Painting Guardian triggered
+11515300|AL Staircase Elevator is moving
+11515383|Gwyndolin cutscene
+11515386|Gwyndolin cutscene
+11515392|Rest at Darkmoon Tomb/Entering O&S fight
+11515399|Rest at Chamber of Princess
+11600100|New Londo Ruins, Drained
+11600110|New Londo Ruins, Door to the Seal
+11600120|New Londo Ruins, Valley of Drakes Door
+11600160|New Londo Ruins, Shortcut Ladder
+11600201|New Londo Ruins, Elevator to Firelink
+11600231|Valley of Drakes, Elevator to Darkroot
+11600251|Display 'Contraption does not move' on first New Londo Lever
+11600252|Display 'Contraption does not move' at Seal New Londo Lever
+11600592|Obtained, Key to the Seal
+11600602|Chest behind illusory wall in New Londo opened
+11600650|New Londo, Estoc-carrying Corpse Collapsed
+11605123|Valley of Drakes, Elevator to Darkroot Inoperable
+11605177|Set every 5 seconds while New Londo is in the loading queue
+11700001|Set shortly after Seath defeated
+11700110|Duke's Archives, small staircase before garden
+11700120|Duke's Archives, Bookshelf Door
+11700125|Opens the shortcut shelf between first and second hall of Duke's after killing Seath (this is the ID for the shortcut shelf!)
+11700140|Opens the big door to the Prison Area after killing Seath
+11700300|Duke's Archives, Archive Tower Cell Door
+11700301|Duke's Archives, Prison Extra Key Cell Door #4
+11700302|Duke's Archives, Prison Extra Key Cell Door #1
+11700303|Duke's Archives, Prison Extra Key Cell Door #2
+11700304|Duke's Archives, Prison Extra Key Cell Door #3
+11700305|Duke's Archives, Normal Cell Door #2
+11700306|Duke's Archives, Archive Tower Giant Cell?
+11700320|Duke's Archives, Archive Tower Giant Cell?
+11700700|Received Broken Pendant
+11700810|Dead, The Duke's Archives, Crystal General
+11700811|Dead, The Duke's Archives, Crystal Lizard first Seath encounter
+11700815|Dead, Duke's Archives, Boar #1
+11700816|Dead, Duke's Archives, Boar #2
+11700822|Duke's Archives, Crying Pisaca 1
+11700823|Duke's Archives, Crying Pisaca 2
+11705091|First Duke's Elevator is moving
+11705395|Set on Seath defeated
+11705396|Seath is vulnerable
+11705397|Seath HP hits 0
+11800100|Placed Lordvessel, makes golden foggates disappear
+11800101|Placed Lordvessel 2 ?
+11810090|Undead Asylum, Pre-Oscar Fog Gate
+11810103|Undead Asylum, Cell Door
+11810104|Undead Asylum, F2 West Door
+11810105|Undead Asylum, Shortcut Door
+11810106|Undead Asylum, F2 East Door
+11810110|Undead Asylum, Big Pilgrim Door
+11810112|Undead Asylum, Boss Door
+11810211|Undead Asylum, Trap Sprung Near Oscar
+11810590|Oscar, Gift Estus Flask
+11810591|Oscar, Gift Undead Asylum F2 East Key
+11810851|Dead, Undead Asylum, Sword Black Knight #1
+11815010|Resting at Firelink Shrine
+11815392|Resting at Firelink Shrine
+50000081|Oscar, Don't gift Big Pilgrim Key
+61200501|? on Touched Sif's Gate
+103249371|Set when sitting down on Darkmoon Tomb bonfire 1
+
+
+
+
+Bells of Awakening
+11010700|Undead Parish, Upper Bell of Awakening
+11400200|Blighttown, Lower Bell of Awakening
+
+Lordvessel Flags
+11510400|Dark Anor Londo
+11510592|Receive Lordvessel With Gwynevere Still Alive
+50000090|Receive Lordvessel (Gwynevere Alive or Dead)
+
+Boss Deaths
+00000016|Asylum Demon
+00000010|Bed of Chaos
+00000003|Bell Gargoyles
+11210004|Black Dragon Kalameet
+11210063|Black Dragon Kalameet (Goughless)
+11010902|Capra Demon
+11410900|Ceaseless Discharge
+11410901|Centipede Demon
+00000009|Chaos Witch Quelaag
+00000004|Crossbreed Priscilla
+11510900|Dark Sun Gwyndolin
+11410410|Demon Firesage
+00000012|Dragonslayer Ornstein & Executioner Smough
+00000013|Four Kings
+00000002|Gaping Dragon
+00000007|Gravelord Nito
+00000015|Gwyn, Lord of Cinder
+00000011|Iron Golem
+11210001|Knight Artorias
+11210002|Manus, Father of the Abyss
+11200900|Moonlight Butterfly
+00000006|Pinwheel
+11210000|Sanctuary Guardian
+00000014|Seath, the Scaleless
+00000005|Sif, the Great Gray Wolf
+11810900|Stray Demon
+11010901|Taurus Demon
+
+Doors
+11510110|Anor Londo, Door to Gwynevere
+61200500|Darkroot Garden, Crest of Artorias Door
+61200501|Darkroot Garden, Sif Door
+11410340|Demon Ruins, Shortcut to Lost Izalith
+11810103|Northern Undead Asylum, Cell Door
+11810112|Northern Undead Asylum, Asylum Demon Door
+11810110|Northern Undead Asylum, Big Pilgrim Door
+
+Elevators
+11510220|Anor Londo, Elevator Active
+
+Levers
+11300900|Catacombs, Entrance Lever
+11705091|Duke's Archives, First Lever
+11705090|Duke's Archives, Second Lever
+11600200|New Londo Ruins, Seal Opened
+
+NPC Flags
+71010000|Andre, Talk To For First Time
+71510000|Blacksmith Giant, Talk To For First Time
+71500001|Crestfallen Merchant, Talk To For First Time
+1121|Dusk, Rescued From Golem
+1122|Dusk, Available for Summon (Said Yes After Rescue)
+1125|Dusk, Dead
+1575|Lautrec, Dead
+1702|Oswald, Dead
+1513|Siegmeyer, Dead
+1764|Shiva Bodyguard, Dead
+
+Ring Item Pickups
+51300020|Catacombs, Darkmoon Seance Ring
+51020130|Firelink Shrine, Ring of Sacrifice
+51810060|Northern Undead Asylum, Rusted Iron Ring
+51310140|Tomb of the Giants, Covetous Silver Serpent Ring
+51600380|Valley of the Drakes, Red Tearstone Ring
+
+Non-Ring Item Pickups
+51510940|Anor Londo, Blacksmith Giant Hammer
+51510560|Anor Londo, Dragon Tooth
+51200200|Darkroot Basin, Grass Crest Shield
+51810080|Northern Undead Asylum, Peculiar Doll
+							
+Siegmeyer Rings
+50000010|Tiny Being's Ring
+50000070|Speckled Stoneplate Ring (Looted or Given)
+
+Join Covenants
+851|Way of White
+852|Princess Guard
+853|Warrior of Sunlight
+854|Darkwraith
+855|Path of the Dragon
+856|Gravelord Servant
+857|Forest Hunter
+858|Darkmoon Blade
+859|Chaos Servant
+
+Non-Boss Fog Gates
+11510090|Anor Londo, Fog Gate 1 (Rafters)
+11510091|Anor Londo, Fog Gate 2 (Archers)
+11700083|Duke's Archives, Fog Gate
+11810090|Northern Undead Asylum, Fog Gate
+11500090|Sen's Fortress, Fog Gate 1
+11500091|Sen's Fortress, Fog Gate 2
+
+Boss Fog Gates
+11415390|Bed of Chaos
+11315390|Gravelord Nito
+
+Boss Fight Entered (After Cutscene if Applicable)
+11515394|Dragonslayer Ornstein & Executioner Smough
+11415382|Centipede Demon
+11405394|Chaos Witch Quelaag
+11805394|Gwyn, Lord of Cinder
+11505394|Iron Golem
+11705394|Seath

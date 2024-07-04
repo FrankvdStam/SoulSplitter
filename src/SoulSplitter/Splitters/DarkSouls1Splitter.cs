@@ -248,6 +248,7 @@ namespace SoulSplitter.Splitters
                                 throw new ArgumentException($"Unsupported split type {s.SplitType}");
 
                             case SplitType.Boss:
+                            case SplitType.PresetFlag:
                             case SplitType.Flag:
                                 s.SplitConditionMet = _darkSouls1.ReadEventFlag(s.Flag);
                                 break;

@@ -149,6 +149,25 @@
             IsTextSearchEnabled="False"
             StaysOpenOnEdit="True"/>
 
+        <!-- Preset Flag ============================================================================================================================================================================================== -->
+        <generic:FilteredComboBox
+            Grid.Row="{StaticResource RowSplitType}"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            ItemsSource="{Binding PresetFlagsDependencyProperty, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            materialDesign:HintAssist.HelperText="what flag?"
+            Visibility="{Binding SelectedSplitType, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EnumToVisibilityConverter}, ConverterParameter={x:Static generic:SplitType.PresetFlag}}"
+            DisplayMemberPath="Name"
+            SelectedValuePath="Value"
+            SelectedValue="{Binding SelectedPresetFlag, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            IsEditable="True"
+            IsTextSearchEnabled="False"
+            StaysOpenOnEdit="True" />
+
         <!-- Attributes ============================================================================================================================================================================================== -->
         <ComboBox
             Grid.Row="{StaticResource RowSplitType}"
