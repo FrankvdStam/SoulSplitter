@@ -33,7 +33,10 @@ namespace SoulSplitter.UI.Generic
         [Annotation(Name = "Attribute")]
         Attribute,
 
-        [Annotation(Name = "Flag")]
+        [Annotation(Name = "Preset Flag")]
+        PresetFlag,
+
+        [Annotation(Name = "Custom Flag")]
         Flag,
 
         [Annotation(Name = "Iventory item")]
