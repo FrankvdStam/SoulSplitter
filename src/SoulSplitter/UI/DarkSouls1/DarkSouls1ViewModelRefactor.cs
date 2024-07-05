@@ -52,7 +52,6 @@ namespace SoulSplitter.UI.DarkSouls1
                     throw new ArgumentException($"{NewSplitType} not supported");
 
                 case SplitType.Boss:
-                case SplitType.PresetFlag:
                 case SplitType.Attribute:
                     return NewSplitValue != null;
 
@@ -162,7 +161,6 @@ namespace SoulSplitter.UI.DarkSouls1
             new EnumFlagViewModel<SplitType>(SplitType.Bonfire),
             new EnumFlagViewModel<SplitType>(SplitType.Item),
             new EnumFlagViewModel<SplitType>(SplitType.Position),
-            new EnumFlagViewModel<SplitType>(SplitType.PresetFlag),
             new EnumFlagViewModel<SplitType>(SplitType.Flag),
         };
         
@@ -170,7 +168,6 @@ namespace SoulSplitter.UI.DarkSouls1
         public static ObservableCollection<EnumFlagViewModel<Attribute>> Attributes { get; set; } = EnumFlagViewModel<Attribute>.GetEnumViewModels();
         public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = EnumFlagViewModel<Bonfire>.GetEnumViewModels();
         public static ObservableCollection<EnumFlagViewModel<ItemType>> Items { get; set; } = EnumFlagViewModel<ItemType>.GetEnumViewModels();
-        public static ObservableCollection<EnumFlagViewModel<PresetFlag>> PresetFlags { get; set; } = EnumFlagViewModel<PresetFlag>.GetEnumViewModels();
         
         #endregion
     }
