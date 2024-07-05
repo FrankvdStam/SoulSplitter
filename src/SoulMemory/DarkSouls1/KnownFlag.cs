@@ -174,6 +174,9 @@ namespace SoulMemory.DarkSouls1
 
       [AnnotationAttribute(Name = "Cutscene Skipped, Warp to Anor Londo 1511962", Description = "Other")]
       CutsceneSkippedWarpToAnorLondo = 1511962,
+
+      [AnnotationAttribute(Name = "Goughless Kalameeth Death Animation 11210063", Description = "Other")]
+      GoughlessKalameethDeathAnimation = 11210063,
     }
 
 }
