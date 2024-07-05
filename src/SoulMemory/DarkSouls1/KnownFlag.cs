@@ -172,8 +172,8 @@ namespace SoulMemory.DarkSouls1
       [AnnotationAttribute(Name = "Boss Arena Entered, Iron Golem 11505394", Description = "Boss Fight")]
       BossArenaEnteredIronGolem = 11505394,
 
-      [AnnotationAttribute(Name = "Cutscene Skipped, Warp to Anor Londo 1511962", Description = "Other")]
-      CutsceneSkippedWarpToAnorLondo = 1511962,
+      [AnnotationAttribute(Name = "Cutscene Skipped, Warp to Anor Londo 11500210", Description = "Other")]
+      CutsceneSkippedWarpToAnorLondo = 11500210,
 
       [AnnotationAttribute(Name = "Goughless Kalameeth Death Animation 11210063", Description = "Other")]
       GoughlessKalameethDeathAnimation = 11210063,
