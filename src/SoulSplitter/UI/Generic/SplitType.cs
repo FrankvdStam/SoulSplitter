@@ -34,7 +34,7 @@ namespace SoulSplitter.UI.Generic
         Attribute,
 
         [Annotation(Name = "Preset Flag")]
-        PresetFlag,
+        KnownFlag,
 
         [Annotation(Name = "Custom Flag")]
         Flag,

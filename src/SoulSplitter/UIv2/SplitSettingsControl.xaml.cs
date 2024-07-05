@@ -73,8 +73,8 @@ namespace SoulSplitter.UIv2
                 case SplitType.Position:
                     return Position != null;
 
-                case SplitType.PresetFlag:
-                    return SelectedPresetFlag != null;
+                case SplitType.KnownFlag:
+                    return SelectedKnownFlag != null;
 
                 case SplitType.Flag:
                     return FlagDescription != null;
@@ -123,8 +123,8 @@ namespace SoulSplitter.UIv2
                     flatSplit.Split = new VectorSize{Description = Position.Description, Position = new Vector3f(Position.Position.X, Position.Position.Y, Position.Position.Z), Size = Position.Size};
                     break;
 
-                case SplitType.PresetFlag:
-                    flatSplit.Split = SelectedPresetFlag;
+                case SplitType.KnownFlag:
+                    flatSplit.Split = SelectedKnownFlag;
                     break;
 
                 case SplitType.Flag:
@@ -187,14 +187,14 @@ namespace SoulSplitter.UIv2
             set => SetValue(BossesDependencyProperty, value);
         }
 
-        public static readonly DependencyProperty PresetFlagsDependencyProperty =
-            DependencyProperty.Register(nameof(PresetFlags), typeof(IList), typeof(SplitSettingsControl),
+        public static readonly DependencyProperty KnownFlagsDependencyProperty =
+            DependencyProperty.Register(nameof(KnownFlags), typeof(IList), typeof(SplitSettingsControl),
                 new FrameworkPropertyMetadata(new ObservableCollection<EnumFlagViewModel<Enum>>(), FrameworkPropertyMetadataOptions.None));
 
-        public ObservableCollection<EnumFlagViewModel<Enum>> PresetFlags
+        public ObservableCollection<EnumFlagViewModel<Enum>> KnownFlags
         {
-            get => (ObservableCollection<EnumFlagViewModel<Enum>>)GetValue(PresetFlagsDependencyProperty);
-            set => SetValue(PresetFlagsDependencyProperty, value);
+            get => (ObservableCollection<EnumFlagViewModel<Enum>>)GetValue(KnownFlagsDependencyProperty);
+            set => SetValue(KnownFlagsDependencyProperty, value);
         }
 
         public static readonly DependencyProperty AttributesDependencyProperty =
@@ -322,12 +322,12 @@ namespace SoulSplitter.UIv2
         }
         private Enum _selectedBoss;
 
-        public Enum SelectedPresetFlag
+        public Enum SelectedKnownFlag
         {
-            get => _selectedPresetFlag;
-            set => SetField(ref _selectedPresetFlag, value);
+            get => _selectedKnownFlag;
+            set => SetField(ref _selectedKnownFlag, value);
         }
-        private Enum _selectedPresetFlag;
+        private Enum _selectedKnownFlag;
 
         public Enum SelectedBonfire
         {

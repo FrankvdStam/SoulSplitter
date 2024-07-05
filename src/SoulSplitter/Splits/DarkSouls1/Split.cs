@@ -45,9 +45,9 @@ namespace SoulSplitter.Splits.DarkSouls1
                     Position = (VectorSize)split;
                     break;
 
-                 case SplitType.PresetFlag:
-                    PresetFlag = (PresetFlag)split;
-                    Flag = (uint)PresetFlag;
+                 case SplitType.KnownFlag:
+                    KnownFlag = (KnownFlag)split;
+                    Flag = (uint)KnownFlag;
                     break;
 
                 case SplitType.Flag:
@@ -76,7 +76,7 @@ namespace SoulSplitter.Splits.DarkSouls1
         public readonly BonfireState BonfireState;
         public readonly VectorSize Position;
         public readonly uint Flag;
-        public readonly PresetFlag PresetFlag;
+        public readonly KnownFlag KnownFlag;
 
         /// <summary>
         /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met

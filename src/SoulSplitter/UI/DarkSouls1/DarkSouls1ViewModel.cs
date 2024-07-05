@@ -89,7 +89,7 @@ namespace SoulSplitter.UI.DarkSouls1
                     throw new ArgumentException($"{NewSplitType} not supported");
 
                 case SplitType.Boss:
-                case SplitType.PresetFlag:
+                case SplitType.KnownFlag:
                 case SplitType.Attribute:
                     return NewSplitValue != null;
 
@@ -119,7 +119,7 @@ namespace SoulSplitter.UI.DarkSouls1
                     throw new ArgumentException($"{NewSplitType} not supported");
 
                 case SplitType.Boss:
-                case SplitType.PresetFlag:
+                case SplitType.KnownFlag:
                 case SplitType.Attribute:
                     split = NewSplitValue;
                     break;
@@ -211,7 +211,13 @@ namespace SoulSplitter.UI.DarkSouls1
         #region Static UI source data ============================================================================================================================================
 
         public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<Boss>>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
-        public static ObservableCollection<EnumFlagViewModel<PresetFlag>> PresetFlags { get; set; } = new ObservableCollection<EnumFlagViewModel<PresetFlag>>(Enum.GetValues(typeof(PresetFlag)).Cast<PresetFlag>().Select(i => new EnumFlagViewModel<PresetFlag>(i)));
+        public static ObservableCollection<EnumFlagViewModel<KnownFlag>> KnownFlags { get; set; } = 
+            new ObservableCollection<EnumFlagViewModel<KnownFlag>>(
+                Enum
+                    .GetValues(typeof(KnownFlag))
+                    .Cast<KnownFlag>()
+                    .Select(i => new EnumFlagViewModel<KnownFlag>(i))
+            );
         public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = new ObservableCollection<EnumFlagViewModel<Bonfire>>(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
         public static ObservableCollection<Item> Items { get; set; } = new ObservableCollection<Item>(Item.AllItems);
 

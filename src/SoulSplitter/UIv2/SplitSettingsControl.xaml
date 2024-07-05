@@ -35,6 +35,12 @@
                     <system:Int32 x:Key="RowAddRemoveSplit"     >5</system:Int32>
                     <system:Int32 x:Key="RowSplitsTree"         >6</system:Int32>
 
+                    <CollectionViewSource Source="{Binding KnownFlags, RelativeSource={RelativeSource AncestorType=UserControl}}" x:Key="KnownFlagsCollectionViewSource">
+                        <CollectionViewSource.GroupDescriptions>
+                            <PropertyGroupDescription PropertyName="Area"/>
+                        </CollectionViewSource.GroupDescriptions>
+                    </CollectionViewSource>
+
                     <CollectionViewSource Source="{Binding Bonfires, RelativeSource={RelativeSource AncestorType=UserControl}}" x:Key="BonfiresCollectionViewSource">
                         <CollectionViewSource.GroupDescriptions>
                             <PropertyGroupDescription PropertyName="Area"/>
@@ -149,7 +155,7 @@
             IsTextSearchEnabled="False"
             StaysOpenOnEdit="True"/>
 
-        <!-- Preset Flag ============================================================================================================================================================================================== -->
+        <!-- Known Flag ============================================================================================================================================================================================== -->
         <generic:FilteredComboBox
             Grid.Row="{StaticResource RowSplitType}"
             Grid.Column="0"
@@ -157,12 +163,12 @@
             Margin="5"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            ItemsSource="{Binding PresetFlagsDependencyProperty, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            ItemsSource="{Binding Source={StaticResource KnownFlagsCollectionViewSource}}"
             materialDesign:HintAssist.HelperText="what flag?"
-            Visibility="{Binding SelectedSplitType, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EnumToVisibilityConverter}, ConverterParameter={x:Static generic:SplitType.PresetFlag}}"
+            Visibility="{Binding SelectedSplitType, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EnumToVisibilityConverter}, ConverterParameter={x:Static generic:SplitType.KnownFlag}}"
             DisplayMemberPath="Name"
             SelectedValuePath="Value"
-            SelectedValue="{Binding SelectedPresetFlag, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            SelectedValue="{Binding SelectedKnownFlag, RelativeSource={RelativeSource AncestorType=UserControl}}"
             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
             IsEditable="True"
             IsTextSearchEnabled="False"
