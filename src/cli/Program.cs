@@ -51,16 +51,15 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            var igt = new TimeSpan(0, 10, 46, 21, 20);
-            var rta = new TimeSpan(0, 11, 10, 27, 25);
+            var igt = new TimeSpan(0, 9, 44, 58, 600);
+            var rta = new TimeSpan(0, 10, 08, 56, 570);
 
-            igt = igt.Add(new TimeSpan(0, 0, 1, 990));
-            rta = rta.Add(new TimeSpan(0, 0, 0, 5, 280));
+            igt = igt.Add(new TimeSpan(0, 0, 0, 1, 340));
+            rta = rta.Add(new TimeSpan(0, 0, 0, 4, 580));
 
-            var igtMillis = igt.TotalMilliseconds;
-            var rtaMillis = rta.TotalMilliseconds;
+            var result = igt.TotalMilliseconds / rta.TotalMilliseconds;
+            Console.WriteLine(result);
 
-            var frac = igtMillis / rtaMillis;
 
             return;
 
@@ -72,6 +71,10 @@ namespace cli
                 Console.WriteLine(e.ReadEventFlag((uint)SoulMemory.EldenRing.ItemPickup.LDChapelOfAnticipationTarnishedsWizenedFinger));
 
             });
+
+
+
+            
 
             var ds2 = new DarkSouls2();
             ds2.TryRefresh();
