@@ -147,14 +147,14 @@ namespace SoulMemory.EldenRing
                     return result;
                 }
 
+                ApplyNoLogo();
+
                 if (!soulmods.Soulmods.Inject(_process))
                 {
                     _igt.Clear();
-                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "MIGT injection failed"));
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "soulmods injection failed"));
                 }
-
-                ApplyNoLogo();
-
+                
                 return Result.Ok();
             }
             catch (Exception e)

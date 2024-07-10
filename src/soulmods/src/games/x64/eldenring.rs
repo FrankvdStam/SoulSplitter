@@ -37,33 +37,21 @@ pub fn init_eldenring()
             let mut frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
             //convert to milliseconds
             frame_delta = frame_delta * 1000f32;
-            //info!("frame delta: {}", frame_delta);
-
-            frame_delta = frame_delta * 0.96f32;
-            //info!("frame delta scaled: {}", frame_delta);
+            frame_delta = frame_delta * 0.96f32; //scale to IGT
 
             //Rather than casting, like the game does, make the behavior explicit by flooring
             let mut floored_frame_delta = frame_delta.floor();
-            //info!("floored frame delta: {}", floored_frame_delta);
-
             let remainder = frame_delta - floored_frame_delta;
-            //info!("remainder: {}", remainder);
-
             IGT_BUFFER = IGT_BUFFER + remainder;
-            //info!("IGT_BUFFER: {}", IGT_BUFFER);
 
             if IGT_BUFFER > 1.0f32
             {
-                //info!("reduced {} {}", IGT_FRAC, frame_delta_millis);
                 IGT_BUFFER = IGT_BUFFER - 1f32;
                 floored_frame_delta += 1f32;
-                //info!("subtract 1 from IGT buffer: {} {}", IGT_BUFFER, floored_frame_delta);
-
             }
 
             //convert back to seconds
             floored_frame_delta = floored_frame_delta / 1000f32;
-            //info!("floored_frame_delta seconds: {}", floored_frame_delta);
             (*registers).xmm0 = std::mem::transmute::<f32, u32>(floored_frame_delta) as u128;
         }
 
