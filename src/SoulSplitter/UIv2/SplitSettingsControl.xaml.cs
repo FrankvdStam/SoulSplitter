@@ -73,6 +73,9 @@ namespace SoulSplitter.UIv2
                 case SplitType.Position:
                     return Position != null;
 
+                case SplitType.KnownFlag:
+                    return SelectedKnownFlag != null;
+
                 case SplitType.Flag:
                     return FlagDescription != null;
 
@@ -118,6 +121,10 @@ namespace SoulSplitter.UIv2
 
                 case SplitType.Position:
                     flatSplit.Split = new VectorSize{Description = Position.Description, Position = new Vector3f(Position.Position.X, Position.Position.Y, Position.Position.Z), Size = Position.Size};
+                    break;
+
+                case SplitType.KnownFlag:
+                    flatSplit.Split = SelectedKnownFlag;
                     break;
 
                 case SplitType.Flag:
@@ -178,6 +185,16 @@ namespace SoulSplitter.UIv2
         {
             get => (ObservableCollection<EnumFlagViewModel<Enum>>)GetValue(BossesDependencyProperty);
             set => SetValue(BossesDependencyProperty, value);
+        }
+
+        public static readonly DependencyProperty KnownFlagsDependencyProperty =
+            DependencyProperty.Register(nameof(KnownFlags), typeof(IList), typeof(SplitSettingsControl),
+                new FrameworkPropertyMetadata(new ObservableCollection<EnumFlagViewModel<Enum>>(), FrameworkPropertyMetadataOptions.None));
+
+        public ObservableCollection<EnumFlagViewModel<Enum>> KnownFlags
+        {
+            get => (ObservableCollection<EnumFlagViewModel<Enum>>)GetValue(KnownFlagsDependencyProperty);
+            set => SetValue(KnownFlagsDependencyProperty, value);
         }
 
         public static readonly DependencyProperty AttributesDependencyProperty =
@@ -304,6 +321,13 @@ namespace SoulSplitter.UIv2
             set => SetField(ref _selectedBoss, value);
         }
         private Enum _selectedBoss;
+
+        public Enum SelectedKnownFlag
+        {
+            get => _selectedKnownFlag;
+            set => SetField(ref _selectedKnownFlag, value);
+        }
+        private Enum _selectedKnownFlag;
 
         public Enum SelectedBonfire
         {
