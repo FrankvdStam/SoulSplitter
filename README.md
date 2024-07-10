@@ -54,6 +54,7 @@
     - Dark Souls 3
     - Elden Ring
     - Sekiro: Shadows Die Twice
+    - Armored Core 6
 - Blackscreens/loadingscreen time is removed in
     - Dark Souls 3
     - Elden Ring

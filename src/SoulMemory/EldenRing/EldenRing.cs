@@ -35,7 +35,6 @@ namespace SoulMemory.EldenRing
         private readonly Pointer _playerGameData = new Pointer();
         private readonly Pointer _inventory = new Pointer();
         private readonly Pointer _menuManImp = new Pointer();
-        private readonly Pointer _igtFix = new Pointer();
         private readonly Pointer _virtualMemoryFlag = new Pointer();
         private readonly Pointer _noLogo = new Pointer();
 
