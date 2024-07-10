@@ -40,6 +40,7 @@ using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
 using SoulMemory.soulmods;
 using System.Runtime.InteropServices.ComTypes;
+using System.Windows;
 
 #pragma warning disable CS0162
 
@@ -50,6 +51,31 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            var igt = new TimeSpan(0, 9, 44, 58, 600);
+            var rta = new TimeSpan(0, 10, 08, 56, 570);
+
+            igt = igt.Add(new TimeSpan(0, 0, 0, 1, 340));
+            rta = rta.Add(new TimeSpan(0, 0, 0, 4, 580));
+
+            var result = igt.TotalMilliseconds / rta.TotalMilliseconds;
+            Console.WriteLine(result);
+
+
+            return;
+
+
+            GameLoop<EldenRing>((e) =>
+            {
+                Console.WriteLine(e.GetInGameTimeMilliseconds());
+                Console.WriteLine(e.GetPosition());
+                Console.WriteLine(e.ReadEventFlag((uint)SoulMemory.EldenRing.ItemPickup.LDChapelOfAnticipationTarnishedsWizenedFinger));
+
+            });
+
+
+
+            
+
             var ds2 = new DarkSouls2();
             ds2.TryRefresh();
             ds2.TryRefresh();
@@ -309,8 +335,8 @@ namespace cli
                 //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
                 //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
-                //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
-                ("Armored Core 6"           , new SoulMemory.ArmoredCore6.ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
+                ("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
+                //("Armored Core 6"           , new SoulMemory.ArmoredCore6.ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
             };
 
             foreach (var validatable in validatables)

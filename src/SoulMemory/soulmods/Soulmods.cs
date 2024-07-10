@@ -49,7 +49,7 @@ namespace SoulMemory.soulmods
     {
         
 
-        public static void Inject(Process process)
+        public static bool Inject(Process process)
         {
             var basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "soulsplitter");
 
@@ -60,6 +60,15 @@ namespace SoulMemory.soulmods
             {
                 process.InjectDll(dllPath64);
             }
+
+            foreach (ProcessModule processModule in process.Modules)
+            {
+                if (processModule.ModuleName == "soulmods.dll")
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static MorphemeMessageBuffer GetMorphemeMessages2(Process process) => process.RustCall<MorphemeMessageBuffer>("GetQueuedDarkSouls2MorphemeMessages2");
@@ -112,7 +121,6 @@ namespace SoulMemory.soulmods
             }
         }
 
-
         private static void OverwriteFile(string manifestResourceName, string path)
         {
             byte[] buffer;
@@ -128,14 +136,9 @@ namespace SoulMemory.soulmods
                 File.WriteAllBytes(path, buffer);
 
             }
-            catch (IOException e)
+            catch (IOException)
             {
-                if (e.Message.EndsWith("because it is being used by another process."))
-                {
-                    return;
-                }
-
-                throw;
+                // ignore exception when overwriting existing file, may be in use by game process
             }
 
            

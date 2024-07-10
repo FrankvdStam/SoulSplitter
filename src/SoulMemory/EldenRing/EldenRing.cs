@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using SoulMemory.Memory;
 using SoulMemory.Native;
@@ -67,13 +68,9 @@ namespace SoulMemory.EldenRing
 
             treeBuilder
                 //.ScanRelative("VirtualMemoryFlag", "48 83 3d ? ? ? ? 00 75 46 4c 8b 05 ? ? ? ? 4c 89 44 24 40 ba 08 00 00 00 b9 c8 01 00 00", 3, 8)
-                .ScanRelative("VirtualMemoryFlag", "48 8b 3d ? ? ? ? 8b f3 89 5c 24 20 48 85 ff", 3, 7)
-                    .AddPointer(_virtualMemoryFlag, 0);
-
-            treeBuilder
-                .ScanAbsolute("igtFix", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35)
-                    .AddPointer(_igtFix);
-
+                .ScanRelative("VirtualMemoryFlag", "44 89 7c 24 28 4c 8b 25 ? ? ? ? 4d 85 e4", 8, 7)
+                    .AddPointer(_virtualMemoryFlag, 0x5);
+            
             treeBuilder
                 .ScanAbsolute("NoLogo", "80 bf b8 00 00 00 00 ? ? 48 8b 05 ? ? ? ? 48 85 c0 75 2e 48 8d 0d", 7)
                     .AddPointer(_noLogo);
@@ -119,6 +116,8 @@ namespace SoulMemory.EldenRing
                 default:
                 case EldenRingVersion.V108:
                 case EldenRingVersion.V109:
+                case EldenRingVersion.V110:
+                case EldenRingVersion.V112:
                     _screenStateOffset = 0x728;
                     _positionOffset = 0x6d4;
                     _mapIdOffset = 0x6d0;
@@ -144,14 +143,18 @@ namespace SoulMemory.EldenRing
                 var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
                 if (result.IsErr)
                 {
+                    _igt.Clear();
                     return result;
                 }
 
-                if (!ApplyIgtFix())
-                {
-                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "MIGT injection failed"));
-                }
+                ApplyNoLogo();
 
+                if (!soulmods.Soulmods.Inject(_process))
+                {
+                    _igt.Clear();
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "soulmods injection failed"));
+                }
+                
                 return Result.Ok();
             }
             catch (Exception e)
@@ -174,7 +177,6 @@ namespace SoulMemory.EldenRing
             _playerGameData.Clear();
             _inventory.Clear();
             _menuManImp.Clear();
-            _igtFix.Clear();
             _virtualMemoryFlag.Clear();
             _noLogo.Clear();
         }
@@ -192,32 +194,51 @@ namespace SoulMemory.EldenRing
             V107,
             V108,
             V109,
+            V110,
+            V112,
             Unknown,
         };
 
         public EldenRingVersion GetVersion(Version v)
         {
-            switch (v.Minor)
+            switch (v.Major)
             {
                 default:
                     return EldenRingVersion.Unknown;
 
+                case 1:
+                    switch (v.Minor)
+                    {
+                        default:
+                            return EldenRingVersion.Unknown;
+                        case 2:
+                            return EldenRingVersion.V102;
+                        case 3:
+                            return EldenRingVersion.V103;
+                        case 4:
+                            return EldenRingVersion.V104;
+                        case 5:
+                            return EldenRingVersion.V105;
+                        case 6:
+                            return EldenRingVersion.V106;
+                        case 7:
+                            return EldenRingVersion.V107;
+                        case 8:
+                            return EldenRingVersion.V108;
+                        case 9:
+                            return EldenRingVersion.V109;
+                        case 10:
+                            return EldenRingVersion.V110;
+                    }
+
                 case 2:
-                    return EldenRingVersion.V102;
-                case 3:
-                    return EldenRingVersion.V103;
-                case 4:
-                    return EldenRingVersion.V104;
-                case 5:
-                    return EldenRingVersion.V105;
-                case 6:
-                    return EldenRingVersion.V106;
-                case 7:
-                    return EldenRingVersion.V107;
-                case 8:
-                    return EldenRingVersion.V108;
-                case 9:
-                    return EldenRingVersion.V109;
+                    switch (v.Minor)
+                    {
+                        default:
+                            return EldenRingVersion.Unknown;
+                        case 2:
+                            return EldenRingVersion.V112;
+                    }
             }
         }
 
@@ -287,8 +308,14 @@ namespace SoulMemory.EldenRing
             }
         }
 
-        public bool Attached => _process != null;
-        
+        private void ApplyNoLogo()
+        {
+            _process.NtSuspendProcess();
+            _noLogo.WriteBytes(null, new byte[] { 0x90, 0x90 });
+            _process.NtResumeProcess();
+        }
+
+
         #region Read inventory
         //Got some help from Nordgaren to read the inventory. Cheers!
         //https://github.com/Nordgaren/Erd-Tools
@@ -542,148 +569,6 @@ namespace SoulMemory.EldenRing
         public void WriteInGameTimeMilliseconds(int milliseconds)
         {
             _igt.WriteInt32(milliseconds);
-        }
-
-        #endregion
-
-        #region B3's IGT fix
-        /*
-          Copyright © 2022 B3
-
-          Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-          The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-          THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-        */
-
-        //movups       Move Unaligned Packed Single-Precision Floating-Point Values
-        //cvtss2sd     Convert Scalar Single-Precision Floating-Point Value to Scalar Double-Precision Floating-Point Value
-        //cvttsd2si    Convert with Truncation Scalar Double-Precision Floating-Point Value to Signed Integer
-        //cvtpd2ps     Convert Packed Double-Precision Floating-Point Values to Packed Single-Precision Floating-Point Values
-        //subsd        Subtract Scalar Double-Precision Floating-Point Value
-        //movupd       Move Unaligned Packed Double-Precision Floating-Point Values
-        //addsd        Add Scalar Double-Precision Floating-Point Values
-
-        public bool ApplyIgtFix()
-        {
-            if (_process == null)
-            {
-                return false;
-            }
-
-            long igtFixEntryPoint = _igtFix.GetAddress();
-
-            //Check if the byte at the injection address is a jmp instruction
-            var readBuffer = _process.ReadProcessMemory(igtFixEntryPoint, 1).Unwrap();
-            if (readBuffer[0] == 0xE9)
-            {
-                return true; //code already injected. Return.
-            }
-
-            var igtCodeCave = new Pointer();
-            var treeBuilder = new TreeBuilder();
-            treeBuilder
-                .ScanAbsolute("igtCodeCave", "48 8b c4 55 57 41 56 48 8d 68 b8 48 81 ec 30 01 00 00 48 c7 44 24 40 fe ff ff ff 48 89 58 18 48 89 70 20", 0)
-                .AddPointer(igtCodeCave);
-
-            
-            if (MemoryScanner.TryResolvePointers(treeBuilder, _process).IsErr)
-            {
-                return false;
-            }
-
-            long codeCave = igtCodeCave.GetAddress();
-
-            //The location used as code cave here is the constructor of the network test title screen. This code would never run under normal circumstances so we can overwrite it.
-            //fix detour
-            var igtFixDetourCode = new List<byte>() { 0xE9 };
-            int detourTarget = (int)(codeCave - (igtFixEntryPoint + 5));
-            igtFixDetourCode.AddRange(BitConverter.GetBytes(detourTarget));
-
-
-            //fix body
-            var frac = _process.Allocate(sizeof(double));
-            var scale = _process.Allocate(sizeof(float));
-
-            var buffer = BitConverter.GetBytes(0.96f);
-            _process.WriteProcessMemory((long)scale, buffer);
-
-            var igtFixCode = new List<byte>(){
-                0x53,                        //push   rbx
-                0x48, 0xBB                   //movabs rbx, frac address
-            };
-            igtFixCode.AddRange(BitConverter.GetBytes((long)frac));
-
-            igtFixCode.AddRange(new byte[]
-            {
-                0x51,                        //push   rcx
-                0x48, 0xb9,                  //movabs rcx, scale address
-            });
-            igtFixCode.AddRange(BitConverter.GetBytes((long)scale));
-            igtFixCode.AddRange(new byte[]
-            {
-                0x44, 0x0f, 0x10, 0x39,       ///movups    xmm15, XMMWORD PTR [rcx]   ; read scale value
-                0xF3, 0x41, 0x0F, 0x59, 0xCF, ///mulss     xmm1,  xmm15               ; multiply frame delta by scale
-                0x44, 0x0F, 0x10, 0xF1,       ///movups    xmm14, xmm1                ; frame time to double
-                0xF3, 0x45, 0x0F, 0x5A, 0xF6, ///cvtss2sd  xmm14, xmm14               ; 
-                0xF2, 0x49, 0x0F, 0x2C, 0xC6, ///cvttsd2si rax,   xmm14               ; cast scaled frametime to int
-                0xF2, 0x4C, 0x0F, 0x2A, 0xF8, ///cvtsi2sd  xmm15, rax                 ; cast int frametime to double
-                0xF2, 0x45, 0x0F, 0x5C, 0xF7, ///subsd     xmm14, xmm15               ; subtract int frametime from double frametime -> only the fraction remains
-                0x66, 0x44, 0x0F, 0x10, 0x3B, ///movupd    xmm15, [rbx]               ; load previous fraction
-                0xF2, 0x45, 0x0F, 0x58, 0xFE, ///addsd     xmm15, xmm14               ; add fraction
-                0x66, 0x44, 0x0F, 0x11, 0x3B, ///movupd    [rbx], xmm15               ; store new fraction
-                0xF2, 0x49, 0x0F, 0x2C, 0xC7, ///cvttsd2si rax,   xmm15               ; cast fraction to int
-                0x48, 0x85, 0xC0,             ///test      rax,   rax                 ; if fraction is 1 or bigger
-                0x74, 0x1D,                   ///jz        +1D                        ; 
-                0x90, 0x90, 0x90, 0x90,       ///nop                                  ;
-                0xF2, 0x4C, 0x0F, 0x2A, 0xF0, ///cvtsi2sd  xmm14, rax                 ; convert fraction back to double (will always be 1)
-                0xF2, 0x45, 0x0F, 0x5C, 0xFE, ///subsd     xmm15, xmm14               ; remove from fraction
-                0x66, 0x44, 0x0F, 0x11, 0x3B, ///movupd    [rbx], xmm15               ; store remainder of fraction
-                0xF2, 0x45, 0x0F, 0x5A, 0xF6, ///cvtsd2ss  xmm14, xmm14               ; convert fraction from double to single
-                0xF3, 0x41, 0x0F, 0x58, 0xCE, ///addss     xmm1, xmm14                ; add fraction to frame delta
-                                              ///jz landing                           ; jz lands on the next line
-                0x45, 0x0F, 0x57, 0xF6,       ///xorps     xmm14, xmm14               ; zero xmm14
-                0x45, 0x0F, 0x57, 0xFF,       ///xorps     xmm15, xmm15               ; zero xmm15
-                0x59,                         ///pop rcx                              ;
-                0x5B,                         ///pop rbx                              ;
-                0xF3, 0x48, 0x0F, 0x2C, 0xC1, ///cvttss2si rax,xmm1                   ; cast unscaled frame delta to int in rax (eax will be added to igt)
-                0xE9                          ///jmp return igtFixEntryPoint +5
-            });
-
-            var jumpFromAddress = codeCave + igtFixCode.Count - 1;//minus jmp instruction
-            var jmpAddress = (igtFixEntryPoint + 9) - (jumpFromAddress + 9);
-            igtFixCode.AddRange(BitConverter.GetBytes(jmpAddress));
-            var str = Memory.Extensions.ToHexString(igtFixCode.ToArray()).Replace("-", " ");
-            Trace.WriteLine(str);
-
-            //Write fixes to game memory
-            _process.NtSuspendProcess();
-
-            if(_process.WriteProcessMemory(codeCave,           igtFixCode.ToArray()).IsErr)
-            {
-                return false;
-            }
-
-            if (_process.WriteProcessMemory(igtFixEntryPoint,   igtFixDetourCode.ToArray()).IsErr)
-            {
-                return false;
-            }
-
-            //Apply nologo
-            _noLogo.WriteBytes(null, new byte[]{0x90, 0x90});
-
-            _process.NtResumeProcess();
-
-            return true;
-        }
-
-        public static string ByteArrayToString(byte[] ba)
-        {
-            StringBuilder hex = new StringBuilder(ba.Length * 2);
-            foreach (byte b in ba)
-                hex.AppendFormat("{0:x2} ", b);
-            return hex.ToString();
         }
 
         #endregion

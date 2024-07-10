@@ -78,13 +78,15 @@
     <Folder Include="soulmods\x64\" />
     <Folder Include="soulmods\x86\" />
   </ItemGroup>
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-      <Message Text="Building soulmods x64" Importance="high" />
-      <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target x86_64-pc-windows-msvc --release" />
-      <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x64\soulmods.dll" />
 
-      <Message Text="Building soulmods x86" Importance="high" />
-      <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target=i686-pc-windows-msvc --release" />
-      <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x86\soulmods.dll" />
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Message Text="Building soulmods x64, release mode" Importance="high" />
+    <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target x86_64-pc-windows-msvc --release" />
+    <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x64\soulmods.dll" />
+    
+    <Message Text="Building soulmods x86, release mode" Importance="high" />
+    <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target=i686-pc-windows-msvc --release" />
+    <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x86\soulmods.dll" />
   </Target>
+
 </Project>
