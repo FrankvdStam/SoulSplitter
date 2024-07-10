@@ -121,7 +121,6 @@ namespace SoulMemory.soulmods
             }
         }
 
-
         private static void OverwriteFile(string manifestResourceName, string path)
         {
             byte[] buffer;
@@ -137,14 +136,9 @@ namespace SoulMemory.soulmods
                 File.WriteAllBytes(path, buffer);
 
             }
-            catch (IOException e)
+            catch (IOException)
             {
-                if (e.Message.EndsWith("because it is being used by another process."))
-                {
-                    return;
-                }
-
-                throw;
+                // ignore exception when overwriting existing file, may be in use by game process
             }
 
            
