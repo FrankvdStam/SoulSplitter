@@ -41,6 +41,7 @@ using SoulMemory.Sekiro;
 using SoulMemory.soulmods;
 using System.Runtime.InteropServices.ComTypes;
 using System.Windows;
+using SoulSplitter.soulmemory_rs;
 
 #pragma warning disable CS0162
 
@@ -51,109 +52,14 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            var igt = new TimeSpan(0, 9, 44, 58, 600);
-            var rta = new TimeSpan(0, 10, 08, 56, 570);
-
-            igt = igt.Add(new TimeSpan(0, 0, 0, 1, 340));
-            rta = rta.Add(new TimeSpan(0, 0, 0, 4, 580));
-
-            var result = igt.TotalMilliseconds / rta.TotalMilliseconds;
-            Console.WriteLine(result);
-
-
-            return;
-
-
-            GameLoop<EldenRing>((e) =>
-            {
-                Console.WriteLine(e.GetInGameTimeMilliseconds());
-                Console.WriteLine(e.GetPosition());
-                Console.WriteLine(e.ReadEventFlag((uint)SoulMemory.EldenRing.ItemPickup.LDChapelOfAnticipationTarnishedsWizenedFinger));
-
-            });
-
-
-
-            
-
-            var ds2 = new DarkSouls2();
-            ds2.TryRefresh();
-            ds2.TryRefresh();
-            var process = ds2.GetProcess();
-            
-            Soulmods.Inject(process);
-            Thread.Sleep(2000); //allow DllMain to run
-
-
-            Stopwatch sw = new Stopwatch();
-
-            sw.Start();
-
-             Soulmods.GetMorphemeMessages(process);
-
-            sw.Stop();
-
-            Console.WriteLine("Elapsed={0}", sw.Elapsed);
-
-
-
-
-            return;
-
-            //[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-            //delegate void ProgressCallback(int value);
-
-            var soulmods = process.GetModuleExportedFunctions("soulmods.dll");
-            var func = soulmods.First(i => i.name == "GetQueuedDarkSouls2MorphemeMessages").address;
-
-            var buffer = process.Allocate(4);
-            process.Execute((IntPtr)func, buffer);
-
-            var size = process.ReadMemory<uint>(buffer.ToInt64()).Unwrap();
-            process.Free(buffer);
-
-            var totalSize = (int)(4 + (size * Marshal.SizeOf<MorphemeMessage>()));
-            buffer = process.Allocate(totalSize);
-            process.WriteProcessMemory(buffer.ToInt64(), BitConverter.GetBytes(size));
-            process.Execute((IntPtr)func, buffer);
-
-            var data = process.ReadProcessMemory(buffer.ToInt64(), totalSize).Unwrap();
-            
-
-            while (true)
-            {
-                Thread.Sleep(1000);
-            }
-
-            return;
-
             GameLoop<Sekiro>((s) =>
             {
-                s.WriteEventFlag(10, true);
-            });
-
-            TestUi();
-            return;
-            ValidatePatterns();
-
-            GameLoop<ArmoredCore6>((e) =>
-            {
-                Console.WriteLine(e.GetInGameTimeMilliseconds());
-
-            });
-
-            TestUi();
-            return;
-
-            GameLoop<DarkSouls1>((ds1) =>
-            {
-                Console.WriteLine(ds1.GetInventory());
-            });
-
-            return;
-            GameLoop<DarkSouls1>((ds1) =>
-            {
-                Console.WriteLine(ds1.GetInventory());
+                //foreach (var m in s.MenuTutorialParam)
+                //{
+                //    s.WriteEventFlag(6115, true);
+                //    //s.WriteEventFlag(m.beginEventFlagId, false);
+                //    //s.WriteEventFlag(m.endEventFlagId, true);
+                //}
             });
         }
 
@@ -334,8 +240,8 @@ namespace cli
                 //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
-                //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
-                ("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
+                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
+                //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
                 //("Armored Core 6"           , new SoulMemory.ArmoredCore6.ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
             };
 

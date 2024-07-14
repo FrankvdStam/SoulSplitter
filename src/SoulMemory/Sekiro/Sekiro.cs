@@ -35,6 +35,9 @@ namespace SoulMemory.Sekiro
         private readonly Pointer _saveChecksum = new Pointer();
         private readonly Pointer _saveSteamId = new Pointer();
         private readonly Pointer _saveSlot = new Pointer();
+        private readonly Pointer _showTutorialText = new Pointer();
+        private readonly Pointer _cSMenuTutorialDialogLoadBuffer = new Pointer();
+        private readonly Pointer _noLogo = new Pointer();
         
         #region Refresh/init/reset ================================================================================================================================
 
@@ -83,7 +86,21 @@ namespace SoulMemory.Sekiro
             treeBuilder
                 .ScanAbsolute("Save slot", "48 8B 05 ? ? ? ? 40 38 B8 ? ? ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? B8 06 00 00 00", 14)
                     .AddPointer(_saveSlot);
-            
+
+            //Replacement of b3's mods to hide tutorials
+            treeBuilder
+                .ScanAbsolute("ShowTutorialText", "8b ? ? 89 ? ? ? 44 ? ? ? 44 ? ? ? 8b ? 48 ? ? ? ? ? ? ? ? 90 48 ? ? ? ? ? ? ? ? 90", 0)
+                    .AddPointer(_showTutorialText);
+
+            treeBuilder
+                .ScanAbsolute("CSMenuTutorialDialogLoadBuffer", "b9 50 0c ? ? e8 ? ? ? ? 48 ? ? ? ? ? ? ? 48 ? ? ? ? 4c", 0)
+                    .AddPointer(_cSMenuTutorialDialogLoadBuffer);
+
+            treeBuilder
+                .ScanAbsolute("NoLogo", "b9 c8 0a 00 00 e8 ? ? ? ? 48 ? ? 48 ? ? ? ? ? ? ? 48 ? ? ? 30 48 ? ? ? ? 48", 0)
+                    .AddPointer(_noLogo);
+           
+
             return treeBuilder;
         }
 
@@ -99,13 +116,25 @@ namespace SoulMemory.Sekiro
                 {
                     return result;
                 }
+
+                _showTutorialText.WriteBytes(21, new byte[]{0x90, 0x90, 0x90, 0x90, 0x90 });
+                _showTutorialText.WriteBytes(31, new byte[]{0x90, 0x90, 0x90, 0x90, 0x90 });
+
+                _cSMenuTutorialDialogLoadBuffer.WriteByte(21, 0x75);
+
+                _noLogo.WriteByte(24, 0x75);
+                
+                //All credit goes to Uberhalit, for finding the byte patterns https://github.com/uberhalit/SimpleSekiroSavegameHelper
+                _saveChecksum.WriteBytes(null, new byte[] { 0x90, 0x90 });
+                _saveSteamId.WriteByte(null, 0xeb);
+                _saveSlot.WriteByte(null, 0xeb);
                 
                 if (!InitB3Mods())
                 {
+                    _igt.Clear();
                     return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "B3Mods init failed"));
                 }
 
-                ApplySavefileMods();
                 
                 return Result.Ok();
             }
@@ -123,6 +152,13 @@ namespace SoulMemory.Sekiro
             _worldChrManImp.Clear();
             _igt.Clear();
             _position.Clear();
+            _fadeSystem.Clear();
+            _saveChecksum.Clear();
+            _saveSteamId.Clear();
+            _saveSlot.Clear();
+            _showTutorialText.Clear();
+            _cSMenuTutorialDialogLoadBuffer.Clear();
+            _noLogo.Clear();
             BitBlt = false;
         }
 
@@ -279,7 +315,7 @@ namespace SoulMemory.Sekiro
             }
             return Result.Ok(resultPointerAddress);
         }
-        
+
         //Ghidra, sekiro 1.06, at 1406c63f0, sekiro.exe + 0x6c63f0
         //
         //
@@ -326,16 +362,10 @@ namespace SoulMemory.Sekiro
         //}
 
         #endregion
-
+        
         #region Savefile mods
 
-        //All credit goes to Uberhalit, for finding the byte patterns https://github.com/uberhalit/SimpleSekiroSavegameHelper
-        private void ApplySavefileMods()
-        {
-            _saveChecksum.WriteBytes(null, new byte[] { 0x90, 0x90 });
-            _saveSteamId.WriteByte(null, 0xeb);
-            _saveSlot.WriteByte(null, 0xeb);
-        }
+        
 
         #endregion
 
@@ -486,46 +516,6 @@ namespace SoulMemory.Sekiro
                     return false;
             }
             
-            //TutorialMsgDialog (Tutorial popups that pause the game)
-            long TutorialMsgDialog = 0;
-            //CSTutorialDialog (Little noise making tutorial popups that come up on the left)
-            long CSTutorialDialog = 0;
-            //CSMenuTutorialDialog (Tutorial messages in the pause and warp menus)
-            long CSMenuTutorialDialog = 0;
-
-            // locating message dialog addresses
-            // Cheat Engine -> Memory View
-            // in the memory view window
-            // Tools -> Dissect Code -> select sekiro.exe -> Start
-            // wait until the process is complete
-            // View -> Referenced strings
-            // search for each string for respective dialog
-            // TutorialMsgDialog -> "WindowName/Text"
-            // CSTutorialDialog -> "LineMessageWindow_%d"
-            // CSMenuTutorialDialog -> "MessageTextureWindow"
-            // click the address that references the string
-            // scroll up until some address and "(Call)" is found
-            // click that address(Call) to be taken to the calling address
-            // scroll up until a je instruction is found, this is the address you are looking for
-            // to confirm, add a breakpoint to the instruction and trigger the dialog in-game. if the instruction is correct, the game should pause only when the dialog is triggered.
-
-            //no logo
-            long noLogo = 0; //no logo mod
-                // Cheat Engine -> Memory View
-                // in the memory view window -> Search -> find assembly code
-                //je *
-                //lea rdx,[rsp+30]
-                //mov rcx,rbp
-                //call *
-                //nop
-                //mov ebx,00000001
-                //mov [rsp+20],ebx
-                //movzx r9d,byte ptr [rsi+04]
-                //movss xmm2,[rsi]
-                //mov rdx,rax
-                //mov rcx,rdi
-                //call *
-                //mov rdi,rax
 
             //timer mod
             long igtFixEntryPoint = 0;
@@ -544,34 +534,18 @@ namespace SoulMemory.Sekiro
             
             switch(version){
             case "1.02":
-                TutorialMsgDialog    = 0x140DC7A8E;
-                CSTutorialDialog     = 0x140D6EB98;
-                CSMenuTutorialDialog = 0x140D6D51C;
-                noLogo               = 0x140DEBF2B;
                 igtFixEntryPoint     = 0x1407A8D19;
                 igtFixCodeLoc        = 0x140DBE2D0;
                 break;
             case "1.03":
-                TutorialMsgDialog    = 0x140DC83BE;
-                CSTutorialDialog     = 0x140D6F4C8;
-                CSMenuTutorialDialog = 0x140D6DE4C;
-                noLogo               = 0x140DEC85B;
                 igtFixEntryPoint     = 0x1407A8D99;
                 igtFixCodeLoc        = 0x140DBEC00;
                 break;
             case "1.05":
-                TutorialMsgDialog    = 0x140DEF53D;
-                CSTutorialDialog     = 0x140D94BC8;
-                CSMenuTutorialDialog = 0x140D934BC;
-                noLogo               = 0x140E1B1AB;
                 igtFixEntryPoint     = 0x1407B1C89;
                 igtFixCodeLoc        = 0x140DE5B60;
                 break;
             case "1.06":
-                TutorialMsgDialog    = 0x140DEF8AD;
-                CSTutorialDialog     = 0x140D94F38;
-                CSMenuTutorialDialog = 0x140D9382C;
-                noLogo               = 0x140E1B51B;
                 igtFixEntryPoint     = 0x1407B1C89;
                 igtFixCodeLoc        = 0x140DE5ED0;
                 break;  
@@ -624,15 +598,7 @@ namespace SoulMemory.Sekiro
             //Write fixes to game memory
             _process.NtSuspendProcess();
 
-            //No Tutorials
             var result = true;
-            result &= _process.WriteProcessMemory(TutorialMsgDialog,new byte[] {0x75});
-            result &= _process.WriteProcessMemory(CSTutorialDialog, new byte[] {0x75});
-            result &= _process.WriteProcessMemory(CSMenuTutorialDialog, new byte[] {0x75});
-
-            //No logo 
-            result &= _process.WriteProcessMemory(noLogo, new byte[] {0x75});
-
             //No broken timer
             result &= _process.WriteProcessMemory(igtFixCodeLoc, igtFixCode.ToArray());
             result &= _process.WriteProcessMemory(igtFixEntryPoint, igtFixDetourCode.ToArray());
