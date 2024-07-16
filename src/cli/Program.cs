@@ -52,14 +52,7 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            GameLoop<EldenRing>((e) =>
-            {
-                Console.WriteLine(e.GetScreenState());
-            });
-
-
             GameLoop<Sekiro>((s) =>
-
             {
                 //foreach (var m in s.MenuTutorialParam)
                 //{

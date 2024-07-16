@@ -37,6 +37,7 @@ namespace SoulMemory.Sekiro
         private readonly Pointer _saveSlot = new Pointer();
         private readonly Pointer _showTutorialText = new Pointer();
         private readonly Pointer _cSMenuTutorialDialogLoadBuffer = new Pointer();
+        private readonly Pointer _cSTutorialDialogLoadBuffer = new Pointer();
         private readonly Pointer _noLogo = new Pointer();
         
         #region Refresh/init/reset ================================================================================================================================
@@ -96,6 +97,12 @@ namespace SoulMemory.Sekiro
                 .ScanAbsolute("CSMenuTutorialDialogLoadBuffer", "b9 50 0c ? ? e8 ? ? ? ? 48 ? ? ? ? ? ? ? 48 ? ? ? ? 4c", 0)
                     .AddPointer(_cSMenuTutorialDialogLoadBuffer);
 
+            treeBuilder 
+                .ScanAbsolute("CSTutorialDialogLoadBuffer", "b9 ? 0e 00 00 e8 ? ? ? ? 48 8b e8 48 89 84 24 c8 00 00 00 48 85 c0 ? ?", 0)
+                .AddPointer(_cSTutorialDialogLoadBuffer);
+
+            
+
             treeBuilder
                 .ScanAbsolute("NoLogo", "b9 c8 0a 00 00 e8 ? ? ? ? 48 ? ? 48 ? ? ? ? ? ? ? 48 ? ? ? 30 48 ? ? ? ? 48", 0)
                     .AddPointer(_noLogo);
@@ -121,6 +128,7 @@ namespace SoulMemory.Sekiro
                 _showTutorialText.WriteBytes(31, new byte[]{0x90, 0x90, 0x90, 0x90, 0x90 });
 
                 _cSMenuTutorialDialogLoadBuffer.WriteByte(21, 0x75);
+                _cSTutorialDialogLoadBuffer.WriteByte(24, 0x75);
 
                 _noLogo.WriteByte(24, 0x75);
                 
@@ -476,12 +484,6 @@ namespace SoulMemory.Sekiro
 
         private bool InitB3Mods()
         {
-            /*We have to wait a little for SteamDRM to decrypt the exe.
-            This could potentially cause issues. Replace with code that
-            detects decryption if necessary
-            */
-            
-
             string version;
 
             uint logoCodeBytesPointFive = 0;
