@@ -112,12 +112,18 @@ namespace SoulMemory.EldenRing
                     _playerInsOffset = 0x1e508;
                     break;
 
-                default:
                 case EldenRingVersion.V108:
                 case EldenRingVersion.V109:
                 case EldenRingVersion.V110:
-                case EldenRingVersion.V112:
                     _screenStateOffset = 0x728;
+                    _positionOffset = 0x6d4;
+                    _mapIdOffset = 0x6d0;
+                    _playerInsOffset = 0x1e508;
+                    break;
+
+                default:
+                case EldenRingVersion.V112:
+                    _screenStateOffset = 0x730;
                     _positionOffset = 0x6d4;
                     _mapIdOffset = 0x6d0;
                     _playerInsOffset = 0x1e508;
