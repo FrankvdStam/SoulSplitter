@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.7.1">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+        </files>
+        <changelog>
+            <change>Sekiro: Fix tutorial popup stutters</change>
+            <change>Elden Ring: Fix on loading autosplit timing</change>
+        </changelog>
+    </update>
     <update version="1.7.0">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed"/>
@@ -10,9 +20,9 @@
             <change>    - 1.12 compatibility</change>
             <change>    - Remove non-existent boss 'monstrous dog'</change>
             <change>From the community:</change>
-            <change>    -Pseudostripy: Fix combobox filter</change>
-            <change>    -soarqin: Add Elden Ring DLC flags (this comes with a breaking change, if you split on grace 'Uld Palace Ruins' you will have to replace it with 'Lake-Facing Cliffs')</change>
-            <change>    -eltharynd: Add a list of common flags for PTDE and DSR</change>
+            <change>    - Pseudostripy: Fix combobox filter</change>
+            <change>    - soarqin: Add Elden Ring DLC flags (this comes with a breaking change, if you split on grace 'Uld Palace Ruins' you will have to replace it with 'Lake-Facing Cliffs')</change>
+            <change>    - eltharynd: Add a list of common flags for PTDE and DSR</change>
         </changelog>
     </update>
     <update version="1.6.2">
