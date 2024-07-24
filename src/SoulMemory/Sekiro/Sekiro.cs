@@ -39,6 +39,7 @@ namespace SoulMemory.Sekiro
         private readonly Pointer _cSMenuTutorialDialogLoadBuffer = new Pointer();
         private readonly Pointer _cSTutorialDialogLoadBuffer = new Pointer();
         private readonly Pointer _noLogo = new Pointer();
+        private readonly Pointer _playerGameData = new Pointer();
         
         #region Refresh/init/reset ================================================================================================================================
 
@@ -73,6 +74,10 @@ namespace SoulMemory.Sekiro
                 .ScanRelative("FadeManImp", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7)
                     .AddPointer(_fadeSystem, 0x0, 0x8);
 
+            treeBuilder
+                .ScanRelative("PlayerGameData", "48 8b 0d ? ? ? ? 48 8b 41 20 c6 04 02 00", 3, 7)
+                    .AddPointer(_playerGameData, 0x0, 0x8);
+
             //These 3 save file related AOB's where found by Uberhalit, thanks for letting me use them!
             //https://github.com/uberhalit/SimpleSekiroSavegameHelper/
             //MIT licensed https://github.com/uberhalit/SimpleSekiroSavegameHelper/blob/master/LICENSE
@@ -106,7 +111,10 @@ namespace SoulMemory.Sekiro
             treeBuilder
                 .ScanAbsolute("NoLogo", "b9 c8 0a 00 00 e8 ? ? ? ? 48 ? ? 48 ? ? ? ? ? ? ? 48 ? ? ? 30 48 ? ? ? ? 48", 0)
                     .AddPointer(_noLogo);
-           
+
+
+
+            //
 
             return treeBuilder;
         }
@@ -167,6 +175,7 @@ namespace SoulMemory.Sekiro
             _showTutorialText.Clear();
             _cSMenuTutorialDialogLoadBuffer.Clear();
             _noLogo.Clear();
+            _playerGameData.Clear();
             BitBlt = false;
         }
 
@@ -182,6 +191,20 @@ namespace SoulMemory.Sekiro
             _igt?.WriteInt32(value);
         }
 
+        public int GetAttribute(Attribute attribute)
+        {
+            switch (attribute)
+            {
+                default:
+                    throw new ArgumentException($"{attribute} not supported");
+
+                case Attribute.Vitality:
+                    return _playerGameData.ReadInt32(0x44) + 9;
+
+                case Attribute.AttackPower:
+                    return _playerGameData.ReadInt32(0x48);
+            }
+        }
 
         public bool IsPlayerLoaded()
         {

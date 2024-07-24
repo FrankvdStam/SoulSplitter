@@ -53,6 +53,7 @@ namespace SoulSplitter.UI.Sekiro
             
                 case SplitType.Boss:
                 case SplitType.Bonfire:
+                case SplitType.Attribute:
                     return NewSplitValue != null;
             
                 case SplitType.Position:
@@ -78,6 +79,10 @@ namespace SoulSplitter.UI.Sekiro
 
                 case SplitType.Position:
                     split = Position;
+                    break;
+
+                case SplitType.Attribute:
+                    split = NewSplitValue;
                     break;
 
                 case SplitType.Flag:

@@ -245,6 +245,11 @@ namespace SoulSplitter.Splitters
                                     s.SplitConditionMet = true;
                                 }
                                 break;
+
+                            case SplitType.Attribute:
+                                var level = _sekiro.GetAttribute(s.Attribute.AttributeType);
+                                s.SplitConditionMet = level >= s.Attribute.Level;
+                                break;
                         }
                     }
 

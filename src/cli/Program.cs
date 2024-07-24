@@ -42,6 +42,7 @@ using SoulMemory.soulmods;
 using System.Runtime.InteropServices.ComTypes;
 using System.Windows;
 using SoulSplitter.soulmemory_rs;
+using Attribute = SoulMemory.Sekiro.Attribute;
 
 #pragma warning disable CS0162
 
@@ -52,8 +53,12 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi();
+            return;
             GameLoop<Sekiro>((s) =>
             {
+                Console.WriteLine(s.GetAttribute(Attribute.Vitality));
+                Console.WriteLine(s.GetAttribute(Attribute.AttackPower));
                 //foreach (var m in s.MenuTutorialParam)
                 //{
                 //    s.WriteEventFlag(6115, true);

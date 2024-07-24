@@ -46,6 +46,11 @@ namespace SoulSplitter.Splits.Sekiro
                     Position = (VectorSize)split;
                     break;
 
+                case SplitType.Attribute:
+                    Attribute = (Attribute)split;
+                    break;
+
+
                 case SplitType.Flag:
                     Flag = ((FlagDescription)split).Flag;
                     break;
@@ -59,6 +64,7 @@ namespace SoulSplitter.Splits.Sekiro
         public readonly Idol Idol;
         public readonly uint Flag;
         public readonly VectorSize Position;
+        public readonly Attribute Attribute;
 
         /// <summary>
         /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
