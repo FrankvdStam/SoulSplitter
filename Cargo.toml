@@ -2,4 +2,7 @@
 resolver="2"
 members = [
     "src/soulmods",
+    "src/soulmemory-rs",
+    "src/soulmemory-rs-launcher",
+    "src/soulmemory-rs-test-window",
 ]
