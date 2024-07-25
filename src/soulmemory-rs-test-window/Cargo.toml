@@ -1,7 +1,11 @@
 [package]
 name = "soulmemory-rs-test-window"
-version = "0.1.0"
 edition = "2021"
+authors = ["Frank van der Stam"]
+description = "Test window to develop soulmemory-rs without constantly re-injecting"
+homepage = "https://github.com/FrankvdStam/SoulSplitter"
+repository = "https://github.com/FrankvdStam/SoulSplitter"
+license-file = "../../LICENSE"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

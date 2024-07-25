@@ -1,7 +1,11 @@
 [package]
 name = "soulmods"
-version = "0.1.0"
 edition = "2021"
+authors = ["Frank van der Stam"]
+description = "Injectable game modifications use in speedruns"
+homepage = "https://github.com/FrankvdStam/SoulSplitter"
+repository = "https://github.com/FrankvdStam/SoulSplitter"
+license-file = "../../LICENSE"
 
 [lib]
 crate-type = ["cdylib"]

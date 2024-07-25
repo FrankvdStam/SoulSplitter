@@ -1,7 +1,11 @@
 [package]
 name = "soulmemory-rs"
-version = "0.1.5"
 edition = "2021"
+authors = ["Frank van der Stam"]
+description = "Injectable UI with event flag loging"
+homepage = "https://github.com/FrankvdStam/SoulSplitter"
+repository = "https://github.com/FrankvdStam/SoulSplitter"
+license-file = "../../LICENSE"
 
 [lib]
 crate-type = ["lib", "cdylib"]

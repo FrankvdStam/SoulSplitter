@@ -1,7 +1,11 @@
 [package]
 name = "soulmemory-rs-launcher"
-version = "0.1.0"
 edition = "2021"
+authors = ["Frank van der Stam"]
+description = "launcher and injector for soulmemory-rs"
+homepage = "https://github.com/FrankvdStam/SoulSplitter"
+repository = "https://github.com/FrankvdStam/SoulSplitter"
+license-file = "../../LICENSE"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
