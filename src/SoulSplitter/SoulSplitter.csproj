@@ -25,13 +25,6 @@
     </PropertyGroup>
     
     <ItemGroup>
-      <None Remove="soulmemory-rs\x64\launcher.exe" />
-      <None Remove="soulmemory-rs\x64\soulmemory_rs.dll" />
-      <None Remove="soulmemory-rs\x86\launcher.exe" />
-      <None Remove="soulmemory-rs\x86\soulmemory_rs.dll" />
-      <None Remove="soulsplitter.ico" />
-    </ItemGroup>
-    <ItemGroup>
       <Resource Include="soulsplitter.ico" />
     </ItemGroup>
 
@@ -64,11 +57,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="soulmemory-rs\x64\launcher.exe" />
-      <EmbeddedResource Include="soulmemory-rs\x64\soulmemory_rs.dll" />
-      <EmbeddedResource Include="soulmemory-rs\x86\launcher.exe" />
-      <EmbeddedResource Include="soulmemory-rs\x86\soulmemory_rs.dll" />
-      <EmbeddedResource Include="soulsplitter.ico" />
+        <EmbeddedResource Include="soulmemory-rs\x64\launcher.exe" />
+        <EmbeddedResource Include="soulmemory-rs\x64\soulmemory_rs.dll" />
+        <EmbeddedResource Include="soulmemory-rs\x86\launcher.exe" />
+        <EmbeddedResource Include="soulmemory-rs\x86\soulmemory_rs.dll" />
+        <EmbeddedResource Include="soulsplitter.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="soulmemory-rs\x64\" />
+      <Folder Include="soulmemory-rs\x86\" />
     </ItemGroup>
 
     <Target Name="Copy release artifacts" AfterTargets="Build" Condition="$(SolutionName) == 'SoulSplitter' And $(Configuration) == 'Release'">
@@ -85,6 +83,39 @@
         <Copy SourceFiles="$(OutputPath)\MaterialDesignColors.dll" DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" />
         <Copy SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll" DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" />
         <!--<Copy SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.xml" DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components"/>-->
+    </Target>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <CallTarget Targets="CargoRelease" Condition="'$(Configuration)'=='Release'" />
+        <CallTarget Targets="CargoDebug" Condition="'$(Configuration)'=='Debug'" />
+    </Target>
+
+    <Target Name="CargoDebug">
+        <Message Text="Building soulmemory-rs x64, debug mode" Importance="high" />
+        <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs          --target x86_64-pc-windows-msvc" />
+        <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs-launcher --target x86_64-pc-windows-msvc" />
+        <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\debug\soulmemory_rs.dll"          DestinationFiles="soulmemory-rs\x64\soulmemory_rs.dll" />
+        <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\debug\soulmemory-rs-launcher.exe" DestinationFiles="soulmemory-rs\x64\launcher.exe" />
+
+        <Message Text="Building soulmemory-rs x86, debug mode" Importance="high" />
+        <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs          --target i686-pc-windows-msvc" />
+        <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs-launcher --target i686-pc-windows-msvc" />
+        <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\debug\soulmemory_rs.dll"          DestinationFiles="soulmemory-rs\x86\soulmemory_rs.dll" />
+        <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\debug\soulmemory-rs-launcher.exe" DestinationFiles="soulmemory-rs\x86\launcher.exe" />
+    </Target>
+
+    <Target Name="CargoRelease">
+        <Message Text="Building soulmemory-rs x64, release mode" Importance="high" />
+        <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs          --target x86_64-pc-windows-msvc  --release" />
+        <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs-launcher --target x86_64-pc-windows-msvc  --release" />
+        <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\release\soulmemory_rs.dll"          DestinationFiles="soulmemory-rs\x64\soulmemory_rs.dll" />
+        <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\release\soulmemory-rs-launcher.exe" DestinationFiles="soulmemory-rs\x64\launcher.exe" />
+
+        <Message Text="Building soulmemory-rs x86, release mode" Importance="high" />
+        <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs          --target i686-pc-windows-msvc  --release" />
+        <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs-launcher --target i686-pc-windows-msvc  --release" />
+        <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\release\soulmemory_rs.dll"          DestinationFiles="soulmemory-rs\x86\soulmemory_rs.dll" />
+        <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\release\soulmemory-rs-launcher.exe" DestinationFiles="soulmemory-rs\x86\launcher.exe" />
     </Target>
 
 </Project>
