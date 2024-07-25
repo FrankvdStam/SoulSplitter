@@ -27,6 +27,9 @@ using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
 using SoulMemory;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using SoulSplitter.Migrations;
 
@@ -45,10 +48,14 @@ namespace SoulSplitter
         public readonly MainWindow MainWindow;
         public SoulComponent(LiveSplitState state = null)
         {
+            ThrowIfInstallationInvalid();
+
             MainWindow = new MainWindow();
             _liveSplitState = state;
             SelectGameFromLiveSplitState(_liveSplitState);
         }
+
+        
 
         /// <summary>
         /// Called by livesplit every frame
@@ -359,6 +366,33 @@ namespace SoulSplitter
                     }
                 }
             });
+        }
+
+        #endregion
+
+        #region validate installation
+
+        private readonly List<string> _installedFiles = new List<string>()
+        {
+            "SoulSplitter.dll",
+            "SoulMemory.dll",
+            "MaterialDesignThemes.Wpf.xml",
+            "MaterialDesignThemes.Wpf.dll",
+            "MaterialDesignThemes.Wpf.dll",
+        };
+
+        private void ThrowIfInstallationInvalid()
+        {
+            var assemblyPath = Assembly.GetAssembly(typeof(SoulComponent)).Location;
+            var directory = Path.GetDirectoryName(assemblyPath);
+
+            var files = Directory.EnumerateFiles(directory).Select(i => Path.GetFileName(i)).ToList();
+            var missing = _installedFiles.Except(files).ToList();
+
+            if (missing.Any())
+            {
+                throw new FileNotFoundException($"Incomplete installation. Missing files: {string.Join(",", missing)}");
+            }
         }
 
         #endregion
