@@ -37,7 +37,7 @@ namespace SoulSplitter.Tests
         public void GetSettingsTest()
         {
             var liveSplitStateMock = Substitute.For<LiveSplitState>(null, null, null, null, null);
-            var component = new SoulComponent(liveSplitStateMock);
+            var component = new SoulComponent(liveSplitStateMock, shouldThrowOnInvalidInstallation: false);
             var doc = new XmlDocument();
             var settings = component.GetSettings(doc);
             Assert.IsNotNull(settings.OuterXml);
@@ -92,7 +92,7 @@ namespace SoulSplitter.Tests
             doc.LoadXml(XmlData.SekiroMigration1_1_0);
 
             var liveSplitStateMock = Substitute.For<LiveSplitState>(null, null, null, null, null);
-            var component = new SoulComponent(liveSplitStateMock);
+            var component = new SoulComponent(liveSplitStateMock, shouldThrowOnInvalidInstallation: false);
             component.SetSettings(doc);
 
             var componentViewModel = component.MainWindow.MainViewModel;
@@ -107,7 +107,7 @@ namespace SoulSplitter.Tests
             doc.LoadXml(XmlData.DarkSouls3Migration_1_9_0);
 
             var liveSplitStateMock = Substitute.For<LiveSplitState>(null, null, null, null, null);
-            var component = new SoulComponent(liveSplitStateMock);
+            var component = new SoulComponent(liveSplitStateMock, shouldThrowOnInvalidInstallation: false);
             component.SetSettings(doc);
 
             var componentViewModel = component.MainWindow.MainViewModel;
