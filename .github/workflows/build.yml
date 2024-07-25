@@ -67,6 +67,17 @@ jobs:
           dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
+      - name: Publish SoulSplitter
+        uses: actions/upload-artifact@v4
+        with:
+          name: SoulSplitter
+          path: |
+            src\SoulSplitter\bin\x64\Release\net481\SoulSplitter.dll
+            src\SoulSplitter\bin\x64\Release\net481\SoulMemory.dll
+            src\SoulSplitter\bin\x64\Release\net481\MaterialDesignColors.dll
+            src\SoulSplitter\bin\x64\Release\net481\MaterialDesignThemes.Wpf.dll
+            LICENSE
+
       - name: Build CliTimer
         shell: powershell
         run: dotnet build src\CliTimer\CliTimer.csproj -c release
