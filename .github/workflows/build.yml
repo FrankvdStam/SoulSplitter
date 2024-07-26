@@ -76,8 +76,8 @@ jobs:
             src\SoulSplitter\bin\x64\Release\net481\SoulMemory.dll
             src\SoulSplitter\bin\x64\Release\net481\MaterialDesignColors.dll
             src\SoulSplitter\bin\x64\Release\net481\MaterialDesignThemes.Wpf.dll
-            LICENSE
-            src\SoulMemory\bin\x64\Release\*.nupkg
+            #LICENSE
+            #src\SoulMemory\bin\x64\Release\*.nupkg
 
       - name: Build CliTimer
         shell: powershell
