@@ -1,0 +1,2 @@
+livesplit.core.dll and updatemanager.dll are built from the livesplit repo: https://github.com/LiveSplit/LiveSplit
+These are only needed at compile time, the real up to date builds come from livesplit itself during runtime.
