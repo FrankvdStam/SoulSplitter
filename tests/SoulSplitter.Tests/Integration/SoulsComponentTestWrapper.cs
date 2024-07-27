@@ -42,7 +42,7 @@ namespace SoulSplitter.Tests.Integration
 
             MockLiveSplitState = new Mock<LiveSplitState>(MockIRun.Object, null, null, null, null);
 
-            _soulComponent = new SoulComponent(MockLiveSplitState.Object);
+            _soulComponent = new SoulComponent(MockLiveSplitState.Object, shouldThrowOnInvalidInstallation: false);
             var doc = new XmlDocument();
             doc.LoadXml(xml);
             _soulComponent.SetSettings(doc);
