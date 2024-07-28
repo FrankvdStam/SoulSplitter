@@ -22,11 +22,10 @@
              xmlns:ui="clr-namespace:SoulSplitter.UI"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:soulSplitter="clr-namespace:SoulSplitter"
              xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
-             xmlns:sekiro1="clr-namespace:SoulSplitter.Splits.Sekiro"
              xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
              xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
+             xmlns:sekiro2="clr-namespace:SoulMemory.Sekiro;assembly=SoulMemory"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance sekiro:SekiroViewModel, IsDesignTimeCreatable=True}">
 
@@ -158,6 +157,12 @@
                     <generic:SplitType>Flag</generic:SplitType>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
+
+            <ComboBoxItem Content="I get an attribute">
+                <ComboBoxItem.Tag>
+                    <generic:SplitType>Attribute</generic:SplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
         </ComboBox>
 
         <!-- row ============================================================================================================================================================================================== -->
@@ -214,7 +219,46 @@
             Grid.Row="{StaticResource SplitTypeRow}"
             Grid.Column="0"/>
 
-        <!-- Flag -->
+        <!-- Attribute -->
+
+        <StackPanel 
+            Orientation="Horizontal"
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Attribute}">
+
+            <ComboBox
+                Margin="5, 5, 5, 5"
+                Width="200"
+                SelectedValue="{Binding NewSplitValue.AttributeType}"
+                materialDesign:HintAssist.HelperText="which"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                SelectedValuePath="Tag"
+                IsEditable="True" 
+                IsTextSearchEnabled="False" 
+                StaysOpenOnEdit="True">
+
+                <ComboBoxItem Content="Vitality">
+                    <ComboBoxItem.Tag>
+                        <sekiro2:Attribute>Vitality</sekiro2:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="Attack power">
+                    <ComboBoxItem.Tag>
+                        <sekiro2:Attribute>AttackPower</sekiro2:Attribute>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+
+            <TextBox
+                Margin="5, 5, 5, 5"
+                Width="200"
+                materialDesign:HintAssist.HelperText="Level"
+                Text="{Binding NewSplitValue.Level}"
+            />
+        </StackPanel>
+
+<!-- Flag -->
         <generic:FlagControl
             Grid.Row="{StaticResource SplitTypeRow}"
             Visibility="{Binding NewSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter=Flag}"/>

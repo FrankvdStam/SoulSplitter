@@ -19,6 +19,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using SoulMemory;
+using SoulMemory.Sekiro;
 
 namespace SoulSplitter.UI.Generic
 {
@@ -46,14 +47,19 @@ namespace SoulSplitter.UI.Generic
             {
                 SetField(ref _newSplitType, value);
 
-                if (NewSplitType == SplitType.Position)
+                switch (NewSplitType)
                 {
-                    Position = new VectorSize() { Position = CurrentPosition.Clone() };
-                }
+                    case SplitType.Position:
+                        Position = new VectorSize() { Position = CurrentPosition.Clone() };
+                        break;
 
-                if (NewSplitType == SplitType.Flag)
-                {
-                    FlagDescription = new FlagDescription();
+                    case SplitType.Flag:
+                        FlagDescription = new FlagDescription();
+                        break;
+
+                    case SplitType.Attribute:
+                        NewSplitValue = new Splits.Sekiro.Attribute() { AttributeType = Attribute.Vitality, Level = 10 };
+                        break;
                 }
             }
         }
