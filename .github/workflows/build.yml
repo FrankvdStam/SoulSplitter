@@ -96,12 +96,3 @@ jobs:
         with:
           name: SoulSplitter
           path: artifact
-
-      - name: Publish CliTimer
-        uses: actions/upload-artifact@v4
-        with:
-          name: CliTimer
-          path: |
-            src\CliTimer\bin\release\net481\CliTimer.exe
-            src\CliTimer\bin\release\net481\CliTimer.exe.config
-            src\CliTimer\bin\release\net481\SoulMemory.dll
