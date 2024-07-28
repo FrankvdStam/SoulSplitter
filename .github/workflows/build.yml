@@ -63,13 +63,39 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=tests/**/*.xml
-          dotnet build src/soulsplitter/soulsplitter.csproj
+          dotnet build src/soulsplitter/soulsplitter.csproj -c release /p:Platform=x64
           dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: Build CliTimer
         shell: powershell
-        run: dotnet build src\CliTimer\CliTimer.csproj -c release
+        run: dotnet build src\CliTimer\CliTimer.csproj -c release /p:Platform=x64
+
+      - name: Collect artifacts
+        run: |
+            mkdir artifact
+            mkdir artifact\CliTimer
+            copy src\SoulSplitter\bin\x64\Release\net481\SoulSplitter.dll                artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\SoulMemory.dll                  artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignColors.dll        artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignThemes.Wpf.dll    artifact
+            copy src\SoulMemory\soulmods\x86\soulmods.dll                                artifact\soulmods_x86.dll
+            copy src\SoulMemory\soulmods\x64\soulmods.dll                                artifact\soulmods_x64.dll
+            copy src\SoulSplitter\soulmemory-rs\x86\soulmemory_rs.dll                    artifact\soulmemory_rs_x86.dll
+            copy src\SoulSplitter\soulmemory-rs\x64\soulmemory_rs.dll                    artifact\soulmemory_rs_x64.dll
+            copy src\SoulSplitter\soulmemory-rs\x86\launcher.exe                         artifact\launcher_x86.dll
+            copy src\SoulSplitter\soulmemory-rs\x64\launcher.exe                         artifact\launcher_x64.dll
+            copy LICENSE                                                                 artifact
+            copy src\SoulMemory\bin\x64\Release\*.nupkg                                  artifact
+            copy src\CliTimer\bin\x64\release\net481\CliTimer.exe                        artifact\CliTimer
+            copy src\CliTimer\bin\x64\release\net481\CliTimer.exe.config                 artifact\CliTimer
+            copy src\CliTimer\bin\x64\release\net481\SoulMemory.dll                      artifact\CliTimer
+
+      - name: Publish SoulSplitter
+        uses: actions/upload-artifact@v4
+        with:
+          name: SoulSplitter
+          path: artifact
 
       - name: Publish CliTimer
         uses: actions/upload-artifact@v4

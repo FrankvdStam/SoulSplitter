@@ -1,6 +1,6 @@
-// This file is part of the soulmemory-rs distribution (https://github.com/FrankvdStam/soulmemory-rs).
+// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
 // Copyright (c) 2022 Frank van der Stam.
-// https://github.com/FrankvdStam/soulmemory-rs/blob/main/LICENSE
+// https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
