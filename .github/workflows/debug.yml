@@ -1,0 +1,60 @@
+name: build
+on: workflow_dispatch 
+    
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+
+        #Setup Shallow clone
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+       
+        #Setup Setup dotnet & restore dependencies.
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v3
+        
+      - name: dotnet restore
+        run: dotnet restore
+
+      - name: Build and analyze
+        shell: powershell
+        run: |
+          dotnet build src/soulsplitter/soulsplitter.csproj -c debug /p:Platform=x64
+
+      - name: Build CliTimer
+        shell: powershell
+        run: dotnet build src\CliTimer\CliTimer.csproj -c release /p:Platform=x64
+
+      - name: Collect artifacts
+        run: |
+            mkdir artifact
+            mkdir artifact\CliTimer
+            copy src\SoulSplitter\bin\x64\Debug\net481\SoulSplitter.dll                artifact
+            copy src\SoulSplitter\bin\x64\Debug\net481\SoulMemory.dll                  artifact
+            copy src\SoulSplitter\bin\x64\Debug\net481\MaterialDesignColors.dll        artifact
+            copy src\SoulSplitter\bin\x64\Debug\net481\MaterialDesignThemes.Wpf.dll    artifact
+            copy src\SoulMemory\soulmods\x86\soulmods.dll                              artifact\soulmods_x86.dll
+            copy src\SoulMemory\soulmods\x64\soulmods.dll                              artifact\soulmods_x64.dll
+            copy src\SoulSplitter\soulmemory-rs\x86\soulmemory_rs.dll                  artifact\soulmemory_rs_x86.dll
+            copy src\SoulSplitter\soulmemory-rs\x64\soulmemory_rs.dll                  artifact\soulmemory_rs_x64.dll
+            copy src\SoulSplitter\soulmemory-rs\x86\launcher.exe                       artifact\launcher_x86.dll
+            copy src\SoulSplitter\soulmemory-rs\x64\launcher.exe                       artifact\launcher_x64.dll
+            copy LICENSE                                                               artifact
+            copy src\SoulMemory\bin\x64\Debug\*.nupkg                                  artifact
+            copy src\CliTimer\bin\x64\Debug\net481\CliTimer.exe                        artifact\CliTimer
+            copy src\CliTimer\bin\x64\Debug\net481\CliTimer.exe.config                 artifact\CliTimer
+            copy src\CliTimer\bin\x64\Debug\net481\SoulMemory.dll                      artifact\CliTimer
+
+      - name: Publish SoulSplitter
+        uses: actions/upload-artifact@v4
+        with:
+          name: SoulSplitter
+          path: artifact
+

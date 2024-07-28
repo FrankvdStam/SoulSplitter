@@ -55,10 +55,10 @@ namespace SoulSplitter.soulmemory_rs
             
             var basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "soulsplitter");
 
-            OverwriteFile("SoulSplitter.soulmemory_rs.x64.launcher.exe", Path.Combine(basePath, @"x64\launcher.exe"));
-            OverwriteFile("SoulSplitter.soulmemory_rs.x64.soulmemory_rs.dll", Path.Combine(basePath, @"x64\soulmemory_rs.dll"));
-            OverwriteFile("SoulSplitter.soulmemory_rs.x86.launcher.exe", Path.Combine(basePath, @"x86\launcher.exe"));
-            OverwriteFile("SoulSplitter.soulmemory_rs.x86.soulmemory_rs.dll", Path.Combine(basePath, @"x86\soulmemory_rs.dll"));
+            OverwriteFile("soulsplitter.soulmemory_rs.x64.launcher.exe", Path.Combine(basePath, @"x64\launcher.exe"));
+            OverwriteFile("soulsplitter.soulmemory_rs.x64.soulmemory_rs.dll", Path.Combine(basePath, @"x64\soulmemory_rs.dll"));
+            OverwriteFile("soulsplitter.soulmemory_rs.x86.launcher.exe", Path.Combine(basePath, @"x86\launcher.exe"));
+            OverwriteFile("soulsplitter.soulmemory_rs.x86.soulmemory_rs.dll", Path.Combine(basePath, @"x86\soulmemory_rs.dll"));
             
             Process.Start(process.Is64Bit()
                 ? Path.Combine(basePath, @"x64\launcher.exe")
