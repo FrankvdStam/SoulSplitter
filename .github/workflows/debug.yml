@@ -30,7 +30,7 @@ jobs:
 
       - name: Build CliTimer
         shell: powershell
-        run: dotnet build src\CliTimer\CliTimer.csproj -c release /p:Platform=x64
+        run: dotnet build src\CliTimer\CliTimer.csproj -c debug /p:Platform=x64
 
       - name: Collect artifacts
         run: |
