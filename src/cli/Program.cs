@@ -53,7 +53,9 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi();
+            SoulSplitter.soulmemory_rs.SoulMemoryRs.Launch();
+
+
             return;
             GameLoop<Sekiro>((s) =>
             {
