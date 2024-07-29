@@ -29,7 +29,7 @@ jobs:
         run: dotnet restore
 
       - name: setup sonarqube
-        uses: ./actions/.github/actions/setup-sonar.yml
+        uses: .github/actions/setup-sonar.yml
 
         #build with sonar analysis enabled
       - name: Build and analyze
