@@ -15,13 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		.github\workflows\build.yml = .github\workflows\build.yml
 		CapitaineToinon - COPYING = CapitaineToinon - COPYING
-		.github\workflows\debug.yml = .github\workflows\debug.yml
 		Directory.Build.props = Directory.Build.props
-		.github\workflows\issues.yml = .github\workflows\issues.yml
 		LICENSE = LICENSE
 		README.md = README.md
+		TextFile1.txt = TextFile1.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{622B105C-C5BF-49B3-BEBD-FC5845B27CA0}"
@@ -51,6 +49,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulSplitter.Tests", "tests\SoulSplitter.Tests\SoulSplitter.Tests.csproj", "{13D6FF7F-E774-424C-940C-C76FF98D8916}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CliTimer", "src\CliTimer\CliTimer.csproj", "{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github actions", "github actions", "{ED92F7DF-DFDD-499D-9E04-9F7E65D556C3}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\workflows\debug.yml = .github\workflows\debug.yml
+		.github\workflows\issues.yml = .github\workflows\issues.yml
+		.github\actions\setup-sonar.yml = .github\actions\setup-sonar.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

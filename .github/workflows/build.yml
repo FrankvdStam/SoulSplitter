@@ -16,7 +16,7 @@ jobs:
     runs-on: windows-latest
     steps:
 
-      #clone, setup dotnet, restore packages
+        #clone, setup dotnet, restore packages
       - name: Checkout
         uses: actions/checkout@v2.4.0
         with:
@@ -27,55 +27,21 @@ jobs:
 
       - name: dotnet restore
         run: dotnet restore
-        
-        #setup sonarscanner
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        with:
-          distribution: 'microsoft'
-          java-version: '17'
-          java-package: jdk
-     
-      - name: Cache SonarQube packages
-        uses: actions/cache@v1
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        with:
-          path: ~\sonar\cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
 
-      - name: Cache SonarQube scanner
-        id: cache-sonar-scanner
-        uses: actions/cache@v1
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        with:
-          path: .\.sonar\scanner
-          key: ${{ runner.os }}-sonar-scanner
-          restore-keys: ${{ runner.os }}-sonar-scanner
-
-      - name: Install SonarQube scanner
-        if: ${{ !github.event.pull_request.head.repo.fork &&  steps.cache-sonar-scanner.outputs.cache-hit != 'true' }}
-        shell: powershell
-        run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      - name: setup sonarqube
+        uses: ./actions/.github/actions/setup-sonar.yml
 
         #build with sonar analysis enabled
       - name: Build and analyze
         if: ${{ !github.event.pull_request.head.repo.fork }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=tests/**/*.xml
           dotnet build src/soulsplitter/soulsplitter.csproj -c release /p:Platform=x64
           dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-
-      - name: Build CliTimer
-        shell: powershell
-        run: dotnet build src\CliTimer\CliTimer.csproj -c release /p:Platform=x64
 
         #Forked repo's don't have access to the repository secrets and are unable to run sonarqube analysis
       - name: Build only
@@ -86,7 +52,6 @@ jobs:
             dotnet test
 
       - name: Build CliTimer
-        if: ${{ github.event.pull_request.head.repo.fork }}
         shell: powershell
         run: dotnet build src\CliTimer\CliTimer.csproj -c release /p:Platform=x64
 
