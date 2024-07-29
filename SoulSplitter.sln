@@ -52,10 +52,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CliTimer", "src\CliTimer\Cl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github actions", "github actions", "{ED92F7DF-DFDD-499D-9E04-9F7E65D556C3}"
 	ProjectSection(SolutionItems) = preProject
+		.github\actions\setup-sonar\action.yml = .github\actions\setup-sonar\action.yml
 		.github\workflows\build.yml = .github\workflows\build.yml
 		.github\workflows\debug.yml = .github\workflows\debug.yml
 		.github\workflows\issues.yml = .github\workflows\issues.yml
-		.github\actions\setup-sonar.yml = .github\actions\setup-sonar.yml
 	EndProjectSection
 EndProject
 Global
