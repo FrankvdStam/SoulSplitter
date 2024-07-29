@@ -21,6 +21,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          sparse-checkout: |
+            .github/actions
+          path: actions
+
 
       - name: setup dotnet
         uses: actions/setup-dotnet@v3
@@ -29,7 +33,7 @@ jobs:
         run: dotnet restore
 
       - name: setup sonarqube
-        uses: ./.github/actions/setup-sonar.yml
+        uses: ./.github/actions/setup-sonar
 
         #build with sonar analysis enabled
       - name: Build and analyze
