@@ -29,6 +29,7 @@ jobs:
         run: dotnet restore
 
       - name: setup sonarqube
+        if: ${{ !github.event.pull_request.head.repo.fork }}
         uses: ./.github/actions/setup-sonar
 
         #build with sonar analysis enabled
