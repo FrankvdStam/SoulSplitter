@@ -19,7 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
-		TextFile1.txt = TextFile1.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{622B105C-C5BF-49B3-BEBD-FC5845B27CA0}"
@@ -50,12 +49,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulSplitter.Tests", "tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CliTimer", "src\CliTimer\CliTimer.csproj", "{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github actions", "github actions", "{ED92F7DF-DFDD-499D-9E04-9F7E65D556C3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{60F4497F-439A-48DB-885A-066E00CC945E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "actions", "actions", "{FFD0B878-895F-4EF4-8D56-0A8B1C4831DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{569FD53B-198F-47CD-8F30-118FE8FB1FD5}"
 	ProjectSection(SolutionItems) = preProject
-		.github\actions\setup-sonar\action.yml = .github\actions\setup-sonar\action.yml
 		.github\workflows\build.yml = .github\workflows\build.yml
 		.github\workflows\debug.yml = .github\workflows\debug.yml
 		.github\workflows\issues.yml = .github\workflows\issues.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "setup-sonar", "setup-sonar", "{2F6D0351-99A1-4E2A-98B8-7FE636A53F89}"
+	ProjectSection(SolutionItems) = preProject
+		.github\actions\setup-sonar\action.yml = .github\actions\setup-sonar\action.yml
 	EndProjectSection
 EndProject
 Global
@@ -99,6 +106,9 @@ Global
 		{A8FE4ABB-A952-49B0-B39A-9B3B4574587B} = {FCB71284-721B-4845-AF63-F80DD168D949}
 		{13D6FF7F-E774-424C-940C-C76FF98D8916} = {FCB71284-721B-4845-AF63-F80DD168D949}
 		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
+		{FFD0B878-895F-4EF4-8D56-0A8B1C4831DF} = {60F4497F-439A-48DB-885A-066E00CC945E}
+		{569FD53B-198F-47CD-8F30-118FE8FB1FD5} = {60F4497F-439A-48DB-885A-066E00CC945E}
+		{2F6D0351-99A1-4E2A-98B8-7FE636A53F89} = {FFD0B878-895F-4EF4-8D56-0A8B1C4831DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C356BE2C-9585-4CCF-A852-29C6DFCCD5A5}
