@@ -27,6 +27,7 @@ jobs:
 
   #Forked repo's don't have access to the repository secrets and are unable to run sonarqube analysis
   build_only:
+    needs: setup
     name: Build and analyze
     if: "github.event.pull_request.head.repo.fork"
     runs-on: windows-latest
@@ -43,6 +44,7 @@ jobs:
 
   #Setup sonarqube dependencies, build with scanning
   build_and_analyze:
+    needs: setup
     name: Build and analyze
     if: "!github.event.pull_request.head.repo.fork"
     runs-on: windows-latest
@@ -95,6 +97,7 @@ jobs:
 
   #Collect all the artifacts and publish them
   public_artifacts:
+    needs: [build_only, build_and_analyze]
     name: publish artifacts
     runs-on: windows-latest
     steps:
