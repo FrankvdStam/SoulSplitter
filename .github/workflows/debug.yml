@@ -23,7 +23,7 @@ jobs:
       - name: dotnet restore
         run: dotnet restore
 
-      - name: Build and analyze
+      - name: Build
         shell: powershell
         run: |
           dotnet build src/soulsplitter/soulsplitter.csproj -c debug /p:Platform=x64
