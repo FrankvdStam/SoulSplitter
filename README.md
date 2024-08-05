@@ -11,7 +11,7 @@
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
   <a href="https://github.com/FrankvdStam/SoulSplitter/wiki">Wiki</a> •
-  <a href="#credits">Contact</a> •
+  <a href="#Contact">Contact</a> •
   <a href="#credits">Credits</a> •
   <a href="https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE">License</a>
 </p>
@@ -95,7 +95,7 @@ Don't forget to set livesplit to compare against game time
 
 # Contact
 
-Make sure to checkout the [troubleshooting](https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting) page before you contact me. If you get stuck, you can find me in the [souls speedrunning discord](https://discord.gg/d8wsAPMN) or the [Armored Core Speedrun discord](https://discord.gg/yKEDgcMw), ping @wasted in any of the help channels, or DM [wasted#2747](https://discord.com/users/281116269921566721) directly with your questions.
+Make sure to checkout the [troubleshooting](https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting) page before you contact me. Also check out the [soulsspeedruns wiki pages](https://soulsspeedruns.com/livesplit/#troubleshooting) If you get stuck, you can find me in the [soulsSpeedruns discord]([https://discord.gg/d8wsAPMN](https://discord.gg/ugH6VFEj)), [sekrio speedrunning discord](https://discord.gg/m7JNdmtw) or the [Armored Core Speedrun discord](https://discord.gg/yKEDgcMw), ping @wasted in any of the help channels, or DM [wasted#2747](https://discord.com/users/281116269921566721) directly with your questions.
 
 If you find a bug you can let me know via the above methods, or you can [submit a github issue](https://github.com/FrankvdStam/SoulSplitter/issues/new).
 
