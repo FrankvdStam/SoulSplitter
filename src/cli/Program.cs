@@ -50,23 +50,86 @@ namespace cli
 {
     internal class Program
     {
+        static void Test53Fps()
+        {
+            var igtStart = new TimeSpan(0, 0, 47, 35, 530);
+            var rtaStart = new TimeSpan(0, 0, 0, 9, 570);
+
+            var igtEnd = new TimeSpan(0, 0, 51, 06, 760);
+            var rtaEnd = new TimeSpan(0, 0, 3, 50, 270);
+
+            var rtaElapsed = rtaEnd.Subtract(rtaStart);
+            var igtElapsed = igtEnd.Subtract(igtStart);
+
+            Console.WriteLine($"{igtElapsed} {rtaElapsed} {igtElapsed.TotalMilliseconds / rtaElapsed.TotalMilliseconds}");
+        }
+
+        static void Test33Fps()
+        {
+            var igtStart = new TimeSpan(0, 0, 59, 42, 160);
+            var rtaStart = new TimeSpan(0, 0, 0, 1, 470);
+
+            var igtEnd = new TimeSpan(0, 1, 2, 41, 180);
+            var rtaEnd = new TimeSpan(0, 0, 3, 2, 400);
+
+            var rtaElapsed = rtaEnd.Subtract(rtaStart);
+            var igtElapsed = igtEnd.Subtract(igtStart);
+
+            Console.WriteLine($"{igtElapsed} {rtaElapsed} {igtElapsed.TotalMilliseconds / rtaElapsed.TotalMilliseconds}");
+        }
+
+        static void Test33FpsNoIgtScaling()
+        {
+            var igtStart = new TimeSpan(0, 1, 50, 31, 930);
+            var rtaStart = new TimeSpan(0, 0, 0, 2, 180);
+
+            var igtEnd = new TimeSpan(0, 1, 53, 28, 270);
+            var rtaEnd = new TimeSpan(0, 0, 3, 0, 420);
+
+            var rtaElapsed = rtaEnd.Subtract(rtaStart);
+            var igtElapsed = igtEnd.Subtract(igtStart);
+
+            Console.WriteLine($"{igtElapsed} {rtaElapsed} {igtElapsed.TotalMilliseconds / rtaElapsed.TotalMilliseconds}");
+        }
+
+        static void Test60FpsNoIgtScaling()
+        {
+            var igtStart = new TimeSpan(0, 1, 50, 31, 980);
+            var rtaStart = new TimeSpan(0, 0, 0, 3, 970);
+
+            var igtEnd = new TimeSpan(0, 1, 57, 22, 170);
+            var rtaEnd = new TimeSpan(0, 0, 7, 11, 290);
+
+            var rtaElapsed = rtaEnd.Subtract(rtaStart);
+            var igtElapsed = igtEnd.Subtract(igtStart);
+
+            Console.WriteLine($"{igtElapsed} {rtaElapsed} {igtElapsed.TotalMilliseconds / rtaElapsed.TotalMilliseconds}");
+            //00:06:50.1900000 00:07:07.3200000 0,959912945801741
+        }
+
         [STAThread]
         static void Main(string[] args)
         {
-            SoulSplitter.soulmemory_rs.SoulMemoryRs.Launch();
 
+            var init = true;
+            Stopwatch sw = new Stopwatch();
 
-            return;
-            GameLoop<Sekiro>((s) =>
+            GameLoop<EldenRing>((e) =>
             {
-                Console.WriteLine(s.GetAttribute(Attribute.Vitality));
-                Console.WriteLine(s.GetAttribute(Attribute.AttackPower));
-                //foreach (var m in s.MenuTutorialParam)
-                //{
-                //    s.WriteEventFlag(6115, true);
-                //    //s.WriteEventFlag(m.beginEventFlagId, false);
-                //    //s.WriteEventFlag(m.endEventFlagId, true);
-                //}
+                if (init)
+                {
+                    e.WriteInGameTimeMilliseconds(0);
+                    init = false;
+                    sw.Start();
+                }
+
+                var igtElapsed = TimeSpan.FromMilliseconds(e.GetInGameTimeMilliseconds());
+                Console.WriteLine($"RTA: {sw.Elapsed}");
+                Console.WriteLine($"IGT: {igtElapsed}");
+                Console.WriteLine($"{igtElapsed.TotalMilliseconds / sw.ElapsedMilliseconds}        ");
+
+
+
             });
         }
 

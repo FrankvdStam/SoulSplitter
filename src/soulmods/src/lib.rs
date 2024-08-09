@@ -19,6 +19,7 @@ use crate::games::*;
 mod logger;
 mod console;
 mod games;
+mod util;
 
 use std::ffi::c_void;
 use std::thread;
