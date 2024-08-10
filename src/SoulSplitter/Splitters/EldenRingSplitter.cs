@@ -261,6 +261,7 @@ namespace SoulSplitter.Splitters
                             case EldenRingSplitType.Boss:
                             case EldenRingSplitType.Grace:
                             case EldenRingSplitType.ItemPickup:
+                            case EldenRingSplitType.KnownFlag:
                             case EldenRingSplitType.Flag:
                                 s.SplitConditionMet = _eldenRing.ReadEventFlag(s.Flag);
                                 break;

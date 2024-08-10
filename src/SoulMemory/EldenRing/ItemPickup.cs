@@ -1447,6 +1447,9 @@ namespace SoulMemory.EldenRing
         [AnnotationAttribute(Name = "[Goldmask] Goldmask's Rags 400500")]
         GoldmaskGoldmasksRags = 400500,
 
+        [AnnotationAttribute(Name = "[Magnus the Beast Claw - Writheblood Ruins] Great Stars 400510")]
+        MagnustheBeastClawWrithebloodRuinsGreatStars = 400510,
+
         [AnnotationAttribute(Name = "[Merchant Kale] Kale's Bell Bearing 400049")]
         MerchantKaleKalesBellBearing = 400049,
 
@@ -6264,6 +6267,9 @@ namespace SoulMemory.EldenRing
 
         [AnnotationAttribute(Name = "[Stormhill - Saintsbridge] Turtle Neck Meat 1043397030")]
         StormhillSaintsbridgeTurtleNeckMeat = 1043397030,
+
+        [AnnotationAttribute(Name = "[Stormhill - Godrick Knight] Golden Vow 1043397500")]
+        StormhillGodrickKnightGoldenVow = 1043397500,
 
         [AnnotationAttribute(Name = "[Stormhill - Northeast Cliffside] Soporific Grease 1043407000")]
         StormhillNortheastCliffsideSoporificGrease = 1043407000,

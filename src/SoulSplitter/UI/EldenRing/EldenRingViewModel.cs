@@ -114,6 +114,10 @@ namespace SoulSplitter.UI.EldenRing
                         VisibleItemPickupSplit = true;
                         break;
 
+                    case EldenRingSplitType.KnownFlag:
+                        VisibleKnownFlagSplit = true;
+                        break;
+
                     case EldenRingSplitType.Flag:
                         VisibleFlagSplit = true;
                         break;
@@ -251,6 +255,26 @@ namespace SoulSplitter.UI.EldenRing
         }
         private ItemPickup? _newSplitItemPickup;
 
+        [XmlIgnore]
+        public bool VisibleKnownFlagSplit
+        {
+            get => _visibleKnownFlagSplit;
+            set => SetField(ref _visibleKnownFlagSplit, value);
+        }
+        private bool _visibleKnownFlagSplit;
+
+        [XmlIgnore]
+        public KnownFlag? NewSplitKnownFlag
+        {
+            get => _newSplitKnownFlag;
+            set
+            {
+                SetField(ref _newSplitKnownFlag, value);
+                EnabledAddSplit = NewSplitKnownFlag.HasValue;
+            }
+        }
+        private KnownFlag? _newSplitKnownFlag;
+
 
         [XmlIgnore]
         public bool EnabledAddSplit
@@ -307,6 +331,13 @@ namespace SoulSplitter.UI.EldenRing
                     if (hierarchicalSplitType.Children.All(i => (ItemPickup)i.Split != NewSplitItemPickup))
                     {
                         hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitItemPickup.Value, Parent = hierarchicalSplitType });
+                    }
+                    break;
+
+                case EldenRingSplitType.KnownFlag:
+                    if (hierarchicalSplitType.Children.All(i => (KnownFlag)i.Split != NewSplitKnownFlag))
+                    {
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitKnownFlag.Value, Parent = hierarchicalSplitType });
                     }
                     break;
 
@@ -416,6 +447,7 @@ namespace SoulSplitter.UI.EldenRing
         public static ObservableCollection<BossViewModel> Bosses { get; set; } = new ObservableCollection<BossViewModel>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new BossViewModel(i)));
         public static ObservableCollection<GraceViewModel> Graces { get; set; } = new ObservableCollection<GraceViewModel>(Enum.GetValues(typeof(Grace)).Cast<Grace>().Select(i => new GraceViewModel(i)));
         public static ObservableCollection<ItemPickupViewModel> ItemPickups { get; set; } = new ObservableCollection<ItemPickupViewModel>(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new ItemPickupViewModel(i)));
+        public static ObservableCollection<KnownFlagViewModel> KnownFlags { get; set; } = new ObservableCollection<KnownFlagViewModel>(Enum.GetValues(typeof(KnownFlag)).Cast<KnownFlag>().Select(i => new KnownFlagViewModel(i)));
 
         #region INotifyPropertyChanged
 
