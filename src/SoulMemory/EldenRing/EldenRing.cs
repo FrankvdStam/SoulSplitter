@@ -241,6 +241,8 @@ namespace SoulMemory.EldenRing
                     {
                         default:
                             return EldenRingVersion.Unknown;
+                        case 0:
+                            return EldenRingVersion.V110;
                         case 2:
                             return EldenRingVersion.V112;
                     }
