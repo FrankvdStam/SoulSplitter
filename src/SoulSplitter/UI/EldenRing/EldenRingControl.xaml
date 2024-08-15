@@ -196,6 +196,12 @@
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
 
+            <ComboBoxItem Content="I trigger a known flag">
+                <ComboBoxItem.Tag>
+                    <eldenRingSplits:EldenRingSplitType>KnownFlag</eldenRingSplits:EldenRingSplitType>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
             <ComboBoxItem Content="I reach a position">
                 <ComboBoxItem.Tag>
                     <eldenRingSplits:EldenRingSplitType>Position</eldenRingSplits:EldenRingSplitType>
@@ -333,6 +339,34 @@
             Visibility="{Binding VisibleItemPickupSplit, Converter={StaticResource BoolToVisibilityConverter}}"
             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
             SelectedValuePath="ItemPickup"
+            IsEditable="True" 
+            IsTextSearchEnabled="False" 
+            StaysOpenOnEdit="True">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Height="800" IsItemsHost="True" VirtualizationMode="Recycling"/>
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Height="15" Width="420" Text="{Binding Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </generic:FilteredComboBox>
+
+
+        <!-- KnownFlag splits -->
+        <generic:FilteredComboBox 
+            Grid.Row="{StaticResource SplitTypeRow}"
+            Margin="5, 5, 5, 5"
+            HorizontalAlignment="Left"
+            Width="420"
+            ItemsSource="{Binding KnownFlags}" 
+            SelectedValue="{Binding NewSplitKnownFlag}"
+            materialDesign:HintAssist.HelperText="which"
+            Visibility="{Binding VisibleKnownFlagSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            SelectedValuePath="KnownFlag"
             IsEditable="True" 
             IsTextSearchEnabled="False" 
             StaysOpenOnEdit="True">
