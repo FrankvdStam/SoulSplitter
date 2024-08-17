@@ -59,6 +59,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\build.yml = .github\workflows\build.yml
 		.github\workflows\debug.yml = .github\workflows\debug.yml
 		.github\workflows\issues.yml = .github\workflows\issues.yml
+		.github\workflows\qodana.yml = .github\workflows\qodana.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "setup-sonar", "setup-sonar", "{2F6D0351-99A1-4E2A-98B8-7FE636A53F89}"
