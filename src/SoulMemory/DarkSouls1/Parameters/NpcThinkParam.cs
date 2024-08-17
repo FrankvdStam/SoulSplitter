@@ -16,7 +16,6 @@
 
 using SoulMemory.Memory;
 using SoulMemory.Parameters;
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace SoulMemory.DarkSouls1.Parameters

@@ -20,7 +20,6 @@ using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SoulSplitter.UI.Converters;
 using SoulSplitter.UI.Generic;
-using static System.Resources.ResXFileRef;
 
 namespace SoulSplitter.Tests.UI.Converters
 {

@@ -15,7 +15,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Diagnostics;
-using SoulMemory.DarkSouls2;
 using SoulMemory.MemoryV2.Memory;
 using SoulMemory.MemoryV2.PointerTreeBuilder;
 using SoulMemory.MemoryV2.Process;

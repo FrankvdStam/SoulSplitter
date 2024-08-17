@@ -16,9 +16,7 @@
 
 using System;
 using System.Windows.Data;
-using SoulMemory.EldenRing;
 using SoulMemory.Memory;
-using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.Converters
 {

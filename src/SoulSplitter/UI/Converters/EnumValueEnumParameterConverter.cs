@@ -17,7 +17,6 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.Converters
 {

@@ -15,34 +15,20 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.ServiceModel.Channels;
 using System.Threading;
-using System.Windows.Forms;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
 using SoulMemory.EldenRing;
 using SoulMemory;
 using SoulSplitter.UI.Generic;
-using SoulMemory.ArmoredCore6;
-using SoulMemory.DarkSouls2;
-using SoulMemory.DarkSouls3;
-using SoulMemory.MemoryV2.Process;
-using SoulMemory.Native;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
-using SoulMemory.soulmods;
-using System.Runtime.InteropServices.ComTypes;
-using System.Windows;
-using SoulSplitter.soulmemory_rs;
-using Attribute = SoulMemory.Sekiro.Attribute;
 
 #pragma warning disable CS0162
 

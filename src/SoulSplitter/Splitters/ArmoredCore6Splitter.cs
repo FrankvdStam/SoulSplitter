@@ -19,8 +19,6 @@ using SoulMemory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SoulMemory.ArmoredCore6;
 using SoulSplitter.Splits.ArmoredCore6;
 using SoulSplitter.UI.Generic;
