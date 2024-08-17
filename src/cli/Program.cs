@@ -110,6 +110,7 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+            TestUi(); return;
 
             var init = true;
             Stopwatch sw = new Stopwatch();
@@ -300,6 +301,8 @@ namespace cli
                 var result = mainWindow.ShowDialog();
                 mainWindow.Close();
             });
+
+            
         }
 
         #region Validate patterns 
