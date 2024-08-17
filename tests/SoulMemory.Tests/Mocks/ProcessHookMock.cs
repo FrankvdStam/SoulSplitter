@@ -103,13 +103,17 @@ namespace SoulMemory.Tests.Mocks
 
         public int HookedInvokedCount = 0;
         public int ExitedInvokedCount = 0;
+
         public ResultErr<RefreshError> HookedResult = Result.Ok();
         public List<Exception> ExitedExceptions = new List<Exception>();
 
+
+#pragma warning disable CS0067
         public event Func<ResultErr<RefreshError>>? Hooked;
         public event Action<Exception?>? Exited;
+#pragma warning restore CS0067
 
         public PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder();
-        public IProcessWrapper ProcessWrapper { get; set; }
+        public IProcessWrapper? ProcessWrapper { get; set; }
     }
 }
