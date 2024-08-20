@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Xml.Serialization;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.Splits;

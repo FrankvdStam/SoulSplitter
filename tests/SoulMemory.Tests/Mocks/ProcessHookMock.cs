@@ -15,7 +15,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Diagnostics;
-using SoulMemory.DarkSouls2;
 using SoulMemory.MemoryV2.Memory;
 using SoulMemory.MemoryV2.PointerTreeBuilder;
 using SoulMemory.MemoryV2.Process;
@@ -103,13 +102,17 @@ namespace SoulMemory.Tests.Mocks
 
         public int HookedInvokedCount = 0;
         public int ExitedInvokedCount = 0;
+
         public ResultErr<RefreshError> HookedResult = Result.Ok();
         public List<Exception> ExitedExceptions = new List<Exception>();
 
+
+#pragma warning disable CS0067
         public event Func<ResultErr<RefreshError>>? Hooked;
         public event Action<Exception?>? Exited;
+#pragma warning restore CS0067
 
         public PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder();
-        public IProcessWrapper ProcessWrapper { get; set; }
+        public IProcessWrapper? ProcessWrapper { get; set; }
     }
 }

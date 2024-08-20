@@ -24,7 +24,6 @@ using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using Timer = System.Threading.Timer;
 using LiveSplit.Model.Input;
 
 namespace SoulSplitter.Tests.Splitters

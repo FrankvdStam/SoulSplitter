@@ -15,7 +15,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory;
-using System.ComponentModel.DataAnnotations;
 
 namespace SoulSplitter.UI.Generic
 {

@@ -18,16 +18,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
 using LiveSplit.Model;
 using SoulMemory;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.UI;
-using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splitters

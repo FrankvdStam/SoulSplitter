@@ -17,8 +17,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Text;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using Pointer = SoulMemory.Memory.Pointer;

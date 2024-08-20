@@ -19,10 +19,8 @@ using SoulMemory.Native.Structs.Module;
 using SoulMemory.Native.Structs.Process;
 using SoulMemory.Native.Structs;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace SoulMemory.Native
 {

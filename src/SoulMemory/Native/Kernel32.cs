@@ -19,17 +19,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using SoulMemory.MemoryV2.Process;
 using SoulMemory.Native.Enums;
 using SoulMemory.Native.Structs;
 using SoulMemory.Native.Structs.Image;
 using SoulMemory.Native.Structs.Module;
-using SoulMemory.Native.Structs.Process;
 
 namespace SoulMemory.Native
 {
