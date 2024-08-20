@@ -3,3 +3,9 @@ profile:
   name: qodana.starter
 
 bootstrap: dotnet build
+
+exclude:
+  - name: exclude
+    paths:
+      - src/cli
+      - tests
