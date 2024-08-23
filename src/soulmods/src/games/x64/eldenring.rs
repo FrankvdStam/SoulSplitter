@@ -21,17 +21,24 @@ use log::info;
 static mut IGT_BUFFER: f32 = 0.0f32;
 static mut IGT_HOOK: Option<HookPoint> = None;
 
+static mut FPS_1_HOOK: Option<HookPoint> = None;
+static mut FPS_2_HOOK: Option<HookPoint> = None;
+
+
 #[allow(unused_assignments)]
 pub fn init_eldenring()
 {
     unsafe
     {
+        // Get ER process
         let mut process = Process::new("eldenring.exe");
         process.refresh().unwrap();
-        let fn_increment_igt_address = process.scan_abs("increment igt", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35, Vec::new()).unwrap().get_base_address();
 
+        // AoB scan for timer patch
+        let fn_increment_igt_address = process.scan_abs("increment igt", "48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0 48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d ? ? ? ?", 35, Vec::new()).unwrap().get_base_address();
         info!("increment IGT at 0x{:x}", fn_increment_igt_address);
 
+        // Timer patch
         unsafe extern "win64" fn increment_igt(registers: *mut Registers, _:usize)
         {
             let mut frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
@@ -53,7 +60,55 @@ pub fn init_eldenring()
             (*registers).xmm1 = std::mem::transmute::<f32, u32>(floored_frame_delta) as u128;
         }
 
+        // Enable timer patch
         IGT_HOOK = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+
+        // AoB scan for FPS patch 1
+        let fn_fps_1_address = process.scan_abs("fps 1", "8b 83 64 02 00 00 89 83 b4 02 00 00", 0, Vec::new()).unwrap().get_base_address();
+        info!("FPS 1 at 0x{:x}", fn_fps_1_address);
+
+        // FPS patch 1
+        unsafe extern "win64" fn fps_1(registers: *mut Registers, _:usize)
+        {
+            let ptr_flipper = (*registers).rbx as *const u8;
+
+            let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32;
+            let ptr_0x20 = ptr_flipper.offset(0x20) as *mut i32;
+            let ptr_0x264 = ptr_flipper.offset(0x264) as *mut f32;
+
+            let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
+            let target_0x20 = (target_frame_delta * 10000000.0) as i32;
+            let target_0x264 = (target_0x20 as f32) / 10000000.0;
+
+            std::ptr::write_volatile(ptr_0x20, target_0x20);
+            std::ptr::write_volatile(ptr_0x264, target_0x264);
+        }
+
+        // Enable FPS patch 1
+        FPS_1_HOOK = Some(Hooker::new(fn_fps_1_address, HookType::JmpBack(fps_1), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+
+        // AoB scan for FPS patch 2
+        let fn_fps_2_address = process.scan_abs("fps 2", "48 89 04 cb 0f b6 83 74 02 00 00", 0, Vec::new()).unwrap().get_base_address();
+        info!("FPS 2 at 0x{:x}", fn_fps_2_address);
+
+        // FPS patch 2
+        unsafe extern "win64" fn fps_2(registers: *mut Registers, _:usize)
+        {
+            let ptr_flipper = (*registers).rbx as *const u8;
+
+            let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32;
+            let ptr_rcx8 = ptr_flipper.offset(((*registers).rcx as u32 * 8) as isize) as *mut i32;
+
+            let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
+            let target_rcx8 = (target_frame_delta * 10000000.0) as i32;
+
+            std::ptr::write_volatile(ptr_rcx8, target_rcx8);
+        }
+
+        // Enable FPS patch 2
+        FPS_2_HOOK = Some(Hooker::new(fn_fps_2_address, HookType::JmpBack(fps_2), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
     }
 }
 
