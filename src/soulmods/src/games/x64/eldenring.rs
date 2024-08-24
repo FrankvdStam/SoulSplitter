@@ -25,7 +25,7 @@ static mut IGT_HOOK: Option<HookPoint> = None;
 static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 
-static mut FPS_HOOK_ENABLED: bool = true;
+static mut FPS_HOOK_ENABLED: bool = false;
 
 
 #[allow(unused_assignments)]
