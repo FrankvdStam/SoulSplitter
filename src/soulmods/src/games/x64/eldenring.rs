@@ -21,8 +21,8 @@ use log::info;
 static mut IGT_BUFFER: f32 = 0.0f32;
 static mut IGT_HOOK: Option<HookPoint> = None;
 
-static mut FPS_1_HOOK: Option<HookPoint> = None;
-static mut FPS_2_HOOK: Option<HookPoint> = None;
+static mut FPS_HOOK: Option<HookPoint> = None;
+static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 
 
 #[allow(unused_assignments)]
@@ -64,51 +64,66 @@ pub fn init_eldenring()
         IGT_HOOK = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
 
-        // AoB scan for FPS patch 1
-        let fn_fps_1_address = process.scan_abs("fps 1", "8b 83 64 02 00 00 89 83 b4 02 00 00", 0, Vec::new()).unwrap().get_base_address();
-        info!("FPS 1 at 0x{:x}", fn_fps_1_address);
+        // AoB scan for FPS patch
+        let fn_fps_address = process.scan_abs("fps", "8b 83 64 02 00 00 89 83 b4 02 00 00", 0, Vec::new()).unwrap().get_base_address();
+        info!("FPS at 0x{:x}", fn_fps_address);
 
-        // FPS patch 1
-        unsafe extern "win64" fn fps_1(registers: *mut Registers, _:usize)
+        // FPS patch
+        // Sets the calculated frame delta to always be the target frame delta.
+        // It also sets the previous frames timestamp to be the current one minus the target frame delta.
+        // This makes it so the game always behaves as if it's running at the FPS limit, with slowdowns if the PC can't keep up.
+        // A second patch, "FPS history" below, is required in addition to this one to ensure accuracy.
+        unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
         {
-            let ptr_flipper = (*registers).rbx as *const u8;
+            let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
-            let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32;
-            let ptr_0x20 = ptr_flipper.offset(0x20) as *mut i32;
-            let ptr_0x264 = ptr_flipper.offset(0x264) as *mut f32;
+            let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32; // Target frame delta - Set in a switch/case at the start
+            let ptr_timestamp_previous = ptr_flipper.offset(0x20) as *mut i64; // Previous frames timestamp
+            let ptr_timestamp_current = ptr_flipper.offset(0x28) as *mut i64; // Current frames timestamp
+            let ptr_frame_delta = ptr_flipper.offset(0x264) as *mut f32; // Current frames frame delta
 
+            // Read target frame data, the current timestamp and then calculate the timestamp diff at stable FPS
             let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
-            let target_0x20 = (target_frame_delta * 10000000.0) as i32;
-            let target_0x264 = (target_0x20 as f32) / 10000000.0;
+            let timestamp_current = std::ptr::read_volatile(ptr_timestamp_current);
+            let timestamp_diff = (target_frame_delta * 10000000.0) as i32;
 
-            std::ptr::write_volatile(ptr_0x20, target_0x20);
-            std::ptr::write_volatile(ptr_0x264, target_0x264);
+            // Calculate the previous timestamp, as well as the frame delta
+            let timestamp_previous = timestamp_current - (timestamp_diff as i64);
+            let frame_delta = (timestamp_diff as f32) / 10000000.0;
+
+            // Write values back
+            std::ptr::write_volatile(ptr_timestamp_previous, timestamp_previous);
+            std::ptr::write_volatile(ptr_frame_delta, frame_delta);
         }
 
-        // Enable FPS patch 1
-        FPS_1_HOOK = Some(Hooker::new(fn_fps_1_address, HookType::JmpBack(fps_1), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        // Enable FPS patch
+        FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
 
-        // AoB scan for FPS patch 2
-        let fn_fps_2_address = process.scan_abs("fps 2", "48 89 04 cb 0f b6 83 74 02 00 00", 0, Vec::new()).unwrap().get_base_address();
-        info!("FPS 2 at 0x{:x}", fn_fps_2_address);
+        // AoB scan for FPS history patch
+        let fn_fps_history_address = process.scan_abs("fps history", "48 89 04 cb 0f b6 83 74 02 00 00", 0, Vec::new()).unwrap().get_base_address();
+        info!("FPS history at 0x{:x}", fn_fps_history_address);
 
-        // FPS patch 2
-        unsafe extern "win64" fn fps_2(registers: *mut Registers, _:usize)
+        // FPS history patch
+        // Similar to the FPS patch, this sets the difference between the previous and current frames timestamps to the target frame delta.
+        // This gets stored in an array with 32 elements, possibly for calculating FPS averages.
+        unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
         {
-            let ptr_flipper = (*registers).rbx as *const u8;
+            let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
-            let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32;
-            let ptr_rcx8 = ptr_flipper.offset(((*registers).rcx as u32 * 8) as isize) as *mut i32;
+            let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32; // Target frame delta - Set in a switch/case at the start
+            let ptr_frame_delta_history = ptr_flipper.offset(((*registers).rcx as u32 * 8) as isize) as *mut u64; // Frame delta history - In an array of 32, with the index incrementing each frame
 
+            // Read the target frame delta and calculate the frame delta timestamp
             let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
-            let target_rcx8 = (target_frame_delta * 10000000.0) as i32;
+            let target_frame_delta_history = (target_frame_delta * 10000000.0) as u64;
 
-            std::ptr::write_volatile(ptr_rcx8, target_rcx8);
+            // Write values back
+            std::ptr::write_volatile(ptr_frame_delta_history, target_frame_delta_history);
         }
 
-        // Enable FPS patch 2
-        FPS_2_HOOK = Some(Hooker::new(fn_fps_2_address, HookType::JmpBack(fps_2), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        // Enable FPS history patch
+        FPS_HISTORY_HOOK = Some(Hooker::new(fn_fps_history_address, HookType::JmpBack(fps_history), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
     }
 }
 
