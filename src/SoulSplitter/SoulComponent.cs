@@ -32,6 +32,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using SoulSplitter.Migrations;
+using SoulMemory.Native;
 
 namespace SoulSplitter
 {
@@ -44,6 +45,7 @@ namespace SoulSplitter
         private ISplitter _splitter = null;
         private IGame _game = null;
         private DateTime _lastFailedRefresh = DateTime.MinValue;
+        private DateTime _lastFpsToggle = DateTime.MinValue; // Remove after tests
         private bool _previousBitBlt = false;
         public readonly MainWindow MainWindow;
         public SoulComponent(LiveSplitState state = null, bool shouldThrowOnInvalidInstallation = true)
@@ -98,6 +100,20 @@ namespace SoulSplitter
                             _lastFailedRefresh = DateTime.Now;
                         }
                     }
+                    
+                    // Remove after tests
+                    var dateNow = DateTime.Now;
+                    if (dateNow > _lastFpsToggle.AddSeconds(10))
+                    {
+                        _lastFpsToggle = dateNow;
+
+                        var process = _game.GetProcess();
+                        var soulmods = process.GetModuleExportedFunctions("soulmods.dll");
+                        var func = soulmods.First(i => i.name == "fps_patch_toggle").address;
+
+                        process.Execute((IntPtr)func);
+                    }
+
                 }
                 catch (Exception e)
                 {
