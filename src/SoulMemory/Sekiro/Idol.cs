@@ -21,169 +21,169 @@ namespace SoulMemory.Sekiro
     [XmlType(Namespace = "Sekiro")]
     public enum Idol
     {
-        [AnnotationAttribute(Name = "Dilapidated Temple", Description = "Ashina Outskirts")]
+        [Annotation(Name = "Dilapidated Temple", Description = "Ashina Outskirts")]
         DilapidatedTemple = 11100000,
 
-        [AnnotationAttribute(Name = "Ashina Outskirts", Description = "Ashina Outskirts")]
+        [Annotation(Name = "Ashina Outskirts", Description = "Ashina Outskirts")]
         AshinaOutskirts = 11100006,
 
-        [AnnotationAttribute(Name = "Outskirts Wall - Gate Path", Description = "Ashina Outskirts")]
+        [Annotation(Name = "Outskirts Wall - Gate Path", Description = "Ashina Outskirts")]
         OutskirtsWallGatePath = 11100001,
 
-        [AnnotationAttribute(Name = "Outskirts Wall - Stairway", Description = "Ashina Outskirts")]
+        [Annotation(Name = "Outskirts Wall - Stairway", Description = "Ashina Outskirts")]
         OutskirtsWallStairway = 11100002,
 
-        [AnnotationAttribute(Name = "Underbridge Valley", Description = "Ashina Outskirts")]
+        [Annotation(Name = "Underbridge Valley", Description = "Ashina Outskirts")]
         UnderbridgeValley = 11100003,
 
-        [AnnotationAttribute(Name = "Ashina Castle Fortress", Description = "Ashina Outskirts")]
+        [Annotation(Name = "Ashina Castle Fortress", Description = "Ashina Outskirts")]
         AshinaCastleFortress = 11100004,
 
-        [AnnotationAttribute(Name = "Ashina Castle Gate", Description = "Ashina Outskirts")]
+        [Annotation(Name = "Ashina Castle Gate", Description = "Ashina Outskirts")]
         AshinaCastleGate = 11100005,
 
-        [AnnotationAttribute(Name = "Flames of Hatred", Description = "Ashina Outskirts")]
+        [Annotation(Name = "Flames of Hatred", Description = "Ashina Outskirts")]
         FlamesOfHatred = 11100007,
 
-        [AnnotationAttribute(Name = "Dragonspring - Hirata Estate", Description = "Hirata Estate")]
+        [Annotation(Name = "Dragonspring - Hirata Estate", Description = "Hirata Estate")]
         DragonspringHirataEstate = 11000000,
 
-        [AnnotationAttribute(Name = "Estate Path", Description = "Hirata Estate")]
+        [Annotation(Name = "Estate Path", Description = "Hirata Estate")]
         EstatePath = 11000001,
 
-        [AnnotationAttribute(Name = "Bamboo Thicket Slope", Description = "Hirata Estate")]
+        [Annotation(Name = "Bamboo Thicket Slope", Description = "Hirata Estate")]
         BambooThicketSlope = 11000002,
 
-        [AnnotationAttribute(Name = "Hirata Estate - Main Hall", Description = "Hirata Estate")]
+        [Annotation(Name = "Hirata Estate - Main Hall", Description = "Hirata Estate")]
         HirataEstateMainHall = 11000003,
 
-        [AnnotationAttribute(Name = "Hirata Audience Chamber", Description = "Hirata Estate")]
+        [Annotation(Name = "Hirata Audience Chamber", Description = "Hirata Estate")]
         HirataAudienceChamber = 11000005,
 
-        [AnnotationAttribute(Name = "Hirata Estate - Hidden Temple", Description = "Hirata Estate")]
+        [Annotation(Name = "Hirata Estate - Hidden Temple", Description = "Hirata Estate")]
         HirataEstateHiddenTemple = 11000004,
 
-        [AnnotationAttribute(Name = "Ashina Castle", Description = "Ashina Castle")]
+        [Annotation(Name = "Ashina Castle", Description = "Ashina Castle")]
         AshinaCastle = 11110000,
 
-        [AnnotationAttribute(Name = "Upper Tower - Antechamber", Description = "Ashina Castle")]
+        [Annotation(Name = "Upper Tower - Antechamber", Description = "Ashina Castle")]
         UpperTowerAntechamber = 11110001,
 
-        [AnnotationAttribute(Name = "Upper Tower - Ashina Dojo", Description = "Ashina Castle")]
+        [Annotation(Name = "Upper Tower - Ashina Dojo", Description = "Ashina Castle")]
         UpperTowerAshinaDojo = 11110007,
 
-        [AnnotationAttribute(Name = "Castle Tower Lookout", Description = "Ashina Castle")]
+        [Annotation(Name = "Castle Tower Lookout", Description = "Ashina Castle")]
         CastleTowerLookout = 11110002,
 
-        [AnnotationAttribute(Name = "Upper Tower - Kuro's Room", Description = "Ashina Castle")]
+        [Annotation(Name = "Upper Tower - Kuro's Room", Description = "Ashina Castle")]
         UpperTowerKurosRoom = 11110003,
 
-        [AnnotationAttribute(Name = "Old Grave", Description = "Ashina Castle")]
+        [Annotation(Name = "Old Grave", Description = "Ashina Castle")]
         OldGrave = 11110006,
 
-        [AnnotationAttribute(Name = "Great Serpent Shrine", Description = "Ashina Castle")]
+        [Annotation(Name = "Great Serpent Shrine", Description = "Ashina Castle")]
         GreatSerpentShrine = 11110004,
 
-        [AnnotationAttribute(Name = "Abandoned Dungeon Entrance", Description = "Ashina Castle")]
+        [Annotation(Name = "Abandoned Dungeon Entrance", Description = "Ashina Castle")]
         AbandonedDungeonEntrance = 11110005,
 
-        [AnnotationAttribute(Name = "Ashina Reservoir", Description = "Ashina Castle")]
+        [Annotation(Name = "Ashina Reservoir", Description = "Ashina Castle")]
         AshinaReservoir = 11120001,
 
-        [AnnotationAttribute(Name = "Near Secret Passage", Description = "Ashina Castle")]
+        [Annotation(Name = "Near Secret Passage", Description = "Ashina Castle")]
         NearSecretPassage = 11120000,
 
-        [AnnotationAttribute(Name = "Underground Waterway", Description = "Abandoned Dungeon")]
+        [Annotation(Name = "Underground Waterway", Description = "Abandoned Dungeon")]
         UndergroundWaterway = 11300000,
 
-        [AnnotationAttribute(Name = "Bottomless Hole", Description = "Abandoned Dungeon")]
+        [Annotation(Name = "Bottomless Hole", Description = "Abandoned Dungeon")]
         BottomlessHole = 11300001,
 
-        [AnnotationAttribute(Name = "Senpou Temple, Mt. Kongo", Description = "Senpou Temple, Mt. Kongo")]
+        [Annotation(Name = "Senpou Temple, Mt. Kongo", Description = "Senpou Temple, Mt. Kongo")]
         SenpouTempleMtKongo = 12000000,
 
-        [AnnotationAttribute(Name = "Shugendo", Description = "Senpou Temple, Mt. Kongo")]
+        [Annotation(Name = "Shugendo", Description = "Senpou Temple, Mt. Kongo")]
         Shugendo = 12000001,
 
-        [AnnotationAttribute(Name = "Temple Grounds", Description = "Senpou Temple, Mt. Kongo")]
+        [Annotation(Name = "Temple Grounds", Description = "Senpou Temple, Mt. Kongo")]
         TempleGrounds = 12000002,
 
-        [AnnotationAttribute(Name = "Main Hall", Description = "Senpou Temple, Mt. Kongo")]
+        [Annotation(Name = "Main Hall", Description = "Senpou Temple, Mt. Kongo")]
         MainHall = 12000003,
 
-        [AnnotationAttribute(Name = "Inner Sanctum", Description = "Senpou Temple, Mt. Kongo")]
+        [Annotation(Name = "Inner Sanctum", Description = "Senpou Temple, Mt. Kongo")]
         InnerSanctum = 12000004,
 
-        [AnnotationAttribute(Name = "Sunken Valley Cavern", Description = "Senpou Temple, Mt. Kongo")]
+        [Annotation(Name = "Sunken Valley Cavern", Description = "Senpou Temple, Mt. Kongo")]
         SunkenValleyCavern = 12000005,
 
-        [AnnotationAttribute(Name = "Bell Demon's Temple", Description = "Senpou Temple, Mt. Kongo")]
+        [Annotation(Name = "Bell Demon's Temple", Description = "Senpou Temple, Mt. Kongo")]
         BellDemonsTemple = 12000006,
 
-        [AnnotationAttribute(Name = "Under-Shrine Valley", Description = "Sunken Valley")]
+        [Annotation(Name = "Under-Shrine Valley", Description = "Sunken Valley")]
         UnderShrineValley = 11700007,
 
-        [AnnotationAttribute(Name = "Sunken Valley", Description = "Sunken Valley")]
+        [Annotation(Name = "Sunken Valley", Description = "Sunken Valley")]
         SunkenValley = 11700000,
 
-        [AnnotationAttribute(Name = "Gun Fort", Description = "Sunken Valley")]
+        [Annotation(Name = "Gun Fort", Description = "Sunken Valley")]
         GunFort = 11700001,
 
-        [AnnotationAttribute(Name = "Riven Cave", Description = "Sunken Valley")]
+        [Annotation(Name = "Riven Cave", Description = "Sunken Valley")]
         RivenCave = 11700002,
 
-        [AnnotationAttribute(Name = "Bodhisattva Valley", Description = "Sunken Valley")]
+        [Annotation(Name = "Bodhisattva Valley", Description = "Sunken Valley")]
         BodhisattvaValley = 11700008,
 
-        [AnnotationAttribute(Name = "Guardian Ape's Watering Hole", Description = "Sunken Valley")]
+        [Annotation(Name = "Guardian Ape's Watering Hole", Description = "Sunken Valley")]
         GuardianApesWateringHole = 11700003,
 
-        [AnnotationAttribute(Name = "Ashina Depths", Description = "Ashina Depths")]
+        [Annotation(Name = "Ashina Depths", Description = "Ashina Depths")]
         AshinaDepths = 11700005,
 
-        [AnnotationAttribute(Name = "Poison Pool", Description = "Ashina Depths")]
+        [Annotation(Name = "Poison Pool", Description = "Ashina Depths")]
         PoisonPool = 11700004,
 
-        [AnnotationAttribute(Name = "Guardian Ape's Burrow", Description = "Ashina Depths")]
+        [Annotation(Name = "Guardian Ape's Burrow", Description = "Ashina Depths")]
         GuardianApesBurrow = 11700006,
 
-        [AnnotationAttribute(Name = "Hidden Forest", Description = "Ashina Depths")]
+        [Annotation(Name = "Hidden Forest", Description = "Ashina Depths")]
         HiddenForest = 11500000,
 
-        [AnnotationAttribute(Name = "Mibu Village", Description = "Ashina Depths")]
+        [Annotation(Name = "Mibu Village", Description = "Ashina Depths")]
         MibuVillage = 11500001,
 
-        [AnnotationAttribute(Name = "Water Mill", Description = "Ashina Depths")]
+        [Annotation(Name = "Water Mill", Description = "Ashina Depths")]
         WaterMill = 11500002,
 
-        [AnnotationAttribute(Name = "Wedding Cave Door", Description = "Ashina Depths")]
+        [Annotation(Name = "Wedding Cave Door", Description = "Ashina Depths")]
         WeddingCaveDoor = 11500003,
 
-        [AnnotationAttribute(Name = "Fountainhead Palace", Description = "Fountainhead Palace")]
+        [Annotation(Name = "Fountainhead Palace", Description = "Fountainhead Palace")]
         FountainheadPalace = 12500000,
 
-        [AnnotationAttribute(Name = "Vermilion Bridge", Description = "Fountainhead Palace")]
+        [Annotation(Name = "Vermilion Bridge", Description = "Fountainhead Palace")]
         VermilionBridge = 12500001,
 
-        [AnnotationAttribute(Name = "Mibu Manor", Description = "Fountainhead Palace")]
+        [Annotation(Name = "Mibu Manor", Description = "Fountainhead Palace")]
         MibuManor = 12500006,
 
-        [AnnotationAttribute(Name = "Flower Viewing Stage", Description = "Fountainhead Palace")]
+        [Annotation(Name = "Flower Viewing Stage", Description = "Fountainhead Palace")]
         FlowerViewingStage = 12500002,
 
-        [AnnotationAttribute(Name = "Great Sakura", Description = "Fountainhead Palace")]
+        [Annotation(Name = "Great Sakura", Description = "Fountainhead Palace")]
         GreatSakura = 12500003,
 
-        [AnnotationAttribute(Name = "Palace Grounds", Description = "Fountainhead Palace")]
+        [Annotation(Name = "Palace Grounds", Description = "Fountainhead Palace")]
         PalaceGrounds = 12500004,
 
-        [AnnotationAttribute(Name = "Feeding Grounds", Description = "Fountainhead Palace")]
+        [Annotation(Name = "Feeding Grounds", Description = "Fountainhead Palace")]
         FeedingGrounds = 12500007,
 
-        [AnnotationAttribute(Name = "Near Pot Noble", Description = "Fountainhead Palace")]
+        [Annotation(Name = "Near Pot Noble", Description = "Fountainhead Palace")]
         NearPotNoble = 12500008,
 
-        [AnnotationAttribute(Name = "Sanctuary", Description = "Fountainhead Palace")]
+        [Annotation(Name = "Sanctuary", Description = "Fountainhead Palace")]
         Sanctuary = 12500005,
     }
 }

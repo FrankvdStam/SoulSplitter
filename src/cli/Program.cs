@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Windows.Input;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
 using SoulMemory.EldenRing;
@@ -29,6 +30,7 @@ using SoulMemory;
 using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
+using SoulSplitter.Hotkeys;
 
 #pragma warning disable CS0162
 
@@ -36,75 +38,18 @@ namespace cli
 {
     internal class Program
     {
-        static void Test53Fps()
-        {
-            var igtStart = new TimeSpan(0, 0, 47, 35, 530);
-            var rtaStart = new TimeSpan(0, 0, 0, 9, 570);
-
-            var igtEnd = new TimeSpan(0, 0, 51, 06, 760);
-            var rtaEnd = new TimeSpan(0, 0, 3, 50, 270);
-
-            var rtaElapsed = rtaEnd.Subtract(rtaStart);
-            var igtElapsed = igtEnd.Subtract(igtStart);
-
-            Console.WriteLine($"{igtElapsed} {rtaElapsed} {igtElapsed.TotalMilliseconds / rtaElapsed.TotalMilliseconds}");
-        }
-
-        static void Test33Fps()
-        {
-            var igtStart = new TimeSpan(0, 0, 59, 42, 160);
-            var rtaStart = new TimeSpan(0, 0, 0, 1, 470);
-
-            var igtEnd = new TimeSpan(0, 1, 2, 41, 180);
-            var rtaEnd = new TimeSpan(0, 0, 3, 2, 400);
-
-            var rtaElapsed = rtaEnd.Subtract(rtaStart);
-            var igtElapsed = igtEnd.Subtract(igtStart);
-
-            Console.WriteLine($"{igtElapsed} {rtaElapsed} {igtElapsed.TotalMilliseconds / rtaElapsed.TotalMilliseconds}");
-        }
-
-        static void Test33FpsNoIgtScaling()
-        {
-            var igtStart = new TimeSpan(0, 1, 50, 31, 930);
-            var rtaStart = new TimeSpan(0, 0, 0, 2, 180);
-
-            var igtEnd = new TimeSpan(0, 1, 53, 28, 270);
-            var rtaEnd = new TimeSpan(0, 0, 3, 0, 420);
-
-            var rtaElapsed = rtaEnd.Subtract(rtaStart);
-            var igtElapsed = igtEnd.Subtract(igtStart);
-
-            Console.WriteLine($"{igtElapsed} {rtaElapsed} {igtElapsed.TotalMilliseconds / rtaElapsed.TotalMilliseconds}");
-        }
-
-        static void Test60FpsNoIgtScaling()
-        {
-            var igtStart = new TimeSpan(0, 1, 50, 31, 980);
-            var rtaStart = new TimeSpan(0, 0, 0, 3, 970);
-
-            var igtEnd = new TimeSpan(0, 1, 57, 22, 170);
-            var rtaEnd = new TimeSpan(0, 0, 7, 11, 290);
-
-            var rtaElapsed = rtaEnd.Subtract(rtaStart);
-            var igtElapsed = igtEnd.Subtract(igtStart);
-
-            Console.WriteLine($"{igtElapsed} {rtaElapsed} {igtElapsed.TotalMilliseconds / rtaElapsed.TotalMilliseconds}");
-            //00:06:50.1900000 00:07:07.3200000 0,959912945801741
-        }
-
         [STAThread]
         static void Main(string[] args)
         {
+            GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });
+            GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
+            GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
             
+            //TestUi();
             GameLoop<EldenRing>((e) =>
             {
-                
                 var igtElapsed = TimeSpan.FromMilliseconds(e.GetInGameTimeMilliseconds());
                 Console.WriteLine($"IGT: {igtElapsed}");
-
-
-
             });
         }
 
