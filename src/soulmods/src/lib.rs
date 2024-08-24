@@ -22,7 +22,7 @@ mod games;
 mod util;
 
 use std::ffi::c_void;
-use std::thread;
+use std::{env, thread};
 use mem_rs::prelude::Process;
 use windows::Win32::Foundation::{BOOL, HINSTANCE};
 use windows::Win32::System::SystemServices::{ DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
@@ -30,8 +30,9 @@ use windows::Win32::System::SystemServices::{ DLL_PROCESS_ATTACH, DLL_PROCESS_DE
 use crate::console::init_console;
 use crate::logger::init_log;
 use log::info;
+use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version};
 
-static mut HMODULE: HINSTANCE = HINSTANCE(0);
+
 
 #[no_mangle]
 #[allow(non_snake_case)]
@@ -43,7 +44,8 @@ pub unsafe extern "system" fn DllMain(
 {
     if call_reason == DLL_PROCESS_ATTACH
     {
-        HMODULE = module;
+        GLOBAL_HMODULE = module;
+        GLOBAL_VERSION = Version::from_file_version_info(env::current_exe().unwrap());
         thread::spawn(dispatched_dll_main);
     }
 
@@ -73,5 +75,4 @@ fn dispatched_dll_main()
         "eldenring.exe" => init_eldenring(),
         _ => info!("no supported process found")
     }
-
 }
