@@ -96,24 +96,12 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            TestUi(); return;
-
-            var init = true;
-            Stopwatch sw = new Stopwatch();
-
+            
             GameLoop<EldenRing>((e) =>
             {
-                if (init)
-                {
-                    e.WriteInGameTimeMilliseconds(0);
-                    init = false;
-                    sw.Start();
-                }
-
+                
                 var igtElapsed = TimeSpan.FromMilliseconds(e.GetInGameTimeMilliseconds());
-                Console.WriteLine($"RTA: {sw.Elapsed}");
                 Console.WriteLine($"IGT: {igtElapsed}");
-                Console.WriteLine($"{igtElapsed.TotalMilliseconds / sw.ElapsedMilliseconds}        ");
 
 
 
