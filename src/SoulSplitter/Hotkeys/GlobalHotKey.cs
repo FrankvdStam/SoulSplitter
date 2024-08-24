@@ -30,7 +30,7 @@ namespace SoulSplitter.Hotkeys
         private static readonly ManualResetEvent WindowReadyEvent = new ManualResetEvent(false);
         public static volatile HotkeyForm HotkeyForm;
         public static volatile IntPtr Handle;
-        private static int _currentId = 0;
+        private static int _currentId;
 
         static GlobalHotKey()
         {
@@ -63,7 +63,7 @@ namespace SoulSplitter.Hotkeys
 
             Delegate register = (Action)(() =>
             {
-                User32.RegisterHotKey(
+                User32.RegisterHotkey(
                     Handle,
                     id,
                     (uint)modifier | 0x4000, //no repeat
@@ -84,7 +84,7 @@ namespace SoulSplitter.Hotkeys
 
             Delegate unregister = (Action)(() =>
             {
-                User32.UnregisterHotKey(Handle, id);
+                User32.UnregisterHotkey(Handle, id);
             });
 
             HotkeyForm.Invoke(unregister);

@@ -31,8 +31,8 @@ namespace SoulSplitter.Native
             internal static extern bool UnregisterHotKey(IntPtr handle, int id);
         }
 
-        public static bool RegisterHotKey(IntPtr handle, int id, uint modifiers, uint virtualKeyCode) => NativeMethods.RegisterHotKey(handle, id, modifiers, virtualKeyCode);
-        public static bool UnregisterHotKey(IntPtr handle, int id) => NativeMethods.UnregisterHotKey(handle, id);
+        public static bool RegisterHotkey(IntPtr handle, int id, uint modifiers, uint virtualKeyCode) => NativeMethods.RegisterHotKey(handle, id, modifiers, virtualKeyCode);
+        public static bool UnregisterHotkey(IntPtr handle, int id) => NativeMethods.UnregisterHotKey(handle, id);
 
     }
 }
