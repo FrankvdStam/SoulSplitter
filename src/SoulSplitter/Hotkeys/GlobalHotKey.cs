@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -25,7 +26,7 @@ namespace SoulSplitter.Hotkeys
 {
     public static class GlobalHotKey
     {
-        private static readonly List<(ModifierKeys modifier, Key key, Action action)> Hotkeys = new List<(ModifierKeys, Key, Action)>();
+        private static readonly List<(int id, ModifierKeys modifier, Key key, Action action)> Hotkeys = new List<(int, ModifierKeys, Key, Action)>();
         private static readonly ManualResetEvent WindowReadyEvent = new ManualResetEvent(false);
         public static volatile HotkeyForm HotkeyForm;
         public static volatile IntPtr Handle;
@@ -53,21 +54,12 @@ namespace SoulSplitter.Hotkeys
             });
         }
 
-        public static void RegisterHotKey(ModifierKeys modifier, Key key, Action action)
+        public static int RegisterHotKey(ModifierKeys modifier, Key key, Action action)
         {
             WindowReadyEvent.WaitOne(); //wait for hotkey window to have initialized
 
-            if (modifier == ModifierKeys.None)
-            {
-                throw new ArgumentException(nameof(modifier));
-            }
-            if (action is null)
-            {
-                throw new ArgumentNullException(nameof(action));
-            }
-
             var virtualKeyCode = (Keys)KeyInterop.VirtualKeyFromKey(key);
-            int id = System.Threading.Interlocked.Increment(ref _currentId);
+            int id = Interlocked.Increment(ref _currentId);
 
             Delegate register = (Action)(() =>
             {
@@ -79,7 +71,24 @@ namespace SoulSplitter.Hotkeys
             });
 
             HotkeyForm.Invoke(register);
-            Hotkeys.Add((modifier, key, action));
+            Hotkeys.Add((id, modifier, key, action));
+            return id;
+        }
+
+        public static void UnregisterHotKey(int id)
+        {
+            if (Hotkeys.All(i => i.id != id))
+            {
+                return;
+            }
+
+            Delegate unregister = (Action)(() =>
+            {
+                User32.UnregisterHotKey(Handle, id);
+            });
+
+            HotkeyForm.Invoke(unregister);
+            Hotkeys.Remove(Hotkeys.Find(i => i.id == id));
         }
     }
 
