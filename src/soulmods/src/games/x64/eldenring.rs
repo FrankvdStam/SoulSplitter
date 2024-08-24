@@ -24,6 +24,8 @@ static mut IGT_HOOK: Option<HookPoint> = None;
 static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 
+static mut FPS_HOOK_ENABLED: bool = true;
+
 
 #[allow(unused_assignments)]
 pub fn init_eldenring()
@@ -75,25 +77,28 @@ pub fn init_eldenring()
         // A second patch, "FPS history" below, is required in addition to this one to ensure accuracy.
         unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
         {
-            let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
+            if (FPS_HOOK_ENABLED)
+            {
+                let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
-            let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32; // Target frame delta - Set in a switch/case at the start
-            let ptr_timestamp_previous = ptr_flipper.offset(0x20) as *mut i64; // Previous frames timestamp
-            let ptr_timestamp_current = ptr_flipper.offset(0x28) as *mut i64; // Current frames timestamp
-            let ptr_frame_delta = ptr_flipper.offset(0x264) as *mut f32; // Current frames frame delta
+                let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32; // Target frame delta - Set in a switch/case at the start
+                let ptr_timestamp_previous = ptr_flipper.offset(0x20) as *mut i64; // Previous frames timestamp
+                let ptr_timestamp_current = ptr_flipper.offset(0x28) as *mut i64; // Current frames timestamp
+                let ptr_frame_delta = ptr_flipper.offset(0x264) as *mut f32; // Current frames frame delta
 
-            // Read target frame data, the current timestamp and then calculate the timestamp diff at stable FPS
-            let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
-            let timestamp_current = std::ptr::read_volatile(ptr_timestamp_current);
-            let timestamp_diff = (target_frame_delta * 10000000.0) as i32;
+                // Read target frame data, the current timestamp and then calculate the timestamp diff at stable FPS
+                let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
+                let timestamp_current = std::ptr::read_volatile(ptr_timestamp_current);
+                let timestamp_diff = (target_frame_delta * 10000000.0) as i32;
 
-            // Calculate the previous timestamp, as well as the frame delta
-            let timestamp_previous = timestamp_current - (timestamp_diff as i64);
-            let frame_delta = (timestamp_diff as f32) / 10000000.0;
+                // Calculate the previous timestamp, as well as the frame delta
+                let timestamp_previous = timestamp_current - (timestamp_diff as i64);
+                let frame_delta = (timestamp_diff as f32) / 10000000.0;
 
-            // Write values back
-            std::ptr::write_volatile(ptr_timestamp_previous, timestamp_previous);
-            std::ptr::write_volatile(ptr_frame_delta, frame_delta);
+                // Write values back
+                std::ptr::write_volatile(ptr_timestamp_previous, timestamp_previous);
+                std::ptr::write_volatile(ptr_frame_delta, frame_delta);
+            }
         }
 
         // Enable FPS patch
@@ -109,21 +114,42 @@ pub fn init_eldenring()
         // This gets stored in an array with 32 elements, possibly for calculating FPS averages.
         unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
         {
-            let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
+            if (FPS_HOOK_ENABLED)
+            {
+                let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
-            let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32; // Target frame delta - Set in a switch/case at the start
-            let ptr_frame_delta_history = ptr_flipper.offset(((*registers).rcx as u32 * 8) as isize) as *mut u64; // Frame delta history - In an array of 32, with the index incrementing each frame
+                let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32; // Target frame delta - Set in a switch/case at the start
+                let ptr_frame_delta_history = ptr_flipper.offset(((*registers).rcx as u32 * 8) as isize) as *mut u64; // Frame delta history - In an array of 32, with the index incrementing each frame
 
-            // Read the target frame delta and calculate the frame delta timestamp
-            let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
-            let target_frame_delta_history = (target_frame_delta * 10000000.0) as u64;
+                // Read the target frame delta and calculate the frame delta timestamp
+                let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
+                let target_frame_delta_history = (target_frame_delta * 10000000.0) as u64;
 
-            // Write values back
-            std::ptr::write_volatile(ptr_frame_delta_history, target_frame_delta_history);
+                // Write values back
+                std::ptr::write_volatile(ptr_frame_delta_history, target_frame_delta_history);
+            }
         }
 
         // Enable FPS history patch
         FPS_HISTORY_HOOK = Some(Hooker::new(fn_fps_history_address, HookType::JmpBack(fps_history), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn fps_patch_disable()
+{
+    unsafe
+    {
+        FPS_HOOK_ENABLED = false;
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn fps_patch_enable()
+{
+    unsafe
+    {
+        FPS_HOOK_ENABLED = true;
     }
 }
 
