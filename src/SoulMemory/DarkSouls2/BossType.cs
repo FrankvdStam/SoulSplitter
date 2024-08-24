@@ -22,131 +22,131 @@ namespace SoulMemory.DarkSouls2
     public enum BossType
     {
         //Base game ==========================================================================================
-        [AnnotationAttribute(Name = "The Last Giant")]
+        [Annotation(Name = "The Last Giant")]
         TheLastGiant = 0x7c,
 
-        [AnnotationAttribute(Name = "The Pursuer")]
+        [Annotation(Name = "The Pursuer")]
         ThePursuer = 0x70,
 
-        [AnnotationAttribute(Name = "Executioners Chariot")]
+        [Annotation(Name = "Executioners Chariot")]
         ExecutionersChariot = 0x34,
 
-        [AnnotationAttribute(Name = "Looking Glass Knight")]
+        [Annotation(Name = "Looking Glass Knight")]
         LookingGlassKnight = 0x48,
 
-        [AnnotationAttribute(Name = "The Skeleton Lords")]
+        [Annotation(Name = "The Skeleton Lords")]
         TheSkeletonLords = 0x38,
 
-        [AnnotationAttribute(Name = "Flexile Sentry")]
+        [Annotation(Name = "Flexile Sentry")]
         FlexileSentry = 0x54,
 
-        [AnnotationAttribute(Name = "Lost Sinner")]
+        [Annotation(Name = "Lost Sinner")]
         LostSinner = 0x5c,
 
-        [AnnotationAttribute(Name = "Belfry Gargoyles")]
+        [Annotation(Name = "Belfry Gargoyles")]
         BelfryGargoyles = 0xa8,
 
-        [AnnotationAttribute(Name = "Ruin Sentinels")]
+        [Annotation(Name = "Ruin Sentinels")]
         RuinSentinels = 0x58,
 
-        [AnnotationAttribute(Name = "Royal Rat Vanguard")]
+        [Annotation(Name = "Royal Rat Vanguard")]
         RoyalRatVanguard = 0x64,
 
-        [AnnotationAttribute(Name = "Royal Rat Authority")]
+        [Annotation(Name = "Royal Rat Authority")]
         RoyalRatAuthority = 0x6c,
 
-        [AnnotationAttribute(Name = "Scorpioness Najka")]
+        [Annotation(Name = "Scorpioness Najka")]
         ScorpionessNajka = 0x44,
 
-        [AnnotationAttribute(Name = "The Duke's Dear Freja")]
+        [Annotation(Name = "The Duke's Dear Freja")]
         TheDukesDearFreja = 0x2c,
 
-        [AnnotationAttribute(Name = "Mytha, the Baneful Queen")]
+        [Annotation(Name = "Mytha, the Baneful Queen")]
         MythaTheBanefulQueen = 0x40,
 
-        [AnnotationAttribute(Name = "The Rotten")]
+        [Annotation(Name = "The Rotten")]
         TheRotten = 0x68,
 
-        [AnnotationAttribute(Name = "Old DragonSlayer")]
+        [Annotation(Name = "Old DragonSlayer")]
         OldDragonSlayer = 0x50,
 
-        [AnnotationAttribute(Name = "Covetous Demon")]
+        [Annotation(Name = "Covetous Demon")]
         CovetousDemon = 0x3c,
 
-        [AnnotationAttribute(Name = "Smelter Demon")]
+        [Annotation(Name = "Smelter Demon")]
         SmelterDemon = 0x60,
 
-        [AnnotationAttribute(Name = "Old Iron King")]
+        [Annotation(Name = "Old Iron King")]
         OldIronKing = 0x30,
 
-        [AnnotationAttribute(Name = "Guardian Dragon")]
+        [Annotation(Name = "Guardian Dragon")]
         GuardianDragon = 0x78,
 
-        [AnnotationAttribute(Name = "Demon of Song")]
+        [Annotation(Name = "Demon of Song")]
         DemonOfSong = 0x28,
 
-        [AnnotationAttribute(Name = "Velstadt, The Royal Aegis")]
+        [Annotation(Name = "Velstadt, The Royal Aegis")]
         VelstadtTheRoyalAegis = 0x8c,
 
-        [AnnotationAttribute(Name = "Vendrick")]
+        [Annotation(Name = "Vendrick")]
         Vendrick = 0x98,
         
-        [AnnotationAttribute(Name = "Darklurker")]
+        [Annotation(Name = "Darklurker")]
         Darklurker = 0x9c,
 
-        [AnnotationAttribute(Name = "Dragonrider")]
+        [Annotation(Name = "Dragonrider")]
         Dragonrider = 0x4c,
 
-        [AnnotationAttribute(Name = "Twin Dragonriders")]
+        [Annotation(Name = "Twin Dragonriders")]
         TwinDragonriders = 0xa0,
 
-        [AnnotationAttribute(Name = "Prowling Magnus and Congregation")]
+        [Annotation(Name = "Prowling Magnus and Congregation")]
         ProwlingMagnusAndCongregation = 0xa4,
 
-        [AnnotationAttribute(Name = "Giant Lord")]
+        [Annotation(Name = "Giant Lord")]
         GiantLord = 0x80,
 
-        [AnnotationAttribute(Name = "Ancient Dragon")]
+        [Annotation(Name = "Ancient Dragon")]
         AncientDragon = 0x94,
 
-        [AnnotationAttribute(Name = "Throne Watcher and Throne Defender")]
+        [Annotation(Name = "Throne Watcher and Throne Defender")]
         ThroneWatcherAndThroneDefender = 0x88,
 
-        [AnnotationAttribute(Name = "Nashandra")]
+        [Annotation(Name = "Nashandra")]
         Nashandra = 0x84,
 
-        [AnnotationAttribute(Name = "Aldia, Scholar of the First Sin")]
+        [Annotation(Name = "Aldia, Scholar of the First Sin")]
         AldiaScholarOfTheFirstSin = 0x118,
 
         //Crown of the Sunken king =================================================================================
-        [AnnotationAttribute(Name = "Elana, Squalid Queen")]
+        [Annotation(Name = "Elana, Squalid Queen")]
         ElanaSqualidQueen = 0xc8,
 
-        [AnnotationAttribute(Name = "Sinh, the Slumbering Dragon")]
+        [Annotation(Name = "Sinh, the Slumbering Dragon")]
         SinhTheSlumberingDragon = 0xd4,
 
-        [AnnotationAttribute(Name = "Afflicted Graverobber, Ancient Soldier Varg, and Cerah the Old Explorer")]
+        [Annotation(Name = "Afflicted Graverobber, Ancient Soldier Varg, and Cerah the Old Explorer")]
         AfflictedGraverobberAncientSoldierVargCerahTheOldExplorer = 0xf4,
 
         //Crown of the old iron king ================================================================================
 
-        [AnnotationAttribute(Name = "Blue Smelter Demon")]
+        [Annotation(Name = "Blue Smelter Demon")]
         BlueSmelterDemon = 0xfc,
 
-        [AnnotationAttribute(Name = "Fume knight")]
+        [Annotation(Name = "Fume knight")]
         Fumeknight                      = 0xcc,
 
-        [AnnotationAttribute(Name = "Sir Alonne")]
+        [Annotation(Name = "Sir Alonne")]
         SirAlonne                       = 0xf8,
 
         //Crown of the Ivory king ===================================================================================
-        [AnnotationAttribute(Name = "Burnt Ivory King")]
+        [Annotation(Name = "Burnt Ivory King")]
         BurntIvoryKing = 0x104,
 
-        [AnnotationAttribute(Name = "Aava, the King's Pet")]
+        [Annotation(Name = "Aava, the King's Pet")]
         AavaTheKingsPet = 0xd0,
 
-        [AnnotationAttribute(Name = "Lud and Zallen, the King's Pets")]
+        [Annotation(Name = "Lud and Zallen, the King's Pets")]
         LudAndZallenTheKingsPets = 0x108,
     }
 }
