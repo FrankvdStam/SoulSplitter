@@ -82,8 +82,8 @@ pub fn init_eldenring()
                 let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
                 let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32; // Target frame delta - Set in a switch/case at the start
-                let ptr_timestamp_previous = ptr_flipper.offset(0x20) as *mut i64; // Previous frames timestamp
-                let ptr_timestamp_current = ptr_flipper.offset(0x28) as *mut i64; // Current frames timestamp
+                let ptr_timestamp_previous = ptr_flipper.offset(0x20) as *mut u64; // Previous frames timestamp
+                let ptr_timestamp_current = ptr_flipper.offset(0x28) as *mut u64; // Current frames timestamp
                 let ptr_frame_delta = ptr_flipper.offset(0x264) as *mut f32; // Current frames frame delta
 
                 // Read target frame data, the current timestamp and then calculate the timestamp diff at stable FPS
@@ -92,7 +92,7 @@ pub fn init_eldenring()
                 let timestamp_diff = (target_frame_delta * 10000000.0) as i32;
 
                 // Calculate the previous timestamp, as well as the frame delta
-                let timestamp_previous = timestamp_current - (timestamp_diff as i64);
+                let timestamp_previous = timestamp_current - (timestamp_diff as u64);
                 let frame_delta = (timestamp_diff as f32) / 10000000.0;
 
                 // Write values back
