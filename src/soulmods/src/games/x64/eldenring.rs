@@ -80,7 +80,7 @@ pub fn init_eldenring()
         // A second patch, "FPS history" below, is required in addition to this one to ensure accuracy.
         unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
         {
-            if (FPS_HOOK_ENABLED)
+            if FPS_HOOK_ENABLED
             {
                 let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
@@ -117,7 +117,7 @@ pub fn init_eldenring()
         // This gets stored in an array with 32 elements, possibly for calculating FPS averages.
         unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
         {
-            if (FPS_HOOK_ENABLED)
+            if FPS_HOOK_ENABLED
             {
                 let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
