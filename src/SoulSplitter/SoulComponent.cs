@@ -100,20 +100,6 @@ namespace SoulSplitter
                             _lastFailedRefresh = DateTime.Now;
                         }
                     }
-                    
-                    // Remove after tests
-                    var dateNow = DateTime.Now;
-                    if (dateNow > _lastFpsToggle.AddSeconds(10))
-                    {
-                        _lastFpsToggle = dateNow;
-
-                        var process = _game.GetProcess();
-                        var soulmods = process.GetModuleExportedFunctions("soulmods.dll");
-                        var func = soulmods.First(i => i.name == "fps_patch_toggle").address;
-
-                        process.Execute((IntPtr)func);
-                    }
-
                 }
                 catch (Exception e)
                 {

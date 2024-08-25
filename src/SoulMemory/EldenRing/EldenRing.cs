@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using Pointer = SoulMemory.Memory.Pointer;
@@ -40,7 +41,7 @@ namespace SoulMemory.EldenRing
         private long _positionOffset;
         private long _mapIdOffset;
         private long _playerInsOffset;
-        
+        private Dictionary<string, long> _exportedFunctions;
 
         #region Refresh/init/reset ================================================================================================
         public Process GetProcess() => _process;
@@ -157,7 +158,8 @@ namespace SoulMemory.EldenRing
                     _igt.Clear();
                     return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "soulmods injection failed"));
                 }
-                
+
+                _exportedFunctions = _process.GetModuleExportedFunctions("soulmods.dll");
                 return Result.Ok();
             }
             catch (Exception e)
@@ -574,6 +576,29 @@ namespace SoulMemory.EldenRing
         public void WriteInGameTimeMilliseconds(int milliseconds)
         {
             _igt.WriteInt32(milliseconds);
+        }
+
+        #endregion
+
+        #region soulmods
+
+        public void FpsPatchDisable()
+        {
+            var address = _exportedFunctions["fps_patch_disable"];
+            _process.Execute((IntPtr)address);
+        }
+
+        public void FpsPatchEnable()
+        {
+            var address = _exportedFunctions["fps_patch_enable"];
+            _process.Execute((IntPtr)address);
+        }
+
+        public void FpsPatchToggle()
+        {
+            var address = _exportedFunctions["fps_patch_toggle"];
+            var ptr = (IntPtr)address;
+            _process.Execute((IntPtr)address);
         }
 
         #endregion
