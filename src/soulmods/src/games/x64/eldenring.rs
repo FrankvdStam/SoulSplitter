@@ -86,7 +86,7 @@ pub fn init_eldenring()
             };
 
             fps_aob = "8b 83 64 02 00 00 89 83 b4 02 00 00";
-            fps_history_aob = "48 89 04 cb 0f b6 83 74 02 00 00";
+            fps_history_aob = "0f b6 83 74 02 00 00 89 44 cb 08";
             fps_custom_limit_aob = "0F 57 F6 44 38 BB D0 02 00 00";
         }
         else
@@ -102,7 +102,7 @@ pub fn init_eldenring()
             };
 
             fps_aob = "8b 83 6c 02 00 00 89 83 bc 02 00 00";
-            fps_history_aob = "48 89 44 cb 68 0f b6 83 7c 02 00 00";
+            fps_history_aob = "0f b6 83 7c 02 00 00 89 44 cb 70";
             fps_custom_limit_aob = "0F 57 F6 44 38 BB D8 02 00 00";
         }
 
