@@ -45,7 +45,6 @@ namespace SoulSplitter
         private ISplitter _splitter = null;
         private IGame _game = null;
         private DateTime _lastFailedRefresh = DateTime.MinValue;
-        private DateTime _lastFpsToggle = DateTime.MinValue; // Remove after tests
         private bool _previousBitBlt = false;
         public readonly MainWindow MainWindow;
         public SoulComponent(LiveSplitState state = null, bool shouldThrowOnInvalidInstallation = true)
