@@ -18,6 +18,7 @@ use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPo
 use mem_rs::prelude::*;
 use log::info;
 use crate::util::GLOBAL_VERSION;
+use crate::util::Version;
 
 static mut IGT_BUFFER: f32 = 0.0f32;
 static mut IGT_HOOK: Option<HookPoint> = None;
@@ -46,19 +47,28 @@ pub fn init_eldenring()
         // Enable timer patch
         IGT_HOOK = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
-        // AoB scan for FPS patch
-        let fn_fps_address = process.scan_abs("fps", "8b 83 64 02 00 00 89 83 b4 02 00 00", 0, Vec::new()).unwrap().get_base_address();
-        info!("FPS at 0x{:x}", fn_fps_address);
+        if (GLOBAL_VERSION > Version { major: 2, minor: 0, build: 1, revision: 0 })
+        {
+            info!("Post-DLC version detected.");
 
-        // Enable FPS patch
-        FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+            // AoB scan for FPS patch
+            let fn_fps_address = process.scan_abs("fps", "8b 83 64 02 00 00 89 83 b4 02 00 00", 0, Vec::new()).unwrap().get_base_address();
+            info!("FPS at 0x{:x}", fn_fps_address);
 
-        // AoB scan for FPS history patch
-        let fn_fps_history_address = process.scan_abs("fps history", "48 89 04 cb 0f b6 83 74 02 00 00", 0, Vec::new()).unwrap().get_base_address();
-        info!("FPS history at 0x{:x}", fn_fps_history_address);
+            // Enable FPS patch
+            FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
-        // Enable FPS history patch
-        FPS_HISTORY_HOOK = Some(Hooker::new(fn_fps_history_address, HookType::JmpBack(fps_history), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+            // AoB scan for FPS history patch
+            let fn_fps_history_address = process.scan_abs("fps history", "48 89 04 cb 0f b6 83 74 02 00 00", 0, Vec::new()).unwrap().get_base_address();
+            info!("FPS history at 0x{:x}", fn_fps_history_address);
+
+            // Enable FPS history patch
+            FPS_HISTORY_HOOK = Some(Hooker::new(fn_fps_history_address, HookType::JmpBack(fps_history), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        }
+        else
+        {
+            info!("Pre-DLC version detected.");
+        }
     }
 }
 
