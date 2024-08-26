@@ -40,6 +40,13 @@ namespace SoulSplitter.UI.EldenRing
         }
         private bool _startAutomatically = true;
 
+        public bool FpsPatch
+        {
+            get => _fpsPatch;
+            set => SetField(ref _fpsPatch, value);
+        }
+        private bool _fpsPatch = false;
+
         public bool LockIgtToZero
         {
             get => _lockIgtToZero;
