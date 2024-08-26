@@ -20,13 +20,32 @@ use log::info;
 use crate::util::GLOBAL_VERSION;
 use crate::util::Version;
 
+struct FpsOffsets
+{
+    target_frame_delta: isize,
+    frame_delta: isize,
+    timestamp_previous: isize,
+    timestamp_current: isize,
+    timestamp_history: u32,
+}
+
 static mut IGT_BUFFER: f32 = 0.0f32;
 static mut IGT_HOOK: Option<HookPoint> = None;
 
 static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
+static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 
 static mut FPS_HOOK_ENABLED: bool = false;
+static mut FPS_CUSTOM_LIMIT: f32 = 0.0f32;
+
+static mut FPS_OFFSETS: FpsOffsets = FpsOffsets {
+    target_frame_delta: 0x0,
+    frame_delta: 0x0,
+    timestamp_previous: 0x0,
+    timestamp_current: 0x0,
+    timestamp_history: 0,
+};
 
 
 #[allow(unused_assignments)]
@@ -47,28 +66,66 @@ pub fn init_eldenring()
         // Enable timer patch
         IGT_HOOK = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
+        // AoBs for FPS patches
+        let mut fps_aob = "";
+        let mut fps_history_aob = "";
+        let mut fps_custom_limit_aob = "";
+
+        // Adjust AoBs and offsets for FPS patch based on version
+        // The relevant function was adjusted slightly with the release of the DLC
         if (GLOBAL_VERSION > Version { major: 2, minor: 0, build: 1, revision: 0 })
         {
             info!("Post-DLC version detected.");
 
-            // AoB scan for FPS patch
-            let fn_fps_address = process.scan_abs("fps", "8b 83 64 02 00 00 89 83 b4 02 00 00", 0, Vec::new()).unwrap().get_base_address();
-            info!("FPS at 0x{:x}", fn_fps_address);
+            FPS_OFFSETS = FpsOffsets {
+                target_frame_delta: 0x1c,
+                frame_delta: 0x264,
+                timestamp_previous: 0x20,
+                timestamp_current: 0x28,
+                timestamp_history: 0,
+            };
 
-            // Enable FPS patch
-            FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
-
-            // AoB scan for FPS history patch
-            let fn_fps_history_address = process.scan_abs("fps history", "48 89 04 cb 0f b6 83 74 02 00 00", 0, Vec::new()).unwrap().get_base_address();
-            info!("FPS history at 0x{:x}", fn_fps_history_address);
-
-            // Enable FPS history patch
-            FPS_HISTORY_HOOK = Some(Hooker::new(fn_fps_history_address, HookType::JmpBack(fps_history), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+            fps_aob = "8b 83 64 02 00 00 89 83 b4 02 00 00";
+            fps_history_aob = "48 89 04 cb 0f b6 83 74 02 00 00";
+            fps_custom_limit_aob = "0F 57 F6 44 38 BB D0 02 00 00";
         }
         else
         {
             info!("Pre-DLC version detected.");
+
+            FPS_OFFSETS = FpsOffsets {
+                target_frame_delta: 0x20,
+                frame_delta: 0x26c,
+                timestamp_previous: 0x28,
+                timestamp_current: 0x30,
+                timestamp_history: 68,
+            };
+
+            fps_aob = "8b 83 6c 02 00 00 89 83 bc 02 00 00";
+            fps_history_aob = "48 89 44 cb 68 0f b6 83 7c 02 00 00";
+            fps_custom_limit_aob = "0F 57 F6 44 38 BB D8 02 00 00";
         }
+
+        // AoB scan for FPS patch
+        let fn_fps_address = process.scan_abs("fps", fps_aob, 0, Vec::new()).unwrap().get_base_address();
+        info!("FPS at 0x{:x}", fn_fps_address);
+
+        // Enable FPS patch
+        FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+        // AoB scan for FPS history patch
+        let fn_fps_history_address = process.scan_abs("fps history", fps_history_aob, 0, Vec::new()).unwrap().get_base_address();
+        info!("FPS history at 0x{:x}", fn_fps_history_address);
+
+        // Enable FPS history patch
+        FPS_HISTORY_HOOK = Some(Hooker::new(fn_fps_history_address, HookType::JmpBack(fps_history), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+        // AoB scan for FPS custom limit patch
+        let fn_fps_custom_limit_address = process.scan_abs("fps custom limit", fps_custom_limit_aob, 0, Vec::new()).unwrap().get_base_address();
+        info!("FPS custom limit at 0x{:x}", fn_fps_custom_limit_address);
+
+        // Enable FPS custom limit patch
+        FPS_CUSTOM_LIMIT_HOOK = Some(Hooker::new(fn_fps_custom_limit_address, HookType::JmpBack(fps_custom_limit), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
     }
 }
 
@@ -132,10 +189,10 @@ unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
     {
         let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
-        let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32; // Target frame delta - Set in a switch/case at the start
-        let ptr_timestamp_previous = ptr_flipper.offset(0x20) as *mut u64; // Previous frames timestamp
-        let ptr_timestamp_current = ptr_flipper.offset(0x28) as *mut u64; // Current frames timestamp
-        let ptr_frame_delta = ptr_flipper.offset(0x264) as *mut f32; // Current frames frame delta
+        let ptr_target_frame_delta = ptr_flipper.offset(FPS_OFFSETS.target_frame_delta) as *mut f32; // Target frame delta - Set in a switch/case at the start
+        let ptr_timestamp_previous = ptr_flipper.offset(FPS_OFFSETS.timestamp_previous) as *mut u64; // Previous frames timestamp
+        let ptr_timestamp_current = ptr_flipper.offset(FPS_OFFSETS.timestamp_current) as *mut u64; // Current frames timestamp
+        let ptr_frame_delta = ptr_flipper.offset(FPS_OFFSETS.frame_delta) as *mut f32; // Current frames frame delta
 
         // Read target frame data, the current timestamp and then calculate the timestamp diff at stable FPS
         let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
@@ -161,8 +218,8 @@ unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
     {
         let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
-        let ptr_target_frame_delta = ptr_flipper.offset(0x1c) as *mut f32; // Target frame delta - Set in a switch/case at the start
-        let ptr_frame_delta_history = ptr_flipper.offset(((*registers).rcx as u32 * 8) as isize) as *mut u64; // Frame delta history - In an array of 32, with the index incrementing each frame
+        let ptr_target_frame_delta = ptr_flipper.offset(FPS_OFFSETS.target_frame_delta) as *mut f32; // Target frame delta - Set in a switch/case at the start
+        let ptr_frame_delta_history = ptr_flipper.offset(((*registers).rcx as u32 * 8 + FPS_OFFSETS.timestamp_history) as isize) as *mut u64; // Frame delta history - In an array of 32, with the index incrementing each frame
 
         // Read the target frame delta and calculate the frame delta timestamp
         let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
@@ -170,5 +227,30 @@ unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
 
         // Write values back
         std::ptr::write_volatile(ptr_frame_delta_history, target_frame_delta_history);
+    }
+}
+
+// FPS custom limit patch
+// This patch adjusts the target frame delta based on a custom set FPS limit.
+// It is only active while the FPS patch is enabled too, and uses the default value if it's set to 0 or less.
+// This does not allow you to go above the stock FPS limit. It is purely a QoL patch to improve glitch consistency, not an FPS unlocker.
+unsafe extern "win64" fn fps_custom_limit(registers: *mut Registers, _:usize)
+{
+    if FPS_HOOK_ENABLED && FPS_CUSTOM_LIMIT > 0.0f32
+    {
+        let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
+
+        let ptr_target_frame_delta = ptr_flipper.offset(FPS_OFFSETS.target_frame_delta) as *mut f32; // Target frame delta - Set in a switch/case at the start
+
+        // Read the stock target frame delta and calculate the custom target frame delta
+        let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
+        let custom_target_frame_delta = 1.0f32 / FPS_CUSTOM_LIMIT;
+
+        // Make sure the custom target frame delta is higher than the stock one, in order to avoid going above the stock FPS limit
+        if custom_target_frame_delta > target_frame_delta
+        {
+            // Write values back
+            std::ptr::write_volatile(ptr_target_frame_delta, custom_target_frame_delta);
+        }
     }
 }

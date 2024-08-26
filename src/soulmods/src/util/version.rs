@@ -92,7 +92,7 @@ impl PartialEq for Version
 {
     fn eq(&self, other: &Self) -> bool
     {
-        if (self.major == other.major && self.minor == other.minor && self.build == other.build && self.revision == other.revision)
+        if self.major == other.major && self.minor == other.minor && self.build == other.build && self.revision == other.revision
         {
             return true;
         }
