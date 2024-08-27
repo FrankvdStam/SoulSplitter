@@ -601,6 +601,25 @@ namespace SoulMemory.EldenRing
             _process.Free(bPtr);
         }
 
+        public float FpsLimitGet()
+        {
+            var address = _exportedFunctions["fps_limit_get"];
+            var fPtr = _process.Allocate(4);
+            _process.Execute((IntPtr)address, fPtr);
+            var f = _process.ReadMemory<float>(fPtr.ToInt64()).Unwrap();
+            _process.Free(fPtr);
+            return f;
+        }
+
+        public void FpsLimitSet(float f)
+        {
+            var address = _exportedFunctions["fps_limit_set"];
+            var fPtr = _process.Allocate(4);
+            _process.WriteProcessMemory(fPtr.ToInt64(), BitConverter.GetBytes(f));
+            _process.Execute((IntPtr)address, fPtr);
+            _process.Free(fPtr);
+        }
+
         #endregion
     }
 }

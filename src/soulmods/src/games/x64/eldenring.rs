@@ -147,6 +147,24 @@ pub extern "C" fn fps_patch_set(b: &bool) // Set FPS patch status
     }
 }
 
+#[no_mangle]
+pub extern "C" fn fps_limit_get(f: &mut f32) // Get FPS custom limit
+{
+    unsafe
+    {
+        *f = FPS_CUSTOM_LIMIT;
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn fps_limit_set(f: &f32) // Set FPS custom limit
+{
+    unsafe
+    {
+        FPS_CUSTOM_LIMIT = *f;
+    }
+}
+
 
 unsafe extern "win64" fn increment_igt(registers: *mut Registers, _:usize)
 {
