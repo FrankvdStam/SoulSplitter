@@ -582,23 +582,23 @@ namespace SoulMemory.EldenRing
 
         #region soulmods
 
-        public void FpsPatchDisable()
+        public bool FpsPatchGet()
         {
-            var address = _exportedFunctions["fps_patch_disable"];
-            _process.Execute((IntPtr)address);
+            var address = _exportedFunctions["fps_patch_get"];
+            var bPtr = _process.Allocate(1);
+            _process.Execute((IntPtr)address, bPtr);
+            var b = _process.ReadMemory<bool>(bPtr.ToInt64()).Unwrap();
+            _process.Free(bPtr);
+            return b;
         }
 
-        public void FpsPatchEnable()
+        public void FpsPatchSet(bool b)
         {
-            var address = _exportedFunctions["fps_patch_enable"];
-            _process.Execute((IntPtr)address);
-        }
-
-        public void FpsPatchToggle()
-        {
-            var address = _exportedFunctions["fps_patch_toggle"];
-            var ptr = (IntPtr)address;
-            _process.Execute((IntPtr)address);
+            var address = _exportedFunctions["fps_patch_set"];
+            var bPtr = _process.Allocate(1);
+            _process.WriteProcessMemory(bPtr.ToInt64(), BitConverter.GetBytes(b));
+            _process.Execute((IntPtr)address, bPtr);
+            _process.Free(bPtr);
         }
 
         #endregion

@@ -130,29 +130,20 @@ pub fn init_eldenring()
 }
 
 #[no_mangle]
-pub extern "C" fn fps_patch_disable() // Disables FPS patch
+pub extern "C" fn fps_patch_get(b: &mut bool) // Get FPS patch status
 {
     unsafe
     {
-        FPS_HOOK_ENABLED = false;
+        *b = FPS_HOOK_ENABLED;
     }
 }
 
 #[no_mangle]
-pub extern "C" fn fps_patch_enable() // Enables FPS patch
+pub extern "C" fn fps_patch_set(b: &bool) // Set FPS patch status
 {
     unsafe
     {
-        FPS_HOOK_ENABLED = true;
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn fps_patch_toggle() // Toggles FPS patch
-{
-    unsafe
-    {
-        FPS_HOOK_ENABLED = !FPS_HOOK_ENABLED;
+        FPS_HOOK_ENABLED = *b;
     }
 }
 

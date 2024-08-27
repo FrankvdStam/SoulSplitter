@@ -178,14 +178,7 @@ namespace SoulSplitter.Splitters
                 _startAutomatically = startAutomatically;
             }
 
-            if (_eldenRingViewModel.FpsPatch)
-            {
-                _eldenRing.FpsPatchEnable();
-            }
-            else
-            {
-                _eldenRing.FpsPatchDisable();
-            }
+            _eldenRing.FpsPatchSet(_eldenRingViewModel.FpsPatch);
 
             switch (_timerState)
             {
