@@ -52,7 +52,11 @@ namespace cli
             {
                 if (init)
                 {
-                    GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, e.FpsPatchToggle);
+                    GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>
+                    {
+                        var fpsPatchState = e.FpsPatchGet();
+                        e.FpsPatchSet(!fpsPatchState);
+                    });
                     init = false;
                 }
 
