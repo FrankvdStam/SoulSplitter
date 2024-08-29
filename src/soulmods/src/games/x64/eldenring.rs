@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+use std::sync::{Arc, Mutex};
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 use mem_rs::prelude::*;
 use log::info;
@@ -36,7 +37,7 @@ static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 
-static mut FPS_HOOK_ENABLED: bool = false;
+static mut FPS_HOOK_ENABLED: Option<Arc<Mutex<bool>>> = None;
 static mut FPS_CUSTOM_LIMIT: f32 = 0.0f32;
 
 static mut FPS_OFFSETS: FpsOffsets = FpsOffsets {
@@ -54,7 +55,9 @@ pub fn init_eldenring()
     unsafe
     {
         info!("version: {}", GLOBAL_VERSION);
-		
+
+        FPS_HOOK_ENABLED = Some(Arc::new(Mutex::new(false)));
+
 		// Get ER process
         let mut process = Process::new("eldenring.exe");
         process.refresh().unwrap();
@@ -134,7 +137,9 @@ pub extern "C" fn fps_patch_get(b: &mut bool) // Get FPS patch status
 {
     unsafe
     {
-        *b = FPS_HOOK_ENABLED;
+        let arc = Arc::clone(FPS_HOOK_ENABLED.as_ref().unwrap());
+        let fps_hook_enabled = arc.lock().unwrap();
+        *b = *fps_hook_enabled;
     }
 }
 
@@ -143,7 +148,9 @@ pub extern "C" fn fps_patch_set(b: &bool) // Set FPS patch status
 {
     unsafe
     {
-        FPS_HOOK_ENABLED = *b;
+        let arc = Arc::clone(FPS_HOOK_ENABLED.as_ref().unwrap());
+        let mut fps_hook_enabled = arc.lock().unwrap();
+        *fps_hook_enabled = *b;
     }
 }
 
@@ -194,7 +201,10 @@ unsafe extern "win64" fn increment_igt(registers: *mut Registers, _:usize)
 // A second patch, "FPS history" below, is required in addition to this one to ensure accuracy.
 unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
 {
-    if FPS_HOOK_ENABLED
+    let arc = Arc::clone(FPS_HOOK_ENABLED.as_ref().unwrap());
+    let fps_hook_enabled = arc.lock().unwrap();
+
+    if *fps_hook_enabled
     {
         let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
@@ -223,7 +233,10 @@ unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
 // This gets stored in an array with 32 elements, possibly for calculating FPS averages.
 unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
 {
-    if FPS_HOOK_ENABLED
+    let arc = Arc::clone(FPS_HOOK_ENABLED.as_ref().unwrap());
+    let fps_hook_enabled = arc.lock().unwrap();
+
+    if *fps_hook_enabled
     {
         let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
@@ -245,7 +258,10 @@ unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
 // This does not allow you to go above the stock FPS limit. It is purely a QoL patch to improve glitch consistency, not an FPS unlocker.
 unsafe extern "win64" fn fps_custom_limit(registers: *mut Registers, _:usize)
 {
-    if FPS_HOOK_ENABLED && FPS_CUSTOM_LIMIT > 0.0f32
+    let arc = Arc::clone(FPS_HOOK_ENABLED.as_ref().unwrap());
+    let fps_hook_enabled = arc.lock().unwrap();
+
+    if *fps_hook_enabled && FPS_CUSTOM_LIMIT > 0.0f32
     {
         let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
