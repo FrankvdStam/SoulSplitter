@@ -22,14 +22,14 @@ mod games;
 mod util;
 
 use std::ffi::c_void;
-use std::{env, thread};
+use std::{env, panic, thread};
 use mem_rs::prelude::Process;
 use windows::Win32::Foundation::{BOOL, HINSTANCE};
 use windows::Win32::System::SystemServices::{ DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 
 use crate::console::init_console;
 use crate::logger::init_log;
-use log::info;
+use log::{error, info};
 use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version};
 
 
@@ -66,6 +66,12 @@ fn dispatched_dll_main()
 
     let process_name = Process::get_current_process_name().unwrap();
     info!("process: {}", process_name);
+
+    //Redirect panics
+    panic::set_hook(Box::new(|i| {
+        error!("panic");
+        error!("{}", i);
+    }));
 
     #[cfg(target_arch = "x86_64")]
     match process_name.to_lowercase().as_str()
