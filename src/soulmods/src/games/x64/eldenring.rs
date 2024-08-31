@@ -111,21 +111,21 @@ pub fn init_eldenring()
         info!("FPS at 0x{:x}", fn_fps_address);
 
         // Enable FPS patch
-        FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        //FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
         // AoB scan for FPS history patch
         let fn_fps_history_address = process.scan_abs("fps history", fps_history_aob, 0, Vec::new()).unwrap().get_base_address();
         info!("FPS history at 0x{:x}", fn_fps_history_address);
 
         // Enable FPS history patch
-        FPS_HISTORY_HOOK = Some(Hooker::new(fn_fps_history_address, HookType::JmpBack(fps_history), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        //FPS_HISTORY_HOOK = Some(Hooker::new(fn_fps_history_address, HookType::JmpBack(fps_history), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
         // AoB scan for FPS custom limit patch
         let fn_fps_custom_limit_address = process.scan_abs("fps custom limit", fps_custom_limit_aob, 0, Vec::new()).unwrap().get_base_address();
         info!("FPS custom limit at 0x{:x}", fn_fps_custom_limit_address);
 
         // Enable FPS custom limit patch
-        FPS_CUSTOM_LIMIT_HOOK = Some(Hooker::new(fn_fps_custom_limit_address, HookType::JmpBack(fps_custom_limit), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        //FPS_CUSTOM_LIMIT_HOOK = Some(Hooker::new(fn_fps_custom_limit_address, HookType::JmpBack(fps_custom_limit), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
     }
 }
 

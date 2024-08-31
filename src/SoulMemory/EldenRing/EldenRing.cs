@@ -188,6 +188,7 @@ namespace SoulMemory.EldenRing
             _menuManImp.Clear();
             _virtualMemoryFlag.Clear();
             _noLogo.Clear();
+            _fpsPatch = IntPtr.Zero;
         }
 
         #endregion
@@ -585,24 +586,29 @@ namespace SoulMemory.EldenRing
         #endregion
 
         #region soulmods
-
+        private IntPtr _fpsPatch = IntPtr.Zero;
         public bool FpsPatchGet()
         {
             var address = _exportedFunctions["fps_patch_get"];
-            var bPtr = _process.Allocate(1);
-            _process.Execute((IntPtr)address, bPtr);
-            var b = _process.ReadMemory<bool>(bPtr.ToInt64()).Unwrap();
-            _process.Free(bPtr);
+            if (_fpsPatch == IntPtr.Zero)
+            {
+                _fpsPatch = _process.Allocate(1);
+            }
+            _process.Execute((IntPtr)address, _fpsPatch);
+            var b = _process.ReadMemory<bool>(_fpsPatch.ToInt64()).Unwrap();
+            //_process.Free(bPtr);
             return b;
         }
 
         public void FpsPatchSet(bool b)
         {
             var address = _exportedFunctions["fps_patch_set"];
-            var bPtr = _process.Allocate(1);
-            _process.WriteProcessMemory(bPtr.ToInt64(), BitConverter.GetBytes(b));
-            _process.Execute((IntPtr)address, bPtr);
-            _process.Free(bPtr);
+            if (_fpsPatch == IntPtr.Zero)
+            {
+                _fpsPatch = _process.Allocate(1);
+            }
+            _process.WriteProcessMemory(_fpsPatch.ToInt64(), BitConverter.GetBytes(b));
+            _process.Execute((IntPtr)address, _fpsPatch);
         }
 
         public float FpsLimitGet()

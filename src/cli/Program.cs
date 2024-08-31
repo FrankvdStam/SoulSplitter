@@ -50,15 +50,8 @@ namespace cli
             bool init = true;
             GameLoop<EldenRing>((e) =>
             {
-                if (init)
-                {
-                    GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>
-                    {
-                        var fpsPatchState = e.FpsPatchGet();
-                        e.FpsPatchSet(!fpsPatchState);
-                    });
-                    init = false;
-                }
+                bool currentStatus = e.FpsPatchGet();
+                e.FpsPatchSet(!currentStatus);
 
                 var igtElapsed = TimeSpan.FromMilliseconds(e.GetInGameTimeMilliseconds());
                 Console.WriteLine($"IGT: {igtElapsed}");
