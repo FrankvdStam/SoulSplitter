@@ -24,6 +24,9 @@ using SoulSplitter.Splits.EldenRing;
 using SoulSplitter.UI;
 using SoulSplitter.UI.EldenRing;
 using SoulSplitter.UI.Generic;
+using SoulSplitter.Hotkeys;
+using System.Windows.Input;
+using System.Windows.Automation.Provider;
 
 namespace SoulSplitter.Splitters
 {
@@ -170,15 +173,146 @@ namespace SoulSplitter.Splitters
         }
 
 
+        bool init = true; // TODO: Remove when UI hotkeys are implemented
+        // bool lastFpsPatchState = false; // TODO: Remove when mutex is implemented
+        bool test = false;
         public void UpdateTimer(bool startAutomatically)
         {
+            // Hardcoded hotkeys. TODO: Remove when UI hotkeys are implemented
+            if (init)
+            {
+                /*
+                // Danflesh
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.Divide, () =>
+                {
+                    _eldenRingViewModel.FpsPatch = false;
+                });
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.Add, () =>
+                {
+                    if (_eldenRing.FpsLimitGet() == 60.0f && _eldenRingViewModel.FpsPatch)
+                    {
+                        _eldenRingViewModel.FpsPatch = false;
+                    }
+                    else
+                    {
+                        _eldenRing.FpsLimitSet(60.0f);
+                        _eldenRingViewModel.FpsPatch = true;
+                    }
+                });
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.Subtract, () =>
+                {
+                    if (_eldenRing.FpsLimitGet() == 36.1f && _eldenRingViewModel.FpsPatch)
+                    {
+                        _eldenRingViewModel.FpsPatch = false;
+                    }
+                    else
+                    {
+                        _eldenRing.FpsLimitSet(36.1f);
+                        _eldenRingViewModel.FpsPatch = true;
+                    }
+                });
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.Multiply, () =>
+                {
+                    if (_eldenRing.FpsLimitGet() == 34.0f && _eldenRingViewModel.FpsPatch)
+                    {
+                        _eldenRingViewModel.FpsPatch = false;
+                    }
+                    else
+                    {
+                        _eldenRing.FpsLimitSet(34.0f);
+                        _eldenRingViewModel.FpsPatch = true;
+                    }
+                });
+                */
+
+                /*
+                // Regole
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.OemBackslash, () =>
+                {
+                    if (_eldenRing.FpsLimitGet() == 36.1f && _eldenRingViewModel.FpsPatch)
+                    {
+                        _eldenRingViewModel.FpsPatch = false;
+                    }
+                    else
+                    {
+                        _eldenRing.FpsLimitSet(36.1f);
+                        _eldenRingViewModel.FpsPatch = true;
+                    }
+                });
+                */
+
+                /*
+                // Pennek
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.OemOpenBrackets, () =>
+                {
+                    if (_eldenRing.FpsLimitGet() == 57.0f && _eldenRingViewModel.FpsPatch)
+                    {
+                        _eldenRingViewModel.FpsPatch = false;
+                    }
+                    else
+                    {
+                        _eldenRing.FpsLimitSet(57.0f);
+                        _eldenRingViewModel.FpsPatch = true;
+                    }
+                });
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.OemCloseBrackets, () =>
+                {
+                    if (_eldenRing.FpsLimitGet() == 0.0f && _eldenRingViewModel.FpsPatch)
+                    {
+                        _eldenRingViewModel.FpsPatch = false;
+                    }
+                    else
+                    {
+                        _eldenRing.FpsLimitSet(0.0f);
+                        _eldenRingViewModel.FpsPatch = true;
+                    }
+                });
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.OemBackslash, () =>
+                {
+                    _eldenRingViewModel.FpsPatch = false;
+                });
+                */
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.F2, () =>
+                {
+                    _eldenRing.FpsPatchSet(true);
+                });
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.F3, () =>
+                {
+                    _eldenRing.FpsPatchSet(false);
+                });
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.F4, () =>
+                {
+                    test = !test;
+                });
+                init = false;
+            }
+
+
+            // _eldenRing.FpsPatchSet(false);
+            // _eldenRing.FpsPatchGet();
+
+            /*
+            if (lastFpsPatchState != _eldenRingViewModel.FpsPatch)
+            {
+                lastFpsPatchState = _eldenRingViewModel.FpsPatch;
+                _eldenRing.FpsPatchSet(_eldenRingViewModel.FpsPatch);
+            }
+            */
+            
+
+            if (test)
+            {
+                bool currentStatus = _eldenRing.FpsPatchGet();
+                _eldenRing.FpsPatchSet(!currentStatus);
+            }
+
+
+
             //Allow updates from the UI only when a run isn't in progress
             if (_timerState == TimerState.WaitForStart)
             {
                 _startAutomatically = startAutomatically;
             }
-
-            _eldenRing.FpsPatchSet(_eldenRingViewModel.FpsPatch);
 
             switch (_timerState)
             {

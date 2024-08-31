@@ -37,7 +37,7 @@ static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 
 static mut FPS_HOOK_ENABLED: bool = false;
-static mut FPS_CUSTOM_LIMIT: f32 = 0.0f32;
+static mut FPS_CUSTOM_LIMIT: f32 = 30.0f32; // Reset back to 0 after tests
 
 static mut FPS_OFFSETS: FpsOffsets = FpsOffsets {
     target_frame_delta: 0x0,
@@ -130,7 +130,7 @@ pub fn init_eldenring()
 }
 
 #[no_mangle]
-pub extern "C" fn fps_patch_get(b: &mut bool) // Get FPS patch status
+pub extern "C" fn fps_patch_get(b: *mut bool) // Get FPS patch status
 {
     unsafe
     {
@@ -139,7 +139,7 @@ pub extern "C" fn fps_patch_get(b: &mut bool) // Get FPS patch status
 }
 
 #[no_mangle]
-pub extern "C" fn fps_patch_set(b: &bool) // Set FPS patch status
+pub extern "C" fn fps_patch_set(b: *mut bool) // Set FPS patch status
 {
     unsafe
     {
@@ -148,7 +148,7 @@ pub extern "C" fn fps_patch_set(b: &bool) // Set FPS patch status
 }
 
 #[no_mangle]
-pub extern "C" fn fps_limit_get(f: &mut f32) // Get FPS custom limit
+pub extern "C" fn fps_limit_get(f: *mut f32) // Get FPS custom limit
 {
     unsafe
     {
@@ -157,7 +157,7 @@ pub extern "C" fn fps_limit_get(f: &mut f32) // Get FPS custom limit
 }
 
 #[no_mangle]
-pub extern "C" fn fps_limit_set(f: &f32) // Set FPS custom limit
+pub extern "C" fn fps_limit_set(f: *mut f32) // Set FPS custom limit
 {
     unsafe
     {

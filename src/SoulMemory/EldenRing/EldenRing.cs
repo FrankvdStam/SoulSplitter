@@ -18,6 +18,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using Pointer = SoulMemory.Memory.Pointer;
@@ -152,6 +154,8 @@ namespace SoulMemory.EldenRing
                 }
 
                 ApplyNoLogo();
+
+                // Thread.Sleep(15 * 1000); // Delay soulmods injection to work around crashes. TODO: Fix the crashes in some other way.
 
                 if (!soulmods.Soulmods.Inject(_process))
                 {
