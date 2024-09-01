@@ -173,13 +173,12 @@ namespace SoulSplitter.Splitters
         }
 
 
-        bool init = true; // TODO: Remove when UI hotkeys are implemented
-        // bool lastFpsPatchState = false; // TODO: Remove when mutex is implemented
-        bool test = false;
+        bool hotkeysCreated = true; // TODO: Remove when UI hotkeys are implemented
+        bool lastFpsPatchState = false; // TODO: Replace with proper get/set
         public void UpdateTimer(bool startAutomatically)
         {
             // Hardcoded hotkeys. TODO: Remove when UI hotkeys are implemented
-            if (init)
+            if (hotkeysCreated)
             {
                 /*
                 // Danflesh
@@ -272,6 +271,7 @@ namespace SoulSplitter.Splitters
                     _eldenRingViewModel.FpsPatch = false;
                 });
                 */
+
                 GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.F2, () =>
                 {
                     _eldenRing.FpsPatchSet(true);
@@ -280,33 +280,15 @@ namespace SoulSplitter.Splitters
                 {
                     _eldenRing.FpsPatchSet(false);
                 });
-                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.F4, () =>
-                {
-                    test = !test;
-                });
-                init = false;
+
+                hotkeysCreated = false;
             }
 
-
-            // _eldenRing.FpsPatchSet(false);
-            // _eldenRing.FpsPatchGet();
-
-            /*
             if (lastFpsPatchState != _eldenRingViewModel.FpsPatch)
             {
                 lastFpsPatchState = _eldenRingViewModel.FpsPatch;
                 _eldenRing.FpsPatchSet(_eldenRingViewModel.FpsPatch);
             }
-            */
-            
-
-            if (test)
-            {
-                bool currentStatus = _eldenRing.FpsPatchGet();
-                _eldenRing.FpsPatchSet(!currentStatus);
-            }
-
-
 
             //Allow updates from the UI only when a run isn't in progress
             if (_timerState == TimerState.WaitForStart)

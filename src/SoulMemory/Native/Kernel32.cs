@@ -218,7 +218,7 @@ namespace SoulMemory.Native
         {
             process.NtSuspendProcess();
             IntPtr thread = NativeMethods.CreateRemoteThread(process.Handle, IntPtr.Zero, 0, startAddress, parameter ?? IntPtr.Zero, 0, IntPtr.Zero);
-            NativeMethods.WaitForSingleObject(thread, 5000); // set back to 5000
+            NativeMethods.WaitForSingleObject(thread, 5000);
             process.NtResumeProcess();
             NativeMethods.CloseHandle(thread);
         }

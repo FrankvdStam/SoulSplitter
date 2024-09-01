@@ -17,9 +17,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using Pointer = SoulMemory.Memory.Pointer;
@@ -596,7 +593,6 @@ namespace SoulMemory.EldenRing
             }
             _process.Execute((IntPtr)address, _fpsPatch);
             var b = _process.ReadMemory<bool>(_fpsPatch.ToInt64()).Unwrap();
-            //_process.Free(bPtr);
             return b;
         }
 

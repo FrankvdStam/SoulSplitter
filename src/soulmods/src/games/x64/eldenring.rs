@@ -37,7 +37,7 @@ static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 
 static mut FPS_HOOK_ENABLED: bool = false;
-static mut FPS_CUSTOM_LIMIT: f32 = 30.0f32; // Reset back to 0 after tests
+static mut FPS_CUSTOM_LIMIT: f32 = 0.0f32;
 
 static mut FPS_OFFSETS: FpsOffsets = FpsOffsets {
     target_frame_delta: 0x0,
