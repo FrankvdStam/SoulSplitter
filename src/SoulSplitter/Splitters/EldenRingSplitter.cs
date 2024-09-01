@@ -280,6 +280,18 @@ namespace SoulSplitter.Splitters
                 {
                     _eldenRing.FpsPatchSet(false);
                 });
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.F5, () =>
+                {
+                    _eldenRing.FpsLimitSet(0.0f);
+                });
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.F6, () =>
+                {
+                    _eldenRing.FpsLimitSet(40.0f);
+                });
+                GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.F7, () =>
+                {
+                    _eldenRing.FpsLimitSet(25.0f);
+                });
 
                 hotkeysCreated = false;
             }
