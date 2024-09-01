@@ -173,12 +173,12 @@ namespace SoulSplitter.Splitters
         }
 
 
-        bool hotkeysCreated = true; // TODO: Remove when UI hotkeys are implemented
+        bool hotkeysCreated = false; // TODO: Remove when UI hotkeys are implemented
         bool lastFpsPatchState = false; // TODO: Replace with proper get/set
         public void UpdateTimer(bool startAutomatically)
         {
             // Hardcoded hotkeys. TODO: Remove when UI hotkeys are implemented
-            if (hotkeysCreated)
+            if (!hotkeysCreated)
             {
                 /*
                 // Danflesh
@@ -293,7 +293,7 @@ namespace SoulSplitter.Splitters
                     _eldenRing.FpsLimitSet(25.0f);
                 });
 
-                hotkeysCreated = false;
+                hotkeysCreated = true;
             }
 
             if (lastFpsPatchState != _eldenRingViewModel.FpsPatch)
