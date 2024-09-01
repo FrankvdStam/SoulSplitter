@@ -152,8 +152,6 @@ namespace SoulMemory.EldenRing
 
                 ApplyNoLogo();
 
-                // Thread.Sleep(15 * 1000); // Delay soulmods injection to work around crashes. TODO: Fix the crashes in some other way.
-
                 if (!soulmods.Soulmods.Inject(_process))
                 {
                     _igt.Clear();

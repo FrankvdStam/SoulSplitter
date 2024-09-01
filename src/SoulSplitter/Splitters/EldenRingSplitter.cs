@@ -272,6 +272,7 @@ namespace SoulSplitter.Splitters
                 });
                 */
 
+                // Testing
                 GlobalHotKey.RegisterHotKey(ModifierKeys.None, Key.F2, () =>
                 {
                     _eldenRing.FpsPatchSet(true);
@@ -302,7 +303,7 @@ namespace SoulSplitter.Splitters
                 _eldenRing.FpsPatchSet(_eldenRingViewModel.FpsPatch);
             }
 
-            //Allow updates from the UI only when a run isn't in progress
+            // Allow updates from the UI only when a run isn't in progress
             if (_timerState == TimerState.WaitForStart)
             {
                 _startAutomatically = startAutomatically;
