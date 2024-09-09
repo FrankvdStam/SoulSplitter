@@ -108,8 +108,10 @@
 
         <!-- row ============================================================================================================================================================================================== -->
 
+        <generic:HotkeyPicker Grid.Row="{StaticResource StartAutomaticallyRow}"/>
+
         <CheckBox
-            Grid.Row="{StaticResource StartAutomaticallyRow}"
+            Grid.Row="2"
             Margin="5"
             Content="Start automatically" 
             IsChecked="{Binding StartAutomatically}"/>
