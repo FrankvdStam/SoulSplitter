@@ -1,7 +1,7 @@
 name: Qodana
 on:
-  schedule:
-    - cron: "30 1 * * *"
+  #schedule:
+  #  - cron: "30 1 * * *"
   push:
     branches:
       - main
