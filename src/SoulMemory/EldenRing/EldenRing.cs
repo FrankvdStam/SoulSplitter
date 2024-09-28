@@ -42,6 +42,9 @@ namespace SoulMemory.EldenRing
         private long _playerInsOffset;
         private Dictionary<string, long> _exportedFunctions;
 
+        private IntPtr _fpsPatch = IntPtr.Zero;
+        private IntPtr _fpsLimit = IntPtr.Zero;
+
         #region Refresh/init/reset ================================================================================================
         public Process GetProcess() => _process;
 
@@ -184,6 +187,7 @@ namespace SoulMemory.EldenRing
             _virtualMemoryFlag.Clear();
             _noLogo.Clear();
             _fpsPatch = IntPtr.Zero;
+            _fpsLimit = IntPtr.Zero;
         }
 
         #endregion
@@ -581,7 +585,6 @@ namespace SoulMemory.EldenRing
         #endregion
 
         #region soulmods
-        private IntPtr _fpsPatch = IntPtr.Zero;
         public bool FpsPatchGet()
         {
             var address = _exportedFunctions["fps_patch_get"];
@@ -605,7 +608,7 @@ namespace SoulMemory.EldenRing
             _process.Execute((IntPtr)address, _fpsPatch);
         }
 
-        private IntPtr _fpsLimit = IntPtr.Zero;
+        
         public float FpsLimitGet()
         {
             var address = _exportedFunctions["fps_limit_get"];

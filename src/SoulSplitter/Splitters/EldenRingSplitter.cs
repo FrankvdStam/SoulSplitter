@@ -303,6 +303,8 @@ namespace SoulSplitter.Splitters
                 _eldenRing.FpsPatchSet(_eldenRingViewModel.FpsPatch);
             }
 
+            // _eldenRing.FpsPatchSet(!_eldenRing.FpsPatchGet()); // TEMP SPAM TOGGLE
+
             // Allow updates from the UI only when a run isn't in progress
             if (_timerState == TimerState.WaitForStart)
             {
