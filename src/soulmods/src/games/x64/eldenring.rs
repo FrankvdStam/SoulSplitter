@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+use std::sync::{Arc, Mutex};
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 use mem_rs::prelude::*;
 use log::info;
@@ -36,8 +37,8 @@ static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 
-static mut FPS_HOOK_ENABLED: bool = false;
-static mut FPS_CUSTOM_LIMIT: f32 = 0.0f32;
+static mut FPS_HOOK_ENABLED: Option<Mutex<bool>> = None;
+static mut FPS_CUSTOM_LIMIT: Option<Arc<Mutex<f32>>> = None;
 
 static mut FPS_OFFSETS: FpsOffsets = FpsOffsets {
     target_frame_delta: 0x0,
@@ -54,7 +55,10 @@ pub fn init_eldenring()
     unsafe
     {
         info!("version: {}", GLOBAL_VERSION);
-		
+
+        FPS_HOOK_ENABLED = Some(Mutex::new(false));
+        FPS_CUSTOM_LIMIT = Some(Arc::new(Mutex::new(0.0f32)));
+
 		// Get ER process
         let mut process = Process::new("eldenring.exe");
         process.refresh().unwrap();
@@ -129,22 +133,44 @@ pub fn init_eldenring()
     }
 }
 
+fn get_is_fps_hook_enabled() -> bool
+{
+    if let Some(mutex) = unsafe { FPS_HOOK_ENABLED.as_ref() }
+    {
+        if let Ok(guard) = mutex.lock()
+        {
+            return *guard;
+        }
+        panic!("Failed to get FPS_HOOK_ENABLED mutex lock");
+    }
+    panic!("Failed to get FPS_HOOK_ENABLED option as ref");
+}
+
+fn set_is_fps_hook_enabled(value: bool)
+{
+    if let Some(mutex) = unsafe { FPS_HOOK_ENABLED.as_ref() }
+    {
+        if let Ok(mut guard) = mutex.lock()
+        {
+            *guard = value;
+        }
+        panic!("Failed to get FPS_HOOK_ENABLED mutex lock");
+    }
+    panic!("Failed to get FPS_HOOK_ENABLED option as ref");
+}
+
+
+
 #[no_mangle]
 pub extern "C" fn fps_patch_get(b: *mut bool) // Get FPS patch status
 {
-    unsafe
-    {
-        *b = FPS_HOOK_ENABLED;
-    }
+    *b = get_is_fps_hook_enabled();
 }
 
 #[no_mangle]
 pub extern "C" fn fps_patch_set(b: *mut bool) // Set FPS patch status
 {
-    unsafe
-    {
-        FPS_HOOK_ENABLED = *b;
-    }
+    set_is_fps_hook_enabled(*b);
 }
 
 #[no_mangle]
@@ -152,7 +178,9 @@ pub extern "C" fn fps_limit_get(f: *mut f32) // Get FPS custom limit
 {
     unsafe
     {
-        *f = FPS_CUSTOM_LIMIT;
+        let arc = Arc::clone(FPS_CUSTOM_LIMIT.as_ref().unwrap());
+        let fps_custom_limit = arc.lock().unwrap();
+        *f = *fps_custom_limit;
     }
 }
 
@@ -161,7 +189,9 @@ pub extern "C" fn fps_limit_set(f: *mut f32) // Set FPS custom limit
 {
     unsafe
     {
-        FPS_CUSTOM_LIMIT = *f;
+        let arc = Arc::clone(FPS_CUSTOM_LIMIT.as_ref().unwrap());
+        let mut fps_custom_limit = arc.lock().unwrap();
+        *fps_custom_limit = *f;
     }
 }
 
@@ -194,7 +224,7 @@ unsafe extern "win64" fn increment_igt(registers: *mut Registers, _:usize)
 // A second patch, "FPS history" below, is required in addition to this one to ensure accuracy.
 unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
 {
-    if FPS_HOOK_ENABLED
+    if get_is_fps_hook_enabled()
     {
         let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
@@ -223,7 +253,7 @@ unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
 // This gets stored in an array with 32 elements, possibly for calculating FPS averages.
 unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
 {
-    if FPS_HOOK_ENABLED
+    if get_is_fps_hook_enabled()
     {
         let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
@@ -245,7 +275,10 @@ unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
 // This does not allow you to go above the stock FPS limit. It is purely a QoL patch to improve glitch consistency, not an FPS unlocker.
 unsafe extern "win64" fn fps_custom_limit(registers: *mut Registers, _:usize)
 {
-    if FPS_HOOK_ENABLED && FPS_CUSTOM_LIMIT > 0.0f32
+    let arc_custom_limit = Arc::clone(FPS_CUSTOM_LIMIT.as_ref().unwrap());
+    let fps_custom_limit = arc_custom_limit.lock().unwrap();
+
+    if get_is_fps_hook_enabled() && *fps_custom_limit > 0.0f32
     {
         let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
@@ -253,7 +286,7 @@ unsafe extern "win64" fn fps_custom_limit(registers: *mut Registers, _:usize)
 
         // Read the stock target frame delta and calculate the custom target frame delta
         let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
-        let custom_target_frame_delta = 1.0f32 / FPS_CUSTOM_LIMIT;
+        let custom_target_frame_delta = 1.0f32 / *fps_custom_limit;
 
         // Make sure the custom target frame delta is higher than the stock one, in order to avoid going above the stock FPS limit
         if custom_target_frame_delta > target_frame_delta
