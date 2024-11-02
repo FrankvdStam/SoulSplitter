@@ -26,7 +26,7 @@ namespace SoulSplitter.Hotkeys
 {
     public static class GlobalHotKey
     {
-        private static readonly List<(int id, ModifierKeys modifier, Key key, Action action)> Hotkeys = new List<(int, ModifierKeys, Key, Action)>();
+        private static readonly List<(int id, Hotkey hotkey, Action action)> Hotkeys = new List<(int, Hotkey, Action)>();
         private static readonly ManualResetEvent WindowReadyEvent = new ManualResetEvent(false);
         public static volatile HotkeyForm HotkeyForm;
         public static volatile IntPtr Handle;
@@ -43,22 +43,22 @@ namespace SoulSplitter.Hotkeys
             messageLoopThread.Start();
         }
 
-        public static void OnHotkeyPressed(ModifierKeys modifier, Key key)
+        public static void OnHotkeyPressed(Hotkey hotkey)
         {
             Hotkeys.ForEach(x =>
             {
-                if (modifier == x.modifier && key == x.key)
+                if (hotkey.Modifiers == x.hotkey.Modifiers && hotkey.Key == x.hotkey.Key)
                 {
                     x.action();
                 }
             });
         }
 
-        public static int RegisterHotKey(ModifierKeys modifier, Key key, Action action)
+        public static int RegisterHotKey(Hotkey hotkey, Action action)
         {
             WindowReadyEvent.WaitOne(); //wait for hotkey window to have initialized
 
-            var virtualKeyCode = (Keys)KeyInterop.VirtualKeyFromKey(key);
+            var virtualKeyCode = (Keys)KeyInterop.VirtualKeyFromKey(hotkey.Key);
             int id = Interlocked.Increment(ref _currentId);
 
             Delegate register = (Action)(() =>
@@ -66,12 +66,12 @@ namespace SoulSplitter.Hotkeys
                 User32.RegisterHotkey(
                     Handle,
                     id,
-                    (uint)modifier | 0x4000, //no repeat
+                    (uint)hotkey.Modifiers | 0x4000, //no repeat
                     (uint)virtualKeyCode);
             });
 
             HotkeyForm.Invoke(register);
-            Hotkeys.Add((id, modifier, key, action));
+            Hotkeys.Add((id, hotkey, action));
             return id;
         }
 
@@ -109,7 +109,7 @@ namespace SoulSplitter.Hotkeys
             {
                 var key = KeyInterop.KeyFromVirtualKey((int)windowMessage.LParam >> 16 & 0xFFFF);
                 var modifier = (ModifierKeys)((int)windowMessage.LParam & 0xFFFF);
-                GlobalHotKey.OnHotkeyPressed(modifier, key);
+                GlobalHotKey.OnHotkeyPressed(new Hotkey(){Modifiers = modifier, Key = key});
             }
         }
 

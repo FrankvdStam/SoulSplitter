@@ -20,8 +20,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using System.Xml.Serialization;
 using SoulMemory.EldenRing;
+using SoulSplitter.Hotkeys;
 using SoulSplitter.Splits.EldenRing;
 using SoulSplitter.UI.Generic;
 
@@ -31,6 +33,9 @@ namespace SoulSplitter.UI.EldenRing
     {
         public EldenRingViewModel()
         {
+            Hotkeys.Add(new FpsPatchHotkey(){ Action = FpsPatchHotkeyAction.SetFpsValue,    Hotkey = new Hotkey(){ Key = Key.A, Modifiers = ModifierKeys.Control }, Fps = 33});
+            Hotkeys.Add(new FpsPatchHotkey(){ Action = FpsPatchHotkeyAction.SetFpsValue,    Hotkey = new Hotkey(){ Key = Key.B, Modifiers = ModifierKeys.Shift }, Fps = 24});
+            Hotkeys.Add(new FpsPatchHotkey(){ Action = FpsPatchHotkeyAction.RemoveFpsPatch, Hotkey = new Hotkey(){ Key = Key.C, Modifiers = ModifierKeys.Alt }});
         }
 
         public bool StartAutomatically
@@ -440,7 +445,22 @@ namespace SoulSplitter.UI.EldenRing
 
         #endregion
 
+        #region Fps hotkeys
 
+        [XmlIgnore]
+        public int NewFpsValue
+        {
+            get => _newFpsValue;
+            set => SetField(ref _newFpsValue, value);
+        }
+        private int _newFpsValue = 30;
+
+        public ObservableCollection<FpsPatchHotkey> Hotkeys { get; set; } = new ObservableCollection<FpsPatchHotkey>();
+
+        
+
+
+        #endregion
         public ObservableCollection<HierarchicalTimingTypeViewModel> Splits { get; set; }= new ObservableCollection<HierarchicalTimingTypeViewModel>();
         
         //source lists

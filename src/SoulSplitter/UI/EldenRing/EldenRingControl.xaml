@@ -45,6 +45,7 @@
                     <converters:EnumDisplayNameConverter          x:Key="EnumDisplayNameConverter"/>
                     <converters:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter"/>
                     <converters:SplitObjectToDescriptionConverter x:Key="SplitObjectToDescriptionConverter"/>
+                    <converters:HotkeyToStringConverter           x:Key="HotkeyToStringConverter"/>
                 </ResourceDictionary>
 
                 <ResourceDictionary>
@@ -94,464 +95,558 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-           <!-- <RowDefinition Height="40"/> -->
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- FPS patch hotkeys -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <!-- <RowDefinition Height="40"/> -->
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
 
-        <!-- row ============================================================================================================================================================================================== -->
+            <Label
+                Content="FPS patch hotkeys"
+                Grid.Row="0"/>
 
-        <generic:HotkeyPicker Grid.Row="{StaticResource StartAutomaticallyRow}"/>
+            <StackPanel 
+                Orientation="Horizontal"
+                Grid.Row="1">
+                
+                <generic:HotkeyPicker
+                    MinWidth="200"/>
 
-        <CheckBox
-            Grid.Row="2"
-            Margin="5"
-            Content="Start automatically" 
-            IsChecked="{Binding StartAutomatically}"/>
+                <TextBox
+                    Width="20"
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    Text="{Binding NewFpsValue}"
+                    materialDesign:HintAssist.HelperText="FPS value"/>
 
-        <!-- row ============================================================================================================================================================================================== -->
-
-        <CheckBox
-            Grid.Row="{StaticResource LockTimerRow}"
-            Margin="5"
-            Content="Lock IGT to 0:00 (for NG+ saves)"
-            IsChecked="{Binding LockIgtToZero}"/>
-
-        <!-- row ============================================================================================================================================================================================== -->
-        <Label 
-            Grid.Row="{StaticResource SeparatorRow}" 
-            Content="Automatic splitting"/>
-
-        <Separator 
-            Grid.Row="{StaticResource SeparatorRow}" />
-
-        <!-- row ============================================================================================================================================================================================== -->
-
-        <!-- timing type -->
-        <ComboBox
-            Grid.Row="{StaticResource SplitDefinitionRow}"
-            Margin="5"
-            HorizontalAlignment="Left"
-            Width="205"
-            Height="30"
-            SelectedValuePath="Tag"
-            SelectedValue="{Binding NewSplitTimingType}"
-            materialDesign:HintAssist.HelperText="when">
-
-            <ComboBoxItem Content="immediately when">
-                <ComboBoxItem.Tag>
-                    <generic:TimingType>Immediate</generic:TimingType>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-            <ComboBoxItem Content="when the game is loading after">
-                <ComboBoxItem.Tag>
-                    <generic:TimingType>OnLoading</generic:TimingType>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-            <ComboBoxItem Content="During a blackscreen after">
-                <ComboBoxItem.Tag>
-                    <generic:TimingType>OnBlackscreen</generic:TimingType>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-        </ComboBox>
-
-        <!-- split type -->
-        <ComboBox
-            Grid.Row="{StaticResource SplitDefinitionRow}"
-            Margin="215, 5, 5, 5"
-            HorizontalAlignment="Left"
-            Width="205"
-            Height="30"
-            SelectedValuePath="Tag"
-            SelectedValue="{Binding NewSplitType}"
-            materialDesign:HintAssist.HelperText="what"
-            IsEnabled="{Binding EnabledSplitType}">
-
-            <ComboBoxItem Content="I kill a boss">
-                <ComboBoxItem.Tag>
-                    <eldenRingSplits:EldenRingSplitType>Boss</eldenRingSplits:EldenRingSplitType>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-
-            <ComboBoxItem Content="I light a grace">
-                <ComboBoxItem.Tag>
-                    <eldenRingSplits:EldenRingSplitType>Grace</eldenRingSplits:EldenRingSplitType>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-            <!--
-            <ComboBoxItem Content="I acquire an item">
-                <ComboBoxItem.Tag>
-                    <eldenRingSplits:EldenRingSplitType>Item</eldenRingSplits:EldenRingSplitType>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-            -->
-            <ComboBoxItem Content="I pick up an item">
-                <ComboBoxItem.Tag>
-                    <eldenRingSplits:EldenRingSplitType>ItemPickup</eldenRingSplits:EldenRingSplitType>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-
-            <ComboBoxItem Content="I trigger a known flag">
-                <ComboBoxItem.Tag>
-                    <eldenRingSplits:EldenRingSplitType>KnownFlag</eldenRingSplits:EldenRingSplitType>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-
-            <ComboBoxItem Content="I reach a position">
-                <ComboBoxItem.Tag>
-                    <eldenRingSplits:EldenRingSplitType>Position</eldenRingSplits:EldenRingSplitType>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-
-            <ComboBoxItem Content="I trigger a flag">
-                <ComboBoxItem.Tag>
-                    <eldenRingSplits:EldenRingSplitType>Flag</eldenRingSplits:EldenRingSplitType>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-        </ComboBox>
+            </StackPanel>
 
 
-        <!-- row ============================================================================================================================================================================================== -->
+            <Button 
+                Content="Add"
+                Grid.Row="2"/>
 
-        <!-- boss splits -->
-        <generic:FilteredComboBox
-            Grid.Row="{StaticResource SplitTypeRow}"
-            Grid.Column="0"
-            Margin="5"
-            Width="420"
-            HorizontalAlignment="Left"
-            ItemsSource="{Binding Source={StaticResource BossesCollectionViewSource}}" 
-            SelectedValue="{Binding NewSplitBoss}"
-            materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding VisibleBossSplit, Converter={StaticResource BoolToVisibilityConverter}}"
-            DisplayMemberPath="Name"
-            SelectedValuePath="Boss"
-            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-            IsEditable="True" 
-            IsTextSearchEnabled="False" 
-            StaysOpenOnEdit="True">
-            <ComboBox.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Height="30" Background="{StaticResource SecondaryHueMidBrush}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ComboBox.GroupStyle>
-        </generic:FilteredComboBox>
+            <ItemsControl 
+                ItemsSource="{Binding Hotkeys}"
+                Grid.Row="3">
 
-        <!-- grace splits -->
-        <generic:FilteredComboBox
-            Grid.Row="{StaticResource SplitTypeRow}"
-            Width="420"
-            Margin="5"
-            HorizontalAlignment="Left"
-            ItemsSource="{Binding Source={StaticResource GracesCollectionViewSource}}" 
-            SelectedValue="{Binding NewSplitGrace}"
-            materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding VisibleGraceSplit, Converter={StaticResource BoolToVisibilityConverter}}"
-            DisplayMemberPath="Name"
-            SelectedValuePath="Grace"
-            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-            IsEditable="True" 
-            IsTextSearchEnabled="False" 
-            StaysOpenOnEdit="True">
-            <ComboBox.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Height="30" Background="{StaticResource SecondaryHueMidBrush}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ComboBox.GroupStyle>
-        </generic:FilteredComboBox>
+                <ItemsControl.Resources>
+                    <DataTemplate 
+                        x:Key="RemoveFpsPatchDataTemplate" 
+                        DataType="{x:Type eldenRing:FpsPatchHotkey}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-        <!-- flag splits -->
-        <TextBox
-            Grid.Row="{StaticResource SplitTypeRow}"
-            Width="420"
-            Margin="5"
-            HorizontalAlignment="Left"
-            Text="{Binding NewSplitFlag}"
-            TextChanged="TextBoxBase_OnTextChanged"
-            materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding VisibleFlagSplit, Converter={StaticResource BoolToVisibilityConverter}}"
-            />
+                            <TextBox Grid.Column="0" Text="{Binding Hotkey, Converter={StaticResource HotkeyToStringConverter} }"/>
+                            <TextBox Grid.Column="1" Text="Remove FPS patch"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.Resources>
 
-        <!-- Item splits DisplayMemberPath="Name" -->
-        <!--
-        <ui:FilteredComboBox 
-            Grid.Row="{StaticResource SplitTypeRow}"
-            Margin="5, 5, 5, 5"
-            HorizontalAlignment="Left"
-            Width="420"
-            ItemsSource="{Binding Source={StaticResource ItemsCollectionViewSource}}" 
-            SelectedValue="{Binding NewSplitItem}"
-            materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding VisibleItemSplit, Converter={StaticResource BoolToVisibilityConverter}}"
-            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-            SelectedValuePath="Item"
-            IsEditable="True" 
-            IsTextSearchEnabled="False" 
-            StaysOpenOnEdit="True">-->
-            <!--
-            <ComboBox.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Height="30" Width="220" Background="{StaticResource SecondaryHueMidBrush}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ComboBox.GroupStyle>
-            -->
-        <!--
-            <ComboBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Height="800" IsItemsHost="True" VirtualizationMode="Recycling"/>
-                </ItemsPanelTemplate>
-            </ComboBox.ItemsPanel>
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Height="15" Width="420" Text="{Binding Name}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ui:FilteredComboBox>
--->
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
 
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Action}" Value="{x:Static eldenRing:FpsPatchHotkeyAction.RemoveFpsPatch}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource RemoveFpsPatchDataTemplate}"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
 
-        <!-- ItemPickup splits -->
-        <generic:FilteredComboBox 
-            Grid.Row="{StaticResource SplitTypeRow}"
-            Margin="5, 5, 5, 5"
-            HorizontalAlignment="Left"
-            Width="420"
-            ItemsSource="{Binding ItemPickups}" 
-            SelectedValue="{Binding NewSplitItemPickup}"
-            materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding VisibleItemPickupSplit, Converter={StaticResource BoolToVisibilityConverter}}"
-            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-            SelectedValuePath="ItemPickup"
-            IsEditable="True" 
-            IsTextSearchEnabled="False" 
-            StaysOpenOnEdit="True">
-            <ComboBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Height="800" IsItemsHost="True" VirtualizationMode="Recycling"/>
-                </ItemsPanelTemplate>
-            </ComboBox.ItemsPanel>
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Height="15" Width="420" Text="{Binding Name}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </generic:FilteredComboBox>
+                       
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
+                            <TextBox Grid.Column="0" Text="{Binding Hotkey, Converter={StaticResource HotkeyToStringConverter} }"/>
+                            <TextBox Grid.Column="1" Text="{Binding Fps}"/>
 
-        <!-- KnownFlag splits -->
-        <generic:FilteredComboBox 
-            Grid.Row="{StaticResource SplitTypeRow}"
-            Margin="5, 5, 5, 5"
-            HorizontalAlignment="Left"
-            Width="420"
-            ItemsSource="{Binding KnownFlags}" 
-            SelectedValue="{Binding NewSplitKnownFlag}"
-            materialDesign:HintAssist.HelperText="which"
-            Visibility="{Binding VisibleKnownFlagSplit, Converter={StaticResource BoolToVisibilityConverter}}"
-            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-            SelectedValuePath="KnownFlag"
-            IsEditable="True" 
-            IsTextSearchEnabled="False" 
-            StaysOpenOnEdit="True">
-            <ComboBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Height="800" IsItemsHost="True" VirtualizationMode="Recycling"/>
-                </ItemsPanelTemplate>
-            </ComboBox.ItemsPanel>
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Height="15" Width="420" Text="{Binding Name}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </generic:FilteredComboBox>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                
 
+            </ItemsControl>
 
-        <!-- Position -->
-        <StackPanel
-            Margin="5,10,0,0"
-            Visibility="{Binding VisiblePositionSplit, Converter={StaticResource BoolToVisibilityConverter}}"
-            Grid.Row="{StaticResource SplitTypeRow}"
-            Grid.Column="0"
-            Orientation="Horizontal">
             
-            <TextBox 
-                Width="25"
-                Height="25"
-                Margin="0,0,0,0"
-                Text="{Binding NewSplitPosition.Area}"
-                materialDesign:HintAssist.Hint="Area"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Area}"
-                PreviewTextInput="OnPreviewTextInput_Byte"/>
 
-            <TextBox 
-                Width="25"
-                Height="25"
-                Margin="5,0,0,0"
-                Text="{Binding NewSplitPosition.Block}"
-                materialDesign:HintAssist.Hint="Block"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Block}"
-                PreviewTextInput="OnPreviewTextInput_Byte"/>
+        </Grid>
 
-            <TextBox 
-                Width="25"
-                Height="25"
-                Margin="5,0,0,0"
-                Text="{Binding NewSplitPosition.Region}"
-                materialDesign:HintAssist.Hint="Region"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Region}"
-                PreviewTextInput="OnPreviewTextInput_Byte"/>
-
-            <TextBox 
-                Width="25"
-                Height="25"
-                Margin="5,0,0,0"
-                Text="{Binding NewSplitPosition.Size}"
-                materialDesign:HintAssist.Hint="Size"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Size}"
-                PreviewTextInput="OnPreviewTextInput_Byte"/>
+        <!-- ER splits -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+               <!-- <RowDefinition Height="40"/> -->
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
 
 
-            <TextBox 
-                Width="50"
-                Height="25"
-                Margin="5,0,0,0"
-                Text="{Binding NewSplitPosition.X}"
-                materialDesign:HintAssist.Hint="x"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}"
-                PreviewTextInput="OnPreviewTextInput_Float"/>
+            <!-- row ============================================================================================================================================================================================== -->
 
-            <TextBox 
-                Width="50"
-                Height="25"
-                Margin="5,0,0,0"
-                Text="{Binding NewSplitPosition.Y}"
-                materialDesign:HintAssist.Hint="y"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}"
-                PreviewTextInput="OnPreviewTextInput_Float"/>
+            <CheckBox
+                Grid.Row="{StaticResource StartAutomaticallyRow}"
+                Margin="5"
+                Content="Start automatically" 
+                IsChecked="{Binding StartAutomatically}"/>
 
+            <!-- row ============================================================================================================================================================================================== -->
 
-            <TextBox 
-                Width="50"
-                Height="25"
-                Margin="5,0,0,0"
-                Text="{Binding NewSplitPosition.Z}"
-                materialDesign:HintAssist.Hint="z"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}"
-                PreviewTextInput="OnPreviewTextInput_Float"/>
-        </StackPanel>
+            <CheckBox
+                Grid.Row="{StaticResource LockTimerRow}"
+                Margin="5"
+                Content="Lock IGT to 0:00 (for NG+ saves)"
+                IsChecked="{Binding LockIgtToZero}"/>
 
-        <!-- Hackity -->
-        <Button
-            Visibility="{Binding VisiblePositionSplit, Converter={StaticResource BoolToVisibilityConverter}}"
-            Grid.Row="{StaticResource SplitTypeRow}"
-            Grid.Column="0"
-            Margin="300, 5, 0, 0"
-            HorizontalAlignment="Left"
-            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-            ToolTip="Read current game position"
-            Click="CopyPosition_OnClick"
-            IsEnabled="{Binding EnabledAddSplit}">
-            <materialDesign:PackIcon
-                Kind="CrosshairsGps"
-                Height="30"
-                Width="30" />
-        </Button>
+            <!-- row ============================================================================================================================================================================================== -->
+            <Label 
+                Grid.Row="{StaticResource SeparatorRow}" 
+                Content="Automatic splitting"/>
 
-        <!-- row ============================================================================================================================================================================================== -->
+            <Separator 
+                Grid.Row="{StaticResource SeparatorRow}" />
 
-        <StackPanel
-            Orientation="Horizontal"
-            Grid.Row="{StaticResource AddRemoveSplitRow}">
-            <Button
+            <!-- row ============================================================================================================================================================================================== -->
+
+            <!-- timing type -->
+            <ComboBox
+                Grid.Row="{StaticResource SplitDefinitionRow}"
                 Margin="5"
                 HorizontalAlignment="Left"
+                Width="205"
+                Height="30"
+                SelectedValuePath="Tag"
+                SelectedValue="{Binding NewSplitTimingType}"
+                materialDesign:HintAssist.HelperText="when">
+
+                <ComboBoxItem Content="immediately when">
+                    <ComboBoxItem.Tag>
+                        <generic:TimingType>Immediate</generic:TimingType>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="when the game is loading after">
+                    <ComboBoxItem.Tag>
+                        <generic:TimingType>OnLoading</generic:TimingType>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="During a blackscreen after">
+                    <ComboBoxItem.Tag>
+                        <generic:TimingType>OnBlackscreen</generic:TimingType>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+
+            <!-- split type -->
+            <ComboBox
+                Grid.Row="{StaticResource SplitDefinitionRow}"
+                Margin="215, 5, 5, 5"
+                HorizontalAlignment="Left"
+                Width="205"
+                Height="30"
+                SelectedValuePath="Tag"
+                SelectedValue="{Binding NewSplitType}"
+                materialDesign:HintAssist.HelperText="what"
+                IsEnabled="{Binding EnabledSplitType}">
+
+                <ComboBoxItem Content="I kill a boss">
+                    <ComboBoxItem.Tag>
+                        <eldenRingSplits:EldenRingSplitType>Boss</eldenRingSplits:EldenRingSplitType>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="I light a grace">
+                    <ComboBoxItem.Tag>
+                        <eldenRingSplits:EldenRingSplitType>Grace</eldenRingSplits:EldenRingSplitType>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <!--
+                <ComboBoxItem Content="I acquire an item">
+                    <ComboBoxItem.Tag>
+                        <eldenRingSplits:EldenRingSplitType>Item</eldenRingSplits:EldenRingSplitType>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                -->
+                <ComboBoxItem Content="I pick up an item">
+                    <ComboBoxItem.Tag>
+                        <eldenRingSplits:EldenRingSplitType>ItemPickup</eldenRingSplits:EldenRingSplitType>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="I trigger a known flag">
+                    <ComboBoxItem.Tag>
+                        <eldenRingSplits:EldenRingSplitType>KnownFlag</eldenRingSplits:EldenRingSplitType>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="I reach a position">
+                    <ComboBoxItem.Tag>
+                        <eldenRingSplits:EldenRingSplitType>Position</eldenRingSplits:EldenRingSplitType>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+
+                <ComboBoxItem Content="I trigger a flag">
+                    <ComboBoxItem.Tag>
+                        <eldenRingSplits:EldenRingSplitType>Flag</eldenRingSplits:EldenRingSplitType>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+
+
+            <!-- row ============================================================================================================================================================================================== -->
+
+            <!-- boss splits -->
+            <generic:FilteredComboBox
+                Grid.Row="{StaticResource SplitTypeRow}"
+                Grid.Column="0"
+                Margin="5"
+                Width="420"
+                HorizontalAlignment="Left"
+                ItemsSource="{Binding Source={StaticResource BossesCollectionViewSource}}" 
+                SelectedValue="{Binding NewSplitBoss}"
+                materialDesign:HintAssist.HelperText="which"
+                Visibility="{Binding VisibleBossSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+                DisplayMemberPath="Name"
+                SelectedValuePath="Boss"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                IsEditable="True" 
+                IsTextSearchEnabled="False" 
+                StaysOpenOnEdit="True">
+                <ComboBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Height="30" Background="{StaticResource SecondaryHueMidBrush}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ComboBox.GroupStyle>
+            </generic:FilteredComboBox>
+
+            <!-- grace splits -->
+            <generic:FilteredComboBox
+                Grid.Row="{StaticResource SplitTypeRow}"
+                Width="420"
+                Margin="5"
+                HorizontalAlignment="Left"
+                ItemsSource="{Binding Source={StaticResource GracesCollectionViewSource}}" 
+                SelectedValue="{Binding NewSplitGrace}"
+                materialDesign:HintAssist.HelperText="which"
+                Visibility="{Binding VisibleGraceSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+                DisplayMemberPath="Name"
+                SelectedValuePath="Grace"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                IsEditable="True" 
+                IsTextSearchEnabled="False" 
+                StaysOpenOnEdit="True">
+                <ComboBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Height="30" Background="{StaticResource SecondaryHueMidBrush}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ComboBox.GroupStyle>
+            </generic:FilteredComboBox>
+
+            <!-- flag splits -->
+            <TextBox
+                Grid.Row="{StaticResource SplitTypeRow}"
+                Width="420"
+                Margin="5"
+                HorizontalAlignment="Left"
+                Text="{Binding NewSplitFlag}"
+                TextChanged="TextBoxBase_OnTextChanged"
+                materialDesign:HintAssist.HelperText="which"
+                Visibility="{Binding VisibleFlagSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+                />
+
+            <!-- Item splits DisplayMemberPath="Name" -->
+            <!--
+            <ui:FilteredComboBox 
+                Grid.Row="{StaticResource SplitTypeRow}"
+                Margin="5, 5, 5, 5"
+                HorizontalAlignment="Left"
+                Width="420"
+                ItemsSource="{Binding Source={StaticResource ItemsCollectionViewSource}}" 
+                SelectedValue="{Binding NewSplitItem}"
+                materialDesign:HintAssist.HelperText="which"
+                Visibility="{Binding VisibleItemSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                SelectedValuePath="Item"
+                IsEditable="True" 
+                IsTextSearchEnabled="False" 
+                StaysOpenOnEdit="True">-->
+                <!--
+                <ComboBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Height="30" Width="220" Background="{StaticResource SecondaryHueMidBrush}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ComboBox.GroupStyle>
+                -->
+            <!--
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Height="800" IsItemsHost="True" VirtualizationMode="Recycling"/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Height="15" Width="420" Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ui:FilteredComboBox>
+    -->
+
+
+            <!-- ItemPickup splits -->
+            <generic:FilteredComboBox 
+                Grid.Row="{StaticResource SplitTypeRow}"
+                Margin="5, 5, 5, 5"
+                HorizontalAlignment="Left"
+                Width="420"
+                ItemsSource="{Binding ItemPickups}" 
+                SelectedValue="{Binding NewSplitItemPickup}"
+                materialDesign:HintAssist.HelperText="which"
+                Visibility="{Binding VisibleItemPickupSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                SelectedValuePath="ItemPickup"
+                IsEditable="True" 
+                IsTextSearchEnabled="False" 
+                StaysOpenOnEdit="True">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Height="800" IsItemsHost="True" VirtualizationMode="Recycling"/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Height="15" Width="420" Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </generic:FilteredComboBox>
+
+
+            <!-- KnownFlag splits -->
+            <generic:FilteredComboBox 
+                Grid.Row="{StaticResource SplitTypeRow}"
+                Margin="5, 5, 5, 5"
+                HorizontalAlignment="Left"
+                Width="420"
+                ItemsSource="{Binding KnownFlags}" 
+                SelectedValue="{Binding NewSplitKnownFlag}"
+                materialDesign:HintAssist.HelperText="which"
+                Visibility="{Binding VisibleKnownFlagSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                SelectedValuePath="KnownFlag"
+                IsEditable="True" 
+                IsTextSearchEnabled="False" 
+                StaysOpenOnEdit="True">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Height="800" IsItemsHost="True" VirtualizationMode="Recycling"/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Height="15" Width="420" Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </generic:FilteredComboBox>
+
+
+            <!-- Position -->
+            <StackPanel
+                Margin="5,10,0,0"
+                Visibility="{Binding VisiblePositionSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+                Grid.Row="{StaticResource SplitTypeRow}"
+                Grid.Column="0"
+                Orientation="Horizontal">
+                
+                <TextBox 
+                    Width="25"
+                    Height="25"
+                    Margin="0,0,0,0"
+                    Text="{Binding NewSplitPosition.Area}"
+                    materialDesign:HintAssist.Hint="Area"
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Area}"
+                    PreviewTextInput="OnPreviewTextInput_Byte"/>
+
+                <TextBox 
+                    Width="25"
+                    Height="25"
+                    Margin="5,0,0,0"
+                    Text="{Binding NewSplitPosition.Block}"
+                    materialDesign:HintAssist.Hint="Block"
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Block}"
+                    PreviewTextInput="OnPreviewTextInput_Byte"/>
+
+                <TextBox 
+                    Width="25"
+                    Height="25"
+                    Margin="5,0,0,0"
+                    Text="{Binding NewSplitPosition.Region}"
+                    materialDesign:HintAssist.Hint="Region"
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Region}"
+                    PreviewTextInput="OnPreviewTextInput_Byte"/>
+
+                <TextBox 
+                    Width="25"
+                    Height="25"
+                    Margin="5,0,0,0"
+                    Text="{Binding NewSplitPosition.Size}"
+                    materialDesign:HintAssist.Hint="Size"
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Size}"
+                    PreviewTextInput="OnPreviewTextInput_Byte"/>
+
+
+
+                <TextBox 
+                    Width="50"
+                    Height="25"
+                    Margin="5,0,0,0"
+                    Text="{Binding NewSplitPosition.X}"
+                    materialDesign:HintAssist.Hint="x"
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}"
+                    PreviewTextInput="OnPreviewTextInput_Float"/>
+
+                <TextBox 
+                    Width="50"
+                    Height="25"
+                    Margin="5,0,0,0"
+                    Text="{Binding NewSplitPosition.Y}"
+                    materialDesign:HintAssist.Hint="y"
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}"
+                    PreviewTextInput="OnPreviewTextInput_Float"/>
+
+
+                <TextBox 
+                    Width="50"
+                    Height="25"
+                    Margin="5,0,0,0"
+                    Text="{Binding NewSplitPosition.Z}"
+                    materialDesign:HintAssist.Hint="z"
+                    materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}"
+                    PreviewTextInput="OnPreviewTextInput_Float"/>
+            </StackPanel>
+
+            <!-- Hackity -->
+            <Button
+                Visibility="{Binding VisiblePositionSplit, Converter={StaticResource BoolToVisibilityConverter}}"
+                Grid.Row="{StaticResource SplitTypeRow}"
+                Grid.Column="0"
+                Margin="300, 5, 0, 0"
+                HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Add a split"
-                Click="AddSplit_OnClick"
+                ToolTip="Read current game position"
+                Click="CopyPosition_OnClick"
                 IsEnabled="{Binding EnabledAddSplit}">
                 <materialDesign:PackIcon
-                    Kind="Plus"
+                    Kind="CrosshairsGps"
                     Height="30"
                     Width="30" />
             </Button>
 
-            <Button
-                Grid.Row="{StaticResource AddRemoveSplitRow}"
+            <!-- row ============================================================================================================================================================================================== -->
+
+            <StackPanel
+                Orientation="Horizontal"
+                Grid.Row="{StaticResource AddRemoveSplitRow}">
+                <Button
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                    ToolTip="Add a split"
+                    Click="AddSplit_OnClick"
+                    IsEnabled="{Binding EnabledAddSplit}">
+                    <materialDesign:PackIcon
+                        Kind="Plus"
+                        Height="30"
+                        Width="30" />
+                </Button>
+
+                <Button
+                    Grid.Row="{StaticResource AddRemoveSplitRow}"
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                    ToolTip="Remove selected split"
+                    Click="RemoveSplit_OnClick"
+                    IsEnabled="{Binding EnabledRemoveSplit}">
+                    <materialDesign:PackIcon
+                        Kind="Close"
+                        Height="30"
+                        Width="30" />
+                </Button>
+            </StackPanel>
+            
+
+            <!-- row ============================================================================================================================================================================================== -->
+            
+            <TreeView
+                Grid.Row="{StaticResource SplitsTreeRow}" 
+                ItemsSource="{Binding Splits}"
+                SelectedItemChanged="SplitsTreeView_OnSelectedItemChanged">
+
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type eldenRing:HierarchicalTimingTypeViewModel}" ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding TimingType, Converter={StaticResource EnumDisplayNameConverter}}"/>
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type eldenRing:HierarchicalSplitTypeViewModel}" ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding EldenRingSplitType, Converter={StaticResource EnumDisplayNameConverter}}"/>
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type eldenRing:HierarchicalSplitViewModel}">
+                        <TextBlock Text="{Binding Split, Converter={StaticResource SplitObjectToDescriptionConverter}}"/>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+
+    <!--
+
+            <ListView
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="4"
+                Width="440"
                 Margin="5"
                 HorizontalAlignment="Left"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="Remove selected split"
-                Click="RemoveSplit_OnClick"
-                IsEnabled="{Binding EnabledRemoveSplit}">
-                <materialDesign:PackIcon
-                    Kind="Close"
-                    Height="30"
-                    Width="30" />
-            </Button>
-        </StackPanel>
-        
+                ItemsSource="{Binding Splits}"
+                SelectedItem="{Binding SelectedSplitViewModel}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplateSelector>
+                    <eldenRing:EldenRingSplitsDataTemplateSelector 
+                        BossTemplate="{StaticResource BossTemplate}"/>
+                </ListView.ItemTemplateSelector>
+            </ListView>-->
 
-        <!-- row ============================================================================================================================================================================================== -->
-        
-        <TreeView
-            Grid.Row="{StaticResource SplitsTreeRow}" 
-            ItemsSource="{Binding Splits}"
-            SelectedItemChanged="SplitsTreeView_OnSelectedItemChanged">
-
-            <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type eldenRing:HierarchicalTimingTypeViewModel}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding TimingType, Converter={StaticResource EnumDisplayNameConverter}}"/>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type eldenRing:HierarchicalSplitTypeViewModel}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding EldenRingSplitType, Converter={StaticResource EnumDisplayNameConverter}}"/>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type eldenRing:HierarchicalSplitViewModel}">
-                    <TextBlock Text="{Binding Split, Converter={StaticResource SplitObjectToDescriptionConverter}}"/>
-                </HierarchicalDataTemplate>
-            </TreeView.Resources>
-        </TreeView>
-
-<!--
-
-        <ListView
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Grid.Row="4"
-            Width="440"
-            Margin="5"
-            HorizontalAlignment="Left"
-            ItemsSource="{Binding Splits}"
-            SelectedItem="{Binding SelectedSplitViewModel}">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplateSelector>
-                <eldenRing:EldenRingSplitsDataTemplateSelector 
-                    BossTemplate="{StaticResource BossTemplate}"/>
-            </ListView.ItemTemplateSelector>
-        </ListView>-->
-
+        </Grid>
     </Grid>
+    
 </UserControl>
