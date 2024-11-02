@@ -226,11 +226,14 @@ namespace SoulMemory.EldenRing
             { EldenRingVersion.V1_12_0, new Version(2,2,0,0) },
             { EldenRingVersion.V1_12_3, new Version(2,2,3,0) },
             { EldenRingVersion.V1_13_0, new Version(2,3,0,0) },
+            { EldenRingVersion.V1_14_0, new Version(2,4,0,0) },
+            { EldenRingVersion.V1_15_0, new Version(2,5,0,0) },
             { EldenRingVersion.V1_16_0, new Version(2,6,0,0) },
         };
 
         public enum EldenRingVersion
         {
+            
             V1_02_0,
             V1_02_1,
             V1_02_2,
@@ -260,7 +263,8 @@ namespace SoulMemory.EldenRing
             V1_12_3,
 
             V1_13_0,
-
+            V1_14_0,
+            V1_15_0,
             V1_16_0,
 
             Unknown,
