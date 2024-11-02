@@ -204,7 +204,7 @@ namespace SoulMemory.EldenRing
 
         #region version ================================================================================================
 
-        private Dictionary<EldenRingVersion, Version> _versions = new Dictionary<EldenRingVersion, Version>()
+        private readonly Dictionary<EldenRingVersion, Version> _versions = new Dictionary<EldenRingVersion, Version>()
         {
 
             { EldenRingVersion.V1_02_0, new Version(1,2,0,0) },
