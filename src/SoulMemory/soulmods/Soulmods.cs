@@ -75,14 +75,15 @@ namespace SoulMemory.soulmods
         
 
 
-        private static List<(string name, long address)> _soulmodsMethods;
+        private static Dictionary<string, long> _soulmodsMethods;
         public static TSized RustCall<TSized>(this Process process, string function, TSized? parameter = null) where TSized : struct
         {
             if (_soulmodsMethods == null)
             {
                 _soulmodsMethods = process.GetModuleExportedFunctions("soulmods.dll");
             }
-            var functionPtr = _soulmodsMethods.First(i => i.name == function).address;
+
+            var functionPtr = _soulmodsMethods[function];
 
             var buffer = process.Allocate(Marshal.SizeOf<TSized>());
             if (parameter.HasValue)
@@ -100,7 +101,7 @@ namespace SoulMemory.soulmods
         {
             //Get function address
             var soulmods = process.GetModuleExportedFunctions("soulmods.dll");
-            var func = soulmods.First(i => i.name == "GetQueuedDarkSouls2MorphemeMessages").address;
+            var func = soulmods["GetQueuedDarkSouls2MorphemeMessages"];
 
             //Get buffer size
             var buffer = process.Allocate(4);

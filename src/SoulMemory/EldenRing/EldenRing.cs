@@ -41,7 +41,10 @@ namespace SoulMemory.EldenRing
         private long _positionOffset;
         private long _mapIdOffset;
         private long _playerInsOffset;
-        
+        private Dictionary<string, long> _exportedFunctions;
+
+        private IntPtr _fpsPatch = IntPtr.Zero;
+        private IntPtr _fpsLimit = IntPtr.Zero;
 
         #region Refresh/init/reset ================================================================================================
         public Process GetProcess() => _process;
@@ -173,7 +176,8 @@ namespace SoulMemory.EldenRing
                     _igt.Clear();
                     return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "soulmods injection failed"));
                 }
-                
+
+                _exportedFunctions = _process.GetModuleExportedFunctions("soulmods.dll");
                 return Result.Ok();
             }
             catch (Exception e)
@@ -198,6 +202,8 @@ namespace SoulMemory.EldenRing
             _menuManImp.Clear();
             _virtualMemoryFlag.Clear();
             _noLogo.Clear();
+            _fpsPatch = IntPtr.Zero;
+            _fpsLimit = IntPtr.Zero;
         }
 
         #endregion
@@ -613,6 +619,56 @@ namespace SoulMemory.EldenRing
         public void WriteInGameTimeMilliseconds(int milliseconds)
         {
             _igt.WriteInt32(milliseconds);
+        }
+
+        #endregion
+
+        #region soulmods
+        public bool FpsPatchGet()
+        {
+            var address = _exportedFunctions["fps_patch_get"];
+            if (_fpsPatch == IntPtr.Zero)
+            {
+                _fpsPatch = _process.Allocate(1);
+            }
+            _process.Execute((IntPtr)address, _fpsPatch);
+            var b = _process.ReadMemory<bool>(_fpsPatch.ToInt64()).Unwrap();
+            return b;
+        }
+
+        public void FpsPatchSet(bool b)
+        {
+            var address = _exportedFunctions["fps_patch_set"];
+            if (_fpsPatch == IntPtr.Zero)
+            {
+                _fpsPatch = _process.Allocate(1);
+            }
+            _process.WriteProcessMemory(_fpsPatch.ToInt64(), BitConverter.GetBytes(b));
+            _process.Execute((IntPtr)address, _fpsPatch);
+        }
+
+        
+        public float FpsLimitGet()
+        {
+            var address = _exportedFunctions["fps_limit_get"];
+            if (_fpsLimit == IntPtr.Zero)
+            {
+                _fpsLimit = _process.Allocate(4);
+            }
+            _process.Execute((IntPtr)address, _fpsLimit);
+            var f = _process.ReadMemory<float>(_fpsLimit.ToInt64()).Unwrap();
+            return f;
+        }
+
+        public void FpsLimitSet(float f)
+        {
+            var address = _exportedFunctions["fps_limit_set"];
+            if (_fpsLimit == IntPtr.Zero)
+            {
+                _fpsLimit = _process.Allocate(4);
+            }
+            _process.WriteProcessMemory(_fpsLimit.ToInt64(), BitConverter.GetBytes(f));
+            _process.Execute((IntPtr)address, _fpsLimit);
         }
 
         #endregion

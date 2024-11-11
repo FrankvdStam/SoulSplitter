@@ -32,6 +32,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using SoulSplitter.Migrations;
+using SoulMemory.Native;
 
 namespace SoulSplitter
 {

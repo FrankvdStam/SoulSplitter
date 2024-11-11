@@ -41,13 +41,18 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
-            GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });
-            GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
-            GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
+            //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });
+            //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
+            //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
             
             //TestUi();
+
+            bool init = true;
             GameLoop<EldenRing>((e) =>
             {
+                bool currentStatus = e.FpsPatchGet();
+                e.FpsPatchSet(!currentStatus);
+
                 var igtElapsed = TimeSpan.FromMilliseconds(e.GetInGameTimeMilliseconds());
                 Console.WriteLine($"IGT: {igtElapsed}");
             });
