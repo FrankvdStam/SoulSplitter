@@ -41,7 +41,16 @@ namespace cli
         [STAThread]
         static void Main(string[] args)
         {
+
             TestUi();
+
+            GameLoop<DarkSouls1>((e) =>
+            {
+                var saveSlot = e.GetCurrentSaveSlot();
+                var pos = e.GetPosition();
+                var igtElapsed = TimeSpan.FromMilliseconds(e.GetInGameTimeMilliseconds());
+                Console.WriteLine($"IGT: {igtElapsed} slot: {saveSlot} pos: {pos}");
+            });
 
             GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });
             GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
