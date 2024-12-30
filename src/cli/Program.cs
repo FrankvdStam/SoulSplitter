@@ -31,6 +31,7 @@ using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
 using SoulSplitter.Hotkeys;
+using SoulSplitter.soulmemory_rs;
 
 #pragma warning disable CS0162
 
@@ -45,12 +46,19 @@ namespace cli
             GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
             GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
             
+
             //TestUi();
-            GameLoop<EldenRing>((e) =>
-            {
-                var igtElapsed = TimeSpan.FromMilliseconds(e.GetInGameTimeMilliseconds());
-                Console.WriteLine($"IGT: {igtElapsed}");
-            });
+            GameLoop<EldenRing>(
+                (e) =>
+                {
+                    SoulMemoryRs.Launch();
+                },
+                (d) =>
+                {
+                    var igtElapsed = TimeSpan.FromMilliseconds(d.GetInGameTimeMilliseconds());
+                    Console.WriteLine($"IGT: {igtElapsed}");
+                }
+            );
         }
 
 
@@ -110,7 +118,7 @@ namespace cli
             }
         }
 
-        private static void GameLoop<T>(Action<T> display) where T : IGame
+        private static void GameLoop<T>(Action<T> runOnceAction, Action<T> display) where T : IGame
         {
             var game = (T)Activator.CreateInstance(
                 typeof(T),
@@ -118,6 +126,8 @@ namespace cli
                 null, 
                 new object[] { }, 
                 CultureInfo.CurrentCulture);
+
+            var runOnce = false;
 
             while (true)
             {
@@ -135,6 +145,13 @@ namespace cli
                     }
                     else
                     {
+                        if (!runOnce)
+                        {
+                            runOnceAction.Invoke(game);
+                            runOnce = true;
+                        }
+
+
                         display.Invoke(game);
                         Thread.Sleep(16);
                         Console.SetCursorPosition(0, 0);

@@ -382,6 +382,12 @@ namespace SoulSplitter
             "MaterialDesignThemes.Wpf.xml",
             "MaterialDesignThemes.Wpf.dll",
             "MaterialDesignThemes.Wpf.dll",
+            "soulmods_x64.dll",
+            "soulmods_x86.dll",
+            "soulmemory_rs_x64.dll",
+            "soulmemory_rs_x86.dll",
+            "launcher_x64.exe",
+            "launcher_x86.exe",
         };
 
         private void ThrowIfInstallationInvalid()

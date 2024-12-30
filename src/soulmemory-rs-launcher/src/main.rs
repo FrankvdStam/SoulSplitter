@@ -14,65 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+use std::env;
 use mem_rs::prelude::Process;
 
-#[cfg(target_pointer_width = "64")]
-const X64: bool = true;
+fn get_arg(args: &Vec<String>, arg: &str) -> String
+{
+    let result = args.iter().find(|i| i.starts_with(arg)).expect(format!("--{arg} can't be empty").as_str());
+    let split = result.split('=').collect::<Vec<&str>>();
+    return String::from(split[1]);
+}
 
-#[cfg(target_pointer_width = "32")]
-const X64: bool = false;
-
+//run --bin soulmemory-rs-launcher --target i686-pc-windows-msvc -- --processname=darksouls --dllpath="C:\projects\Dark souls\SoulSplitter\src\cli\bin\x64\Debug\net481\soulmemory_rs_x86.dll"
+//run --bin soulmemory-rs-launcher --target x86_64-pc-windows-msvc -- --processname=eldenring --dllpath="C:\projects\Dark souls\SoulSplitter\src\cli\bin\x64\Debug\net481\soulmemory_rs_x64.dll"
 fn main()
 {
-    let games = vec!
-    {
-        String::from("darksoulsremastered.exe"),
-        String::from("darksouls.exe"),
-        String::from("darksoulsii.exe"),
-        String::from("darksoulsiii.exe"),
-        String::from("sekiro.exe"),
-        String::from("eldenring.exe"),
-        String::from("armoredcore6.exe"),
-    };
+    let args: Vec<String> = env::args().collect();
+    dbg!(&args);
 
-    let mut exe_path = std::env::current_exe().unwrap();
-    exe_path.pop();
-    let mut dll_path = exe_path.to_str().unwrap().replace(r#"\\?\"#, "");
-    dll_path.push_str("\\soulmemory_rs.dll");
+    let process_name = get_arg(&args, "--processname");
+    dbg!(&process_name);
 
-    if let Some(process) = Process::get_running_process_names().iter().find(|p_name| games.contains(&p_name.to_lowercase()))
+    let dll_path = get_arg(&args, "--dllpath");
+    dbg!(&dll_path);
+
+    if let Some(process) = Process::get_running_process_names().iter().find(|p_name| p_name.to_lowercase() == process_name.to_lowercase() + ".exe")
     {
-        if X64
-        {
-            match process.to_lowercase().as_str()
-            {
-                "darksoulsremastered.exe" |
-                "darksoulsii.exe" |
-                "darksoulsiii.exe" |
-                "sekiro.exe" |
-                "eldenring.exe" |
-                "armoredcore6.exe" =>
-                {
-                    let mut p = Process::new(process.to_lowercase().as_str());
-                    p.refresh().unwrap();
-                    p.inject_dll(dll_path.as_str()).unwrap();
-                }
-                _ => println!("unsupported process"),
-            }
-        }
-        else
-        {
-            match process.to_lowercase().as_str()
-            {
-                "darksouls.exe" | "darksoulsii.exe" =>
-                {
-                    let mut p = Process::new(process.to_lowercase().as_str());
-                    p.refresh().unwrap();
-                    p.inject_dll(dll_path.as_str()).unwrap();
-                },
-                _ => println!("unsupported process"),
-            }
-        }
+        let mut p = Process::new(process.to_lowercase().as_str());
+        p.refresh().unwrap();
+        p.inject_dll(dll_path.as_str()).unwrap();
     }
     else
     {

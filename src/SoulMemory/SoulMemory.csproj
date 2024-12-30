@@ -23,14 +23,15 @@
     <PackageIcon>soulsplitter.png</PackageIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <OutDir>..\..\..\LiveSplit\LiveSplit\bin\Debug\Components\</OutDir>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <NoWarn>1701;1702;NU5100</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <NoWarn>1701;1702;NU5100</NoWarn>
   </PropertyGroup>
     <ItemGroup>
         <SonarQubeSetting Include="sonar.cpd.exclusions">
@@ -43,15 +44,17 @@
     <None Remove="resources\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="soulmods\x64\soulmods.dll" />
-    <None Remove="soulmods\x86\soulmods.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="soulsplitter.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="soulmods\x64\soulmods.dll" />
-    <EmbeddedResource Include="soulmods\x86\soulmods.dll" />
+      <ContentWithTargetPath Include="soulmods\x64\soulmods.dll">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <TargetPath>soulmods_x64.dll</TargetPath>
+      </ContentWithTargetPath>
+      <ContentWithTargetPath Include="soulmods\x86\soulmods.dll">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <TargetPath>soulmods_x86.dll</TargetPath>
+      </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
@@ -72,10 +75,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="soulmods\x64\" />
-    <Folder Include="soulmods\x86\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
