@@ -58,10 +58,6 @@ namespace cli
 
             //TestUi();
             GameLoop<EldenRing>(
-                (e) =>
-                {
-                    SoulMemoryRs.Launch();
-                },
                 (d) =>
                 {
                     var igtElapsed = TimeSpan.FromMilliseconds(d.GetInGameTimeMilliseconds());
@@ -127,7 +123,7 @@ namespace cli
             }
         }
 
-        private static void GameLoop<T>(Action<T> runOnceAction, Action<T> display) where T : IGame
+        private static void GameLoop<T>(Action<T> display) where T : IGame
         {
             var game = (T)Activator.CreateInstance(
                 typeof(T),
@@ -135,8 +131,6 @@ namespace cli
                 null, 
                 new object[] { }, 
                 CultureInfo.CurrentCulture);
-
-            var runOnce = false;
 
             while (true)
             {
@@ -154,13 +148,6 @@ namespace cli
                     }
                     else
                     {
-                        if (!runOnce)
-                        {
-                            runOnceAction.Invoke(game);
-                            runOnce = true;
-                        }
-
-
                         display.Invoke(game);
                         Thread.Sleep(16);
                         Console.SetCursorPosition(0, 0);
