@@ -42,6 +42,8 @@ namespace cli
         static void Main(string[] args)
         {
 
+            TestUi();
+
             GameLoop<DarkSouls1>((e) =>
             {
                 var saveSlot = e.GetCurrentSaveSlot();

@@ -9,3 +9,6 @@ exclude:
     paths:
       - src/cli
       - tests
+      
+dependencyIgnores:
+  - name: "NETStandard.Library"
