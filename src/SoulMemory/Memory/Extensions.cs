@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -57,6 +58,17 @@ namespace SoulMemory.Memory
                 displayName = enumValue.ToString();
             }
             return displayName;
+        }
+
+        public static T GetEnumAttribute<T>(this Enum value) where T : Attribute
+        {
+            var attribute = value
+                .GetType()
+                .GetMember(value.ToString())
+                .FirstOrDefault()
+                .GetCustomAttribute<T>();
+
+            return attribute;
         }
     }
 }

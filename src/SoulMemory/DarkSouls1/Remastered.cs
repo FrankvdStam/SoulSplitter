@@ -39,6 +39,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using SoulMemory.Parameters;
@@ -65,10 +66,26 @@ namespace SoulMemory.DarkSouls1
         private readonly Pointer _soloParamMan = new Pointer();
         private readonly Pointer _loadingScreenItems = new Pointer();
         private readonly Pointer _msgMan = new Pointer();
+        private DsrVersion _version;
         private int? _steamId3;
         private bool? _isJapanese;
         private List<ItemLotParam> _itemLotParams = new List<ItemLotParam>();
         private List<TextTableEntry> _weaponDescriptionsTable = new List<TextTableEntry>();
+
+        private long _playerCtrlOffset = 0x68;
+        private long _currentSaveSlotOffset = 0xaa0;
+
+        private enum DsrVersion
+        {
+            [Version("1.0.0.0")]
+            V101,
+            [Version("1.3.0.0")]
+            V130,
+            [Version("1.3.1.0")]
+            V131,
+            [Version("unknown")]
+            Unknown
+        }
 
         public Process GetProcess() => _process;
 
@@ -93,12 +110,20 @@ namespace SoulMemory.DarkSouls1
             _weaponDescriptionsTable.Clear();
             _steamId3 = null;
             _isJapanese = null;
+            _version = DsrVersion.Unknown;
         }
 
         private ResultErr<RefreshError> InitPointers()
         {
-            try 
+            try
             {
+                if (_process.MainModule == null)
+                {
+                    return Result.Err(new RefreshError(RefreshErrorReason.MainModuleNull));
+                }
+
+                _version = _process.MainModule.FileVersionInfo.ResolveVersion<DsrVersion>();
+                ResolveGameVersionSpecificOffsets(_version);
                 var treeBuilder = GetTreeBuilder();
                 var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
                 if(result.IsErr)
@@ -115,6 +140,24 @@ namespace SoulMemory.DarkSouls1
             {
                 return RefreshError.FromException(e);
             }
+        }
+
+        private void ResolveGameVersionSpecificOffsets(DsrVersion version)
+        {
+            switch (version)
+            {
+                default:
+                    _playerCtrlOffset = 0x68;
+                    _currentSaveSlotOffset = 0xaa0;
+                    break;
+
+                case DsrVersion.V101:
+                    _playerCtrlOffset = 0x48;
+                    _currentSaveSlotOffset = 0xa90;
+                    break;
+
+            }
+            Console.WriteLine(_playerCtrlOffset);
         }
 
         public TreeBuilder GetTreeBuilder()
@@ -134,7 +177,7 @@ namespace SoulMemory.DarkSouls1
             treeBuilder
                 .ScanRelative("WorldChrManImp", "48 8b 0d ? ? ? ? 0f 28 f1 48 85 c9 74 ? 48 89 7c", 3, 7)
                     .AddPointer(_playerIns, 0, 0x68)
-                    .AddPointer(_playerPos, 0, 0x68, 0x68, 0x28)
+                    .AddPointer(_playerPos, 0, 0x68, _playerCtrlOffset, 0x28)
                     ;
 
             treeBuilder
@@ -187,7 +230,7 @@ namespace SoulMemory.DarkSouls1
 
         public int NgCount() => _gameDataMan?.ReadInt32(0x78) ?? 0;
 
-        public int GetCurrentSaveSlot() => _gameMan?.ReadInt32(0xaa0) ?? 0;
+        public int GetCurrentSaveSlot() => _gameMan?.ReadInt32(_currentSaveSlotOffset) ?? 0;
 
         public Vector3f GetPosition() => _playerPos == null ? new Vector3f(0, 0, 0) : new Vector3f(_playerPos.ReadFloat(0x10), _playerPos.ReadFloat(0x14), _playerPos.ReadFloat(0x18));
 
