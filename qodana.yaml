@@ -2,7 +2,11 @@ version: "1.0"
 profile:
   name: qodana.starter
 
-bootstrap: dotnet build
+dotnet:
+  solution: SoulSplitterUIv2.sln
+
+include:
+    - name: NetCoverageInspection
 
 exclude:
   - name: exclude
