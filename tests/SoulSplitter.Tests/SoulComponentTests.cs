@@ -20,7 +20,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using LiveSplit.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
+using Moq;
 using SoulMemory;
 using SoulSplitter.Net6.Tests;
 using SoulSplitter.UI;
@@ -35,8 +35,8 @@ namespace SoulSplitter.Tests
         [TestMethodSTA]
         public void GetSettingsTest()
         {
-            var liveSplitStateMock = Substitute.For<LiveSplitState>(null, null, null, null, null);
-            var component = new SoulComponent(liveSplitStateMock, shouldThrowOnInvalidInstallation: false);
+            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
+            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
             var doc = new XmlDocument();
             var settings = component.GetSettings(doc);
             Assert.IsNotNull(settings.OuterXml);
@@ -67,31 +67,14 @@ namespace SoulSplitter.Tests
             Assert.AreEqual(4.0f, ((VectorSize)vectorSize).Size);
         }                                                 
 
-        private string MainViewModelToXml(MainViewModel viewModel)
-        {
-            var settings = new XmlWriterSettings()
-            {
-                OmitXmlDeclaration = true,
-                Indent = true,
-            };
-            
-            using (var stream = new StringWriter())
-            using (var writer = XmlWriter.Create(stream, settings))
-            {
-                var serializer = new XmlSerializer(viewModel.GetType());
-                serializer.Serialize(writer, viewModel);
-                return stream.ToString();
-            }
-        }
-
         [TestMethodSTA]
         public void SekiroMigration1_1_0Test()
         {
             var doc = new XmlDocument();
             doc.LoadXml(XmlData.SekiroMigration1_1_0);
 
-            var liveSplitStateMock = Substitute.For<LiveSplitState>(null, null, null, null, null);
-            var component = new SoulComponent(liveSplitStateMock, shouldThrowOnInvalidInstallation: false);
+            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
+            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
             component.SetSettings(doc);
 
             var componentViewModel = component.MainWindow.MainViewModel;
@@ -105,8 +88,8 @@ namespace SoulSplitter.Tests
             var doc = new XmlDocument();
             doc.LoadXml(XmlData.DarkSouls3Migration_1_9_0);
 
-            var liveSplitStateMock = Substitute.For<LiveSplitState>(null, null, null, null, null);
-            var component = new SoulComponent(liveSplitStateMock, shouldThrowOnInvalidInstallation: false);
+            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
+            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
             component.SetSettings(doc);
 
             var componentViewModel = component.MainWindow.MainViewModel;

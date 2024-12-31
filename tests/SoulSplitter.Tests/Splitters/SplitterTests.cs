@@ -23,37 +23,37 @@ using SoulSplitter.UI.Generic;
 using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 using LiveSplit.Model.Input;
+using Moq;
 
 namespace SoulSplitter.Tests.Splitters
 {
     [TestClass]
     public class SplitterTests
     {
-        private (ITimerModel timerModel, MainViewModel mainViewModel, IDarkSouls1 DarkSouls1, DarkSouls1Splitter DarkSouls1Splitter) CreateMock()
+        
+        private (Mock<ITimerModel> timerModel, MainViewModel mainViewModel, Mock<IDarkSouls1> DarkSouls1, DarkSouls1Splitter DarkSouls1Splitter) CreateMock()
         {
             //Setup a timerModel mock. It needs an internal LiveSplitState object, which has no interface and cannot be mocked easily unfortunately.
-            var timerModel = Substitute.For<ITimerModel>();
+            var timerModel = new Mock<ITimerModel>();
 
-            //timerModel.Setup(t => t.Reset()).Raises(t => t.OnReset += null, null, TimerPhase.NotRunning);
-            timerModel.When(x => x.Start()).Do(x => timerModel.OnStart += Raise.EventWith(EventArgs.Empty));
-            timerModel.When(x => x.Reset()).Do(x => timerModel.OnReset += Raise.Event<EventHandlerT<TimerPhase>>(null, TimerPhase.NotRunning));
+            timerModel.Setup(t => t.Start()).Raises(t => t.OnStart += null, EventArgs.Empty);
+            timerModel.Setup(t => t.Reset())
+                .Raises(t => t.OnReset += null, this, TimerPhase.NotRunning);
             
-            var liveSplitStateMock = Substitute.For<LiveSplitState>(null, null, null, null, null);
-            
-            timerModel.CurrentState.Returns(liveSplitStateMock);
-            liveSplitStateMock.RegisterTimerModel(timerModel);
+            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
+            timerModel.Setup(i => i.CurrentState).Returns(liveSplitStateMock.Object);
+            liveSplitStateMock.Object.RegisterTimerModel(timerModel.Object);
 
             //Setup a viewmodel
             var mainViewModel = new MainViewModel();
 
             //Mock the memory reading object
-            var darkSouls1 = Substitute.For<IDarkSouls1>();
-            darkSouls1.TryRefresh().Returns(Result.Ok());
+            var darkSouls1 = new Mock<IDarkSouls1>();
+            darkSouls1.Setup(i => i.TryRefresh()).Returns(Result.Ok());
 
             //Finally create the splitter with all its dependencies
-            var ds1Splitter = new DarkSouls1Splitter(timerModel, darkSouls1, mainViewModel);
+            var ds1Splitter = new DarkSouls1Splitter(timerModel.Object, darkSouls1.Object, mainViewModel);
             return (timerModel, mainViewModel, darkSouls1, ds1Splitter);
         }
 
@@ -72,37 +72,41 @@ namespace SoulSplitter.Tests.Splitters
             //mainViewModel.DarkSouls1ViewModel.BooleanFlags[0].Value = shouldAutoStart;
             //mainViewModel.DarkSouls1ViewModel.BooleanFlags[1].Value = shouldResetInventoryIndices;
             //Setup mocks
-            darkSouls1.GetInGameTimeMilliseconds().Returns(0, 200, 50);
+            darkSouls1
+                .SetupSequence(i => i.GetInGameTimeMilliseconds())
+                .Returns(0)
+                .Returns(200)
+                .Returns(50);
 
             //Never start, regardless of settings, when the timer is 0
             ds1Splitter.Update(mainViewModel);
-            timerModel.DidNotReceive().Start();
-            darkSouls1.DidNotReceive().ResetInventoryIndices();
+            timerModel.Verify(i => i.Start(), Times.Never);
+            darkSouls1.Verify(i => i.ResetInventoryIndices(), Times.Never);
 
             //Don't start when millis above a certain threshold (existing saves)
             ds1Splitter.Update(mainViewModel);
-            timerModel.DidNotReceive().Start();
-            darkSouls1.DidNotReceive().ResetInventoryIndices();
+            timerModel.Verify(i => i.Start(), Times.Never);
+            darkSouls1.Verify(i => i.ResetInventoryIndices(), Times.Never);
 
             //Should start automatically, if requested
             ds1Splitter.Update(mainViewModel);
             if (shouldAutoStart)
             {
-                timerModel.Received().Start();
+                timerModel.Verify(i => i.Start());
             }
             else
             {
-                timerModel.DidNotReceive().Start();
+                timerModel.Verify(i => i.Start(), Times.Never);
             }
             
             //Indices won't reset when it is requested and autostart is off, because the timer will never start.
             if (shouldAutoStart && shouldResetInventoryIndices)
             {
-                darkSouls1.Received().ResetInventoryIndices();
+                darkSouls1.Verify(i => i.ResetInventoryIndices());
             }
             else
             {
-                darkSouls1.DidNotReceive().ResetInventoryIndices();
+                darkSouls1.Verify(i => i.ResetInventoryIndices(), Times.Never);
             }
         }
 
@@ -111,24 +115,23 @@ namespace SoulSplitter.Tests.Splitters
         {
             var (timerModel, mainViewModel, darkSouls1, ds1Splitter) = CreateMock();
             mainViewModel.DarkSouls1ViewModel.StartAutomatically = true;
-       
-            darkSouls1.GetInGameTimeMilliseconds().Returns(50);
-       
+
+            darkSouls1.Setup(i => i.GetInGameTimeMilliseconds()).Returns(50);
+
             //Timer should begin stopped.
-            timerModel.DidNotReceive().Start();
+            timerModel.Verify(i => i.Start(), Times.Never);
        
             ds1Splitter.Update(mainViewModel);//autostart
-            timerModel.Received(1).Start();
+            timerModel.Verify(i => i.Start(), Times.Exactly(1));
 
             //Reset
-            timerModel.Reset();
-            timerModel.Received().Reset();
-       
+            timerModel.Object.Reset();
+            timerModel.Verify(i => i.Reset());
+
             ds1Splitter.Update(mainViewModel);//autostart
-            timerModel.Received(2).Start();
+            timerModel.Verify(i => i.Start(), Times.Exactly(2));
         }
-       
-       
+
         [TestMethod]
         public void AutoSplitTests()
         {
@@ -148,21 +151,21 @@ namespace SoulSplitter.Tests.Splitters
        
             //Setup mocks
             var igt = 0;
-            darkSouls1.GetInGameTimeMilliseconds().Returns(0, 50);
+            darkSouls1.Setup(i => i.GetInGameTimeMilliseconds()).Returns(50);
        
             var splitIndex = 0;
-            timerModel.When(x => x.Split()).Do((_) =>
+            timerModel.Setup(i => i.Split()).Callback(() =>
             {
                 splitIndex++;
             });
        
-            darkSouls1.IsPlayerLoaded().Returns(true);
-            darkSouls1.IsWarpRequested().Returns(false);
+            darkSouls1.Setup(i => i.IsPlayerLoaded()).Returns(true);
+            darkSouls1.Setup(i => i.IsWarpRequested()).Returns(false);
        
             igt = 50;
             ds1Splitter.Update(mainViewModel); //Timer will change internal state, but not let livesplit know about the changed IGT yet on the first frame
             ds1Splitter.Update(mainViewModel); //This 2nd call will update IGT.
-            timerModel.Received().Start();
+            timerModel.Verify(i => i.Start());
 
             //Assert.AreEqual(igt, timerModel.Object.CurrentState.CurrentTime.GameTime.Value.TotalMilliseconds);
        
@@ -178,24 +181,24 @@ namespace SoulSplitter.Tests.Splitters
                         throw new Exception();
        
                     case SplitType.Boss:
-                        darkSouls1.ReadEventFlag((uint)split.Split).Returns(true);
+                        darkSouls1.Setup(d => d.ReadEventFlag((uint)split.Split)).Returns(true);
                         break;
        
                     case SplitType.Flag:
-                        darkSouls1.ReadEventFlag(((FlagDescription)split.Split).Flag).Returns(true);
+                        darkSouls1.Setup(d => d.ReadEventFlag(((FlagDescription)split.Split).Flag)).Returns(true);
                         break;
        
                     case SplitType.Attribute:
-                        darkSouls1.GetAttribute(((Splits.DarkSouls1.Attribute)split.Split).AttributeType).Returns(((Splits.DarkSouls1.Attribute)split.Split).Level);
+                        darkSouls1.Setup(d => d.GetAttribute(((Splits.DarkSouls1.Attribute)split.Split).AttributeType)).Returns(((Splits.DarkSouls1.Attribute)split.Split).Level);
                         break;
        
                     case SplitType.Bonfire:
-                        darkSouls1.GetBonfireState(((Splits.DarkSouls1.BonfireState)split.Split).Bonfire.Value).Returns(((Splits.DarkSouls1.BonfireState)split.Split).State);
+                        darkSouls1.Setup(d => d.GetBonfireState(((Splits.DarkSouls1.BonfireState)split.Split).Bonfire.Value)).Returns(((Splits.DarkSouls1.BonfireState)split.Split).State);
                         break;
        
                     case SplitType.Position:
                         var pos = ((VectorSize)split.Split).Position;
-                        darkSouls1.GetPosition().Returns(new SoulMemory.Vector3f(pos.X, pos.Y, pos.Z));
+                        darkSouls1.Setup(d => d.GetPosition()).Returns(new SoulMemory.Vector3f(pos.X, pos.Y, pos.Z));
                         break;
                 }
        
@@ -209,18 +212,18 @@ namespace SoulSplitter.Tests.Splitters
                         break;
        
                     case TimingType.OnLoading:
-                        darkSouls1.IsPlayerLoaded().Returns(false);
-                        darkSouls1.IsWarpRequested().Returns(false);
+                        darkSouls1.Setup(d => d.IsPlayerLoaded()).Returns(false);
+                        darkSouls1.Setup(d => d.IsWarpRequested()).Returns(false);
 
                         ds1Splitter.Update(mainViewModel); //latch quitout
 
-                        darkSouls1.IsPlayerLoaded().Returns(true);
-                        darkSouls1.IsWarpRequested().Returns(false);
+                        darkSouls1.Setup(d => d.IsPlayerLoaded()).Returns(true);
+                        darkSouls1.Setup(d => d.IsWarpRequested()).Returns(false);
                         break;
        
                     case TimingType.OnWarp:
-                        darkSouls1.IsPlayerLoaded().Returns(false);
-                        darkSouls1.IsWarpRequested().Returns(true);
+                        darkSouls1.Setup(d => d.IsPlayerLoaded()).Returns(false);
+                        darkSouls1.Setup(d => d.IsWarpRequested()).Returns(true);
 
                         ds1Splitter.Update(mainViewModel); //latch warp request
                         ds1Splitter.Update(mainViewModel); //latch player quitout
@@ -230,16 +233,16 @@ namespace SoulSplitter.Tests.Splitters
        
                 //Final assertion: split should have been called once more time
                 igt += 1000;
-                darkSouls1.GetInGameTimeMilliseconds().Returns(igt);
+                darkSouls1.Setup(d => d.GetInGameTimeMilliseconds()).Returns(igt);
                 ds1Splitter.Update(mainViewModel);
                 Assert.AreEqual(i + 1, splitIndex, $"Unexpected index value on split {split.TimingType} {split.SplitType} {split.Split}");
        
                 //It seems like GameTime might be updated from somewhere else. The logic inside livesplit is complicated.
                 //I noticed that its value (in millis) can be 51.6 after setting it to 50.0
                 //If this asserts starts being funny, just get rid of it.
-                Assert.AreEqual(igt, timerModel.CurrentState.CurrentTime.GameTime.Value.TotalMilliseconds);
+                Assert.AreEqual(igt, timerModel.Object.CurrentState.CurrentTime.GameTime.Value.TotalMilliseconds);
 
-                darkSouls1.GetPosition().Returns(new SoulMemory.Vector3f());//reset position
+                darkSouls1.Setup(d => d.GetPosition()).Returns(new SoulMemory.Vector3f());//reset position
             }
         }
     }
