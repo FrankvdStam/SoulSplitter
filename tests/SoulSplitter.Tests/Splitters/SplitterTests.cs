@@ -23,7 +23,6 @@ using SoulSplitter.UI.Generic;
 using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LiveSplit.Model.Input;
 using Moq;
 
 namespace SoulSplitter.Tests.Splitters
@@ -41,7 +40,7 @@ namespace SoulSplitter.Tests.Splitters
             timerModel.Setup(t => t.Reset())
                 .Raises(t => t.OnReset += null, this, TimerPhase.NotRunning);
             
-            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
+            var liveSplitStateMock = new Mock<LiveSplitState>(args: new object[] { null, null, null, null, null });
             timerModel.Setup(i => i.CurrentState).Returns(liveSplitStateMock.Object);
             liveSplitStateMock.Object.RegisterTimerModel(timerModel.Object);
 

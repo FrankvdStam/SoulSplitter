@@ -14,10 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using System.Linq;
 using System.Xml;
-using System.Xml.Serialization;
 using LiveSplit.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -35,7 +33,7 @@ namespace SoulSplitter.Tests
         [TestMethodSTA]
         public void GetSettingsTest()
         {
-            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
+            var liveSplitStateMock = new Mock<LiveSplitState>(args: new object[]{null, null, null, null, null});
             var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
             var doc = new XmlDocument();
             var settings = component.GetSettings(doc);
@@ -73,7 +71,7 @@ namespace SoulSplitter.Tests
             var doc = new XmlDocument();
             doc.LoadXml(XmlData.SekiroMigration1_1_0);
 
-            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
+            var liveSplitStateMock = new Mock<LiveSplitState>(args: new object[] { null, null, null, null, null });
             var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
             component.SetSettings(doc);
 
@@ -88,7 +86,7 @@ namespace SoulSplitter.Tests
             var doc = new XmlDocument();
             doc.LoadXml(XmlData.DarkSouls3Migration_1_9_0);
 
-            var liveSplitStateMock = new Mock<LiveSplitState>(null, null, null, null, null);
+            var liveSplitStateMock = new Mock<LiveSplitState>(args: new object[] { null, null, null, null, null });
             var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
             component.SetSettings(doc);
 
