@@ -3,7 +3,7 @@ profile:
   name: qodana.starter
 
 dotnet:
-  solution: SoulSplitterUIv2.sln
+  solution: SoulSplitter.sln
 
 include:
     - name: NetCoverageInspection
