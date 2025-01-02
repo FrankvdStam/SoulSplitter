@@ -24,8 +24,8 @@ jobs:
       - name: sign artifacts
         run: |
             $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-            & $signtool sign /fd sha256 /f 'SoulSplitter.pfx' /d "SoulSplitter" /t http://timestamp.digicert.com "Components\SoulSplitter.dll"
-            & $signtool sign /fd sha256 /f 'SoulSplitter.pfx' /d "SoulSplitter" /t http://timestamp.digicert.com "Components\SoulMemory.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\SoulSplitter.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\SoulMemory.dll"
 
         #clone, setup dotnet, restore packages
       - name: Checkout
