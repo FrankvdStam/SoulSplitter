@@ -47,23 +47,24 @@ namespace SoulMemory.soulmods
 
     public static class Soulmods
     {
-        
-
         public static bool Inject(Process process)
         {
-            var basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "soulsplitter");
+            var dir = Path.GetDirectoryName(typeof(Soulmods).Assembly.Location);
+            var x64path = Path.Combine(dir, @"soulmods_x64.dll");
+            var x86path = Path.Combine(dir, @"soulmods_x86.dll");
 
-            var dllPath64 = Path.Combine(basePath, @"x64\soulmods.dll");
-            OverwriteFile("SoulMemory.soulmods.x64.soulmods.dll", dllPath64);
-
-            if (process.Is64Bit())
+            if (process.Is64Bit().Unwrap())
             {
-                process.InjectDll(dllPath64);
+                process.InjectDll(x64path);
+            }
+            else
+            {
+                process.InjectDll(x86path);
             }
 
             foreach (ProcessModule processModule in process.Modules)
             {
-                if (processModule.ModuleName == "soulmods.dll")
+                if (processModule.ModuleName == "soulmods_x64.dll" || processModule.ModuleName == "soulmods_x86.dll")
                 {
                     return true;
                 }
