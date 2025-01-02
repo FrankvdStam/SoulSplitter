@@ -20,6 +20,13 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
           fetch-depth: 0  # a full history is required for pull request analysis
+
+      - name: Build solution
+        run: dotnet build
+
+      - name: Run tests with code coverage
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
+
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2024.1
         env:

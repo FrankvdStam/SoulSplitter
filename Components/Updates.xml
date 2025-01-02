@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.7.4">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+        </files>
+        <changelog>
+            <change>Elden Ring: Fixed 1.10.x screenstate offset (thanks Soarqin!)</change>
+            <change>Elden Ring: Added and fixed a couple eventflags (thanks Soarqin!)</change>
+            <change>Elden Ring: Fixed 1.12 offsets</change>
+            <change>Dark souls Remastered: Fixed 1.01 compatibility</change>
+        </changelog>
+    </update>
     <update version="1.7.3">
-		<files>
-			<file path="Components/SoulMemory.dll"                  status="changed"/>
-			<file path="Components/SoulSplitter.dll"                status="changed"/>
-		</files>
-		<changelog>
-			<change>Fixed event flag logger not opening from the menu</change>
-			<change>Elden Ring: Fixed MIGT (thanks ViRazY!)</change>
-		</changelog>
-	</update>
-	<update version="1.7.2">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+        </files>
+        <changelog>
+            <change>Fixed event flag logger not opening from the menu</change>
+            <change>Elden Ring: Fixed MIGT (thanks ViRazY!)</change>
+        </changelog>
+    </update>
+    <update version="1.7.2">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed"/>
             <file path="Components/SoulSplitter.dll"                status="changed"/>

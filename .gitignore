@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+.qodana
 
 .idea
 target
