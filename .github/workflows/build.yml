@@ -14,22 +14,6 @@ jobs:
     name: build
     runs-on: windows-latest
     steps:
-
-     # - name: Retrieve code signing certificate
-     #   env:
-     #     CERTIFICATE_BASE64: ${{ secrets.CERT_PFX_BASE64 }}
-     #   run: |
-     #     echo $CERTIFICATE_BASE64 | base64 --decode > SoulSplitter.pfx
-
-      - name: sign artifacts
-        run: |
-            $b64 = "${{SECRETS.CERT_PFX_BASE64}}"
-            $bytes = [Convert]::FromBase64String($b64)
-            [IO.File]::WriteAllBytes("SoulSplitter.pfx", $bytes)
-            $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\SoulSplitter.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\SoulMemory.dll"
-
         #clone, setup dotnet, restore packages
       - name: Checkout
         uses: actions/checkout@v4
@@ -93,13 +77,17 @@ jobs:
 
       - name: sign artifacts
         run: |
-            $b64 = {{SECRETS.CERT_PFX_BASE64}}
-            $bytes = [Convert]::FromBase64String($b64)
-            [IO.File]::WriteAllBytes('SoulSplitter.pfx', $bytes)
+            $bytes = [Convert]::FromBase64String("${{SECRETS.CERT_PFX_BASE64}}")
+            [IO.File]::WriteAllBytes("SoulSplitter.pfx", $bytes)
             $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-            & $signtool sign /fd sha256 /f 'SoulSplitter.pfx' /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\SoulSplitter.dll"
-            & $signtool sign /fd sha256 /f 'SoulSplitter.pfx' /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\SoulMemory.dll"
-
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\SoulSplitter.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\SoulMemory.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\soulmods_x86.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\soulmods_x64.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\soulmemory_rs_x86.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\soulmemory_rs_x86.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\launcher_x86.exe"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "Components\launcher_x64.exe"
 
 
       - name: Publish SoulSplitter
