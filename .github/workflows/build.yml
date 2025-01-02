@@ -76,6 +76,17 @@ jobs:
             copy src\CliTimer\bin\x64\release\net481\CliTimer.exe.config                 artifact\CliTimer
             copy src\CliTimer\bin\x64\release\net481\SoulMemory.dll                      artifact\CliTimer
 
+      - name: sign artifacts
+        run: |
+            $b64 = '{{SECRETS.CERT_PFX_BASE64}}'
+            $bytes = [Convert]::FromBase64String($b64)
+            [IO.File]::WriteAllBytes('SoulSplitter.pfx', $bytes)
+            $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
+            & $signtool sign /fd sha256 /f 'SoulSplitter.pfx' /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\SoulSplitter.dll"
+            & $signtool sign /fd sha256 /f 'SoulSplitter.pfx' /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\SoulMemory.dll"
+
+
+
       - name: Publish SoulSplitter
         uses: actions/upload-artifact@v4
         with:
