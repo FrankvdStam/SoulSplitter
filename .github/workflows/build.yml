@@ -23,9 +23,6 @@ jobs:
 
       - name: sign artifacts
         run: |
-            #$b64 = {{SECRETS.CERT_PFX_BASE64}}
-            #$bytes = [Convert]::FromBase64String($b64)
-            #[IO.File]::WriteAllBytes('SoulSplitter.pfx', $bytes)
             $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
             & $signtool sign /fd sha256 /f 'SoulSplitter.pfx' /d "SoulSplitter" /t http://timestamp.digicert.com "Components\SoulSplitter.dll"
             & $signtool sign /fd sha256 /f 'SoulSplitter.pfx' /d "SoulSplitter" /t http://timestamp.digicert.com "Components\SoulMemory.dll"
