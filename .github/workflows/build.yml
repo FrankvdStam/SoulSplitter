@@ -85,7 +85,7 @@ jobs:
             & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmods_x86.dll"
             & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmods_x64.dll"
             & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmemory_rs_x86.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmemory_rs_x86.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmemory_rs_x64.dll"
             & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\launcher_x86.exe"
             & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\launcher_x64.exe"
 
