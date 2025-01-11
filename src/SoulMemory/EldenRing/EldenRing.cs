@@ -204,34 +204,35 @@ namespace SoulMemory.EldenRing
 
         #region version ================================================================================================
 
-        private readonly Dictionary<EldenRingVersion, Version> _versions = new Dictionary<EldenRingVersion, Version>()
+        private readonly List<(EldenRingVersion eldenRingVersion, Version version)> _versions = new List<(EldenRingVersion, Version)>()
         {
 
-            { EldenRingVersion.V1_02_0, new Version(1,2,0,0) },
-            { EldenRingVersion.V1_02_1, new Version(1,2,1,0) },
-            { EldenRingVersion.V1_02_2, new Version(1,2,2,0) },
-            { EldenRingVersion.V1_02_3, new Version(1,2,3,0) },
-            { EldenRingVersion.V1_03_0, new Version(1,3,0,0) },
-            { EldenRingVersion.V1_03_1, new Version(1,3,1,0) },
-            { EldenRingVersion.V1_03_2, new Version(1,3,2,0) },
-            { EldenRingVersion.V1_04_0, new Version(1,4,0,0) },
-            { EldenRingVersion.V1_04_1, new Version(1,4,1,0) },
-            { EldenRingVersion.V1_05_0, new Version(1,5,0,0) },
-            { EldenRingVersion.V1_06_0, new Version(1,6,0,0) },
-            { EldenRingVersion.V1_07_0, new Version(1,7,0,0) },
-            { EldenRingVersion.V1_08_0, new Version(1,8,0,0) },
-            { EldenRingVersion.V1_08_1, new Version(1,8,1,0) },
-            { EldenRingVersion.V1_09_0, new Version(1,9,0,0) },
-            { EldenRingVersion.V1_09_1, new Version(1,9,1,0) },
+            (EldenRingVersion.V1_02_0, new Version(1,2,0,0)),
+            (EldenRingVersion.V1_02_1, new Version(1,2,1,0)),
+            (EldenRingVersion.V1_02_2, new Version(1,2,2,0)),
+            (EldenRingVersion.V1_02_3, new Version(1,2,3,0)),
+            (EldenRingVersion.V1_03_0, new Version(1,3,0,0)),
+            (EldenRingVersion.V1_03_1, new Version(1,3,1,0)),
+            (EldenRingVersion.V1_03_2, new Version(1,3,2,0)),
+            (EldenRingVersion.V1_04_0, new Version(1,4,0,0)),
+            (EldenRingVersion.V1_04_1, new Version(1,4,1,0)),
+            (EldenRingVersion.V1_05_0, new Version(1,5,0,0)),
+            (EldenRingVersion.V1_06_0, new Version(1,6,0,0)),
+            (EldenRingVersion.V1_07_0, new Version(1,7,0,0)),
+            (EldenRingVersion.V1_08_0, new Version(1,8,0,0)),
+            (EldenRingVersion.V1_08_1, new Version(1,8,1,0)),
+            (EldenRingVersion.V1_09_0, new Version(1,9,0,0)),
+            (EldenRingVersion.V1_09_1, new Version(1,9,1,0)),
             //1.10 turned into 2.0.0.0 for some reason
-            { EldenRingVersion.V1_10_0, new Version(2,0,0,0) },
-            { EldenRingVersion.V1_10_1, new Version(2,0,1,0) },
-            { EldenRingVersion.V1_12_0, new Version(2,2,0,0) },
-            { EldenRingVersion.V1_12_3, new Version(2,2,3,0) },
-            { EldenRingVersion.V1_13_0, new Version(2,3,0,0) },
-            { EldenRingVersion.V1_14_0, new Version(2,4,0,0) },
-            { EldenRingVersion.V1_15_0, new Version(2,5,0,0) },
-            { EldenRingVersion.V1_16_0, new Version(2,6,0,0) },
+            (EldenRingVersion.V1_10_0, new Version(2,0,0,0)),
+            (EldenRingVersion.V1_10_0, new Version(2,0,0,1)), //JP-only version for 1.10
+            (EldenRingVersion.V1_10_1, new Version(2,0,1,0)),
+            (EldenRingVersion.V1_12_0, new Version(2,2,0,0)),
+            (EldenRingVersion.V1_12_3, new Version(2,2,3,0)),
+            (EldenRingVersion.V1_13_0, new Version(2,3,0,0)),
+            (EldenRingVersion.V1_14_0, new Version(2,4,0,0)),
+            (EldenRingVersion.V1_15_0, new Version(2,5,0,0)),
+            (EldenRingVersion.V1_16_0, new Version(2,6,0,0)),
         };
 
         public enum EldenRingVersion
@@ -275,13 +276,13 @@ namespace SoulMemory.EldenRing
 
         public EldenRingVersion GetVersion(Version v)
         {
-            var version = _versions.FirstOrDefault(i => i.Value.CompareTo(v) == 0);
-            if (version.Value == null)
+            var version = _versions.FirstOrDefault(i => i.version.CompareTo(v) == 0);
+            if (version.version == null)
             {
                 return EldenRingVersion.Unknown;
             }
 
-            return version.Key;
+            return version.eldenRingVersion;
         }
 
         #endregion

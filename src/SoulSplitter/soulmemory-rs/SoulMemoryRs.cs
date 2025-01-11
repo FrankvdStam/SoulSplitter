@@ -14,13 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using LiveSplit.ComponentUtil;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using SoulMemory.MemoryV2.Process;
+using SoulMemory.soulmods;
+using SoulMemory.Native;
 
 namespace SoulSplitter.soulmemory_rs
 {
@@ -40,46 +39,18 @@ namespace SoulSplitter.soulmemory_rs
             };
 
             var process = Process.GetProcesses().FirstOrDefault(p => games.Contains(p.ProcessName.ToLower()));
-            if(process == null)
+            if (process == null)
             {
                 return;
             }
 
-            //Make sure its not already loaded
-            var wrapper = new ProcessWrapper();
-            wrapper.TryRefresh(process.ProcessName, out Exception e);
-            if (e != null || wrapper.GetProcessModules().Any(i => i.ModuleName == "soulmemory_rs.dll"))
-            {
-                return;
-            }
-            
-            var basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "soulsplitter");
+            var x64 = process.Is64Bit().Unwrap();
 
-            OverwriteFile("soulsplitter.soulmemory_rs.x64.launcher.exe", Path.Combine(basePath, @"x64\launcher.exe"));
-            OverwriteFile("soulsplitter.soulmemory_rs.x64.soulmemory_rs.dll", Path.Combine(basePath, @"x64\soulmemory_rs.dll"));
-            OverwriteFile("soulsplitter.soulmemory_rs.x86.launcher.exe", Path.Combine(basePath, @"x86\launcher.exe"));
-            OverwriteFile("soulsplitter.soulmemory_rs.x86.soulmemory_rs.dll", Path.Combine(basePath, @"x86\soulmemory_rs.dll"));
-            
-            Process.Start(process.Is64Bit()
-                ? Path.Combine(basePath, @"x64\launcher.exe")
-                : Path.Combine(basePath, @"x86\launcher.exe"));
-        }
+            var launcherPath = Path.Combine(Path.GetDirectoryName(typeof(Soulmods).Assembly.Location), $"{(x64 ? "launcher_x64.exe" : "launcher_x86.exe")}");
+            var dllPath = Path.Combine(Path.GetDirectoryName(typeof(Soulmods).Assembly.Location), $"{(x64 ? "soulmemory_rs_x64.dll" : "soulmemory_rs_x86.dll")}");
+            var args = $"--processname={process.ProcessName} --dllpath=\"{dllPath}\"";
 
-        private static void OverwriteFile(string manifestResourceName, string path)
-        {
-            byte[] buffer;
-            using(var stream = typeof(SoulMemoryRs).Assembly.GetManifestResourceStream(manifestResourceName))
-            {
-                if (stream == null)
-                {
-                    throw new ArgumentException($"{manifestResourceName} does not return valid resource stream. Valid resources are: {string.Join(",",typeof(SoulMemoryRs).Assembly.GetManifestResourceNames())}");
-                }
-
-                buffer = new byte[stream.Length];
-                var _ = stream.Read(buffer, 0, buffer.Length);
-            }
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
-            File.WriteAllBytes(path, buffer);
+            Process.Start(launcherPath, args);
         }
     }
 }
