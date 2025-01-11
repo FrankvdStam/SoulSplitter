@@ -10,8 +10,8 @@
             <file path="Components/soulmods_x64.dll"                status="added"/>
             <file path="Components/soulmemory_rs_x86.dll"           status="added"/>
             <file path="Components/soulmemory_rs_x64.dll"           status="added"/>
-            <file path="Components/launcher_x86.dll"                status="added"/>
-            <file path="Components/launcher_x64.dll"                status="added"/>
+            <file path="Components/launcher_x86.exe"                status="added"/>
+            <file path="Components/launcher_x64.exe"                status="added"/>
         </files>
         <changelog>
             <change>Injectable .dll's no longer embedded with soulsplitter. Instead they are downloaded via livesplit. Hopefully this helps with windows defender false flagging</change>
