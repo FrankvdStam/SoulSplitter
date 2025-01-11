@@ -31,6 +31,7 @@ using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
 using SoulSplitter.Hotkeys;
+using SoulSplitter.soulmemory_rs;
 
 #pragma warning disable CS0162
 
@@ -46,21 +47,15 @@ namespace cli
             GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
             GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
             
+
             //TestUi();
-            GameLoop<EldenRing>((e) =>
-            {
-                var versionString = e.GetProcess().MainModule?.FileVersionInfo.ProductVersion ?? "Failed to read ER version";
-                if(!Version.TryParse(versionString, out Version v))
+            GameLoop<EldenRing>(
+                (d) =>
                 {
-                    Console.WriteLine("Failed to parse version string");
+                    var igtElapsed = TimeSpan.FromMilliseconds(d.GetInGameTimeMilliseconds());
+                    Console.WriteLine($"IGT: {igtElapsed}");
                 }
-
-                Console.WriteLine($"Raw version: {versionString}, ER version: {e.GetVersion(v)}");
-
-                var igtElapsed = TimeSpan.FromMilliseconds(e.GetInGameTimeMilliseconds());
-                e.GetPosition();
-                Console.WriteLine($"IGT: {igtElapsed}");
-            });
+            );
         }
 
 

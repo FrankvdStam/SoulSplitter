@@ -14,7 +14,6 @@ jobs:
     name: build
     runs-on: windows-latest
     steps:
-
         #clone, setup dotnet, restore packages
       - name: Checkout
         uses: actions/checkout@v4
@@ -64,17 +63,31 @@ jobs:
             copy src\SoulSplitter\bin\x64\Release\net481\SoulMemory.dll                  artifact
             copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignColors.dll        artifact
             copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignThemes.Wpf.dll    artifact
-            copy src\SoulMemory\soulmods\x86\soulmods.dll                                artifact\soulmods_x86.dll
-            copy src\SoulMemory\soulmods\x64\soulmods.dll                                artifact\soulmods_x64.dll
-            copy src\SoulSplitter\soulmemory-rs\x86\soulmemory_rs.dll                    artifact\soulmemory_rs_x86.dll
-            copy src\SoulSplitter\soulmemory-rs\x64\soulmemory_rs.dll                    artifact\soulmemory_rs_x64.dll
-            copy src\SoulSplitter\soulmemory-rs\x86\launcher.exe                         artifact\launcher_x86.dll
-            copy src\SoulSplitter\soulmemory-rs\x64\launcher.exe                         artifact\launcher_x64.dll
+            copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x86.dll                artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x64.dll                artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x86.dll           artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x64.dll           artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\launcher_x86.exe                artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\launcher_x64.exe                artifact
             copy LICENSE                                                                 artifact
             copy src\SoulMemory\bin\x64\Release\*.nupkg                                  artifact
             copy src\CliTimer\bin\x64\release\net481\CliTimer.exe                        artifact\CliTimer
             copy src\CliTimer\bin\x64\release\net481\CliTimer.exe.config                 artifact\CliTimer
             copy src\CliTimer\bin\x64\release\net481\SoulMemory.dll                      artifact\CliTimer
+
+      - name: sign artifacts
+        run: |
+            $bytes = [Convert]::FromBase64String("${{SECRETS.CERT_PFX_BASE64}}")
+            [IO.File]::WriteAllBytes("SoulSplitter.pfx", $bytes)
+            $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\SoulSplitter.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\SoulMemory.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmods_x86.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmods_x64.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmemory_rs_x86.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmemory_rs_x64.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\launcher_x86.exe"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\launcher_x64.exe"
 
       - name: Publish SoulSplitter
         uses: actions/upload-artifact@v4

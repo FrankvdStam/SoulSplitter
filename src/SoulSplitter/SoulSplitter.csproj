@@ -56,31 +56,49 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="soulmemory-rs\x64\launcher.exe" />
-        <EmbeddedResource Include="soulmemory-rs\x64\soulmemory_rs.dll" />
-        <EmbeddedResource Include="soulmemory-rs\x86\launcher.exe" />
-        <EmbeddedResource Include="soulmemory-rs\x86\soulmemory_rs.dll" />
+        <ContentWithTargetPath Include="soulmemory-rs\x64\launcher.exe">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>launcher_x64.exe</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Include="soulmemory-rs\x86\launcher.exe">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>launcher_x86.exe</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Include="soulmemory-rs\x64\soulmemory_rs.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>soulmemory_rs_x64.dll</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Include="soulmemory-rs\x86\soulmemory_rs.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>soulmemory_rs_x86.dll</TargetPath>
+        </ContentWithTargetPath>
         <EmbeddedResource Include="soulsplitter.ico" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="soulmemory-rs\x64\" />
-      <Folder Include="soulmemory-rs\x86\" />
-    </ItemGroup>
-
     <Target Name="Copy release artifacts" AfterTargets="Build" Condition="$(SolutionName) == 'SoulSplitter' And $(Configuration) == 'Release'">
-        <Copy SourceFiles="$(OutputPath)\SoulSplitter.dll" DestinationFolder="..\..\Components" />
-        <Copy SourceFiles="$(OutputPath)\SoulMemory.dll" DestinationFolder="..\..\Components" />
-        <Copy SourceFiles="$(OutputPath)\MaterialDesignColors.dll" DestinationFolder="..\..\Components" />
-        <Copy SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll" DestinationFolder="..\..\Components" />
-        <!--<Copy SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.xml" DestinationFolder="..\..\Components" />-->
+        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\SoulSplitter.dll" />
+        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\SoulMemory.dll" />
+        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\MaterialDesignColors.dll" />
+        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll"/>
+        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\soulmemory_rs_x64.dll" />
+        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\soulmemory_rs_x86.dll" />
+        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\soulmods_x64.dll" />
+        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\soulmods_x86.dll" />
+        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\launcher_x64.exe" />
+        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\launcher_x86.exe" />
     </Target>
 
     <Target Name="Copy debug artifacts to livesplit's debug folder" AfterTargets="Build" Condition="$(SolutionName) == 'LiveSplit'">
-        <Copy SourceFiles="$(OutputPath)\SoulSplitter.dll" DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" />
-        <Copy SourceFiles="$(OutputPath)\SoulMemory.dll" DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" />
-        <Copy SourceFiles="$(OutputPath)\MaterialDesignColors.dll" DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" />
-        <Copy SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll" DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulSplitter.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulMemory.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignColors.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll"  />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmemory_rs_x64.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmemory_rs_x86.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmods_x64.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmods_x86.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\launcher_x64.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\launcher_x86.dll" />
         <!--<Copy SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.xml" DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components"/>-->
     </Target>
 
