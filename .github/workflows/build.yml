@@ -74,6 +74,8 @@ jobs:
             copy src\CliTimer\bin\x64\release\net481\CliTimer.exe                        artifact\CliTimer
             copy src\CliTimer\bin\x64\release\net481\CliTimer.exe.config                 artifact\CliTimer
             copy src\CliTimer\bin\x64\release\net481\SoulMemory.dll                      artifact\CliTimer
+            copy src\CliTimer\bin\x64\release\net481\soulmods_x86.dll                    artifact\CliTimer
+            copy src\CliTimer\bin\x64\release\net481\soulmods_x64.dll                    artifact\CliTimer
 
       - name: sign artifacts
         run: |
@@ -88,6 +90,10 @@ jobs:
             & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmemory_rs_x64.dll"
             & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\launcher_x86.exe"
             & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\launcher_x64.exe"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\CliTimer.exe"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\SoulMemory.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\soulmods_x86.dll"
+            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\soulmods_x64.dll"
 
       - name: Publish SoulSplitter
         uses: actions/upload-artifact@v4
