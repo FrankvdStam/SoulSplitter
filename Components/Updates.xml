@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.7.5">
+        <files>
+            <file path="Components/soulinjectee.dll"                status="removed"/>
+            <file path="Components/MaterialDesignThemes.Wpf.xml"    status="removed"/>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+            <file path="Components/soulmods_x86.dll"                status="added"/>
+            <file path="Components/soulmods_x64.dll"                status="added"/>
+            <file path="Components/soulmemory_rs_x86.dll"           status="added"/>
+            <file path="Components/soulmemory_rs_x64.dll"           status="added"/>
+            <file path="Components/launcher_x86.dll"                status="added"/>
+            <file path="Components/launcher_x64.dll"                status="added"/>
+        </files>
+        <changelog>
+            <change>Injectable .dll's no longer embedded with soulsplitter. Instead they are downloaded via livesplit. Hopefully this helps with windows defender false flagging</change>
+            <change>Fix event flag logger not launching</change>
+            <change>Elden Ring: Add version compatibility for the Japanese executable (1.10.0)</change>
+        </changelog>
+    </update>
     <update version="1.7.4">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed"/>
