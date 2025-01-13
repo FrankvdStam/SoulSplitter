@@ -31,6 +31,7 @@ using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
 using SoulSplitter.Hotkeys;
+using SoulSplitter.soulmemory_rs;
 
 #pragma warning disable CS0162
 
@@ -56,12 +57,15 @@ namespace cli
             GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
             GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
             
+
             //TestUi();
-            GameLoop<EldenRing>((e) =>
-            {
-                var igtElapsed = TimeSpan.FromMilliseconds(e.GetInGameTimeMilliseconds());
-                Console.WriteLine($"IGT: {igtElapsed}");
-            });
+            GameLoop<EldenRing>(
+                (d) =>
+                {
+                    var igtElapsed = TimeSpan.FromMilliseconds(d.GetInGameTimeMilliseconds());
+                    Console.WriteLine($"IGT: {igtElapsed}");
+                }
+            );
         }
 
 

@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
+using Moq;
 using SoulMemory.MemoryV2.Memory;
 using SoulMemory.MemoryV2.PointerTreeBuilder;
 using SoulMemory.MemoryV2.Process;
@@ -35,25 +35,25 @@ namespace SoulMemory.Tests
         [DataRow(RefreshErrorReason.ProcessExited)]
         public void Refresh_Error(RefreshErrorReason refreshError)
         {
-            var mock = Substitute.For<IProcessHook>();
-            mock.PointerTreeBuilder.Returns(new PointerTreeBuilder());
-            mock.TryRefresh().Returns(Result.Err(new RefreshError(refreshError)));
+            var processHookMock = new Mock<IProcessHook>();
+            processHookMock.Setup(i => i.PointerTreeBuilder).Returns(new PointerTreeBuilder());
+            processHookMock.Setup(i => i.TryRefresh()).Returns(Result.Err(new RefreshError(refreshError)));
 
-            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(processHookMock.Object);
             Assert.AreEqual(refreshError, ac6.TryRefresh().GetErr().Reason);
 
-            mock.TryRefresh().Returns(Result.Ok());
+            processHookMock.Setup(i => i.TryRefresh()).Returns(Result.Ok());
             Assert.IsTrue(ac6.TryRefresh().IsOk);
         }
 
         [TestMethod]
         public void Refresh_Success()
         {
-            var mock = Substitute.For<IProcessHook>();
-            mock.PointerTreeBuilder.Returns(new PointerTreeBuilder());
-            mock.TryRefresh().Returns(Result.Ok());
+            var processHookMock = new Mock<IProcessHook>();
+            processHookMock.Setup(i => i.PointerTreeBuilder).Returns(new PointerTreeBuilder());
+            processHookMock.Setup(i => i.TryRefresh()).Returns(Result.Ok());
 
-            var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+            var ac6 = new ArmoredCore6.ArmoredCore6(processHookMock.Object);
             Assert.IsTrue(ac6.TryRefresh().IsOk);
         }
         
