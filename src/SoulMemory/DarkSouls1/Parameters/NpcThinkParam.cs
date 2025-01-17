@@ -444,7 +444,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _EnableNaviFlg_reserve1;
             set => WriteParamField(ref _EnableNaviFlg_reserve1, value);
         }
-        private byte[] _EnableNaviFlg_reserve1;
+        private byte[] _EnableNaviFlg_reserve1 = null!;
 
         [ParamField(0x64, ParamType.Dummy8, 12)]
         public byte[] Pad0
@@ -452,7 +452,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad0;
             set => WriteParamField(ref _Pad0, value);
         }
-        private byte[] _Pad0;
+        private byte[] _Pad0 = null!;
 
     }
 }

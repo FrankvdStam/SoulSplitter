@@ -26,8 +26,8 @@ namespace SoulMemory.DarkSouls1
 {
     public class DarkSouls1 : IDarkSouls1
     {
-        private IDarkSouls1 _darkSouls1;
-        public Process GetProcess() => _darkSouls1?.GetProcess();
+        private IDarkSouls1? _darkSouls1;
+        public Process? GetProcess() => _darkSouls1?.GetProcess();
         public int GetAttribute(Attribute attribute) => _darkSouls1?.GetAttribute(attribute) ?? 0;
         public bool ReadEventFlag(uint eventFlagId) => _darkSouls1?.ReadEventFlag(eventFlagId) ?? false;
         public bool IsWarpRequested() => _darkSouls1?.IsWarpRequested() ?? false;
@@ -40,14 +40,14 @@ namespace SoulMemory.DarkSouls1
         public List<Item> GetInventory() => _darkSouls1?.GetInventory() ?? new List<Item>();
         public bool AreCreditsRolling() => _darkSouls1?.AreCreditsRolling() ?? false;
         public BonfireState GetBonfireState(Bonfire bonfire) => _darkSouls1?.GetBonfireState(bonfire) ?? BonfireState.Unknown;
-        public string GetSaveFileLocation() => _darkSouls1?.GetSaveFileLocation();
+        public string? GetSaveFileLocation() => _darkSouls1?.GetSaveFileLocation();
         public int GetSaveFileGameTimeMilliseconds(string path, int slot) => _darkSouls1?.GetSaveFileGameTimeMilliseconds(path, slot) ?? 0;
         public void WriteWeaponDescription(uint weaponId, string description) => _darkSouls1?.WriteWeaponDescription(weaponId, description);
         public void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor) => _darkSouls1?.WriteItemLotParam(rowId, accessor);
         public void SetLoadingScreenItem(int index, uint item) => _darkSouls1?.SetLoadingScreenItem(index, item);
 
 
-        public TreeBuilder GetTreeBuilder() => _darkSouls1.GetTreeBuilder();
+        public TreeBuilder GetTreeBuilder() => _darkSouls1?.GetTreeBuilder() ?? null!;
 
         public ResultErr<RefreshError> TryRefresh()
         {
@@ -92,7 +92,7 @@ namespace SoulMemory.DarkSouls1
 
 
 #if DEBUG
-        public object GetTestValue() => _darkSouls1?.GetTestValue();
+        public object GetTestValue() => _darkSouls1?.GetTestValue()!;
 #endif
     }
 }

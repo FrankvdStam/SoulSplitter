@@ -104,7 +104,7 @@ namespace SoulMemory
         private ResultErr()
         {
             IsOk = true;
-            _err = default;
+            _err = default!;
         }
 
         private ResultErr(TErr err)
@@ -140,7 +140,7 @@ namespace SoulMemory
         {
             if (IsOk)
             {
-                return default;
+                return default!;
             }
             return _err;
         }
@@ -169,7 +169,7 @@ namespace SoulMemory
         private ResultOk()
         {
             IsOk = false;
-            _ok = default;
+            _ok = default!;
         }
 
         private ResultOk(TOk ok)
@@ -193,7 +193,7 @@ namespace SoulMemory
             return resultOk.IsOk;
         }
 
-        public TOk Unwrap([CallerMemberName] string callerMemberName = null)
+        public TOk Unwrap([CallerMemberName] string? callerMemberName = null)
         {
             if (!IsOk)
             {
@@ -230,13 +230,13 @@ namespace SoulMemory
         {
             IsOk = true;
             _ok = ok;
-            _err = default;
+            _err = default!;
         }
 
         private Result(TErr err)
         {
             IsOk = false;
-            _ok = default;
+            _ok = default!;
             _err = err;
         }
 
@@ -254,11 +254,11 @@ namespace SoulMemory
         {
             if (resultOk.IsOk)
             {
-                return new Result<TOk, TErr>(true, resultOk.Unwrap(), default);
+                return new Result<TOk, TErr>(true, resultOk.Unwrap(), default!);
             }
             else
             {
-                return new Result<TOk, TErr>(false, default, default);
+                return new Result<TOk, TErr>(false, default!, default!);
             }
         }
 
@@ -266,11 +266,11 @@ namespace SoulMemory
         {
             if (resultErr.IsOk)
             {
-                return new Result<TOk, TErr>(true, default, default);
+                return new Result<TOk, TErr>(true, default!, default!);
             }
             else
             {
-                return new Result<TOk, TErr>(false, default, resultErr.GetErr());
+                return new Result<TOk, TErr>(false, default!, resultErr.GetErr());
             }
         }
 
@@ -292,7 +292,7 @@ namespace SoulMemory
         {
             if (IsOk)
             {
-                return default;
+                return default!;
             }
             return _err;
         }

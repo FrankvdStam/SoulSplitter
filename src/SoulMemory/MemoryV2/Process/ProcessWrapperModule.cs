@@ -21,8 +21,8 @@ namespace SoulMemory.MemoryV2.Process
 {
     public class ProcessWrapperModule
     {
-        public string ModuleName { get; set; }
-        public string FileName { get; set; }
+        public string ModuleName { get; set; } = null!;
+        public string FileName { get; set; } = null!;
         public IntPtr BaseAddress { get; set; }
         public int ModuleMemorySize { get; set; }
 

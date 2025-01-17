@@ -38,8 +38,8 @@ namespace SoulMemory.EldenRing
     public class Item
     {
         public Category Category;
-        public string GroupName;
-        public string Name;
+        public string GroupName = null!;
+        public string Name = null!;
         public uint Id;
 
         public static Item FromLookupTable(Category category, uint id)

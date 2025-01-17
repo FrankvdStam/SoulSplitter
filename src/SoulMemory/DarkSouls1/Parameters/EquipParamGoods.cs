@@ -580,7 +580,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad;
             set => WriteParamField(ref _Pad, value);
         }
-        private byte[] _Pad;
+        private byte[] _Pad = null!;
 
         [ParamField(0x50, ParamType.I32)]
         public int VagrantItemLotId

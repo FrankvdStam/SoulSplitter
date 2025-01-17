@@ -32,7 +32,7 @@ namespace SoulMemory.DarkSouls1
         void ResetInventoryIndices();
         List<Item> GetInventory();
         BonfireState GetBonfireState(Bonfire bonfire);
-        string GetSaveFileLocation();
+        string? GetSaveFileLocation();
         int GetSaveFileGameTimeMilliseconds(string path, int slot);
         void WriteWeaponDescription(uint weaponId, string description);
         void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor);

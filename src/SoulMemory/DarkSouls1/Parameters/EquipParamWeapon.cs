@@ -1052,7 +1052,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_0;
             set => WriteParamField(ref _Pad_0, value);
         }
-        private byte[] _Pad_0;
+        private byte[] _Pad_0 = null!;
 
         [ParamField(0x106, ParamType.I16)]
         public short OldSortId
@@ -1076,7 +1076,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_1;
             set => WriteParamField(ref _Pad_1, value);
         }
-        private byte[] _Pad_1;
+        private byte[] _Pad_1 = null!;
 
     }
 }

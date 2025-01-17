@@ -100,7 +100,7 @@ namespace SoulMemory.Parameters
 
         public bool WriteEnabled { get; set; } = false;
 
-        protected void WriteParamField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        protected void WriteParamField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value))
             {
@@ -153,7 +153,7 @@ namespace SoulMemory.Parameters
 
         #region Bitfields ======================================================================================================================================================
 
-        protected T GetbitfieldValue<T>(T field, [CallerMemberName] string propertyName = null)
+        protected T GetbitfieldValue<T>(T field, [CallerMemberName] string? propertyName = null)
         {
             var bitfield = _paramBitfieldPropertyCache.First(i => i.propertyInfo.Name == propertyName);
             var currentValue = (long)Convert.ChangeType(field, typeof(long));
@@ -173,7 +173,7 @@ namespace SoulMemory.Parameters
             return (T)Convert.ChangeType(result, typeof(T));
         }
 
-        protected void SetBitfieldValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        protected void SetBitfieldValue<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
             var bitfield = _paramBitfieldPropertyCache.First(i => i.propertyInfo.Name == propertyName);
             var currentValue = (long)Convert.ChangeType(field, typeof(long));

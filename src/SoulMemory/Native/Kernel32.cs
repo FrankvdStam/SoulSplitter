@@ -62,7 +62,7 @@ namespace SoulMemory.Native
             return Result.Ok(buffer);
         }
 
-        public static ResultOk<T> ReadMemory<T>(this Process process, long address, [CallerMemberName] string callerMemberName = null)
+        public static ResultOk<T> ReadMemory<T>(this Process process, long address, [CallerMemberName] string? callerMemberName = null)
         {
             if (process == null)
             {
@@ -82,7 +82,7 @@ namespace SoulMemory.Native
             //var test = (T)Convert.ChangeType(bytes, typeof(T));
         }
 
-        public static Result WriteMemory<T>(this Process process, long address, T data, [CallerMemberName] string callerMemberName = null)
+        public static Result WriteMemory<T>(this Process process, long address, T data, [CallerMemberName] string? callerMemberName = null)
         {
             if (process == null)
             {
@@ -108,7 +108,7 @@ namespace SoulMemory.Native
             return Result.Ok();
         }
 
-        public static string ReadAsciiString(this Process process, long address, int initialBufferSize = 20, [CallerMemberName] string callerMemberName = null)
+        public static string ReadAsciiString(this Process process, long address, int initialBufferSize = 20, [CallerMemberName] string? callerMemberName = null)
         {
             var endByte = (byte)'\0';
             var bytes = new byte[0];

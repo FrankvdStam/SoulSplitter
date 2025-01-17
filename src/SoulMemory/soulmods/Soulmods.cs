@@ -42,7 +42,7 @@ namespace SoulMemory.soulmods
     [AttributeUsage(AttributeTargets.Method, Inherited = false)]
     public class RustCallAttribute : Attribute
     {
-        public string MethodName { get; set; }
+        public string MethodName { get; set; } = null!;
     }
 
     public static class Soulmods
@@ -76,7 +76,7 @@ namespace SoulMemory.soulmods
         
 
 
-        private static List<(string name, long address)> _soulmodsMethods;
+        private static List<(string name, long address)> _soulmodsMethods = null!;
         public static TSized RustCall<TSized>(this Process process, string function, TSized? parameter = null) where TSized : struct
         {
             if (_soulmodsMethods == null)

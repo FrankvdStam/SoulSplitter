@@ -50,7 +50,7 @@ namespace SoulMemory.DarkSouls1
     {
         #region Refresh/init/reset ================================================================================================================================
 
-        private Process _process;
+        private Process? _process;
 
         private readonly Pointer _gameMan = new Pointer();
         private readonly Pointer _gameDataMan = new Pointer();
@@ -86,7 +86,7 @@ namespace SoulMemory.DarkSouls1
             Unknown
         }
 
-        public Process GetProcess() => _process;
+        public Process? GetProcess() => _process;
 
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsremastered", InitPointers, ResetPointers);
 
@@ -116,7 +116,7 @@ namespace SoulMemory.DarkSouls1
         {
             try
             {
-                if (_process.MainModule == null)
+                if (_process?.MainModule == null)
                 {
                     return Result.Err(new RefreshError(RefreshErrorReason.MainModuleNull));
                 }
@@ -286,7 +286,7 @@ namespace SoulMemory.DarkSouls1
             var itemList2Len = _playerGameData.ReadInt32(equipInventoryDataSubOffset);
             var itemList2 = _playerGameData.ReadInt32(equipInventoryDataSubOffset + 40);
 
-            var bytes = _process.ReadProcessMemory(itemList2, itemList2Len * 0x1c).Unwrap();
+            var bytes = _process!.ReadProcessMemory(itemList2, itemList2Len * 0x1c).Unwrap();
             var items = ItemReader.GetCurrentInventoryItems(bytes, itemList2Len, itemCount, keyCount);
 
             return items;
@@ -418,7 +418,7 @@ namespace SoulMemory.DarkSouls1
         /// Returns the savefile's location
         /// </summary>
         /// <returns></returns>
-        public string GetSaveFileLocation()
+        public string? GetSaveFileLocation()
         {
             // values may be null if called before hook, in which
             // case we can't guess the savefile location
@@ -456,9 +456,9 @@ namespace SoulMemory.DarkSouls1
         private int GetSteamId3()
         {
             string name = "steam_api64.dll";
-            ProcessModule module = null;
+            ProcessModule? module = null;
 
-            foreach (ProcessModule item in _process.Modules)
+            foreach (ProcessModule item in _process!.Modules)
             {
                 if (item.ModuleName == name)
                 {
@@ -522,7 +522,7 @@ e:  41 ff d6                call   r14
 
             var getRegionAddress = _getRegion.BaseAddress;
             IntPtr callPtr = (IntPtr)getRegionAddress;
-            IntPtr resultPtr = _process.Allocate(0x4);
+            IntPtr resultPtr = _process!.Allocate(0x4);
 
             // build asm and replace the function pointers
             byte[] asm = LoadDefuseOutput(IsJapaneseAsm);
@@ -531,9 +531,9 @@ e:  41 ff d6                call   r14
             byte[] resultBytes = BitConverter.GetBytes((ulong)resultPtr);
             Array.Copy(resultBytes, 0, asm, 0x13, 8);
 
-            _process.Execute(asm);
-            var isJapanese = _process.ReadMemory<int>(resultPtr.ToInt64()).Unwrap() == 0;
-            _process.Free(resultPtr);
+            _process!.Execute(asm);
+            var isJapanese = _process!.ReadMemory<int>(resultPtr.ToInt64()).Unwrap() == 0;
+            _process!.Free(resultPtr);
             return isJapanese;
         }
 

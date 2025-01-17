@@ -63,7 +63,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad0;
             set => WriteParamField(ref _Pad0, value);
         }
-        private byte[] _Pad0;
+        private byte[] _Pad0 = null!;
 
         [ParamField(0xC, ParamType.I32)]
         public int RefId
@@ -119,7 +119,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad1;
             set => WriteParamField(ref _Pad1, value);
         }
-        private byte[] _Pad1;
+        private byte[] _Pad1 = null!;
 
     }
 }

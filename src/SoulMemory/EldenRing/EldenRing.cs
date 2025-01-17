@@ -26,7 +26,7 @@ namespace SoulMemory.EldenRing
 {
     public class EldenRing : IGame
     {
-        private Process _process = null;
+        private Process? _process = null;
 
         private readonly Pointer _igt = new Pointer();
         private readonly Pointer _hud = new Pointer();
@@ -44,7 +44,7 @@ namespace SoulMemory.EldenRing
         
 
         #region Refresh/init/reset ================================================================================================
-        public Process GetProcess() => _process;
+        public Process? GetProcess() => _process;
 
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "eldenring", InitPointers, ResetPointers);
 
@@ -168,7 +168,7 @@ namespace SoulMemory.EldenRing
 
                 ApplyNoLogo();
 
-                if (!soulmods.Soulmods.Inject(_process))
+                if (!soulmods.Soulmods.Inject(_process!))
                 {
                     _igt.Clear();
                     return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "soulmods injection failed"));
@@ -355,9 +355,9 @@ namespace SoulMemory.EldenRing
 
         private void ApplyNoLogo()
         {
-            _process.NtSuspendProcess();
+            _process!.NtSuspendProcess();
             _noLogo.WriteBytes(null, new byte[] { 0x90, 0x90 });
-            _process.NtResumeProcess();
+            _process!.NtResumeProcess();
         }
 
 
@@ -493,7 +493,7 @@ namespace SoulMemory.EldenRing
                     var shifted = leastSignificantDigits >> 3;
 
                     var pointer = new Pointer();
-                    pointer.Initialize(_process, _virtualMemoryFlag.Is64Bit, calculatedPointer + shifted);
+                    pointer.Initialize(_process!, _virtualMemoryFlag.Is64Bit, calculatedPointer + shifted);
                     var read = pointer.ReadInt32();
                     if ((read & anotherThing) != 0)
                     {

@@ -367,7 +367,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad;
             set => WriteParamField(ref _Pad, value);
         }
-        private byte[] _Pad;
+        private byte[] _Pad = null!;
 
         [ParamField(0x30, ParamType.F32)]
         public float SummonTimeoutTime

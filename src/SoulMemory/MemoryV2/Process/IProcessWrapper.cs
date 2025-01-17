@@ -25,10 +25,10 @@ namespace SoulMemory.MemoryV2.Process
     /// </summary>
     public interface IProcessWrapper : IMemory
     {
-        ProcessRefreshResult TryRefresh(string name, out Exception exception);
-        ProcessWrapperModule GetMainModule();
+        ProcessRefreshResult TryRefresh(string name, out Exception? exception);
+        ProcessWrapperModule? GetMainModule();
         List<ProcessWrapperModule> GetProcessModules();
-        System.Diagnostics.Process GetProcess();
+        System.Diagnostics.Process? GetProcess();
         bool Is64Bit();
     }
 }

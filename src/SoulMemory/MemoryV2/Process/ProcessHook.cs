@@ -20,7 +20,7 @@ namespace SoulMemory.MemoryV2.Process
 {
     public class ProcessHook : IProcessHook
     {
-        public ProcessHook(string name, IProcessWrapper processWrapper = null)
+        public ProcessHook(string name, IProcessWrapper? processWrapper = null)
         {
             _name = name;
             ProcessWrapper = processWrapper ?? new ProcessWrapper();
@@ -31,11 +31,11 @@ namespace SoulMemory.MemoryV2.Process
 
         public IProcessWrapper ProcessWrapper { get; set; }
 
-        public System.Diagnostics.Process GetProcess() => ProcessWrapper.GetProcess();
+        public System.Diagnostics.Process? GetProcess() => ProcessWrapper.GetProcess();
 
-        public event Func<ResultErr<RefreshError>> Hooked;
-        public event Action<Exception> Exited;
-        
+        public event Func<ResultErr<RefreshError>> Hooked = null!;
+        public event Action<Exception> Exited = null!;
+
         public PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder.PointerTreeBuilder();
 
         #region Refresh =================================================================================================================================================
@@ -46,7 +46,7 @@ namespace SoulMemory.MemoryV2.Process
         /// <returns></returns>
         public ResultErr<RefreshError> TryRefresh()
         {
-            var processRefreshResult = ProcessWrapper.TryRefresh(_name, out Exception e);
+            var processRefreshResult = ProcessWrapper.TryRefresh(_name, out Exception? e);
             switch (processRefreshResult)
             {
                 case ProcessRefreshResult.ProcessNotRunning:
@@ -79,12 +79,12 @@ namespace SoulMemory.MemoryV2.Process
 
 
                 case ProcessRefreshResult.Exited:
-                    Exited?.Invoke(null);
+                    Exited?.Invoke(null!);
                     return Result.Err(new RefreshError(RefreshErrorReason.ProcessExited));
 
                 case ProcessRefreshResult.Error:
-                    Exited?.Invoke(e);
-                    if (e.Message == "Access is denied")
+                    Exited?.Invoke(e!);
+                    if (e!.Message == "Access is denied")
                     {
                         return Result.Err(new RefreshError(RefreshErrorReason.AccessDenied, "Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin."));
                     }

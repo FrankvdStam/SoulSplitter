@@ -23,7 +23,7 @@ namespace SoulMemory.DarkSouls3
 {
     public class DarkSouls3 : IGame
     {
-        private Process _process;
+        private Process? _process;
         private readonly Pointer _gameDataMan = new Pointer();
         private readonly Pointer _playerGameData = new Pointer();
         private readonly Pointer _playerIns = new Pointer();
@@ -35,7 +35,7 @@ namespace SoulMemory.DarkSouls3
         private readonly Pointer _sprjChrPhysicsModule = new Pointer();
         private long _igtOffset;
 
-        public Process GetProcess() => _process;
+        public Process? GetProcess() => _process;
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsiii", InitPointers, ResetPointers);
 
         public TreeBuilder GetTreeBuilder()
@@ -250,7 +250,7 @@ namespace SoulMemory.DarkSouls3
                         var count = vector.ReadByte(i * 0x38 + 0x20);
                         var index = 0;
                         var found = false;
-                        Pointer worldInfoBlockVector = null;
+                        Pointer? worldInfoBlockVector = null;
 
                         if (count >= 1)
                         {
@@ -277,7 +277,7 @@ namespace SoulMemory.DarkSouls3
 
                         if (found)
                         {
-                            flagWorldBlockInfoCategory = worldInfoBlockVector.ReadInt32((index * 0x70) + 0x20);
+                            flagWorldBlockInfoCategory = worldInfoBlockVector!.ReadInt32((index * 0x70) + 0x20);
                             break;
                         }
                     }
@@ -298,7 +298,7 @@ namespace SoulMemory.DarkSouls3
             }
 
             var resultPointerAddress = new Pointer();
-            resultPointerAddress.Initialize(ptr.Process, ptr.Is64Bit, (eventFlagIdDiv1000 << 4) + ptr.GetAddress() + flagWorldBlockInfoCategory * 0xa8, 0x0);
+            resultPointerAddress.Initialize(ptr.Process!, ptr.Is64Bit, (eventFlagIdDiv1000 << 4) + ptr.GetAddress() + flagWorldBlockInfoCategory * 0xa8, 0x0);
 
             if (!resultPointerAddress.IsNullPtr())
             {

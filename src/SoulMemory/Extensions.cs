@@ -27,7 +27,7 @@ namespace SoulMemory
     {
         public static bool TryParseEnum<T>(this int value, out T result)
         {
-            result = default;
+            result = default!;
             if (Enum.IsDefined(typeof(T), value))
             {
                 result = (T)(object)value;
@@ -38,7 +38,7 @@ namespace SoulMemory
 
         public static bool TryParseEnum<T>(this uint value, out T result)
         {
-            result = default;
+            result = default!;
             if (Enum.IsDefined(typeof(T), value))
             {
                 result = (T)(object)value;

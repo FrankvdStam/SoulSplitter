@@ -47,7 +47,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_0;
             set => WriteParamField(ref _Pad_0, value);
         }
-        private byte[] _Pad_0;
+        private byte[] _Pad_0 = null!;
 
         [ParamField(0xE, ParamType.I16)]
         public short InvMulCol
@@ -87,7 +87,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_Dif0;
             set => WriteParamField(ref _Pad_Dif0, value);
         }
-        private byte[] _Pad_Dif0;
+        private byte[] _Pad_Dif0 = null!;
 
         [ParamField(0x20, ParamType.I16)]
         public short ResNameId_Spc0
@@ -119,7 +119,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_Spc0;
             set => WriteParamField(ref _Pad_Spc0, value);
         }
-        private byte[] _Pad_Spc0;
+        private byte[] _Pad_Spc0 = null!;
 
         [ParamField(0x30, ParamType.I16)]
         public short ResNameId_Spc1
@@ -151,7 +151,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_Spc1;
             set => WriteParamField(ref _Pad_Spc1, value);
         }
-        private byte[] _Pad_Spc1;
+        private byte[] _Pad_Spc1 = null!;
 
         [ParamField(0x40, ParamType.I16)]
         public short ResNameId_Spc2
@@ -183,7 +183,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_Spc2;
             set => WriteParamField(ref _Pad_Spc2, value);
         }
-        private byte[] _Pad_Spc2;
+        private byte[] _Pad_Spc2 = null!;
 
         [ParamField(0x50, ParamType.I16)]
         public short ResNameId_Spc3
@@ -215,7 +215,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_Spc3;
             set => WriteParamField(ref _Pad_Spc3, value);
         }
-        private byte[] _Pad_Spc3;
+        private byte[] _Pad_Spc3 = null!;
 
         [ParamField(0x60, ParamType.I16)]
         public short DegRotX_00
@@ -271,7 +271,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_00;
             set => WriteParamField(ref _Pad_00, value);
         }
-        private byte[] _Pad_00;
+        private byte[] _Pad_00 = null!;
 
         [ParamField(0x70, ParamType.I16)]
         public short DegRotX_01
@@ -327,7 +327,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_01;
             set => WriteParamField(ref _Pad_01, value);
         }
-        private byte[] _Pad_01;
+        private byte[] _Pad_01 = null!;
 
         [ParamField(0x80, ParamType.I16)]
         public short DegRotX_02
@@ -383,7 +383,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_02;
             set => WriteParamField(ref _Pad_02, value);
         }
-        private byte[] _Pad_02;
+        private byte[] _Pad_02 = null!;
 
         [ParamField(0x90, ParamType.I16)]
         public short DegRotX_03
@@ -439,7 +439,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_03;
             set => WriteParamField(ref _Pad_03, value);
         }
-        private byte[] _Pad_03;
+        private byte[] _Pad_03 = null!;
 
         [ParamField(0xA0, ParamType.I16)]
         public short DegRotX_04
@@ -495,7 +495,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_04;
             set => WriteParamField(ref _Pad_04, value);
         }
-        private byte[] _Pad_04;
+        private byte[] _Pad_04 = null!;
 
         [ParamField(0xB0, ParamType.I16)]
         public short DegRotX_05
@@ -551,7 +551,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_05;
             set => WriteParamField(ref _Pad_05, value);
         }
-        private byte[] _Pad_05;
+        private byte[] _Pad_05 = null!;
 
         [ParamField(0xC0, ParamType.I16)]
         public short DegRotX_06
@@ -607,7 +607,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_06;
             set => WriteParamField(ref _Pad_06, value);
         }
-        private byte[] _Pad_06;
+        private byte[] _Pad_06 = null!;
 
         [ParamField(0xD0, ParamType.I16)]
         public short DegRotX_07
@@ -663,7 +663,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_07;
             set => WriteParamField(ref _Pad_07, value);
         }
-        private byte[] _Pad_07;
+        private byte[] _Pad_07 = null!;
 
         [ParamField(0xE0, ParamType.I16)]
         public short DegRotX_08
@@ -719,7 +719,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_08;
             set => WriteParamField(ref _Pad_08, value);
         }
-        private byte[] _Pad_08;
+        private byte[] _Pad_08 = null!;
 
         [ParamField(0xF0, ParamType.I16)]
         public short DegRotX_09
@@ -775,7 +775,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_09;
             set => WriteParamField(ref _Pad_09, value);
         }
-        private byte[] _Pad_09;
+        private byte[] _Pad_09 = null!;
 
     }
 }

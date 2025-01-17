@@ -24,21 +24,21 @@ namespace SoulMemory.MemoryV2.Process
 {
     public class ProcessWrapper : IProcessWrapper
     {
-        private System.Diagnostics.Process _process;
-        public System.Diagnostics.Process GetProcess() => _process;
-        public bool Is64Bit() => _process.Is64Bit();
-        public ProcessWrapperModule GetMainModule() => _process.MainModule == null ? null : ProcessWrapperModule.FromProcessModule(_process.MainModule);
+        private System.Diagnostics.Process? _process;
+        public System.Diagnostics.Process? GetProcess() => _process;
+        public bool Is64Bit() => _process?.Is64Bit() ?? false;
+        public ProcessWrapperModule? GetMainModule() => _process?.MainModule == null ? null : ProcessWrapperModule.FromProcessModule(_process.MainModule);
 
         public List<ProcessWrapperModule> GetProcessModules()
         {
-            return (from object pm in _process.Modules select ProcessWrapperModule.FromProcessModule((ProcessModule)pm)).ToList();
+            return (from object pm in _process?.Modules select ProcessWrapperModule.FromProcessModule((ProcessModule)pm)).ToList();
         }
 
         /// <summary>
         /// Refresh attachment to a process
         /// </summary>
         /// <returns></returns>
-        public ProcessRefreshResult TryRefresh(string name, out Exception exception)
+        public ProcessRefreshResult TryRefresh(string name, out Exception? exception)
         {
             exception = null;
 

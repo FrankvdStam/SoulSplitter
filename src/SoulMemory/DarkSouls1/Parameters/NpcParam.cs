@@ -1312,7 +1312,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad2;
             set => WriteParamField(ref _Pad2, value);
         }
-        private byte[] _Pad2;
+        private byte[] _Pad2 = null!;
 
     }
 }

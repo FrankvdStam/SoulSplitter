@@ -79,7 +79,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Reserve0;
             set => WriteParamField(ref _Reserve0, value);
         }
-        private byte[] _Reserve0;
+        private byte[] _Reserve0 = null!;
 
         [ParamField(0x20, ParamType.U16)]
         public ushort Attack1_Distance
@@ -143,7 +143,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Reserve10;
             set => WriteParamField(ref _Reserve10, value);
         }
-        private byte[] _Reserve10;
+        private byte[] _Reserve10 = null!;
 
         [ParamField(0x30, ParamType.U16)]
         public ushort Attack2_Distance
@@ -207,7 +207,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Reserve11;
             set => WriteParamField(ref _Reserve11, value);
         }
-        private byte[] _Reserve11;
+        private byte[] _Reserve11 = null!;
 
         [ParamField(0x40, ParamType.U16)]
         public ushort Attack3_Distance
@@ -271,7 +271,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Reserve12;
             set => WriteParamField(ref _Reserve12, value);
         }
-        private byte[] _Reserve12;
+        private byte[] _Reserve12 = null!;
 
         [ParamField(0x50, ParamType.U16)]
         public ushort Attack4_Distance
@@ -335,7 +335,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Reserve13;
             set => WriteParamField(ref _Reserve13, value);
         }
-        private byte[] _Reserve13;
+        private byte[] _Reserve13 = null!;
 
         [ParamField(0x60, ParamType.Dummy8, 32)]
         public byte[] Reserve_last
@@ -343,7 +343,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Reserve_last;
             set => WriteParamField(ref _Reserve_last, value);
         }
-        private byte[] _Reserve_last;
+        private byte[] _Reserve_last = null!;
 
     }
 }

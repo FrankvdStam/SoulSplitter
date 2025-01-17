@@ -44,8 +44,8 @@ namespace SoulMemory
         }
 
         public RefreshErrorReason Reason { get; }
-        public string Message { get; }
-        public Exception Exception { get; }
+        public string Message { get; } = null!;
+        public Exception? Exception { get; } = null!;
 
         public override string ToString()
         {

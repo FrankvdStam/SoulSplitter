@@ -23,7 +23,7 @@ namespace SoulMemory.DarkSouls2
 {
     internal class Scholar : IDarkSouls2
     {
-        private Process _process;
+        private Process? _process;
         private readonly Pointer _eventFlagManager = new Pointer();
         private readonly Pointer _position         = new Pointer();
         private readonly Pointer _loadState        = new Pointer();
@@ -31,7 +31,7 @@ namespace SoulMemory.DarkSouls2
         private readonly Pointer _attributes       = new Pointer();
 
         #region Refresh/init/reset ================================================================================================================================
-        public Process GetProcess() => _process;
+        public Process? GetProcess() => _process;
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsii", InitPointers, ResetPointers);
         public int GetInGameTimeMilliseconds() => 0;
         public TreeBuilder GetTreeBuilder()

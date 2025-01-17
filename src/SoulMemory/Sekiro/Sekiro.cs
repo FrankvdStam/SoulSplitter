@@ -25,7 +25,7 @@ namespace SoulMemory.Sekiro
 {
     public class Sekiro : IGame
     {
-        private Process _process;
+        private Process? _process;
         private readonly Pointer _eventFlagMan = new Pointer();
         private readonly Pointer _fieldArea = new Pointer();
         private readonly Pointer _worldChrManImp = new Pointer();
@@ -43,7 +43,7 @@ namespace SoulMemory.Sekiro
         
         #region Refresh/init/reset ================================================================================================================================
 
-        public Process GetProcess() => _process;
+        public Process? GetProcess() => _process;
         
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "sekiro", InitPointers, ResetPointers);
 
@@ -291,7 +291,7 @@ namespace SoulMemory.Sekiro
                         var count = vector.ReadByte(i * 0x38 + 0x20);
                         var index = 0;
                         var found = false;
-                        Pointer worldInfoBlockVector = null;
+                        Pointer? worldInfoBlockVector = null;
 
                         if (count >= 1)
                         {
@@ -318,7 +318,7 @@ namespace SoulMemory.Sekiro
 
                         if (found)
                         {
-                            flagWorldBlockInfoCategory = worldInfoBlockVector.ReadInt32((index * 0xb0) + 0x20);
+                            flagWorldBlockInfoCategory = worldInfoBlockVector!.ReadInt32((index * 0xb0) + 0x20);
                             break;
                         }
                     }
@@ -339,7 +339,7 @@ namespace SoulMemory.Sekiro
 
             //Whats with this name... -_-
             var resultPointerAddress = new Pointer();
-            resultPointerAddress.Initialize(ptr.Process, ptr.Is64Bit, (eventFlagIdDiv1000 << 4) + ptr.GetAddress() + flagWorldBlockInfoCategory * 0xa8, 0x0);
+            resultPointerAddress.Initialize(ptr.Process!, ptr.Is64Bit, (eventFlagIdDiv1000 << 4) + ptr.GetAddress() + flagWorldBlockInfoCategory * 0xa8, 0x0);
             if (resultPointerAddress.IsNullPtr())
             {
                 return Result.Err();

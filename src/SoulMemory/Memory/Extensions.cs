@@ -40,7 +40,7 @@ namespace SoulMemory.Memory
             {
                 displayName = enumValue.ToString();
             }
-            return displayName;
+            return displayName!;
         }
 
         public static string GetDisplayDescription(this Enum enumValue)
@@ -56,7 +56,7 @@ namespace SoulMemory.Memory
             {
                 displayName = enumValue.ToString();
             }
-            return displayName;
+            return displayName!;
         }
 
         public static T GetEnumAttribute<T>(this Enum value) where T : Attribute

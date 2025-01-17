@@ -55,7 +55,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_0;
             set => WriteParamField(ref _Pad_0, value);
         }
-        private byte[] _Pad_0;
+        private byte[] _Pad_0 = null!;
 
         [ParamField(0xC, ParamType.F32)]
         public float NearDofBegin
@@ -87,7 +87,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_1;
             set => WriteParamField(ref _Pad_1, value);
         }
-        private byte[] _Pad_1;
+        private byte[] _Pad_1 = null!;
 
         [ParamField(0x18, ParamType.F32)]
         public float DispersionSq

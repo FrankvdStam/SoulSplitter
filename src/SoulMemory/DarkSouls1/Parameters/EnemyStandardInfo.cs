@@ -127,7 +127,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Reserve0;
             set => WriteParamField(ref _Reserve0, value);
         }
-        private byte[] _Reserve0;
+        private byte[] _Reserve0 = null!;
 
         [ParamField(0x40, ParamType.U8)]
         public byte RotY_per_Second_old
@@ -159,7 +159,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Reserve_last;
             set => WriteParamField(ref _Reserve_last, value);
         }
-        private byte[] _Reserve_last;
+        private byte[] _Reserve_last = null!;
 
         [ParamField(0x48, ParamType.U16)]
         public ushort Stamina
@@ -199,7 +199,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Reserve_last2;
             set => WriteParamField(ref _Reserve_last2, value);
         }
-        private byte[] _Reserve_last2;
+        private byte[] _Reserve_last2 = null!;
 
     }
 }

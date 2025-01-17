@@ -119,7 +119,7 @@ namespace SoulMemory.DarkSouls1.Parameters
             get => _Pad_0;
             set => WriteParamField(ref _Pad_0, value);
         }
-        private byte[] _Pad_0;
+        private byte[] _Pad_0 = null!;
 
         [ParamField(0x24, ParamType.F32)]
         public float LightShaftPower

@@ -41,7 +41,7 @@ namespace SoulMemory
         /// Get a reference to the game process
         /// Will only be a valid reference until the next call to TryRefresh
         /// </summary>
-        Process GetProcess();
+        Process? GetProcess();
 
         /// <summary>
         /// Get the current millis 

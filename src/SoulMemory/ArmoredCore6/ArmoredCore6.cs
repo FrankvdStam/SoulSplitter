@@ -26,7 +26,7 @@ namespace SoulMemory.ArmoredCore6
     {
         private readonly IProcessHook _armoredCore6;
         
-        public ArmoredCore6(IProcessHook processHook = null)
+        public ArmoredCore6(IProcessHook? processHook = null)
         {
             _armoredCore6 = processHook ?? new ProcessHook("armoredcore6");
 
@@ -91,14 +91,14 @@ namespace SoulMemory.ArmoredCore6
             return builder;
         }
 
-        public Process GetProcess() => _armoredCore6.ProcessWrapper.GetProcess();
+        public Process? GetProcess() => _armoredCore6.ProcessWrapper.GetProcess();
 
         private ResultErr<RefreshError> InjectMods()
         {
-            Exception exception = null;
+            Exception? exception = null;
             try
             {
-                soulmods.Soulmods.Inject(_armoredCore6.ProcessWrapper.GetProcess());
+                soulmods.Soulmods.Inject(GetProcess()!);
             }
             catch (Exception e) { exception = e; }
 

@@ -48,7 +48,7 @@ namespace SoulMemory.DarkSouls1
     {
         #region Refresh/init/reset ================================================================================================================================
 
-        private Process _process;
+        private Process? _process;
 
         private readonly Pointer _gameMan = new Pointer();
         private readonly Pointer _gameDataMan = new Pointer();
@@ -65,7 +65,7 @@ namespace SoulMemory.DarkSouls1
         private List<ItemLotParam> _itemLotParams = new List<ItemLotParam>();
         private List<TextTableEntry> _weaponDescriptionsTable = new List<TextTableEntry>();
 
-        public Process GetProcess() => _process;
+        public Process? GetProcess() => _process;
 
         public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksouls", InitPointers, ResetPointers);
 
@@ -203,7 +203,7 @@ namespace SoulMemory.DarkSouls1
             var listLength = _playerGameData.ReadInt32(0x2c8);
             var listStart = _playerGameData.ReadInt32(0x2cc);
             
-            var bytes = _process.ReadProcessMemory(listStart, listLength * 0x1c).Unwrap();
+            var bytes = _process!.ReadProcessMemory(listStart, listLength * 0x1c).Unwrap();
             return ItemReader.GetCurrentInventoryItems(bytes, listLength, itemCount, keyCount);
         }
 
@@ -261,7 +261,7 @@ namespace SoulMemory.DarkSouls1
         public object GetTestValue()
         {
             WriteWeaponDescription(1105000, "asdf");
-            return null;
+            return null!;
         }
 
         public int GetSaveFileGameTimeMilliseconds(string path, int slot)

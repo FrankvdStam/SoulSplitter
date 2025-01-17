@@ -25,7 +25,7 @@ namespace SoulMemory.Memory
 {
     public class Pointer
     {
-        public Process Process;
+        public Process? Process;
         public long BaseAddress;
         public List<long> Offsets = new List<long>();
         public bool Is64Bit;
@@ -53,7 +53,7 @@ namespace SoulMemory.Memory
         public Pointer Copy()
         {
             var p = new Pointer();
-            p.Initialize(Process, Is64Bit, BaseAddress, Offsets.ToArray());
+            p.Initialize(Process!, Is64Bit, BaseAddress, Offsets.ToArray());
             return p;
         }
 
@@ -79,7 +79,7 @@ namespace SoulMemory.Memory
 
       
 
-        private long ResolveOffsets(List<long> offsets, StringBuilder debugStringBuilder = null)
+        private long ResolveOffsets(List<long> offsets, StringBuilder? debugStringBuilder = null)
         {
             if (Process == null)
             {
@@ -130,7 +130,7 @@ namespace SoulMemory.Memory
 
 
         //Debug representation, shows in IDE
-        public string Path { get; private set; }
+        public string Path { get; private set; } = null!;
 
         public override string ToString()
         {
@@ -167,7 +167,7 @@ namespace SoulMemory.Memory
             }
 
             var address = ResolveOffsets(offsetsCopy);
-            var result = Process.ReadProcessMemory(address, length);
+            var result = Process!.ReadProcessMemory(address, length);
             if(result.IsErr)
             {
                 return new byte[length];
@@ -183,7 +183,7 @@ namespace SoulMemory.Memory
                 offsetsCopy.Add(offset.Value);
             }
             var address = ResolveOffsets(offsetsCopy);
-            Process.WriteProcessMemory(address, bytes).Unwrap();
+            Process!.WriteProcessMemory(address, bytes).Unwrap();
         }
 
         public bool IsNullPtr()

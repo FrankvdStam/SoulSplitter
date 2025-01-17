@@ -36,9 +36,9 @@ namespace SoulMemory.Memory
         /// <param name="errors"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static ResultErr<RefreshError> TryResolvePointers(TreeBuilder treeBuilder, Process process)
+        public static ResultErr<RefreshError> TryResolvePointers(TreeBuilder treeBuilder, Process? process)
         {
-            if (process.MainModule == null)
+            if (process?.MainModule == null)
             {
                 return Result.Err(new RefreshError(RefreshErrorReason.MainModuleNull, "Main module is null. Try running as admin."));
             }
@@ -135,7 +135,7 @@ namespace SoulMemory.Memory
         /// Refresh a process instance
         /// </summary>
         /// <returns></returns>
-        public static ResultErr<RefreshError> TryRefresh(ref Process process, string name, Func<ResultErr<RefreshError>> initialize, Action reset)
+        public static ResultErr<RefreshError> TryRefresh(ref Process? process, string name, Func<ResultErr<RefreshError>> initialize, Action reset)
         {
             try
             {

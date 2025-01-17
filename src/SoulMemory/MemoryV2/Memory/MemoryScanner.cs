@@ -71,7 +71,7 @@ namespace SoulMemory.MemoryV2.Memory
         /// Refresh a process instance
         /// </summary>
         /// <returns></returns>
-        public static ResultErr<RefreshError> TryRefresh(ref System.Diagnostics.Process process, string name, Func<ResultErr<RefreshError>> initialize, Action reset)
+        public static ResultErr<RefreshError> TryRefresh(ref System.Diagnostics.Process? process, string name, Func<ResultErr<RefreshError>> initialize, Action reset)
         {
             try
             {

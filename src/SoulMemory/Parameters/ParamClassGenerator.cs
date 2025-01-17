@@ -142,7 +142,7 @@ namespace SoulMemory.Parameters
             xmlDoc.LoadXml(xml);
             var fieldNodes = xmlDoc.GetChildNodeByName("PARAMDEF").GetChildNodeByName("Fields");
 
-            var fieldDefinitions = fieldNodes.ChildNodes.Enumerate().Select(i => i.Attributes?[0].InnerText).ToList();
+            var fieldDefinitions = fieldNodes.ChildNodes.Enumerate().Select(i => i.Attributes?[0].InnerText!).ToList();
             var preParsedFields = fieldDefinitions.Select(PreParseField).ToList();
             return ParseFields(preParsedFields);
         }
@@ -187,7 +187,7 @@ namespace SoulMemory.Parameters
         private static List<BaseField> ParseFields(List<PreParsedField> preParsedFields)
         {
             var result = new List<BaseField>();
-            Bitfield currentBitfield = null;
+            Bitfield? currentBitfield = null;
             var offset = 0;
 
             for(int i = 0; i < preParsedFields.Count; i++)

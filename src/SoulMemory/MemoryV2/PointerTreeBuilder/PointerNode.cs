@@ -36,7 +36,7 @@ namespace SoulMemory.MemoryV2.PointerTreeBuilder
 
         //used for pointers
         public long[] Offsets = new long[] { };
-        public Pointer Pointer;
+        public Pointer Pointer = null!;
 
         public List<PointerNode> Pointers = new List<PointerNode>();
 
