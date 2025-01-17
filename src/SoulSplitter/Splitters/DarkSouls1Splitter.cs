@@ -111,7 +111,7 @@ namespace SoulSplitter.Splitters
         private readonly ITimerModel _timerModel;
         private int _inGameTime;
         private TimerState _timerState = TimerState.WaitForStart;
-        private string _savefilePath = null;
+        private string? _savefilePath = null;
         private int _saveSlot = -1;
         private int _previousIgt = 0;
         private bool _previousCredits = false;
@@ -185,7 +185,7 @@ namespace SoulSplitter.Splitters
                         )
                     {
                         Debug.WriteLine("Read savefile time");
-                        var saveFileTime = _darkSouls1.GetSaveFileGameTimeMilliseconds(_savefilePath, _saveSlot);
+                        var saveFileTime = _darkSouls1.GetSaveFileGameTimeMilliseconds(_savefilePath!, _saveSlot);
                         if (saveFileTime != 0)
                         {
                             _inGameTime = saveFileTime;
@@ -230,7 +230,7 @@ namespace SoulSplitter.Splitters
                 return;
             }
 
-            List<Item> inventory = null;
+            List<Item>? inventory = null;
             foreach (var s in _splits)
             {
                 if (!s.SplitTriggered)
@@ -267,7 +267,7 @@ namespace SoulSplitter.Splitters
                                 break;
 
                             case SplitType.Bonfire:
-                                s.SplitConditionMet = _darkSouls1.GetBonfireState(s.BonfireState.Bonfire.Value) >= s.BonfireState.State;
+                                s.SplitConditionMet = _darkSouls1.GetBonfireState(s.BonfireState.Bonfire!.Value) >= s.BonfireState.State;
                                 break;
 
                             case SplitType.Item:
@@ -382,7 +382,7 @@ namespace SoulSplitter.Splitters
             if (_mainViewModel.DarkSouls1ViewModel.DropModRequestGameExit)
             {
                 _mainViewModel.DarkSouls1ViewModel.DropModRequestGameExit = false;
-                _darkSouls1.GetProcess().Kill();
+                _darkSouls1.GetProcess()!.Kill();
                 return;
             }
 

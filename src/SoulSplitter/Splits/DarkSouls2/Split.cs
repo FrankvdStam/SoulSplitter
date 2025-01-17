@@ -54,9 +54,9 @@ namespace SoulSplitter.Splits.DarkSouls2
         public readonly DarkSouls2SplitType SplitType;
         
         public readonly uint Flag;
-        public readonly Vector3f Position;
-        public readonly BossKill BossKill;
-        public readonly Attribute Attribute;
+        public readonly Vector3f Position = null!;
+        public readonly BossKill BossKill = null!;
+        public readonly Attribute Attribute = null!;
 
         /// <summary>
         /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met

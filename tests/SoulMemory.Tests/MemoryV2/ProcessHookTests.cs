@@ -71,7 +71,7 @@ namespace SoulMemory.Tests.MemoryV2
         [TestMethod]
         public void TryRefresh_Initialized_MainModuleNull()
         {
-            Exception ex;
+            Exception? ex;
             _mockProcessWrapper
                 .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
                 .Returns(ProcessRefreshResult.Initialized);
@@ -92,7 +92,7 @@ namespace SoulMemory.Tests.MemoryV2
         [TestMethod]
         public void TryRefresh_Initialized_ScansFailed()
         {
-            Exception ex;
+            Exception? ex;
             _mockProcessWrapper
                 .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
                 .Returns(ProcessRefreshResult.Initialized);
@@ -119,7 +119,7 @@ namespace SoulMemory.Tests.MemoryV2
         [TestMethod]
         public void TryRefresh_Initialized_Success()
         {
-            Exception ex;
+            Exception? ex;
             _mockProcessWrapper
                 .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
                 .Returns(ProcessRefreshResult.Initialized);
@@ -144,7 +144,7 @@ namespace SoulMemory.Tests.MemoryV2
         [TestMethod]
         public void TryRefresh_Refreshed()
         {
-            Exception ex;
+            Exception? ex;
             _mockProcessWrapper
                .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
                .Returns(ProcessRefreshResult.Refreshed);
@@ -160,7 +160,7 @@ namespace SoulMemory.Tests.MemoryV2
         [TestMethod]
         public void TryRefresh_Exited_No_Exception()
         {
-            Exception ex;
+            Exception? ex;
             _mockProcessWrapper
                .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
                .Returns(ProcessRefreshResult.Exited);
@@ -178,7 +178,7 @@ namespace SoulMemory.Tests.MemoryV2
         [TestMethod]
         public void TryRefresh_Error_Access_Denied()
         {
-            Exception ex = new Exception("Access is denied");
+            Exception? ex = new Exception("Access is denied");
             _mockProcessWrapper
                 .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
                 .Returns(ProcessRefreshResult.Error);
@@ -196,7 +196,7 @@ namespace SoulMemory.Tests.MemoryV2
         [TestMethod]
         public void TryRefresh_Error_Unknown()
         {
-            Exception ex = new Exception("Your computer is on fire");
+            Exception? ex = new Exception("Your computer is on fire");
             _mockProcessWrapper
                 .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
                 .Returns(ProcessRefreshResult.Error);

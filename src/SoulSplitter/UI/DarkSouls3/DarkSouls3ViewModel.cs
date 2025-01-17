@@ -33,7 +33,7 @@ namespace SoulSplitter.UI.DarkSouls3
 
         #region add/remove splits ============================================================================================================================================
 
-        private bool CanAddSplit(object param) 
+        private bool CanAddSplit() 
         {
             if(NewSplitTimingType == null || NewSplitType == null)
             {
@@ -53,9 +53,9 @@ namespace SoulSplitter.UI.DarkSouls3
             return NewSplitValue != null;
         }
 
-        private void AddSplit(object param)
+        private void AddSplit()
         {
-            object split = null;
+            object? split = null;
             switch (NewSplitType)
             {
                 default:
@@ -65,7 +65,7 @@ namespace SoulSplitter.UI.DarkSouls3
                 case SplitType.Bonfire:
                 case SplitType.ItemPickup:
                 case SplitType.Attribute:
-                    split = NewSplitValue;
+                    split = NewSplitValue!;
                     break;
 
                 case SplitType.Position:
@@ -76,7 +76,7 @@ namespace SoulSplitter.UI.DarkSouls3
                     split = FlagDescription;
                     break;
             }
-            SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);
+            SplitsViewModel.AddSplit(NewSplitTimingType!.Value, NewSplitType.Value, split);
 
             NewSplitTimingType = null;
             NewSplitEnabledSplitType = false;
@@ -90,7 +90,7 @@ namespace SoulSplitter.UI.DarkSouls3
         public bool LockIgtToZero
         {
             get => _lockIgtToZero;
-            set => SetField(ref _lockIgtToZero, value);
+            set => this.SetField(ref _lockIgtToZero, value);
         }
         private bool _lockIgtToZero = false;
 
@@ -100,7 +100,7 @@ namespace SoulSplitter.UI.DarkSouls3
             get => _newSplitType;
             set
             {
-                SetField(ref _newSplitType, value);
+                this.SetField(ref _newSplitType, value);
 
                 if(NewSplitType == SplitType.Attribute)
                 {

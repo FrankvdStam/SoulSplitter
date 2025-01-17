@@ -15,12 +15,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms.Integration;
 using System.Windows.Media;
@@ -39,7 +37,7 @@ using Brush = System.Windows.Media.Brush;
 
 namespace SoulSplitter.UI
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ICustomNotifyPropertyChanged
     {
         public MainViewModel()
         {
@@ -71,7 +69,7 @@ namespace SoulSplitter.UI
         public Game SelectedGame
         {
             get => _selectedGame;
-            set => SetField(ref _selectedGame, value);
+            set => this.SetField(ref _selectedGame, value);
         }
         private Game _selectedGame = Game.EldenRing;
 
@@ -80,49 +78,49 @@ namespace SoulSplitter.UI
         public DarkSouls1ViewModel DarkSouls1ViewModel
         {
             get => _darkSouls1ViewModel;
-            set => SetField(ref _darkSouls1ViewModel, value);
+            set => this.SetField(ref _darkSouls1ViewModel, value);
         }
         private DarkSouls1ViewModel _darkSouls1ViewModel = new DarkSouls1ViewModel();
 
         public DarkSouls2ViewModel DarkSouls2ViewModel
         {
             get => _darkSouls2ViewModel;
-            set => SetField(ref _darkSouls2ViewModel, value);
+            set => this.SetField(ref _darkSouls2ViewModel, value);
         }
         private DarkSouls2ViewModel _darkSouls2ViewModel = new DarkSouls2ViewModel();
 
         public DarkSouls3ViewModel DarkSouls3ViewModel
         {
             get => _darkSouls3ViewModel;
-            set => SetField(ref _darkSouls3ViewModel, value);
+            set => this.SetField(ref _darkSouls3ViewModel, value);
         }
         private DarkSouls3ViewModel _darkSouls3ViewModel = new DarkSouls3ViewModel();
 
         public SekiroViewModel SekiroViewModel
         {
             get => _sekiroViewModel;
-            set => SetField(ref _sekiroViewModel, value);
+            set => this.SetField(ref _sekiroViewModel, value);
         }
         private SekiroViewModel _sekiroViewModel = new SekiroViewModel();
 
         public EldenRingViewModel EldenRingViewModel
         {
             get => _eldenRingViewModel;
-            set => SetField(ref _eldenRingViewModel, value);
+            set => this.SetField(ref _eldenRingViewModel, value);
         }
         private EldenRingViewModel _eldenRingViewModel = new EldenRingViewModel();
 
         public ArmoredCore6ViewModel ArmoredCore6ViewModel
         {
             get => _armoredCore6ViewModel;
-            set => SetField(ref _armoredCore6ViewModel, value);
+            set => this.SetField(ref _armoredCore6ViewModel, value);
         }
         private ArmoredCore6ViewModel _armoredCore6ViewModel = new ArmoredCore6ViewModel();
 
         public FlagTrackerViewModel FlagTrackerViewModel
         {
             get => _flagTrackerViewModel;
-            set => SetField(ref _flagTrackerViewModel, value);
+            set => this.SetField(ref _flagTrackerViewModel, value);
         }
         private FlagTrackerViewModel _flagTrackerViewModel = new FlagTrackerViewModel();
 
@@ -133,7 +131,7 @@ namespace SoulSplitter.UI
         public bool IgnoreProcessNotRunningErrors
         {
             get => _ignoreProcessNotRunningErrors;
-            set => SetField(ref _ignoreProcessNotRunningErrors, value);
+            set => this.SetField(ref _ignoreProcessNotRunningErrors, value);
         }
         private bool _ignoreProcessNotRunningErrors = true;
 
@@ -181,7 +179,7 @@ namespace SoulSplitter.UI
             UpdateErrorBadge();
         }
 
-        public void ClearErrors(object param)
+        public void ClearErrors()
         {
             Errors.Clear();
             UpdateErrorBadge();
@@ -215,20 +213,20 @@ namespace SoulSplitter.UI
         public RelayCommand CommandClearErrors
         {
             get => _commandClearErrors;
-            set => SetField(ref _commandClearErrors, value);
+            set => this.SetField(ref _commandClearErrors, value);
         }
-        private RelayCommand _commandClearErrors;
+        private RelayCommand _commandClearErrors = null!;
 
         [XmlIgnore]
         public RelayCommand CommandShowErrors
         {
             get => _commandShowErrors;
-            set => SetField(ref _commandShowErrors, value);
+            set => this.SetField(ref _commandShowErrors, value);
         }
-        private RelayCommand _commandShowErrors;
+        private RelayCommand _commandShowErrors = null!;
 
-        private ErrorWindow _errorWindow = null;
-        private void ShowErrorWindow(object param)
+        private ErrorWindow _errorWindow = null!;
+        private void ShowErrorWindow()
         {
             if(_errorWindow == null)
             {
@@ -247,15 +245,15 @@ namespace SoulSplitter.UI
         public string ErrorCount
         {
             get => _errorCount;
-            set => SetField(ref _errorCount, value);
+            set => this.SetField(ref _errorCount, value);
         }
-        private string _errorCount;
+        private string _errorCount = null!;
 
         [XmlIgnore]
         public Brush BadgeBackgroundBrush
         {
             get => _badgeBackgroundBrush;
-            set => SetField(ref _badgeBackgroundBrush, value);
+            set => this.SetField(ref _badgeBackgroundBrush, value);
         }
         private Brush _badgeBackgroundBrush = new SolidColorBrush(Colors.Transparent);
 
@@ -263,7 +261,7 @@ namespace SoulSplitter.UI
         public Brush BadgeForegroundBrush
         {
             get => _badgeForegroundBrush;
-            set => SetField(ref _badgeForegroundBrush, value);
+            set => this.SetField(ref _badgeForegroundBrush, value);
         }
         private Brush _badgeForegroundBrush = new SolidColorBrush(Colors.Transparent);
 
@@ -271,7 +269,7 @@ namespace SoulSplitter.UI
         public Visibility BadgeVisibilityInverse
         {
             get => _badgeVisibilityInverse;
-            set => SetField(ref _badgeVisibilityInverse, value);
+            set => this.SetField(ref _badgeVisibilityInverse, value);
         }
         private Visibility _badgeVisibilityInverse = Visibility.Visible;
 
@@ -286,12 +284,12 @@ namespace SoulSplitter.UI
         public RelayCommand CommandTroubleShooting
         {
             get => _commandTroubleShooting;
-            set => SetField(ref _commandTroubleShooting, value);
+            set => this.SetField(ref _commandTroubleShooting, value);
         }
-        private RelayCommand _commandTroubleShooting;
+        private RelayCommand _commandTroubleShooting = null!;
 
         private const string TroubleshootingUrl = "https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting";
-        private void OpenTroubleshootingWebpage(object param)
+        private void OpenTroubleshootingWebpage()
         {
             Process.Start(TroubleshootingUrl);
         }
@@ -300,11 +298,11 @@ namespace SoulSplitter.UI
         public RelayCommand CommandRunEventFlagLogger
         {
             get => _commandRunEventFlagLogger;
-            set => SetField(ref _commandRunEventFlagLogger, value);
+            set => this.SetField(ref _commandRunEventFlagLogger, value);
         }
-        private RelayCommand _commandRunEventFlagLogger;
+        private RelayCommand _commandRunEventFlagLogger = null!;
 
-        private void RunEventFlagLogger(object sender)
+        private void RunEventFlagLogger()
         {
             TryAndHandleError(SoulMemoryRs.Launch);
         }
@@ -313,12 +311,12 @@ namespace SoulSplitter.UI
         public RelayCommand CommandOpenFlagTrackerWindow
         {
             get => _commandOpenFlagTrackerWindow;
-            set => SetField(ref _commandOpenFlagTrackerWindow, value);
+            set => this.SetField(ref _commandOpenFlagTrackerWindow, value);
         }
-        private RelayCommand _commandOpenFlagTrackerWindow;
+        private RelayCommand _commandOpenFlagTrackerWindow = null!;
 
-        private FlagTrackerWindow _flagTrackerWindow;
-        private void OpenFlagTrackerWindow(object sender)
+        private FlagTrackerWindow _flagTrackerWindow = null!;
+        private void OpenFlagTrackerWindow()
         {
             if (_flagTrackerWindow == null)
             {
@@ -341,12 +339,12 @@ namespace SoulSplitter.UI
         public RelayCommand CommandAddError
         {
             get => _commandAddError;
-            set => SetField(ref _commandAddError, value);
+            set => this.SetField(ref _commandAddError, value);
         }
-        private RelayCommand _commandAddError;
+        private RelayCommand _commandAddError = null!;
 
         //For debugging purposes
-        private void AddErrorCommand(object param)
+        private void AddErrorCommand()
         {
             AddException(new Exception("adf"));
         }
@@ -355,11 +353,11 @@ namespace SoulSplitter.UI
         public RelayCommand CommandImportSettingsFromFile
         {
             get => _commandImportSettingsFromFile;
-            set => SetField(ref _commandImportSettingsFromFile, value);
+            set => this.SetField(ref _commandImportSettingsFromFile, value);
         }
-        private RelayCommand _commandImportSettingsFromFile;
+        private RelayCommand _commandImportSettingsFromFile = null!;
 
-        private void ImportSettings(object sender)
+        private void ImportSettings()
         {
             TryAndHandleError(() =>
             {
@@ -376,17 +374,17 @@ namespace SoulSplitter.UI
             });
         }
 
-        [XmlIgnore] public string ImportXml = null;
+        [XmlIgnore] public string ImportXml = null!;
 
         [XmlIgnore]
         public RelayCommand CommandExportSettingsFromFile
         {
             get => _commandExportSettingsFromFile;
-            set => SetField(ref _commandExportSettingsFromFile, value);
+            set => this.SetField(ref _commandExportSettingsFromFile, value);
         }
-        private RelayCommand _commandExportSettingsFromFile;
+        private RelayCommand _commandExportSettingsFromFile = null!;
 
-        private void ExportSettings(object sender)
+        private void ExportSettings()
         {
             TryAndHandleError(() =>
             {
@@ -436,40 +434,20 @@ namespace SoulSplitter.UI
         }
 
         #endregion
-        
-        #region INotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private ImageSource iconHelper = null!;
+
+        public ImageSource IconHelper { get => iconHelper; set => this.SetField(ref iconHelper, value); }
+
+        #region ICustomNotifyPropertyChanged
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void InvokePropertyChanged(string propertyName)
         {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
-        }
-
-        private ImageSource iconHelper;
-
-        public ImageSource IconHelper { get => iconHelper; set => SetProperty(ref iconHelper, value); }
 
         #endregion
-
     }
 }

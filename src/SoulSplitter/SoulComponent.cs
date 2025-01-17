@@ -41,12 +41,12 @@ namespace SoulSplitter
 
 
         private LiveSplitState _liveSplitState;
-        private ISplitter _splitter = null;
-        private IGame _game = null;
+        private ISplitter? _splitter = null!;
+        private IGame _game = null!;
         private DateTime _lastFailedRefresh = DateTime.MinValue;
         private bool _previousBitBlt = false;
         public readonly MainWindow MainWindow;
-        public SoulComponent(LiveSplitState state = null, bool shouldThrowOnInvalidInstallation = true)
+        public SoulComponent(LiveSplitState state, bool shouldThrowOnInvalidInstallation = true)
         {
             if (shouldThrowOnInvalidInstallation)
             {
@@ -235,7 +235,7 @@ namespace SoulSplitter
             try
             {
                 var xml = MainWindow.MainViewModel.ImportXml;
-                MainWindow.MainViewModel.ImportXml = null; //Don't get stuck in an import loop
+                MainWindow.MainViewModel.ImportXml = null!; //Don't get stuck in an import loop
 
                 var xmlDocument = new XmlDocument();
                 xmlDocument.LoadXml(xml);
@@ -296,7 +296,7 @@ namespace SoulSplitter
             });
         }
 
-        private Button _customShowSettingsButton;
+        private Button? _customShowSettingsButton;
         public System.Windows.Forms.Control GetSettingsControl(LayoutMode mode)
         {
             var stackTrace = new StackTrace();
@@ -335,7 +335,7 @@ namespace SoulSplitter
         {
             MainWindow.Dispatcher.Invoke(() =>
             {
-                if (!string.IsNullOrWhiteSpace(s?.Run?.GameName))
+                if (!string.IsNullOrWhiteSpace(s.Run.GameName))
                 {
                     var name = s.Run.GameName.ToLower().Replace(" ", "");
                     switch (name)

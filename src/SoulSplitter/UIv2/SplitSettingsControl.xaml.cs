@@ -17,10 +17,8 @@
 using SoulSplitter.UI.Generic;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using SoulMemory;
@@ -31,7 +29,7 @@ namespace SoulSplitter.UIv2
     /// <summary>
     /// Interaction logic for SplitSettingsControl.xaml
     /// </summary>
-    public partial class SplitSettingsControl : UserControl, INotifyPropertyChanged
+    public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyChanged
     {
         public SplitSettingsControl()
         {
@@ -44,7 +42,7 @@ namespace SoulSplitter.UIv2
 
         #region Add split logic
 
-        private bool CanAddSplit(object param)
+        private bool CanAddSplit(object? param)
         {
             switch (SelectedSplitType)
             {
@@ -83,7 +81,7 @@ namespace SoulSplitter.UIv2
             throw new InvalidOperationException($"Unhandled case {SelectedSplitType}");
         }
 
-        private void AddSplitFunc(object parameter)
+        private void AddSplitFunc(object? parameter)
         {
             var flatSplit = new FlatSplit
             {
@@ -135,8 +133,8 @@ namespace SoulSplitter.UIv2
             AddSplit.Execute(flatSplit);
         }
 
-        private bool CanRemoveSplit(object param) => SplitsViewModel.SelectedSplit != null;
-        private void RemoveSplitFunc(object parameter) => RemoveSplit?.Execute(parameter);
+        private bool CanRemoveSplit(object? param) => SplitsViewModel.SelectedSplit != null;
+        private void RemoveSplitFunc(object? parameter) => RemoveSplit?.Execute(parameter);
 
         #endregion
 
@@ -248,7 +246,7 @@ namespace SoulSplitter.UIv2
 
         public static readonly DependencyProperty AddSplitDependencyProperty =
             DependencyProperty.Register(nameof(AddSplit), typeof(RelayCommand), typeof(SplitSettingsControl),
-                new FrameworkPropertyMetadata(new RelayCommand(null), FrameworkPropertyMetadataOptions.None));
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 
         public RelayCommand AddSplit
         {
@@ -258,7 +256,7 @@ namespace SoulSplitter.UIv2
 
         public static readonly DependencyProperty RemoveSplitDependencyProperty =
             DependencyProperty.Register(nameof(RemoveSplit), typeof(RelayCommand), typeof(SplitSettingsControl),
-                new FrameworkPropertyMetadata(new RelayCommand(null), FrameworkPropertyMetadataOptions.None));
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 
         public RelayCommand RemoveSplit
         {
@@ -273,25 +271,25 @@ namespace SoulSplitter.UIv2
         public RelayCommand AddSplitCommand
         {
             get => _addSplitCommand;
-            set => SetField(ref _addSplitCommand, value);
+            set => this.SetField(ref _addSplitCommand, value);
         }
-        private RelayCommand _addSplitCommand;
+        private RelayCommand _addSplitCommand = null!;
 
         public RelayCommand RemoveSplitCommand
         {
             get => _removeSplitCommand;
-            set => SetField(ref _removeSplitCommand, value);
+            set => this.SetField(ref _removeSplitCommand, value);
         }
-        private RelayCommand _removeSplitCommand;
+        private RelayCommand _removeSplitCommand = null!;
 
         public RelayCommand CopyGamePositionCommand
         {
             get => _copyGamePositionCommand;
-            set => SetField(ref _copyGamePositionCommand, value);
+            set => this.SetField(ref _copyGamePositionCommand, value);
         }
-        private RelayCommand _copyGamePositionCommand;
+        private RelayCommand _copyGamePositionCommand = null!;
 
-        private void CopyGamePosition(object param)
+        private void CopyGamePosition(object? param)
         {
             Position.Position = GamePosition.Clone();
         }
@@ -302,78 +300,78 @@ namespace SoulSplitter.UIv2
         public TimingType SelectedTimingType
         {
             get => _selectedTimingType;
-            set => SetField(ref _selectedTimingType, value);
+            set => this.SetField(ref _selectedTimingType, value);
         }
         private TimingType _selectedTimingType = TimingType.Immediate;
 
         public SplitType SelectedSplitType
         {
             get => _selectedSplitType;
-            set => SetField(ref _selectedSplitType, value);
+            set => this.SetField(ref _selectedSplitType, value);
         }
         private SplitType _selectedSplitType = SplitType.Boss;
 
         public Enum SelectedBoss
         {
             get => _selectedBoss;
-            set => SetField(ref _selectedBoss, value);
+            set => this.SetField(ref _selectedBoss, value);
         }
-        private Enum _selectedBoss;
+        private Enum _selectedBoss = null!;
 
         public Enum SelectedKnownFlag
         {
             get => _selectedKnownFlag;
-            set => SetField(ref _selectedKnownFlag, value);
+            set => this.SetField(ref _selectedKnownFlag, value);
         }
-        private Enum _selectedKnownFlag;
+        private Enum _selectedKnownFlag = null!;
 
         public Enum SelectedBonfire
         {
             get => _selectedBonfire;
-            set => SetField(ref _selectedBonfire, value);
+            set => this.SetField(ref _selectedBonfire, value);
         }
-        private Enum _selectedBonfire;
+        private Enum _selectedBonfire = null!;
 
         //For dark souls 1 specifically
         public Enum SelectedBonfireState
         {
             get => _selectedBonfireState;
-            set => SetField(ref _selectedBonfireState, value);
+            set => this.SetField(ref _selectedBonfireState, value);
         }
-        private Enum _selectedBonfireState;
+        private Enum _selectedBonfireState = null!;
 
         public Enum SelectedAttribute
         {
             get => _selectedAttribute;
-            set => SetField(ref _selectedAttribute, value);
+            set => this.SetField(ref _selectedAttribute, value);
         }
-        private Enum _selectedAttribute;
+        private Enum _selectedAttribute = null!;
 
         public int AttributeLevel
         {
             get => _attributeLevel;
-            set => SetField(ref _attributeLevel, value);
+            set => this.SetField(ref _attributeLevel, value);
         }
         private int _attributeLevel = 10;
 
         public Enum SelectedItem
         {
             get => _selectedItem;
-            set => SetField(ref _selectedItem, value);
+            set => this.SetField(ref _selectedItem, value);
         }
-        private Enum _selectedItem;
+        private Enum _selectedItem = null!;
 
         public VectorSize Position
         {
             get => _position;
-            set => SetField(ref _position, value);
+            set => this.SetField(ref _position, value);
         }
         private VectorSize _position = new VectorSize();
 
         public FlagDescription FlagDescription
         {
             get => _flagDescription;
-            set => SetField(ref _flagDescription, value);
+            set => this.SetField(ref _flagDescription, value);
         }
         private FlagDescription _flagDescription = new FlagDescription();
         #endregion
@@ -394,21 +392,13 @@ namespace SoulSplitter.UIv2
             }
         }
 
+        #region ICustomNotifyPropertyChanged
 
-        #region INotifyPropertyChanged
-        private bool SetField<U>(ref U field, U value, [CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void InvokePropertyChanged(string propertyName)
         {
-            if (EqualityComparer<U>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

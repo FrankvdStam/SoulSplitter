@@ -30,8 +30,8 @@ namespace SoulSplitter.Splitters
     public class DarkSouls2Splitter : ISplitter
     {
         private readonly DarkSouls2 _darkSouls2;
-        private DarkSouls2ViewModel _darkSouls2ViewModel;
-        private MainViewModel _mainViewModel;
+        private DarkSouls2ViewModel _darkSouls2ViewModel = null!;
+        private MainViewModel _mainViewModel = null!;
         private readonly LiveSplitState _liveSplitState;
         
         public DarkSouls2Splitter(LiveSplitState state, DarkSouls2 darkSouls2)

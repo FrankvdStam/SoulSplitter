@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using SoulMemory.EldenRing;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.EldenRing
 {
-    public class PositionViewModel : INotifyPropertyChanged
+    public class PositionViewModel : ICustomNotifyPropertyChanged
     {
         
         public readonly Position Position = new Position();
@@ -30,44 +29,44 @@ namespace SoulSplitter.UI.EldenRing
         public byte Area
         {
             get => Position.Area;
-            set => SetField(ref Position.Area, value);
+            set => this.SetField(ref Position.Area, value);
         }
 
         public byte Block
         {
             get => Position.Block;
-            set => SetField(ref Position.Block, value);
+            set => this.SetField(ref Position.Block, value);
         }
 
         public byte Region
         {
             get => Position.Region;
-            set => SetField(ref Position.Region, value);
+            set => this.SetField(ref Position.Region, value);
         }
 
         public byte Size
         {
             get => Position.Size;
-            set => SetField(ref Position.Size, value);
+            set => this.SetField(ref Position.Size, value);
         }
 
 
         public float X
         {
             get => Position.X;
-            set => SetField(ref Position.X, value);
+            set => this.SetField(ref Position.X, value);
         }
 
         public float Y
         {
             get => Position.Y;
-            set => SetField(ref Position.Y, value);
+            set => this.SetField(ref Position.Y, value);
         }
 
         public float Z
         {
             get => Position.Z;
-            set => SetField(ref Position.Z, value);
+            set => this.SetField(ref Position.Z, value);
         }
 
         
@@ -75,22 +74,15 @@ namespace SoulSplitter.UI.EldenRing
         {
             return Position.ToString();
         }
-        
 
-        #region INotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        #region ICustomNotifyPropertyChanged
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void InvokePropertyChanged(string propertyName)
         {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

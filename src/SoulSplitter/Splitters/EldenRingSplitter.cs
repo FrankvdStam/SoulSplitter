@@ -30,8 +30,9 @@ namespace SoulSplitter.Splitters
     internal class EldenRingSplitter : ISplitter
     {
         private readonly EldenRing _eldenRing;
-        private EldenRingViewModel _eldenRingViewModel;
+        private EldenRingViewModel _eldenRingViewModel = null!;
         private readonly LiveSplitState _liveSplitState;
+        private MainViewModel _mainViewModel= null!;
 
         public EldenRingSplitter(LiveSplitState state, EldenRing eldenRing)
         {
@@ -46,7 +47,6 @@ namespace SoulSplitter.Splitters
             _timerModel.CurrentState = state;
         }
 
-        private MainViewModel _mainViewModel;
         public void SetViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
@@ -76,7 +76,7 @@ namespace SoulSplitter.Splitters
             });
 
 
-            ResultErr<RefreshError> result = null;
+            ResultErr<RefreshError>? result = null;
             
             //Refresh attachment to ER process
             mainViewModel.TryAndHandleError(() =>
@@ -115,7 +115,7 @@ namespace SoulSplitter.Splitters
                 mainViewModel.FlagTrackerViewModel.Update(_eldenRing);
             });
 
-            return result;
+            return result!;
         }
 
 
@@ -245,7 +245,7 @@ namespace SoulSplitter.Splitters
                 return;
             }
 
-            List<Item> inventoryItems = null;
+            List<Item>? inventoryItems = null;
 
             foreach (var s in _splits)
             {

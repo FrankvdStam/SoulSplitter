@@ -39,7 +39,7 @@ namespace SoulSplitter.UI.DarkSouls2
                 _darkSouls2ViewModel = vm;
             }
         }
-        private DarkSouls2ViewModel _darkSouls2ViewModel;
+        private DarkSouls2ViewModel _darkSouls2ViewModel = null!;
 
         private void AddSplit_OnClick(object sender, RoutedEventArgs e)
         {

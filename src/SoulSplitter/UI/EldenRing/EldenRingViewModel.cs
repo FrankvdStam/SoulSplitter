@@ -15,11 +15,9 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using SoulMemory.EldenRing;
 using SoulSplitter.Splits.EldenRing;
@@ -27,7 +25,7 @@ using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.EldenRing
 {
-    public class EldenRingViewModel : INotifyPropertyChanged
+    public class EldenRingViewModel : ICustomNotifyPropertyChanged
     {
         public EldenRingViewModel()
         {
@@ -36,14 +34,14 @@ namespace SoulSplitter.UI.EldenRing
         public bool StartAutomatically
         {
             get => _startAutomatically;
-            set => SetField(ref _startAutomatically, value);
+            set => this.SetField(ref _startAutomatically, value);
         }
         private bool _startAutomatically = true;
 
         public bool LockIgtToZero
         {
             get => _lockIgtToZero;
-            set => SetField(ref _lockIgtToZero, value);
+            set => this.SetField(ref _lockIgtToZero, value);
         }
         private bool _lockIgtToZero;
 
@@ -51,7 +49,7 @@ namespace SoulSplitter.UI.EldenRing
         public PositionViewModel CurrentPosition
         {
             get => _currentPosition;
-            set => SetField(ref _currentPosition, value);
+            set => this.SetField(ref _currentPosition, value);
         }
         private PositionViewModel _currentPosition = new PositionViewModel();
 
@@ -64,7 +62,7 @@ namespace SoulSplitter.UI.EldenRing
             get => _newSplitTimingType;
             set
             {
-                SetField(ref _newSplitTimingType, value);
+                this.SetField(ref _newSplitTimingType, value);
                 EnabledSplitType = NewSplitTimingType.HasValue;
             }
         }
@@ -74,7 +72,7 @@ namespace SoulSplitter.UI.EldenRing
         public bool EnabledSplitType
         {
             get => _enabledSplitType;
-            set => SetField(ref _enabledSplitType, value);
+            set => this.SetField(ref _enabledSplitType, value);
         }
         private bool _enabledSplitType = false;
 
@@ -84,7 +82,7 @@ namespace SoulSplitter.UI.EldenRing
             get => _newSplitType;
             set
             {
-                SetField(ref _newSplitType, value);
+                this.SetField(ref _newSplitType, value);
 
                 EnabledAddSplit = false;
                 VisibleBossSplit = false;
@@ -141,7 +139,7 @@ namespace SoulSplitter.UI.EldenRing
             get => _newSplitBoss;
             set
             {
-                SetField(ref _newSplitBoss, value);
+                this.SetField(ref _newSplitBoss, value);
                 EnabledAddSplit = NewSplitBoss.HasValue;
             }
         }
@@ -151,7 +149,7 @@ namespace SoulSplitter.UI.EldenRing
         public bool VisibleBossSplit
         {
             get => _visibleBossSplit;
-            set => SetField(ref _visibleBossSplit, value);
+            set => this.SetField(ref _visibleBossSplit, value);
         }
         private bool _visibleBossSplit;
 
@@ -161,7 +159,7 @@ namespace SoulSplitter.UI.EldenRing
             get => _newSplitGrace;
             set
             {
-                SetField(ref _newSplitGrace, value);
+                this.SetField(ref _newSplitGrace, value);
                 EnabledAddSplit = NewSplitGrace.HasValue;
             }
         }
@@ -171,7 +169,7 @@ namespace SoulSplitter.UI.EldenRing
         public bool VisibleGraceSplit
         {
             get => _visibleGraceSplit;
-            set => SetField(ref _visibleGraceSplit, value);
+            set => this.SetField(ref _visibleGraceSplit, value);
         }
         private bool _visibleGraceSplit;
 
@@ -181,7 +179,7 @@ namespace SoulSplitter.UI.EldenRing
             get => _newSplitFlag;
             set
             {
-                SetField(ref _newSplitFlag, value);
+                this.SetField(ref _newSplitFlag, value);
                 EnabledAddSplit = NewSplitFlag.HasValue;
             }
         }
@@ -191,27 +189,27 @@ namespace SoulSplitter.UI.EldenRing
         public bool VisibleFlagSplit
         {
             get => _visibleFlagSplit;
-            set => SetField(ref _visibleFlagSplit, value);
+            set => this.SetField(ref _visibleFlagSplit, value);
         }
         private bool _visibleFlagSplit;
 
         [XmlIgnore]
-        public Item NewSplitItem
+        public Item? NewSplitItem
         {
             get => _newSplitItem;
             set
             {
-                SetField(ref _newSplitItem, value);
+                this.SetField(ref _newSplitItem, value);
                 EnabledAddSplit = NewSplitItem != null;
             }
         }
-        private Item _newSplitItem;
+        private Item? _newSplitItem;
 
         [XmlIgnore]
         public bool VisibleItemSplit
         {
             get => _visibleItemSplit;
-            set => SetField(ref _visibleItemSplit, value);
+            set => this.SetField(ref _visibleItemSplit, value);
         }
         private bool _visibleItemSplit;
 
@@ -221,7 +219,7 @@ namespace SoulSplitter.UI.EldenRing
             get => _newSplitPosition;
             set
             {
-                SetField(ref _newSplitPosition, value);
+                this.SetField(ref _newSplitPosition, value);
                 EnabledAddSplit = _newSplitPosition != null;
             }
         }
@@ -231,7 +229,7 @@ namespace SoulSplitter.UI.EldenRing
         public bool VisiblePositionSplit
         {
             get => _visiblePositionSplit;
-            set => SetField(ref _visiblePositionSplit, value);
+            set => this.SetField(ref _visiblePositionSplit, value);
         }
         private bool _visiblePositionSplit;
 
@@ -239,7 +237,7 @@ namespace SoulSplitter.UI.EldenRing
         public bool VisibleItemPickupSplit
         {
             get => _visibleItemPickupSplit;
-            set => SetField(ref _visibleItemPickupSplit, value);
+            set => this.SetField(ref _visibleItemPickupSplit, value);
         }
         private bool _visibleItemPickupSplit;
 
@@ -249,7 +247,7 @@ namespace SoulSplitter.UI.EldenRing
             get => _newSplitItemPickup;
             set
             {
-                SetField(ref _newSplitItemPickup, value);
+                this.SetField(ref _newSplitItemPickup, value);
                 EnabledAddSplit = NewSplitItemPickup.HasValue;
             }
         }
@@ -259,7 +257,7 @@ namespace SoulSplitter.UI.EldenRing
         public bool VisibleKnownFlagSplit
         {
             get => _visibleKnownFlagSplit;
-            set => SetField(ref _visibleKnownFlagSplit, value);
+            set => this.SetField(ref _visibleKnownFlagSplit, value);
         }
         private bool _visibleKnownFlagSplit;
 
@@ -269,7 +267,7 @@ namespace SoulSplitter.UI.EldenRing
             get => _newSplitKnownFlag;
             set
             {
-                SetField(ref _newSplitKnownFlag, value);
+                this.SetField(ref _newSplitKnownFlag, value);
                 EnabledAddSplit = NewSplitKnownFlag.HasValue;
             }
         }
@@ -280,7 +278,7 @@ namespace SoulSplitter.UI.EldenRing
         public bool EnabledAddSplit
         {
             get => _enabledAddSplit;
-            set => SetField(ref _enabledAddSplit, value);
+            set => this.SetField(ref _enabledAddSplit, value);
         }
         private bool _enabledAddSplit;
 
@@ -316,42 +314,42 @@ namespace SoulSplitter.UI.EldenRing
                 case EldenRingSplitType.Boss:
                     if (hierarchicalSplitType.Children.All(i => (Boss)i.Split != NewSplitBoss))
                     {
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitBoss.Value, Parent = hierarchicalSplitType });
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitBoss!.Value, Parent = hierarchicalSplitType });
                     }
                     break;
 
                 case EldenRingSplitType.Grace:
                     if (hierarchicalSplitType.Children.All(i => (Grace)i.Split != NewSplitGrace))
                     {
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitGrace.Value, Parent = hierarchicalSplitType });
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitGrace!.Value, Parent = hierarchicalSplitType });
                     }
                     break;
 
                 case EldenRingSplitType.ItemPickup:
                     if (hierarchicalSplitType.Children.All(i => (ItemPickup)i.Split != NewSplitItemPickup))
                     {
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitItemPickup.Value, Parent = hierarchicalSplitType });
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitItemPickup!.Value, Parent = hierarchicalSplitType });
                     }
                     break;
 
                 case EldenRingSplitType.KnownFlag:
                     if (hierarchicalSplitType.Children.All(i => (KnownFlag)i.Split != NewSplitKnownFlag))
                     {
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitKnownFlag.Value, Parent = hierarchicalSplitType });
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitKnownFlag!.Value, Parent = hierarchicalSplitType });
                     }
                     break;
 
                 case EldenRingSplitType.Flag:
                     if (hierarchicalSplitType.Children.All(i => (uint)i.Split != NewSplitFlag))
                     {
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitFlag.Value, Parent = hierarchicalSplitType });
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitFlag!.Value, Parent = hierarchicalSplitType });
                     }
                     break;
 
                 case EldenRingSplitType.Item:
                     if (hierarchicalSplitType.Children.All(i => (Item)i.Split != NewSplitItem))
                     { 
-                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitItem, Parent = hierarchicalSplitType });
+                        hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitItem!, Parent = hierarchicalSplitType });
                     }
                     break;
 
@@ -382,31 +380,31 @@ namespace SoulSplitter.UI.EldenRing
         public bool EnabledRemoveSplit
         {
             get => _enabledRemoveSplit;
-            set => SetField(ref _enabledRemoveSplit, value);
+            set => this.SetField(ref _enabledRemoveSplit, value);
         }
         private bool _enabledRemoveSplit;
 
-        public HierarchicalSplitViewModel SelectedSplit
+        public HierarchicalSplitViewModel? SelectedSplit
         {
             get => _selectedSplit;
             set
             {
-                SetField(ref _selectedSplit, value);
+                this.SetField(ref _selectedSplit, value);
                 EnabledRemoveSplit = SelectedSplit != null;
             }
         }
-        private HierarchicalSplitViewModel _selectedSplit = null;
+        private HierarchicalSplitViewModel? _selectedSplit = null;
         
         public void RemoveSplit()
         {
             if (SelectedSplit != null)
             {
                 var parent = SelectedSplit.Parent;
-                parent.Children.Remove(SelectedSplit);
+                parent!.Children.Remove(SelectedSplit);
                 if (parent.Children.Count <= 0)
                 {
                     var nextParent = parent.Parent;
-                    nextParent.Children.Remove(parent);
+                    nextParent!.Children.Remove(parent);
                     if (nextParent.Children.Count <= 0)
                     {
                         Splits.Remove(nextParent);
@@ -449,26 +447,20 @@ namespace SoulSplitter.UI.EldenRing
         public static ObservableCollection<ItemPickupViewModel> ItemPickups { get; set; } = new ObservableCollection<ItemPickupViewModel>(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new ItemPickupViewModel(i)));
         public static ObservableCollection<KnownFlagViewModel> KnownFlags { get; set; } = new ObservableCollection<KnownFlagViewModel>(Enum.GetValues(typeof(KnownFlag)).Cast<KnownFlag>().Select(i => new KnownFlagViewModel(i)));
 
-        #region INotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+        #region ICustomNotifyPropertyChanged
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion
     }
 
-    public class ItemViewModel
+    public class ItemViewModel : ICustomNotifyPropertyChanged
     {
         public override string ToString()
         {
@@ -487,55 +479,49 @@ namespace SoulSplitter.UI.EldenRing
         public Item Item
         {
             get => _item;
-            set => SetField(ref _item, value);
+            set => this.SetField(ref _item, value);
         }
-        private Item _item;
+        private Item _item = null!;
 
         public Category Category
         {
             get => _category;
-            set => SetField(ref _category, value);
+            set => this.SetField(ref _category, value);
         }
         private Category _category;
 
         public string GroupName
         {
             get => _groupName;
-            set => SetField(ref _groupName, value);
+            set => this.SetField(ref _groupName, value);
         }
-        private string _groupName;
+        private string _groupName = null!;
 
 
         public string Name
         {
             get => _name;
-            set => SetField(ref _name, value);
+            set => this.SetField(ref _name, value);
         }
-        private string _name;
+        private string _name = null!;
 
         public uint Id
         {
             get => _id;
-            set => SetField(ref _id, value);
+            set => this.SetField(ref _id, value);
         }
         private uint _id;
 
 
 
-        #region INotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+        #region ICustomNotifyPropertyChanged
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

@@ -32,14 +32,14 @@ namespace SoulSplitter.UI.Sekiro
         public bool OverwriteIgtOnStart
         {
             get => _overwriteIgtOnStart;
-            set => SetField(ref _overwriteIgtOnStart, value);
+            set => this.SetField(ref _overwriteIgtOnStart, value);
         }
         private bool _overwriteIgtOnStart = false;
         
 
         #region add/remove splits ============================================================================================================================================
 
-        private bool CanAddSplit(object param)
+        private bool CanAddSplit()
         {
             if (!NewSplitTimingType.HasValue || !NewSplitType.HasValue)
             {
@@ -64,9 +64,9 @@ namespace SoulSplitter.UI.Sekiro
             }
         }
 
-        private void AddSplit(object param)
+        private void AddSplit()
         {
-            object split = null;
+            object? split = null;
             switch (NewSplitType)
             {
                 default:
@@ -89,7 +89,7 @@ namespace SoulSplitter.UI.Sekiro
                     split = FlagDescription;
                     break;
             }
-            SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);
+            SplitsViewModel.AddSplit(NewSplitTimingType!.Value, NewSplitType.Value, split!);
 
             NewSplitTimingType = null;
             NewSplitEnabledSplitType = false;

@@ -28,7 +28,7 @@ namespace SoulSplitter.ViewModels.Games
             RemoveSplitCommand = new RelayCommand(RemoveSplit);
         }
 
-        private bool CanAddSplit(object param)
+        private bool CanAddSplit(object? param)
         {
             if (param is FlatSplit)
             {
@@ -38,7 +38,7 @@ namespace SoulSplitter.ViewModels.Games
             return false;
         }
 
-        private void AddSplit(object param)
+        private void AddSplit(object? param)
         {
             if (param is FlatSplit flatSplit)
             {
@@ -46,7 +46,7 @@ namespace SoulSplitter.ViewModels.Games
             }
         }
 
-        private void RemoveSplit(object param)
+        private void RemoveSplit(object? o)
         {
             SplitsViewModel.RemoveSplit();
         }

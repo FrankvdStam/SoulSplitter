@@ -14,29 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using SoulMemory.DarkSouls2;
+using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splits.DarkSouls2
 {
     [XmlType(Namespace = "DarkSouls2")]
-    public class BossKill : INotifyPropertyChanged
+    public class BossKill : ICustomNotifyPropertyChanged
     {
         [XmlElement(Namespace = "DarkSouls2")]
         public BossType BossType
         {
             get => _bossType;
-            set => SetField(ref _bossType, value);
+            set => this.SetField(ref _bossType, value);
         }
         private BossType _bossType;
 
         public int Count
         {
             get => _count;
-            set => SetField(ref _count, value);
+            set => this.SetField(ref _count, value);
         }
         private int _count = 1;
 
@@ -44,20 +43,14 @@ namespace SoulSplitter.Splits.DarkSouls2
         {
             return $"{BossType} {Count}";
         }
+        
+        #region ICustomNotifyPropertyChanged
 
-        #region INotifyPropertyChanged
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

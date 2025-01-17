@@ -26,7 +26,7 @@ namespace SoulSplitter.Splitters
         protected readonly IGame _game;
         protected readonly LiveSplitState _liveSplitState;
         protected readonly TimerModel _timerModel;
-        protected MainViewModel _mainViewModel;
+        protected MainViewModel _mainViewModel = null!;
         protected int _inGameTime;
         protected TimerState _timerState = TimerState.WaitForStart;
 

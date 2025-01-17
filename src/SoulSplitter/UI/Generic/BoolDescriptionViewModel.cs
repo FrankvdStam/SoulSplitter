@@ -14,25 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace SoulSplitter.UI.Generic
 {
-    public class BoolDescriptionViewModel : INotifyPropertyChanged
+    public class BoolDescriptionViewModel : ICustomNotifyPropertyChanged
     {
         public string Description
         {
             get => _description;
-            set => SetField(ref _description, value);
+            set => this.SetField(ref _description, value);
         }
         private string _description = "";
 
         public bool Value
         {
             get => _value;
-            set => SetField(ref _value, value);
+            set => this.SetField(ref _value, value);
         }
         private bool _value;
 
@@ -41,20 +39,13 @@ namespace SoulSplitter.UI.Generic
             return $"{Value} {Description}";
         }
 
-        #region INotifyPropertyChanged
-        private bool SetField<U>(ref U field, U value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<U>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+        #region ICustomNotifyPropertyChanged
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

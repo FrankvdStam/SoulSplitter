@@ -38,7 +38,7 @@ namespace SoulSplitter.UI.DarkSouls1
         
         #region add/remove splits ============================================================================================================================================
 
-        private bool CanAddSplit(object param)
+        private bool CanAddSplit(object? param)
         {
             if (!NewSplitTimingType.HasValue || !NewSplitType.HasValue)
             {
@@ -71,7 +71,7 @@ namespace SoulSplitter.UI.DarkSouls1
             }
         }
 
-        private void AddSplit(object param)
+        private void AddSplit(object? param)
         {
             if (param is FlatSplit f)
             {
@@ -90,7 +90,7 @@ namespace SoulSplitter.UI.DarkSouls1
             get => _newSplitType;
             set
             {
-                SetField(ref _newSplitType, value);
+                this.SetField(ref _newSplitType, value);
 
                 switch (NewSplitType)
                 {
@@ -123,19 +123,19 @@ namespace SoulSplitter.UI.DarkSouls1
         public Splits.DarkSouls1.BonfireState NewSplitBonfireState
         {
             get => _newSplitBonfireState;
-            set => SetField(ref _newSplitBonfireState, value);
+            set => this.SetField(ref _newSplitBonfireState, value);
         }
 
-        private Splits.DarkSouls1.BonfireState _newSplitBonfireState;
+        private Splits.DarkSouls1.BonfireState _newSplitBonfireState = null!;
 
         [XmlIgnore]
         public ItemState NewSplitItemState
         {
             get => _newSplitItemState;
-            set => SetField(ref _newSplitItemState, value);
+            set => this.SetField(ref _newSplitItemState, value);
         }
 
-        private ItemState _newSplitItemState;
+        private ItemState _newSplitItemState = null!;
 
         #endregion
 

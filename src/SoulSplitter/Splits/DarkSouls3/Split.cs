@@ -67,8 +67,8 @@ namespace SoulSplitter.Splits.DarkSouls3
         public readonly Boss Boss;
         public readonly Bonfire Bonfire;
         public readonly ItemPickup ItemPickup;
-        public readonly Attribute Attribute;
-        public readonly VectorSize Position;
+        public readonly Attribute Attribute = null!;
+        public readonly VectorSize Position = null!;
         public readonly uint Flag;
 
         /// <summary>

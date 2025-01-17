@@ -14,14 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulSplitter.UI.Generic;
+using System.ComponentModel;
 
-namespace SoulSplitter.Splits
+namespace SoulSplitter.UI.Generic
 {
-    public class FlatSplit
+    internal interface ICustomNotifyPropertyChanged : INotifyPropertyChanged
     {
-        public TimingType TimingType;
-        public SplitType SplitType;
-        public object Split = null!;
+        void InvokePropertyChanged(string propertyName);
     }
 }

@@ -71,10 +71,10 @@ namespace SoulSplitter.Splits.DarkSouls1
         public readonly SplitType SplitType;
 
         public readonly Boss Boss;
-        public readonly Attribute Attribute;
-        public readonly ItemState ItemState;
-        public readonly BonfireState BonfireState;
-        public readonly VectorSize Position;
+        public readonly Attribute Attribute = null!;
+        public readonly ItemState ItemState = null!;
+        public readonly BonfireState BonfireState = null!;
+        public readonly VectorSize Position = null!;
         public readonly uint Flag;
         public readonly KnownFlag KnownFlag;
 

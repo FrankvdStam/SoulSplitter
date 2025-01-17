@@ -31,7 +31,6 @@ using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
 using SoulSplitter.Hotkeys;
-using SoulSplitter.soulmemory_rs;
 
 #pragma warning disable CS0162
 

@@ -29,9 +29,10 @@ namespace SoulSplitter.Splitters
 {
     public class DarkSouls3Splitter : ISplitter
     {
-        private readonly LiveSplitState _liveSplitState;
-        private readonly DarkSouls3 _darkSouls3;
-        private DarkSouls3ViewModel _darkSouls3ViewModel;
+        private readonly LiveSplitState _liveSplitState = null!;
+        private readonly DarkSouls3 _darkSouls3 = null!;
+        private DarkSouls3ViewModel _darkSouls3ViewModel = null!;
+        private MainViewModel _mainViewModel = null!;
 
         public DarkSouls3Splitter(LiveSplitState state, DarkSouls3 darkSouls)
         {
@@ -46,7 +47,6 @@ namespace SoulSplitter.Splitters
         }
 
 
-        private MainViewModel _mainViewModel;
         public void SetViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;

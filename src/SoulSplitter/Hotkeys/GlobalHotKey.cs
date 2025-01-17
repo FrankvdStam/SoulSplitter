@@ -28,7 +28,7 @@ namespace SoulSplitter.Hotkeys
     {
         private static readonly List<(int id, ModifierKeys modifier, Key key, Action action)> Hotkeys = new List<(int, ModifierKeys, Key, Action)>();
         private static readonly ManualResetEvent WindowReadyEvent = new ManualResetEvent(false);
-        public static volatile HotkeyForm HotkeyForm;
+        public static volatile HotkeyForm? HotkeyForm;
         public static volatile IntPtr Handle;
         private static int _currentId;
 
@@ -70,7 +70,7 @@ namespace SoulSplitter.Hotkeys
                     (uint)virtualKeyCode);
             });
 
-            HotkeyForm.Invoke(register);
+            HotkeyForm?.Invoke(register);
             Hotkeys.Add((id, modifier, key, action));
             return id;
         }
@@ -87,7 +87,7 @@ namespace SoulSplitter.Hotkeys
                 User32.UnregisterHotkey(Handle, id);
             });
 
-            HotkeyForm.Invoke(unregister);
+            HotkeyForm?.Invoke(unregister);
             Hotkeys.Remove(Hotkeys.Find(i => i.id == id));
         }
     }

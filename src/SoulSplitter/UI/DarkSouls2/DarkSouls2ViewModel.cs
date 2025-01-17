@@ -15,11 +15,9 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.DarkSouls2;
@@ -29,12 +27,12 @@ using Attribute = SoulSplitter.Splits.DarkSouls2.Attribute;
 
 namespace SoulSplitter.UI.DarkSouls2
 {
-    public class DarkSouls2ViewModel : INotifyPropertyChanged
+    public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
     {
         public bool StartAutomatically
         {
             get => _startAutomatically;
-            set => SetField(ref _startAutomatically, value);
+            set => this.SetField(ref _startAutomatically, value);
         }
         private bool _startAutomatically = true;
 
@@ -42,7 +40,7 @@ namespace SoulSplitter.UI.DarkSouls2
         public Vector3f CurrentPosition
         {
             get => _currentPosition;
-            set => SetField(ref _currentPosition, value);
+            set => this.SetField(ref _currentPosition, value);
         }
         private Vector3f _currentPosition = new Vector3f(0f,0f,0f);
 
@@ -119,11 +117,11 @@ namespace SoulSplitter.UI.DarkSouls2
             if (SelectedSplit != null)
             {
                 var parent = SelectedSplit.Parent;
-                parent.Children.Remove(SelectedSplit);
+                parent!.Children.Remove(SelectedSplit);
                 if (parent.Children.Count <= 0)
                 {
                     var nextParent = parent.Parent;
-                    nextParent.Children.Remove(parent);
+                    nextParent!.Children.Remove(parent);
                     if (nextParent.Children.Count <= 0)
                     {
                         Splits.Remove(nextParent);
@@ -146,7 +144,7 @@ namespace SoulSplitter.UI.DarkSouls2
             get => _newSplitTimingType;
             set
             {
-                SetField(ref _newSplitTimingType, value);
+                this.SetField(ref _newSplitTimingType, value);
                 NewSplitTypeEnabled = true;
             }
         }
@@ -163,7 +161,7 @@ namespace SoulSplitter.UI.DarkSouls2
                 NewSplitAttributeEnabled = false;
                 NewSplitFlagEnabled = false;
 
-                SetField(ref _newSplitType, value);
+                this.SetField(ref _newSplitType, value);
                 switch (NewSplitType)
                 {
                     case null:
@@ -196,22 +194,22 @@ namespace SoulSplitter.UI.DarkSouls2
         private DarkSouls2SplitType? _newSplitType = null;
 
         [XmlIgnore]
-        public object NewSplitValue
+        public object? NewSplitValue
         {
             get => _newSplitValue;
             set
             {
-                SetField(ref _newSplitValue, value);
+                this.SetField(ref _newSplitValue, value);
                 NewSplitAddEnabled = NewSplitValue != null;
             }
         }
-        private object _newSplitValue = null;
+        private object? _newSplitValue = null;
         
         [XmlIgnore]
         public bool NewSplitTypeEnabled
         {
             get => _newSplitTypeEnabled;
-            set => SetField(ref _newSplitTypeEnabled, value);
+            set => this.SetField(ref _newSplitTypeEnabled, value);
         }
         private bool _newSplitTypeEnabled = false;
 
@@ -219,7 +217,7 @@ namespace SoulSplitter.UI.DarkSouls2
         public bool NewSplitPositionEnabled
         {
             get => _newSplitPositionEnabled;
-            set => SetField(ref _newSplitPositionEnabled, value);
+            set => this.SetField(ref _newSplitPositionEnabled, value);
         }
         private bool _newSplitPositionEnabled = false;
 
@@ -227,7 +225,7 @@ namespace SoulSplitter.UI.DarkSouls2
         public bool NewSplitBossKillEnabled
         {
             get => _newSplitBossKillEnabled;
-            set => SetField(ref _newSplitBossKillEnabled, value);
+            set => this.SetField(ref _newSplitBossKillEnabled, value);
         }
         private bool _newSplitBossKillEnabled = false;
 
@@ -235,7 +233,7 @@ namespace SoulSplitter.UI.DarkSouls2
         public bool NewSplitAttributeEnabled
         {
             get => _newSplitAttributeEnabled;
-            set => SetField(ref _newSplitAttributeEnabled, value);
+            set => this.SetField(ref _newSplitAttributeEnabled, value);
         }
         private bool _newSplitAttributeEnabled = false;
 
@@ -243,7 +241,7 @@ namespace SoulSplitter.UI.DarkSouls2
         public bool NewSplitFlagEnabled
         {
             get => _newSplitFlagEnabled;
-            set => SetField(ref _newSplitFlagEnabled, value);
+            set => this.SetField(ref _newSplitFlagEnabled, value);
         }
         private bool _newSplitFlagEnabled = false;
 
@@ -251,7 +249,7 @@ namespace SoulSplitter.UI.DarkSouls2
         public bool NewSplitAddEnabled
         {
             get => _newSplitAddEnabled;
-            set => SetField(ref _newSplitAddEnabled, value);
+            set => this.SetField(ref _newSplitAddEnabled, value);
         }
         private bool _newSplitAddEnabled = false;
 
@@ -259,21 +257,21 @@ namespace SoulSplitter.UI.DarkSouls2
         public bool RemoveSplitEnabled
         {
             get => _removeSplitEnabled;
-            set => SetField(ref _removeSplitEnabled, value);
+            set => this.SetField(ref _removeSplitEnabled, value);
         }
         private bool _removeSplitEnabled = false;
 
         [XmlIgnore]
-        public HierarchicalSplitViewModel SelectedSplit
+        public HierarchicalSplitViewModel? SelectedSplit
         {
             get => _selectedSplit;
             set
             {
-                SetField(ref _selectedSplit, value);
+                this.SetField(ref _selectedSplit, value);
                 RemoveSplitEnabled = SelectedSplit != null;
             }
         }
-        private HierarchicalSplitViewModel _selectedSplit = null;
+        private HierarchicalSplitViewModel? _selectedSplit = null;
 
         #endregion
 
@@ -305,20 +303,13 @@ namespace SoulSplitter.UI.DarkSouls2
 
         #endregion
 
-        #region INotifyPropertyChanged ============================================================================================================================================
+        #region ICustomNotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

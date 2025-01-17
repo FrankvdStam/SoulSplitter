@@ -63,8 +63,8 @@ namespace SoulSplitter.Splits.Sekiro
         public readonly Boss Boss;
         public readonly Idol Idol;
         public readonly uint Flag;
-        public readonly VectorSize Position;
-        public readonly Attribute Attribute;
+        public readonly VectorSize Position = null!;
+        public readonly Attribute Attribute = null!;
 
         /// <summary>
         /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met

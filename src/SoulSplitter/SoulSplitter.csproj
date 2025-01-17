@@ -2,6 +2,8 @@
     <PropertyGroup>
         <TargetFramework>net481</TargetFramework>
         <PlatformTarget>x64</PlatformTarget>
+        <LangVersion>13</LangVersion>
+        <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
         <Title>SoulSplitter</Title>

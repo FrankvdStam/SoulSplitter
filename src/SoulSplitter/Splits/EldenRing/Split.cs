@@ -73,8 +73,8 @@ namespace SoulSplitter.Splits.EldenRing
         public readonly Grace Grace;
         public readonly ItemPickup ItemPickup;
         public readonly KnownFlag KnownFlag;
-        public readonly Item Item;
-        public readonly Position Position;
+        public readonly Item Item = null!;
+        public readonly Position Position = null!;
         public readonly uint Flag;
 
         /// <summary>

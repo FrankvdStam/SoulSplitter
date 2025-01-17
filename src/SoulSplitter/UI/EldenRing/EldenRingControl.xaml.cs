@@ -32,7 +32,7 @@ namespace SoulSplitter.UI.EldenRing
         
         private EldenRingViewModel GetEldenRingViewModel()
         {
-            return DataContext as EldenRingViewModel;
+            return (DataContext as EldenRingViewModel)!;
         }
 
         private void AddSplit_OnClick(object sender, RoutedEventArgs e)

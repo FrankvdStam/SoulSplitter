@@ -14,9 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.Sekiro;
@@ -27,7 +25,7 @@ namespace SoulSplitter.UI.Generic
     /// This object attempts to provide most of the general stuff that all souls games have
     /// Where needed, custom game implementations can be made
     /// </summary>
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : ICustomNotifyPropertyChanged
     {
         public BaseViewModel()
         {
@@ -45,7 +43,7 @@ namespace SoulSplitter.UI.Generic
             get => _newSplitType;
             set
             {
-                SetField(ref _newSplitType, value);
+                this.SetField(ref _newSplitType, value);
 
                 switch (NewSplitType)
                 {
@@ -71,7 +69,7 @@ namespace SoulSplitter.UI.Generic
             get => _newSplitTimingType;
             set
             {
-                SetField(ref _newSplitTimingType, value);
+                this.SetField(ref _newSplitTimingType, value);
                 NewSplitEnabledSplitType = true;
                 NewSplitValue = null;
             }
@@ -79,19 +77,19 @@ namespace SoulSplitter.UI.Generic
         private TimingType? _newSplitTimingType;
 
         [XmlIgnore]
-        public object NewSplitValue
+        public object? NewSplitValue
         {
             get => _newSplitValue;
-            set => SetField(ref _newSplitValue, value);
+            set => this.SetField(ref _newSplitValue, value);
         }
-        private object _newSplitValue;
+        private object? _newSplitValue;
         #endregion
 
         [XmlIgnore]
         public bool NewSplitEnabledSplitType
         {
             get => _newSplitEnabledSplitType;
-            set => SetField(ref _newSplitEnabledSplitType, value);
+            set => this.SetField(ref _newSplitEnabledSplitType, value);
         }
         private bool _newSplitEnabledSplitType = false;
 
@@ -102,36 +100,36 @@ namespace SoulSplitter.UI.Generic
         public RelayCommand AddSplitCommand
         {
             get => _addSplitCommand;
-            set => SetField(ref _addSplitCommand, value);
+            set => this.SetField(ref _addSplitCommand, value);
         }
-        private RelayCommand _addSplitCommand;
+        private RelayCommand _addSplitCommand = null!;
 
         [XmlIgnore]
         public RelayCommand RemoveSplitCommand
         {
             get => _removeSplitCommand;
-            set => SetField(ref _removeSplitCommand, value);
+            set => this.SetField(ref _removeSplitCommand, value);
         }
-        private RelayCommand _removeSplitCommand;
+        private RelayCommand _removeSplitCommand = null!;
 
         [XmlIgnore]
         public RelayCommand CopyGamePositionCommand
         {
             get => _copyGamePositionCommand;
-            set => SetField(ref _copyGamePositionCommand, value);
+            set => this.SetField(ref _copyGamePositionCommand, value);
         }
-        private RelayCommand _copyGamePositionCommand;
+        private RelayCommand _copyGamePositionCommand = null!;
 
         #endregion
 
         #region Functions
 
-        private void CopyGamePosition(object param)
+        private void CopyGamePosition()
         {
             Position.Position = CurrentPosition.Clone();
         }
 
-        private void RemoveSplit(object param)
+        private void RemoveSplit()
         {
             SplitsViewModel.RemoveSplit();
         }
@@ -143,14 +141,14 @@ namespace SoulSplitter.UI.Generic
         public bool StartAutomatically
         {
             get => _startAutomatically;
-            set => SetField(ref _startAutomatically, value);
+            set => this.SetField(ref _startAutomatically, value);
         }
         private bool _startAutomatically = true;
 
         public SplitsViewModel SplitsViewModel
         {
             get => _splitsViewModel;
-            set => SetField(ref _splitsViewModel, value);
+            set => this.SetField(ref _splitsViewModel, value);
         }
         private SplitsViewModel _splitsViewModel =  new SplitsViewModel();
         
@@ -158,15 +156,15 @@ namespace SoulSplitter.UI.Generic
         public VectorSize Position
         {
             get => _position;
-            set => SetField(ref _position, value);
+            set => this.SetField(ref _position, value);
         }
-        private VectorSize _position;
+        private VectorSize _position = null!;
 
         [XmlIgnore]
         public Vector3f CurrentPosition
         {
             get => _currentPosition;
-            set => SetField(ref _currentPosition, value);
+            set => this.SetField(ref _currentPosition, value);
         }
         private Vector3f _currentPosition = new Vector3f(0f, 0f, 0f);
 
@@ -174,26 +172,19 @@ namespace SoulSplitter.UI.Generic
         public FlagDescription FlagDescription
         {
             get => _flagDescription;
-            set => SetField(ref _flagDescription, value);
+            set => this.SetField(ref _flagDescription, value);
         }
-        private FlagDescription _flagDescription;
+        private FlagDescription _flagDescription = null!;
 
         #endregion
 
-        #region INotifyPropertyChanged ============================================================================================================================================
+        #region ICustomNotifyPropertyChanged
 
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

@@ -15,16 +15,14 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace SoulSplitter.UI.Generic
 {
-    public class SplitsViewModel : INotifyPropertyChanged
+    public class SplitsViewModel : ICustomNotifyPropertyChanged
     {
         public int TotalSplitsCount => Splits.Sum(timing => timing.Children.Sum(type => type.Children.Count));
             
@@ -55,11 +53,11 @@ namespace SoulSplitter.UI.Generic
             if (SelectedSplit != null)
             {
                 var parent = SelectedSplit.Parent;
-                parent.Children.Remove(SelectedSplit);
+                parent!.Children.Remove(SelectedSplit);
                 if (parent.Children.Count <= 0)
                 {
                     var nextParent = parent.Parent;
-                    nextParent.Children.Remove(parent);
+                    nextParent!.Children.Remove(parent);
                     if (nextParent.Children.Count <= 0)
                     {
                         Splits.Remove(nextParent);
@@ -89,95 +87,75 @@ namespace SoulSplitter.UI.Generic
         }
 
         [XmlIgnore]
-        public SplitViewModel SelectedSplit
+        public SplitViewModel? SelectedSplit
         {
             get => _selectedSplit;
-            set => SetField(ref _selectedSplit, value);
+            set => this.SetField(ref _selectedSplit, value);
         }
-        private SplitViewModel _selectedSplit;
+        private SplitViewModel? _selectedSplit = null!;
 
 
         public ObservableCollection<SplitTimingViewModel> Splits { get; set; } = new ObservableCollection<SplitTimingViewModel>();
 
-        #region INotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+        #region ICustomNotifyPropertyChanged
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion
     }
 
-    public class SplitTimingViewModel : INotifyPropertyChanged
+    public class SplitTimingViewModel : ICustomNotifyPropertyChanged
     {
         public TimingType TimingType
         {
             get => _timingType;
-            set => SetField(ref _timingType, value);
+            set => this.SetField(ref _timingType, value);
         }
         private TimingType _timingType;
         
         public ObservableCollection<SplitTypeViewModel> Children { get; set; } = new ObservableCollection<SplitTypeViewModel>();
 
-        #region INotifyPropertyChanged
+        #region ICustomNotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion
     }
-    
-    public class SplitTypeViewModel : INotifyPropertyChanged
+
+    public class SplitTypeViewModel : ICustomNotifyPropertyChanged
     {
         [XmlIgnore]
         [NonSerialized]
-        public SplitTimingViewModel Parent;
+        public SplitTimingViewModel? Parent = null!;
 
         public SplitType SplitType
         {
             get => _splitType;
-            set => SetField(ref _splitType, value);
+            set => this.SetField(ref _splitType, value);
         }
         private SplitType _splitType;
 
 
         public ObservableCollection<SplitViewModel> Children { get; set; } = new ObservableCollection<SplitViewModel>();
 
-        #region INotifyPropertyChanged
+        #region ICustomNotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion
@@ -203,33 +181,26 @@ namespace SoulSplitter.UI.Generic
         XmlInclude(typeof(Splits.Sekiro.Attribute)),
         XmlInclude(typeof(SoulMemory.Sekiro.Idol))
     ]
-    public class SplitViewModel : INotifyPropertyChanged
+    public class SplitViewModel : ICustomNotifyPropertyChanged
     {
         [XmlIgnore]
         [NonSerialized]
-        public SplitTypeViewModel Parent;
+        public SplitTypeViewModel? Parent = null!;
         
         public object Split
         {
             get => _split;
-            set => SetField(ref _split, value);
+            set => this.SetField(ref _split, value);
         }
-        private object _split;
+        private object _split = null!;
 
-        #region INotifyPropertyChanged
+        #region ICustomNotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+        
+        public void InvokePropertyChanged(string propertyName)
         {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

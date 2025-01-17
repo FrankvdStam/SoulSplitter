@@ -15,42 +15,33 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace SoulSplitter.UI.Generic
 {
-    public class ErrorViewModel
+    public class ErrorViewModel : ICustomNotifyPropertyChanged
     {
         public DateTime DateTime
         {
             get => _dateTime;
-            set => SetField(ref _dateTime, value);
+            set => this.SetField(ref _dateTime, value);
         }
         private DateTime _dateTime;
 
         public string Error
         {
             get => _error;
-            set => SetField(ref _error, value);
+            set => this.SetField(ref _error, value);
         }
-        private string _error;
+        private string _error = null!;
 
-        #region INotifyPropertyChanged
+        #region ICustomNotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void InvokePropertyChanged(string propertyName)
         {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

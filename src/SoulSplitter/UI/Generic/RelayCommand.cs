@@ -21,14 +21,24 @@ namespace SoulSplitter.UI.Generic
 {
     public class RelayCommand : ICommand
     {
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public RelayCommand(Action execute) : this((param) => execute(), (Func<object?, bool>?)null) { }
+        public RelayCommand(Action execute, Func<bool> canExecute) : this((param) => execute(), (param) => canExecute()) { }
+        public RelayCommand(Action execute, Func<object?, bool> canExecute) : this((param) => execute(), canExecute) { }
+        public RelayCommand(Action<object?> execute) : this(execute, (Func<object?, bool>?)null) { }
+        public RelayCommand(Action<object?> execute, Func<bool> canExecute) : this(execute, (param) => canExecute()) { }
+
+
+
+
+
+        public RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute)
         {
             _execute = execute;
             _canExecute = canExecute;
         }
 
-        private readonly Action<object> _execute;
-        private readonly Func<object, bool> _canExecute;
+        private readonly Action<object?> _execute;
+        private readonly Func<object?, bool>? _canExecute;
 
         public event EventHandler CanExecuteChanged
         {
@@ -36,12 +46,12 @@ namespace SoulSplitter.UI.Generic
             remove => CommandManager.RequerySuggested -= value;
         }
 
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter)
         {
             return _canExecute == null || _canExecute(parameter);
         }
 
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
         {
             _execute(parameter);
         }

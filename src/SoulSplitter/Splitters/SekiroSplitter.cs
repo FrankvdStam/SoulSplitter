@@ -30,9 +30,10 @@ namespace SoulSplitter.Splitters
     public class SekiroSplitter : ISplitter
     {
         private readonly Sekiro _sekiro;
-        private SekiroViewModel _sekiroViewModel;
+        private SekiroViewModel _sekiroViewModel = null!;
         private readonly LiveSplitState _liveSplitState;
-        
+        private MainViewModel _mainViewModel = null!;
+
         public SekiroSplitter(LiveSplitState state, Sekiro sekiro)
         {
             _sekiro = sekiro;
@@ -45,7 +46,6 @@ namespace SoulSplitter.Splitters
             _timerModel.CurrentState = state;
         }
 
-        private MainViewModel _mainViewModel;
         public void SetViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;

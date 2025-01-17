@@ -19,51 +19,43 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using System.Xml.Serialization;
 
 namespace SoulSplitter.UI.Generic
 {
-    public class FlagTrackerCategoryViewModel : INotifyPropertyChanged
+    public class FlagTrackerCategoryViewModel : ICustomNotifyPropertyChanged
     {
         public string CategoryName
         {
             get => _categoryName;
-            set => SetField(ref _categoryName, value);
+            set => this.SetField(ref _categoryName, value);
         }
-        private string _categoryName;
+        private string _categoryName = null!;
         
         [XmlIgnore]
         public string Progress
         {
             get => _progress;
-            set => SetField(ref _progress, value);
+            set => this.SetField(ref _progress, value);
         }
-        private string _progress;
+        private string _progress = null!;
 
         public ObservableCollection<FlagDescription> EventFlags { get; set; } = new ObservableCollection<FlagDescription>();
 
-        #region INotifyPropertyChanged
-        private bool SetField<U>(ref U field, U value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<U>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+        #region ICustomNotifyPropertyChanged
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion
     }
 
-    public class FlagTrackerViewModel : INotifyPropertyChanged
+    public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
     {
         public FlagTrackerViewModel()
         {
@@ -73,7 +65,7 @@ namespace SoulSplitter.UI.Generic
 
         
         #region Add/remove
-        private void AddEventFlag(object param)
+        private void AddEventFlag()
         {
             //Resolve category
             var category = EventFlagCategories.FirstOrDefault(i => i.CategoryName == CategoryName);
@@ -104,7 +96,7 @@ namespace SoulSplitter.UI.Generic
             FlagDescription.Description = "";
         }
 
-        private void RemoveEventFlag(object param)
+        private void RemoveEventFlag()
         {
             if(SelectedFlagDescription == null)
             {
@@ -128,7 +120,7 @@ namespace SoulSplitter.UI.Generic
         #endregion
 
         #region update/reset
-        private List<(FlagTrackerCategoryViewModel category, FlagDescription eventFlag)> _lookup;
+        private List<(FlagTrackerCategoryViewModel category, FlagDescription eventFlag)>? _lookup;
         private int _currentIndex = 0;
 
         public void Start()
@@ -251,7 +243,7 @@ namespace SoulSplitter.UI.Generic
         public EventFlagTrackerDisplayMode DisplayMode
         {
             get => _displayMode;
-            set => SetField(ref _displayMode, value);
+            set => this.SetField(ref _displayMode, value);
         }
         private EventFlagTrackerDisplayMode _displayMode = EventFlagTrackerDisplayMode.Percentage;
 
@@ -261,70 +253,70 @@ namespace SoulSplitter.UI.Generic
         public string Progress
         {
             get => _progress;
-            set => SetField(ref _progress, value);
+            set => this.SetField(ref _progress, value);
         }
-        private string _progress;
+        private string _progress = null!;
         
         public double WindowWidth
         {
             get => _windowWidth;
-            set => SetField(ref _windowWidth, value);
+            set => this.SetField(ref _windowWidth, value);
         }
         private double _windowWidth = 800;
 
         public double WindowHeight
         {
             get => _windowHeight;
-            set => SetField(ref _windowHeight, value);
+            set => this.SetField(ref _windowHeight, value);
         }
         private double _windowHeight = 600;
 
         public double InputColumnWidth
         {
             get => _inputColumnWidth;
-            set => SetField(ref _inputColumnWidth, value);
+            set => this.SetField(ref _inputColumnWidth, value);
         }
         private double _inputColumnWidth = 400;
 
         public double CategoryPercentagesRowHeight
         {
             get => _categoryPercentagesRowHeight;
-            set => SetField(ref _categoryPercentagesRowHeight, value);
+            set => this.SetField(ref _categoryPercentagesRowHeight, value);
         }
         private double _categoryPercentagesRowHeight = 300;
 
         public double CategoryPercentageFontSize
         {
             get => _categoryPercentageFontSize;
-            set => SetField(ref _categoryPercentageFontSize, value);
+            set => this.SetField(ref _categoryPercentageFontSize, value);
         }
         private double _categoryPercentageFontSize = 30.0;
 
         public int TotalPercentageFontSize
         {
             get => _totalPercentageFontSize;
-            set => SetField(ref _totalPercentageFontSize, value);
+            set => this.SetField(ref _totalPercentageFontSize, value);
         }
         private int _totalPercentageFontSize = 60;
 
         public Color BackgroundColor
         {
             get => _backgroundColor;
-            set => SetField(ref _backgroundColor, value);
+            set => this.SetField(ref _backgroundColor, value);
         }
         private Color _backgroundColor = Colors.White;
 
         public Color TextColor
         {
             get => _textColor;
-            set => SetField(ref _textColor, value);
+            set => this.SetField(ref _textColor, value);
         }
         private Color _textColor = Colors.Black;
 
         public int FlagsPerFrame
         {
             get => _flagsPerFrame;
-            set => SetField(ref _flagsPerFrame, value);
+            set => this.SetField(ref _flagsPerFrame, value);
         }
         private int _flagsPerFrame = 10;
 
@@ -336,60 +328,54 @@ namespace SoulSplitter.UI.Generic
         public string CategoryName
         {
             get => _categoryName;
-            set => SetField(ref _categoryName, value);
+            set => this.SetField(ref _categoryName, value);
         }
-        private string _categoryName;
+        private string _categoryName = null!;
 
         [XmlIgnore]
         public FlagDescription FlagDescription
         {
             get => _flagDescription;
-            set => SetField(ref _flagDescription, value);
+            set => this.SetField(ref _flagDescription, value);
         }
         private FlagDescription _flagDescription = new FlagDescription();
 
         [XmlIgnore]
-        public FlagDescription SelectedFlagDescription
+        public FlagDescription? SelectedFlagDescription
         {
             get => _selectedFlagDescription;
-            set => SetField(ref _selectedFlagDescription, value);
+            set => this.SetField(ref _selectedFlagDescription, value);
         }
-        private FlagDescription _selectedFlagDescription = null;
+        private FlagDescription? _selectedFlagDescription;
 
         [XmlIgnore]
         public RelayCommand CommandAddEventFlag
         {
             get => _commandAddEventFlag;
-            set => SetField(ref _commandAddEventFlag, value);
+            set => this.SetField(ref _commandAddEventFlag, value);
         }
-        private RelayCommand _commandAddEventFlag;
+        private RelayCommand _commandAddEventFlag = null!;
 
         [XmlIgnore]
         public RelayCommand CommandRemoveEventFlag
         {
             get => _commandRemoveEventFlag;
-            set => SetField(ref _commandRemoveEventFlag, value);
+            set => this.SetField(ref _commandRemoveEventFlag, value);
         }
-        private RelayCommand _commandRemoveEventFlag;
+        private RelayCommand _commandRemoveEventFlag = null!;
 
         #endregion
 
         #endregion
 
-        #region INotifyPropertyChanged
-        private bool SetField<U>(ref U field, U value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<U>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region ICustomNotifyPropertyChanged
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void InvokePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

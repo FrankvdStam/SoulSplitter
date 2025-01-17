@@ -22,8 +22,8 @@ namespace SoulSplitter.UI.Generic
 {
     public class SplitTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate EnumTemplate { get; set; }
-        public DataTemplate VectorSizeTemplate { get; set; }
+        public DataTemplate EnumTemplate { get; set; } = null!;
+        public DataTemplate VectorSizeTemplate { get; set; } = null!;
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container) 
         {

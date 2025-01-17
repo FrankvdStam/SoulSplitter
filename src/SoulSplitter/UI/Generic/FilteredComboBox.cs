@@ -29,7 +29,7 @@ namespace SoulSplitter.UI.Generic
 
         private string currentFilter = string.Empty;
 
-        protected TextBox EditableTextBox => GetTemplateChild("PART_EditableTextBox") as TextBox;
+        protected TextBox EditableTextBox => (GetTemplateChild("PART_EditableTextBox") as TextBox)!;
         
         protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
         {
