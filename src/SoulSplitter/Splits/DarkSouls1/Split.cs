@@ -18,76 +18,75 @@ using System;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.Splits.DarkSouls1
+namespace SoulSplitter.Splits.DarkSouls1;
+
+internal class Split
 {
-    internal class Split
+    public Split(TimingType timingType, SplitType splitType, object split)
     {
-        public Split(TimingType timingType, SplitType splitType, object split)
+        TimingType = timingType;
+        SplitType = splitType;
+
+        switch (SplitType)
         {
-            TimingType = timingType;
-            SplitType = splitType;
+            default:
+                throw new ArgumentException($"unsupported split type {SplitType}");
 
-            switch (SplitType)
-            {
-                default:
-                    throw new ArgumentException($"unsupported split type {SplitType}");
+            case SplitType.Boss:
+                Boss = (Boss)split;
+                Flag = (uint)Boss;
+                break;
 
-                case SplitType.Boss:
-                    Boss = (Boss)split;
-                    Flag = (uint)Boss;
-                    break;
+            case SplitType.Attribute:
+                Attribute = (Attribute)split;
+                break;
 
-                case SplitType.Attribute:
-                    Attribute = (Attribute)split;
-                    break;
+            case SplitType.Position:
+                Position = (VectorSize)split;
+                break;
 
-                case SplitType.Position:
-                    Position = (VectorSize)split;
-                    break;
+             case SplitType.KnownFlag:
+                KnownFlag = (KnownFlag)split;
+                Flag = (uint)KnownFlag;
+                break;
 
-                 case SplitType.KnownFlag:
-                    KnownFlag = (KnownFlag)split;
-                    Flag = (uint)KnownFlag;
-                    break;
+            case SplitType.Flag:
+                Flag = ((FlagDescription)split).Flag;
+                break;
 
-                case SplitType.Flag:
-                    Flag = ((FlagDescription)split).Flag;
-                    break;
+            case SplitType.Item:
+                ItemState = (ItemState)split;
+                break;
 
-                case SplitType.Item:
-                    ItemState = (ItemState)split;
-                    break;
+            case SplitType.Bonfire:
+                BonfireState = (BonfireState)split;
+                break;
 
-                case SplitType.Bonfire:
-                    BonfireState = (BonfireState)split;
-                    break;
-
-                case SplitType.Credits:
-                    break;
-            }
+            case SplitType.Credits:
+                break;
         }
-
-        public readonly TimingType TimingType;
-        public readonly SplitType SplitType;
-
-        public readonly Boss Boss;
-        public readonly Attribute Attribute = null!;
-        public readonly ItemState ItemState = null!;
-        public readonly BonfireState BonfireState = null!;
-        public readonly VectorSize Position = null!;
-        public readonly uint Flag;
-        public readonly KnownFlag KnownFlag;
-
-        /// <summary>
-        /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
-        /// </summary>
-        public bool SplitConditionMet = false;
-
-        /// <summary>
-        /// True after this split object cause a split. No longer need to check split conditions
-        /// </summary>
-        public bool SplitTriggered = false;
-
-        public bool Quitout = false;
     }
+
+    public readonly TimingType TimingType;
+    public readonly SplitType SplitType;
+
+    public readonly Boss Boss;
+    public readonly Attribute Attribute = null!;
+    public readonly ItemState ItemState = null!;
+    public readonly BonfireState BonfireState = null!;
+    public readonly VectorSize Position = null!;
+    public readonly uint Flag;
+    public readonly KnownFlag KnownFlag;
+
+    /// <summary>
+    /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
+    /// </summary>
+    public bool SplitConditionMet = false;
+
+    /// <summary>
+    /// True after this split object cause a split. No longer need to check split conditions
+    /// </summary>
+    public bool SplitTriggered = false;
+
+    public bool Quitout = false;
 }

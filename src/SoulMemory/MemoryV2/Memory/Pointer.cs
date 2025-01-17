@@ -19,66 +19,65 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SoulMemory.MemoryV2.Memory
+namespace SoulMemory.MemoryV2.Memory;
+
+public class Pointer : IMemory
 {
-    public class Pointer : IMemory
+    public readonly IMemory Memory;
+    public List<PointerPath> Path;
+    public long AbsoluteOffset = 0;
+
+    public Pointer(IMemory memory)
     {
-        public readonly IMemory Memory;
-        public List<PointerPath> Path;
-        public long AbsoluteOffset = 0;
-
-        public Pointer(IMemory memory)
+        if (memory is Pointer)
         {
-            if (memory is Pointer)
-            {
-                throw new ArgumentException("Can't initialize pointer object with another pointer.", nameof(memory));
-            }
-
-            Memory = memory;
-            Path = new List<PointerPath>();
+            throw new ArgumentException("Can't initialize pointer object with another pointer.", nameof(memory));
         }
 
-        public Pointer(IMemory memory, params long[] offsets)
-        {
-            if (memory is Pointer)
-            {
-                throw new ArgumentException("Can't initialize pointer object with another pointer.", nameof(memory));
-            }
-
-            Memory = memory;
-            Path = offsets.Select(i => new PointerPath { Address = 0, Offset = i }).ToList();
-        }
-
-        public long ResolveOffsets()
-        {
-            long currentAddress = AbsoluteOffset;//0 for standard pointers. Only has a value when coming from an absolute scan
-
-            //Resolve offsets
-            foreach (var step in Path)
-            {
-                currentAddress = Memory.ReadInt64(currentAddress + step.Offset);
-                step.Address = currentAddress;
-            }
-
-            return currentAddress;
-        }
-
-        public override string ToString()
-        {
-            //Populate path
-            ResolveOffsets();
-
-            //Format
-            var stringBuilder = new StringBuilder();
-            foreach (var p in Path)
-            {
-                stringBuilder.AppendLine($"0x{p.Offset:x8} - 0x{p.Address:x8}");
-            }
-
-            return stringBuilder.ToString();
-        }
-
-        public byte[] ReadBytes(long offset, int length) => Memory.ReadBytes(ResolveOffsets() + offset, length);
-        public void WriteBytes(long offset, byte[] bytes) => Memory.WriteBytes(ResolveOffsets() + offset, bytes);
+        Memory = memory;
+        Path = new List<PointerPath>();
     }
+
+    public Pointer(IMemory memory, params long[] offsets)
+    {
+        if (memory is Pointer)
+        {
+            throw new ArgumentException("Can't initialize pointer object with another pointer.", nameof(memory));
+        }
+
+        Memory = memory;
+        Path = offsets.Select(i => new PointerPath { Address = 0, Offset = i }).ToList();
+    }
+
+    public long ResolveOffsets()
+    {
+        long currentAddress = AbsoluteOffset;//0 for standard pointers. Only has a value when coming from an absolute scan
+
+        //Resolve offsets
+        foreach (var step in Path)
+        {
+            currentAddress = Memory.ReadInt64(currentAddress + step.Offset);
+            step.Address = currentAddress;
+        }
+
+        return currentAddress;
+    }
+
+    public override string ToString()
+    {
+        //Populate path
+        ResolveOffsets();
+
+        //Format
+        var stringBuilder = new StringBuilder();
+        foreach (var p in Path)
+        {
+            stringBuilder.AppendLine($"0x{p.Offset:x8} - 0x{p.Address:x8}");
+        }
+
+        return stringBuilder.ToString();
+    }
+
+    public byte[] ReadBytes(long offset, int length) => Memory.ReadBytes(ResolveOffsets() + offset, length);
+    public void WriteBytes(long offset, byte[] bytes) => Memory.WriteBytes(ResolveOffsets() + offset, bytes);
 }

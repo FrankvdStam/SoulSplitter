@@ -19,174 +19,173 @@ using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.Sekiro;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+/// <summary>
+/// This object attempts to provide most of the general stuff that all souls games have
+/// Where needed, custom game implementations can be made
+/// </summary>
+public class BaseViewModel : ICustomNotifyPropertyChanged
 {
-    /// <summary>
-    /// This object attempts to provide most of the general stuff that all souls games have
-    /// Where needed, custom game implementations can be made
-    /// </summary>
-    public class BaseViewModel : ICustomNotifyPropertyChanged
+    public BaseViewModel()
     {
-        public BaseViewModel()
-        {
-            CopyGamePositionCommand = new RelayCommand(CopyGamePosition, (o) => true);
-            RemoveSplitCommand = new RelayCommand(RemoveSplit, (o) => SplitsViewModel.SelectedSplit != null);
-        }
-        
-        #region Field visibility
-
-        #region new splits ============================================================================================================================================
-
-        [XmlIgnore]
-        public SplitType? NewSplitType
-        {
-            get => _newSplitType;
-            set
-            {
-                this.SetField(ref _newSplitType, value);
-
-                switch (NewSplitType)
-                {
-                    case SplitType.Position:
-                        Position = new VectorSize() { Position = CurrentPosition.Clone() };
-                        break;
-
-                    case SplitType.Flag:
-                        FlagDescription = new FlagDescription();
-                        break;
-
-                    case SplitType.Attribute:
-                        NewSplitValue = new Splits.Sekiro.Attribute() { AttributeType = Attribute.Vitality, Level = 10 };
-                        break;
-                }
-            }
-        }
-        private SplitType? _newSplitType = null;
-
-        [XmlIgnore]
-        public TimingType? NewSplitTimingType
-        {
-            get => _newSplitTimingType;
-            set
-            {
-                this.SetField(ref _newSplitTimingType, value);
-                NewSplitEnabledSplitType = true;
-                NewSplitValue = null;
-            }
-        }
-        private TimingType? _newSplitTimingType;
-
-        [XmlIgnore]
-        public object? NewSplitValue
-        {
-            get => _newSplitValue;
-            set => this.SetField(ref _newSplitValue, value);
-        }
-        private object? _newSplitValue;
-        #endregion
-
-        [XmlIgnore]
-        public bool NewSplitEnabledSplitType
-        {
-            get => _newSplitEnabledSplitType;
-            set => this.SetField(ref _newSplitEnabledSplitType, value);
-        }
-        private bool _newSplitEnabledSplitType = false;
-
-        #endregion
-
-        #region Relay commands
-        [XmlIgnore]
-        public RelayCommand AddSplitCommand
-        {
-            get => _addSplitCommand;
-            set => this.SetField(ref _addSplitCommand, value);
-        }
-        private RelayCommand _addSplitCommand = null!;
-
-        [XmlIgnore]
-        public RelayCommand RemoveSplitCommand
-        {
-            get => _removeSplitCommand;
-            set => this.SetField(ref _removeSplitCommand, value);
-        }
-        private RelayCommand _removeSplitCommand = null!;
-
-        [XmlIgnore]
-        public RelayCommand CopyGamePositionCommand
-        {
-            get => _copyGamePositionCommand;
-            set => this.SetField(ref _copyGamePositionCommand, value);
-        }
-        private RelayCommand _copyGamePositionCommand = null!;
-
-        #endregion
-
-        #region Functions
-
-        private void CopyGamePosition()
-        {
-            Position.Position = CurrentPosition.Clone();
-        }
-
-        private void RemoveSplit()
-        {
-            SplitsViewModel.RemoveSplit();
-        }
-
-        #endregion
-
-        #region generic properties
-
-        public bool StartAutomatically
-        {
-            get => _startAutomatically;
-            set => this.SetField(ref _startAutomatically, value);
-        }
-        private bool _startAutomatically = true;
-
-        public SplitsViewModel SplitsViewModel
-        {
-            get => _splitsViewModel;
-            set => this.SetField(ref _splitsViewModel, value);
-        }
-        private SplitsViewModel _splitsViewModel =  new SplitsViewModel();
-        
-        [XmlIgnore]
-        public VectorSize Position
-        {
-            get => _position;
-            set => this.SetField(ref _position, value);
-        }
-        private VectorSize _position = null!;
-
-        [XmlIgnore]
-        public Vector3f CurrentPosition
-        {
-            get => _currentPosition;
-            set => this.SetField(ref _currentPosition, value);
-        }
-        private Vector3f _currentPosition = new Vector3f(0f, 0f, 0f);
-
-        [XmlIgnore]
-        public FlagDescription FlagDescription
-        {
-            get => _flagDescription;
-            set => this.SetField(ref _flagDescription, value);
-        }
-        private FlagDescription _flagDescription = null!;
-
-        #endregion
-
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        CopyGamePositionCommand = new RelayCommand(CopyGamePosition, (o) => true);
+        RemoveSplitCommand = new RelayCommand(RemoveSplit, (o) => SplitsViewModel.SelectedSplit != null);
     }
+    
+    #region Field visibility
+
+    #region new splits ============================================================================================================================================
+
+    [XmlIgnore]
+    public SplitType? NewSplitType
+    {
+        get => _newSplitType;
+        set
+        {
+            this.SetField(ref _newSplitType, value);
+
+            switch (NewSplitType)
+            {
+                case SplitType.Position:
+                    Position = new VectorSize() { Position = CurrentPosition.Clone() };
+                    break;
+
+                case SplitType.Flag:
+                    FlagDescription = new FlagDescription();
+                    break;
+
+                case SplitType.Attribute:
+                    NewSplitValue = new Splits.Sekiro.Attribute() { AttributeType = Attribute.Vitality, Level = 10 };
+                    break;
+            }
+        }
+    }
+    private SplitType? _newSplitType = null;
+
+    [XmlIgnore]
+    public TimingType? NewSplitTimingType
+    {
+        get => _newSplitTimingType;
+        set
+        {
+            this.SetField(ref _newSplitTimingType, value);
+            NewSplitEnabledSplitType = true;
+            NewSplitValue = null;
+        }
+    }
+    private TimingType? _newSplitTimingType;
+
+    [XmlIgnore]
+    public object? NewSplitValue
+    {
+        get => _newSplitValue;
+        set => this.SetField(ref _newSplitValue, value);
+    }
+    private object? _newSplitValue;
+    #endregion
+
+    [XmlIgnore]
+    public bool NewSplitEnabledSplitType
+    {
+        get => _newSplitEnabledSplitType;
+        set => this.SetField(ref _newSplitEnabledSplitType, value);
+    }
+    private bool _newSplitEnabledSplitType = false;
+
+    #endregion
+
+    #region Relay commands
+    [XmlIgnore]
+    public RelayCommand AddSplitCommand
+    {
+        get => _addSplitCommand;
+        set => this.SetField(ref _addSplitCommand, value);
+    }
+    private RelayCommand _addSplitCommand = null!;
+
+    [XmlIgnore]
+    public RelayCommand RemoveSplitCommand
+    {
+        get => _removeSplitCommand;
+        set => this.SetField(ref _removeSplitCommand, value);
+    }
+    private RelayCommand _removeSplitCommand = null!;
+
+    [XmlIgnore]
+    public RelayCommand CopyGamePositionCommand
+    {
+        get => _copyGamePositionCommand;
+        set => this.SetField(ref _copyGamePositionCommand, value);
+    }
+    private RelayCommand _copyGamePositionCommand = null!;
+
+    #endregion
+
+    #region Functions
+
+    private void CopyGamePosition()
+    {
+        Position.Position = CurrentPosition.Clone();
+    }
+
+    private void RemoveSplit()
+    {
+        SplitsViewModel.RemoveSplit();
+    }
+
+    #endregion
+
+    #region generic properties
+
+    public bool StartAutomatically
+    {
+        get => _startAutomatically;
+        set => this.SetField(ref _startAutomatically, value);
+    }
+    private bool _startAutomatically = true;
+
+    public SplitsViewModel SplitsViewModel
+    {
+        get => _splitsViewModel;
+        set => this.SetField(ref _splitsViewModel, value);
+    }
+    private SplitsViewModel _splitsViewModel =  new SplitsViewModel();
+    
+    [XmlIgnore]
+    public VectorSize Position
+    {
+        get => _position;
+        set => this.SetField(ref _position, value);
+    }
+    private VectorSize _position = null!;
+
+    [XmlIgnore]
+    public Vector3f CurrentPosition
+    {
+        get => _currentPosition;
+        set => this.SetField(ref _currentPosition, value);
+    }
+    private Vector3f _currentPosition = new Vector3f(0f, 0f, 0f);
+
+    [XmlIgnore]
+    public FlagDescription FlagDescription
+    {
+        get => _flagDescription;
+        set => this.SetField(ref _flagDescription, value);
+    }
+    private FlagDescription _flagDescription = null!;
+
+    #endregion
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

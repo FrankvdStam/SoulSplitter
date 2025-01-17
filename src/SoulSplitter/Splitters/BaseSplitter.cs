@@ -19,86 +19,85 @@ using System;
 using SoulMemory;
 using SoulSplitter.UI;
 
-namespace SoulSplitter.Splitters
+namespace SoulSplitter.Splitters;
+
+public abstract class BaseSplitter : ISplitter
 {
-    public abstract class BaseSplitter : ISplitter
+    protected readonly IGame _game;
+    protected readonly LiveSplitState _liveSplitState;
+    protected readonly TimerModel _timerModel;
+    protected MainViewModel _mainViewModel = null!;
+    protected int _inGameTime;
+    protected TimerState _timerState = TimerState.WaitForStart;
+
+
+    protected BaseSplitter(LiveSplitState state, IGame game)
     {
-        protected readonly IGame _game;
-        protected readonly LiveSplitState _liveSplitState;
-        protected readonly TimerModel _timerModel;
-        protected MainViewModel _mainViewModel = null!;
-        protected int _inGameTime;
-        protected TimerState _timerState = TimerState.WaitForStart;
+        _liveSplitState = state;
+        _liveSplitState.OnStart += InternalStart;
+        _liveSplitState.OnReset += InternalReset;
+        _liveSplitState.IsGameTimePaused = true;
+        _game = game;
 
-
-        protected BaseSplitter(LiveSplitState state, IGame game)
-        {
-            _liveSplitState = state;
-            _liveSplitState.OnStart += InternalStart;
-            _liveSplitState.OnReset += InternalReset;
-            _liveSplitState.IsGameTimePaused = true;
-            _game = game;
-
-            _timerModel = new TimerModel();
-            _timerModel.CurrentState = state;
-        }
-        public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
-        {
-            var refreshResult = _game.TryRefresh();
-            if (refreshResult.IsErr)
-            {
-                return refreshResult;
-            }
-
-            _mainViewModel.TryAndHandleError(() => _mainViewModel.FlagTrackerViewModel.Update(_game));
-            return OnUpdate();
-        }
-
-        public void SetViewModel(MainViewModel mainViewModel)
-        {
-            _mainViewModel = mainViewModel;
-        }
-
-        private void InternalStart(object sender, EventArgs e)
-        {
-            _liveSplitState.IsGameTimePaused = true;
-            _timerState = TimerState.Running;
-            _inGameTime = _game.GetInGameTimeMilliseconds();
-            _mainViewModel.FlagTrackerViewModel.Start();
-            _timerModel.Start();
-            OnStart();
-        }
-
-        private void InternalReset(object sender, TimerPhase timerPhase)
-        {
-            _timerState = TimerState.WaitForStart;
-            _inGameTime = 0;
-            _mainViewModel.FlagTrackerViewModel.Reset();
-            _timerModel.Reset();
-            OnReset();
-        }
-
-        #region Disposing
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _liveSplitState.OnStart -= InternalStart;
-                _liveSplitState.OnReset -= InternalReset;
-            }
-        }
-
-        public virtual void OnStart() { }
-        public virtual ResultErr<RefreshError> OnUpdate() { return Result.Ok();}
-        public virtual void OnReset() { }
-
-        #endregion
+        _timerModel = new TimerModel();
+        _timerModel.CurrentState = state;
     }
+    public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
+    {
+        var refreshResult = _game.TryRefresh();
+        if (refreshResult.IsErr)
+        {
+            return refreshResult;
+        }
+
+        _mainViewModel.TryAndHandleError(() => _mainViewModel.FlagTrackerViewModel.Update(_game));
+        return OnUpdate();
+    }
+
+    public void SetViewModel(MainViewModel mainViewModel)
+    {
+        _mainViewModel = mainViewModel;
+    }
+
+    private void InternalStart(object sender, EventArgs e)
+    {
+        _liveSplitState.IsGameTimePaused = true;
+        _timerState = TimerState.Running;
+        _inGameTime = _game.GetInGameTimeMilliseconds();
+        _mainViewModel.FlagTrackerViewModel.Start();
+        _timerModel.Start();
+        OnStart();
+    }
+
+    private void InternalReset(object sender, TimerPhase timerPhase)
+    {
+        _timerState = TimerState.WaitForStart;
+        _inGameTime = 0;
+        _mainViewModel.FlagTrackerViewModel.Reset();
+        _timerModel.Reset();
+        OnReset();
+    }
+
+    #region Disposing
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _liveSplitState.OnStart -= InternalStart;
+            _liveSplitState.OnReset -= InternalReset;
+        }
+    }
+
+    public virtual void OnStart() { }
+    public virtual ResultErr<RefreshError> OnUpdate() { return Result.Ok();}
+    public virtual void OnReset() { }
+
+    #endregion
 }

@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Parameters
-{
-    public class TextTableEntry
-    {
-        public uint ItemLowRange { get; set; }
-        public uint DataOffset { get; set; }
-        public uint ItemHighRange { get; set; }
+namespace SoulMemory.Parameters;
 
-        public override string ToString() => ItemLowRange.ToString();
-    }
+public class TextTableEntry
+{
+    public uint ItemLowRange { get; set; }
+    public uint DataOffset { get; set; }
+    public uint ItemHighRange { get; set; }
+
+    public override string ToString() => ItemLowRange.ToString();
 }

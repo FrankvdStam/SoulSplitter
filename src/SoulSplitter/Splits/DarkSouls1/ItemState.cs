@@ -20,34 +20,33 @@ using System.Xml.Serialization;
 using SoulMemory.DarkSouls1;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.Splits.DarkSouls1
+namespace SoulSplitter.Splits.DarkSouls1;
+
+[XmlType(Namespace = "DarkSouls1")]
+public class ItemState : ICustomNotifyPropertyChanged
 {
-    [XmlType(Namespace = "DarkSouls1")]
-    public class ItemState : ICustomNotifyPropertyChanged
+    public ItemType? ItemType
     {
-        public ItemType? ItemType
-        {
-            get => _itemType;
-            set => this.SetField(ref _itemType, value);
-        }
-        private ItemType? _itemType;
-
-        private string ItemString => Item.AllItems.FirstOrDefault(i => i.ItemType == ItemType)?.Name ?? "";
-
-        public override string ToString()
-        {
-            return $"{ItemString}";
-        }
-
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        get => _itemType;
+        set => this.SetField(ref _itemType, value);
     }
+    private ItemType? _itemType;
+
+    private string ItemString => Item.AllItems.FirstOrDefault(i => i.ItemType == ItemType)?.Name ?? "";
+
+    public override string ToString()
+    {
+        return $"{ItemString}";
+    }
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

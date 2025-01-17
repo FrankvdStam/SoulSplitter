@@ -17,22 +17,21 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace SoulSplitter.Native
+namespace SoulSplitter.Native;
+
+public static class User32
 {
-    public static class User32
+    private static class NativeMethods
     {
-        private static class NativeMethods
-        {
-            [DllImport("user32.dll")]
-            internal static extern bool RegisterHotKey(IntPtr handle, int id, uint modifiers, uint virtualKeyCode);
+        [DllImport("user32.dll")]
+        internal static extern bool RegisterHotKey(IntPtr handle, int id, uint modifiers, uint virtualKeyCode);
 
 
-            [DllImport("user32.dll")]
-            internal static extern bool UnregisterHotKey(IntPtr handle, int id);
-        }
-
-        public static bool RegisterHotkey(IntPtr handle, int id, uint modifiers, uint virtualKeyCode) => NativeMethods.RegisterHotKey(handle, id, modifiers, virtualKeyCode);
-        public static bool UnregisterHotkey(IntPtr handle, int id) => NativeMethods.UnregisterHotKey(handle, id);
-
+        [DllImport("user32.dll")]
+        internal static extern bool UnregisterHotKey(IntPtr handle, int id);
     }
+
+    public static bool RegisterHotkey(IntPtr handle, int id, uint modifiers, uint virtualKeyCode) => NativeMethods.RegisterHotKey(handle, id, modifiers, virtualKeyCode);
+    public static bool UnregisterHotkey(IntPtr handle, int id) => NativeMethods.UnregisterHotKey(handle, id);
+
 }

@@ -16,38 +16,37 @@
 
 using System.ComponentModel;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+public class BoolDescriptionViewModel : ICustomNotifyPropertyChanged
 {
-    public class BoolDescriptionViewModel : ICustomNotifyPropertyChanged
+    public string Description
     {
-        public string Description
-        {
-            get => _description;
-            set => this.SetField(ref _description, value);
-        }
-        private string _description = "";
-
-        public bool Value
-        {
-            get => _value;
-            set => this.SetField(ref _value, value);
-        }
-        private bool _value;
-
-        public override string ToString()
-        {
-            return $"{Value} {Description}";
-        }
-
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        get => _description;
+        set => this.SetField(ref _description, value);
     }
+    private string _description = "";
+
+    public bool Value
+    {
+        get => _value;
+        set => this.SetField(ref _value, value);
+    }
+    private bool _value;
+
+    public override string ToString()
+    {
+        return $"{Value} {Description}";
+    }
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

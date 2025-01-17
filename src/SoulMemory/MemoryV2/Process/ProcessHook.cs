@@ -16,93 +16,92 @@
 
 using System;
 
-namespace SoulMemory.MemoryV2.Process
+namespace SoulMemory.MemoryV2.Process;
+
+public class ProcessHook : IProcessHook
 {
-    public class ProcessHook : IProcessHook
+    public ProcessHook(string name, IProcessWrapper? processWrapper = null)
     {
-        public ProcessHook(string name, IProcessWrapper? processWrapper = null)
-        {
-            _name = name;
-            ProcessWrapper = processWrapper ?? new ProcessWrapper();
-        }
-
-        private readonly string _name;
-
-
-        public IProcessWrapper ProcessWrapper { get; set; }
-
-        public System.Diagnostics.Process? GetProcess() => ProcessWrapper.GetProcess();
-
-        public event Func<ResultErr<RefreshError>> Hooked = null!;
-        public event Action<Exception> Exited = null!;
-
-        public PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder.PointerTreeBuilder();
-
-        #region Refresh =================================================================================================================================================
-
-        /// <summary>
-        /// Refresh attachment to a process
-        /// </summary>
-        /// <returns></returns>
-        public ResultErr<RefreshError> TryRefresh()
-        {
-            var processRefreshResult = ProcessWrapper.TryRefresh(_name, out Exception? e);
-            switch (processRefreshResult)
-            {
-                case ProcessRefreshResult.ProcessNotRunning:
-                    return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, $"Process {_name} not running or inaccessible. Try running livesplit as admin."));
-
-
-                //Run scans when process is initialized
-                case ProcessRefreshResult.Initialized:
-                    var mainModule = ProcessWrapper.GetMainModule();
-                    if (mainModule == null)
-                    {
-                        return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, "Main module is null. Try running as admin."));
-                    }
-
-                    var baseAddress = mainModule.BaseAddress.ToInt64();
-                    var memorySize = mainModule.ModuleMemorySize;
-                    var is64Bit = ProcessWrapper.Is64Bit();
-
-                    var pointerScanResult = PointerTreeBuilder.TryResolvePointers(this, baseAddress, memorySize, is64Bit);
-                    if (pointerScanResult.IsErr)
-                    {
-                        return pointerScanResult;
-                    }
-                    return Hooked?.Invoke() ?? Result.Ok();
-
-
-                //Standard refresh
-                case ProcessRefreshResult.Refreshed:
-                    return Result.Ok();
-
-
-                case ProcessRefreshResult.Exited:
-                    Exited?.Invoke(null!);
-                    return Result.Err(new RefreshError(RefreshErrorReason.ProcessExited));
-
-                case ProcessRefreshResult.Error:
-                    Exited?.Invoke(e!);
-                    if (e!.Message == "Access is denied")
-                    {
-                        return Result.Err(new RefreshError(RefreshErrorReason.AccessDenied, "Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin."));
-                    }
-                    return RefreshError.FromException(e);
-
-                default:
-                    throw new NotImplementedException($"{processRefreshResult}");
-            }
-        }
-
-        #endregion
-
-        #region IMemory
-
-        public byte[] ReadBytes(long offset, int length) => ProcessWrapper.ReadBytes(offset, length);
-        public void WriteBytes(long offset, byte[] bytes) => ProcessWrapper.WriteBytes(offset, bytes);
-
-        #endregion
-
+        _name = name;
+        ProcessWrapper = processWrapper ?? new ProcessWrapper();
     }
+
+    private readonly string _name;
+
+
+    public IProcessWrapper ProcessWrapper { get; set; }
+
+    public System.Diagnostics.Process? GetProcess() => ProcessWrapper.GetProcess();
+
+    public event Func<ResultErr<RefreshError>> Hooked = null!;
+    public event Action<Exception> Exited = null!;
+
+    public PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder.PointerTreeBuilder();
+
+    #region Refresh =================================================================================================================================================
+
+    /// <summary>
+    /// Refresh attachment to a process
+    /// </summary>
+    /// <returns></returns>
+    public ResultErr<RefreshError> TryRefresh()
+    {
+        var processRefreshResult = ProcessWrapper.TryRefresh(_name, out Exception? e);
+        switch (processRefreshResult)
+        {
+            case ProcessRefreshResult.ProcessNotRunning:
+                return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, $"Process {_name} not running or inaccessible. Try running livesplit as admin."));
+
+
+            //Run scans when process is initialized
+            case ProcessRefreshResult.Initialized:
+                var mainModule = ProcessWrapper.GetMainModule();
+                if (mainModule == null)
+                {
+                    return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, "Main module is null. Try running as admin."));
+                }
+
+                var baseAddress = mainModule.BaseAddress.ToInt64();
+                var memorySize = mainModule.ModuleMemorySize;
+                var is64Bit = ProcessWrapper.Is64Bit();
+
+                var pointerScanResult = PointerTreeBuilder.TryResolvePointers(this, baseAddress, memorySize, is64Bit);
+                if (pointerScanResult.IsErr)
+                {
+                    return pointerScanResult;
+                }
+                return Hooked?.Invoke() ?? Result.Ok();
+
+
+            //Standard refresh
+            case ProcessRefreshResult.Refreshed:
+                return Result.Ok();
+
+
+            case ProcessRefreshResult.Exited:
+                Exited?.Invoke(null!);
+                return Result.Err(new RefreshError(RefreshErrorReason.ProcessExited));
+
+            case ProcessRefreshResult.Error:
+                Exited?.Invoke(e!);
+                if (e!.Message == "Access is denied")
+                {
+                    return Result.Err(new RefreshError(RefreshErrorReason.AccessDenied, "Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin."));
+                }
+                return RefreshError.FromException(e);
+
+            default:
+                throw new NotImplementedException($"{processRefreshResult}");
+        }
+    }
+
+    #endregion
+
+    #region IMemory
+
+    public byte[] ReadBytes(long offset, int length) => ProcessWrapper.ReadBytes(offset, length);
+    public void WriteBytes(long offset, byte[] bytes) => ProcessWrapper.WriteBytes(offset, bytes);
+
+    #endregion
+
 }

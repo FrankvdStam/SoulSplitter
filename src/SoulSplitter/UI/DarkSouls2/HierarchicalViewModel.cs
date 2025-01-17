@@ -23,90 +23,89 @@ using SoulSplitter.Splits.DarkSouls2;
 using SoulSplitter.UI.Generic;
 using Attribute = SoulSplitter.Splits.DarkSouls2.Attribute;
 
-namespace SoulSplitter.UI.DarkSouls2
+namespace SoulSplitter.UI.DarkSouls2;
+
+[XmlType(Namespace = "DarkSouls2")]
+public class HierarchicalTimingTypeViewModel : ICustomNotifyPropertyChanged
 {
-    [XmlType(Namespace = "DarkSouls2")]
-    public class HierarchicalTimingTypeViewModel : ICustomNotifyPropertyChanged
+    public TimingType TimingType
     {
-        public TimingType TimingType
-        {
-            get => _timingType;
-            set => this.SetField(ref _timingType, value);
-        }
-        private TimingType _timingType;
-        
-        public ObservableCollection<HierarchicalSplitTypeViewModel> Children { get; set; } = new ObservableCollection<HierarchicalSplitTypeViewModel>();
+        get => _timingType;
+        set => this.SetField(ref _timingType, value);
+    }
+    private TimingType _timingType;
+    
+    public ObservableCollection<HierarchicalSplitTypeViewModel> Children { get; set; } = new ObservableCollection<HierarchicalSplitTypeViewModel>();
 
-        #region ICustomNotifyPropertyChanged
+    #region ICustomNotifyPropertyChanged
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    [XmlType(Namespace = "DarkSouls2")]
-    public class HierarchicalSplitTypeViewModel : ICustomNotifyPropertyChanged
+    #endregion
+}
+
+[XmlType(Namespace = "DarkSouls2")]
+public class HierarchicalSplitTypeViewModel : ICustomNotifyPropertyChanged
+{
+    [XmlIgnore]
+    [NonSerialized]
+    public HierarchicalTimingTypeViewModel? Parent;
+
+    public DarkSouls2SplitType SplitType
     {
-        [XmlIgnore]
-        [NonSerialized]
-        public HierarchicalTimingTypeViewModel? Parent;
-
-        public DarkSouls2SplitType SplitType
-        {
-            get => _splitType;
-            set => this.SetField(ref _splitType, value);
-        }
-        private DarkSouls2SplitType _splitType;
+        get => _splitType;
+        set => this.SetField(ref _splitType, value);
+    }
+    private DarkSouls2SplitType _splitType;
 
 
-        public ObservableCollection<HierarchicalSplitViewModel> Children { get; set; } = new ObservableCollection<HierarchicalSplitViewModel>();
+    public ObservableCollection<HierarchicalSplitViewModel> Children { get; set; } = new ObservableCollection<HierarchicalSplitViewModel>();
 
-        #region ICustomNotifyPropertyChanged
+    #region ICustomNotifyPropertyChanged
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
+    #endregion
+}
 
-    [XmlType(Namespace = "DarkSouls2")]
-    [XmlInclude(typeof(Vector3f)), 
-     XmlInclude(typeof(BossKill)), 
-     XmlInclude(typeof(Attribute)), 
-     XmlInclude(typeof(uint))]
-    public class HierarchicalSplitViewModel : ICustomNotifyPropertyChanged
+
+[XmlType(Namespace = "DarkSouls2")]
+[XmlInclude(typeof(Vector3f)), 
+ XmlInclude(typeof(BossKill)), 
+ XmlInclude(typeof(Attribute)), 
+ XmlInclude(typeof(uint))]
+public class HierarchicalSplitViewModel : ICustomNotifyPropertyChanged
+{
+    [XmlIgnore]
+    [NonSerialized]
+    public HierarchicalSplitTypeViewModel? Parent;
+
+    [XmlElement(Namespace = "DarkSouls2")]
+    public object Split
     {
-        [XmlIgnore]
-        [NonSerialized]
-        public HierarchicalSplitTypeViewModel? Parent;
-
-        [XmlElement(Namespace = "DarkSouls2")]
-        public object Split
-        {
-            get => _split;
-            set => this.SetField(ref _split, value);
-        }
-        private object _split = null!;
-
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        get => _split;
+        set => this.SetField(ref _split, value);
     }
+    private object _split = null!;
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

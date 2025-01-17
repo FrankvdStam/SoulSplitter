@@ -16,28 +16,27 @@
 
 using SoulMemory.MemoryV2.Memory;
 
-namespace SoulMemory.MemoryV2.PointerTreeBuilder
-{
-    public class PointerAppender
-    {
-        private readonly PointerNode _pointerNode;
-        internal PointerAppender(PointerNode pointerNode)
-        {
-            _pointerNode = pointerNode;
-        }
+namespace SoulMemory.MemoryV2.PointerTreeBuilder;
 
-        public PointerAppender AddPointer(Pointer pointer, params long[] offsets)
+public class PointerAppender
+{
+    private readonly PointerNode _pointerNode;
+    internal PointerAppender(PointerNode pointerNode)
+    {
+        _pointerNode = pointerNode;
+    }
+
+    public PointerAppender AddPointer(Pointer pointer, params long[] offsets)
+    {
+        var node = new PointerNode
         {
-            var node = new PointerNode
-            {
-                PointerNodeType = PointerNodeType.Pointer,
-                Name = _pointerNode.Name,
-                Pattern = _pointerNode.Pattern,
-                Offsets = offsets,
-                Pointer = pointer,
-            };
-            _pointerNode.Pointers.Add(node);
-            return this;
-        }
+            PointerNodeType = PointerNodeType.Pointer,
+            Name = _pointerNode.Name,
+            Pattern = _pointerNode.Pattern,
+            Offsets = offsets,
+            Pointer = pointer,
+        };
+        _pointerNode.Pointers.Add(node);
+        return this;
     }
 }

@@ -14,22 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.EldenRing
+namespace SoulMemory.EldenRing;
+
+public class Position
 {
-    public class Position
+    public byte Area;
+    public byte Block;
+    public byte Region;
+    public byte Size;
+
+    public float X;
+    public float Y;
+    public float Z;
+
+    public override string ToString()
     {
-        public byte Area;
-        public byte Block;
-        public byte Region;
-        public byte Size;
-
-        public float X;
-        public float Y;
-        public float Z;
-
-        public override string ToString()
-        {
-            return $"m{Area:D2}_{Block:D2}_{Region:D2}_{Size:D2} - ({X:F2}, {Y:F2}, {Z:F2})";
-        }
+        return $"m{Area:D2}_{Block:D2}_{Region:D2}_{Size:D2} - ({X:F2}, {Y:F2}, {Z:F2})";
     }
 }

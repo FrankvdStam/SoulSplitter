@@ -14,17 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Parameters
+namespace SoulMemory.Parameters;
+
+public enum ParamType
 {
-    public enum ParamType
-    {
-        U8,
-        I8,
-        U16,
-        I16,
-        U32,
-        I32,
-        F32,
-        Dummy8,
-    }
+    U8,
+    I8,
+    U16,
+    I16,
+    U32,
+    I32,
+    F32,
+    Dummy8,
 }

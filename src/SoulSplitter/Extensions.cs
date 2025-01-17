@@ -21,57 +21,56 @@ using System.Xml;
 using System.Xml.Serialization;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter
+namespace SoulSplitter;
+
+internal static class Extensions
 {
-    internal static class Extensions
+    public static T DeserializeXml<T>(this string xml) where T : class
     {
-        public static T DeserializeXml<T>(this string xml) where T : class
+        if (string.IsNullOrWhiteSpace(xml))
         {
-            if (string.IsNullOrWhiteSpace(xml))
-            {
-                return default(T)!;
-            }
-
-            var serializer = new XmlSerializer(typeof(T));
-            using (var reader = new StringReader(xml))
-            {
-                return (T)serializer.Deserialize(reader);
-            }
-        }
-        
-
-        public static string SerializeXml(this object obj)
-        {
-            if (obj == null)
-            {
-                return string.Empty;
-            }
-
-            var settings = new XmlWriterSettings()
-            {
-                OmitXmlDeclaration = true,
-                Indent = true,
-            };
-
-            using (var stream = new StringWriter())
-            using (var writer = XmlWriter.Create(stream, settings))
-            {
-                var serializer = new XmlSerializer(obj.GetType());
-                serializer.Serialize(writer, obj);
-                return stream.ToString();
-            }
+            return default(T)!;
         }
 
-        public static bool SetField<TField>(this ICustomNotifyPropertyChanged viewModel, ref TField field, TField value, [CallerMemberName] string? propertyName = null)
+        var serializer = new XmlSerializer(typeof(T));
+        using (var reader = new StringReader(xml))
         {
-            if (EqualityComparer<TField>.Default.Equals(field, value))
-            {
-                return false;
-            }
-
-            field = value;
-            viewModel.InvokePropertyChanged(propertyName!);
-            return true;
+            return (T)serializer.Deserialize(reader);
         }
+    }
+    
+
+    public static string SerializeXml(this object obj)
+    {
+        if (obj == null)
+        {
+            return string.Empty;
+        }
+
+        var settings = new XmlWriterSettings()
+        {
+            OmitXmlDeclaration = true,
+            Indent = true,
+        };
+
+        using (var stream = new StringWriter())
+        using (var writer = XmlWriter.Create(stream, settings))
+        {
+            var serializer = new XmlSerializer(obj.GetType());
+            serializer.Serialize(writer, obj);
+            return stream.ToString();
+        }
+    }
+
+    public static bool SetField<TField>(this ICustomNotifyPropertyChanged viewModel, ref TField field, TField value, [CallerMemberName] string? propertyName = null)
+    {
+        if (EqualityComparer<TField>.Default.Equals(field, value))
+        {
+            return false;
+        }
+
+        field = value;
+        viewModel.InvokePropertyChanged(propertyName!);
+        return true;
     }
 }

@@ -19,63 +19,62 @@ using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.UI.EldenRing
+namespace SoulSplitter.UI.EldenRing;
+
+public class GraceViewModel : ICustomNotifyPropertyChanged
 {
-    public class GraceViewModel : ICustomNotifyPropertyChanged
+    public GraceViewModel(Grace g)
     {
-        public GraceViewModel(Grace g)
-        {
-            Area = g.GetDisplayDescription();
-            Name = g.GetDisplayName();
-            Flag = (uint)g;
-            Grace = g;
-        }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        public Grace Grace
-        {
-            get => _grace;
-            set => this.SetField(ref _grace, value);
-        }
-        private Grace _grace;
-
-        public string Area
-        {
-            get => _area;
-            set => this.SetField(ref _area, value);
-        }
-        private string _area = null!;
-
-        public string Name
-        {
-            get => _name;
-            set => this.SetField(ref _name, value);
-        }
-        private string _name = null!;
-
-        public uint Flag
-        {
-            get => _flag;
-            set => this.SetField(ref _flag, value);
-        }
-        private uint _flag;
-
-
-
-
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        Area = g.GetDisplayDescription();
+        Name = g.GetDisplayName();
+        Flag = (uint)g;
+        Grace = g;
     }
+
+    public override string ToString()
+    {
+        return Name;
+    }
+
+    public Grace Grace
+    {
+        get => _grace;
+        set => this.SetField(ref _grace, value);
+    }
+    private Grace _grace;
+
+    public string Area
+    {
+        get => _area;
+        set => this.SetField(ref _area, value);
+    }
+    private string _area = null!;
+
+    public string Name
+    {
+        get => _name;
+        set => this.SetField(ref _name, value);
+    }
+    private string _name = null!;
+
+    public uint Flag
+    {
+        get => _flag;
+        set => this.SetField(ref _flag, value);
+    }
+    private uint _flag;
+
+
+
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

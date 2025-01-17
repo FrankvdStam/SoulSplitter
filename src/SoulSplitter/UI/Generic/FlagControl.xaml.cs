@@ -16,16 +16,15 @@
 
 using System.Windows.Controls;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+/// <summary>
+/// Interaction logic for FlagControl.xaml
+/// </summary>
+public partial class FlagControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for FlagControl.xaml
-    /// </summary>
-    public partial class FlagControl : UserControl
+    public FlagControl()
     {
-        public FlagControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

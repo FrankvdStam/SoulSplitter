@@ -18,76 +18,75 @@ using SoulMemory.Memory;
 using SoulMemory.Parameters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.DarkSouls1.Parameters;
+
+[ExcludeFromCodeCoverage]
+public class CoolTimeParam : BaseParam
 {
-    [ExcludeFromCodeCoverage]
-    public class CoolTimeParam : BaseParam
+    public CoolTimeParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
+
+    [ParamField(0x0, ParamType.F32)]
+    public float LimitationTime_0
     {
-        public CoolTimeParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
-        [ParamField(0x0, ParamType.F32)]
-        public float LimitationTime_0
-        {
-            get => _LimitationTime_0;
-            set => WriteParamField(ref _LimitationTime_0, value);
-        }
-        private float _LimitationTime_0;
-
-        [ParamField(0x4, ParamType.F32)]
-        public float ObservationTime_0
-        {
-            get => _ObservationTime_0;
-            set => WriteParamField(ref _ObservationTime_0, value);
-        }
-        private float _ObservationTime_0;
-
-        [ParamField(0x8, ParamType.F32)]
-        public float LimitationTime_1
-        {
-            get => _LimitationTime_1;
-            set => WriteParamField(ref _LimitationTime_1, value);
-        }
-        private float _LimitationTime_1;
-
-        [ParamField(0xC, ParamType.F32)]
-        public float ObservationTime_1
-        {
-            get => _ObservationTime_1;
-            set => WriteParamField(ref _ObservationTime_1, value);
-        }
-        private float _ObservationTime_1;
-
-        [ParamField(0x10, ParamType.F32)]
-        public float LimitationTime_2
-        {
-            get => _LimitationTime_2;
-            set => WriteParamField(ref _LimitationTime_2, value);
-        }
-        private float _LimitationTime_2;
-
-        [ParamField(0x14, ParamType.F32)]
-        public float ObservationTime_2
-        {
-            get => _ObservationTime_2;
-            set => WriteParamField(ref _ObservationTime_2, value);
-        }
-        private float _ObservationTime_2;
-
-        [ParamField(0x18, ParamType.F32)]
-        public float LimitationTime_3
-        {
-            get => _LimitationTime_3;
-            set => WriteParamField(ref _LimitationTime_3, value);
-        }
-        private float _LimitationTime_3;
-
-        [ParamField(0x1C, ParamType.F32)]
-        public float ObservationTime_3
-        {
-            get => _ObservationTime_3;
-            set => WriteParamField(ref _ObservationTime_3, value);
-        }
-        private float _ObservationTime_3;
-
+        get => _LimitationTime_0;
+        set => WriteParamField(ref _LimitationTime_0, value);
     }
+    private float _LimitationTime_0;
+
+    [ParamField(0x4, ParamType.F32)]
+    public float ObservationTime_0
+    {
+        get => _ObservationTime_0;
+        set => WriteParamField(ref _ObservationTime_0, value);
+    }
+    private float _ObservationTime_0;
+
+    [ParamField(0x8, ParamType.F32)]
+    public float LimitationTime_1
+    {
+        get => _LimitationTime_1;
+        set => WriteParamField(ref _LimitationTime_1, value);
+    }
+    private float _LimitationTime_1;
+
+    [ParamField(0xC, ParamType.F32)]
+    public float ObservationTime_1
+    {
+        get => _ObservationTime_1;
+        set => WriteParamField(ref _ObservationTime_1, value);
+    }
+    private float _ObservationTime_1;
+
+    [ParamField(0x10, ParamType.F32)]
+    public float LimitationTime_2
+    {
+        get => _LimitationTime_2;
+        set => WriteParamField(ref _LimitationTime_2, value);
+    }
+    private float _LimitationTime_2;
+
+    [ParamField(0x14, ParamType.F32)]
+    public float ObservationTime_2
+    {
+        get => _ObservationTime_2;
+        set => WriteParamField(ref _ObservationTime_2, value);
+    }
+    private float _ObservationTime_2;
+
+    [ParamField(0x18, ParamType.F32)]
+    public float LimitationTime_3
+    {
+        get => _LimitationTime_3;
+        set => WriteParamField(ref _LimitationTime_3, value);
+    }
+    private float _LimitationTime_3;
+
+    [ParamField(0x1C, ParamType.F32)]
+    public float ObservationTime_3
+    {
+        get => _ObservationTime_3;
+        set => WriteParamField(ref _ObservationTime_3, value);
+    }
+    private float _ObservationTime_3;
+
 }

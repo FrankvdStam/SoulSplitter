@@ -18,44 +18,43 @@ using SoulMemory.Memory;
 using SoulMemory.Parameters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.DarkSouls1.Parameters;
+
+[ExcludeFromCodeCoverage]
+public class LodBank : BaseParam
 {
-    [ExcludeFromCodeCoverage]
-    public class LodBank : BaseParam
+    public LodBank(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
+
+    [ParamField(0x0, ParamType.F32)]
+    public float Lv01_BorderDist
     {
-        public LodBank(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
-        [ParamField(0x0, ParamType.F32)]
-        public float Lv01_BorderDist
-        {
-            get => _Lv01_BorderDist;
-            set => WriteParamField(ref _Lv01_BorderDist, value);
-        }
-        private float _Lv01_BorderDist;
-
-        [ParamField(0x4, ParamType.F32)]
-        public float Lv01_PlayDist
-        {
-            get => _Lv01_PlayDist;
-            set => WriteParamField(ref _Lv01_PlayDist, value);
-        }
-        private float _Lv01_PlayDist;
-
-        [ParamField(0x8, ParamType.F32)]
-        public float Lv12_BorderDist
-        {
-            get => _Lv12_BorderDist;
-            set => WriteParamField(ref _Lv12_BorderDist, value);
-        }
-        private float _Lv12_BorderDist;
-
-        [ParamField(0xC, ParamType.F32)]
-        public float Lv12_PlayDist
-        {
-            get => _Lv12_PlayDist;
-            set => WriteParamField(ref _Lv12_PlayDist, value);
-        }
-        private float _Lv12_PlayDist;
-
+        get => _Lv01_BorderDist;
+        set => WriteParamField(ref _Lv01_BorderDist, value);
     }
+    private float _Lv01_BorderDist;
+
+    [ParamField(0x4, ParamType.F32)]
+    public float Lv01_PlayDist
+    {
+        get => _Lv01_PlayDist;
+        set => WriteParamField(ref _Lv01_PlayDist, value);
+    }
+    private float _Lv01_PlayDist;
+
+    [ParamField(0x8, ParamType.F32)]
+    public float Lv12_BorderDist
+    {
+        get => _Lv12_BorderDist;
+        set => WriteParamField(ref _Lv12_BorderDist, value);
+    }
+    private float _Lv12_BorderDist;
+
+    [ParamField(0xC, ParamType.F32)]
+    public float Lv12_PlayDist
+    {
+        get => _Lv12_PlayDist;
+        set => WriteParamField(ref _Lv12_PlayDist, value);
+    }
+    private float _Lv12_PlayDist;
+
 }

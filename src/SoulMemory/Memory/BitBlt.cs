@@ -18,29 +18,28 @@ using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SoulMemory.Memory
+namespace SoulMemory.Memory;
+
+public static class BitBlt
 {
-    public static class BitBlt
+    public static bool GetBitBlt(this IGame game, List<string> files, List<string> bitBlt)
     {
-        public static bool GetBitBlt(this IGame game, List<string> files, List<string> bitBlt)
+        var process = game.GetProcess();
+        var path = Path.GetDirectoryName(process?.MainModule?.FileName);
+        using (var md5 = MD5.Create())
         {
-            var process = game.GetProcess();
-            var path = Path.GetDirectoryName(process?.MainModule?.FileName);
-            using (var md5 = MD5.Create())
+            foreach (var d in files)
             {
-                foreach (var d in files)
+                using (var fs = File.OpenRead($"{path}\\{d}"))
                 {
-                    using (var fs = File.OpenRead($"{path}\\{d}"))
+                    var hex = md5.ComputeHash(fs).ToHexString();
+                    if (!bitBlt.Contains(hex))
                     {
-                        var hex = md5.ComputeHash(fs).ToHexString();
-                        if (!bitBlt.Contains(hex))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
-            return false;
         }
+        return false;
     }
 }

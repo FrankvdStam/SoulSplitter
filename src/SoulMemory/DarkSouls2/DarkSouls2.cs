@@ -20,59 +20,58 @@ using System.Linq;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 
-namespace SoulMemory.DarkSouls2
+namespace SoulMemory.DarkSouls2;
+
+public class DarkSouls2 : IDarkSouls2
 {
-    public class DarkSouls2 : IDarkSouls2
+    public int GetInGameTimeMilliseconds() => 0;
+    private IDarkSouls2? _darkSouls2 = null!;
+    public Process? GetProcess() => _darkSouls2?.GetProcess();
+    public Vector3f GetPosition() => _darkSouls2?.GetPosition() ?? new Vector3f();
+    public bool IsLoading() => _darkSouls2?.IsLoading() ?? false;
+    public bool ReadEventFlag(uint eventFlagId) => _darkSouls2?.ReadEventFlag(eventFlagId) ?? false;
+    public int GetBossKillCount(BossType bossType) => _darkSouls2?.GetBossKillCount(bossType) ?? 0;
+    public int GetAttribute(Attribute attribute) => _darkSouls2?.GetAttribute(attribute) ?? 0;
+    public TreeBuilder GetTreeBuilder() => _darkSouls2?.GetTreeBuilder() ?? null!;
+
+    public ResultErr<RefreshError> TryRefresh()
     {
-        public int GetInGameTimeMilliseconds() => 0;
-        private IDarkSouls2? _darkSouls2 = null!;
-        public Process? GetProcess() => _darkSouls2?.GetProcess();
-        public Vector3f GetPosition() => _darkSouls2?.GetPosition() ?? new Vector3f();
-        public bool IsLoading() => _darkSouls2?.IsLoading() ?? false;
-        public bool ReadEventFlag(uint eventFlagId) => _darkSouls2?.ReadEventFlag(eventFlagId) ?? false;
-        public int GetBossKillCount(BossType bossType) => _darkSouls2?.GetBossKillCount(bossType) ?? 0;
-        public int GetAttribute(Attribute attribute) => _darkSouls2?.GetAttribute(attribute) ?? 0;
-        public TreeBuilder GetTreeBuilder() => _darkSouls2?.GetTreeBuilder() ?? null!;
-
-        public ResultErr<RefreshError> TryRefresh()
+        try
         {
-            try
+            if (_darkSouls2 == null)
             {
-                if (_darkSouls2 == null)
+                var process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == "darksoulsii" && !i.HasExited && i.MainModule != null);
+                if (process == null)
                 {
-                    var process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == "darksoulsii" && !i.HasExited && i.MainModule != null);
-                    if (process == null)
-                    {
-                        return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, "Dark Souls 2 vanilla/scholar not running."));
-                    }
+                    return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, "Dark Souls 2 vanilla/scholar not running."));
+                }
 
-                    var isScholar = process.Is64Bit().Unwrap();
-                    
-                    if (isScholar)
-                    {
-                        _darkSouls2 = new Scholar();
-                    }
-                    else
-                    {
-                        _darkSouls2 = new Vanilla();
-                    }
-                    return Result.Ok();
+                var isScholar = process.Is64Bit().Unwrap();
+                
+                if (isScholar)
+                {
+                    _darkSouls2 = new Scholar();
                 }
                 else
                 {
-                    var result = _darkSouls2.TryRefresh();
-                    if (result.IsErr)
-                    {
-                        _darkSouls2 = null!;
-                        return result;
-                    }
-                    return Result.Ok();
+                    _darkSouls2 = new Vanilla();
                 }
+                return Result.Ok();
             }
-            catch (Exception e)
+            else
             {
-                return RefreshError.FromException(e);
+                var result = _darkSouls2.TryRefresh();
+                if (result.IsErr)
+                {
+                    _darkSouls2 = null!;
+                    return result;
+                }
+                return Result.Ok();
             }
+        }
+        catch (Exception e)
+        {
+            return RefreshError.FromException(e);
         }
     }
 }

@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.MemoryV2.PointerTreeBuilder
+namespace SoulMemory.MemoryV2.PointerTreeBuilder;
+
+public enum PointerNodeType
 {
-    public enum PointerNodeType
-    {
-        RelativeScan,
-        AbsoluteScan,
-        Pointer,
-    }
+    RelativeScan,
+    AbsoluteScan,
+    Pointer,
 }

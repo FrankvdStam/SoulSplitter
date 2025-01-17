@@ -20,39 +20,38 @@ using SoulMemory.DarkSouls1;
 using SoulMemory.Memory;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.Splits.DarkSouls1
+namespace SoulSplitter.Splits.DarkSouls1;
+
+[XmlType(Namespace = "DarkSouls1")]
+public class BonfireState : ICustomNotifyPropertyChanged
 {
-    [XmlType(Namespace = "DarkSouls1")]
-    public class BonfireState : ICustomNotifyPropertyChanged
+    public Bonfire? Bonfire
     {
-        public Bonfire? Bonfire
-        {
-            get => _bonfire;
-            set => this.SetField(ref _bonfire, value);
-        }
-        private Bonfire? _bonfire;
-
-        public SoulMemory.DarkSouls1.BonfireState State
-        {
-            get => _state;
-            set => this.SetField(ref _state, value);
-        }
-        private SoulMemory.DarkSouls1.BonfireState _state;
-
-        public override string ToString()
-        {
-            return $"{Bonfire?.GetDisplayName()} {State.GetDisplayName()}";
-        }
-
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        get => _bonfire;
+        set => this.SetField(ref _bonfire, value);
     }
+    private Bonfire? _bonfire;
+
+    public SoulMemory.DarkSouls1.BonfireState State
+    {
+        get => _state;
+        set => this.SetField(ref _state, value);
+    }
+    private SoulMemory.DarkSouls1.BonfireState _state;
+
+    public override string ToString()
+    {
+        return $"{Bonfire?.GetDisplayName()} {State.GetDisplayName()}";
+    }
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

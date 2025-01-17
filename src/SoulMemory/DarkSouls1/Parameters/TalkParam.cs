@@ -18,76 +18,75 @@ using SoulMemory.Memory;
 using SoulMemory.Parameters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.DarkSouls1.Parameters;
+
+[ExcludeFromCodeCoverage]
+public class TalkParam : BaseParam
 {
-    [ExcludeFromCodeCoverage]
-    public class TalkParam : BaseParam
+    public TalkParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
+
+    [ParamField(0x0, ParamType.I32)]
+    public int MsgId
     {
-        public TalkParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
-        [ParamField(0x0, ParamType.I32)]
-        public int MsgId
-        {
-            get => _MsgId;
-            set => WriteParamField(ref _MsgId, value);
-        }
-        private int _MsgId;
-
-        [ParamField(0x4, ParamType.I32)]
-        public int VoiceId
-        {
-            get => _VoiceId;
-            set => WriteParamField(ref _VoiceId, value);
-        }
-        private int _VoiceId;
-
-        [ParamField(0x8, ParamType.I32)]
-        public int MotionId
-        {
-            get => _MotionId;
-            set => WriteParamField(ref _MotionId, value);
-        }
-        private int _MotionId;
-
-        [ParamField(0xC, ParamType.I32)]
-        public int ReturnPos
-        {
-            get => _ReturnPos;
-            set => WriteParamField(ref _ReturnPos, value);
-        }
-        private int _ReturnPos;
-
-        [ParamField(0x10, ParamType.I32)]
-        public int ReactionId
-        {
-            get => _ReactionId;
-            set => WriteParamField(ref _ReactionId, value);
-        }
-        private int _ReactionId;
-
-        [ParamField(0x14, ParamType.I32)]
-        public int EventId
-        {
-            get => _EventId;
-            set => WriteParamField(ref _EventId, value);
-        }
-        private int _EventId;
-
-        [ParamField(0x18, ParamType.U8)]
-        public byte IsMotionLoop
-        {
-            get => _IsMotionLoop;
-            set => WriteParamField(ref _IsMotionLoop, value);
-        }
-        private byte _IsMotionLoop;
-
-        [ParamField(0x19, ParamType.Dummy8, 7)]
-        public byte[] Pad0
-        {
-            get => _Pad0;
-            set => WriteParamField(ref _Pad0, value);
-        }
-        private byte[] _Pad0 = null!;
-
+        get => _MsgId;
+        set => WriteParamField(ref _MsgId, value);
     }
+    private int _MsgId;
+
+    [ParamField(0x4, ParamType.I32)]
+    public int VoiceId
+    {
+        get => _VoiceId;
+        set => WriteParamField(ref _VoiceId, value);
+    }
+    private int _VoiceId;
+
+    [ParamField(0x8, ParamType.I32)]
+    public int MotionId
+    {
+        get => _MotionId;
+        set => WriteParamField(ref _MotionId, value);
+    }
+    private int _MotionId;
+
+    [ParamField(0xC, ParamType.I32)]
+    public int ReturnPos
+    {
+        get => _ReturnPos;
+        set => WriteParamField(ref _ReturnPos, value);
+    }
+    private int _ReturnPos;
+
+    [ParamField(0x10, ParamType.I32)]
+    public int ReactionId
+    {
+        get => _ReactionId;
+        set => WriteParamField(ref _ReactionId, value);
+    }
+    private int _ReactionId;
+
+    [ParamField(0x14, ParamType.I32)]
+    public int EventId
+    {
+        get => _EventId;
+        set => WriteParamField(ref _EventId, value);
+    }
+    private int _EventId;
+
+    [ParamField(0x18, ParamType.U8)]
+    public byte IsMotionLoop
+    {
+        get => _IsMotionLoop;
+        set => WriteParamField(ref _IsMotionLoop, value);
+    }
+    private byte _IsMotionLoop;
+
+    [ParamField(0x19, ParamType.Dummy8, 7)]
+    public byte[] Pad0
+    {
+        get => _Pad0;
+        set => WriteParamField(ref _Pad0, value);
+    }
+    private byte[] _Pad0 = null!;
+
 }

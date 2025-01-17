@@ -19,52 +19,51 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
-namespace SoulSplitter.UI.Converters
+namespace SoulSplitter.UI.Converters;
+
+public class EnumToVisibilityConverter : IMultiValueConverter, IValueConverter
 {
-    public class EnumToVisibilityConverter : IMultiValueConverter, IValueConverter
+    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        var valueEnum = (Enum)value;
+        var paramEnum = (Enum)parameter;
+        if (valueEnum != null && paramEnum != null && valueEnum.Equals(paramEnum))
         {
-            var valueEnum = (Enum)value;
-            var paramEnum = (Enum)parameter;
-            if (valueEnum != null && paramEnum != null && valueEnum.Equals(paramEnum))
-            {
-                return Visibility.Visible;
-            }
+            return Visibility.Visible;
+        }
+        return Visibility.Collapsed;
+    }
+
+    public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        if (values == null || parameter == null)
+        {
+            throw new ArgumentException($"{nameof(values)} and {nameof(parameter)} can't be null");
+        }
+
+        var valueEnums = values.Cast<Enum>().ToList();
+        var paramEnums = ((object[])parameter).Cast<Enum>().ToList();
+
+        if (valueEnums.Count != paramEnums.Count)
+        {
+            throw new ArgumentException("value count should match parameter count");
+        }
+
+        if (valueEnums.Where((t, i) => !t.Equals(paramEnums[i])).Any())
+        {
             return Visibility.Collapsed;
         }
 
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (values == null || parameter == null)
-            {
-                throw new ArgumentException($"{nameof(values)} and {nameof(parameter)} can't be null");
-            }
+        return Visibility.Visible;
+    }
 
-            var valueEnums = values.Cast<Enum>().ToList();
-            var paramEnums = ((object[])parameter).Cast<Enum>().ToList();
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
 
-            if (valueEnums.Count != paramEnums.Count)
-            {
-                throw new ArgumentException("value count should match parameter count");
-            }
-
-            if (valueEnums.Where((t, i) => !t.Equals(paramEnums[i])).Any())
-            {
-                return Visibility.Collapsed;
-            }
-
-            return Visibility.Visible;
-        }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
+    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        throw new NotSupportedException();
     }
 }

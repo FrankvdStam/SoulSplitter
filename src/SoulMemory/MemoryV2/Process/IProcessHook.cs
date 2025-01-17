@@ -17,36 +17,35 @@
 using System;
 using SoulMemory.MemoryV2.Memory;
 
-namespace SoulMemory.MemoryV2.Process
+namespace SoulMemory.MemoryV2.Process;
+
+/// <summary>
+/// Abstracts a hooked process and makes it injectable and testable
+/// </summary>
+public interface IProcessHook : IMemory
 {
     /// <summary>
-    /// Abstracts a hooked process and makes it injectable and testable
+    /// Get process wrapper object for more low level access
     /// </summary>
-    public interface IProcessHook : IMemory
-    {
-        /// <summary>
-        /// Get process wrapper object for more low level access
-        /// </summary>
-        /// <returns></returns>
-        IProcessWrapper ProcessWrapper { get; set; }
+    /// <returns></returns>
+    IProcessWrapper ProcessWrapper { get; set; }
 
-        /// <summary>
-        /// Call this often to refresh memory
-        /// </summary>
-        ResultErr<RefreshError> TryRefresh();
+    /// <summary>
+    /// Call this often to refresh memory
+    /// </summary>
+    ResultErr<RefreshError> TryRefresh();
 
-        /// <summary>
-        /// Called during refresh, after a process is found, hooked and pointer scans succeed.
-        /// Custom one-time initialization after hooking should live here
-        /// </summary>
-        event Func<ResultErr<RefreshError>> Hooked;
+    /// <summary>
+    /// Called during refresh, after a process is found, hooked and pointer scans succeed.
+    /// Custom one-time initialization after hooking should live here
+    /// </summary>
+    event Func<ResultErr<RefreshError>> Hooked;
 
-        /// <summary>
-        /// Called during refresh after a process exits or if hooking/refreshing fails.
-        /// Exception might be null.
-        /// </summary>
-        event Action<Exception> Exited;
+    /// <summary>
+    /// Called during refresh after a process exits or if hooking/refreshing fails.
+    /// Exception might be null.
+    /// </summary>
+    event Action<Exception> Exited;
 
-        PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; }
-    }
+    PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; }
 }

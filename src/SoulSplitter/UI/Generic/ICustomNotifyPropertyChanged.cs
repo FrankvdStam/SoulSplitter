@@ -16,10 +16,9 @@
 
 using System.ComponentModel;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+internal interface ICustomNotifyPropertyChanged : INotifyPropertyChanged
 {
-    internal interface ICustomNotifyPropertyChanged : INotifyPropertyChanged
-    {
-        void InvokePropertyChanged(string propertyName);
-    }
+    void InvokePropertyChanged(string propertyName);
 }

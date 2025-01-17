@@ -22,100 +22,99 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using SoulSplitter.Native;
 
-namespace SoulSplitter.Hotkeys
+namespace SoulSplitter.Hotkeys;
+
+public static class GlobalHotKey
 {
-    public static class GlobalHotKey
+    private static readonly List<(int id, ModifierKeys modifier, Key key, Action action)> Hotkeys = new List<(int, ModifierKeys, Key, Action)>();
+    private static readonly ManualResetEvent WindowReadyEvent = new ManualResetEvent(false);
+    public static volatile HotkeyForm? HotkeyForm;
+    public static volatile IntPtr Handle;
+    private static int _currentId;
+
+    static GlobalHotKey()
     {
-        private static readonly List<(int id, ModifierKeys modifier, Key key, Action action)> Hotkeys = new List<(int, ModifierKeys, Key, Action)>();
-        private static readonly ManualResetEvent WindowReadyEvent = new ManualResetEvent(false);
-        public static volatile HotkeyForm? HotkeyForm;
-        public static volatile IntPtr Handle;
-        private static int _currentId;
-
-        static GlobalHotKey()
+        var messageLoopThread = new Thread(delegate ()
         {
-            var messageLoopThread = new Thread(delegate ()
-            {
-                Application.Run(new HotkeyForm(WindowReadyEvent));
-            });
-            messageLoopThread.Name = "MessageLoopThread";
-            messageLoopThread.IsBackground = true;
-            messageLoopThread.Start();
-        }
+            Application.Run(new HotkeyForm(WindowReadyEvent));
+        });
+        messageLoopThread.Name = "MessageLoopThread";
+        messageLoopThread.IsBackground = true;
+        messageLoopThread.Start();
+    }
 
-        public static void OnHotkeyPressed(ModifierKeys modifier, Key key)
+    public static void OnHotkeyPressed(ModifierKeys modifier, Key key)
+    {
+        Hotkeys.ForEach(x =>
         {
-            Hotkeys.ForEach(x =>
+            if (modifier == x.modifier && key == x.key)
             {
-                if (modifier == x.modifier && key == x.key)
-                {
-                    x.action();
-                }
-            });
-        }
-
-        public static int RegisterHotKey(ModifierKeys modifier, Key key, Action action)
-        {
-            WindowReadyEvent.WaitOne(); //wait for hotkey window to have initialized
-
-            var virtualKeyCode = (Keys)KeyInterop.VirtualKeyFromKey(key);
-            int id = Interlocked.Increment(ref _currentId);
-
-            Delegate register = (Action)(() =>
-            {
-                User32.RegisterHotkey(
-                    Handle,
-                    id,
-                    (uint)modifier | 0x4000, //no repeat
-                    (uint)virtualKeyCode);
-            });
-
-            HotkeyForm?.Invoke(register);
-            Hotkeys.Add((id, modifier, key, action));
-            return id;
-        }
-
-        public static void UnregisterHotKey(int id)
-        {
-            if (Hotkeys.All(i => i.id != id))
-            {
-                return;
+                x.action();
             }
+        });
+    }
 
-            Delegate unregister = (Action)(() =>
-            {
-                User32.UnregisterHotkey(Handle, id);
-            });
+    public static int RegisterHotKey(ModifierKeys modifier, Key key, Action action)
+    {
+        WindowReadyEvent.WaitOne(); //wait for hotkey window to have initialized
 
-            HotkeyForm?.Invoke(unregister);
-            Hotkeys.Remove(Hotkeys.Find(i => i.id == id));
+        var virtualKeyCode = (Keys)KeyInterop.VirtualKeyFromKey(key);
+        int id = Interlocked.Increment(ref _currentId);
+
+        Delegate register = (Action)(() =>
+        {
+            User32.RegisterHotkey(
+                Handle,
+                id,
+                (uint)modifier | 0x4000, //no repeat
+                (uint)virtualKeyCode);
+        });
+
+        HotkeyForm?.Invoke(register);
+        Hotkeys.Add((id, modifier, key, action));
+        return id;
+    }
+
+    public static void UnregisterHotKey(int id)
+    {
+        if (Hotkeys.All(i => i.id != id))
+        {
+            return;
+        }
+
+        Delegate unregister = (Action)(() =>
+        {
+            User32.UnregisterHotkey(Handle, id);
+        });
+
+        HotkeyForm?.Invoke(unregister);
+        Hotkeys.Remove(Hotkeys.Find(i => i.id == id));
+    }
+}
+
+public class HotkeyForm : Form
+{
+    public HotkeyForm(ManualResetEvent windowReadyEvent)
+    {
+        GlobalHotKey.Handle = Handle;
+        GlobalHotKey.HotkeyForm = this;
+        windowReadyEvent.Set();
+    }
+
+    protected override void WndProc(ref Message windowMessage)
+    {
+        base.WndProc(ref windowMessage);
+
+        if (windowMessage.Msg == 0x0312) //0x0312 is the hotkey message
+        {
+            var key = KeyInterop.KeyFromVirtualKey((int)windowMessage.LParam >> 16 & 0xFFFF);
+            var modifier = (ModifierKeys)((int)windowMessage.LParam & 0xFFFF);
+            GlobalHotKey.OnHotkeyPressed(modifier, key);
         }
     }
 
-    public class HotkeyForm : Form
+    protected override void SetVisibleCore(bool value)
     {
-        public HotkeyForm(ManualResetEvent windowReadyEvent)
-        {
-            GlobalHotKey.Handle = Handle;
-            GlobalHotKey.HotkeyForm = this;
-            windowReadyEvent.Set();
-        }
-
-        protected override void WndProc(ref Message windowMessage)
-        {
-            base.WndProc(ref windowMessage);
-
-            if (windowMessage.Msg == 0x0312) //0x0312 is the hotkey message
-            {
-                var key = KeyInterop.KeyFromVirtualKey((int)windowMessage.LParam >> 16 & 0xFFFF);
-                var modifier = (ModifierKeys)((int)windowMessage.LParam & 0xFFFF);
-                GlobalHotKey.OnHotkeyPressed(modifier, key);
-            }
-        }
-
-        protected override void SetVisibleCore(bool value)
-        {
-            base.SetVisibleCore(false);
-        }
+        base.SetVisibleCore(false);
     }
 }

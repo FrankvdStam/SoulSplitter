@@ -18,54 +18,53 @@ using System;
 using SoulMemory;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.Splits.DarkSouls2
+namespace SoulSplitter.Splits.DarkSouls2;
+
+internal class Split
 {
-    internal class Split
+    public Split(TimingType timingType, DarkSouls2SplitType darkSouls2SplitType, object split)
     {
-        public Split(TimingType timingType, DarkSouls2SplitType darkSouls2SplitType, object split)
+        TimingType = timingType;
+        SplitType = darkSouls2SplitType;
+
+        switch (SplitType)
         {
-            TimingType = timingType;
-            SplitType = darkSouls2SplitType;
+            default:
+                throw new ArgumentException($"unsupported split type {SplitType}");
 
-            switch (SplitType)
-            {
-                default:
-                    throw new ArgumentException($"unsupported split type {SplitType}");
+            case DarkSouls2SplitType.Position:
+                Position = (Vector3f)split;
+                break;
 
-                case DarkSouls2SplitType.Position:
-                    Position = (Vector3f)split;
-                    break;
+            case DarkSouls2SplitType.BossKill:
+                BossKill = (BossKill)split;
+                break;
 
-                case DarkSouls2SplitType.BossKill:
-                    BossKill = (BossKill)split;
-                    break;
+            case DarkSouls2SplitType.Attribute:
+                Attribute = (Attribute)split;
+                break;
 
-                case DarkSouls2SplitType.Attribute:
-                    Attribute = (Attribute)split;
-                    break;
-
-                case DarkSouls2SplitType.Flag:
-                    Flag = (uint)split;
-                    break;
-            }
+            case DarkSouls2SplitType.Flag:
+                Flag = (uint)split;
+                break;
         }
-
-        public readonly TimingType TimingType;
-        public readonly DarkSouls2SplitType SplitType;
-        
-        public readonly uint Flag;
-        public readonly Vector3f Position = null!;
-        public readonly BossKill BossKill = null!;
-        public readonly Attribute Attribute = null!;
-
-        /// <summary>
-        /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
-        /// </summary>
-        public bool SplitConditionMet = false;
-        
-        /// <summary>
-        /// True after this split object cause a split. No longer need to check split conditions
-        /// </summary>
-        public bool SplitTriggered = false;
     }
+
+    public readonly TimingType TimingType;
+    public readonly DarkSouls2SplitType SplitType;
+    
+    public readonly uint Flag;
+    public readonly Vector3f Position = null!;
+    public readonly BossKill BossKill = null!;
+    public readonly Attribute Attribute = null!;
+
+    /// <summary>
+    /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
+    /// </summary>
+    public bool SplitConditionMet = false;
+    
+    /// <summary>
+    /// True after this split object cause a split. No longer need to check split conditions
+    /// </summary>
+    public bool SplitTriggered = false;
 }

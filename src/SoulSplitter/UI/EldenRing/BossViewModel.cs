@@ -19,60 +19,59 @@ using SoulMemory.EldenRing;
 using SoulMemory.Memory;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.UI.EldenRing
+namespace SoulSplitter.UI.EldenRing;
+
+public class BossViewModel : ICustomNotifyPropertyChanged
 {
-    public class BossViewModel : ICustomNotifyPropertyChanged
+    public BossViewModel(Boss b)
     {
-        public BossViewModel(Boss b)
-        {
-            Area = b.GetDisplayDescription();
-            Name = b.GetDisplayName();
-            Flag = (uint)b;
-            Boss = b;
-        }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        public Boss Boss
-        {
-            get => _boss;
-            set => this.SetField(ref _boss, value);
-        }
-        private Boss _boss;
-
-        public string Area
-        {
-            get => _area;
-            set => this.SetField(ref _area, value);
-        }
-        private string _area = null!;
-
-        public string Name
-        {
-            get => _name;
-            set => this.SetField(ref _name, value);
-        }
-        private string _name = null!;
-
-        public uint Flag
-        {
-            get => _flag;
-            set => this.SetField(ref _flag, value);
-        }
-        private uint _flag;
-
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        Area = b.GetDisplayDescription();
+        Name = b.GetDisplayName();
+        Flag = (uint)b;
+        Boss = b;
     }
+
+    public override string ToString()
+    {
+        return Name;
+    }
+
+    public Boss Boss
+    {
+        get => _boss;
+        set => this.SetField(ref _boss, value);
+    }
+    private Boss _boss;
+
+    public string Area
+    {
+        get => _area;
+        set => this.SetField(ref _area, value);
+    }
+    private string _area = null!;
+
+    public string Name
+    {
+        get => _name;
+        set => this.SetField(ref _name, value);
+    }
+    private string _name = null!;
+
+    public uint Flag
+    {
+        get => _flag;
+        set => this.SetField(ref _flag, value);
+    }
+    private uint _flag;
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

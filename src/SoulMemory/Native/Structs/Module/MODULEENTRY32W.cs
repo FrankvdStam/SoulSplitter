@@ -17,22 +17,21 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace SoulMemory.Native.Structs.Module
+namespace SoulMemory.Native.Structs.Module;
+
+[StructLayout(LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+public struct MODULEENTRY32W
 {
-    [StructLayout(LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-    public struct MODULEENTRY32W
-    {
-        internal uint dwSize;
-        internal uint th32ModuleID;
-        internal uint th32ProcessID;
-        internal uint GlblcntUsage;
-        internal uint ProccntUsage;
-        internal IntPtr modBaseAddr;
-        internal uint modBaseSize;
-        internal IntPtr hModule;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
-        internal string szModule;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-        internal string szExePath;
-    }
+    internal uint dwSize;
+    internal uint th32ModuleID;
+    internal uint th32ProcessID;
+    internal uint GlblcntUsage;
+    internal uint ProccntUsage;
+    internal IntPtr modBaseAddr;
+    internal uint modBaseSize;
+    internal IntPtr hModule;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+    internal string szModule;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+    internal string szExePath;
 }

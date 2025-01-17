@@ -16,20 +16,19 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SoulMemory.Tests
+namespace SoulMemory.Tests;
+
+public static class Extensions
 {
-    public static class Extensions
+    public static void DoesNotThrow(this Assert assert, Action a)
     {
-        public static void DoesNotThrow(this Assert assert, Action a)
+        try
         {
-            try
-            {
-                a();
-            }
-            catch (Exception e)
-            {
-                throw new AssertFailedException(e.ToString());
-            }
+            a();
+        }
+        catch (Exception e)
+        {
+            throw new AssertFailedException(e.ToString());
         }
     }
 }

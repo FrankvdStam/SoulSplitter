@@ -18,88 +18,87 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SoulSplitter.UI.EldenRing
+namespace SoulSplitter.UI.EldenRing;
+
+/// <summary>
+/// Interaction logic for UserControl1.xaml
+/// </summary>
+public partial class EldenRingControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for UserControl1.xaml
-    /// </summary>
-    public partial class EldenRingControl : UserControl
+    public EldenRingControl()
     {
-        public EldenRingControl()
-        {
-            InitializeComponent();
-        }
-        
-        private EldenRingViewModel GetEldenRingViewModel()
-        {
-            return (DataContext as EldenRingViewModel)!;
-        }
+        InitializeComponent();
+    }
+    
+    private EldenRingViewModel GetEldenRingViewModel()
+    {
+        return (DataContext as EldenRingViewModel)!;
+    }
 
-        private void AddSplit_OnClick(object sender, RoutedEventArgs e)
-        {
-            GetEldenRingViewModel().AddSplit();
-        }
+    private void AddSplit_OnClick(object sender, RoutedEventArgs e)
+    {
+        GetEldenRingViewModel().AddSplit();
+    }
 
-        private void RemoveSplit_OnClick(object sender, RoutedEventArgs e)
-        {
-            GetEldenRingViewModel().RemoveSplit();
-        }
+    private void RemoveSplit_OnClick(object sender, RoutedEventArgs e)
+    {
+        GetEldenRingViewModel().RemoveSplit();
+    }
 
-        private void SplitsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    private void SplitsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+        GetEldenRingViewModel().SelectedSplit = null;
+        if (e.NewValue is HierarchicalSplitViewModel b)
         {
-            GetEldenRingViewModel().SelectedSplit = null;
-            if (e.NewValue is HierarchicalSplitViewModel b)
+            GetEldenRingViewModel().SelectedSplit = b;
+        }
+    }
+
+    private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (sender is TextBox textBox && uint.TryParse(textBox.Text, out uint result))
+        {
+            GetEldenRingViewModel().NewSplitFlag = result;
+            return;
+        }
+        GetEldenRingViewModel().NewSplitFlag = null;
+    }
+
+    private void OnPreviewTextInput_Byte(object sender, TextCompositionEventArgs e)
+    {
+        if (sender is TextBox t)
+        {
+            var newText = t.Text + e.Text;
+            if (string.IsNullOrWhiteSpace(newText) || byte.TryParse(newText, out _))
             {
-                GetEldenRingViewModel().SelectedSplit = b;
-            }
-        }
-
-        private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (sender is TextBox textBox && uint.TryParse(textBox.Text, out uint result))
-            {
-                GetEldenRingViewModel().NewSplitFlag = result;
                 return;
             }
-            GetEldenRingViewModel().NewSplitFlag = null;
+            e.Handled = true;
         }
+    }
 
-        private void OnPreviewTextInput_Byte(object sender, TextCompositionEventArgs e)
+    private void OnPreviewTextInput_Float(object sender, TextCompositionEventArgs e)
+    {
+        if (sender is TextBox t)
         {
-            if (sender is TextBox t)
+            var newText = t.Text + e.Text;
+            if (string.IsNullOrWhiteSpace(newText) || float.TryParse(newText, out _))
             {
-                var newText = t.Text + e.Text;
-                if (string.IsNullOrWhiteSpace(newText) || byte.TryParse(newText, out _))
-                {
-                    return;
-                }
-                e.Handled = true;
+                return;
             }
+            e.Handled = true;
         }
+    }
 
-        private void OnPreviewTextInput_Float(object sender, TextCompositionEventArgs e)
-        {
-            if (sender is TextBox t)
-            {
-                var newText = t.Text + e.Text;
-                if (string.IsNullOrWhiteSpace(newText) || float.TryParse(newText, out _))
-                {
-                    return;
-                }
-                e.Handled = true;
-            }
-        }
-
-        private void CopyPosition_OnClick(object sender, RoutedEventArgs e)
-        {
-            var vm = GetEldenRingViewModel();
-            vm.NewSplitPosition.Area   = vm.CurrentPosition.Area  ;
-            vm.NewSplitPosition.Block  = vm.CurrentPosition.Block ;
-            vm.NewSplitPosition.Region = vm.CurrentPosition.Region;
-            vm.NewSplitPosition.Size   = vm.CurrentPosition.Size  ;
-            vm.NewSplitPosition.X      = vm.CurrentPosition.X     ;
-            vm.NewSplitPosition.Y      = vm.CurrentPosition.Y     ;
-            vm.NewSplitPosition.Z      = vm.CurrentPosition.Z     ;
-        }
+    private void CopyPosition_OnClick(object sender, RoutedEventArgs e)
+    {
+        var vm = GetEldenRingViewModel();
+        vm.NewSplitPosition.Area   = vm.CurrentPosition.Area  ;
+        vm.NewSplitPosition.Block  = vm.CurrentPosition.Block ;
+        vm.NewSplitPosition.Region = vm.CurrentPosition.Region;
+        vm.NewSplitPosition.Size   = vm.CurrentPosition.Size  ;
+        vm.NewSplitPosition.X      = vm.CurrentPosition.X     ;
+        vm.NewSplitPosition.Y      = vm.CurrentPosition.Y     ;
+        vm.NewSplitPosition.Z      = vm.CurrentPosition.Z     ;
     }
 }

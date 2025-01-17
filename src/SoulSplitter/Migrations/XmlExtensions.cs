@@ -17,21 +17,20 @@
 using System;
 using System.Xml;
 
-namespace SoulSplitter.Migrations
+namespace SoulSplitter.Migrations;
+
+internal static class XmlExtensions
 {
-    internal static class XmlExtensions
+    public static XmlNode GetChildNodeByName(this XmlNode node, string childName)
     {
-        public static XmlNode GetChildNodeByName(this XmlNode node, string childName)
+        var lower = childName.ToLower();
+        foreach (XmlNode child in node.ChildNodes)
         {
-            var lower = childName.ToLower();
-            foreach (XmlNode child in node.ChildNodes)
+            if (child.LocalName.ToLower() == lower)
             {
-                if (child.LocalName.ToLower() == lower)
-                {
-                    return child;
-                }
+                return child;
             }
-            throw new ArgumentException($"{childName} not found");
         }
+        throw new ArgumentException($"{childName} not found");
     }
 }

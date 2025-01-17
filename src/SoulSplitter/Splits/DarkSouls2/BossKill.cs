@@ -19,40 +19,39 @@ using System.Xml.Serialization;
 using SoulMemory.DarkSouls2;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.Splits.DarkSouls2
+namespace SoulSplitter.Splits.DarkSouls2;
+
+[XmlType(Namespace = "DarkSouls2")]
+public class BossKill : ICustomNotifyPropertyChanged
 {
-    [XmlType(Namespace = "DarkSouls2")]
-    public class BossKill : ICustomNotifyPropertyChanged
+    [XmlElement(Namespace = "DarkSouls2")]
+    public BossType BossType
     {
-        [XmlElement(Namespace = "DarkSouls2")]
-        public BossType BossType
-        {
-            get => _bossType;
-            set => this.SetField(ref _bossType, value);
-        }
-        private BossType _bossType;
-
-        public int Count
-        {
-            get => _count;
-            set => this.SetField(ref _count, value);
-        }
-        private int _count = 1;
-
-        public override string ToString()
-        {
-            return $"{BossType} {Count}";
-        }
-        
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        get => _bossType;
+        set => this.SetField(ref _bossType, value);
     }
+    private BossType _bossType;
+
+    public int Count
+    {
+        get => _count;
+        set => this.SetField(ref _count, value);
+    }
+    private int _count = 1;
+
+    public override string ToString()
+    {
+        return $"{BossType} {Count}";
+    }
+    
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

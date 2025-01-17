@@ -19,26 +19,25 @@ using System.Windows.Data;
 using SoulMemory;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.UI.Converters
-{
-    public class GameToSelectedIndexConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value is Game g)
-            {
-                return (int)g;
-            }
-            throw new NotSupportedException();
-        }
+namespace SoulSplitter.UI.Converters;
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+public class GameToSelectedIndexConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        if (value is Game g)
         {
-            if (value is int num && num.TryParseEnum(out Game g))
-            {
-                return g;
-            }
-            throw new NotSupportedException();
+            return (int)g;
         }
+        throw new NotSupportedException();
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        if (value is int num && num.TryParseEnum(out Game g))
+        {
+            return g;
+        }
+        throw new NotSupportedException();
     }
 }

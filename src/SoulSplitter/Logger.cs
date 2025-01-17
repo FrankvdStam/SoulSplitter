@@ -18,63 +18,62 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace SoulSplitter
+namespace SoulSplitter;
+
+internal static class Logger
 {
-    internal static class Logger
+    private static bool LoggingEnabled = true;
+    private static object _logLock = new object();
+
+    public static void SetLoggingEnabled(bool enable)
     {
-        private static bool LoggingEnabled = true;
-        private static object _logLock = new object();
-
-        public static void SetLoggingEnabled(bool enable)
-        {
-            LoggingEnabled = enable;
-        }
-
-        public static void Log(string message)
-        {
-            if(!LoggingEnabled)
-            {
-                return;
-            }
-
-            lock (_logLock)
-            {
-                try
-                {
-                    var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"soulsplitter\soulsplitter.log");
-                    var info = new FileInfo(filePath);
-
-                    //Create the file if it does not exist
-                    if (!info.Exists)
-                    {
-                        Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                        File.Create(filePath).Close();
-                        info = new FileInfo(filePath);
-                    }
-
-                    //If the logfile is bigger than 10 megabytes then delete the first half
-                    if (info.Length > 10_485_760)
-                    {
-                        var lines = File.ReadAllLines(filePath);
-                        File.Delete(filePath);
-                        File.WriteAllLines(filePath, lines.Skip(lines.Count() / 2));
-                    }
-
-                    //Log the message
-                    using (var writer = File.AppendText(filePath))
-                    {
-                        writer.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")}: {message}");
-                        writer.Flush();
-                    }
-                }
-                catch
-                {
-                    //ignored
-                }
-            }
-        }
-
-        public static void Log(string message, Exception e) => Log(message + " " + e.ToString());
-        public static void Log(Exception e) => Log(e.ToString());
+        LoggingEnabled = enable;
     }
+
+    public static void Log(string message)
+    {
+        if(!LoggingEnabled)
+        {
+            return;
+        }
+
+        lock (_logLock)
+        {
+            try
+            {
+                var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"soulsplitter\soulsplitter.log");
+                var info = new FileInfo(filePath);
+
+                //Create the file if it does not exist
+                if (!info.Exists)
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                    File.Create(filePath).Close();
+                    info = new FileInfo(filePath);
+                }
+
+                //If the logfile is bigger than 10 megabytes then delete the first half
+                if (info.Length > 10_485_760)
+                {
+                    var lines = File.ReadAllLines(filePath);
+                    File.Delete(filePath);
+                    File.WriteAllLines(filePath, lines.Skip(lines.Count() / 2));
+                }
+
+                //Log the message
+                using (var writer = File.AppendText(filePath))
+                {
+                    writer.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")}: {message}");
+                    writer.Flush();
+                }
+            }
+            catch
+            {
+                //ignored
+            }
+        }
+    }
+
+    public static void Log(string message, Exception e) => Log(message + " " + e.ToString());
+    public static void Log(Exception e) => Log(e.ToString());
 }

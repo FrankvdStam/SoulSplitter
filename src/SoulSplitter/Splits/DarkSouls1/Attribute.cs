@@ -18,40 +18,39 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.Splits.DarkSouls1
+namespace SoulSplitter.Splits.DarkSouls1;
+
+[XmlType(Namespace = "DarkSouls1")]
+public class Attribute : ICustomNotifyPropertyChanged
 {
-    [XmlType(Namespace = "DarkSouls1")]
-    public class Attribute : ICustomNotifyPropertyChanged
+    [XmlElement(Namespace = "DarkSouls1")]
+    public SoulMemory.DarkSouls1.Attribute AttributeType
     {
-        [XmlElement(Namespace = "DarkSouls1")]
-        public SoulMemory.DarkSouls1.Attribute AttributeType
-        {
-            get => _attributeType;
-            set => this.SetField(ref _attributeType, value);
-        }
-        private SoulMemory.DarkSouls1.Attribute _attributeType;
-
-        public int Level
-        {
-            get => _level;
-            set => this.SetField(ref _level, value);
-        }
-        private int _level;
-
-        public override string ToString()
-        {
-            return $"{AttributeType} {Level}";
-        }
-
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        get => _attributeType;
+        set => this.SetField(ref _attributeType, value);
     }
+    private SoulMemory.DarkSouls1.Attribute _attributeType;
+
+    public int Level
+    {
+        get => _level;
+        set => this.SetField(ref _level, value);
+    }
+    private int _level;
+
+    public override string ToString()
+    {
+        return $"{AttributeType} {Level}";
+    }
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

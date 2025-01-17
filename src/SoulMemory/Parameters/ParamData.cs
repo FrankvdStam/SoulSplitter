@@ -17,44 +17,43 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace SoulMemory.Parameters
+namespace SoulMemory.Parameters;
+
+public static class ParamData
 {
-    public static class ParamData
+    public static readonly ReadOnlyDictionary<ParamType, int> ParamByteSize = new ReadOnlyDictionary<ParamType, int>(new Dictionary<ParamType, int>()
     {
-        public static readonly ReadOnlyDictionary<ParamType, int> ParamByteSize = new ReadOnlyDictionary<ParamType, int>(new Dictionary<ParamType, int>()
-        {
-            { ParamType.Dummy8, 1 },
-            { ParamType.U8,     1 },
-            { ParamType.I8,     1 },
-            { ParamType.U16,    2 },
-            { ParamType.I16,    2 },
-            { ParamType.U32,    4 },
-            { ParamType.I32,    4 },
-            { ParamType.F32,    4 },
-        });
+        { ParamType.Dummy8, 1 },
+        { ParamType.U8,     1 },
+        { ParamType.I8,     1 },
+        { ParamType.U16,    2 },
+        { ParamType.I16,    2 },
+        { ParamType.U32,    4 },
+        { ParamType.I32,    4 },
+        { ParamType.F32,    4 },
+    });
 
-        public static readonly ReadOnlyDictionary<ParamType, string> ParamToSharpTypeString = new ReadOnlyDictionary<ParamType, string>(new Dictionary<ParamType, string>()
-        {
-            { ParamType.Dummy8, "byte"   },
-            { ParamType.U8,     "byte"   },
-            { ParamType.I8,     "sbyte"  },
-            { ParamType.U16,    "ushort" },
-            { ParamType.I16,    "short"  },
-            { ParamType.U32,    "uint"   },
-            { ParamType.I32,    "int"    },
-            { ParamType.F32,    "float"  },
-        });
+    public static readonly ReadOnlyDictionary<ParamType, string> ParamToSharpTypeString = new ReadOnlyDictionary<ParamType, string>(new Dictionary<ParamType, string>()
+    {
+        { ParamType.Dummy8, "byte"   },
+        { ParamType.U8,     "byte"   },
+        { ParamType.I8,     "sbyte"  },
+        { ParamType.U16,    "ushort" },
+        { ParamType.I16,    "short"  },
+        { ParamType.U32,    "uint"   },
+        { ParamType.I32,    "int"    },
+        { ParamType.F32,    "float"  },
+    });
 
-        public static readonly ReadOnlyDictionary<string, ParamType> ParamStrings = new ReadOnlyDictionary<string, ParamType>(new Dictionary<string, ParamType>()
-        {
-            { "dummy8", ParamType.Dummy8 },
-            { "u8",     ParamType.U8     },
-            { "s8",     ParamType.I8     },
-            { "u16",    ParamType.U16    },
-            { "s16",    ParamType.I16    },
-            { "u32",    ParamType.U32    },
-            { "s32",    ParamType.I32    },
-            { "f32",    ParamType.F32    },
-        });
-    }
+    public static readonly ReadOnlyDictionary<string, ParamType> ParamStrings = new ReadOnlyDictionary<string, ParamType>(new Dictionary<string, ParamType>()
+    {
+        { "dummy8", ParamType.Dummy8 },
+        { "u8",     ParamType.U8     },
+        { "s8",     ParamType.I8     },
+        { "u16",    ParamType.U16    },
+        { "s16",    ParamType.I16    },
+        { "u32",    ParamType.U32    },
+        { "s32",    ParamType.I32    },
+        { "f32",    ParamType.F32    },
+    });
 }

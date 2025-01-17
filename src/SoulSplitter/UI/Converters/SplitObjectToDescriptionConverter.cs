@@ -18,33 +18,32 @@ using System;
 using System.Windows.Data;
 using SoulMemory.Memory;
 
-namespace SoulSplitter.UI.Converters
+namespace SoulSplitter.UI.Converters;
+
+public class SplitObjectToDescriptionConverter : IValueConverter
 {
-    public class SplitObjectToDescriptionConverter : IValueConverter
+    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        if (value is Enum e)
         {
-            if (value is Enum e)
-            {
-                return e.GetDisplayName();
-            }
-
-            if (value is uint u)
-            {
-                return u;
-            }
-
-            if (value?.GetType().IsClass ?? false)
-            {
-                return value.ToString();
-            }
-            
-            return "";
+            return e.GetDisplayName();
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        if (value is uint u)
         {
-            throw new NotSupportedException();
+            return u;
         }
+
+        if (value?.GetType().IsClass ?? false)
+        {
+            return value.ToString();
+        }
+        
+        return "";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        throw new NotSupportedException();
     }
 }

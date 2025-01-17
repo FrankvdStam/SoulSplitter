@@ -17,24 +17,23 @@
 using System;
 using System.Diagnostics;
 
-namespace SoulMemory.MemoryV2.Process
-{
-    public class ProcessWrapperModule
-    {
-        public string ModuleName { get; set; } = null!;
-        public string FileName { get; set; } = null!;
-        public IntPtr BaseAddress { get; set; }
-        public int ModuleMemorySize { get; set; }
+namespace SoulMemory.MemoryV2.Process;
 
-        public static ProcessWrapperModule FromProcessModule(ProcessModule module)
+public class ProcessWrapperModule
+{
+    public string ModuleName { get; set; } = null!;
+    public string FileName { get; set; } = null!;
+    public IntPtr BaseAddress { get; set; }
+    public int ModuleMemorySize { get; set; }
+
+    public static ProcessWrapperModule FromProcessModule(ProcessModule module)
+    {
+        return new ProcessWrapperModule
         {
-            return new ProcessWrapperModule
-            {
-                ModuleName = module.ModuleName,
-                FileName = module.FileName,
-                BaseAddress = module.BaseAddress,
-                ModuleMemorySize = module.ModuleMemorySize,
-            };
-        }
+            ModuleName = module.ModuleName,
+            FileName = module.FileName,
+            BaseAddress = module.BaseAddress,
+            ModuleMemorySize = module.ModuleMemorySize,
+        };
     }
 }

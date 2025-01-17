@@ -18,40 +18,39 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.Splits.Sekiro
+namespace SoulSplitter.Splits.Sekiro;
+
+[XmlType(Namespace = "Sekiro")]
+public class Attribute : ICustomNotifyPropertyChanged
 {
-    [XmlType(Namespace = "Sekiro")]
-    public class Attribute : ICustomNotifyPropertyChanged
+    [XmlElement(Namespace = "Sekiro")]
+    public SoulMemory.Sekiro.Attribute AttributeType
     {
-        [XmlElement(Namespace = "Sekiro")]
-        public SoulMemory.Sekiro.Attribute AttributeType
-        {
-            get => _attributeType;
-            set => this.SetField(ref _attributeType, value);
-        }
-        private SoulMemory.Sekiro.Attribute _attributeType;
-
-        public int Level
-        {
-            get => _level;
-            set => this.SetField(ref _level, value);
-        }
-        private int _level;
-
-        public override string ToString()
-        {
-            return $"{AttributeType} {Level}";
-        }
-
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        get => _attributeType;
+        set => this.SetField(ref _attributeType, value);
     }
+    private SoulMemory.Sekiro.Attribute _attributeType;
+
+    public int Level
+    {
+        get => _level;
+        set => this.SetField(ref _level, value);
+    }
+    private int _level;
+
+    public override string ToString()
+    {
+        return $"{AttributeType} {Level}";
+    }
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

@@ -16,46 +16,45 @@
 
 using System.ComponentModel;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+public class FlagDescription : ICustomNotifyPropertyChanged
 {
-    public class FlagDescription : ICustomNotifyPropertyChanged
+    public uint Flag
     {
-        public uint Flag
-        {
-            get => _flag;
-            set => this.SetField(ref _flag, value);
-        }
-        private uint _flag;
-
-        public string Description
-        {
-            get => _description;
-            set => this.SetField(ref _description, value);
-        }
-        private string _description = "";
-
-        public bool State
-        {
-            get => _state;
-            set => this.SetField(ref _state, value);
-        }
-        private bool _state;
-
-        public override string ToString()
-        {
-            return $"{Flag} {Description}";
-        }
-
-
-        #region ICustomNotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        get => _flag;
+        set => this.SetField(ref _flag, value);
     }
+    private uint _flag;
+
+    public string Description
+    {
+        get => _description;
+        set => this.SetField(ref _description, value);
+    }
+    private string _description = "";
+
+    public bool State
+    {
+        get => _state;
+        set => this.SetField(ref _state, value);
+    }
+    private bool _state;
+
+    public override string ToString()
+    {
+        return $"{Flag} {Description}";
+    }
+
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

@@ -16,16 +16,15 @@
 
 using System.Windows.Controls;
 
-namespace SoulSplitter.UI.DarkSouls1
+namespace SoulSplitter.UI.DarkSouls1;
+
+/// <summary>
+/// Interaction logic for DarkSouls1Control.xaml
+/// </summary>
+public partial class DarkSouls1Control : UserControl
 {
-    /// <summary>
-    /// Interaction logic for DarkSouls1Control.xaml
-    /// </summary>
-    public partial class DarkSouls1Control : UserControl
+    public DarkSouls1Control()
     {
-        public DarkSouls1Control()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

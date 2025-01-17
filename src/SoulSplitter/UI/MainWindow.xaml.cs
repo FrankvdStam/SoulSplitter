@@ -22,74 +22,73 @@ using System.Windows;
 using SoulSplitter.Native;
 using winforms = System.Windows.Forms;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.UI;
+
+/// <summary>
+/// Interaction logic for MainControl.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainControl.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            Closing += Window_Closing;
-        }
+        InitializeComponent();
+        Closing += Window_Closing;
+    }
 
-        public bool WindowShouldHide = true;
-        private void Window_Closing(object sender, CancelEventArgs e)
+    public bool WindowShouldHide = true;
+    private void Window_Closing(object sender, CancelEventArgs e)
+    {
+        if (WindowShouldHide)
         {
-            if (WindowShouldHide)
-            {
-                Hide();
-                e.Cancel = true;
-            }
+            Hide();
+            e.Cancel = true;
         }
-        
+    }
+    
 
-        public MainViewModel MainViewModel
+    public MainViewModel MainViewModel
+    {
+        get => (MainViewModel)DataContext;
+        set => ((MainViewModel)DataContext).Update(value);
+    }
+    
+    private Color _stash = Color.White;
+    public void BitBlt()
+    {
+        try
         {
-            get => (MainViewModel)DataContext;
-            set => ((MainViewModel)DataContext).Update(value);
-        }
-        
-        private Color _stash = Color.White;
-        public void BitBlt()
-        {
-            try
+            var form = winforms.Application.OpenForms[0];
+            using (var graphics = form.CreateGraphics())
             {
-                var form = winforms.Application.OpenForms[0];
-                using (var graphics = form.CreateGraphics())
+                var hdc = graphics.GetHdc();
+                var color = Gdi32.BitBlt(hdc, 0, 0);
+                if (color != _stash)
                 {
-                    var hdc = graphics.GetHdc();
-                    var color = Gdi32.BitBlt(hdc, 0, 0);
-                    if (color != _stash)
-                    {
-                        graphics.ReleaseHdc();
-                        Debug.WriteLine(color);
-                        color = Color.FromArgb(color.ToArgb() ^ 0xffffff);
-                        _stash = color;
-                        graphics.DrawRectangle(new Pen(color), 0, 0, 1, 1);
-                    }
+                    graphics.ReleaseHdc();
+                    Debug.WriteLine(color);
+                    color = Color.FromArgb(color.ToArgb() ^ 0xffffff);
+                    _stash = color;
+                    graphics.DrawRectangle(new Pen(color), 0, 0, 1, 1);
                 }
             }
-            catch
-            {
-                //Ignored
-            }
         }
-
-        public void ResetBitBlt()
+        catch
         {
-            try
-            {
-                _stash = Color.White;
-                var form = winforms.Application.OpenForms[0];
-                form.Invalidate();
-            }
-            catch
-            {
-                //Ignored
-            }
+            //Ignored
+        }
+    }
+
+    public void ResetBitBlt()
+    {
+        try
+        {
+            _stash = Color.White;
+            var form = winforms.Application.OpenForms[0];
+            form.Invalidate();
+        }
+        catch
+        {
+            //Ignored
         }
     }
 }

@@ -22,27 +22,26 @@ using SoulSplitter;
 
 [assembly: ComponentFactory(typeof(SoulComponentFactory))]
 
-namespace SoulSplitter
+namespace SoulSplitter;
+
+public class SoulComponentFactory : IComponentFactory
 {
-    public class SoulComponentFactory : IComponentFactory
+    public string ComponentName => SoulComponent.Name;
+
+    public string Description => "Souls games plugin for IGT/RTA with load removal";
+
+    public ComponentCategory Category => ComponentCategory.Control;
+
+    public string UpdateName => SoulComponent.Name;
+    
+    public string XMLURL => $"{UpdateURL}/Components/Updates.xml";
+
+    public string UpdateURL => "https://raw.githubusercontent.com/FrankvdStam/SoulSplitter/main/";
+
+    public Version Version => VersionHelper.Version;
+
+    public IComponent Create(LiveSplitState state)
     {
-        public string ComponentName => SoulComponent.Name;
-
-        public string Description => "Souls games plugin for IGT/RTA with load removal";
-
-        public ComponentCategory Category => ComponentCategory.Control;
-
-        public string UpdateName => SoulComponent.Name;
-        
-        public string XMLURL => $"{UpdateURL}/Components/Updates.xml";
-
-        public string UpdateURL => "https://raw.githubusercontent.com/FrankvdStam/SoulSplitter/main/";
-
-        public Version Version => VersionHelper.Version;
-
-        public IComponent Create(LiveSplitState state)
-        {
-            return new SoulComponent(state);
-        }
+        return new SoulComponent(state);
     }
 }
