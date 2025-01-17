@@ -335,9 +335,9 @@ namespace SoulSplitter
         {
             MainWindow.Dispatcher.Invoke(() =>
             {
-                if (!string.IsNullOrWhiteSpace(s.Run.GameName))
+                if (!string.IsNullOrWhiteSpace(s?.Run?.GameName))
                 {
-                    var name = s.Run.GameName.ToLower().Replace(" ", "");
+                    var name = s!.Run!.GameName.ToLower().Replace(" ", "");
                     switch (name)
                     {
                         case "darksouls":
