@@ -13,6 +13,10 @@ jobs:
   build:
     name: build
     runs-on: windows-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
     steps:
         #clone, setup dotnet, restore packages
       - name: Checkout

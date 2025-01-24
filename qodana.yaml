@@ -26,3 +26,10 @@ dependencyOverrides:
     licenses:
       - key: "MIT"
         url: "https://nuget.info/packages/NETStandard.Library/2.0.3"
+
+failureConditions:
+  severityThresholds:
+    any: 0
+  testCoverageThresholds:
+    fresh: 50
+    total: 20
