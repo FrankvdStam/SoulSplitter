@@ -31,19 +31,19 @@ namespace SoulSplitter.Tests.UI.Converters
         {
             var converter = new EnumToVisibilityConverter();
 
-            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Attribute, null, SplitType.Attribute, null));
-            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Boss, null, SplitType.Boss, null));
-            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Bonfire, null, SplitType.Bonfire, null));
+            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Attribute, null!, SplitType.Attribute, null!));
+            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Boss, null!, SplitType.Boss, null!));
+            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Bonfire, null!, SplitType.Bonfire, null!));
 
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Attribute, null, SplitType.Boss, null));
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Boss, null, SplitType.Bonfire, null));
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Bonfire, null, SplitType.Attribute, null));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Attribute, null!, SplitType.Boss, null!));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Boss, null!, SplitType.Bonfire, null!));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Bonfire, null!, SplitType.Attribute, null!));
 
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert((object)null, null, null, null));
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Attribute, null, null, null));
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert((object)null, null, null, null));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert((object)null!, null!, null, null!));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Attribute, null!, null, null!));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert((object)null!, null!, null, null!));
 
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(SplitType.Attribute, (Type)null, SplitType.Attribute, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(SplitType.Attribute, (Type)null!, SplitType.Attribute, null!));
         }
 
         [TestMethod]
@@ -52,17 +52,17 @@ namespace SoulSplitter.Tests.UI.Converters
             var converter = new EnumToVisibilityConverter();
 
             Assert.AreEqual(Visibility.Visible, converter.Convert(
-                new[] { (object)SplitType.Attribute, (object)GameType.DarkSouls1 }, null,
-                new[] { (object)SplitType.Attribute, (object)GameType.DarkSouls1 }, null));
+                new[] { (object)SplitType.Attribute, (object)GameType.DarkSouls1 }, null!,
+                new[] { (object)SplitType.Attribute, (object)GameType.DarkSouls1 }, null!));
             
             //Index based logic. Maybe have to fix that.
             Assert.AreEqual(Visibility.Collapsed, converter.Convert(
-                new[] { (object)SplitType.Bonfire, (object)GameType.EldenRing }, null,
-                new[] { (object)GameType.EldenRing, (object)SplitType.Bonfire }, null));
+                new[] { (object)SplitType.Bonfire, (object)GameType.EldenRing }, null!,
+                new[] { (object)GameType.EldenRing, (object)SplitType.Bonfire }, null!));
 
             Assert.AreEqual(Visibility.Collapsed, converter.Convert(
-                new[] { (object)SplitType.Attribute, (object)GameType.EldenRing }, null,
-                new[] { (object)GameType.EldenRing, (object)SplitType.Bonfire }, null));
+                new[] { (object)SplitType.Attribute, (object)GameType.EldenRing }, null!,
+                new[] { (object)GameType.EldenRing, (object)SplitType.Bonfire }, null!));
         }
 
 
@@ -71,14 +71,14 @@ namespace SoulSplitter.Tests.UI.Converters
         {
             var converter = new EnumToVisibilityConverter();
             
-            Assert.ThrowsException<ArgumentException>(() => converter.Convert(null, null, new[]{ SplitType.Attribute }, null));
-            Assert.ThrowsException<ArgumentException>(() => converter.Convert(new[] { SplitType.Attribute }.Cast<object>().ToArray(), null, null, null));
+            Assert.ThrowsException<ArgumentException>(() => converter.Convert(null!, null!, new[]{ SplitType.Attribute }, null!));
+            Assert.ThrowsException<ArgumentException>(() => converter.Convert(new[] { SplitType.Attribute }.Cast<object>().ToArray(), null!, null, null!));
 
             Assert.ThrowsException<ArgumentException>(() => converter.Convert(
-                new[] { (object)SplitType.Attribute, (object)GameType.DarkSouls1 }, null,
-                new[] { (object)SplitType.Attribute }, null));
+                new[] { (object)SplitType.Attribute, (object)GameType.DarkSouls1 }, null!,
+                new[] { (object)SplitType.Attribute }, null!));
 
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(SplitType.Attribute, (Type[])null, SplitType.Attribute, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(SplitType.Attribute, (Type[])null!, SplitType.Attribute, null!));
         }
     }
 }

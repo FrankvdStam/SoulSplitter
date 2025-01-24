@@ -28,22 +28,22 @@ namespace SoulSplitter.Tests.UI.Converters
         public void Convert_Happy_Flow()
         {
             var converter = new BoolToVisibilityConverter();
-            Assert.AreEqual(Visibility.Visible, converter.Convert(true, null, null, null));
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert(false, null, null, null));
+            Assert.AreEqual(Visibility.Visible, converter.Convert(true, null!, null, null!));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert(false, null!, null, null!));
         }
 
         [TestMethod]
         public void Convert_Exception()
         {
             var converter = new BoolToVisibilityConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.Convert("test", null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.Convert("test", null!, null, null!));
         }
 
         [TestMethod]
         public void ConvertBack_Exception()
         {
             var converter = new BoolToVisibilityConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(Visibility.Visible, null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(Visibility.Visible, null!, null, null!));
         }
     }
 }

@@ -57,7 +57,7 @@ public class SekiroViewModel : BaseViewModel
 
     private void AddSplit()
     {
-        object? split = NewSplitType switch
+        var split = NewSplitType switch
         {
             SplitType.Boss or SplitType.Bonfire => NewSplitValue,
             SplitType.Position => Position,

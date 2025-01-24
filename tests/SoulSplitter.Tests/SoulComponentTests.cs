@@ -30,10 +30,10 @@ namespace SoulSplitter.Tests
     //[Apartment(ApartmentState.STA)]
     public class SoulComponentTests
     {
-        [TestMethodSTA]
+        [TestMethodSta]
         public void GetSettingsTest()
         {
-            var liveSplitStateMock = new Mock<LiveSplitState>(args: new object[]{null, null, null, null, null});
+            var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
             var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
             var doc = new XmlDocument();
             var settings = component.GetSettings(doc);
@@ -56,7 +56,7 @@ namespace SoulSplitter.Tests
 
             Assert.AreEqual(viewModel.EldenRingViewModel.StartAutomatically, deserializedViewModel.EldenRingViewModel.StartAutomatically);
             
-            var vectorSize = deserializedViewModel.SekiroViewModel.SplitsViewModel.Splits.FirstOrDefault().Children.FirstOrDefault().Children.FirstOrDefault().Split;
+            var vectorSize = deserializedViewModel.SekiroViewModel.SplitsViewModel.Splits.First().Children.First().Children.First().Split;
 
             Assert.AreEqual(typeof(VectorSize), vectorSize.GetType());
             Assert.AreEqual(1.0f, ((VectorSize)vectorSize).Position.X);
@@ -65,13 +65,13 @@ namespace SoulSplitter.Tests
             Assert.AreEqual(4.0f, ((VectorSize)vectorSize).Size);
         }                                                 
 
-        [TestMethodSTA]
+        [TestMethodSta]
         public void SekiroMigration1_1_0Test()
         {
             var doc = new XmlDocument();
             doc.LoadXml(XmlData.SekiroMigration1_1_0);
 
-            var liveSplitStateMock = new Mock<LiveSplitState>(args: new object[] { null, null, null, null, null });
+            var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
             var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
             component.SetSettings(doc);
 
@@ -80,13 +80,13 @@ namespace SoulSplitter.Tests
             Assert.AreEqual(3, componentViewModel.SekiroViewModel.SplitsViewModel.Splits.First().Children.Count);
         }
 
-        [TestMethodSTA]
+        [TestMethodSta]
         public void Ds3Migration_1_9_0_Test()
         {
             var doc = new XmlDocument();
             doc.LoadXml(XmlData.DarkSouls3Migration_1_9_0);
 
-            var liveSplitStateMock = new Mock<LiveSplitState>(args: new object[] { null, null, null, null, null });
+            var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
             var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
             component.SetSettings(doc);
 

@@ -37,7 +37,7 @@ public class EnumFlagViewModel<T> : ICustomNotifyPropertyChanged where T : Enum
         get => _value;
         set => this.SetField(ref _value, value);
     }
-    private T _value = default(T)!;
+    private T _value = default!;
 
     public string Area
     {
