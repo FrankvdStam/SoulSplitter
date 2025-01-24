@@ -21,10 +21,8 @@ using System.Diagnostics.CodeAnalysis;
 namespace SoulMemory.DarkSouls1.Parameters;
 
 [ExcludeFromCodeCoverage]
-public class LevelSyncParam : BaseParam
+public class LevelSyncParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
-    public LevelSyncParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
     [ParamField(0x0, ParamType.I16)]
     public short SCLUA
     {

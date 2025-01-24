@@ -95,7 +95,7 @@ public class SplitsViewModel : ICustomNotifyPropertyChanged
     private SplitViewModel? _selectedSplit = null!;
 
 
-    public ObservableCollection<SplitTimingViewModel> Splits { get; set; } = new ObservableCollection<SplitTimingViewModel>();
+    public ObservableCollection<SplitTimingViewModel> Splits { get; set; } = [];
 
 
     #region ICustomNotifyPropertyChanged
@@ -119,7 +119,7 @@ public class SplitTimingViewModel : ICustomNotifyPropertyChanged
     }
     private TimingType _timingType;
     
-    public ObservableCollection<SplitTypeViewModel> Children { get; set; } = new ObservableCollection<SplitTypeViewModel>();
+    public ObservableCollection<SplitTypeViewModel> Children { get; set; } = [];
 
     #region ICustomNotifyPropertyChanged
 
@@ -147,7 +147,7 @@ public class SplitTypeViewModel : ICustomNotifyPropertyChanged
     private SplitType _splitType;
 
 
-    public ObservableCollection<SplitViewModel> Children { get; set; } = new ObservableCollection<SplitViewModel>();
+    public ObservableCollection<SplitViewModel> Children { get; set; } = [];
 
     #region ICustomNotifyPropertyChanged
 

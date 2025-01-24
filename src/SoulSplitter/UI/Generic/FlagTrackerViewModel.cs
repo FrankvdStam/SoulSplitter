@@ -41,7 +41,7 @@ public class FlagTrackerCategoryViewModel : ICustomNotifyPropertyChanged
     }
     private string _progress = null!;
 
-    public ObservableCollection<FlagDescription> EventFlags { get; set; } = new ObservableCollection<FlagDescription>();
+    public ObservableCollection<FlagDescription> EventFlags { get; set; } = [];
 
     #region ICustomNotifyPropertyChanged
 
@@ -238,7 +238,7 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
     #endregion
 
     #region UI bindable properties
-    public ObservableCollection<FlagTrackerCategoryViewModel> EventFlagCategories { get; set; } = new ObservableCollection<FlagTrackerCategoryViewModel>();
+    public ObservableCollection<FlagTrackerCategoryViewModel> EventFlagCategories { get; set; } = [];
 
     public EventFlagTrackerDisplayMode DisplayMode
     {
@@ -338,7 +338,7 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
         get => _flagDescription;
         set => this.SetField(ref _flagDescription, value);
     }
-    private FlagDescription _flagDescription = new FlagDescription();
+    private FlagDescription _flagDescription = new();
 
     [XmlIgnore]
     public FlagDescription? SelectedFlagDescription

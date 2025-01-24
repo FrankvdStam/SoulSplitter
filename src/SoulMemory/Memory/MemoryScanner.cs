@@ -227,7 +227,7 @@ public static class MemoryScanner
     {
         var result = new List<byte?>();
         pattern = pattern.Replace("\r", string.Empty).Replace("\n", string.Empty);
-        var split = pattern.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+        var split = pattern.Split([" "], StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var s in split)
         {

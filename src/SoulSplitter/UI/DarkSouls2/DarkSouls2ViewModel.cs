@@ -42,7 +42,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _currentPosition;
         set => this.SetField(ref _currentPosition, value);
     }
-    private Vector3f _currentPosition = new Vector3f(0f,0f,0f);
+    private Vector3f _currentPosition = new(0f,0f,0f);
 
 
     #region add/remove splits ============================================================================================================================================
@@ -133,7 +133,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
     }
 
     
-    public ObservableCollection<HierarchicalTimingTypeViewModel> Splits { get; set; } = new ObservableCollection<HierarchicalTimingTypeViewModel>();
+    public ObservableCollection<HierarchicalTimingTypeViewModel> Splits { get; set; } = [];
     #endregion
 
     #region Properties for new splits ============================================================================================================================================
@@ -298,7 +298,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
 
     #region Static UI source data ============================================================================================================================================
 
-    public static ObservableCollection<EnumFlagViewModel<BossType>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<BossType>>(Enum.GetValues(typeof(BossType)).Cast<BossType>().Select(i => new EnumFlagViewModel<BossType>(i)));
+    public static ObservableCollection<EnumFlagViewModel<BossType>> Bosses { get; set; } = new(Enum.GetValues(typeof(BossType)).Cast<BossType>().Select(i => new EnumFlagViewModel<BossType>(i)));
 
 
     #endregion

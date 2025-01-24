@@ -23,7 +23,7 @@ namespace SoulSplitter;
 internal static class Logger
 {
     private static bool LoggingEnabled = true;
-    private static object _logLock = new object();
+    private static object _logLock = new();
 
     public static void SetLoggingEnabled(bool enable)
     {

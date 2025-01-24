@@ -37,7 +37,7 @@ public class DarkSouls1 : IDarkSouls1
     public int NgCount() => _darkSouls1?.NgCount() ?? 0;
     public int GetCurrentSaveSlot() => _darkSouls1?.GetCurrentSaveSlot() ?? -1;
     public void ResetInventoryIndices() => _darkSouls1?.ResetInventoryIndices();
-    public List<Item> GetInventory() => _darkSouls1?.GetInventory() ?? new List<Item>();
+    public List<Item> GetInventory() => _darkSouls1?.GetInventory() ?? [];
     public bool AreCreditsRolling() => _darkSouls1?.AreCreditsRolling() ?? false;
     public BonfireState GetBonfireState(Bonfire bonfire) => _darkSouls1?.GetBonfireState(bonfire) ?? BonfireState.Unknown;
     public string? GetSaveFileLocation() => _darkSouls1?.GetSaveFileLocation();

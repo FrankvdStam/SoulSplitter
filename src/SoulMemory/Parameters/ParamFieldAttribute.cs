@@ -37,16 +37,9 @@ internal class ParamFieldAttribute : System.Attribute
 
 }
 
-internal class ParamBitFieldAttribute : System.Attribute
+internal class ParamBitFieldAttribute(string paramFieldName, int bitsOffset, int bits) : System.Attribute
 {
-    public string ParamFieldName;
-    public int BitsOffset;
-    public int Bits;
-
-    public ParamBitFieldAttribute(string paramFieldName, int bitsOffset, int bits)
-    {
-        ParamFieldName = paramFieldName;
-        BitsOffset = bitsOffset;
-        Bits = bits;
-    }
+    public string ParamFieldName = paramFieldName;
+    public int BitsOffset = bitsOffset;
+    public int Bits = bits;
 }

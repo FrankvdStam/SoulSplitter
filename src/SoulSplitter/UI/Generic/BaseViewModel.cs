@@ -150,7 +150,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
         get => _splitsViewModel;
         set => this.SetField(ref _splitsViewModel, value);
     }
-    private SplitsViewModel _splitsViewModel =  new SplitsViewModel();
+    private SplitsViewModel _splitsViewModel =  new();
     
     [XmlIgnore]
     public VectorSize Position
@@ -166,7 +166,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
         get => _currentPosition;
         set => this.SetField(ref _currentPosition, value);
     }
-    private Vector3f _currentPosition = new Vector3f(0f, 0f, 0f);
+    private Vector3f _currentPosition = new(0f, 0f, 0f);
 
     [XmlIgnore]
     public FlagDescription FlagDescription

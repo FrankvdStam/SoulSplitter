@@ -25,13 +25,9 @@ using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splitters;
 
-public class ArmoredCore6Splitter : BaseSplitter
+public class ArmoredCore6Splitter(LiveSplitState state, IGame game) : BaseSplitter(state, game)
 {
-    private readonly ArmoredCore6 _armoredCore6;
-    public ArmoredCore6Splitter(LiveSplitState state, IGame game) : base(state, game)
-    {
-        _armoredCore6 = (ArmoredCore6)game;
-    }
+    private readonly ArmoredCore6 _armoredCore6 = (ArmoredCore6)game;
 
     public override void OnStart()
     {
@@ -73,7 +69,7 @@ public class ArmoredCore6Splitter : BaseSplitter
 
     #region Autosplitting
 
-    private List<Split> _splits = new List<Split>();
+    private List<Split> _splits = [];
     
     private void UpdateAutoSplitter()
     {

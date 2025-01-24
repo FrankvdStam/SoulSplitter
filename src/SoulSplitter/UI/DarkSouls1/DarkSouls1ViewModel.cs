@@ -210,16 +210,16 @@ public class DarkSouls1ViewModel : BaseViewModel
 
     #region Static UI source data ============================================================================================================================================
 
-    public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<Boss>>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
+    public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
     public static ObservableCollection<EnumFlagViewModel<KnownFlag>> KnownFlags { get; set; } = 
-        new ObservableCollection<EnumFlagViewModel<KnownFlag>>(
+        new(
             Enum
                 .GetValues(typeof(KnownFlag))
                 .Cast<KnownFlag>()
                 .Select(i => new EnumFlagViewModel<KnownFlag>(i))
         );
-    public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = new ObservableCollection<EnumFlagViewModel<Bonfire>>(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
-    public static ObservableCollection<Item> Items { get; set; } = new ObservableCollection<Item>(Item.AllItems);
+    public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = new(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
+    public static ObservableCollection<Item> Items { get; set; } = new(Item.AllItems);
 
     #endregion
 }

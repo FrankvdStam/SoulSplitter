@@ -21,7 +21,7 @@ namespace SoulMemory.Parameters;
 
 public static class ParamData
 {
-    public static readonly ReadOnlyDictionary<ParamType, int> ParamByteSize = new ReadOnlyDictionary<ParamType, int>(new Dictionary<ParamType, int>()
+    public static readonly ReadOnlyDictionary<ParamType, int> ParamByteSize = new(new Dictionary<ParamType, int>()
     {
         { ParamType.Dummy8, 1 },
         { ParamType.U8,     1 },
@@ -33,7 +33,7 @@ public static class ParamData
         { ParamType.F32,    4 },
     });
 
-    public static readonly ReadOnlyDictionary<ParamType, string> ParamToSharpTypeString = new ReadOnlyDictionary<ParamType, string>(new Dictionary<ParamType, string>()
+    public static readonly ReadOnlyDictionary<ParamType, string> ParamToSharpTypeString = new(new Dictionary<ParamType, string>()
     {
         { ParamType.Dummy8, "byte"   },
         { ParamType.U8,     "byte"   },
@@ -45,7 +45,7 @@ public static class ParamData
         { ParamType.F32,    "float"  },
     });
 
-    public static readonly ReadOnlyDictionary<string, ParamType> ParamStrings = new ReadOnlyDictionary<string, ParamType>(new Dictionary<string, ParamType>()
+    public static readonly ReadOnlyDictionary<string, ParamType> ParamStrings = new(new Dictionary<string, ParamType>()
     {
         { "dummy8", ParamType.Dummy8 },
         { "u8",     ParamType.U8     },

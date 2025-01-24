@@ -27,7 +27,7 @@ public class Pointer
 {
     public Process? Process;
     public long BaseAddress;
-    public List<long> Offsets = new List<long>();
+    public List<long> Offsets = [];
     public bool Is64Bit;
     private bool _initialized = false;
 
@@ -300,13 +300,13 @@ public class Pointer
 
     public void WriteByte(long? offset, byte value)
     {
-        WriteMemory(offset, new byte[] { value });
+        WriteMemory(offset, [value]);
     }
 
     public void WriteSByte(long? offset, sbyte value)
     {
         var b = unchecked((byte)value);
-        WriteMemory(offset, new byte[] { b });
+        WriteMemory(offset, [b]);
     }
 
     public void WriteBytes(long? offset, byte[] value)

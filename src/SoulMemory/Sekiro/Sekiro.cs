@@ -26,20 +26,20 @@ namespace SoulMemory.Sekiro;
 public class Sekiro : IGame
 {
     private Process? _process;
-    private readonly Pointer _eventFlagMan = new Pointer();
-    private readonly Pointer _fieldArea = new Pointer();
-    private readonly Pointer _worldChrManImp = new Pointer();
-    private readonly Pointer _igt = new Pointer();
-    private readonly Pointer _position = new Pointer();
-    private readonly Pointer _fadeSystem = new Pointer();
-    private readonly Pointer _saveChecksum = new Pointer();
-    private readonly Pointer _saveSteamId = new Pointer();
-    private readonly Pointer _saveSlot = new Pointer();
-    private readonly Pointer _showTutorialText = new Pointer();
-    private readonly Pointer _cSMenuTutorialDialogLoadBuffer = new Pointer();
-    private readonly Pointer _cSTutorialDialogLoadBuffer = new Pointer();
-    private readonly Pointer _noLogo = new Pointer();
-    private readonly Pointer _playerGameData = new Pointer();
+    private readonly Pointer _eventFlagMan = new();
+    private readonly Pointer _fieldArea = new();
+    private readonly Pointer _worldChrManImp = new();
+    private readonly Pointer _igt = new();
+    private readonly Pointer _position = new();
+    private readonly Pointer _fadeSystem = new();
+    private readonly Pointer _saveChecksum = new();
+    private readonly Pointer _saveSteamId = new();
+    private readonly Pointer _saveSlot = new();
+    private readonly Pointer _showTutorialText = new();
+    private readonly Pointer _cSMenuTutorialDialogLoadBuffer = new();
+    private readonly Pointer _cSTutorialDialogLoadBuffer = new();
+    private readonly Pointer _noLogo = new();
+    private readonly Pointer _playerGameData = new();
     
     #region Refresh/init/reset ================================================================================================================================
 
@@ -132,8 +132,8 @@ public class Sekiro : IGame
                 return result;
             }
 
-            _showTutorialText.WriteBytes(21, new byte[]{0x90, 0x90, 0x90, 0x90, 0x90 });
-            _showTutorialText.WriteBytes(31, new byte[]{0x90, 0x90, 0x90, 0x90, 0x90 });
+            _showTutorialText.WriteBytes(21, [0x90, 0x90, 0x90, 0x90, 0x90]);
+            _showTutorialText.WriteBytes(31, [0x90, 0x90, 0x90, 0x90, 0x90]);
 
             _cSMenuTutorialDialogLoadBuffer.WriteByte(21, 0x75);
             _cSTutorialDialogLoadBuffer.WriteByte(24, 0x75);
@@ -141,7 +141,7 @@ public class Sekiro : IGame
             _noLogo.WriteByte(24, 0x75);
             
             //All credit goes to Uberhalit, for finding the byte patterns https://github.com/uberhalit/SimpleSekiroSavegameHelper
-            _saveChecksum.WriteBytes(null, new byte[] { 0x90, 0x90 });
+            _saveChecksum.WriteBytes(null, [0x90, 0x90]);
             _saveSteamId.WriteByte(null, 0xeb);
             _saveSlot.WriteByte(null, 0xeb);
             
@@ -421,19 +421,20 @@ public class Sekiro : IGame
     }
 
     private bool _bitBlt = false;
-    private readonly object _bitBltLock = new object();
+    private readonly object _bitBltLock = new();
 
-    private readonly List<string> _files = new List<string>{ "sekiro.exe", "data1.bdt", "data2.bdt", "data3.bdt", "data4.bdt", "data5.bdt" };
+    private readonly List<string> _files =
+        ["sekiro.exe", "data1.bdt", "data2.bdt", "data3.bdt", "data4.bdt", "data5.bdt"];
 
-    private readonly List<string> _bitBltValues = new List<string>
-    {
+    private readonly List<string> _bitBltValues =
+    [
         "0E 0A 84 07 C7 8E 89 6A 73 D8 F2 7D A3 D4 C0 CC",
         "BE B9 5E E1 B9 87 29 19 4D A3 05 FD EB 63 1A 70",
         "77 59 13 22 FC 7B 93 F8 8C 94 94 95 BC E9 D0 89",
         "8D 88 50 B7 69 62 40 F5 26 EA 90 CA A9 39 93 54",
         "97 31 E0 AB 34 BC 42 C3 F5 EE CF 64 F8 38 7B A9",
-        "6C 50 A5 31 44 52 25 9E 12 0C 3D 8B E2 66 3E 0D",
-    };
+        "6C 50 A5 31 44 52 25 9E 12 0C 3D 8B E2 66 3E 0D"
+    ];
 
     #endregion
 
@@ -591,7 +592,7 @@ public class Sekiro : IGame
             0x48, 0xBB //mov rbx, fracAddress
             };
         igtFixCode.AddRange(BitConverter.GetBytes((long)frac));
-        igtFixCode.AddRange(new byte[]{
+        igtFixCode.AddRange([
             0x44, 0x0F, 0x10, 0xF0, //movups xmm14, xmm0
             0xF3, 0x45, 0x0F, 0x5A, 0xF6, //cvtss2sd xmm14, xmm14
             0xF2, 0x49, 0x0F, 0x2C, 0xC6, //cvttsd2si rax, xmm14
@@ -614,7 +615,7 @@ public class Sekiro : IGame
             0x5B, //pop rbx
             0xF3, 0x48, 0x0F, 0x2C, 0xC0, //cvttss2si rax,xmm0
             0xE9 //jmp return igtFixEntryPoint +5
-            });
+        ]);
 
         int jmpTarget = (int)((igtFixEntryPoint+5)-(igtFixCodeLoc+103+5));
         igtFixCode.AddRange(BitConverter.GetBytes(jmpTarget));

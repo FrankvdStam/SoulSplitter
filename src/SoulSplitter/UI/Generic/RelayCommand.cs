@@ -19,7 +19,7 @@ using System.Windows.Input;
 
 namespace SoulSplitter.UI.Generic;
 
-public class RelayCommand : ICommand
+public class RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute) : ICommand
 {
     public RelayCommand(Action execute) : this((param) => execute(), (Func<object?, bool>?)null) { }
     public RelayCommand(Action execute, Func<bool> canExecute) : this((param) => execute(), (param) => canExecute()) { }
@@ -27,18 +27,8 @@ public class RelayCommand : ICommand
     public RelayCommand(Action<object?> execute) : this(execute, (Func<object?, bool>?)null) { }
     public RelayCommand(Action<object?> execute, Func<bool> canExecute) : this(execute, (param) => canExecute()) { }
 
-
-
-
-
-    public RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute)
-    {
-        _execute = execute;
-        _canExecute = canExecute;
-    }
-
-    private readonly Action<object?> _execute;
-    private readonly Func<object?, bool>? _canExecute;
+    private readonly Action<object?> _execute = execute;
+    private readonly Func<object?, bool>? _canExecute = canExecute;
 
     public event EventHandler CanExecuteChanged
     {

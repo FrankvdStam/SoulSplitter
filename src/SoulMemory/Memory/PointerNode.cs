@@ -34,10 +34,10 @@ public class PointerNode
     public long? Offset;
 
     //used for pointers
-    public long[] Offsets = new long[] { };
-    public Pointer Pointer = new Pointer();
+    public long[] Offsets = [];
+    public Pointer Pointer = new();
 
-    public List<PointerNode> Pointers = new List<PointerNode>();
+    public List<PointerNode> Pointers = [];
 
     public override string ToString() => Name;
 }

@@ -21,10 +21,8 @@ using System.Diagnostics.CodeAnalysis;
 namespace SoulMemory.DarkSouls1.Parameters;
 
 [ExcludeFromCodeCoverage]
-public class WhiteCoolTimeParam : BaseParam
+public class WhiteCoolTimeParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
-    public WhiteCoolTimeParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
     [ParamField(0x0, ParamType.F32)]
     public float TimeLimit0
     {

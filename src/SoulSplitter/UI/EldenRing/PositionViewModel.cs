@@ -23,7 +23,7 @@ namespace SoulSplitter.UI.EldenRing;
 public class PositionViewModel : ICustomNotifyPropertyChanged
 {
     
-    public readonly Position Position = new Position();
+    public readonly Position Position = new();
 
 
     public byte Area

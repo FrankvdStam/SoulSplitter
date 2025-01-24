@@ -25,13 +25,9 @@ public interface IMemory
     void WriteBytes(long? offset, byte[] bytes);
 }
 
-public class ByteArrayMemory : IMemory
+public class ByteArrayMemory(byte[] data) : IMemory
 {
-    private readonly byte[] _data;
-    public ByteArrayMemory(byte[] data)
-    {
-        _data = data;
-    }
+    private readonly byte[] _data = data;
 
     public byte[] ReadBytes(long? offset, int length)
     {
@@ -170,13 +166,13 @@ public static class MemoryExtensions
 
     public static void WriteByte(this IMemory memory, long? offset, byte value)
     {
-        memory.WriteBytes(offset, new byte[] { value });
+        memory.WriteBytes(offset, [value]);
     }
 
     public static void WriteSByte(this IMemory memory, long? offset, sbyte value)
     {
         var b = unchecked((byte)value);
-        memory.WriteBytes(offset, new byte[] { b });
+        memory.WriteBytes(offset, [b]);
     }
 
     public static void WriteFloat(this IMemory memory, float value) => memory.WriteFloat(null, value);

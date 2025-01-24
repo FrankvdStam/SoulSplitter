@@ -21,10 +21,8 @@ using System.Diagnostics.CodeAnalysis;
 namespace SoulMemory.DarkSouls1.Parameters;
 
 [ExcludeFromCodeCoverage]
-public class LightScatteringBank : BaseParam
+public class LightScatteringBank(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
-    public LightScatteringBank(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
     [ParamField(0x0, ParamType.I16)]
     public short SunRotX
     {

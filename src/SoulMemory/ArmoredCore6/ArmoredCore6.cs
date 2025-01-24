@@ -53,7 +53,7 @@ public class ArmoredCore6 : IGame
 
         _armoredCore6.Hooked += () =>
         {
-            _noLogo.WriteBytes(0x0, new byte[] { 0x90, 0x90 });
+            _noLogo.WriteBytes(0x0, [0x90, 0x90]);
             return InjectMods();
         };
     }

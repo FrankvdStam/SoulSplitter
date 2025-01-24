@@ -92,13 +92,13 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
         switch (SelectedSplitType)
         {
             case SplitType.Boss:
-                flatSplit.Split = SelectedBoss;
+                flatSplit.Split = SelectedBoss!;
                 break;
 
             case SplitType.Attribute:
                 if (Game == Game.DarkSouls1)
                 {
-                    flatSplit.Split = new Splits.DarkSouls1.Attribute(){ AttributeType = (SoulMemory.DarkSouls1.Attribute)SelectedAttribute, Level = AttributeLevel};
+                    flatSplit.Split = new Splits.DarkSouls1.Attribute(){ AttributeType = (SoulMemory.DarkSouls1.Attribute)SelectedAttribute!, Level = AttributeLevel};
                     break;
                 }
                 break;
@@ -106,25 +106,25 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
             case SplitType.Bonfire:
                 if (Game == Game.DarkSouls1)
                 {
-                    flatSplit.Split = new Splits.DarkSouls1.BonfireState(){ Bonfire = (SoulMemory.DarkSouls1.Bonfire)SelectedBonfire, State = (SoulMemory.DarkSouls1.BonfireState)SelectedBonfireState };
+                    flatSplit.Split = new Splits.DarkSouls1.BonfireState(){ Bonfire = (SoulMemory.DarkSouls1.Bonfire)SelectedBonfire!, State = (SoulMemory.DarkSouls1.BonfireState)SelectedBonfireState! };
                     break;
                 }
                 break;
 
             case SplitType.Item:
-                flatSplit.Split = SelectedItem;
+                flatSplit.Split = SelectedItem!;
                 break;
 
             case SplitType.Position:
-                flatSplit.Split = new VectorSize{Description = Position.Description, Position = new Vector3f(Position.Position.X, Position.Position.Y, Position.Position.Z), Size = Position.Size};
+                flatSplit.Split = new VectorSize{Description = Position!.Description, Position = new Vector3f(Position.Position.X, Position.Position.Y, Position.Position.Z), Size = Position.Size};
                 break;
 
             case SplitType.KnownFlag:
-                flatSplit.Split = SelectedKnownFlag;
+                flatSplit.Split = SelectedKnownFlag!;
                 break;
 
             case SplitType.Flag:
-                flatSplit.Split = new FlagDescription{Description = FlagDescription.Description, Flag = FlagDescription.Flag};
+                flatSplit.Split = new FlagDescription{Description = FlagDescription!.Description, Flag = FlagDescription.Flag};
                 break;
 
             default:
@@ -291,7 +291,10 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
 
     private void CopyGamePosition(object? param)
     {
-        Position.Position = GamePosition.Clone();
+        if (Position != null)
+        {
+            Position.Position = GamePosition.Clone();
+        }
     }
     #endregion
 
@@ -311,41 +314,41 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
     }
     private SplitType _selectedSplitType = SplitType.Boss;
 
-    public Enum SelectedBoss
+    public Enum? SelectedBoss
     {
         get => _selectedBoss;
         set => this.SetField(ref _selectedBoss, value);
     }
-    private Enum _selectedBoss = null!;
+    private Enum? _selectedBoss = null!;
 
-    public Enum SelectedKnownFlag
+    public Enum? SelectedKnownFlag
     {
         get => _selectedKnownFlag;
         set => this.SetField(ref _selectedKnownFlag, value);
     }
-    private Enum _selectedKnownFlag = null!;
+    private Enum? _selectedKnownFlag = null!;
 
-    public Enum SelectedBonfire
+    public Enum? SelectedBonfire
     {
         get => _selectedBonfire;
         set => this.SetField(ref _selectedBonfire, value);
     }
-    private Enum _selectedBonfire = null!;
+    private Enum? _selectedBonfire = null!;
 
     //For dark souls 1 specifically
-    public Enum SelectedBonfireState
+    public Enum? SelectedBonfireState
     {
         get => _selectedBonfireState;
         set => this.SetField(ref _selectedBonfireState, value);
     }
-    private Enum _selectedBonfireState = null!;
+    private Enum? _selectedBonfireState = null!;
 
-    public Enum SelectedAttribute
+    public Enum? SelectedAttribute
     {
         get => _selectedAttribute;
         set => this.SetField(ref _selectedAttribute, value);
     }
-    private Enum _selectedAttribute = null!;
+    private Enum? _selectedAttribute = null!;
 
     public int AttributeLevel
     {
@@ -354,26 +357,26 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
     }
     private int _attributeLevel = 10;
 
-    public Enum SelectedItem
+    public Enum? SelectedItem
     {
         get => _selectedItem;
         set => this.SetField(ref _selectedItem, value);
     }
-    private Enum _selectedItem = null!;
+    private Enum? _selectedItem = null!;
 
-    public VectorSize Position
+    public VectorSize? Position
     {
         get => _position;
         set => this.SetField(ref _position, value);
     }
-    private VectorSize _position = new VectorSize();
+    private VectorSize? _position;
 
-    public FlagDescription FlagDescription
+    public FlagDescription? FlagDescription
     {
         get => _flagDescription;
         set => this.SetField(ref _flagDescription, value);
     }
-    private FlagDescription _flagDescription = new FlagDescription();
+    private FlagDescription? _flagDescription;
     #endregion
 
 

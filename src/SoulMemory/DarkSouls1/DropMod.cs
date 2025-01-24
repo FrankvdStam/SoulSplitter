@@ -19,14 +19,9 @@ using System.Linq;
 
 namespace SoulMemory.DarkSouls1;
 
-public class DropMod
+public class DropMod(IDarkSouls1 darkSouls)
 {
-    private readonly IDarkSouls1 _darkSouls;
-
-    public DropMod(IDarkSouls1 darkSouls)
-    {
-        _darkSouls = darkSouls;
-    }
+    private readonly IDarkSouls1 _darkSouls = darkSouls;
 
     public void InitBkh()
     {
@@ -105,50 +100,40 @@ public class DropMod
     }
     
 
-    private readonly List<SwitchableDrop> _switchableWeapons = new List<SwitchableDrop>()
-    {
-        //Darkroot
-        new SwitchableDrop(ItemType.StoneGreatsword          , 23800000, 306000 , 1503000),
+    private readonly List<SwitchableDrop> _switchableWeapons =
+    [
+        new SwitchableDrop(ItemType.StoneGreatsword, 23800000, 306000, 1503000),
 
         //Anor londo
-        new SwitchableDrop(ItemType.SilverKnightStraightSword, 24100000, 208000 , 1473000),
-        new SwitchableDrop(ItemType.SilverKnightSpear        , 24100300, 1006000, 1473000),
-        
+        new SwitchableDrop(ItemType.SilverKnightStraightSword, 24100000, 208000, 1473000),
+        new SwitchableDrop(ItemType.SilverKnightSpear, 24100300, 1006000, 1473000),
+
         //kiln
-        new SwitchableDrop(ItemType.BlackKnightHalberd       , 27905300, 1105000, 1474000),
-        new SwitchableDrop(ItemType.BlackKnightGreataxe      , 27905200, 753000 , 1474000),
-        new SwitchableDrop(ItemType.BlackKnightSword         , 27905000, 310000 , 1474000),
-        new SwitchableDrop(ItemType.BlackKnightGreatsword    , 27905100, 355000 , 1474000),
-        
+        new SwitchableDrop(ItemType.BlackKnightHalberd, 27905300, 1105000, 1474000),
+        new SwitchableDrop(ItemType.BlackKnightGreataxe, 27905200, 753000, 1474000),
+        new SwitchableDrop(ItemType.BlackKnightSword, 27905000, 310000, 1474000),
+        new SwitchableDrop(ItemType.BlackKnightGreatsword, 27905100, 355000, 1474000),
+
         //Darkroot Garden
-        new SwitchableDrop(ItemType.BlackKnightHalberd       , 27901000, 1105000, 1474000),
-        
+        new SwitchableDrop(ItemType.BlackKnightHalberd, 27901000, 1105000, 1474000),
+
         //undead burg
-        new SwitchableDrop(ItemType.BlackKnightSword         , 27900000, 1105000, 1474000),
+        new SwitchableDrop(ItemType.BlackKnightSword, 27900000, 1105000, 1474000),
 
         //Asylum
-        new SwitchableDrop(ItemType.BlackKnightSword         , 27907000, 310000 , 1474000),
+        new SwitchableDrop(ItemType.BlackKnightSword, 27907000, 310000, 1474000),
 
         //Catacombs
-        new SwitchableDrop(ItemType.BlackKnightGreataxe      , 27902000, 753000 , 1474000),
-        new SwitchableDrop(ItemType.BlackKnightHalberd       , 27903000, 1105000, 1474000),
-    };
+        new SwitchableDrop(ItemType.BlackKnightGreataxe, 27902000, 753000, 1474000),
+        new SwitchableDrop(ItemType.BlackKnightHalberd, 27903000, 1105000, 1474000)
+    ];
 
-    private struct SwitchableDrop
+    private struct SwitchableDrop(ItemType switchItem, int rowId, int itemId1, int itemId2)
     {
-        public SwitchableDrop(ItemType switchItem, int rowId, int itemId1, int itemId2)
-        {
-            ShouldSwitch = true;
-            SwitchItem   = switchItem  ;
-            RowId        = rowId       ;
-            ItemId1      = itemId1     ;
-            ItemId2      = itemId2     ;
-        }
-        
-        public bool ShouldSwitch;
-        public ItemType SwitchItem;
-        public int RowId;
-        public int ItemId1;
-        public int ItemId2;
+        public bool ShouldSwitch = true;
+        public ItemType SwitchItem = switchItem;
+        public int RowId = rowId;
+        public int ItemId1 = itemId1;
+        public int ItemId2 = itemId2;
     }
 }

@@ -54,16 +54,16 @@ public class ArmoredCore6ViewModel : BaseViewModel
 
     #region Static UI source data ============================================================================================================================================
 
-    public static ObservableCollection<EnumFlagViewModel<TimingType>> TimingTypes { get; set; } = new ObservableCollection<EnumFlagViewModel<TimingType>>()
-    {
+    public static ObservableCollection<EnumFlagViewModel<TimingType>> TimingTypes { get; set; } =
+    [
         new EnumFlagViewModel<TimingType>(TimingType.Immediate),
-        new EnumFlagViewModel<TimingType>(TimingType.OnLoading),
-    };
+        new EnumFlagViewModel<TimingType>(TimingType.OnLoading)
+    ];
 
-    public static ObservableCollection<EnumFlagViewModel<SplitType>> SplitTypes { get; set; } = new ObservableCollection<EnumFlagViewModel<SplitType>>()
-    {
-        new EnumFlagViewModel<SplitType>(SplitType.Flag),
-    };
+    public static ObservableCollection<EnumFlagViewModel<SplitType>> SplitTypes { get; set; } =
+    [
+        new EnumFlagViewModel<SplitType>(SplitType.Flag)
+    ];
 
     #endregion
 }

@@ -250,20 +250,12 @@ public static class ParamClassGenerator
     }
 
 
-    private struct PreParsedField
+    private struct PreParsedField(string name, ParamType paramType, int? bits = null, int? arraySize = null)
     {
-        public PreParsedField(string name, ParamType paramType, int? bits = null, int? arraySize = null)
-        {
-            Name = name;
-            ParamType = paramType;
-            Bits = bits;
-            ArraySize = arraySize;
-        }
-
-        public ParamType ParamType;
-        public string Name;
-        public int? Bits;
-        public int? ArraySize;
+        public ParamType ParamType = paramType;
+        public string Name = name;
+        public int? Bits = bits;
+        public int? ArraySize = arraySize;
 
         public override string ToString()
         {
@@ -299,7 +291,7 @@ public static class ParamClassGenerator
             ParamType = paramType;
         }
 
-        public List<(string name, int size)> Bitfields = new List<(string name, int size)>();
+        public List<(string name, int size)> Bitfields = [];
     }
     
     #endregion

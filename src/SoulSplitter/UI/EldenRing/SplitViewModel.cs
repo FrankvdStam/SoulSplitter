@@ -33,7 +33,7 @@ public class HierarchicalTimingTypeViewModel : ICustomNotifyPropertyChanged
     }
     private TimingType _timingType;
 
-    public ObservableCollection<HierarchicalSplitTypeViewModel> Children { get; set; } = new ObservableCollection<HierarchicalSplitTypeViewModel>();
+    public ObservableCollection<HierarchicalSplitTypeViewModel> Children { get; set; } = [];
 
     #region ICustomNotifyPropertyChanged
 
@@ -60,7 +60,7 @@ public class HierarchicalSplitTypeViewModel : ICustomNotifyPropertyChanged
     }
     private EldenRingSplitType _eldenRingSplitType;
 
-    public ObservableCollection<HierarchicalSplitViewModel> Children { get; set; } = new ObservableCollection<HierarchicalSplitViewModel>();
+    public ObservableCollection<HierarchicalSplitViewModel> Children { get; set; } = [];
 
     #region ICustomNotifyPropertyChanged
 

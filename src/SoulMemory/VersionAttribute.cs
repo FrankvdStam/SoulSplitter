@@ -18,13 +18,8 @@ using System;
 
 namespace SoulMemory;
 
-public class VersionAttribute : Attribute
+public class VersionAttribute(string version) : Attribute
 {
-    public VersionAttribute(string version)
-    {
-        Version = version;
-    }
-
-    public string Version { get; }
-    public Version GetVersion() => new Version(Version);
+    public string Version { get; } = version;
+    public Version GetVersion() => new(Version);
 }

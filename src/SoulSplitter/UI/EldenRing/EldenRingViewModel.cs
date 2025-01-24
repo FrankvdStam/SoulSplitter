@@ -51,7 +51,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _currentPosition;
         set => this.SetField(ref _currentPosition, value);
     }
-    private PositionViewModel _currentPosition = new PositionViewModel();
+    private PositionViewModel _currentPosition = new();
 
 
     #region Adding new splits ================================================================================================================
@@ -223,7 +223,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
             EnabledAddSplit = _newSplitPosition != null;
         }
     }
-    private PositionViewModel _newSplitPosition = new PositionViewModel();
+    private PositionViewModel _newSplitPosition = new();
 
     [XmlIgnore]
     public bool VisiblePositionSplit
@@ -439,13 +439,13 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     #endregion
 
 
-    public ObservableCollection<HierarchicalTimingTypeViewModel> Splits { get; set; }= new ObservableCollection<HierarchicalTimingTypeViewModel>();
+    public ObservableCollection<HierarchicalTimingTypeViewModel> Splits { get; set; }= [];
     
     //source lists
-    public static ObservableCollection<BossViewModel> Bosses { get; set; } = new ObservableCollection<BossViewModel>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new BossViewModel(i)));
-    public static ObservableCollection<GraceViewModel> Graces { get; set; } = new ObservableCollection<GraceViewModel>(Enum.GetValues(typeof(Grace)).Cast<Grace>().Select(i => new GraceViewModel(i)));
-    public static ObservableCollection<ItemPickupViewModel> ItemPickups { get; set; } = new ObservableCollection<ItemPickupViewModel>(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new ItemPickupViewModel(i)));
-    public static ObservableCollection<KnownFlagViewModel> KnownFlags { get; set; } = new ObservableCollection<KnownFlagViewModel>(Enum.GetValues(typeof(KnownFlag)).Cast<KnownFlag>().Select(i => new KnownFlagViewModel(i)));
+    public static ObservableCollection<BossViewModel> Bosses { get; set; } = new(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new BossViewModel(i)));
+    public static ObservableCollection<GraceViewModel> Graces { get; set; } = new(Enum.GetValues(typeof(Grace)).Cast<Grace>().Select(i => new GraceViewModel(i)));
+    public static ObservableCollection<ItemPickupViewModel> ItemPickups { get; set; } = new(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new ItemPickupViewModel(i)));
+    public static ObservableCollection<KnownFlagViewModel> KnownFlags { get; set; } = new(Enum.GetValues(typeof(KnownFlag)).Cast<KnownFlag>().Select(i => new KnownFlagViewModel(i)));
 
 
     #region ICustomNotifyPropertyChanged

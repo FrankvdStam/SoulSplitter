@@ -21,10 +21,8 @@ using System.Diagnostics.CodeAnalysis;
 namespace SoulMemory.DarkSouls1.Parameters;
 
 [ExcludeFromCodeCoverage]
-public class GameAreaParam : BaseParam
+public class GameAreaParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
-    public GameAreaParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
     [ParamField(0x0, ParamType.U32)]
     public uint BonusSoul_single
     {

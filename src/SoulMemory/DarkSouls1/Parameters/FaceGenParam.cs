@@ -21,10 +21,8 @@ using System.Diagnostics.CodeAnalysis;
 namespace SoulMemory.DarkSouls1.Parameters;
 
 [ExcludeFromCodeCoverage]
-public class FaceGenParam : BaseParam
+public class FaceGenParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
-    public FaceGenParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
     [ParamField(0x0, ParamType.U8)]
     public byte FaceGeoData00
     {

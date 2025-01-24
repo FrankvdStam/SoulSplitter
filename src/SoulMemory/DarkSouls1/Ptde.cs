@@ -50,20 +50,20 @@ public class Ptde : IDarkSouls1
 
     private Process? _process;
 
-    private readonly Pointer _gameMan = new Pointer();
-    private readonly Pointer _gameDataMan = new Pointer();
-    private readonly Pointer _playerIns = new Pointer();
-    private readonly Pointer _playerGameData = new Pointer();
-    private readonly Pointer _eventFlags = new Pointer();
-    private readonly Pointer _inventoryIndices = new Pointer();
-    private readonly Pointer _netBonfireDb = new Pointer();
-    private readonly Pointer _saveInfo = new Pointer();
-    private readonly Pointer _menuMan = new Pointer();
-    private readonly Pointer _soloParamMan = new Pointer();
-    private readonly Pointer _msgMan = new Pointer();
-    private readonly Pointer _loadingScreenItems = new Pointer();
-    private List<ItemLotParam> _itemLotParams = new List<ItemLotParam>();
-    private List<TextTableEntry> _weaponDescriptionsTable = new List<TextTableEntry>();
+    private readonly Pointer _gameMan = new();
+    private readonly Pointer _gameDataMan = new();
+    private readonly Pointer _playerIns = new();
+    private readonly Pointer _playerGameData = new();
+    private readonly Pointer _eventFlags = new();
+    private readonly Pointer _inventoryIndices = new();
+    private readonly Pointer _netBonfireDb = new();
+    private readonly Pointer _saveInfo = new();
+    private readonly Pointer _menuMan = new();
+    private readonly Pointer _soloParamMan = new();
+    private readonly Pointer _msgMan = new();
+    private readonly Pointer _loadingScreenItems = new();
+    private List<ItemLotParam> _itemLotParams = [];
+    private List<TextTableEntry> _weaponDescriptionsTable = [];
 
     public Process? GetProcess() => _process;
 
@@ -159,27 +159,22 @@ public class Ptde : IDarkSouls1
     
     #endregion
     
-    public int GetAttribute(Attribute attribute) => _playerGameData?.ReadInt32((long)attribute) ?? 0;
+    public int GetAttribute(Attribute attribute) => _playerGameData.ReadInt32((long)attribute);
 
-    public int GetInGameTimeMilliseconds() => _gameDataMan?.ReadInt32(0x68) ?? 0;
+    public int GetInGameTimeMilliseconds() => _gameDataMan.ReadInt32(0x68);
 
-    public int NgCount() => _gameDataMan?.ReadInt32(0x3C) ?? 0;
+    public int NgCount() => _gameDataMan.ReadInt32(0x3C);
 
-    public int GetCurrentSaveSlot() => _gameMan?.ReadInt32(0xA70) ?? 0;
+    public int GetCurrentSaveSlot() => _gameMan.ReadInt32(0xA70);
 
-    public Vector3f GetPosition() => _playerIns == null ? new Vector3f(0, 0, 0) : new Vector3f(_playerIns.ReadFloat(0xc50), _playerIns.ReadFloat(0xC58), _playerIns.ReadFloat(0xC54));
+    public Vector3f GetPosition() => new(_playerIns.ReadFloat(0xc50), _playerIns.ReadFloat(0xC58), _playerIns.ReadFloat(0xC54));
 
-    public int GetPlayerHealth() => _playerIns?.ReadInt32(0x2d4) ?? 0;
+    public int GetPlayerHealth() => _playerIns.ReadInt32(0x2d4) ;
 
-    public bool IsPlayerLoaded() => !_playerIns?.IsNullPtr() ?? false;
+    public bool IsPlayerLoaded() => !_playerIns.IsNullPtr();
 
     public bool IsWarpRequested()
     {
-        if (_gameMan == null)
-        {
-            return false;
-        }
-
         if (GetPlayerHealth() == 0)
         {
             return false;
@@ -192,11 +187,6 @@ public class Ptde : IDarkSouls1
 
     public List<Item> GetInventory()
     {
-        if (_playerGameData == null)
-        {
-            return new List<Item>();
-        }
-
         var itemCount = _playerGameData.ReadInt32(0x2e0);
         var keyCount = _playerGameData.ReadInt32(0x2e4);
         
@@ -210,11 +200,6 @@ public class Ptde : IDarkSouls1
 
     public BonfireState GetBonfireState(Bonfire bonfire)
     {
-        if (_netBonfireDb == null)
-        {
-            return BonfireState.Unknown;
-        }
-
         var element = _netBonfireDb.CreatePointerFromAddress(0x24);
         element = element.CreatePointerFromAddress(0x0);
         var netBonfireDbItem = element.CreatePointerFromAddress(0x8);
@@ -242,11 +227,6 @@ public class Ptde : IDarkSouls1
 
     public bool AreCreditsRolling()
     {
-        if(_menuMan == null)
-        {
-            return false;
-        }
-
         var first = _menuMan.ReadInt32(0xb4);
         var second = _menuMan.ReadInt32(0xc0);
         var third = _menuMan.ReadInt32(0x6c); //This address seems like it turns into a 1 only when you are on the main menu
@@ -274,7 +254,7 @@ public class Ptde : IDarkSouls1
 
     //Credit to JKAnderson for the event flag reading code, https://github.com/JKAnderson/DS-Gadget
 
-    private static readonly Dictionary<string, int> EventFlagGroups = new Dictionary<string, int>()
+    private static readonly Dictionary<string, int> EventFlagGroups = new()
     {
         {"0", 0x00000},
         {"1", 0x00500},
@@ -283,7 +263,7 @@ public class Ptde : IDarkSouls1
         {"7", 0x11300},
     };
 
-    private static readonly Dictionary<string, int> EventFlagAreas = new Dictionary<string, int>()
+    private static readonly Dictionary<string, int> EventFlagAreas = new()
     {
         {"000", 00},
         {"100", 01},
@@ -347,12 +327,9 @@ public class Ptde : IDarkSouls1
     
     public void ResetInventoryIndices()
     {
-        if(_inventoryIndices != null)
+        for (int i = 0; i < 20; i++)
         {
-            for (int i = 0; i < 20; i++)
-            {
-                _inventoryIndices.WriteUint32(0x4 * i, uint.MaxValue);
-            }
+            _inventoryIndices.WriteUint32(0x4 * i, uint.MaxValue);
         }
     }
 
@@ -363,11 +340,6 @@ public class Ptde : IDarkSouls1
     /// <returns></returns>
     public string GetSaveFileLocation()
     {
-        if (_saveInfo == null)
-        {
-            return string.Empty;
-        }
-
         var myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         var path = Path.Combine(myDocuments, "NBGI\\DarkSouls");
         var variable = _saveInfo.ReadInt32(0x10);

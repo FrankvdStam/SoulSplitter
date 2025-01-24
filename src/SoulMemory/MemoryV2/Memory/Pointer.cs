@@ -35,7 +35,7 @@ public class Pointer : IMemory
         }
 
         Memory = memory;
-        Path = new List<PointerPath>();
+        Path = [];
     }
 
     public Pointer(IMemory memory, params long[] offsets)

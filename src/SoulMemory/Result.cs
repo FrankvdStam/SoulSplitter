@@ -319,14 +319,9 @@ public class Result<TOk, TErr>
 /// <summary>
 /// Container type, used in implicit conversions with the Result classes, for sugar syntax.
 /// </summary>
-public class Container<T>
+public class Container<T>(T t)
 {
-    public T Value;
-
-    public Container(T t)
-    {
-        Value = t;
-    }
+    public T Value = t;
 
     public override string ToString()
     {
@@ -337,12 +332,14 @@ public class Container<T>
 /// <summary>
 /// Container type for Ok, used to distinguish between Ok and Err in implicit conversions between result types.
 /// </summary>
-public class ContainerOk<T> : Container<T> { public ContainerOk(T t) : base(t) { } }
+public class ContainerOk<T>(T t) : Container<T>(t) {
+}
 
 /// <summary>
 /// Container type for Err, used to distinguish between Ok and Err in implicit conversions between result types.
 /// </summary>
-public class ContainerErr<T> : Container<T> { public ContainerErr(T t) : base(t) { } }
+public class ContainerErr<T>(T t) : Container<T>(t) {
+}
 
 /// <summary>
 /// Helper struct with 0 storage. Only used to trick the type system into allowing some sugar syntax
@@ -353,7 +350,6 @@ public struct Empty { }
 /// Thrown when unwrapping a failed result
 /// </summary>
 [Serializable]
-public class UnwrapException : Exception 
+public class UnwrapException(string message) : Exception(message) 
 {
-    public UnwrapException(string message) : base(message) { }
 }

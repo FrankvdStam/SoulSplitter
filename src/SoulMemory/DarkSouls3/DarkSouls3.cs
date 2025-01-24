@@ -24,15 +24,15 @@ namespace SoulMemory.DarkSouls3;
 public class DarkSouls3 : IGame
 {
     private Process? _process;
-    private readonly Pointer _gameDataMan = new Pointer();
-    private readonly Pointer _playerGameData = new Pointer();
-    private readonly Pointer _playerIns = new Pointer();
-    private readonly Pointer _newMenuSystem = new Pointer();
-    private readonly Pointer _loading = new Pointer();
-    private readonly Pointer _blackscreen = new Pointer();
-    private readonly Pointer _sprjEventFlagMan = new Pointer();
-    private readonly Pointer _fieldArea = new Pointer();
-    private readonly Pointer _sprjChrPhysicsModule = new Pointer();
+    private readonly Pointer _gameDataMan = new();
+    private readonly Pointer _playerGameData = new();
+    private readonly Pointer _playerIns = new();
+    private readonly Pointer _newMenuSystem = new();
+    private readonly Pointer _loading = new();
+    private readonly Pointer _blackscreen = new();
+    private readonly Pointer _sprjEventFlagMan = new();
+    private readonly Pointer _fieldArea = new();
+    private readonly Pointer _sprjChrPhysicsModule = new();
     private long _igtOffset;
 
     public Process? GetProcess() => _process;

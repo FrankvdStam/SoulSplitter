@@ -209,7 +209,7 @@ public class DarkSouls1Splitter : ISplitter
 
     #region Autosplitting
 
-    private List<Split> _splits = new List<Split>();
+    private List<Split> _splits = [];
     
     private void StartAutoSplitting()
     {
@@ -271,10 +271,7 @@ public class DarkSouls1Splitter : ISplitter
                             break;
 
                         case SplitType.Item:
-                            if (inventory == null)
-                            {
-                                inventory = _darkSouls1.GetInventory();
-                            }
+                            inventory ??= _darkSouls1.GetInventory();
                             s.SplitConditionMet = inventory.Any(i => i.ItemType == s.ItemState.ItemType);
                             break;
 

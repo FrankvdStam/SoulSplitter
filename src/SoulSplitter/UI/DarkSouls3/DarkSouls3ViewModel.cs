@@ -124,9 +124,9 @@ public class DarkSouls3ViewModel : BaseViewModel
 
     #region Static UI source data ============================================================================================================================================
 
-    public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<Boss>>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
-    public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = new ObservableCollection<EnumFlagViewModel<Bonfire>>(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
-    public static ObservableCollection<EnumFlagViewModel<ItemPickup>> ItemPickups { get; set; } = new ObservableCollection<EnumFlagViewModel<ItemPickup>>(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new EnumFlagViewModel<ItemPickup>(i)));
+    public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
+    public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = new(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
+    public static ObservableCollection<EnumFlagViewModel<ItemPickup>> ItemPickups { get; set; } = new(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new EnumFlagViewModel<ItemPickup>(i)));
 
     #endregion
 }

@@ -167,7 +167,7 @@ public class DarkSouls2Splitter : ISplitter
 
     #region Autosplitting
 
-    private List<Split> _splits = new List<Split>();
+    private List<Split> _splits = [];
 
     public void ResetAutoSplitting()
     {

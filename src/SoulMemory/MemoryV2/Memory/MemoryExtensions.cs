@@ -117,13 +117,13 @@ public static class MemoryExtensions
     
     public static void WriteByte(this IMemory memory, long offset, byte value)
     {
-        memory.WriteBytes(offset, new byte[] { value });
+        memory.WriteBytes(offset, [value]);
     }
 
     public static void WriteSByte(this IMemory memory, long offset, sbyte value)
     {
         var b = unchecked((byte)value);
-        memory.WriteBytes(offset, new byte[] { b });
+        memory.WriteBytes(offset, [b]);
     }
 
     public static void WriteInt16(this IMemory memory, long offset, short value)

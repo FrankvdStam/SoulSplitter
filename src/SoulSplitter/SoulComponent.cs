@@ -375,8 +375,8 @@ public class SoulComponent : IComponent
 
     #region validate installation
 
-    private readonly List<string> _installedFiles = new List<string>()
-    {
+    private readonly List<string> _installedFiles =
+    [
         "SoulSplitter.dll",
         "SoulMemory.dll",
         "MaterialDesignColors.dll",
@@ -386,8 +386,8 @@ public class SoulComponent : IComponent
         "soulmemory_rs_x64.dll",
         "soulmemory_rs_x86.dll",
         "launcher_x64.exe",
-        "launcher_x86.exe",
-    };
+        "launcher_x86.exe"
+    ];
 
     private void ThrowIfInstallationInvalid()
     {

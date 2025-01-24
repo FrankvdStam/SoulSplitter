@@ -26,7 +26,7 @@ public class VectorSize : ICustomNotifyPropertyChanged
         get => _position;
         set => this.SetField(ref _position, value);
     }
-    private Vector3f _position = new Vector3f(0,0,0);
+    private Vector3f _position = new(0,0,0);
 
     public float Size
     {

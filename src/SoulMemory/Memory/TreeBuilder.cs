@@ -25,7 +25,7 @@ namespace SoulMemory.Memory;
 /// </summary>
 public class TreeBuilder
 {
-    public List<PointerNode> Tree = new List<PointerNode>();
+    public List<PointerNode> Tree = [];
 
     public PointerAppender ScanRelative(string name, string pattern, long addressOffset, long instructionSize)
     {

@@ -28,14 +28,14 @@ public class EldenRing : IGame
 {
     private Process? _process = null;
 
-    private readonly Pointer _igt = new Pointer();
-    private readonly Pointer _hud = new Pointer();
-    private readonly Pointer _playerIns = new Pointer();
-    private readonly Pointer _playerGameData = new Pointer();
-    private readonly Pointer _inventory = new Pointer();
-    private readonly Pointer _menuManImp = new Pointer();
-    private readonly Pointer _virtualMemoryFlag = new Pointer();
-    private readonly Pointer _noLogo = new Pointer();
+    private readonly Pointer _igt = new();
+    private readonly Pointer _hud = new();
+    private readonly Pointer _playerIns = new();
+    private readonly Pointer _playerGameData = new();
+    private readonly Pointer _inventory = new();
+    private readonly Pointer _menuManImp = new();
+    private readonly Pointer _virtualMemoryFlag = new();
+    private readonly Pointer _noLogo = new();
 
     private long _screenStateOffset;
     private long _positionOffset;
@@ -204,36 +204,35 @@ public class EldenRing : IGame
 
     #region version ================================================================================================
 
-    private readonly List<(EldenRingVersion eldenRingVersion, Version version)> _versions = new List<(EldenRingVersion, Version)>()
-    {
-
-        (EldenRingVersion.V1_02_0, new Version(1,2,0,0)),
-        (EldenRingVersion.V1_02_1, new Version(1,2,1,0)),
-        (EldenRingVersion.V1_02_2, new Version(1,2,2,0)),
-        (EldenRingVersion.V1_02_3, new Version(1,2,3,0)),
-        (EldenRingVersion.V1_03_0, new Version(1,3,0,0)),
-        (EldenRingVersion.V1_03_1, new Version(1,3,1,0)),
-        (EldenRingVersion.V1_03_2, new Version(1,3,2,0)),
-        (EldenRingVersion.V1_04_0, new Version(1,4,0,0)),
-        (EldenRingVersion.V1_04_1, new Version(1,4,1,0)),
-        (EldenRingVersion.V1_05_0, new Version(1,5,0,0)),
-        (EldenRingVersion.V1_06_0, new Version(1,6,0,0)),
-        (EldenRingVersion.V1_07_0, new Version(1,7,0,0)),
-        (EldenRingVersion.V1_08_0, new Version(1,8,0,0)),
-        (EldenRingVersion.V1_08_1, new Version(1,8,1,0)),
-        (EldenRingVersion.V1_09_0, new Version(1,9,0,0)),
-        (EldenRingVersion.V1_09_1, new Version(1,9,1,0)),
+    private readonly List<(EldenRingVersion eldenRingVersion, Version version)> _versions =
+    [
+        (EldenRingVersion.V1_02_0, new Version(1, 2, 0, 0)),
+        (EldenRingVersion.V1_02_1, new Version(1, 2, 1, 0)),
+        (EldenRingVersion.V1_02_2, new Version(1, 2, 2, 0)),
+        (EldenRingVersion.V1_02_3, new Version(1, 2, 3, 0)),
+        (EldenRingVersion.V1_03_0, new Version(1, 3, 0, 0)),
+        (EldenRingVersion.V1_03_1, new Version(1, 3, 1, 0)),
+        (EldenRingVersion.V1_03_2, new Version(1, 3, 2, 0)),
+        (EldenRingVersion.V1_04_0, new Version(1, 4, 0, 0)),
+        (EldenRingVersion.V1_04_1, new Version(1, 4, 1, 0)),
+        (EldenRingVersion.V1_05_0, new Version(1, 5, 0, 0)),
+        (EldenRingVersion.V1_06_0, new Version(1, 6, 0, 0)),
+        (EldenRingVersion.V1_07_0, new Version(1, 7, 0, 0)),
+        (EldenRingVersion.V1_08_0, new Version(1, 8, 0, 0)),
+        (EldenRingVersion.V1_08_1, new Version(1, 8, 1, 0)),
+        (EldenRingVersion.V1_09_0, new Version(1, 9, 0, 0)),
+        (EldenRingVersion.V1_09_1, new Version(1, 9, 1, 0)),
         //1.10 turned into 2.0.0.0 for some reason
-        (EldenRingVersion.V1_10_0, new Version(2,0,0,0)),
-        (EldenRingVersion.V1_10_0, new Version(2,0,0,1)), //JP-only version for 1.10
-        (EldenRingVersion.V1_10_1, new Version(2,0,1,0)),
-        (EldenRingVersion.V1_12_0, new Version(2,2,0,0)),
-        (EldenRingVersion.V1_12_3, new Version(2,2,3,0)),
-        (EldenRingVersion.V1_13_0, new Version(2,3,0,0)),
-        (EldenRingVersion.V1_14_0, new Version(2,4,0,0)),
-        (EldenRingVersion.V1_15_0, new Version(2,5,0,0)),
-        (EldenRingVersion.V1_16_0, new Version(2,6,0,0)),
-    };
+        (EldenRingVersion.V1_10_0, new Version(2, 0, 0, 0)),
+        (EldenRingVersion.V1_10_0, new Version(2, 0, 0, 1)), //JP-only version for 1.10
+        (EldenRingVersion.V1_10_1, new Version(2, 0, 1, 0)),
+        (EldenRingVersion.V1_12_0, new Version(2, 2, 0, 0)),
+        (EldenRingVersion.V1_12_3, new Version(2, 2, 3, 0)),
+        (EldenRingVersion.V1_13_0, new Version(2, 3, 0, 0)),
+        (EldenRingVersion.V1_14_0, new Version(2, 4, 0, 0)),
+        (EldenRingVersion.V1_15_0, new Version(2, 5, 0, 0)),
+        (EldenRingVersion.V1_16_0, new Version(2, 6, 0, 0))
+    ];
 
     public enum EldenRingVersion
     {
@@ -356,7 +355,7 @@ public class EldenRing : IGame
     private void ApplyNoLogo()
     {
         _process!.NtSuspendProcess();
-        _noLogo.WriteBytes(null, new byte[] { 0x90, 0x90 });
+        _noLogo.WriteBytes(null, [0x90, 0x90]);
         _process!.NtResumeProcess();
     }
 
@@ -393,13 +392,12 @@ public class EldenRing : IGame
     
            
     
-            var itemId = BitConverter.ToInt32(new byte[]
-            {
+            var itemId = BitConverter.ToInt32([
                 inventory[itemIndex + 0x4],
                 inventory[itemIndex + 0x5],
                 inventory[itemIndex + 0x6],
-                0x0,
-            }, 0);
+                0x0
+            ], 0);
     
             byte cat = inventory[itemIndex + 0X7];
             byte mask = 0xF0;

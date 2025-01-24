@@ -22,13 +22,9 @@ namespace SoulMemory.MemoryV2;
 /// <summary>
 /// IMemory access to an array of memory. Allows resolving pointers and reading data/writing data.
 /// </summary>
-public class ByteArrayMemory : IMemory
+public class ByteArrayMemory(byte[] data) : IMemory
 {
-    private readonly byte[] _data;
-    public ByteArrayMemory(byte[] data)
-    {
-        _data = data;
-    }
+    private readonly byte[] _data = data;
 
     public byte[] ReadBytes(long offset, int length)
     {

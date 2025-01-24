@@ -41,7 +41,7 @@ public class ProcessHookMock : IProcessHook
         };
     }
 
-    public Dictionary<long, byte[]> Data = new Dictionary<long, byte[]>();
+    public Dictionary<long, byte[]> Data = new();
 
     public byte[] ReadBytes(long offset, int length)
     {
@@ -78,7 +78,7 @@ public class ProcessHookMock : IProcessHook
         return null;
     }
 
-    public List<(string name, int index, long address)> PointerValues = new List<(string name, int index, long address)>();
+    public List<(string name, int index, long address)> PointerValues = new();
 
     public void SetPointer(string name, int index, long address)
     {
@@ -104,7 +104,7 @@ public class ProcessHookMock : IProcessHook
     public int ExitedInvokedCount = 0;
 
     public ResultErr<RefreshError> HookedResult = Result.Ok();
-    public List<Exception> ExitedExceptions = new List<Exception>();
+    public List<Exception> ExitedExceptions = new();
 
 
 #pragma warning disable CS0067
@@ -112,6 +112,6 @@ public class ProcessHookMock : IProcessHook
     public event Action<Exception?>? Exited;
 #pragma warning restore CS0067
 
-    public PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder();
+    public PointerTreeBuilder PointerTreeBuilder { get; set; } = new();
     public IProcessWrapper? ProcessWrapper { get; set; }
 }

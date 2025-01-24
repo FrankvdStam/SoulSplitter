@@ -18,25 +18,19 @@ using System;
 
 namespace SoulMemory.MemoryV2.Process;
 
-public class ProcessHook : IProcessHook
+public class ProcessHook(string name, IProcessWrapper? processWrapper = null) : IProcessHook
 {
-    public ProcessHook(string name, IProcessWrapper? processWrapper = null)
-    {
-        _name = name;
-        ProcessWrapper = processWrapper ?? new ProcessWrapper();
-    }
-
-    private readonly string _name;
+    private readonly string _name = name;
 
 
-    public IProcessWrapper ProcessWrapper { get; set; }
+    public IProcessWrapper ProcessWrapper { get; set; } = processWrapper ?? new ProcessWrapper();
 
     public System.Diagnostics.Process? GetProcess() => ProcessWrapper.GetProcess();
 
     public event Func<ResultErr<RefreshError>> Hooked = null!;
     public event Action<Exception> Exited = null!;
 
-    public PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder.PointerTreeBuilder();
+    public PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; } = new();
 
     #region Refresh =================================================================================================================================================
 

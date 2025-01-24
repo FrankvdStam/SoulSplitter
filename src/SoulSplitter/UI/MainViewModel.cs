@@ -41,14 +41,14 @@ public class MainViewModel : ICustomNotifyPropertyChanged
 {
     public MainViewModel()
     {
-        CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage, (o) => true);
-        CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger, (o) => true);
-        CommandClearErrors = new RelayCommand(ClearErrors, (o) => Errors.Count > 0);
-        CommandAddError = new RelayCommand(AddErrorCommand, (o) => true);
-        CommandShowErrors = new RelayCommand(ShowErrorWindow, (o) => true);
-        CommandOpenFlagTrackerWindow = new RelayCommand(OpenFlagTrackerWindow, (o) => true);
-        CommandImportSettingsFromFile = new RelayCommand(ImportSettings, (o) => true);
-        CommandExportSettingsFromFile = new RelayCommand(ExportSettings, (o) => true);
+        CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage, (_) => true);
+        CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger, (_) => true);
+        CommandClearErrors = new RelayCommand(ClearErrors, (_) => Errors.Count > 0);
+        CommandAddError = new RelayCommand(AddErrorCommand, (_) => true);
+        CommandShowErrors = new RelayCommand(ShowErrorWindow, (_) => true);
+        CommandOpenFlagTrackerWindow = new RelayCommand(OpenFlagTrackerWindow, (_) => true);
+        CommandImportSettingsFromFile = new RelayCommand(ImportSettings, (_) => true);
+        CommandExportSettingsFromFile = new RelayCommand(ExportSettings, (_) => true);
     }
 
     public void Update(MainViewModel mainViewModel)
@@ -80,49 +80,49 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         get => _darkSouls1ViewModel;
         set => this.SetField(ref _darkSouls1ViewModel, value);
     }
-    private DarkSouls1ViewModel _darkSouls1ViewModel = new DarkSouls1ViewModel();
+    private DarkSouls1ViewModel _darkSouls1ViewModel = new();
 
     public DarkSouls2ViewModel DarkSouls2ViewModel
     {
         get => _darkSouls2ViewModel;
         set => this.SetField(ref _darkSouls2ViewModel, value);
     }
-    private DarkSouls2ViewModel _darkSouls2ViewModel = new DarkSouls2ViewModel();
+    private DarkSouls2ViewModel _darkSouls2ViewModel = new();
 
     public DarkSouls3ViewModel DarkSouls3ViewModel
     {
         get => _darkSouls3ViewModel;
         set => this.SetField(ref _darkSouls3ViewModel, value);
     }
-    private DarkSouls3ViewModel _darkSouls3ViewModel = new DarkSouls3ViewModel();
+    private DarkSouls3ViewModel _darkSouls3ViewModel = new();
 
     public SekiroViewModel SekiroViewModel
     {
         get => _sekiroViewModel;
         set => this.SetField(ref _sekiroViewModel, value);
     }
-    private SekiroViewModel _sekiroViewModel = new SekiroViewModel();
+    private SekiroViewModel _sekiroViewModel = new();
 
     public EldenRingViewModel EldenRingViewModel
     {
         get => _eldenRingViewModel;
         set => this.SetField(ref _eldenRingViewModel, value);
     }
-    private EldenRingViewModel _eldenRingViewModel = new EldenRingViewModel();
+    private EldenRingViewModel _eldenRingViewModel = new();
 
     public ArmoredCore6ViewModel ArmoredCore6ViewModel
     {
         get => _armoredCore6ViewModel;
         set => this.SetField(ref _armoredCore6ViewModel, value);
     }
-    private ArmoredCore6ViewModel _armoredCore6ViewModel = new ArmoredCore6ViewModel();
+    private ArmoredCore6ViewModel _armoredCore6ViewModel = new();
 
     public FlagTrackerViewModel FlagTrackerViewModel
     {
         get => _flagTrackerViewModel;
         set => this.SetField(ref _flagTrackerViewModel, value);
     }
-    private FlagTrackerViewModel _flagTrackerViewModel = new FlagTrackerViewModel();
+    private FlagTrackerViewModel _flagTrackerViewModel = new();
 
     #endregion
 
@@ -158,7 +158,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         var errorViewModel = new ErrorViewModel
         {
             DateTime = DateTime.Now,
-            Error = $"{error.Message ?? ""} {error.Exception?.ToString() ?? ""}",
+            Error = error.ToString(),
         };
         AddError(errorViewModel);
     }
@@ -225,7 +225,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     }
     private RelayCommand _commandShowErrors = null!;
 
-    private ErrorWindow _errorWindow = null!;
+    private ErrorWindow? _errorWindow;
     private void ShowErrorWindow()
     {
         if(_errorWindow == null)
@@ -274,7 +274,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     private Visibility _badgeVisibilityInverse = Visibility.Visible;
 
     [XmlIgnore]
-    public ObservableCollection<ErrorViewModel> Errors { get; set; } = new ObservableCollection<ErrorViewModel>();
+    public ObservableCollection<ErrorViewModel> Errors { get; set; } = [];
 
     #endregion
 
@@ -315,7 +315,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     }
     private RelayCommand _commandOpenFlagTrackerWindow = null!;
 
-    private FlagTrackerWindow _flagTrackerWindow = null!;
+    private FlagTrackerWindow? _flagTrackerWindow;
     private void OpenFlagTrackerWindow()
     {
         if (_flagTrackerWindow == null)
@@ -412,13 +412,11 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         };
 
         var xml = "";
-        using (var stream = new StringWriter())
-        using (var writer = XmlWriter.Create(stream, settings))
-        {
-            var serializer = new XmlSerializer(GetType());
-            serializer.Serialize(writer, this);
-            xml = stream.ToString();
-        }
+        using var stream = new StringWriter();
+        using var writer = XmlWriter.Create(stream, settings);
+        var serializer = new XmlSerializer(GetType());
+        serializer.Serialize(writer, this);
+        xml = stream.ToString();
         return xml;
     }
 

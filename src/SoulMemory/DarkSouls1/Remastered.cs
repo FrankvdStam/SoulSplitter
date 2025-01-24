@@ -52,24 +52,24 @@ public class Remastered : IDarkSouls1
 
     private Process? _process;
 
-    private readonly Pointer _gameMan = new Pointer();
-    private readonly Pointer _gameDataMan = new Pointer();
-    private readonly Pointer _playerIns = new Pointer();
-    private readonly Pointer _playerPos = new Pointer();
-    private readonly Pointer _playerGameData = new Pointer();
-    private readonly Pointer _eventFlags = new Pointer();
-    private readonly Pointer _inventoryIndices = new Pointer();
-    private readonly Pointer _netBonfireDb = new Pointer();
-    private readonly Pointer _menuMan = new Pointer();
-    private readonly Pointer _getRegion = new Pointer();
-    private readonly Pointer _soloParamMan = new Pointer();
-    private readonly Pointer _loadingScreenItems = new Pointer();
-    private readonly Pointer _msgMan = new Pointer();
+    private readonly Pointer _gameMan = new();
+    private readonly Pointer _gameDataMan = new();
+    private readonly Pointer _playerIns = new();
+    private readonly Pointer _playerPos = new();
+    private readonly Pointer _playerGameData = new();
+    private readonly Pointer _eventFlags = new();
+    private readonly Pointer _inventoryIndices = new();
+    private readonly Pointer _netBonfireDb = new();
+    private readonly Pointer _menuMan = new();
+    private readonly Pointer _getRegion = new();
+    private readonly Pointer _soloParamMan = new();
+    private readonly Pointer _loadingScreenItems = new();
+    private readonly Pointer _msgMan = new();
     private DsrVersion _version;
     private int? _steamId3;
     private bool? _isJapanese;
-    private List<ItemLotParam> _itemLotParams = new List<ItemLotParam>();
-    private List<TextTableEntry> _weaponDescriptionsTable = new List<TextTableEntry>();
+    private List<ItemLotParam> _itemLotParams = [];
+    private List<TextTableEntry> _weaponDescriptionsTable = [];
 
     private long _playerCtrlOffset = 0x68;
     private long _currentSaveSlotOffset = 0xaa0;
@@ -272,7 +272,7 @@ public class Remastered : IDarkSouls1
     {
         if (_playerGameData == null)
         {
-            return new List<Item>();
+            return [];
         }
         
         //Path: GameDataMan->hostPlayerGameData->equipGameData.equipInventoryData.equipInventoryDataSub
@@ -333,7 +333,7 @@ public class Remastered : IDarkSouls1
 
     //Credit to JKAnderson for the event flag reading code, https://github.com/JKAnderson/DSR-Gadget
 
-    private static readonly Dictionary<string, int> EventFlagGroups = new Dictionary<string, int>()
+    private static readonly Dictionary<string, int> EventFlagGroups = new()
     { 
         {"0", 0x00000},
         {"1", 0x00500},
@@ -342,7 +342,7 @@ public class Remastered : IDarkSouls1
         {"7", 0x11300},
     };
     
-    private static readonly Dictionary<string, int> EventFlagAreas = new Dictionary<string, int>()
+    private static readonly Dictionary<string, int> EventFlagAreas = new()
     {
         {"000", 00},
         {"100", 01},
@@ -487,7 +487,7 @@ e:  41 ff d6                call   r14
 22: c3                      ret";
 
 
-    private readonly Regex _assemblyRegex = new Regex(@"^[\w\d]+:\s+((?:[\w\d][\w\d] ?)+)");
+    private readonly Regex _assemblyRegex = new(@"^[\w\d]+:\s+((?:[\w\d][\w\d] ?)+)");
 
     /// <summary>
     /// Convert string returned by https://defuse.ca/online-x86-assembler.htm to byte array
@@ -497,7 +497,7 @@ e:  41 ff d6                call   r14
     /// <returns>byte code</returns>
     private byte[] LoadDefuseOutput(string lines)
     {
-        List<byte> bytes = new List<byte>();
+        List<byte> bytes = [];
         foreach (string line in Regex.Split(lines, "[\r\n]+"))
         {
             Match match = _assemblyRegex.Match(line);

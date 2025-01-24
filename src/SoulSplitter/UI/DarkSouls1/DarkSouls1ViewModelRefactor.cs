@@ -140,28 +140,28 @@ public class DarkSouls1ViewModelRefactor : BaseViewModel
     #endregion
 
     #region Static UI source data ============================================================================================================================================
-    public ObservableCollection<BoolDescriptionViewModel> BooleanFlags { get; set; } = new ObservableCollection<BoolDescriptionViewModel>()
-    {
-        new BoolDescriptionViewModel(){ Description = "Start automatically",     Value = true },
-        new BoolDescriptionViewModel(){ Description = "Reset inventory indices", Value = true }
-    };
+    public ObservableCollection<BoolDescriptionViewModel> BooleanFlags { get; set; } =
+    [
+        new BoolDescriptionViewModel() { Description = "Start automatically", Value = true },
+        new BoolDescriptionViewModel() { Description = "Reset inventory indices", Value = true }
+    ];
 
-    public static ObservableCollection<EnumFlagViewModel<TimingType>> TimingTypes { get; set; } = new ObservableCollection<EnumFlagViewModel<TimingType>>()
-    {
+    public static ObservableCollection<EnumFlagViewModel<TimingType>> TimingTypes { get; set; } =
+    [
         new EnumFlagViewModel<TimingType>(TimingType.Immediate),
         new EnumFlagViewModel<TimingType>(TimingType.OnLoading),
-        new EnumFlagViewModel<TimingType>(TimingType.OnWarp),
-    };
+        new EnumFlagViewModel<TimingType>(TimingType.OnWarp)
+    ];
 
-    public static ObservableCollection<EnumFlagViewModel<SplitType>> SplitTypes { get; set; } = new ObservableCollection<EnumFlagViewModel<SplitType>>()
-    {
+    public static ObservableCollection<EnumFlagViewModel<SplitType>> SplitTypes { get; set; } =
+    [
         new EnumFlagViewModel<SplitType>(SplitType.Boss),
         new EnumFlagViewModel<SplitType>(SplitType.Attribute),
         new EnumFlagViewModel<SplitType>(SplitType.Bonfire),
         new EnumFlagViewModel<SplitType>(SplitType.Item),
         new EnumFlagViewModel<SplitType>(SplitType.Position),
-        new EnumFlagViewModel<SplitType>(SplitType.Flag),
-    };
+        new EnumFlagViewModel<SplitType>(SplitType.Flag)
+    ];
     
     public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = EnumFlagViewModel<Boss>.GetEnumViewModels();
     public static ObservableCollection<EnumFlagViewModel<Attribute>> Attributes { get; set; } = EnumFlagViewModel<Attribute>.GetEnumViewModels();

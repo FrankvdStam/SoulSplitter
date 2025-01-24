@@ -24,11 +24,11 @@ namespace SoulMemory.DarkSouls2;
 internal class Scholar : IDarkSouls2
 {
     private Process? _process;
-    private readonly Pointer _eventFlagManager = new Pointer();
-    private readonly Pointer _position         = new Pointer();
-    private readonly Pointer _loadState        = new Pointer();
-    private readonly Pointer _bossCounters     = new Pointer();
-    private readonly Pointer _attributes       = new Pointer();
+    private readonly Pointer _eventFlagManager = new();
+    private readonly Pointer _position         = new();
+    private readonly Pointer _loadState        = new();
+    private readonly Pointer _bossCounters     = new();
+    private readonly Pointer _attributes       = new();
 
     #region Refresh/init/reset ================================================================================================================================
     public Process? GetProcess() => _process;
@@ -214,7 +214,7 @@ internal class Scholar : IDarkSouls2
 
     #region Lookup tables
 
-    private readonly Dictionary<Attribute, long> _attributeOffsets = new Dictionary<Attribute, long>()
+    private readonly Dictionary<Attribute, long> _attributeOffsets = new()
     {
         { Attribute.SoulLevel   , 0xd0},
         { Attribute.Vigor       , 0x8},

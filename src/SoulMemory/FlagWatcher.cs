@@ -36,7 +36,7 @@ public class FlagWatcher
     }
 
     private readonly IGame _game;
-    private readonly Dictionary<uint, bool> _flags = new Dictionary<uint, bool>();
+    private readonly Dictionary<uint, bool> _flags = new();
 
     public Dictionary<uint, bool> Update()
     {

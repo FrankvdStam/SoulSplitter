@@ -26,8 +26,8 @@ namespace SoulSplitter.Hotkeys;
 
 public static class GlobalHotKey
 {
-    private static readonly List<(int id, ModifierKeys modifier, Key key, Action action)> Hotkeys = new List<(int, ModifierKeys, Key, Action)>();
-    private static readonly ManualResetEvent WindowReadyEvent = new ManualResetEvent(false);
+    private static readonly List<(int id, ModifierKeys modifier, Key key, Action action)> Hotkeys = [];
+    private static readonly ManualResetEvent WindowReadyEvent = new(false);
     public static volatile HotkeyForm? HotkeyForm;
     public static volatile IntPtr Handle;
     private static int _currentId;

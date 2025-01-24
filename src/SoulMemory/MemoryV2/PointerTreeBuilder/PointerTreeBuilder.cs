@@ -26,7 +26,7 @@ namespace SoulMemory.MemoryV2.PointerTreeBuilder;
 /// </summary>
 public class PointerTreeBuilder
 {
-    public List<PointerNode> Tree = new List<PointerNode>();
+    public List<PointerNode> Tree = [];
 
     public PointerAppender ScanRelative(string name, string pattern, long addressOffset, long instructionSize)
     {
