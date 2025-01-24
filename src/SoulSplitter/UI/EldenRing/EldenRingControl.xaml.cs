@@ -93,7 +93,7 @@ public partial class EldenRingControl : UserControl
     private void CopyPosition_OnClick(object sender, RoutedEventArgs e)
     {
         var vm = GetEldenRingViewModel();
-        vm.NewSplitPosition.Area   = vm.CurrentPosition.Area  ;
+        vm.NewSplitPosition!.Area  = vm.CurrentPosition.Area  ;
         vm.NewSplitPosition.Block  = vm.CurrentPosition.Block ;
         vm.NewSplitPosition.Region = vm.CurrentPosition.Region;
         vm.NewSplitPosition.Size   = vm.CurrentPosition.Size  ;
