@@ -74,7 +74,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _enabledSplitType;
         set => this.SetField(ref _enabledSplitType, value);
     }
-    private bool _enabledSplitType = false;
+    private bool _enabledSplitType;
 
     [XmlIgnore]
     public EldenRingSplitType? NewSplitType
@@ -214,7 +214,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     private bool _visibleItemSplit;
 
     [XmlIgnore]
-    public PositionViewModel NewSplitPosition
+    public PositionViewModel? NewSplitPosition
     {
         get => _newSplitPosition;
         set
@@ -223,7 +223,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
             EnabledAddSplit = _newSplitPosition != null;
         }
     }
-    private PositionViewModel _newSplitPosition = new();
+    private PositionViewModel? _newSplitPosition;
 
     [XmlIgnore]
     public bool VisiblePositionSplit
@@ -354,9 +354,9 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
                 break;
 
             case EldenRingSplitType.Position:
-                if (hierarchicalSplitType.Children.All(i => i.Split.ToString() != NewSplitPosition.Position.ToString()))
+                if (hierarchicalSplitType.Children.All(i => i.Split.ToString() != NewSplitPosition!.Position.ToString()))
                 {
-                    hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitPosition.Position, Parent = hierarchicalSplitType });
+                    hierarchicalSplitType.Children.Add(new HierarchicalSplitViewModel() { Split = NewSplitPosition!.Position, Parent = hierarchicalSplitType });
                 }
                 break;
         }
@@ -393,7 +393,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
             EnabledRemoveSplit = SelectedSplit != null;
         }
     }
-    private HierarchicalSplitViewModel? _selectedSplit = null;
+    private HierarchicalSplitViewModel? _selectedSplit;
     
     public void RemoveSplit()
     {

@@ -21,11 +21,11 @@ namespace SoulSplitter.UI.Generic;
 
 public class RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute) : ICommand
 {
-    public RelayCommand(Action execute) : this((param) => execute(), (Func<object?, bool>?)null) { }
-    public RelayCommand(Action execute, Func<bool> canExecute) : this((param) => execute(), (_) => canExecute()) { }
-    public RelayCommand(Action execute, Func<object?, bool> canExecute) : this((_) => execute(), canExecute) { }
+    public RelayCommand(Action execute) : this(_ => execute(), (Func<object?, bool>?)null) { }
+    public RelayCommand(Action execute, Func<bool> canExecute) : this(_ => execute(), _ => canExecute()) { }
+    public RelayCommand(Action execute, Func<object?, bool> canExecute) : this(_ => execute(), canExecute) { }
     public RelayCommand(Action<object?> execute) : this(execute, (Func<object?, bool>?)null) { }
-    public RelayCommand(Action<object?> execute, Func<bool> canExecute) : this(execute, (_) => canExecute()) { }
+    public RelayCommand(Action<object?> execute, Func<bool> canExecute) : this(execute, _ => canExecute()) { }
 
     public event EventHandler CanExecuteChanged
     {

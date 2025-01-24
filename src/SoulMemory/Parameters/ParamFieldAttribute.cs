@@ -20,7 +20,7 @@ internal class ParamFieldAttribute : System.Attribute
 {
     public int Offset;
     public ParamType ParamType;
-    public int? ArraySize = null;
+    public int? ArraySize;
     
     public ParamFieldAttribute(int offset, ParamType paramType)
     {

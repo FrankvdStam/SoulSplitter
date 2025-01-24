@@ -208,7 +208,7 @@ public class Sekiro : IGame
 
     public Vector3f GetPlayerPosition()
     {
-        return new(_position.ReadFloat(0x80), _position.ReadFloat(0x84), _position.ReadFloat(0x88));
+        return new Vector3f(_position.ReadFloat(0x80), _position.ReadFloat(0x84), _position.ReadFloat(0x88));
     }
 
     public bool IsBlackscreenActive()
@@ -409,7 +409,7 @@ public class Sekiro : IGame
         }
     }
 
-    private bool _bitBlt = false;
+    private bool _bitBlt;
     private readonly object _bitBltLock = new();
 
     private readonly List<string> _files =

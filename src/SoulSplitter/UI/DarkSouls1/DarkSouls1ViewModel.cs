@@ -54,14 +54,14 @@ public class DarkSouls1ViewModel : BaseViewModel
 
     #region
     [XmlIgnore]
-    public bool DropModRequestGameExit = false;
+    public bool DropModRequestGameExit;
 
     [XmlIgnore]
-    public bool DropModRequestInitialisation = false;
+    public bool DropModRequestInitialisation;
     private void OnDropModSettingsChanged(DropModType oldValue, DropModType newValue)
     {
         //When dropmod is turned off, the game should be closed to ensure no modifications are left behind in memory
-        if ((oldValue == DropModType.AnyPercent || oldValue == DropModType.AllAchievements) && newValue == DropModType.None)
+        if (oldValue is DropModType.AnyPercent or DropModType.AllAchievements && newValue == DropModType.None)
         {
             DropModRequestGameExit = true;
         }
@@ -97,7 +97,7 @@ public class DarkSouls1ViewModel : BaseViewModel
 
     private void AddSplit(object? param)
     {
-        object? split = NewSplitType switch
+        var split = NewSplitType switch
         {
             SplitType.Boss or SplitType.KnownFlag or SplitType.Attribute => NewSplitValue,
             SplitType.Position => Position,
@@ -151,7 +151,7 @@ public class DarkSouls1ViewModel : BaseViewModel
             }
         }
     }
-    private SplitType? _newSplitType = null;
+    private SplitType? _newSplitType;
 
     [XmlIgnore]
     public Splits.DarkSouls1.BonfireState NewSplitBonfireState

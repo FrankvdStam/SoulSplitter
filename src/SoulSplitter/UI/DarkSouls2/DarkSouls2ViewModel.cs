@@ -148,7 +148,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
             NewSplitTypeEnabled = true;
         }
     }
-    private TimingType? _newSplitTimingType = null;
+    private TimingType? _newSplitTimingType;
 
     [XmlIgnore]
     public DarkSouls2SplitType? NewSplitType
@@ -191,7 +191,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
             }
         }
     }
-    private DarkSouls2SplitType? _newSplitType = null;
+    private DarkSouls2SplitType? _newSplitType;
 
     [XmlIgnore]
     public object? NewSplitValue
@@ -203,7 +203,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
             NewSplitAddEnabled = NewSplitValue != null;
         }
     }
-    private object? _newSplitValue = null;
+    private object? _newSplitValue;
     
     [XmlIgnore]
     public bool NewSplitTypeEnabled
@@ -211,7 +211,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _newSplitTypeEnabled;
         set => this.SetField(ref _newSplitTypeEnabled, value);
     }
-    private bool _newSplitTypeEnabled = false;
+    private bool _newSplitTypeEnabled;
 
     [XmlIgnore]
     public bool NewSplitPositionEnabled
@@ -219,7 +219,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _newSplitPositionEnabled;
         set => this.SetField(ref _newSplitPositionEnabled, value);
     }
-    private bool _newSplitPositionEnabled = false;
+    private bool _newSplitPositionEnabled;
 
     [XmlIgnore]
     public bool NewSplitBossKillEnabled
@@ -227,7 +227,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _newSplitBossKillEnabled;
         set => this.SetField(ref _newSplitBossKillEnabled, value);
     }
-    private bool _newSplitBossKillEnabled = false;
+    private bool _newSplitBossKillEnabled;
 
     [XmlIgnore]
     public bool NewSplitAttributeEnabled
@@ -235,7 +235,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _newSplitAttributeEnabled;
         set => this.SetField(ref _newSplitAttributeEnabled, value);
     }
-    private bool _newSplitAttributeEnabled = false;
+    private bool _newSplitAttributeEnabled;
 
     [XmlIgnore]
     public bool NewSplitFlagEnabled
@@ -243,7 +243,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _newSplitFlagEnabled;
         set => this.SetField(ref _newSplitFlagEnabled, value);
     }
-    private bool _newSplitFlagEnabled = false;
+    private bool _newSplitFlagEnabled;
 
     [XmlIgnore]
     public bool NewSplitAddEnabled
@@ -251,7 +251,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _newSplitAddEnabled;
         set => this.SetField(ref _newSplitAddEnabled, value);
     }
-    private bool _newSplitAddEnabled = false;
+    private bool _newSplitAddEnabled;
 
     [XmlIgnore]
     public bool RemoveSplitEnabled
@@ -259,7 +259,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _removeSplitEnabled;
         set => this.SetField(ref _removeSplitEnabled, value);
     }
-    private bool _removeSplitEnabled = false;
+    private bool _removeSplitEnabled;
 
     [XmlIgnore]
     public HierarchicalSplitViewModel? SelectedSplit
@@ -271,7 +271,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
             RemoveSplitEnabled = SelectedSplit != null;
         }
     }
-    private HierarchicalSplitViewModel? _selectedSplit = null;
+    private HierarchicalSplitViewModel? _selectedSplit;
 
     #endregion
 

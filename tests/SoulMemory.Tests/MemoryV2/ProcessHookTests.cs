@@ -46,8 +46,8 @@ public class ProcessHookTests
 
     private ProcessHook _sut = null!;
     private Mock<IProcessWrapper> _mockProcessWrapper = null!;
-    private int _hookedInvokedCount = 0;
-    private int _exitedInvokedCount = 0;
+    private int _hookedInvokedCount;
+    private int _exitedInvokedCount;
     public List<Exception> ExitedExceptions = new();
 
 

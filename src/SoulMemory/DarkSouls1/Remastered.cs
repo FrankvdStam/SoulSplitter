@@ -370,11 +370,6 @@ public class Remastered : IDarkSouls1
 
     public bool ReadEventFlag(uint eventFlagId)
     {
-        if (_eventFlags == null)
-        {
-            return false;
-        }
-
         int offset = GetEventFlagOffset(eventFlagId, out uint mask);
         uint value = _eventFlags.ReadUInt32(offset);
         return (value & mask) != 0;
@@ -452,15 +447,17 @@ public class Remastered : IDarkSouls1
     }
 
 
-    private const string IsJapaneseAsm = @"0:  48 83 ec 38             sub    rsp,0x38
-4:  49 be fa fa fa fa fa    movabs r14,0xfafafafafafafafa
-b:  fa fa fa
-e:  41 ff d6                call   r14
-11: 49 be fa fa fa fa fa    movabs r14,0xfafafafafafafafa
-18: fa fa fa
-1b: 41 89 06                mov    DWORD PTR [r14],eax
-1e: 48 83 c4 38             add    rsp,0x38
-22: c3                      ret";
+    private const string IsJapaneseAsm = """
+                                         0:  48 83 ec 38             sub    rsp,0x38
+                                         4:  49 be fa fa fa fa fa    movabs r14,0xfafafafafafafafa
+                                         b:  fa fa fa
+                                         e:  41 ff d6                call   r14
+                                         11: 49 be fa fa fa fa fa    movabs r14,0xfafafafafafafafa
+                                         18: fa fa fa
+                                         1b: 41 89 06                mov    DWORD PTR [r14],eax
+                                         1e: 48 83 c4 38             add    rsp,0x38
+                                         22: c3                      ret
+                                         """;
 
 
     private readonly Regex _assemblyRegex = new(@"^[\w\d]+:\s+((?:[\w\d][\w\d] ?)+)");

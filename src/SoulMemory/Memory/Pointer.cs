@@ -29,7 +29,7 @@ public class Pointer
     public long BaseAddress;
     public List<long> Offsets = [];
     public bool Is64Bit;
-    private bool _initialized = false;
+    private bool _initialized;
 
 
     public void Initialize(Process process, bool is64Bit, long baseAddress, params long[] offsets)

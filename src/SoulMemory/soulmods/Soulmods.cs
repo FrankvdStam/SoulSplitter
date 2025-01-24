@@ -68,13 +68,10 @@ public static class Soulmods
     
 
 
-    private static List<(string name, long address)>? _soulmodsMethods = null!;
+    private static List<(string name, long address)>? _soulmodsMethods;
     public static TSized RustCall<TSized>(this Process process, string function, TSized? parameter = null) where TSized : struct
     {
-        if (_soulmodsMethods == null)
-        {
-            _soulmodsMethods = process.GetModuleExportedFunctions("soulmods.dll");
-        }
+        _soulmodsMethods ??= process.GetModuleExportedFunctions("soulmods.dll");
         var functionPtr = _soulmodsMethods.First(i => i.name == function).address;
 
         var buffer = process.Allocate(Marshal.SizeOf<TSized>());

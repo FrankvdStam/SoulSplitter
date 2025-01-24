@@ -29,8 +29,8 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
 {
     public BaseViewModel()
     {
-        CopyGamePositionCommand = new RelayCommand(CopyGamePosition, (o) => true);
-        RemoveSplitCommand = new RelayCommand(RemoveSplit, (o) => SplitsViewModel.SelectedSplit != null);
+        CopyGamePositionCommand = new RelayCommand(CopyGamePosition, (_) => true);
+        RemoveSplitCommand = new RelayCommand(RemoveSplit, (_) => SplitsViewModel.SelectedSplit != null);
     }
     
     #region Field visibility
@@ -61,7 +61,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
             }
         }
     }
-    private SplitType? _newSplitType = null;
+    private SplitType? _newSplitType;
 
     [XmlIgnore]
     public TimingType? NewSplitTimingType
@@ -91,7 +91,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
         get => _newSplitEnabledSplitType;
         set => this.SetField(ref _newSplitEnabledSplitType, value);
     }
-    private bool _newSplitEnabledSplitType = false;
+    private bool _newSplitEnabledSplitType;
 
     #endregion
 
@@ -161,7 +161,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
         get => _position;
         set => this.SetField(ref _position, value);
     }
-    private VectorSize? _position = null!;
+    private VectorSize? _position;
 
     [XmlIgnore]
     public Vector3f CurrentPosition

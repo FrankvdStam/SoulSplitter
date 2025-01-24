@@ -232,7 +232,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         {
             _errorWindow = new ErrorWindow();
             _errorWindow.DataContext = this;
-            _errorWindow.Closing += (s, arg) =>
+            _errorWindow.Closing += (_, arg) =>
             {
                 _errorWindow.Hide();
                 arg.Cancel = true;
@@ -324,7 +324,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
             ElementHost.EnableModelessKeyboardInterop(_flagTrackerWindow);
             _flagTrackerWindow.DataContext = FlagTrackerViewModel;
 
-            _flagTrackerWindow.Closing += (s, arg) =>
+            _flagTrackerWindow.Closing += (_, arg) =>
             {
                 _flagTrackerWindow.Hide();
                 arg.Cancel = true;
@@ -374,7 +374,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         });
     }
 
-    [XmlIgnore] public string? ImportXml = null!;
+    [XmlIgnore] public string? ImportXml;
 
     [XmlIgnore]
     public RelayCommand CommandExportSettingsFromFile

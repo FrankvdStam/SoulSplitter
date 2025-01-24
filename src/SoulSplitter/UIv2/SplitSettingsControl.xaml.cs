@@ -349,7 +349,7 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
         get => _selectedItem;
         set => this.SetField(ref _selectedItem, value);
     }
-    private Enum? _selectedItem = null!;
+    private Enum? _selectedItem;
 
     public VectorSize? Position
     {

@@ -46,7 +46,7 @@ public class Item(string name, int id, ItemType itemType, ItemCategory category,
     public int GetGameValue()
     {
         int id = (int)ItemType;
-        if (Upgrade == ItemUpgrade.PyroFlame || Upgrade == ItemUpgrade.PyroFlameAscended)
+        if (Upgrade is ItemUpgrade.PyroFlame or ItemUpgrade.PyroFlameAscended)
         {
             id += UpgradeLevel * 100;
         }
@@ -55,7 +55,7 @@ public class Item(string name, int id, ItemType itemType, ItemCategory category,
             id += UpgradeLevel;
         }
 
-        if (Upgrade == ItemUpgrade.Infusable || Upgrade == ItemUpgrade.InfusableRestricted)
+        if (Upgrade is ItemUpgrade.Infusable or ItemUpgrade.InfusableRestricted)
         {
             id += (int)Upgrade;
         }

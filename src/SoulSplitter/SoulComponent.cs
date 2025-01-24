@@ -44,7 +44,7 @@ public class SoulComponent : IComponent
     private ISplitter? _splitter;
     private IGame _game = null!;
     private DateTime _lastFailedRefresh = DateTime.MinValue;
-    private bool _previousBitBlt = false;
+    private bool _previousBitBlt;
     public readonly MainWindow MainWindow;
     public SoulComponent(LiveSplitState state, bool shouldThrowOnInvalidInstallation = true)
     {
@@ -90,10 +90,7 @@ public class SoulComponent : IComponent
                     if(
                         //For these error cases it is pointless to try again right away; it will only eat host CPU.
                         //Hence the timeout.
-                        err.Reason == RefreshErrorReason.ProcessNotRunning || 
-                        err.Reason == RefreshErrorReason.ProcessExited || 
-                        err.Reason == RefreshErrorReason.ScansFailed ||
-                        err.Reason == RefreshErrorReason.AccessDenied)
+                        err.Reason is RefreshErrorReason.ProcessNotRunning or RefreshErrorReason.ProcessExited or RefreshErrorReason.ScansFailed or RefreshErrorReason.AccessDenied)
                     {
                         _lastFailedRefresh = DateTime.Now;
                     }
@@ -133,7 +130,7 @@ public class SoulComponent : IComponent
     }
 
 
-    private Game? _selectedGame = null;
+    private Game? _selectedGame;
     private ResultErr<RefreshError> UpdateSplitter(MainViewModel mainViewModel, LiveSplitState state)
     {
         //Detect game change, initialize the correct splitter
@@ -235,10 +232,10 @@ public class SoulComponent : IComponent
         try
         {
             var xml = MainWindow.MainViewModel.ImportXml;
-            MainWindow.MainViewModel.ImportXml = null!; //Don't get stuck in an import loop
+            MainWindow.MainViewModel.ImportXml = null; //Don't get stuck in an import loop
 
             var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(xml);
+            xmlDocument.LoadXml(xml!);
 
             SetSettings(xmlDocument);
         }

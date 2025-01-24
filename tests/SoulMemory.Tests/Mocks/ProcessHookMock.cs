@@ -101,8 +101,8 @@ public class ProcessHookMock : IProcessHook
         return Result.Ok();
     }
 
-    public int HookedInvokedCount = 0;
-    public int ExitedInvokedCount = 0;
+    public int HookedInvokedCount;
+    public int ExitedInvokedCount;
 
     public ResultErr<RefreshError> HookedResult = Result.Ok();
     public List<Exception> ExitedExceptions = new();

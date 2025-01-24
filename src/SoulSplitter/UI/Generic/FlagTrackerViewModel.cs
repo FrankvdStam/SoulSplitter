@@ -59,8 +59,8 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
 {
     public FlagTrackerViewModel()
     {
-        CommandAddEventFlag = new RelayCommand(AddEventFlag, (o) => { return !string.IsNullOrWhiteSpace(CategoryName) && FlagDescription.Flag != 0; });
-        CommandRemoveEventFlag = new RelayCommand(RemoveEventFlag, (o) => { return SelectedFlagDescription != null; });
+        CommandAddEventFlag = new RelayCommand(AddEventFlag, _ => !string.IsNullOrWhiteSpace(CategoryName) && FlagDescription.Flag != 0);
+        CommandRemoveEventFlag = new RelayCommand(RemoveEventFlag, _ => SelectedFlagDescription != null);
     }
 
     
@@ -121,7 +121,7 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
 
     #region update/reset
     private List<(FlagTrackerCategoryViewModel category, FlagDescription eventFlag)>? _lookup;
-    private int _currentIndex = 0;
+    private int _currentIndex;
 
     public void Start()
     {

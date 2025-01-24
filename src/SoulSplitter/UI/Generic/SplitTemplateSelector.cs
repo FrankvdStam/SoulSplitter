@@ -25,19 +25,13 @@ public class SplitTemplateSelector : DataTemplateSelector
     public DataTemplate EnumTemplate { get; set; } = null!;
     public DataTemplate VectorSizeTemplate { get; set; } = null!;
 
-    public override DataTemplate SelectTemplate(object? item, DependencyObject container) 
+    public override DataTemplate SelectTemplate(object? item, DependencyObject container)
     {
-        if(item is Enum)
+        return item switch
         {
-            return EnumTemplate;
-        }
-        else if (item is VectorSize)
-        {
-            return VectorSizeTemplate;
-        }
-
-        return VectorSizeTemplate;
-
-        
+            Enum => EnumTemplate,
+            VectorSize => VectorSizeTemplate,
+            _ => VectorSizeTemplate
+        };
     }
 }

@@ -50,7 +50,7 @@ public class DarkSouls3ViewModel : BaseViewModel
 
     private void AddSplit()
     {
-        object? split = NewSplitType switch
+        var split = NewSplitType switch
         {
             SplitType.Boss or SplitType.Bonfire or SplitType.ItemPickup or SplitType.Attribute => NewSplitValue!,
             SplitType.Position => Position,
@@ -73,7 +73,7 @@ public class DarkSouls3ViewModel : BaseViewModel
         get => _lockIgtToZero;
         set => this.SetField(ref _lockIgtToZero, value);
     }
-    private bool _lockIgtToZero = false;
+    private bool _lockIgtToZero;
 
     [XmlIgnore]
     public new SplitType? NewSplitType
@@ -99,7 +99,7 @@ public class DarkSouls3ViewModel : BaseViewModel
             }
         }
     }
-    private SplitType? _newSplitType = null;
+    private SplitType? _newSplitType;
 
     #endregion
 

@@ -98,7 +98,7 @@ public abstract class BaseParam
 
     #region Writing fields ======================================================================================================================================================
 
-    public bool WriteEnabled { get; set; } = false;
+    public bool WriteEnabled { get; set; }
 
     protected void WriteParamField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {

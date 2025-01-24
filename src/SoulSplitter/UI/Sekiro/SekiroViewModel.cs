@@ -34,7 +34,7 @@ public class SekiroViewModel : BaseViewModel
         get => _overwriteIgtOnStart;
         set => this.SetField(ref _overwriteIgtOnStart, value);
     }
-    private bool _overwriteIgtOnStart = false;
+    private bool _overwriteIgtOnStart;
     
 
     #region add/remove splits ============================================================================================================================================

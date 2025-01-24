@@ -26,7 +26,7 @@ namespace SoulMemory.EldenRing;
 
 public class EldenRing : IGame
 {
-    private Process? _process = null;
+    private Process? _process;
 
     private readonly Pointer _igt = new();
     private readonly Pointer _hud = new();

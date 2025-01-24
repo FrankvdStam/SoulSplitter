@@ -45,7 +45,7 @@ public class RefreshError
 
     public RefreshErrorReason Reason { get; }
     public string Message { get; } = null!;
-    public Exception? Exception { get; } = null!;
+    public Exception? Exception { get; }
 
     public override string ToString()
     {

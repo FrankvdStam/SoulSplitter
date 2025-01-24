@@ -111,10 +111,10 @@ public class DarkSouls1Splitter : ISplitter
     private readonly ITimerModel _timerModel;
     private int _inGameTime;
     private TimerState _timerState = TimerState.WaitForStart;
-    private string? _savefilePath = null;
+    private string? _savefilePath;
     private int _saveSlot = -1;
-    private int _previousIgt = 0;
-    private bool _previousCredits = false;
+    private int _previousIgt;
+    private bool _previousCredits;
 
     private void StartTimer()
     {
@@ -326,9 +326,9 @@ public class DarkSouls1Splitter : ISplitter
 
 
 
-    private bool _isWarpRequested = false;
-    private bool _isWarping = false;
-    private bool _warpHasPlayerBeenUnloaded = false;
+    private bool _isWarpRequested;
+    private bool _isWarping;
+    private bool _warpHasPlayerBeenUnloaded;
 
     private void TrackWarps()
     {

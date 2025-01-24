@@ -308,14 +308,9 @@ public class Ptde : IDarkSouls1
         }
         throw new ArgumentException("Unknown event flag ID: " + eventFlagId);
     }
-
+    
     public bool ReadEventFlag(uint eventFlagId)
     {
-        if (_eventFlags == null)
-        {
-            return false;
-        }
-
         int offset = GetEventFlagOffset(eventFlagId, out uint mask);
         uint value = _eventFlags.ReadUInt32(offset);
         return (value & mask) != 0;

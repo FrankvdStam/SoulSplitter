@@ -29,8 +29,8 @@ namespace SoulSplitter.Splitters;
 
 public class DarkSouls3Splitter : ISplitter
 {
-    private readonly LiveSplitState _liveSplitState = null!;
-    private readonly DarkSouls3 _darkSouls3 = null!;
+    private readonly LiveSplitState _liveSplitState;
+    private readonly DarkSouls3 _darkSouls3;
     private DarkSouls3ViewModel _darkSouls3ViewModel = null!;
     private MainViewModel _mainViewModel = null!;
 
@@ -42,8 +42,10 @@ public class DarkSouls3Splitter : ISplitter
         _liveSplitState.OnReset += OnReset;
         _liveSplitState.IsGameTimePaused = true;
 
-        _timerModel = new TimerModel();
-        _timerModel.CurrentState = state;
+        _timerModel = new TimerModel
+        {
+            CurrentState = state
+        };
     }
 
 

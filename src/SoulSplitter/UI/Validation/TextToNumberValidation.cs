@@ -45,7 +45,7 @@ public class TextToNumberValidation : ValidationRule
             }
         }
 
-        if (!(value is string text))
+        if (value is not string text)
         {
             return new ValidationResult(false, "Input is not a valid text");
         }
@@ -61,7 +61,7 @@ public class TextToNumberValidation : ValidationRule
                 throw new ArgumentException($"Unsupported type {NumericType}");
 
             case NumericType.Int:
-                if (!int.TryParse(text, out int i))
+                if (!int.TryParse(text, out var i))
                 {
                     return new ValidationResult(false, "Input is not a valid number");
                 }
@@ -74,7 +74,7 @@ public class TextToNumberValidation : ValidationRule
                 return new ValidationResult(true, null);
 
             case NumericType.Uint:
-                if (!uint.TryParse(text, out uint u))
+                if (!uint.TryParse(text, out var u))
                 {
                     return new ValidationResult(false, "Input is not a valid positive number");
                 }

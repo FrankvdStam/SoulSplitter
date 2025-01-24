@@ -46,7 +46,7 @@ internal static class Sl2Reader
     /// <param name="slot">the slot to read the IGT from</param>
     /// <param name="version">The game version</param>
     /// <returns>IGT or -1 if sometimes failed</returns>
-    public static int? GetSaveFileIgt(string path, int slot, bool ptde)
+    public static int? GetSaveFileIgt(string? path, int slot, bool ptde)
     {
         int? igt = null;
 
