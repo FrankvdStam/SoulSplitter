@@ -184,7 +184,7 @@ internal class EldenRingSplitter : ISplitter
                 if (_startAutomatically)
                 {
                     var igt = _eldenRing.GetInGameTimeMilliseconds();
-                    if (igt > 0 && igt < 150)
+                    if (igt is > 0 and < 150)
                     {
                         _eldenRing.WriteInGameTimeMilliseconds(0);
                         StartTimer();
@@ -268,10 +268,7 @@ internal class EldenRingSplitter : ISplitter
 
                         case EldenRingSplitType.Item:
                             //Only get the inventory items once per livesplit tick
-                            if (inventoryItems == null)
-                            {
-                                inventoryItems = _eldenRing.ReadInventory();
-                            }
+                            inventoryItems ??= _eldenRing.ReadInventory();
                             s.SplitConditionMet = inventoryItems.Any(i => i.Category == s.Item.Category && i.Id == s.Item.Id);
                             break;
 

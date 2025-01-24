@@ -154,7 +154,7 @@ public class SekiroSplitter : ISplitter
                 if (_sekiroViewModel.StartAutomatically)
                 {
                     var igt = _sekiro.GetInGameTimeMilliseconds();
-                    if (igt > 0 && igt < 150)
+                    if (igt is > 0 and < 150)
                     {
                         StartTimer();
                         _timerModel.Start();

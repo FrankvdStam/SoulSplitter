@@ -30,7 +30,7 @@ public enum NumericType
 
 public class TextToNumberValidation : ValidationRule
 {
-    public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+    public override ValidationResult Validate(object? value, CultureInfo cultureInfo)
     {
 
         if (value == null)

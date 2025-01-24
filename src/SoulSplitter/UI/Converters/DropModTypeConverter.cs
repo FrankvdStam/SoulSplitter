@@ -23,7 +23,7 @@ namespace SoulSplitter.UI.Converters;
 
 public class DropModTypeConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if(value is DropModType valueDropModType && parameter is DropModType parameterDropModType)
         {
@@ -32,8 +32,8 @@ public class DropModTypeConverter : IValueConverter
         return false;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return (DropModType)parameter;
+        return (DropModType)parameter!;
     }
 }

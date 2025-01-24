@@ -136,8 +136,8 @@ public class DarkSouls2Splitter : ISplitter
                     {
                         var position = _darkSouls2.GetPosition();
                         if(
-                            position.Y < -322.0f && position.Y > -323.0f &&
-                            position.X < -213.0f && position.X > -214.0f)
+                            position.Y is < -322.0f and > -323.0f &&
+                            position.X is < -213.0f and > -214.0f)
                         {
                             _timerModel.Start();
                         }

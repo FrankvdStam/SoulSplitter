@@ -33,14 +33,12 @@ internal static class Extensions
         }
 
         var serializer = new XmlSerializer(typeof(T));
-        using (var reader = new StringReader(xml))
-        {
-            return (T)serializer.Deserialize(reader);
-        }
+        using var reader = new StringReader(xml);
+        return (T)serializer.Deserialize(reader);
     }
     
 
-    public static string SerializeXml(this object obj)
+    public static string SerializeXml(this object? obj)
     {
         if (obj == null)
         {
@@ -53,13 +51,11 @@ internal static class Extensions
             Indent = true,
         };
 
-        using (var stream = new StringWriter())
-        using (var writer = XmlWriter.Create(stream, settings))
-        {
-            var serializer = new XmlSerializer(obj.GetType());
-            serializer.Serialize(writer, obj);
-            return stream.ToString();
-        }
+        using var stream = new StringWriter();
+        using var writer = XmlWriter.Create(stream, settings);
+        var serializer = new XmlSerializer(obj.GetType());
+        serializer.Serialize(writer, obj);
+        return stream.ToString();
     }
 
     public static bool SetField<TField>(this ICustomNotifyPropertyChanged viewModel, ref TField field, TField value, [CallerMemberName] string? propertyName = null)

@@ -23,18 +23,16 @@ namespace SoulSplitter.UI.Converters;
 
 public class EnumToVisibilityConverter : IMultiValueConverter, IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
-        var valueEnum = (Enum)value;
-        var paramEnum = (Enum)parameter;
-        if (valueEnum != null && paramEnum != null && valueEnum.Equals(paramEnum))
+        if (value is Enum valueEnum && parameter is Enum paramEnum && valueEnum.Equals(paramEnum))
         {
             return Visibility.Visible;
         }
         return Visibility.Collapsed;
     }
 
-    public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object Convert(object[] values, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
         if (values == null || parameter == null)
         {

@@ -52,7 +52,7 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
             case SplitType.Attribute:
                 if (Game == Game.DarkSouls1)
                 {
-                    return SelectedAttribute != null && AttributeLevel > 0 && AttributeLevel <= 99;
+                    return SelectedAttribute != null && AttributeLevel is > 0 and <= 99;
                 }
                 break;
 

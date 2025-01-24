@@ -40,7 +40,7 @@ public class DarkSouls2 : IDarkSouls2
         {
             if (_darkSouls2 == null)
             {
-                var process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == "darksoulsii" && !i.HasExited && i.MainModule != null);
+                var process = Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == "darksoulsii" && i is { HasExited: false, MainModule: not null });
                 if (process == null)
                 {
                     return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, "Dark Souls 2 vanilla/scholar not running."));

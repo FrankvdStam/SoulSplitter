@@ -26,20 +26,17 @@ public static class BitBlt
     {
         var process = game.GetProcess();
         var path = Path.GetDirectoryName(process?.MainModule?.FileName);
-        using (var md5 = MD5.Create())
+        using var md5 = MD5.Create();
+        foreach (var d in files)
         {
-            foreach (var d in files)
+            using var fs = File.OpenRead($"{path}\\{d}");
+            var hex = md5.ComputeHash(fs).ToHexString();
+            if (!bitBlt.Contains(hex))
             {
-                using (var fs = File.OpenRead($"{path}\\{d}"))
-                {
-                    var hex = md5.ComputeHash(fs).ToHexString();
-                    if (!bitBlt.Contains(hex))
-                    {
-                        return true;
-                    }
-                }
+                return true;
             }
         }
+        
         return false;
     }
 }

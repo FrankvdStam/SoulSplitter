@@ -44,7 +44,7 @@ public class Item
 
     public static Item FromLookupTable(Category category, uint id)
     {
-        return LookupTable.SingleOrDefault(i => i.Category == category && i.Id == id);
+        return LookupTable.First(i => i.Category == category && i.Id == id);
     }        
 
     private readonly static ReadOnlyCollection<Item> LookupTable = new(new List<Item>()

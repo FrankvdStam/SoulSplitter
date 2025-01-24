@@ -53,7 +53,7 @@ public partial class DarkSouls2Control : UserControl
 
     private void TextBoxRawFlag_OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        if (_darkSouls2ViewModel.NewSplitType != null && _darkSouls2ViewModel.NewSplitType == DarkSouls2SplitType.Flag && sender is TextBox textBox)
+        if (_darkSouls2ViewModel.NewSplitType is DarkSouls2SplitType.Flag && sender is TextBox textBox)
         {
             if (uint.TryParse(textBox.Text, out uint result))
             {

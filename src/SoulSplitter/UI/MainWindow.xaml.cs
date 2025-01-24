@@ -58,18 +58,16 @@ public partial class MainWindow : Window
         try
         {
             var form = winforms.Application.OpenForms[0];
-            using (var graphics = form.CreateGraphics())
+            using var graphics = form.CreateGraphics();
+            var hdc = graphics.GetHdc();
+            var color = Gdi32.BitBlt(hdc, 0, 0);
+            if (color != _stash)
             {
-                var hdc = graphics.GetHdc();
-                var color = Gdi32.BitBlt(hdc, 0, 0);
-                if (color != _stash)
-                {
-                    graphics.ReleaseHdc();
-                    Debug.WriteLine(color);
-                    color = Color.FromArgb(color.ToArgb() ^ 0xffffff);
-                    _stash = color;
-                    graphics.DrawRectangle(new Pen(color), 0, 0, 1, 1);
-                }
+                graphics.ReleaseHdc();
+                Debug.WriteLine(color);
+                color = Color.FromArgb(color.ToArgb() ^ 0xffffff);
+                _stash = color;
+                graphics.DrawRectangle(new Pen(color), 0, 0, 1, 1);
             }
         }
         catch

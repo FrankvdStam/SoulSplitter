@@ -28,7 +28,7 @@ public class ProcessHook(string name, IProcessWrapper? processWrapper = null) : 
     public System.Diagnostics.Process? GetProcess() => ProcessWrapper.GetProcess();
 
     public event Func<ResultErr<RefreshError>> Hooked = null!;
-    public event Action<Exception> Exited = null!;
+    public event Action<Exception?> Exited = null!;
 
     public PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; } = new();
 

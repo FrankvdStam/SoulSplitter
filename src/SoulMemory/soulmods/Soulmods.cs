@@ -49,18 +49,10 @@ public static class Soulmods
 {
     public static bool Inject(Process process)
     {
-        var dir = Path.GetDirectoryName(typeof(Soulmods).Assembly.Location);
-        var x64path = Path.Combine(dir, @"soulmods_x64.dll");
-        var x86path = Path.Combine(dir, @"soulmods_x86.dll");
+        var dir = Path.GetDirectoryName(typeof(Soulmods).Assembly.Location)!;
+        var path = process.Is64Bit().Unwrap() ? Path.Combine(dir, @"soulmods_x64.dll") : Path.Combine(dir, @"soulmods_x86.dll");
 
-        if (process.Is64Bit().Unwrap())
-        {
-            process.InjectDll(x64path);
-        }
-        else
-        {
-            process.InjectDll(x86path);
-        }
+        process.InjectDll(path);
 
         foreach (ProcessModule processModule in process.Modules)
         {
@@ -76,7 +68,7 @@ public static class Soulmods
     
 
 
-    private static List<(string name, long address)> _soulmodsMethods = null!;
+    private static List<(string name, long address)>? _soulmodsMethods = null!;
     public static TSized RustCall<TSized>(this Process process, string function, TSized? parameter = null) where TSized : struct
     {
         if (_soulmodsMethods == null)
@@ -124,13 +116,11 @@ public static class Soulmods
 
     private static void OverwriteFile(string manifestResourceName, string path)
     {
-        byte[] buffer;
-        using (var stream = typeof(Soulmods).Assembly.GetManifestResourceStream(manifestResourceName))
-        {
-            buffer = new byte[stream.Length];
-            stream.Read(buffer, 0, buffer.Length);
-        }
-        Directory.CreateDirectory(Path.GetDirectoryName(path));
+        using var stream = typeof(Soulmods).Assembly.GetManifestResourceStream(manifestResourceName)!;
+        var buffer = new byte[stream.Length];
+        var _ = stream.Read(buffer, 0, buffer.Length);
+        
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
 
         try
         {

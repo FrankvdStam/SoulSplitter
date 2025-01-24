@@ -39,6 +39,7 @@ public class ProcessHookMock : IProcessHook
             }
             ExitedInvokedCount++;
         };
+        ProcessWrapper = null!;
     }
 
     public Dictionary<long, byte[]> Data = new();
@@ -113,5 +114,5 @@ public class ProcessHookMock : IProcessHook
 #pragma warning restore CS0067
 
     public PointerTreeBuilder PointerTreeBuilder { get; set; } = new();
-    public IProcessWrapper? ProcessWrapper { get; set; }
+    public IProcessWrapper ProcessWrapper { get; set; }
 }

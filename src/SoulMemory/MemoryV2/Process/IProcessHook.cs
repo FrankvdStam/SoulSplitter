@@ -45,7 +45,7 @@ public interface IProcessHook : IMemory
     /// Called during refresh after a process exits or if hooking/refreshing fails.
     /// Exception might be null.
     /// </summary>
-    event Action<Exception> Exited;
+    event Action<Exception?> Exited;
 
     PointerTreeBuilder.PointerTreeBuilder PointerTreeBuilder { get; set; }
 }

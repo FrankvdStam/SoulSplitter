@@ -24,7 +24,7 @@ public class TextToRgbHexValidator : ValidationRule
 {
     private static readonly Regex RgbValidator = new("^#(?:[0-9a-fA-F]{3}){1,2}$");
 
-    public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+    public override ValidationResult Validate(object? value, CultureInfo cultureInfo)
     {
         if (value is string hex && RgbValidator.Match(hex).Success)
         {

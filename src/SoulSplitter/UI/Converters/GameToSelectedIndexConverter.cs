@@ -23,7 +23,7 @@ namespace SoulSplitter.UI.Converters;
 
 public class GameToSelectedIndexConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
         if (value is Game g)
         {
@@ -32,7 +32,7 @@ public class GameToSelectedIndexConverter : IValueConverter
         throw new NotSupportedException();
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
         if (value is int num && num.TryParseEnum(out Game g))
         {

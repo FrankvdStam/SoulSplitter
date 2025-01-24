@@ -27,30 +27,22 @@ public interface IMemory
 
 public class ByteArrayMemory(byte[] data) : IMemory
 {
-    private readonly byte[] _data = data;
-
     public byte[] ReadBytes(long? offset, int length)
     {
-        if (!offset.HasValue)
-        {
-            offset = 0;
-        }
+        offset ??= 0;
 
         var buffer = new byte[length];
-        Array.Copy(_data, offset.Value, buffer, 0, length);
+        Array.Copy(data, offset.Value, buffer, 0, length);
         return buffer;
     }
 
     public void WriteBytes(long? offset, byte[] bytes)
     {
-        if (!offset.HasValue)
-        {
-            offset = 0;
-        }
+        offset ??= 0;
 
         for (int i = 0; i < bytes.Length; i++)
         {
-            _data[offset.Value + i] = bytes[i];
+            data[offset.Value + i] = bytes[i];
         }
     }
 }

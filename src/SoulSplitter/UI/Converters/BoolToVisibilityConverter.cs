@@ -22,7 +22,7 @@ namespace SoulSplitter.UI.Converters;
 
 	public class BoolToVisibilityConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
         if (value is bool b)
         {
@@ -31,7 +31,7 @@ namespace SoulSplitter.UI.Converters;
         throw new NotSupportedException();
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
         throw new NotSupportedException();
     }

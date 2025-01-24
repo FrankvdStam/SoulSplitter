@@ -32,7 +32,7 @@ public static class Extensions
         var displayName = enumValue
             .GetType()
             .GetMember(enumValue.ToString())
-            .FirstOrDefault()
+            .First()
             .GetCustomAttribute<AnnotationAttribute>()?
             .Name;
 
@@ -48,7 +48,7 @@ public static class Extensions
         var displayName = enumValue
             .GetType()
             .GetMember(enumValue.ToString())
-            .FirstOrDefault()
+            .First()
             .GetCustomAttribute<AnnotationAttribute>()?
             .Description;
 
@@ -64,7 +64,7 @@ public static class Extensions
         var attribute = value
             .GetType()
             .GetMember(value.ToString())
-            .FirstOrDefault()
+            .First()
             .GetCustomAttribute<T>();
 
         return attribute;

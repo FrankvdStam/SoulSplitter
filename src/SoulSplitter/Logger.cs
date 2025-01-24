@@ -61,11 +61,9 @@ internal static class Logger
                 }
 
                 //Log the message
-                using (var writer = File.AppendText(filePath))
-                {
-                    writer.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")}: {message}");
-                    writer.Flush();
-                }
+                using var writer = File.AppendText(filePath);
+                writer.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")}: {message}");
+                writer.Flush();
             }
             catch
             {

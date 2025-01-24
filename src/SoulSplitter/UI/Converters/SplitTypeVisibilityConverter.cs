@@ -23,7 +23,7 @@ namespace SoulSplitter.UI.Converters;
 
 public class SplitTypeVisibilityConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
         var result =
             value is SplitType splitType &&
@@ -38,7 +38,7 @@ public class SplitTypeVisibilityConverter : IValueConverter
         return Visibility.Collapsed;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
         throw new NotSupportedException();
     }

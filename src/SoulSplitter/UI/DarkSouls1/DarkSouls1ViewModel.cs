@@ -100,10 +100,10 @@ public class DarkSouls1ViewModel : BaseViewModel
                 return FlagDescription != null;
 
             case SplitType.Bonfire:
-                return NewSplitBonfireState != null && NewSplitBonfireState.Bonfire != null;
+                return NewSplitBonfireState is { Bonfire: not null };
 
             case SplitType.Item:
-                return NewSplitItemState != null && NewSplitItemState.ItemType != null;
+                return NewSplitItemState is { ItemType: not null };
 
             case SplitType.Credits:
                 return NewSplitTimingType != null;

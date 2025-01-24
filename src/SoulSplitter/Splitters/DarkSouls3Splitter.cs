@@ -132,7 +132,7 @@ public class DarkSouls3Splitter : ISplitter
                 if (_darkSouls3ViewModel.StartAutomatically)
                 {
                     var igt = _darkSouls3.GetInGameTimeMilliseconds();
-                    if (igt > 0 && igt < 150)
+                    if (igt is > 0 and < 150)
                     {
                         StartTimer();
                         StartAutoSplitting();

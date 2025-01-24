@@ -73,7 +73,7 @@ internal static class ItemReader
                 int level = 0;
 
                 //if 4 or less digits -> non-upgradable item.
-                if (categories.Contains(ItemCategory.Consumables) && item >= 200 && item <= 215 && !items.Any(j => j.ItemType == ItemType.EstusFlask))
+                if (categories.Contains(ItemCategory.Consumables) && item is >= 200 and <= 215 && !items.Any(j => j.ItemType == ItemType.EstusFlask))
                 {
                     var estus = Item.AllItems.First(j => j.ItemType == ItemType.EstusFlask);
                     var instance = new Item(estus.Name, estus.Id, estus.ItemType, estus.Category, estus.StackLimit, estus.Upgrade);

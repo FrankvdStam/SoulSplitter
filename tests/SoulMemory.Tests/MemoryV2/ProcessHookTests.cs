@@ -54,7 +54,7 @@ public class ProcessHookTests
     [TestMethod]
     public void TryRefresh_ProcessNotRunning()
     {
-        Exception ex;
+        Exception? ex;
         _mockProcessWrapper
             .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
             .Returns(ProcessRefreshResult.ProcessNotRunning);
@@ -205,7 +205,7 @@ public class ProcessHookTests
 
         Assert.AreEqual(RefreshErrorReason.UnknownException, refreshResult.GetErr().Reason);
         Assert.IsNull(refreshResult.GetErr().Message);
-        Assert.AreEqual("Your computer is on fire", refreshResult.GetErr().Exception.Message);
+        Assert.AreEqual("Your computer is on fire", refreshResult.GetErr().Exception?.Message);
         Assert.AreEqual(1, ExitedExceptions.Count);
         Assert.AreEqual("Your computer is on fire", ExitedExceptions.First().Message);
         Assert.AreEqual(1, _exitedInvokedCount);
