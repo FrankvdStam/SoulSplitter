@@ -18,3 +18,11 @@ exclude:
     paths:
       - tests
       - src/Cli
+
+dependencyOverrides:
+    #this unfortunately does not get detected automatically by qodana
+  - name: "NETStandard.Library"
+    version: "2.0.3"
+    licenses:
+      - key: "MIT"
+        url: "https://nuget.info/packages/NETStandard.Library/2.0.3"
