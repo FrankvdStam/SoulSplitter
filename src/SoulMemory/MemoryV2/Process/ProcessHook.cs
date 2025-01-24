@@ -20,9 +20,6 @@ namespace SoulMemory.MemoryV2.Process;
 
 public class ProcessHook(string name, IProcessWrapper? processWrapper = null) : IProcessHook
 {
-    private readonly string _name = name;
-
-
     public IProcessWrapper ProcessWrapper { get; set; } = processWrapper ?? new ProcessWrapper();
 
     public System.Diagnostics.Process? GetProcess() => ProcessWrapper.GetProcess();
@@ -40,11 +37,11 @@ public class ProcessHook(string name, IProcessWrapper? processWrapper = null) : 
     /// <returns></returns>
     public ResultErr<RefreshError> TryRefresh()
     {
-        var processRefreshResult = ProcessWrapper.TryRefresh(_name, out var e);
+        var processRefreshResult = ProcessWrapper.TryRefresh(name, out var e);
         switch (processRefreshResult)
         {
             case ProcessRefreshResult.ProcessNotRunning:
-                return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, $"Process {_name} not running or inaccessible. Try running livesplit as admin."));
+                return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, $"Process {name} not running or inaccessible. Try running livesplit as admin."));
 
 
             //Run scans when process is initialized

@@ -332,24 +332,20 @@ public class Container<T>(T t)
 /// <summary>
 /// Container type for Ok, used to distinguish between Ok and Err in implicit conversions between result types.
 /// </summary>
-public class ContainerOk<T>(T t) : Container<T>(t) {
-}
+public class ContainerOk<T>(T t) : Container<T>(t);
 
 /// <summary>
 /// Container type for Err, used to distinguish between Ok and Err in implicit conversions between result types.
 /// </summary>
-public class ContainerErr<T>(T t) : Container<T>(t) {
-}
+public class ContainerErr<T>(T t) : Container<T>(t);
 
 /// <summary>
 /// Helper struct with 0 storage. Only used to trick the type system into allowing some sugar syntax
 /// </summary>
-public struct Empty { }
+public struct Empty;
 
 /// <summary>
 /// Thrown when unwrapping a failed result
 /// </summary>
 [Serializable]
-public class UnwrapException(string message) : Exception(message) 
-{
-}
+public class UnwrapException(string message) : Exception(message);

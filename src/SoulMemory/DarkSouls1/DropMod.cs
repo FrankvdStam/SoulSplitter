@@ -21,25 +21,23 @@ namespace SoulMemory.DarkSouls1;
 
 public class DropMod(IDarkSouls1 darkSouls)
 {
-    private readonly IDarkSouls1 _darkSouls = darkSouls;
-
     public void InitBkh()
     {
-        _darkSouls.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\n\n\n\n\n\n\n\n\n\n");
+        darkSouls.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\n\n\n\n\n\n\n\n\n\n");
         for (int i = 0; i < 62; i++)
         {
-            _darkSouls.SetLoadingScreenItem(i, 1105000);
+            darkSouls.SetLoadingScreenItem(i, 1105000);
         }
         GuaranteeDrop(27901000, 1105000);
     }
 
     public void InitAllAchievements()
     {
-        _darkSouls.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\nEye of Death\n\n\n\n\n");
+        darkSouls.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\nEye of Death\n\n\n\n\n");
 
         for (int i = 0; i < 62; i++)
         {
-            _darkSouls.SetLoadingScreenItem(i, 1004000);
+            darkSouls.SetLoadingScreenItem(i, 1004000);
         }
         
         //trident
@@ -62,7 +60,7 @@ public class DropMod(IDarkSouls1 darkSouls)
 
     public void UpdateAllAchievements()
     {
-        var items = _darkSouls.GetInventory();
+        var items = darkSouls.GetInventory();
 
         foreach (SwitchableDrop temp in _switchableWeapons)
         {
@@ -86,7 +84,7 @@ public class DropMod(IDarkSouls1 darkSouls)
 
     private void GuaranteeDrop(int rowId, int itemId)
     {
-        _darkSouls.WriteItemLotParam(rowId, (itemLot) =>
+        darkSouls.WriteItemLotParam(rowId, (itemLot) =>
         {
             itemLot.LotItemBasePoint01 = (ushort)(itemLot.LotItemId01 == itemId ? 100 : 0);
             itemLot.LotItemBasePoint02 = (ushort)(itemLot.LotItemId02 == itemId ? 100 : 0);

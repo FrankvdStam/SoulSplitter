@@ -13,3 +13,8 @@ exclude:
     paths:
       - src/cli
       - tests
+  - name: SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+  - name: All
+    paths:
+      - tests
+      - src/Cli

@@ -24,12 +24,10 @@ namespace SoulMemory.MemoryV2;
 /// </summary>
 public class ByteArrayMemory(byte[] data) : IMemory
 {
-    private readonly byte[] _data = data;
-
     public byte[] ReadBytes(long offset, int length)
     {
         var buffer = new byte[length];
-        Array.Copy(_data, offset, buffer, 0, length);
+        Array.Copy(data, offset, buffer, 0, length);
         return buffer;
     }
 
@@ -37,7 +35,7 @@ public class ByteArrayMemory(byte[] data) : IMemory
     {
         for (int i = 0; i < bytes.Length; i++)
         {
-            _data[offset + i] = bytes[i];
+            data[offset + i] = bytes[i];
         }
     }
 }

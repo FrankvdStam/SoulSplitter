@@ -56,7 +56,7 @@ public static class Soulmods
 
         foreach (ProcessModule processModule in process.Modules)
         {
-            if (processModule.ModuleName == "soulmods_x64.dll" || processModule.ModuleName == "soulmods_x86.dll")
+            if (processModule.ModuleName is "soulmods_x64.dll" or "soulmods_x86.dll")
             {
                 return true;
             }
@@ -115,7 +115,7 @@ public static class Soulmods
     {
         using var stream = typeof(Soulmods).Assembly.GetManifestResourceStream(manifestResourceName)!;
         var buffer = new byte[stream.Length];
-        var _ = stream.Read(buffer, 0, buffer.Length);
+        _ = stream.Read(buffer, 0, buffer.Length);
         
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
 
