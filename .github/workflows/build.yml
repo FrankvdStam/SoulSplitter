@@ -26,33 +26,17 @@ jobs:
       - name: dotnet restore
         run: dotnet restore
 
-      - name: setup sonarqube
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        uses: ./.github/actions/setup-sonar
+      - name: Build solution
+        run: dotnet build -c release
 
-        #build with sonar analysis enabled
-      - name: Build and analyze
+      - name: Run tests with code coverage
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
+
+      - name: Qodana Scan
         if: ${{ !github.event.pull_request.head.repo.fork }}
+        uses: JetBrains/qodana-action@v2024.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: powershell
-        run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=tests/**/*.xml
-          dotnet build src/soulsplitter/soulsplitter.csproj -c release /p:Platform=x64
-          dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-
-        #Forked repo's don't have access to the repository secrets and are unable to run sonarqube analysis
-      - name: Build only
-        if: ${{ github.event.pull_request.head.repo.fork }}
-        shell: powershell
-        run: |
-            dotnet build src/soulsplitter/soulsplitter.csproj -c release /p:Platform=x64
-            dotnet test
-
-      - name: Build CliTimer
-        shell: powershell
-        run: dotnet build src\CliTimer\CliTimer.csproj -c release /p:Platform=x64
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
 
         #Collect all the artifacts and publish them
       - name: collect artifacts
