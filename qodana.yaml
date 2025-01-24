@@ -27,8 +27,6 @@ dependencyOverrides:
       - key: "MIT"
         url: "https://nuget.info/packages/NETStandard.Library/2.0.3"
 
-fixesStrategy: cleanup
-
 failureConditions:
   severityThresholds:
     any: 0
