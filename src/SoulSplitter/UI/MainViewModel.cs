@@ -374,7 +374,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         });
     }
 
-    [XmlIgnore] public string ImportXml = null!;
+    [XmlIgnore] public string? ImportXml = null!;
 
     [XmlIgnore]
     public RelayCommand CommandExportSettingsFromFile

@@ -40,7 +40,7 @@ public class ProcessHook(string name, IProcessWrapper? processWrapper = null) : 
     /// <returns></returns>
     public ResultErr<RefreshError> TryRefresh()
     {
-        var processRefreshResult = ProcessWrapper.TryRefresh(_name, out Exception? e);
+        var processRefreshResult = ProcessWrapper.TryRefresh(_name, out var e);
         switch (processRefreshResult)
         {
             case ProcessRefreshResult.ProcessNotRunning:
@@ -64,7 +64,7 @@ public class ProcessHook(string name, IProcessWrapper? processWrapper = null) : 
                 {
                     return pointerScanResult;
                 }
-                return Hooked?.Invoke() ?? Result.Ok();
+                return Hooked.Invoke() ?? Result.Ok();
 
 
             //Standard refresh
@@ -73,11 +73,11 @@ public class ProcessHook(string name, IProcessWrapper? processWrapper = null) : 
 
 
             case ProcessRefreshResult.Exited:
-                Exited?.Invoke(null!);
+                Exited.Invoke(null!);
                 return Result.Err(new RefreshError(RefreshErrorReason.ProcessExited));
 
             case ProcessRefreshResult.Error:
-                Exited?.Invoke(e!);
+                Exited.Invoke(e!);
                 if (e!.Message == "Access is denied")
                 {
                     return Result.Err(new RefreshError(RefreshErrorReason.AccessDenied, "Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin."));

@@ -41,7 +41,7 @@ public class SoulComponent : IComponent
 
 
     private LiveSplitState _liveSplitState;
-    private ISplitter? _splitter = null!;
+    private ISplitter? _splitter;
     private IGame _game = null!;
     private DateTime _lastFailedRefresh = DateTime.MinValue;
     private bool _previousBitBlt = false;
@@ -279,11 +279,8 @@ public class SoulComponent : IComponent
                 }
 
                 var vm = MainViewModel.Deserialize(settings.InnerXml);
-                if (vm != null)
-                {
-                    MainWindow.MainViewModel = vm;
-                    _splitter?.SetViewModel(MainWindow.MainViewModel);
-                }
+                MainWindow.MainViewModel = vm;
+                _splitter?.SetViewModel(MainWindow.MainViewModel);
             }
             catch (Exception e)
             {
@@ -310,8 +307,8 @@ public class SoulComponent : IComponent
         {
             _customShowSettingsButton = new Button();
             _customShowSettingsButton.Text = "SoulSplitter settings";
-            _customShowSettingsButton.Click += (o, a) => MainWindow.Dispatcher.Invoke(() => MainWindow.ShowDialog());
-            _customShowSettingsButton.Paint += (o, a) =>
+            _customShowSettingsButton.Click += (_, _) => MainWindow.Dispatcher.Invoke(() => MainWindow.ShowDialog());
+            _customShowSettingsButton.Paint += (_, _) =>
             {
                 try
                 {
@@ -331,42 +328,23 @@ public class SoulComponent : IComponent
     /// <summary>
     /// Reads the game name from livesplit and tries to write the appropriate game to the view model
     /// </summary>
-    private void SelectGameFromLiveSplitState(LiveSplitState s)
+    private void SelectGameFromLiveSplitState(LiveSplitState? s)
     {
         MainWindow.Dispatcher.Invoke(() =>
         {
             if (!string.IsNullOrWhiteSpace(s?.Run?.GameName))
             {
                 var name = s!.Run!.GameName.ToLower().Replace(" ", "");
-                switch (name)
+                MainWindow.MainViewModel.SelectedGame = name switch
                 {
-                    case "darksouls":
-                    case "darksoulsremastered":
-                        MainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
-                        break;
-
-                    case "darksoulsii":
-                        MainWindow.MainViewModel.SelectedGame = Game.DarkSouls2;
-                        break;
-
-                    case "darksoulsiii":
-                        MainWindow.MainViewModel.SelectedGame = Game.DarkSouls3;
-                        break;
-
-                    case "sekiro":
-                    case "sekiro:shadowsdietwice":
-                        MainWindow.MainViewModel.SelectedGame = Game.Sekiro;
-                        break;
-
-                    case "eldenring":
-                        MainWindow.MainViewModel.SelectedGame = Game.EldenRing;
-                        break;
-
-                    case "armoredcore6":
-                    case "armoredcorevi:firesofrubicon":
-                        MainWindow.MainViewModel.SelectedGame = Game.ArmoredCore6;
-                        break;
-                }
+                    "darksouls" or "darksoulsremastered" => Game.DarkSouls1,
+                    "darksoulsii" => Game.DarkSouls2,
+                    "darksoulsiii" => Game.DarkSouls3,
+                    "sekiro" or "sekiro:shadowsdietwice" => Game.Sekiro,
+                    "eldenring" => Game.EldenRing,
+                    "armoredcore6" or "armoredcorevi:firesofrubicon" => Game.ArmoredCore6,
+                    _ => MainWindow.MainViewModel.SelectedGame
+                };
             }
         });
     }

@@ -92,7 +92,7 @@ public class SplitsViewModel : ICustomNotifyPropertyChanged
         get => _selectedSplit;
         set => this.SetField(ref _selectedSplit, value);
     }
-    private SplitViewModel? _selectedSplit = null!;
+    private SplitViewModel? _selectedSplit;
 
 
     public ObservableCollection<SplitTimingViewModel> Splits { get; set; } = [];
@@ -137,7 +137,7 @@ public class SplitTypeViewModel : ICustomNotifyPropertyChanged
 {
     [XmlIgnore]
     [NonSerialized]
-    public SplitTimingViewModel? Parent = null!;
+    public SplitTimingViewModel? Parent;
 
     public SplitType SplitType
     {
@@ -185,7 +185,7 @@ public class SplitViewModel : ICustomNotifyPropertyChanged
 {
     [XmlIgnore]
     [NonSerialized]
-    public SplitTypeViewModel? Parent = null!;
+    public SplitTypeViewModel? Parent;
     
     public object Split
     {

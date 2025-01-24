@@ -126,7 +126,10 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
 
     private void CopyGamePosition()
     {
-        Position.Position = CurrentPosition.Clone();
+        if (Position != null)
+        {
+            Position.Position = CurrentPosition.Clone();
+        }
     }
 
     private void RemoveSplit()
@@ -153,12 +156,12 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
     private SplitsViewModel _splitsViewModel =  new();
     
     [XmlIgnore]
-    public VectorSize Position
+    public VectorSize? Position
     {
         get => _position;
         set => this.SetField(ref _position, value);
     }
-    private VectorSize _position = null!;
+    private VectorSize? _position = null!;
 
     [XmlIgnore]
     public Vector3f CurrentPosition
@@ -169,12 +172,12 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
     private Vector3f _currentPosition = new(0f, 0f, 0f);
 
     [XmlIgnore]
-    public FlagDescription FlagDescription
+    public FlagDescription? FlagDescription
     {
         get => _flagDescription;
         set => this.SetField(ref _flagDescription, value);
     }
-    private FlagDescription _flagDescription = null!;
+    private FlagDescription? _flagDescription;
 
     #endregion
 

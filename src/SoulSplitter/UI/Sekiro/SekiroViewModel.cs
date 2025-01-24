@@ -46,49 +46,25 @@ public class SekiroViewModel : BaseViewModel
             return false;
         }
 
-        switch (NewSplitType)
+        return NewSplitType switch
         {
-            default:
-                throw new ArgumentException($"{NewSplitType} not supported");
-        
-            case SplitType.Boss:
-            case SplitType.Bonfire:
-            case SplitType.Attribute:
-                return NewSplitValue != null;
-        
-            case SplitType.Position:
-                return Position != null;
-
-            case SplitType.Flag:
-                return FlagDescription != null;
-        }
+            SplitType.Boss or SplitType.Bonfire or SplitType.Attribute => NewSplitValue != null,
+            SplitType.Position => Position != null,
+            SplitType.Flag => FlagDescription != null,
+            _ => throw new ArgumentException($"{NewSplitType} not supported")
+        };
     }
 
     private void AddSplit()
     {
-        object? split = null;
-        switch (NewSplitType)
+        object? split = NewSplitType switch
         {
-            default:
-                throw new ArgumentException($"{NewSplitType} not supported");
-
-            case SplitType.Boss:
-            case SplitType.Bonfire:
-                split = NewSplitValue;
-                break;
-
-            case SplitType.Position:
-                split = Position;
-                break;
-
-            case SplitType.Attribute:
-                split = NewSplitValue;
-                break;
-
-            case SplitType.Flag:
-                split = FlagDescription;
-                break;
-        }
+            SplitType.Boss or SplitType.Bonfire => NewSplitValue,
+            SplitType.Position => Position,
+            SplitType.Attribute => NewSplitValue,
+            SplitType.Flag => FlagDescription,
+            _ => throw new ArgumentException($"{NewSplitType} not supported")
+        };
         SplitsViewModel.AddSplit(NewSplitTimingType!.Value, NewSplitType.Value, split!);
 
         NewSplitTimingType = null;

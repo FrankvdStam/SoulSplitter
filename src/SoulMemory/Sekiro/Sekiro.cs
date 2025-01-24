@@ -183,27 +183,22 @@ public class Sekiro : IGame
 
     public int GetInGameTimeMilliseconds()
     {
-        return _igt?.ReadInt32() ?? 0;
+        return _igt.ReadInt32();
     }
 
     public void WriteInGameTimeMilliseconds(int value)
     {
-        _igt?.WriteInt32(value);
+        _igt.WriteInt32(value);
     }
 
     public int GetAttribute(Attribute attribute)
     {
-        switch (attribute)
+        return attribute switch
         {
-            default:
-                throw new ArgumentException($"{attribute} not supported");
-
-            case Attribute.Vitality:
-                return _playerGameData.ReadInt32(0x44) + 9;
-
-            case Attribute.AttackPower:
-                return _playerGameData.ReadInt32(0x48);
-        }
+            Attribute.Vitality => _playerGameData.ReadInt32(0x44) + 9,
+            Attribute.AttackPower => _playerGameData.ReadInt32(0x48),
+            _ => throw new ArgumentException($"{attribute} not supported")
+        };
     }
 
     public bool IsPlayerLoaded()
@@ -213,7 +208,7 @@ public class Sekiro : IGame
 
     public Vector3f GetPlayerPosition()
     {
-        return new Vector3f(_position?.ReadFloat(0x80) ?? 0f, _position?.ReadFloat(0x84) ?? 0f, _position?.ReadFloat(0x88) ?? 0f);
+        return new(_position.ReadFloat(0x80), _position.ReadFloat(0x84), _position.ReadFloat(0x88));
     }
 
     public bool IsBlackscreenActive()
@@ -394,12 +389,6 @@ public class Sekiro : IGame
 
     #endregion
     
-    #region Savefile mods
-
-    
-
-    #endregion
-
     #region BitBlt
 
     public bool BitBlt
@@ -527,10 +516,10 @@ public class Sekiro : IGame
                 logoCodeBytesPointFive = _process.ReadMemory<uint>(_process.MainModule.BaseAddress.ToInt64() + 0xE1B1AB).Unwrap();
                 logoCodeBytesPointSix = _process.ReadMemory<uint>(_process.MainModule.BaseAddress.ToInt64() + 0xE1B51B).Unwrap();
                 
-                if(logoCodeBytesPointFive == 0x8D483074 || logoCodeBytesPointFive == 0x8D483075){
+                if(logoCodeBytesPointFive is 0x8D483074 or 0x8D483075){
                     version = "1.05";
                 }
-                else if(logoCodeBytesPointSix == 0x8D483074 || logoCodeBytesPointSix == 0x8D483075){
+                else if(logoCodeBytesPointSix is 0x8D483074 or 0x8D483075){
                     version = "1.06";
                 }
                 else

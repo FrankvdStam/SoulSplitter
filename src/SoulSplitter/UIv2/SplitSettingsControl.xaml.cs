@@ -33,7 +33,7 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
 {
     public SplitSettingsControl()
     {
-        CopyGamePositionCommand = new RelayCommand(CopyGamePosition, (o) => true);
+        CopyGamePositionCommand = new RelayCommand(CopyGamePosition, (_) => true);
         AddSplitCommand = new RelayCommand(AddSplitFunc, CanAddSplit);
         RemoveSplitCommand = new RelayCommand(RemoveSplitFunc, CanRemoveSplit);
         InitializeComponent();
@@ -75,6 +75,8 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
             case SplitType.Flag:
                 return FlagDescription != null;
 
+            case SplitType.Credits:
+            case SplitType.ItemPickup:
             default:
                 throw new InvalidOperationException($"unsupported split type {SelectedSplitType}");
         }
@@ -134,7 +136,7 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
     }
 
     private bool CanRemoveSplit(object? param) => SplitsViewModel.SelectedSplit != null;
-    private void RemoveSplitFunc(object? parameter) => RemoveSplit?.Execute(parameter);
+    private void RemoveSplitFunc(object? parameter) => RemoveSplit.Execute(parameter);
 
     #endregion
 
@@ -268,26 +270,11 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
 
     #region Commands
 
-    public RelayCommand AddSplitCommand
-    {
-        get => _addSplitCommand;
-        set => this.SetField(ref _addSplitCommand, value);
-    }
-    private RelayCommand _addSplitCommand = null!;
+    public RelayCommand AddSplitCommand { get; set; }
 
-    public RelayCommand RemoveSplitCommand
-    {
-        get => _removeSplitCommand;
-        set => this.SetField(ref _removeSplitCommand, value);
-    }
-    private RelayCommand _removeSplitCommand = null!;
+    public RelayCommand RemoveSplitCommand { get; set; }
 
-    public RelayCommand CopyGamePositionCommand
-    {
-        get => _copyGamePositionCommand;
-        set => this.SetField(ref _copyGamePositionCommand, value);
-    }
-    private RelayCommand _copyGamePositionCommand = null!;
+    public RelayCommand CopyGamePositionCommand { get; set; }
 
     private void CopyGamePosition(object? param)
     {
@@ -319,21 +306,21 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
         get => _selectedBoss;
         set => this.SetField(ref _selectedBoss, value);
     }
-    private Enum? _selectedBoss = null!;
+    private Enum? _selectedBoss;
 
     public Enum? SelectedKnownFlag
     {
         get => _selectedKnownFlag;
         set => this.SetField(ref _selectedKnownFlag, value);
     }
-    private Enum? _selectedKnownFlag = null!;
+    private Enum? _selectedKnownFlag;
 
     public Enum? SelectedBonfire
     {
         get => _selectedBonfire;
         set => this.SetField(ref _selectedBonfire, value);
     }
-    private Enum? _selectedBonfire = null!;
+    private Enum? _selectedBonfire;
 
     //For dark souls 1 specifically
     public Enum? SelectedBonfireState
@@ -341,14 +328,14 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
         get => _selectedBonfireState;
         set => this.SetField(ref _selectedBonfireState, value);
     }
-    private Enum? _selectedBonfireState = null!;
+    private Enum? _selectedBonfireState;
 
     public Enum? SelectedAttribute
     {
         get => _selectedAttribute;
         set => this.SetField(ref _selectedAttribute, value);
     }
-    private Enum? _selectedAttribute = null!;
+    private Enum? _selectedAttribute;
 
     public int AttributeLevel
     {

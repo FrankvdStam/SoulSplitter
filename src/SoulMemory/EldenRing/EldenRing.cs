@@ -288,12 +288,9 @@ public class EldenRing : IGame
 
     public void EnableHud()
     {
-        if (_hud != null)
-        {
-            var b = _hud.ReadByte();
-            b |= 0x1; //Not sure if this whole byte is reserved for the HUD setting. Just going to write a 1 to the first bit and preserve the other bits.
-            _hud.WriteByte(null, b);
-        }
+        var b = _hud.ReadByte();
+        b |= 0x1; //Not sure if this whole byte is reserved for the HUD setting. Just going to write a 1 to the first bit and preserve the other bits.
+        _hud.WriteByte(null, b);
     }
 
     public Position GetPosition()
@@ -320,7 +317,7 @@ public class EldenRing : IGame
     
     public ScreenState GetScreenState()
     {
-        var screenState = _menuManImp?.ReadInt32(_screenStateOffset) ?? (int)ScreenState.Unknown;
+        var screenState = _menuManImp.ReadInt32(_screenStateOffset);
         if (screenState.TryParseEnum(out ScreenState s))
         {
             return s;
@@ -410,11 +407,8 @@ public class EldenRing : IGame
             }
     
             var item = Item.FromLookupTable(category, (uint)itemId);
-            if (item != null)
-            {
-                Console.WriteLine($"{item.GroupName} {item.Name}");
-                items.Add(item);
-            }
+            //Console.WriteLine($"{item.GroupName} {item.Name}");
+            items.Add(item);
         }
     
         return items;

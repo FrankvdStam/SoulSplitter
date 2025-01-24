@@ -66,20 +66,20 @@ public class Item(string name, int id, ItemType itemType, ItemCategory category,
     {
         get
         {
-            switch (Infusion)
+            return Infusion switch
             {
-                default: throw new NotSupportedException($"Unknown infusion type: {Infusion}");
-                case ItemInfusion.Normal: return 15;
-                case ItemInfusion.Chaos: return 5;
-                case ItemInfusion.Crystal: return 5;
-                case ItemInfusion.Divine: return 10;
-                case ItemInfusion.Enchanted: return 5;
-                case ItemInfusion.Fire: return 10;
-                case ItemInfusion.Lightning: return 5;
-                case ItemInfusion.Magic: return 10;
-                case ItemInfusion.Occult: return 5;
-                case ItemInfusion.Raw: return 5;
-            }
+                ItemInfusion.Normal => 15,
+                ItemInfusion.Chaos => 5,
+                ItemInfusion.Crystal => 5,
+                ItemInfusion.Divine => 10,
+                ItemInfusion.Enchanted => 5,
+                ItemInfusion.Fire => 10,
+                ItemInfusion.Lightning => 5,
+                ItemInfusion.Magic => 10,
+                ItemInfusion.Occult => 5,
+                ItemInfusion.Raw => 5,
+                _ => throw new NotSupportedException($"Unknown infusion type: {Infusion}")
+            };
         }
     }
 
@@ -87,20 +87,20 @@ public class Item(string name, int id, ItemType itemType, ItemCategory category,
     {
         get
         {
-            switch (Infusion)
+            return Infusion switch
             {
-                default: throw new NotSupportedException($"Unknown infusion type: {Infusion}");
-                case ItemInfusion.Normal: return false;
-                case ItemInfusion.Chaos: return true;
-                case ItemInfusion.Crystal: return false;
-                case ItemInfusion.Divine: return false;
-                case ItemInfusion.Enchanted: return true;
-                case ItemInfusion.Fire: return false;
-                case ItemInfusion.Lightning: return false;
-                case ItemInfusion.Magic: return false;
-                case ItemInfusion.Occult: return true;
-                case ItemInfusion.Raw: return true;
-            }
+                ItemInfusion.Normal => false,
+                ItemInfusion.Chaos => true,
+                ItemInfusion.Crystal => false,
+                ItemInfusion.Divine => false,
+                ItemInfusion.Enchanted => true,
+                ItemInfusion.Fire => false,
+                ItemInfusion.Lightning => false,
+                ItemInfusion.Magic => false,
+                ItemInfusion.Occult => true,
+                ItemInfusion.Raw => true,
+                _ => throw new NotSupportedException($"Unknown infusion type: {Infusion}")
+            };
         }
     }
     

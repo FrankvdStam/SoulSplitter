@@ -25,25 +25,20 @@ namespace SoulSplitter.UI.Generic;
 //https://stackoverflow.com/questions/2001842/dynamic-filter-of-wpf-combobox-based-on-text-input/41986141#41986141
 public class FilteredComboBox : ComboBox
 {
-    private string oldFilter = string.Empty;
+    private string _oldFilter = string.Empty;
 
-    private string currentFilter = string.Empty;
+    private string _currentFilter = string.Empty;
 
     protected TextBox EditableTextBox => (GetTemplateChild("PART_EditableTextBox") as TextBox)!;
     
     protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
     {
-        if (newValue != null)
-        {
-            var view = CollectionViewSource.GetDefaultView(newValue);
-            view.Filter += FilterItem;
-        }
-
-        if (oldValue != null)
-        {
-            var view = CollectionViewSource.GetDefaultView(oldValue);
-            if (view != null) view.Filter -= FilterItem;
-        }
+        var newView = CollectionViewSource.GetDefaultView(newValue);
+        newView.Filter += FilterItem;
+    
+        var oldView = CollectionViewSource.GetDefaultView(oldValue);
+        oldView.Filter -= FilterItem;
+    
 
         base.OnItemsSourceChanged(oldValue, newValue);
     }
@@ -69,7 +64,7 @@ public class FilteredComboBox : ComboBox
             case Key.Escape:
                 IsDropDownOpen = false;
                 SelectedIndex = -1;
-                Text = currentFilter;
+                Text = _currentFilter;
                 break;
             default:
                 if (e.Key == Key.Down) IsDropDownOpen = true;
@@ -79,7 +74,7 @@ public class FilteredComboBox : ComboBox
         }
 
         // Cache text
-        oldFilter = Text;
+        _oldFilter = Text;
     }
 
     protected override void OnKeyUp(KeyEventArgs e)
@@ -96,7 +91,7 @@ public class FilteredComboBox : ComboBox
                 break;
             default:
                 var typedText = Text;
-                if (Text != oldFilter)
+                if (Text != _oldFilter)
                 {
                     RefreshFilter();
                     IsDropDownOpen = true;
@@ -105,7 +100,7 @@ public class FilteredComboBox : ComboBox
                 }
 
                 base.OnKeyUp(e);
-                currentFilter = typedText;
+                _currentFilter = typedText;
                 Text = typedText;
                 EditableTextBox.SelectionStart = int.MaxValue;
 
@@ -138,13 +133,12 @@ public class FilteredComboBox : ComboBox
 
     private void ClearFilter()
     {
-        currentFilter = string.Empty;
+        _currentFilter = string.Empty;
         RefreshFilter();
     }
 
     private bool FilterItem(object value)
     {
-        if (value == null) return false;
         if (Text.Length == 0) return true;
 
         var words = Text.ToLower().Split(' ');

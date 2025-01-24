@@ -84,15 +84,11 @@ public class ArmoredCore6Splitter(LiveSplitState state, IGame game) : BaseSplitt
             {
                 if (!s.SplitConditionMet)
                 {
-                    switch (s.SplitType)
+                    s.SplitConditionMet = s.SplitType switch
                     {
-                        default:
-                            throw new ArgumentException($"Unsupported split type {s.SplitType}");
-
-                        case SplitType.Flag:
-                            s.SplitConditionMet = _armoredCore6.ReadEventFlag(s.Flag);
-                            break;
-                    }
+                        SplitType.Flag => _armoredCore6.ReadEventFlag(s.Flag),
+                        _ => throw new ArgumentException($"Unsupported split type {s.SplitType}")
+                    };
                 }
 
                 if (s.SplitConditionMet)

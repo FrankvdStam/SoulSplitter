@@ -81,11 +81,6 @@ internal class Scholar : IDarkSouls2
     
     public Vector3f GetPosition()
     {
-        if (_position == null)
-        {
-            return new Vector3f(0, 0, 0);
-        }
-
         return new Vector3f(
             _position.ReadFloat(0x88),
             _position.ReadFloat(0x80),
@@ -95,30 +90,16 @@ internal class Scholar : IDarkSouls2
 
     public int GetBossKillCount(BossType bossType)
     {
-        if (_bossCounters == null)
-        {
-            return 0;
-        }
         return _bossCounters.ReadInt32((long)bossType);
     }
 
     public bool IsLoading()
     {
-        if (_loadState == null)
-        {
-            return false;
-        }
-
         return _loadState.ReadInt32(0x11c) == 1;
     }
 
     public int GetAttribute(Attribute attribute)
     {
-        if (_attributes == null)
-        {
-            return 0;
-        }
-
         var offset = _attributeOffsets[attribute];
         if (attribute == Attribute.SoulLevel)
         {
@@ -136,11 +117,6 @@ internal class Scholar : IDarkSouls2
 
     public bool ReadEventFlag(uint eventFlagId)
     {
-        if (_eventFlagManager == null)
-        {
-            return false;
-        }
-
         var eventCategory = eventFlagId / 10000 * 0x89;
         var uVar1 = ((eventCategory - eventCategory / 0x1f >> 1) + eventCategory / 0x1f >> 4) * 31;
         var r8d = eventCategory - uVar1;

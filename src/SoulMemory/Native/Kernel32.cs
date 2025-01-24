@@ -46,11 +46,6 @@ public static class Kernel32
 
     public static ResultOk<byte[]> ReadProcessMemory(this Process process, long address, int size)
     {
-        if (process == null)
-        {
-            return Result.Err();
-        }
-
         var buffer = new byte[size];
         var bytesRead = 0;
         var result = NativeMethods.ReadProcessMemory(process.Handle, (IntPtr)address, buffer, buffer.Length, ref bytesRead);
@@ -64,11 +59,6 @@ public static class Kernel32
 
     public static ResultOk<T> ReadMemory<T>(this Process process, long address, [CallerMemberName] string? callerMemberName = null)
     {
-        if (process == null)
-        {
-            return Result.Err();
-        }
-        
         var type = typeof(T);
         var size = Marshal.SizeOf(type);
         var bytes = process.ReadProcessMemory(address, size).Unwrap(callerMemberName);
@@ -84,11 +74,6 @@ public static class Kernel32
 
     public static Result WriteMemory<T>(this Process process, long address, T data, [CallerMemberName] string? callerMemberName = null)
     {
-        if (process == null)
-        {
-            return Result.Err();
-        }
-
         var type = typeof(T);
         var size = Marshal.SizeOf(type);
         var bytes = new byte[size];
@@ -111,7 +96,7 @@ public static class Kernel32
     public static string ReadAsciiString(this Process process, long address, int initialBufferSize = 20, [CallerMemberName] string? callerMemberName = null)
     {
         var endByte = (byte)'\0';
-        var bytes = new byte[0];
+        var bytes = Array.Empty<byte>();
         while (!bytes.Contains(endByte))
         {
             if (initialBufferSize > 100000)
@@ -132,7 +117,7 @@ public static class Kernel32
 
     public static ResultOk<List<MemoryBasicInformation64>> GetMemoryRegions(this Process process)
     {
-        if (process?.MainModule == null)
+        if (process.MainModule == null)
         {
             return Result.Err();
         }

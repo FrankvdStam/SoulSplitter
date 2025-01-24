@@ -87,22 +87,12 @@ public class DarkSouls3 : IGame
             }
 
             //Clear count: 0x78 -> likely subject to the same shift that happens to IGT offset
-            switch (GetVersion(v))
+            _igtOffset = GetVersion(v) switch
             {
-                default:
-                    _igtOffset = 0xa4;
-                    break;
-
-                case DarkSouls3Version.Earlier:
-                case DarkSouls3Version.V104:
-                case DarkSouls3Version.V105:
-                    _igtOffset = 0x9c;
-                    break;
-
-                case DarkSouls3Version.Later:
-                    _igtOffset = 0xa4;
-                    break;
-            }
+                DarkSouls3Version.Earlier or DarkSouls3Version.V104 or DarkSouls3Version.V105 => 0x9c,
+                DarkSouls3Version.Later => 0xa4,
+                _ => 0xa4
+            };
 
             var treeBuilder = GetTreeBuilder();
             return MemoryScanner.TryResolvePointers(treeBuilder, _process);
@@ -137,23 +127,13 @@ public class DarkSouls3 : IGame
 
     public static DarkSouls3Version GetVersion(Version v)
     {
-        switch (v.Minor)
+        return v.Minor switch
         {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-                return DarkSouls3Version.Earlier;
-
-            case 4:
-                return DarkSouls3Version.V104;
-
-            case 5:
-                return DarkSouls3Version.V105;
-
-            default:
-                return DarkSouls3Version.Later;
-        }
+            0 or 1 or 2 or 3 => DarkSouls3Version.Earlier,
+            4 => DarkSouls3Version.V104,
+            5 => DarkSouls3Version.V105,
+            _ => DarkSouls3Version.Later
+        };
     }
 
     public bool IsLoading()

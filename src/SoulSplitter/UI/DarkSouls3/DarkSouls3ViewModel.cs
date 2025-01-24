@@ -39,44 +39,25 @@ public class DarkSouls3ViewModel : BaseViewModel
         {
             return false;
         }
-        
-        if(NewSplitType == SplitType.Flag)
-        {
-            return FlagDescription != null;
-        }
 
-        if(NewSplitType == SplitType.Position)
+        return NewSplitType switch
         {
-            return Position != null;
-        }
-
-        return NewSplitValue != null;
+            SplitType.Flag => FlagDescription != null,
+            SplitType.Position => Position != null,
+            _ => NewSplitValue != null
+        };
     }
 
     private void AddSplit()
     {
-        object? split = null;
-        switch (NewSplitType)
+        object? split = NewSplitType switch
         {
-            default:
-                throw new ArgumentException($"{NewSplitType} not supported");
-
-            case SplitType.Boss:
-            case SplitType.Bonfire:
-            case SplitType.ItemPickup:
-            case SplitType.Attribute:
-                split = NewSplitValue!;
-                break;
-
-            case SplitType.Position:
-                split = Position;
-                break;
-
-            case SplitType.Flag:
-                split = FlagDescription;
-                break;
-        }
-        SplitsViewModel.AddSplit(NewSplitTimingType!.Value, NewSplitType.Value, split);
+            SplitType.Boss or SplitType.Bonfire or SplitType.ItemPickup or SplitType.Attribute => NewSplitValue!,
+            SplitType.Position => Position,
+            SplitType.Flag => FlagDescription,
+            _ => throw new ArgumentException($"{NewSplitType} not supported")
+        };
+        SplitsViewModel.AddSplit(NewSplitTimingType!.Value, NewSplitType.Value, split!);
 
         NewSplitTimingType = null;
         NewSplitEnabledSplitType = false;

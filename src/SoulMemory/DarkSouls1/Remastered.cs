@@ -223,27 +223,22 @@ public class Remastered : IDarkSouls1
     }
     #endregion
     
-    public int GetAttribute(Attribute attribute) => _playerGameData?.ReadInt32(0x8 + (long)attribute) ?? 0;
+    public int GetAttribute(Attribute attribute) => _playerGameData.ReadInt32(0x8 + (long)attribute);
 
-    public int GetInGameTimeMilliseconds() => _gameDataMan?.ReadInt32(0xa4) ?? 0;
+    public int GetInGameTimeMilliseconds() => _gameDataMan.ReadInt32(0xa4);
 
-    public int NgCount() => _gameDataMan?.ReadInt32(0x78) ?? 0;
+    public int NgCount() => _gameDataMan.ReadInt32(0x78);
 
-    public int GetCurrentSaveSlot() => _gameMan?.ReadInt32(_currentSaveSlotOffset) ?? 0;
+    public int GetCurrentSaveSlot() => _gameMan.ReadInt32(_currentSaveSlotOffset);
 
-    public Vector3f GetPosition() => _playerPos == null ? new Vector3f(0, 0, 0) : new Vector3f(_playerPos.ReadFloat(0x10), _playerPos.ReadFloat(0x14), _playerPos.ReadFloat(0x18));
+    public Vector3f GetPosition() => new(_playerPos.ReadFloat(0x10), _playerPos.ReadFloat(0x14), _playerPos.ReadFloat(0x18));
 
-    public int GetPlayerHealth() => _playerIns?.ReadInt32(0x3e8) ?? 0;
+    public int GetPlayerHealth() => _playerIns.ReadInt32(0x3e8);
 
-    public bool IsPlayerLoaded() => !_playerIns?.IsNullPtr() ?? false;
+    public bool IsPlayerLoaded() => !_playerIns.IsNullPtr();
 
     public bool IsWarpRequested()
     {
-        if (_gameMan == null)
-        {
-            return false;
-        }
-
         if (GetPlayerHealth() == 0)
         {
             return false;
@@ -255,11 +250,6 @@ public class Remastered : IDarkSouls1
     
     public bool AreCreditsRolling()
     {
-        if(_menuMan == null)
-        {
-            return false;
-        }
-
         var first  = _menuMan.ReadInt32(0xc8);
         var second = _menuMan.ReadInt32(0xd4);
         var third  = _menuMan.ReadInt32(0x80); //This address seems like it turns into a 1 only when you are on the main menu
@@ -270,11 +260,6 @@ public class Remastered : IDarkSouls1
 
     public List<Item> GetInventory()
     {
-        if (_playerGameData == null)
-        {
-            return [];
-        }
-        
         //Path: GameDataMan->hostPlayerGameData->equipGameData.equipInventoryData.equipInventoryDataSub
         const long equipInventoryDataSubOffset = 0x3b0;
 
@@ -294,11 +279,6 @@ public class Remastered : IDarkSouls1
 
     public BonfireState GetBonfireState(Bonfire bonfire)
     {
-        if (_netBonfireDb == null)
-        {
-            return BonfireState.Unknown;
-        }
-
         var element = _netBonfireDb.CreatePointerFromAddress(0x28);
         element = element.CreatePointerFromAddress(0x0);
         var netBonfireDbItem = element.CreatePointerFromAddress(0x10);
@@ -402,15 +382,11 @@ public class Remastered : IDarkSouls1
     #endregion
 
     //Imported from CapitaineToinon. Thanks!
-
     public void ResetInventoryIndices()
     {
-        if (_inventoryIndices != null)
+        for (int i = 0; i < 20; i++)
         {
-            for (int i = 0; i < 20; i++)
-            {
-                _inventoryIndices.WriteUint32(0x4 * i, uint.MaxValue);
-            }
+            _inventoryIndices.WriteUint32(0x4 * i, uint.MaxValue);
         }
     }
 

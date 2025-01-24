@@ -83,67 +83,30 @@ public class DarkSouls1ViewModel : BaseViewModel
             return false;
         }
 
-        switch (NewSplitType)
+        return NewSplitType switch
         {
-            default:
-                throw new ArgumentException($"{NewSplitType} not supported");
-
-            case SplitType.Boss:
-            case SplitType.KnownFlag:
-            case SplitType.Attribute:
-                return NewSplitValue != null;
-
-            case SplitType.Position:
-                return Position != null;
-
-            case SplitType.Flag:
-                return FlagDescription != null;
-
-            case SplitType.Bonfire:
-                return NewSplitBonfireState is { Bonfire: not null };
-
-            case SplitType.Item:
-                return NewSplitItemState is { ItemType: not null };
-
-            case SplitType.Credits:
-                return NewSplitTimingType != null;
-        }
+            SplitType.Boss or SplitType.KnownFlag or SplitType.Attribute => NewSplitValue != null,
+            SplitType.Position => Position != null,
+            SplitType.Flag => FlagDescription != null,
+            SplitType.Bonfire => NewSplitBonfireState is { Bonfire: not null },
+            SplitType.Item => NewSplitItemState is { ItemType: not null },
+            SplitType.Credits => NewSplitTimingType != null,
+            _ => throw new ArgumentException($"{NewSplitType} not supported")
+        };
     }
 
     private void AddSplit(object? param)
     {
-        object? split = null;
-        switch (NewSplitType)
+        object? split = NewSplitType switch
         {
-            default:
-                throw new ArgumentException($"{NewSplitType} not supported");
-
-            case SplitType.Boss:
-            case SplitType.KnownFlag:
-            case SplitType.Attribute:
-                split = NewSplitValue;
-                break;
-
-            case SplitType.Position:
-                split = Position;
-                break;
-
-            case SplitType.Flag:
-                split = FlagDescription;
-                break;
-
-            case SplitType.Bonfire:
-                split = NewSplitBonfireState;
-                break;
-
-            case SplitType.Item:
-                split = NewSplitItemState;
-                break;
-
-            case SplitType.Credits:
-                split = "Credits";
-                break;
-        }
+            SplitType.Boss or SplitType.KnownFlag or SplitType.Attribute => NewSplitValue,
+            SplitType.Position => Position,
+            SplitType.Flag => FlagDescription,
+            SplitType.Bonfire => NewSplitBonfireState,
+            SplitType.Item => NewSplitItemState,
+            SplitType.Credits => "Credits",
+            _ => throw new ArgumentException($"{NewSplitType} not supported")
+        };
         SplitsViewModel.AddSplit(NewSplitTimingType!.Value, NewSplitType.Value, split!);
 
         NewSplitTimingType = null;

@@ -26,15 +26,11 @@ internal class Split
         TimingType = timingType;
         SplitType = splitType;
 
-        switch (SplitType)
+        Flag = SplitType switch
         {
-            default:
-                throw new ArgumentException($"unsupported split type {SplitType}");
-
-            case SplitType.Flag:
-                Flag = ((FlagDescription)split).Flag;
-                break;
-        }
+            SplitType.Flag => ((FlagDescription)split).Flag,
+            _ => throw new ArgumentException($"unsupported split type {SplitType}")
+        };
     }
 
     public readonly TimingType TimingType;
