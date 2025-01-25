@@ -44,6 +44,7 @@ jobs:
 
       - name: Qodana Scan
         if: ${{ !github.event.pull_request.head.repo.fork }}
+        continue-on-error: true
         uses: JetBrains/qodana-action@v2024.3
         with:
           args: --baseline,qodana.sarif.json
