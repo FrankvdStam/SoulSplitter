@@ -18,23 +18,22 @@ using System;
 using System.Windows.Data;
 using SoulMemory.Memory;
 
-namespace SoulSplitter.UI.Converters
+namespace SoulSplitter.UI.Converters;
+
+public class EnumDisplayNameConverter : IValueConverter
 {
-    public class EnumDisplayNameConverter : IValueConverter
+    public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        if(value is Enum enumValue)
         {
-            if(value is Enum _enum)
-            {
-                return _enum.GetDisplayName();
-            }
-
-            return "";
+            return enumValue.GetDisplayName();
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
+        return "";
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
+    {
+        throw new NotSupportedException();
     }
 }

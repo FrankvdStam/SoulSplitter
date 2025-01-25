@@ -16,16 +16,15 @@
 
 using System.Windows;
 
-namespace SoulSplitter.UI
+namespace SoulSplitter.UI;
+
+/// <summary>
+/// Interaction logic for UserControl1.xaml
+/// </summary>
+public partial class ErrorWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for UserControl1.xaml
-    /// </summary>
-    public partial class ErrorWindow : Window
+    public ErrorWindow()
     {
-        public ErrorWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

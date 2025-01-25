@@ -16,35 +16,34 @@
 
 using SoulMemory;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+public enum SplitType
 {
-    public enum SplitType
-    {
-        [Annotation(Name = "Bonfire/Grace/Idol")]
-        Bonfire,
+    [Annotation(Name = "Bonfire/Grace/Idol")]
+    Bonfire,
 
-        [Annotation(Name = "Boss")]
-        Boss,
+    [Annotation(Name = "Boss")]
+    Boss,
 
-        [Annotation(Name = "Position")]
-        Position,
+    [Annotation(Name = "Position")]
+    Position,
 
-        [Annotation(Name = "Attribute")]
-        Attribute,
+    [Annotation(Name = "Attribute")]
+    Attribute,
 
-        [Annotation(Name = "Known Flag")]
-        KnownFlag,
+    [Annotation(Name = "Known Flag")]
+    KnownFlag,
 
-        [Annotation(Name = "Custom Flag")]
-        Flag,
+    [Annotation(Name = "Custom Flag")]
+    Flag,
 
-        [Annotation(Name = "Iventory item")]
-        Item,
+    [Annotation(Name = "Iventory item")]
+    Item,
 
-        [Annotation(Name = "Item pickup")]
-        ItemPickup,
+    [Annotation(Name = "Item pickup")]
+    ItemPickup,
 
-        [Annotation(Name = "Credits")]
-        Credits,
-    }
+    [Annotation(Name = "Credits")]
+    Credits,
 }

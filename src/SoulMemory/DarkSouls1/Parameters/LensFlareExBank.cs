@@ -18,68 +18,65 @@ using SoulMemory.Memory;
 using SoulMemory.Parameters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.DarkSouls1.Parameters;
+
+[ExcludeFromCodeCoverage]
+public class LensFlareExBank(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
-    [ExcludeFromCodeCoverage]
-    public class LensFlareExBank : BaseParam
+    [ParamField(0x0, ParamType.I16)]
+    public short LightDegRotX
     {
-        public LensFlareExBank(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
-        [ParamField(0x0, ParamType.I16)]
-        public short LightDegRotX
-        {
-            get => _LightDegRotX;
-            set => WriteParamField(ref _LightDegRotX, value);
-        }
-        private short _LightDegRotX;
-
-        [ParamField(0x2, ParamType.I16)]
-        public short LightDegRotY
-        {
-            get => _LightDegRotY;
-            set => WriteParamField(ref _LightDegRotY, value);
-        }
-        private short _LightDegRotY;
-
-        [ParamField(0x4, ParamType.I16)]
-        public short ColR
-        {
-            get => _ColR;
-            set => WriteParamField(ref _ColR, value);
-        }
-        private short _ColR;
-
-        [ParamField(0x6, ParamType.I16)]
-        public short ColG
-        {
-            get => _ColG;
-            set => WriteParamField(ref _ColG, value);
-        }
-        private short _ColG;
-
-        [ParamField(0x8, ParamType.I16)]
-        public short ColB
-        {
-            get => _ColB;
-            set => WriteParamField(ref _ColB, value);
-        }
-        private short _ColB;
-
-        [ParamField(0xA, ParamType.I16)]
-        public short ColA
-        {
-            get => _ColA;
-            set => WriteParamField(ref _ColA, value);
-        }
-        private short _ColA;
-
-        [ParamField(0xC, ParamType.F32)]
-        public float LightDist
-        {
-            get => _LightDist;
-            set => WriteParamField(ref _LightDist, value);
-        }
-        private float _LightDist;
-
+        get => _LightDegRotX;
+        set => WriteParamField(ref _LightDegRotX, value);
     }
+    private short _LightDegRotX;
+
+    [ParamField(0x2, ParamType.I16)]
+    public short LightDegRotY
+    {
+        get => _LightDegRotY;
+        set => WriteParamField(ref _LightDegRotY, value);
+    }
+    private short _LightDegRotY;
+
+    [ParamField(0x4, ParamType.I16)]
+    public short ColR
+    {
+        get => _ColR;
+        set => WriteParamField(ref _ColR, value);
+    }
+    private short _ColR;
+
+    [ParamField(0x6, ParamType.I16)]
+    public short ColG
+    {
+        get => _ColG;
+        set => WriteParamField(ref _ColG, value);
+    }
+    private short _ColG;
+
+    [ParamField(0x8, ParamType.I16)]
+    public short ColB
+    {
+        get => _ColB;
+        set => WriteParamField(ref _ColB, value);
+    }
+    private short _ColB;
+
+    [ParamField(0xA, ParamType.I16)]
+    public short ColA
+    {
+        get => _ColA;
+        set => WriteParamField(ref _ColA, value);
+    }
+    private short _ColA;
+
+    [ParamField(0xC, ParamType.F32)]
+    public float LightDist
+    {
+        get => _LightDist;
+        set => WriteParamField(ref _LightDist, value);
+    }
+    private float _LightDist;
+
 }

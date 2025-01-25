@@ -17,37 +17,36 @@
 using SoulMemory.Memory;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SoulMemory.Tests
+namespace SoulMemory.Tests;
+
+[TestClass]
+public class MemoryScannerTests
 {
-    [TestClass]
-    public class MemoryScannerTests
+    private static IEnumerable<object[]> ScanTestCases
     {
-        private static IEnumerable<object[]> ScanTestCases
+        get
         {
-            get
+            return new[]
             {
-                return new[]
-                {
-                    //haystack, needle, count, firstindex
-                    new object[] { "48 8b 05 b1 c6 8B D6 48 8b 50 10 48 89 54 24 60", "8B D6 ?", 1, 5 },
-                    new object[] { "48 8D 15 C1 E1 10 49 8B C6 41 0B 8F 14 02 00 00 44 8B C6 42 89 0C B2 41 8B D6 49 8B CF", "C6 41 ?", 1, 8 },
-                    new object[] { "48 8B 0D 99 33 C2 45 33 C0 2B C2 8D 50 F6 8B 1D 32 33", "8B ? ? 33", 2, 1 },
-                };
-            }
+                //haystack, needle, count, firstindex
+                new object[] { "48 8b 05 b1 c6 8B D6 48 8b 50 10 48 89 54 24 60", "8B D6 ?", 1, 5 },
+                new object[] { "48 8D 15 C1 E1 10 49 8B C6 41 0B 8F 14 02 00 00 44 8B C6 42 89 0C B2 41 8B D6 49 8B CF", "C6 41 ?", 1, 8 },
+                new object[] { "48 8B 0D 99 33 C2 45 33 C0 2B C2 8D 50 F6 8B 1D 32 33", "8B ? ? 33", 2, 1 },
+            };
         }
+    }
 
-        [TestMethod]
-        [DynamicData(nameof(ScanTestCases))]
-        public void ScanAndCountTests(string haystackString, string needleString, long count, long index)
-        {
-            var haystack = haystackString.ToBytePattern().Select(i => (byte)i!).ToArray();
-            var needle = needleString.ToBytePattern();
+    [TestMethod]
+    [DynamicData(nameof(ScanTestCases))]
+    public void ScanAndCountTests(string haystackString, string needleString, long count, long index)
+    {
+        var haystack = haystackString.ToBytePattern().Select(i => (byte)i!).ToArray();
+        var needle = needleString.ToBytePattern();
 
-            var actualCount = haystack.BoyerMooreCount(needle);
-            haystack.TryBoyerMooreSearch(needle, out long actualIndex);
+        var actualCount = haystack.BoyerMooreCount(needle);
+        haystack.TryBoyerMooreSearch(needle, out long actualIndex);
 
-            Assert.AreEqual(actualCount, count);
-            Assert.AreEqual(actualIndex, index);
-        }
+        Assert.AreEqual(actualCount, count);
+        Assert.AreEqual(actualIndex, index);
     }
 }

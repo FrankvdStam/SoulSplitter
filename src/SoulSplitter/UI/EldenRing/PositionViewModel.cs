@@ -14,85 +14,76 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using SoulMemory.EldenRing;
+using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.UI.EldenRing
+namespace SoulSplitter.UI.EldenRing;
+
+public class PositionViewModel : ICustomNotifyPropertyChanged
 {
-    public class PositionViewModel : INotifyPropertyChanged
+    
+    public readonly Position Position = new();
+
+
+    public byte Area
     {
-        
-        public readonly Position Position = new Position();
-
-
-        public byte Area
-        {
-            get => Position.Area;
-            set => SetField(ref Position.Area, value);
-        }
-
-        public byte Block
-        {
-            get => Position.Block;
-            set => SetField(ref Position.Block, value);
-        }
-
-        public byte Region
-        {
-            get => Position.Region;
-            set => SetField(ref Position.Region, value);
-        }
-
-        public byte Size
-        {
-            get => Position.Size;
-            set => SetField(ref Position.Size, value);
-        }
-
-
-        public float X
-        {
-            get => Position.X;
-            set => SetField(ref Position.X, value);
-        }
-
-        public float Y
-        {
-            get => Position.Y;
-            set => SetField(ref Position.Y, value);
-        }
-
-        public float Z
-        {
-            get => Position.Z;
-            set => SetField(ref Position.Z, value);
-        }
-
-        
-        public override string ToString()
-        {
-            return Position.ToString();
-        }
-        
-
-        #region INotifyPropertyChanged
-
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
-        #endregion
+        get => Position.Area;
+        set => this.SetField(ref Position.Area, value);
     }
+
+    public byte Block
+    {
+        get => Position.Block;
+        set => this.SetField(ref Position.Block, value);
+    }
+
+    public byte Region
+    {
+        get => Position.Region;
+        set => this.SetField(ref Position.Region, value);
+    }
+
+    public byte Size
+    {
+        get => Position.Size;
+        set => this.SetField(ref Position.Size, value);
+    }
+
+
+    public float X
+    {
+        get => Position.X;
+        set => this.SetField(ref Position.X, value);
+    }
+
+    public float Y
+    {
+        get => Position.Y;
+        set => this.SetField(ref Position.Y, value);
+    }
+
+    public float Z
+    {
+        get => Position.Z;
+        set => this.SetField(ref Position.Z, value);
+    }
+
+    
+    public override string ToString()
+    {
+        return Position.ToString();
+    }
+
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

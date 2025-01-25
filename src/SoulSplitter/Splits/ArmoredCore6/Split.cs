@@ -17,38 +17,33 @@
 using SoulSplitter.UI.Generic;
 using System;
 
-namespace SoulSplitter.Splits.ArmoredCore6
+namespace SoulSplitter.Splits.ArmoredCore6;
+
+internal class Split
 {
-    internal class Split
+    public Split(TimingType timingType, SplitType splitType, object split)
     {
-        public Split(TimingType timingType, SplitType splitType, object split)
+        TimingType = timingType;
+        SplitType = splitType;
+
+        Flag = SplitType switch
         {
-            TimingType = timingType;
-            SplitType = splitType;
-
-            switch (SplitType)
-            {
-                default:
-                    throw new ArgumentException($"unsupported split type {SplitType}");
-
-                case SplitType.Flag:
-                    Flag = ((FlagDescription)split).Flag;
-                    break;
-            }
-        }
-
-        public readonly TimingType TimingType;
-        public readonly SplitType SplitType;
-        public readonly uint Flag;
-
-        /// <summary>
-        /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
-        /// </summary>
-        public bool SplitConditionMet = false;
-
-        /// <summary>
-        /// True after this split object cause a split. No longer need to check split conditions
-        /// </summary>
-        public bool SplitTriggered = false;
+            SplitType.Flag => ((FlagDescription)split).Flag,
+            _ => throw new ArgumentException($"unsupported split type {SplitType}")
+        };
     }
+
+    public readonly TimingType TimingType;
+    public readonly SplitType SplitType;
+    public readonly uint Flag;
+
+    /// <summary>
+    /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
+    /// </summary>
+    public bool SplitConditionMet = false;
+
+    /// <summary>
+    /// True after this split object cause a split. No longer need to check split conditions
+    /// </summary>
+    public bool SplitTriggered = false;
 }

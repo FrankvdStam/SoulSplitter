@@ -21,82 +21,81 @@ using System.Linq;
 using System.Xml;
 using SoulMemory.Memory;
 
-namespace SoulMemory
+namespace SoulMemory;
+
+public static class Extensions
 {
-    public static class Extensions
+    public static bool TryParseEnum<T>(this int value, out T result)
     {
-        public static bool TryParseEnum<T>(this int value, out T result)
+        result = default!;
+        if (Enum.IsDefined(typeof(T), value))
         {
-            result = default;
-            if (Enum.IsDefined(typeof(T), value))
-            {
-                result = (T)(object)value;
-                return true;
-            }
-            return false;
+            result = (T)(object)value;
+            return true;
         }
+        return false;
+    }
 
-        public static bool TryParseEnum<T>(this uint value, out T result)
+    public static bool TryParseEnum<T>(this uint value, out T result)
+    {
+        result = default!;
+        if (Enum.IsDefined(typeof(T), value))
         {
-            result = default;
-            if (Enum.IsDefined(typeof(T), value))
-            {
-                result = (T)(object)value;
-                return true;
-            }
-            return false;
+            result = (T)(object)value;
+            return true;
         }
+        return false;
+    }
 
-        public static XmlNode GetChildNodeByName(this XmlNode node, string childName)
+    public static XmlNode GetChildNodeByName(this XmlNode node, string childName)
+    {
+        var lower = childName.ToLower();
+        foreach (XmlNode child in node.ChildNodes)
         {
-            var lower = childName.ToLower();
-            foreach (XmlNode child in node.ChildNodes)
+            if (child.LocalName.ToLower() == lower)
             {
-                if (child.LocalName.ToLower() == lower)
-                {
-                    return child;
-                }
-            }
-            throw new ArgumentException($"{childName} not found");
-        }
-
-        public static IEnumerable<XmlNode> Enumerate(this XmlNodeList list)
-        {
-            foreach (XmlNode node in list)
-            {
-                yield return node;
+                return child;
             }
         }
+        throw new ArgumentException($"{childName} not found");
+    }
 
-        public static bool IsBitSet(this long l, int index)
+    public static IEnumerable<XmlNode> Enumerate(this XmlNodeList list)
+    {
+        foreach (XmlNode node in list)
         {
-            return (l & ((long)0x1 << index)) != 0;
+            yield return node;
+        }
+    }
+
+    public static bool IsBitSet(this long l, int index)
+    {
+        return (l & ((long)0x1 << index)) != 0;
+    }
+
+    public static long SetBit(this long l, int index)
+    {
+        return l | ((long)0x1 << index);
+    }
+
+    public static long ClearBit(this long l, int index)
+    {
+        return l & ~((long)0x1 << index);
+    }
+
+    public static T ResolveVersion<T>(this FileVersionInfo fileVersionInfo) where T : Enum
+    {
+        var values = Enum.GetValues(typeof(T))
+            .Cast<T>()
+            .Select(i => (i, i.GetEnumAttribute<VersionAttribute>().Version))
+            .ToList();
+
+        var versionStr = $"{fileVersionInfo.FileMajorPart}.{fileVersionInfo.FileMinorPart}.{fileVersionInfo.FileBuildPart}.{fileVersionInfo.FilePrivatePart}";
+        if (values.Any(i => i.Version == versionStr))
+        {
+            return values.First(i => i.Version == versionStr).i;
         }
 
-        public static long SetBit(this long l, int index)
-        {
-            return l | ((long)0x1 << index);
-        }
-
-        public static long ClearBit(this long l, int index)
-        {
-            return l & ~((long)0x1 << index);
-        }
-
-        public static T ResolveVersion<T>(this FileVersionInfo fileVersionInfo) where T : Enum
-        {
-            var values = Enum.GetValues(typeof(T))
-                .Cast<T>()
-                .Select(i => (i, i.GetEnumAttribute<VersionAttribute>().Version))
-                .ToList();
-
-            var versionStr = $"{fileVersionInfo.FileMajorPart}.{fileVersionInfo.FileMinorPart}.{fileVersionInfo.FileBuildPart}.{fileVersionInfo.FilePrivatePart}";
-            if (values.Any(i => i.Version == versionStr))
-            {
-                return values.First(i => i.Version == versionStr).i;
-            }
-
-            return values.First(i => i.Version == "unknown").i;
-        }
+        return values.First(i => i.Version == "unknown").i;
     }
 }

@@ -34,7 +34,7 @@ namespace SoulSplitter.Tests.Integration
                 .Setup(i => i.GameName)
                 .Returns(gameName);
 
-            MockLiveSplitState = new Mock<LiveSplitState>(MockIRun.Object, null, null, null, null);
+            MockLiveSplitState = new Mock<LiveSplitState>(MockIRun.Object, null!, null!, null!, null!);
 
             _soulComponent = new SoulComponent(MockLiveSplitState.Object, shouldThrowOnInvalidInstallation: false);
             var doc = new XmlDocument();
@@ -44,7 +44,7 @@ namespace SoulSplitter.Tests.Integration
 
         public void Update()
         {
-            _soulComponent.Update(null, MockLiveSplitState.Object, 0.0f, 0.0f, LayoutMode.Horizontal);
+            _soulComponent.Update(null!, MockLiveSplitState.Object, 0.0f, 0.0f, LayoutMode.Horizontal);
         }
     }
 }

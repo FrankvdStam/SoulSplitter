@@ -18,53 +18,52 @@ using System.Collections.ObjectModel;
 using SoulSplitter.Splits;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.ViewModels.Games
+namespace SoulSplitter.ViewModels.Games;
+
+public class ArmoredCore6ViewModel : BaseViewModel
 {
-    public class ArmoredCore6ViewModel : BaseViewModel
+    public ArmoredCore6ViewModel()
     {
-        public ArmoredCore6ViewModel()
-        {
-            AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
-            RemoveSplitCommand = new RelayCommand(RemoveSplit);
-        }
-
-        private bool CanAddSplit(object param)
-        {
-            if (param is FlatSplit)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private void AddSplit(object param)
-        {
-            if (param is FlatSplit flatSplit)
-            {
-                SplitsViewModel.AddSplit(flatSplit.TimingType, flatSplit.SplitType, flatSplit.Split);
-            }
-        }
-
-        private void RemoveSplit(object param)
-        {
-            SplitsViewModel.RemoveSplit();
-        }
-
-
-        #region Static UI source data ============================================================================================================================================
-
-        public static ObservableCollection<EnumFlagViewModel<TimingType>> TimingTypes { get; set; } = new ObservableCollection<EnumFlagViewModel<TimingType>>()
-        {
-            new EnumFlagViewModel<TimingType>(TimingType.Immediate),
-            new EnumFlagViewModel<TimingType>(TimingType.OnLoading),
-        };
-
-        public static ObservableCollection<EnumFlagViewModel<SplitType>> SplitTypes { get; set; } = new ObservableCollection<EnumFlagViewModel<SplitType>>()
-        {
-            new EnumFlagViewModel<SplitType>(SplitType.Flag),
-        };
-
-        #endregion
+        AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
+        RemoveSplitCommand = new RelayCommand(RemoveSplit);
     }
+
+    private bool CanAddSplit(object? param)
+    {
+        if (param is FlatSplit)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void AddSplit(object? param)
+    {
+        if (param is FlatSplit flatSplit)
+        {
+            SplitsViewModel.AddSplit(flatSplit.TimingType, flatSplit.SplitType, flatSplit.Split);
+        }
+    }
+
+    private void RemoveSplit(object? o)
+    {
+        SplitsViewModel.RemoveSplit();
+    }
+
+
+    #region Static UI source data ============================================================================================================================================
+
+    public static ObservableCollection<EnumFlagViewModel<TimingType>> TimingTypes { get; set; } =
+    [
+        new EnumFlagViewModel<TimingType>(TimingType.Immediate),
+        new EnumFlagViewModel<TimingType>(TimingType.OnLoading)
+    ];
+
+    public static ObservableCollection<EnumFlagViewModel<SplitType>> SplitTypes { get; set; } =
+    [
+        new EnumFlagViewModel<SplitType>(SplitType.Flag)
+    ];
+
+    #endregion
 }

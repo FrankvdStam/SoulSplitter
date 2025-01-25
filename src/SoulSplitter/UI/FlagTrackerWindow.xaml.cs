@@ -17,27 +17,26 @@
 using SoulSplitter.UI.Generic;
 using System.Windows;
 
-namespace SoulSplitter.UI
-{
-    public partial class FlagTrackerWindow : Window
-    {
-        public FlagTrackerWindow()
-        {
-            InitializeComponent();
-        }
+namespace SoulSplitter.UI;
 
-        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+public partial class FlagTrackerWindow : Window
+{
+    public FlagTrackerWindow()
+    {
+        InitializeComponent();
+    }
+
+    private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+        if (DataContext is FlagTrackerViewModel flagTrackerViewModel)
         {
-            if (DataContext is FlagTrackerViewModel flagTrackerViewModel)
+            if (e.NewValue is FlagDescription flagDescription)
             {
-                if (e.NewValue is FlagDescription flagDescription)
-                {
-                    flagTrackerViewModel.SelectedFlagDescription = flagDescription;
-                }
-                else
-                {
-                    flagTrackerViewModel.SelectedFlagDescription = null;
-                }
+                flagTrackerViewModel.SelectedFlagDescription = flagDescription;
+            }
+            else
+            {
+                flagTrackerViewModel.SelectedFlagDescription = null;
             }
         }
     }

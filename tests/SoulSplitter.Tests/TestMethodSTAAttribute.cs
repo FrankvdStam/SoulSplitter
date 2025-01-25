@@ -19,11 +19,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SoulSplitter.Net6.Tests
 {
-    public class TestMethodSTAAttribute : TestMethodAttribute
+    public class TestMethodStaAttribute : TestMethodAttribute
     {
         public override TestResult[] Execute(ITestMethod testMethod)
         {
-            TestResult result = null;
+            TestResult result = null!;
             var thread = new Thread(() => 
             {
                 result = testMethod.Invoke(null);
@@ -31,7 +31,7 @@ namespace SoulSplitter.Net6.Tests
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
-            return new []{ result };
+            return [result];
         }
     }
 }

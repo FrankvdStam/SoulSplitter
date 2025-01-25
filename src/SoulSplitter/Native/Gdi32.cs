@@ -19,24 +19,23 @@ using SystemDrawing::System.Drawing;
 using System;
 using System.Runtime.InteropServices;
 
-namespace SoulSplitter.Native
-{
-    public static class Gdi32
-    {
-        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
-        private static extern int BitBlt(IntPtr hdc, int x, int y, int cx, int cy, IntPtr hdcSrc, int x1, int y1, int rop);
+namespace SoulSplitter.Native;
 
-        public static Color BitBlt(IntPtr src, int x, int y)
+public static class Gdi32
+{
+    [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
+    private static extern int BitBlt(IntPtr hdc, int x, int y, int cx, int cy, IntPtr hdcSrc, int x1, int y1, int rop);
+
+    public static Color BitBlt(IntPtr src, int x, int y)
+    {
+        var screenPixel = new Bitmap(1, 1);
+        using (Graphics gdest = Graphics.FromImage(screenPixel))
         {
-            var screenPixel = new Bitmap(1, 1);
-            using (Graphics gdest = Graphics.FromImage(screenPixel))
-            {
-                var hDC = gdest.GetHdc();
-                BitBlt(hDC, 0, 0, 1, 1, src, x, y, (int)CopyPixelOperation.SourceCopy);
-                gdest.ReleaseHdc();
-                
-            }
-            return screenPixel.GetPixel(0, 0);
+            var hDC = gdest.GetHdc();
+            BitBlt(hDC, 0, 0, 1, 1, src, x, y, (int)CopyPixelOperation.SourceCopy);
+            gdest.ReleaseHdc();
+            
         }
+        return screenPixel.GetPixel(0, 0);
     }
 }

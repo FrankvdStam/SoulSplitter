@@ -14,51 +14,47 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+public class FlagDescription : ICustomNotifyPropertyChanged
 {
-    public class FlagDescription : INotifyPropertyChanged
+    public uint Flag
     {
-        public uint Flag
-        {
-            get => _flag;
-            set => SetField(ref _flag, value);
-        }
-        private uint _flag;
-
-        public string Description
-        {
-            get => _description;
-            set => SetField(ref _description, value);
-        }
-        private string _description = "";
-
-        public bool State
-        {
-            get => _state;
-            set => SetField(ref _state, value);
-        }
-        private bool _state;
-
-        public override string ToString()
-        {
-            return $"{Flag} {Description}";
-        }
-
-        #region INotifyPropertyChanged
-        private bool SetField<U>(ref U field, U value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<U>.Default.Equals(field, value)) return false;
-            field = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        
-        #endregion
+        get => _flag;
+        set => this.SetField(ref _flag, value);
     }
+    private uint _flag;
+
+    public string Description
+    {
+        get => _description;
+        set => this.SetField(ref _description, value);
+    }
+    private string _description = "";
+
+    public bool State
+    {
+        get => _state;
+        set => this.SetField(ref _state, value);
+    }
+    private bool _state;
+
+    public override string ToString()
+    {
+        return $"{Flag} {Description}";
+    }
+
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

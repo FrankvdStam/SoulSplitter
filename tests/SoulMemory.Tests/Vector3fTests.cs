@@ -16,40 +16,39 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SoulMemory.Tests
+namespace SoulMemory.Tests;
+
+[TestClass]
+public class Vector3fTests
 {
-    [TestClass]
-    public class Vector3fTests
+    [TestMethod]
+    public void Default_Constructor()
     {
-        [TestMethod]
-        public void Default_Constructor()
-        {
-            var vec = new Vector3f();
-            Assert.AreEqual(0.0f, vec.X);
-            Assert.AreEqual(0.0f, vec.Y);
-            Assert.AreEqual(0.0f, vec.Z);
-            Assert.AreEqual($"{0.0f:N2}, {0.0:N2}, {0.0:N2}", vec.ToString());
-        }
+        var vec = new Vector3f();
+        Assert.AreEqual(0.0f, vec.X);
+        Assert.AreEqual(0.0f, vec.Y);
+        Assert.AreEqual(0.0f, vec.Z);
+        Assert.AreEqual($"{0.0f:N2}, {0.0:N2}, {0.0:N2}", vec.ToString());
+    }
 
-        [TestMethod]
-        public void Constructor()
-        {
-            var vec = new Vector3f(1.1f, 2.2f, 3.3f);
-            Assert.AreEqual(1.1f, vec.X);
-            Assert.AreEqual(2.2f, vec.Y);
-            Assert.AreEqual(3.3f, vec.Z);
-            Assert.AreEqual($"{1.1f:N2}, {2.20:N2}, {3.30:N2}", vec.ToString());
-        }
+    [TestMethod]
+    public void Constructor()
+    {
+        var vec = new Vector3f(1.1f, 2.2f, 3.3f);
+        Assert.AreEqual(1.1f, vec.X);
+        Assert.AreEqual(2.2f, vec.Y);
+        Assert.AreEqual(3.3f, vec.Z);
+        Assert.AreEqual($"{1.1f:N2}, {2.20:N2}, {3.30:N2}", vec.ToString());
+    }
 
-        [TestMethod]
-        public void Clone()
-        {
-            var original = new Vector3f(1.1f, 2.2f, 3.3f);
-            var vec = original.Clone();
-            Assert.AreEqual(1.1f, vec.X);
-            Assert.AreEqual(2.2f, vec.Y);
-            Assert.AreEqual(3.3f, vec.Z);
-            Assert.AreEqual($"{1.1f:N2}, {2.20:N2}, {3.30:N2}", vec.ToString());
-        }
+    [TestMethod]
+    public void Clone()
+    {
+        var original = new Vector3f(1.1f, 2.2f, 3.3f);
+        var vec = original.Clone();
+        Assert.AreEqual(1.1f, vec.X);
+        Assert.AreEqual(2.2f, vec.Y);
+        Assert.AreEqual(3.3f, vec.Z);
+        Assert.AreEqual($"{1.1f:N2}, {2.20:N2}, {3.30:N2}", vec.ToString());
     }
 }

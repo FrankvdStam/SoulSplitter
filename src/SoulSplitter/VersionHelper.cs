@@ -16,17 +16,16 @@
 
 using System;
 
-namespace SoulSplitter
+namespace SoulSplitter;
+
+internal static class VersionHelper
 {
-    internal static class VersionHelper
-    {
-        public static Version Version
-        { 
-            get
-            {
-                var version = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                return new Version(version.FileMajorPart, version.FileMinorPart, version.FileBuildPart);
-            } 
-        }
+    public static Version Version
+    { 
+        get
+        {
+            var version = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            return new Version(version.FileMajorPart, version.FileMinorPart, version.FileBuildPart);
+        } 
     }
 }

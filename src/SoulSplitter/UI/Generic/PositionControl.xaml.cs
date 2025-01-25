@@ -16,16 +16,15 @@
 
 using System.Windows.Controls;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+/// <summary>
+/// Interaction logic for PositionControl.xaml
+/// </summary>
+public partial class PositionControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for PositionControl.xaml
-    /// </summary>
-    public partial class PositionControl : UserControl
+    public PositionControl()
     {
-        public PositionControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -16,20 +16,19 @@
 
 using System.Xml.Serialization;
 
-namespace SoulMemory.DarkSouls2
+namespace SoulMemory.DarkSouls2;
+
+[XmlType(Namespace = "SoulMemory.DarkSouls2")]
+public enum Attribute
 {
-    [XmlType(Namespace = "SoulMemory.DarkSouls2")]
-    public enum Attribute
-    {
-        SoulLevel,
-        Vigor,
-        Endurance,
-        Vitality,
-        Attunement,
-        Strength,
-        Dexterity,
-        Adaptability,
-        Intelligence,
-        Faith,
-    }
+    SoulLevel,
+    Vigor,
+    Endurance,
+    Vitality,
+    Attunement,
+    Strength,
+    Dexterity,
+    Adaptability,
+    Intelligence,
+    Faith,
 }

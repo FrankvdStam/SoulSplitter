@@ -18,68 +18,65 @@ using SoulMemory.Memory;
 using SoulMemory.Parameters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.DarkSouls1.Parameters;
+
+[ExcludeFromCodeCoverage]
+public class LockCamParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
-    [ExcludeFromCodeCoverage]
-    public class LockCamParam : BaseParam
+    [ParamField(0x0, ParamType.F32)]
+    public float CamDistTarget
     {
-        public LockCamParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
-        [ParamField(0x0, ParamType.F32)]
-        public float CamDistTarget
-        {
-            get => _CamDistTarget;
-            set => WriteParamField(ref _CamDistTarget, value);
-        }
-        private float _CamDistTarget;
-
-        [ParamField(0x4, ParamType.F32)]
-        public float RotRangeMinX
-        {
-            get => _RotRangeMinX;
-            set => WriteParamField(ref _RotRangeMinX, value);
-        }
-        private float _RotRangeMinX;
-
-        [ParamField(0x8, ParamType.F32)]
-        public float LockRotXShiftRatio
-        {
-            get => _LockRotXShiftRatio;
-            set => WriteParamField(ref _LockRotXShiftRatio, value);
-        }
-        private float _LockRotXShiftRatio;
-
-        [ParamField(0xC, ParamType.F32)]
-        public float ChrOrgOffset_Y
-        {
-            get => _ChrOrgOffset_Y;
-            set => WriteParamField(ref _ChrOrgOffset_Y, value);
-        }
-        private float _ChrOrgOffset_Y;
-
-        [ParamField(0x10, ParamType.F32)]
-        public float ChrLockRangeMaxRadius
-        {
-            get => _ChrLockRangeMaxRadius;
-            set => WriteParamField(ref _ChrLockRangeMaxRadius, value);
-        }
-        private float _ChrLockRangeMaxRadius;
-
-        [ParamField(0x14, ParamType.F32)]
-        public float CamFovY
-        {
-            get => _CamFovY;
-            set => WriteParamField(ref _CamFovY, value);
-        }
-        private float _CamFovY;
-
-        [ParamField(0x18, ParamType.Dummy8, 8)]
-        public byte[] Pad
-        {
-            get => _Pad;
-            set => WriteParamField(ref _Pad, value);
-        }
-        private byte[] _Pad;
-
+        get => _CamDistTarget;
+        set => WriteParamField(ref _CamDistTarget, value);
     }
+    private float _CamDistTarget;
+
+    [ParamField(0x4, ParamType.F32)]
+    public float RotRangeMinX
+    {
+        get => _RotRangeMinX;
+        set => WriteParamField(ref _RotRangeMinX, value);
+    }
+    private float _RotRangeMinX;
+
+    [ParamField(0x8, ParamType.F32)]
+    public float LockRotXShiftRatio
+    {
+        get => _LockRotXShiftRatio;
+        set => WriteParamField(ref _LockRotXShiftRatio, value);
+    }
+    private float _LockRotXShiftRatio;
+
+    [ParamField(0xC, ParamType.F32)]
+    public float ChrOrgOffset_Y
+    {
+        get => _ChrOrgOffset_Y;
+        set => WriteParamField(ref _ChrOrgOffset_Y, value);
+    }
+    private float _ChrOrgOffset_Y;
+
+    [ParamField(0x10, ParamType.F32)]
+    public float ChrLockRangeMaxRadius
+    {
+        get => _ChrLockRangeMaxRadius;
+        set => WriteParamField(ref _ChrLockRangeMaxRadius, value);
+    }
+    private float _ChrLockRangeMaxRadius;
+
+    [ParamField(0x14, ParamType.F32)]
+    public float CamFovY
+    {
+        get => _CamFovY;
+        set => WriteParamField(ref _CamFovY, value);
+    }
+    private float _CamFovY;
+
+    [ParamField(0x18, ParamType.Dummy8, 8)]
+    public byte[] Pad
+    {
+        get => _Pad;
+        set => WriteParamField(ref _Pad, value);
+    }
+    private byte[] _Pad = null!;
+
 }

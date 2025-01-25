@@ -17,35 +17,34 @@
 using System.Diagnostics;
 using SoulMemory.Memory;
 
-namespace SoulMemory
+namespace SoulMemory;
+
+public interface IGame
 {
-    public interface IGame
-    {
-        /// <summary>
-        /// Refresh attachment to a game
-        /// </summary>
-        ResultErr<RefreshError> TryRefresh();
+    /// <summary>
+    /// Refresh attachment to a game
+    /// </summary>
+    ResultErr<RefreshError> TryRefresh();
 
-        /// <summary>
-        /// Returns a structure that defines the memory layout of certain game structs and values
-        /// Can be resolved and used to read memory, or to be scanned against a file to validate correctness of the structure
-        /// </summary>
-        TreeBuilder GetTreeBuilder();
+    /// <summary>
+    /// Returns a structure that defines the memory layout of certain game structs and values
+    /// Can be resolved and used to read memory, or to be scanned against a file to validate correctness of the structure
+    /// </summary>
+    TreeBuilder GetTreeBuilder();
 
-        /// <summary>
-        /// Read an event flag from the game and return it's state
-        /// </summary>
-        bool ReadEventFlag(uint eventFlagId);
+    /// <summary>
+    /// Read an event flag from the game and return it's state
+    /// </summary>
+    bool ReadEventFlag(uint eventFlagId);
 
-        /// <summary>
-        /// Get a reference to the game process
-        /// Will only be a valid reference until the next call to TryRefresh
-        /// </summary>
-        Process GetProcess();
+    /// <summary>
+    /// Get a reference to the game process
+    /// Will only be a valid reference until the next call to TryRefresh
+    /// </summary>
+    Process? GetProcess();
 
-        /// <summary>
-        /// Get the current millis 
-        /// </summary>
-        int GetInGameTimeMilliseconds();
-    }
+    /// <summary>
+    /// Get the current millis 
+    /// </summary>
+    int GetInGameTimeMilliseconds();
 }

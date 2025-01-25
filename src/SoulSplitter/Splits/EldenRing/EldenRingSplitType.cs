@@ -14,16 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulSplitter.Splits.EldenRing
+namespace SoulSplitter.Splits.EldenRing;
+
+public enum EldenRingSplitType
 {
-    public enum EldenRingSplitType
-    {
-        Boss,
-        Grace,
-        Flag,
-        ItemPickup,
-        Item,
-        Position,
-        KnownFlag,
-    }
+    Boss,
+    Grace,
+    Flag,
+    ItemPickup,
+    Item,
+    Position,
+    KnownFlag,
 }

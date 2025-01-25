@@ -25,260 +25,261 @@ using SoulSplitter.UI;
 using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.Splitters
+namespace SoulSplitter.Splitters;
+
+public class DarkSouls3Splitter : ISplitter
 {
-    public class DarkSouls3Splitter : ISplitter
+    private readonly LiveSplitState _liveSplitState;
+    private readonly DarkSouls3 _darkSouls3;
+    private DarkSouls3ViewModel _darkSouls3ViewModel = null!;
+    private MainViewModel _mainViewModel = null!;
+
+    public DarkSouls3Splitter(LiveSplitState state, DarkSouls3 darkSouls)
     {
-        private readonly LiveSplitState _liveSplitState;
-        private readonly DarkSouls3 _darkSouls3;
-        private DarkSouls3ViewModel _darkSouls3ViewModel;
+        _darkSouls3 = darkSouls;
+        _liveSplitState = state;
+        _liveSplitState.OnStart += OnStart;
+        _liveSplitState.OnReset += OnReset;
+        _liveSplitState.IsGameTimePaused = true;
 
-        public DarkSouls3Splitter(LiveSplitState state, DarkSouls3 darkSouls)
+        _timerModel = new TimerModel
         {
-            _darkSouls3 = darkSouls;
-            _liveSplitState = state;
-            _liveSplitState.OnStart += OnStart;
-            _liveSplitState.OnReset += OnReset;
-            _liveSplitState.IsGameTimePaused = true;
+            CurrentState = state
+        };
+    }
 
-            _timerModel = new TimerModel();
-            _timerModel.CurrentState = state;
+
+    public void SetViewModel(MainViewModel mainViewModel)
+    {
+        _mainViewModel = mainViewModel;
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _liveSplitState.OnStart -= OnStart;
+            _liveSplitState.OnReset -= OnReset;
+        }
+    }
+
+    private void OnStart(object sender, EventArgs e)
+    {
+        StartTimer();
+        StartAutoSplitting();
+        _mainViewModel.FlagTrackerViewModel.Start();
+    }
+
+    private void OnReset(object sender, TimerPhase timerPhase)
+    {
+        ResetTimer();
+        _mainViewModel.FlagTrackerViewModel.Reset();
+    }
+
+
+    public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
+    {
+        mainViewModel.TryAndHandleError(() =>
+        {
+            _darkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
+        });
+
+        var result = _darkSouls3.TryRefresh();
+        if (result.IsErr)
+        {
+            mainViewModel.AddRefreshError(result.GetErr());
         }
 
-
-        private MainViewModel _mainViewModel;
-        public void SetViewModel(MainViewModel mainViewModel)
+        if (_darkSouls3ViewModel.LockIgtToZero)
         {
-            _mainViewModel = mainViewModel;
+            mainViewModel.TryAndHandleError(() => _darkSouls3.WriteInGameTimeMilliseconds(0));
+            return Result.Ok(); //Don't allow the timer to run when IGT is locked
         }
 
-        public void Dispose()
+        mainViewModel.TryAndHandleError(() =>
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+            _darkSouls3ViewModel.CurrentPosition = _darkSouls3.GetPosition();
+        });
 
-        protected virtual void Dispose(bool disposing)
+        mainViewModel.TryAndHandleError(() =>
         {
-            if (disposing)
-            {
-                _liveSplitState.OnStart -= OnStart;
-                _liveSplitState.OnReset -= OnReset;
-            }
-        }
+            UpdateTimer();
+        });
 
-        private void OnStart(object sender, EventArgs e)
+        mainViewModel.TryAndHandleError(() =>
         {
-            StartTimer();
-            StartAutoSplitting();
-            _mainViewModel.FlagTrackerViewModel.Start();
-        }
+            UpdateAutoSplitter();
+        });
 
-        private void OnReset(object sender, TimerPhase timerPhase)
+        mainViewModel.TryAndHandleError(() =>
         {
-            ResetTimer();
-            _mainViewModel.FlagTrackerViewModel.Reset();
-        }
+            mainViewModel.FlagTrackerViewModel.Update(_darkSouls3);
+        });
 
+        return result;
+    }
 
-        public ResultErr<RefreshError> Update(MainViewModel mainViewModel)
+    #region Timer
+    private void UpdateTimer()
+     {
+        switch (_timerState)
         {
-            mainViewModel.TryAndHandleError(() =>
-            {
-                _darkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
-            });
-
-            var result = _darkSouls3.TryRefresh();
-            if (result.IsErr)
-            {
-                mainViewModel.AddRefreshError(result.GetErr());
-            }
-
-            if (_darkSouls3ViewModel.LockIgtToZero)
-            {
-                mainViewModel.TryAndHandleError(() => _darkSouls3.WriteInGameTimeMilliseconds(0));
-                return Result.Ok(); //Don't allow the timer to run when IGT is locked
-            }
-
-            mainViewModel.TryAndHandleError(() =>
-            {
-                _darkSouls3ViewModel.CurrentPosition = _darkSouls3.GetPosition();
-            });
-
-            mainViewModel.TryAndHandleError(() =>
-            {
-                UpdateTimer();
-            });
-
-            mainViewModel.TryAndHandleError(() =>
-            {
-                UpdateAutoSplitter();
-            });
-
-            mainViewModel.TryAndHandleError(() =>
-            {
-                mainViewModel.FlagTrackerViewModel.Update(_darkSouls3);
-            });
-
-            return result;
-        }
-
-        #region Timer
-        private void UpdateTimer()
-         {
-            switch (_timerState)
-            {
-                case TimerState.WaitForStart:
-                    if (_darkSouls3ViewModel.StartAutomatically)
-                    {
-                        var igt = _darkSouls3.GetInGameTimeMilliseconds();
-                        if (igt > 0 && igt < 150)
-                        {
-                            StartTimer();
-                            StartAutoSplitting();
-                        }
-                    }
-                    break;
-
-                case TimerState.Running:
-                    var currentIgt = _darkSouls3.GetInGameTimeMilliseconds();
-                    var isLoading = _darkSouls3.IsLoading();
-                    var blackscreenActive = _darkSouls3.BlackscreenActive();
-
-                    //Blackscreens/meme loading screens - timer is running, but game is actually loading
-                    if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && (isLoading || blackscreenActive))
-                    {
-                        _darkSouls3.WriteInGameTimeMilliseconds(_inGameTime);
-                    }
-                    else
-                    {
-                        if (currentIgt != 0)
-                        {
-                            _inGameTime = currentIgt;
-                        }
-                    }
-                    _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
-                    break;
-            }
-        }
-
-        private void StartTimer()
-        {
-            _timerState = TimerState.Running;
-            _inGameTime = _darkSouls3.GetInGameTimeMilliseconds();
-            _liveSplitState.IsGameTimePaused = true;
-            _timerModel.Start();
-        }
-
-        private void ResetTimer()
-        {
-            _timerState = TimerState.WaitForStart;
-            _inGameTime = 0;
-            _timerModel.Reset();
-        }
-
-        private readonly TimerModel _timerModel;
-        private int _inGameTime;
-        private TimerState _timerState = TimerState.WaitForStart;
-
-        #endregion
-
-        #region Autosplitting
-
-        private List<Split> _splits = new List<Split>();
-
-        public void ResetAutoSplitting()
-        {
-            _splits.Clear();
-        }
-
-        public void StartAutoSplitting()
-        {
-            _splits = (
-                from timingType in _darkSouls3ViewModel.SplitsViewModel.Splits
-                from splitType in timingType.Children
-                from split in splitType.Children
-                select new Split(timingType.TimingType, splitType.SplitType, split.Split)
-                ).ToList();
-        }
-
-        public void UpdateAutoSplitter()
-        {
-            if (_timerState != TimerState.Running)
-            {
-                return;
-            }
-            
-            foreach (var s in _splits)
-            {
-                if (!s.SplitTriggered)
+            case TimerState.WaitForStart:
+                if (_darkSouls3ViewModel.StartAutomatically)
                 {
-                    if (!s.SplitConditionMet)
+                    var igt = _darkSouls3.GetInGameTimeMilliseconds();
+                    if (igt is > 0 and < 150)
                     {
-                        switch (s.SplitType)
-                        {
-                            default:
-                                throw new ArgumentException($"Unsupported split type {s.SplitType}");
-
-                            case SplitType.Boss:
-                            case SplitType.Bonfire:
-                            case SplitType.ItemPickup:
-                            case SplitType.Flag:
-                                s.SplitConditionMet = _darkSouls3.ReadEventFlag(s.Flag);
-                                break;
-
-                            case SplitType.Attribute:
-                                var currentLevel = _darkSouls3.ReadAttribute(s.Attribute.AttributeType);
-                                s.SplitConditionMet = currentLevel >= s.Attribute.Level;
-                                break;
-
-                            case SplitType.Position:
-                                if (s.Position.Position.X + s.Position.Size > _darkSouls3ViewModel.CurrentPosition.X &&
-                                    s.Position.Position.X - s.Position.Size < _darkSouls3ViewModel.CurrentPosition.X &&
-                                    
-                                    s.Position.Position.Y + s.Position.Size > _darkSouls3ViewModel.CurrentPosition.Y &&
-                                    s.Position.Position.Y - s.Position.Size < _darkSouls3ViewModel.CurrentPosition.Y &&
-                                    
-                                    s.Position.Position.Z + s.Position.Size > _darkSouls3ViewModel.CurrentPosition.Z &&
-                                    s.Position.Position.Z - s.Position.Size < _darkSouls3ViewModel.CurrentPosition.Z)
-                                {
-                                    s.SplitConditionMet = true;
-                                }
-                                break;
-                        }
+                        StartTimer();
+                        StartAutoSplitting();
                     }
+                }
+                break;
 
-                    if (s.SplitConditionMet)
+            case TimerState.Running:
+                var currentIgt = _darkSouls3.GetInGameTimeMilliseconds();
+                var isLoading = _darkSouls3.IsLoading();
+                var blackscreenActive = _darkSouls3.BlackscreenActive();
+
+                //Blackscreens/meme loading screens - timer is running, but game is actually loading
+                if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && (isLoading || blackscreenActive))
+                {
+                    _darkSouls3.WriteInGameTimeMilliseconds(_inGameTime);
+                }
+                else
+                {
+                    if (currentIgt != 0)
                     {
-                        ResolveSplitTiming(s);
+                        _inGameTime = currentIgt;
                     }
+                }
+                _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(_inGameTime));
+                break;
+        }
+    }
+
+    private void StartTimer()
+    {
+        _timerState = TimerState.Running;
+        _inGameTime = _darkSouls3.GetInGameTimeMilliseconds();
+        _liveSplitState.IsGameTimePaused = true;
+        _timerModel.Start();
+    }
+
+    private void ResetTimer()
+    {
+        _timerState = TimerState.WaitForStart;
+        _inGameTime = 0;
+        _timerModel.Reset();
+    }
+
+    private readonly TimerModel _timerModel;
+    private int _inGameTime;
+    private TimerState _timerState = TimerState.WaitForStart;
+
+    #endregion
+
+    #region Autosplitting
+
+    private List<Split> _splits = [];
+
+    public void ResetAutoSplitting()
+    {
+        _splits.Clear();
+    }
+
+    public void StartAutoSplitting()
+    {
+        _splits = (
+            from timingType in _darkSouls3ViewModel.SplitsViewModel.Splits
+            from splitType in timingType.Children
+            from split in splitType.Children
+            select new Split(timingType.TimingType, splitType.SplitType, split.Split)
+            ).ToList();
+    }
+
+    public void UpdateAutoSplitter()
+    {
+        if (_timerState != TimerState.Running)
+        {
+            return;
+        }
+        
+        foreach (var s in _splits)
+        {
+            if (!s.SplitTriggered)
+            {
+                if (!s.SplitConditionMet)
+                {
+                    switch (s.SplitType)
+                    {
+                        default:
+                            throw new ArgumentException($"Unsupported split type {s.SplitType}");
+
+                        case SplitType.Boss:
+                        case SplitType.Bonfire:
+                        case SplitType.ItemPickup:
+                        case SplitType.Flag:
+                            s.SplitConditionMet = _darkSouls3.ReadEventFlag(s.Flag);
+                            break;
+
+                        case SplitType.Attribute:
+                            var currentLevel = _darkSouls3.ReadAttribute(s.Attribute.AttributeType);
+                            s.SplitConditionMet = currentLevel >= s.Attribute.Level;
+                            break;
+
+                        case SplitType.Position:
+                            if (s.Position.Position.X + s.Position.Size > _darkSouls3ViewModel.CurrentPosition.X &&
+                                s.Position.Position.X - s.Position.Size < _darkSouls3ViewModel.CurrentPosition.X &&
+                                
+                                s.Position.Position.Y + s.Position.Size > _darkSouls3ViewModel.CurrentPosition.Y &&
+                                s.Position.Position.Y - s.Position.Size < _darkSouls3ViewModel.CurrentPosition.Y &&
+                                
+                                s.Position.Position.Z + s.Position.Size > _darkSouls3ViewModel.CurrentPosition.Z &&
+                                s.Position.Position.Z - s.Position.Size < _darkSouls3ViewModel.CurrentPosition.Z)
+                            {
+                                s.SplitConditionMet = true;
+                            }
+                            break;
+                    }
+                }
+
+                if (s.SplitConditionMet)
+                {
+                    ResolveSplitTiming(s);
                 }
             }
         }
+    }
 
-        private void ResolveSplitTiming(Split s)
+    private void ResolveSplitTiming(Split s)
+    {
+        switch (s.TimingType)
         {
-            switch (s.TimingType)
-            {
-                default:
-                    throw new ArgumentException($"Unsupported timing type {s.TimingType}");
+            default:
+                throw new ArgumentException($"Unsupported timing type {s.TimingType}");
 
-                case TimingType.Immediate:
+            case TimingType.Immediate:
+                _timerModel.Split();
+                s.SplitTriggered = true;
+                break;
+
+            case TimingType.OnLoading:
+                if (_darkSouls3.IsLoading())
+                {
                     _timerModel.Split();
                     s.SplitTriggered = true;
-                    break;
-
-                case TimingType.OnLoading:
-                    if (_darkSouls3.IsLoading())
-                    {
-                        _timerModel.Split();
-                        s.SplitTriggered = true;
-                    }
-                    break;
-            }
+                }
+                break;
         }
-
-        #endregion
-
     }
+
+    #endregion
+
 }

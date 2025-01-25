@@ -18,60 +18,57 @@ using SoulMemory.Memory;
 using SoulMemory.Parameters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.DarkSouls1.Parameters;
+
+[ExcludeFromCodeCoverage]
+public class PointLightBank(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
-    [ExcludeFromCodeCoverage]
-    public class PointLightBank : BaseParam
+    [ParamField(0x0, ParamType.F32)]
+    public float DwindleBegin
     {
-        public PointLightBank(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
-        [ParamField(0x0, ParamType.F32)]
-        public float DwindleBegin
-        {
-            get => _DwindleBegin;
-            set => WriteParamField(ref _DwindleBegin, value);
-        }
-        private float _DwindleBegin;
-
-        [ParamField(0x4, ParamType.F32)]
-        public float DwindleEnd
-        {
-            get => _DwindleEnd;
-            set => WriteParamField(ref _DwindleEnd, value);
-        }
-        private float _DwindleEnd;
-
-        [ParamField(0x8, ParamType.I16)]
-        public short ColR
-        {
-            get => _ColR;
-            set => WriteParamField(ref _ColR, value);
-        }
-        private short _ColR;
-
-        [ParamField(0xA, ParamType.I16)]
-        public short ColG
-        {
-            get => _ColG;
-            set => WriteParamField(ref _ColG, value);
-        }
-        private short _ColG;
-
-        [ParamField(0xC, ParamType.I16)]
-        public short ColB
-        {
-            get => _ColB;
-            set => WriteParamField(ref _ColB, value);
-        }
-        private short _ColB;
-
-        [ParamField(0xE, ParamType.I16)]
-        public short ColA
-        {
-            get => _ColA;
-            set => WriteParamField(ref _ColA, value);
-        }
-        private short _ColA;
-
+        get => _DwindleBegin;
+        set => WriteParamField(ref _DwindleBegin, value);
     }
+    private float _DwindleBegin;
+
+    [ParamField(0x4, ParamType.F32)]
+    public float DwindleEnd
+    {
+        get => _DwindleEnd;
+        set => WriteParamField(ref _DwindleEnd, value);
+    }
+    private float _DwindleEnd;
+
+    [ParamField(0x8, ParamType.I16)]
+    public short ColR
+    {
+        get => _ColR;
+        set => WriteParamField(ref _ColR, value);
+    }
+    private short _ColR;
+
+    [ParamField(0xA, ParamType.I16)]
+    public short ColG
+    {
+        get => _ColG;
+        set => WriteParamField(ref _ColG, value);
+    }
+    private short _ColG;
+
+    [ParamField(0xC, ParamType.I16)]
+    public short ColB
+    {
+        get => _ColB;
+        set => WriteParamField(ref _ColB, value);
+    }
+    private short _ColB;
+
+    [ParamField(0xE, ParamType.I16)]
+    public short ColA
+    {
+        get => _ColA;
+        set => WriteParamField(ref _ColA, value);
+    }
+    private short _ColA;
+
 }

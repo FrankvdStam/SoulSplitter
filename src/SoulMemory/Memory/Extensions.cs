@@ -18,56 +18,55 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace SoulMemory.Memory
+namespace SoulMemory.Memory;
+
+public static class Extensions
 {
-    public static class Extensions
+    public static string ToHexString(this byte[] bytes)
     {
-        public static string ToHexString(this byte[] bytes)
+        return BitConverter.ToString(bytes).Replace("-", " ");
+    }
+    
+    public static string GetDisplayName(this Enum enumValue)
+    {
+        var displayName = enumValue
+            .GetType()
+            .GetMember(enumValue.ToString())
+            .First()
+            .GetCustomAttribute<AnnotationAttribute>()?
+            .Name;
+
+        if (string.IsNullOrEmpty(displayName))
         {
-            return BitConverter.ToString(bytes).Replace("-", " ");
+            displayName = enumValue.ToString();
         }
-        
-        public static string GetDisplayName(this Enum enumValue)
+        return displayName!;
+    }
+
+    public static string GetDisplayDescription(this Enum enumValue)
+    {
+        var displayName = enumValue
+            .GetType()
+            .GetMember(enumValue.ToString())
+            .First()
+            .GetCustomAttribute<AnnotationAttribute>()?
+            .Description;
+
+        if (string.IsNullOrEmpty(displayName))
         {
-            var displayName = enumValue
-                .GetType()
-                .GetMember(enumValue.ToString())
-                .FirstOrDefault()
-                .GetCustomAttribute<AnnotationAttribute>()?
-                .Name;
-
-            if (string.IsNullOrEmpty(displayName))
-            {
-                displayName = enumValue.ToString();
-            }
-            return displayName;
+            displayName = enumValue.ToString();
         }
+        return displayName!;
+    }
 
-        public static string GetDisplayDescription(this Enum enumValue)
-        {
-            var displayName = enumValue
-                .GetType()
-                .GetMember(enumValue.ToString())
-                .FirstOrDefault()
-                .GetCustomAttribute<AnnotationAttribute>()?
-                .Description;
+    public static T GetEnumAttribute<T>(this Enum value) where T : Attribute
+    {
+        var attribute = value
+            .GetType()
+            .GetMember(value.ToString())
+            .First()
+            .GetCustomAttribute<T>();
 
-            if (string.IsNullOrEmpty(displayName))
-            {
-                displayName = enumValue.ToString();
-            }
-            return displayName;
-        }
-
-        public static T GetEnumAttribute<T>(this Enum value) where T : Attribute
-        {
-            var attribute = value
-                .GetType()
-                .GetMember(value.ToString())
-                .FirstOrDefault()
-                .GetCustomAttribute<T>();
-
-            return attribute;
-        }
+        return attribute;
     }
 }

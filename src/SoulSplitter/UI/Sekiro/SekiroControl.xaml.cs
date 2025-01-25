@@ -16,16 +16,15 @@
 
 using System.Windows.Controls;
 
-namespace SoulSplitter.UI.Sekiro
+namespace SoulSplitter.UI.Sekiro;
+
+/// <summary>
+/// Interaction logic for DarkSouls3Control.xaml
+/// </summary>
+public partial class SekiroControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for DarkSouls3Control.xaml
-    /// </summary>
-    public partial class SekiroControl : UserControl
+    public SekiroControl()
     {
-        public SekiroControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -18,62 +18,61 @@ using System;
 using SoulMemory.Sekiro;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.Splits.Sekiro
+namespace SoulSplitter.Splits.Sekiro;
+
+internal class Split
 {
-    internal class Split
+    public Split(TimingType timingType, SplitType splitType, object split)
     {
-        public Split(TimingType timingType, SplitType splitType, object split)
+        TimingType = timingType;
+        SplitType = splitType;
+
+        switch (SplitType)
         {
-            TimingType = timingType;
-            SplitType = splitType;
+            default:
+                throw new ArgumentException($"unsupported split type {SplitType}");
 
-            switch (SplitType)
-            {
-                default:
-                    throw new ArgumentException($"unsupported split type {SplitType}");
+            case SplitType.Boss:
+                Boss = (Boss)split;
+                Flag = (uint)Boss;
+                break;
 
-                case SplitType.Boss:
-                    Boss = (Boss)split;
-                    Flag = (uint)Boss;
-                    break;
+            case SplitType.Bonfire:
+                Idol = (Idol)split;
+                Flag = (uint)Idol;
+                break;
 
-                case SplitType.Bonfire:
-                    Idol = (Idol)split;
-                    Flag = (uint)Idol;
-                    break;
+            case SplitType.Position:
+                Position = (VectorSize)split;
+                break;
 
-                case SplitType.Position:
-                    Position = (VectorSize)split;
-                    break;
-
-                case SplitType.Attribute:
-                    Attribute = (Attribute)split;
-                    break;
+            case SplitType.Attribute:
+                Attribute = (Attribute)split;
+                break;
 
 
-                case SplitType.Flag:
-                    Flag = ((FlagDescription)split).Flag;
-                    break;
-            }
+            case SplitType.Flag:
+                Flag = ((FlagDescription)split).Flag;
+                break;
         }
-
-        public readonly TimingType TimingType;
-        public readonly SplitType SplitType;
-        
-        public readonly Boss Boss;
-        public readonly Idol Idol;
-        public readonly uint Flag;
-        public readonly VectorSize Position;
-        public readonly Attribute Attribute;
-
-        /// <summary>
-        /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
-        /// </summary>
-        public bool SplitConditionMet = false;
-        
-        /// <summary>
-        /// True after this split object cause a split. No longer need to check split conditions
-        /// </summary>
-        public bool SplitTriggered = false;
     }
+
+    public readonly TimingType TimingType;
+    public readonly SplitType SplitType;
+    
+    public readonly Boss Boss;
+    public readonly Idol Idol;
+    public readonly uint Flag;
+    public readonly VectorSize Position = null!;
+    public readonly Attribute Attribute = null!;
+
+    /// <summary>
+    /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
+    /// </summary>
+    public bool SplitConditionMet = false;
+    
+    /// <summary>
+    /// True after this split object cause a split. No longer need to check split conditions
+    /// </summary>
+    public bool SplitTriggered = false;
 }

@@ -14,13 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.EldenRing
+namespace SoulMemory.EldenRing;
+
+public enum ScreenState
 {
-    public enum ScreenState
-    {
-        InGame = 0,
-        Loading = 1,
-        MainMenu = 256,
-        Unknown
-    }
+    InGame = 0,
+    Loading = 1,
+    MainMenu = 256,
+    Unknown
 }

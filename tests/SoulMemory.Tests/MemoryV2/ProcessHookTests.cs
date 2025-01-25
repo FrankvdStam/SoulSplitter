@@ -18,198 +18,197 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SoulMemory.MemoryV2.Process;
 
-namespace SoulMemory.Tests.MemoryV2
+namespace SoulMemory.Tests.MemoryV2;
+
+[TestClass]
+public class ProcessHookTests
 {
-    [TestClass]
-    public class ProcessHookTests
+    [TestInitialize]
+    public void Init()
     {
-        [TestInitialize]
-        public void Init()
-        {
-            _mockProcessWrapper = new Mock<IProcessWrapper>();
-            _sut = new ProcessHook("TestProcess", _mockProcessWrapper.Object);
+        _mockProcessWrapper = new Mock<IProcessWrapper>();
+        _sut = new ProcessHook("TestProcess", _mockProcessWrapper.Object);
 
-            _sut.Hooked += () =>
+        _sut.Hooked += () =>
+        {
+            _hookedInvokedCount++;
+            return Result.Ok();
+        };
+        _sut.Exited += exception =>
+        {
+            _exitedInvokedCount++;
+            if (exception != null)
             {
-                _hookedInvokedCount++;
-                return Result.Ok();
-            };
-            _sut.Exited += exception =>
-            {
-                _exitedInvokedCount++;
-                if (exception != null)
-                {
-                    ExitedExceptions.Add(exception);
-                }
-            };
-        }
+                ExitedExceptions.Add(exception);
+            }
+        };
+    }
 
-        private ProcessHook _sut = null!;
-        private Mock<IProcessWrapper> _mockProcessWrapper = null!;
-        private int _hookedInvokedCount = 0;
-        private int _exitedInvokedCount = 0;
-        public List<Exception> ExitedExceptions = new List<Exception>();
+    private ProcessHook _sut = null!;
+    private Mock<IProcessWrapper> _mockProcessWrapper = null!;
+    private int _hookedInvokedCount;
+    private int _exitedInvokedCount;
+    public List<Exception> ExitedExceptions = new();
 
 
-        [TestMethod]
-        public void TryRefresh_ProcessNotRunning()
+    [TestMethod]
+    public void TryRefresh_ProcessNotRunning()
+    {
+        Exception? ex;
+        _mockProcessWrapper
+            .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
+            .Returns(ProcessRefreshResult.ProcessNotRunning);
+
+        var refreshResult = _sut.TryRefresh();
+
+        Assert.AreEqual(RefreshErrorReason.ProcessNotRunning, refreshResult.GetErr().Reason);
+        Assert.AreEqual("Process TestProcess not running or inaccessible. Try running livesplit as admin.", refreshResult.GetErr().Message);
+        Assert.AreEqual(0, ExitedExceptions.Count);
+        Assert.AreEqual(0, _exitedInvokedCount);
+        Assert.AreEqual(0, _hookedInvokedCount);
+    }
+
+    [TestMethod]
+    public void TryRefresh_Initialized_MainModuleNull()
+    {
+        Exception? ex;
+        _mockProcessWrapper
+            .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
+            .Returns(ProcessRefreshResult.Initialized);
+
+        _mockProcessWrapper
+            .Setup(i => i.GetMainModule())
+            .Returns((ProcessWrapperModule)null!);
+
+        var refreshResult = _sut.TryRefresh();
+
+        Assert.AreEqual(RefreshErrorReason.ScansFailed, refreshResult.GetErr().Reason);
+        Assert.AreEqual("Main module is null. Try running as admin.", refreshResult.GetErr().Message);
+        Assert.AreEqual(0, ExitedExceptions.Count);
+        Assert.AreEqual(0, _exitedInvokedCount);
+        Assert.AreEqual(0, _hookedInvokedCount);
+    }
+
+    [TestMethod]
+    public void TryRefresh_Initialized_ScansFailed()
+    {
+        Exception? ex;
+        _mockProcessWrapper
+            .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
+            .Returns(ProcessRefreshResult.Initialized);
+        _mockProcessWrapper.Setup(i => i.GetMainModule()).Returns(new ProcessWrapperModule
         {
-            Exception ex;
-            _mockProcessWrapper
-                .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
-                .Returns(ProcessRefreshResult.ProcessNotRunning);
+            BaseAddress = (IntPtr)100,
+            ModuleMemorySize = 100,
+        });
+        _mockProcessWrapper.Setup(i => i.Is64Bit()).Returns(true);
+        _mockProcessWrapper.Setup(i => i.ReadBytes(100, 100)).Returns(new byte[100]);
 
-            var refreshResult = _sut.TryRefresh();
+        _sut.PointerTreeBuilder.ScanAbsolute("TestScan1", "01 01", 0);
+        _sut.PointerTreeBuilder.ScanAbsolute("TestScan2", "01 01", 0);
 
-            Assert.AreEqual(RefreshErrorReason.ProcessNotRunning, refreshResult.GetErr().Reason);
-            Assert.AreEqual("Process TestProcess not running or inaccessible. Try running livesplit as admin.", refreshResult.GetErr().Message);
-            Assert.AreEqual(0, ExitedExceptions.Count);
-            Assert.AreEqual(0, _exitedInvokedCount);
-            Assert.AreEqual(0, _hookedInvokedCount);
-        }
+        var refreshResult = _sut.TryRefresh();
 
-        [TestMethod]
-        public void TryRefresh_Initialized_MainModuleNull()
+        Assert.AreEqual(RefreshErrorReason.ScansFailed, refreshResult.GetErr().Reason);
+        Assert.AreEqual("Scans failed for TestScan1, TestScan2", refreshResult.GetErr().Message);
+        Assert.AreEqual(0, ExitedExceptions.Count);
+        Assert.AreEqual(0, _exitedInvokedCount);
+        Assert.AreEqual(0, _hookedInvokedCount);
+    }
+
+    [TestMethod]
+    public void TryRefresh_Initialized_Success()
+    {
+        Exception? ex;
+        _mockProcessWrapper
+            .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
+            .Returns(ProcessRefreshResult.Initialized);
+        _mockProcessWrapper.Setup(i => i.GetMainModule()).Returns(new ProcessWrapperModule
         {
-            Exception ex;
-            _mockProcessWrapper
-                .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
-                .Returns(ProcessRefreshResult.Initialized);
+            BaseAddress = (IntPtr)100,
+            ModuleMemorySize = 2,
+        });
+        _mockProcessWrapper.Setup(i => i.Is64Bit()).Returns(true);
+        _mockProcessWrapper.Setup(i => i.ReadBytes(100, 2)).Returns(new byte[] { 0x01, 0x01 });
 
-            _mockProcessWrapper
-                .Setup(i => i.GetMainModule())
-                .Returns((ProcessWrapperModule)null!);
+        _sut.PointerTreeBuilder.ScanAbsolute("TestScan1", "01 01", 0);
 
-            var refreshResult = _sut.TryRefresh();
+        var refreshResult = _sut.TryRefresh();
 
-            Assert.AreEqual(RefreshErrorReason.ScansFailed, refreshResult.GetErr().Reason);
-            Assert.AreEqual("Main module is null. Try running as admin.", refreshResult.GetErr().Message);
-            Assert.AreEqual(0, ExitedExceptions.Count);
-            Assert.AreEqual(0, _exitedInvokedCount);
-            Assert.AreEqual(0, _hookedInvokedCount);
-        }
+        Assert.IsTrue(refreshResult.IsOk);
+        Assert.AreEqual(0, ExitedExceptions.Count);
+        Assert.AreEqual(0, _exitedInvokedCount);
+        Assert.AreEqual(1, _hookedInvokedCount);
+    }
 
-        [TestMethod]
-        public void TryRefresh_Initialized_ScansFailed()
-        {
-            Exception ex;
-            _mockProcessWrapper
-                .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
-                .Returns(ProcessRefreshResult.Initialized);
-            _mockProcessWrapper.Setup(i => i.GetMainModule()).Returns(new ProcessWrapperModule
-            {
-                BaseAddress = (IntPtr)100,
-                ModuleMemorySize = 100,
-            });
-            _mockProcessWrapper.Setup(i => i.Is64Bit()).Returns(true);
-            _mockProcessWrapper.Setup(i => i.ReadBytes(100, 100)).Returns(new byte[100]);
+    [TestMethod]
+    public void TryRefresh_Refreshed()
+    {
+        Exception? ex;
+        _mockProcessWrapper
+           .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
+           .Returns(ProcessRefreshResult.Refreshed);
+        
+        var refreshResult = _sut.TryRefresh();
 
-            _sut.PointerTreeBuilder.ScanAbsolute("TestScan1", "01 01", 0);
-            _sut.PointerTreeBuilder.ScanAbsolute("TestScan2", "01 01", 0);
+        Assert.IsTrue(refreshResult.IsOk);
+        Assert.AreEqual(0, ExitedExceptions.Count);
+        Assert.AreEqual(0, _exitedInvokedCount);
+        Assert.AreEqual(0, _hookedInvokedCount);
+    }
 
-            var refreshResult = _sut.TryRefresh();
+    [TestMethod]
+    public void TryRefresh_Exited_No_Exception()
+    {
+        Exception? ex;
+        _mockProcessWrapper
+           .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
+           .Returns(ProcessRefreshResult.Exited);
 
-            Assert.AreEqual(RefreshErrorReason.ScansFailed, refreshResult.GetErr().Reason);
-            Assert.AreEqual("Scans failed for TestScan1, TestScan2", refreshResult.GetErr().Message);
-            Assert.AreEqual(0, ExitedExceptions.Count);
-            Assert.AreEqual(0, _exitedInvokedCount);
-            Assert.AreEqual(0, _hookedInvokedCount);
-        }
+        var refreshResult = _sut.TryRefresh();
 
-        [TestMethod]
-        public void TryRefresh_Initialized_Success()
-        {
-            Exception ex;
-            _mockProcessWrapper
-                .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
-                .Returns(ProcessRefreshResult.Initialized);
-            _mockProcessWrapper.Setup(i => i.GetMainModule()).Returns(new ProcessWrapperModule
-            {
-                BaseAddress = (IntPtr)100,
-                ModuleMemorySize = 2,
-            });
-            _mockProcessWrapper.Setup(i => i.Is64Bit()).Returns(true);
-            _mockProcessWrapper.Setup(i => i.ReadBytes(100, 2)).Returns(new byte[] { 0x01, 0x01 });
+        Assert.AreEqual(RefreshErrorReason.ProcessExited, refreshResult.GetErr().Reason);
+        Assert.IsNull(refreshResult.GetErr().Message);
+        Assert.IsNull(refreshResult.GetErr().Exception);
+        Assert.AreEqual(0, ExitedExceptions.Count);
+        Assert.AreEqual(1, _exitedInvokedCount);
+        Assert.AreEqual(0, _hookedInvokedCount);
+    }
 
-            _sut.PointerTreeBuilder.ScanAbsolute("TestScan1", "01 01", 0);
+    [TestMethod]
+    public void TryRefresh_Error_Access_Denied()
+    {
+        Exception? ex = new Exception("Access is denied");
+        _mockProcessWrapper
+            .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
+            .Returns(ProcessRefreshResult.Error);
 
-            var refreshResult = _sut.TryRefresh();
+        var refreshResult = _sut.TryRefresh();
 
-            Assert.IsTrue(refreshResult.IsOk);
-            Assert.AreEqual(0, ExitedExceptions.Count);
-            Assert.AreEqual(0, _exitedInvokedCount);
-            Assert.AreEqual(1, _hookedInvokedCount);
-        }
+        Assert.AreEqual(RefreshErrorReason.AccessDenied, refreshResult.GetErr().Reason);
+        Assert.AreEqual("Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin.", refreshResult.GetErr().Message);
+        Assert.AreEqual(1, ExitedExceptions.Count);
+        Assert.AreEqual("Access is denied", ExitedExceptions.First().Message);
+        Assert.AreEqual(1, _exitedInvokedCount);
+        Assert.AreEqual(0, _hookedInvokedCount);
+    }
 
-        [TestMethod]
-        public void TryRefresh_Refreshed()
-        {
-            Exception ex;
-            _mockProcessWrapper
-               .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
-               .Returns(ProcessRefreshResult.Refreshed);
-            
-            var refreshResult = _sut.TryRefresh();
+    [TestMethod]
+    public void TryRefresh_Error_Unknown()
+    {
+        Exception? ex = new Exception("Your computer is on fire");
+        _mockProcessWrapper
+            .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
+            .Returns(ProcessRefreshResult.Error);
 
-            Assert.IsTrue(refreshResult.IsOk);
-            Assert.AreEqual(0, ExitedExceptions.Count);
-            Assert.AreEqual(0, _exitedInvokedCount);
-            Assert.AreEqual(0, _hookedInvokedCount);
-        }
+        var refreshResult = _sut.TryRefresh();
 
-        [TestMethod]
-        public void TryRefresh_Exited_No_Exception()
-        {
-            Exception ex;
-            _mockProcessWrapper
-               .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
-               .Returns(ProcessRefreshResult.Exited);
-
-            var refreshResult = _sut.TryRefresh();
-
-            Assert.AreEqual(RefreshErrorReason.ProcessExited, refreshResult.GetErr().Reason);
-            Assert.IsNull(refreshResult.GetErr().Message);
-            Assert.IsNull(refreshResult.GetErr().Exception);
-            Assert.AreEqual(0, ExitedExceptions.Count);
-            Assert.AreEqual(1, _exitedInvokedCount);
-            Assert.AreEqual(0, _hookedInvokedCount);
-        }
-
-        [TestMethod]
-        public void TryRefresh_Error_Access_Denied()
-        {
-            Exception ex = new Exception("Access is denied");
-            _mockProcessWrapper
-                .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
-                .Returns(ProcessRefreshResult.Error);
-
-            var refreshResult = _sut.TryRefresh();
-
-            Assert.AreEqual(RefreshErrorReason.AccessDenied, refreshResult.GetErr().Reason);
-            Assert.AreEqual("Access is denied. Make sure you disable easy anti cheat and try running livesplit as admin.", refreshResult.GetErr().Message);
-            Assert.AreEqual(1, ExitedExceptions.Count);
-            Assert.AreEqual("Access is denied", ExitedExceptions.First().Message);
-            Assert.AreEqual(1, _exitedInvokedCount);
-            Assert.AreEqual(0, _hookedInvokedCount);
-        }
-
-        [TestMethod]
-        public void TryRefresh_Error_Unknown()
-        {
-            Exception ex = new Exception("Your computer is on fire");
-            _mockProcessWrapper
-                .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
-                .Returns(ProcessRefreshResult.Error);
-
-            var refreshResult = _sut.TryRefresh();
-
-            Assert.AreEqual(RefreshErrorReason.UnknownException, refreshResult.GetErr().Reason);
-            Assert.IsNull(refreshResult.GetErr().Message);
-            Assert.AreEqual("Your computer is on fire", refreshResult.GetErr().Exception.Message);
-            Assert.AreEqual(1, ExitedExceptions.Count);
-            Assert.AreEqual("Your computer is on fire", ExitedExceptions.First().Message);
-            Assert.AreEqual(1, _exitedInvokedCount);
-            Assert.AreEqual(0, _hookedInvokedCount);
-        }
+        Assert.AreEqual(RefreshErrorReason.UnknownException, refreshResult.GetErr().Reason);
+        Assert.IsNull(refreshResult.GetErr().Message);
+        Assert.AreEqual("Your computer is on fire", refreshResult.GetErr().Exception?.Message);
+        Assert.AreEqual(1, ExitedExceptions.Count);
+        Assert.AreEqual("Your computer is on fire", ExitedExceptions.First().Message);
+        Assert.AreEqual(1, _exitedInvokedCount);
+        Assert.AreEqual(0, _hookedInvokedCount);
     }
 }

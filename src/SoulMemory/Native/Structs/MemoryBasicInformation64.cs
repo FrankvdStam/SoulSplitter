@@ -16,19 +16,18 @@
 
 using System.Runtime.InteropServices;
 
-namespace SoulMemory.Native.Structs
+namespace SoulMemory.Native.Structs;
+
+[StructLayout(LayoutKind.Sequential)]
+public struct MemoryBasicInformation64
 {
-    [StructLayout(LayoutKind.Sequential)]
-    public struct MemoryBasicInformation64
-    {
-        public ulong BaseAddress;
-        public ulong AllocationBase;
-        public int AllocationProtect;
-        public int __alignment1;
-        public ulong RegionSize;
-        public int State;
-        public int Protect;
-        public int Type;
-        public int __alignment2;
-    }
+    public ulong BaseAddress;
+    public ulong AllocationBase;
+    public int AllocationProtect;
+    public int __alignment1;
+    public ulong RegionSize;
+    public int State;
+    public int Protect;
+    public int Type;
+    public int __alignment2;
 }

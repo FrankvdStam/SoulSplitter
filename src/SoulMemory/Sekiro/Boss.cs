@@ -16,54 +16,53 @@
 
 using System.Xml.Serialization;
 
-namespace SoulMemory.Sekiro
+namespace SoulMemory.Sekiro;
+
+[XmlType(Namespace = "Sekiro")]
+public enum Boss
 {
-    [XmlType(Namespace = "Sekiro")]
-    public enum Boss
-    {
-        [Annotation(Name = "Gyoubu Masataka Oniwa")]
-        GyoubuMasatakaOniwa = 9301,
+    [Annotation(Name = "Gyoubu Masataka Oniwa")]
+    GyoubuMasatakaOniwa = 9301,
+    
+    [Annotation(Name = "Lady Butterfly")]              
+    LadyButterfly = 9302,
+
+    [Annotation(Name = "Genichiro Ashina")]            
+    GenichiroAshina = 9303,
         
-        [Annotation(Name = "Lady Butterfly")]              
-        LadyButterfly = 9302,
+    [Annotation(Name = "Folding Screen Monkeys")]      
+    FoldingScreenMonkeys = 9305,
+    
+    [Annotation(Name = "Guardian Ape")]                
+    GuardianApe = 9304,
+    
+    [Annotation(Name = "Headless Ape")]                
+    HeadlessApe = 9307,
+    
+    [Annotation(Name = "Corrupted Monk (ghost)")]      
+    CorruptedMonkGhost = 9306,
 
-        [Annotation(Name = "Genichiro Ashina")]            
-        GenichiroAshina = 9303,
-            
-        [Annotation(Name = "Folding Screen Monkeys")]      
-        FoldingScreenMonkeys = 9305,
-        
-        [Annotation(Name = "Guardian Ape")]                
-        GuardianApe = 9304,
-        
-        [Annotation(Name = "Headless Ape")]                
-        HeadlessApe = 9307,
-        
-        [Annotation(Name = "Corrupted Monk (ghost)")]      
-        CorruptedMonkGhost = 9306,
+    [Annotation(Name = "Emma, the Gentle Blade")]      
+    EmmaTheGentleBlade = 9315,
 
-        [Annotation(Name = "Emma, the Gentle Blade")]      
-        EmmaTheGentleBlade = 9315,
+    [Annotation(Name = "Isshin Ashina")]               
+    IsshinAshina = 9316,
 
-        [Annotation(Name = "Isshin Ashina")]               
-        IsshinAshina = 9316,
+    [Annotation(Name = "Great Shinobi Owl")]            
+    GreatShinobiOwl = 9308,
 
-        [Annotation(Name = "Great Shinobi Owl")]            
-        GreatShinobiOwl = 9308,
+    [Annotation(Name = "True Corrupted Monk")]         
+    TrueCorruptedMonk = 9309,
 
-        [Annotation(Name = "True Corrupted Monk")]         
-        TrueCorruptedMonk = 9309,
+    [Annotation(Name = "Divine Dragon")]               
+    DivineDragon = 9310,
 
-        [Annotation(Name = "Divine Dragon")]               
-        DivineDragon = 9310,
+    [Annotation(Name = "Owl (Father)")]                
+    OwlFather = 9317,
 
-        [Annotation(Name = "Owl (Father)")]                
-        OwlFather = 9317,
+    [Annotation(Name = "Demon of Hatred")]             
+    DemonOfHatred = 9313,
 
-        [Annotation(Name = "Demon of Hatred")]             
-        DemonOfHatred = 9313,
-
-        [Annotation(Name = "Isshin, the Sword Saint")]     
-        IsshinTheSwordSaint = 9312,
-    }
+    [Annotation(Name = "Isshin, the Sword Saint")]     
+    IsshinTheSwordSaint = 9312,
 }

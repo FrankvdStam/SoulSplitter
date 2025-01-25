@@ -17,32 +17,25 @@
 using System;
 using SoulMemory.MemoryV2.Memory;
 
-namespace SoulMemory.MemoryV2
+namespace SoulMemory.MemoryV2;
+
+/// <summary>
+/// IMemory access to an array of memory. Allows resolving pointers and reading data/writing data.
+/// </summary>
+public class ByteArrayMemory(byte[] data) : IMemory
 {
-    /// <summary>
-    /// IMemory access to an array of memory. Allows resolving pointers and reading data/writing data.
-    /// </summary>
-    public class ByteArrayMemory : IMemory
+    public byte[] ReadBytes(long offset, int length)
     {
-        private readonly byte[] _data;
-        public ByteArrayMemory(byte[] data)
-        {
-            _data = data;
-        }
+        var buffer = new byte[length];
+        Array.Copy(data, offset, buffer, 0, length);
+        return buffer;
+    }
 
-        public byte[] ReadBytes(long offset, int length)
+    public void WriteBytes(long offset, byte[] bytes)
+    {
+        for (int i = 0; i < bytes.Length; i++)
         {
-            var buffer = new byte[length];
-            Array.Copy(_data, offset, buffer, 0, length);
-            return buffer;
-        }
-
-        public void WriteBytes(long offset, byte[] bytes)
-        {
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                _data[offset + i] = bytes[i];
-            }
+            data[offset + i] = bytes[i];
         }
     }
 }

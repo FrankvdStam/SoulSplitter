@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.MemoryV2.Process
+namespace SoulMemory.MemoryV2.Process;
+
+public enum ProcessRefreshResult
 {
-    public enum ProcessRefreshResult
-    {
-        ProcessNotRunning,
-        Initialized,
-        Exited,
-        Error,
-        Refreshed,
-    }
+    ProcessNotRunning,
+    Initialized,
+    Exited,
+    Error,
+    Refreshed,
 }

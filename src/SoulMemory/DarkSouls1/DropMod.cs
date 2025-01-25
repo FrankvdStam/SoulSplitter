@@ -17,139 +17,121 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SoulMemory.DarkSouls1
+namespace SoulMemory.DarkSouls1;
+
+public class DropMod(IDarkSouls1 darkSouls)
 {
-    public class DropMod
+    public void InitBkh()
     {
-        private readonly IDarkSouls1 _darkSouls;
-
-        public DropMod(IDarkSouls1 darkSouls)
+        darkSouls.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\n\n\n\n\n\n\n\n\n\n");
+        for (int i = 0; i < 62; i++)
         {
-            _darkSouls = darkSouls;
+            darkSouls.SetLoadingScreenItem(i, 1105000);
         }
+        GuaranteeDrop(27901000, 1105000);
+    }
 
-        public void InitBkh()
+    public void InitAllAchievements()
+    {
+        darkSouls.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\nEye of Death\n\n\n\n\n");
+
+        for (int i = 0; i < 62; i++)
         {
-            _darkSouls.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\n\n\n\n\n\n\n\n\n\n");
-            for (int i = 0; i < 62; i++)
-            {
-                _darkSouls.SetLoadingScreenItem(i, 1105000);
-            }
-            GuaranteeDrop(27901000, 1105000);
-        }
-
-        public void InitAllAchievements()
-        {
-            _darkSouls.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\nEye of Death\n\n\n\n\n");
-
-            for (int i = 0; i < 62; i++)
-            {
-                _darkSouls.SetLoadingScreenItem(i, 1004000);
-            }
-            
-            //trident
-            GuaranteeDrop(23700000, 1004000);
-            GuaranteeDrop(23700100, 1004000);
-            GuaranteeDrop(23700200, 1004000);
-
-            //Eye of death
-            GuaranteeDrop(32700000, 109);
-            GuaranteeDrop(32700100, 109);
-
-            //Souvenir
-            GuaranteeDrop(23100000, 374);
-
-            foreach (var s in _switchableWeapons)
-            {
-                GuaranteeDrop(s.RowId, s.ItemId1);
-            }
-        }
-
-        public void UpdateAllAchievements()
-        {
-            var items = _darkSouls.GetInventory();
-
-            foreach (SwitchableDrop temp in _switchableWeapons)
-            {
-                var s = temp; //structs need to be put in a variable in order to be mutable. Meme.
-                if (s.ShouldSwitch && items.Any(j => j.ItemType == s.SwitchItem))
-                {
-                    GuaranteeDrop(s.RowId, s.ItemId2);
-                    s.ShouldSwitch = false;
-                }
-            }
-        }
-
-        public void ResetAllAchievements()
-        {
-            foreach (SwitchableDrop temp in _switchableWeapons)
-            {
-                var s = temp; //structs need to be put in a variable in order to be mutable. Meme.
-                s.ShouldSwitch = true;
-            }
-        }
-
-        private void GuaranteeDrop(int rowId, int itemId)
-        {
-            _darkSouls.WriteItemLotParam(rowId, (itemLot) =>
-            {
-                itemLot.LotItemBasePoint01 = (ushort)(itemLot.LotItemId01 == itemId ? 100 : 0);
-                itemLot.LotItemBasePoint02 = (ushort)(itemLot.LotItemId02 == itemId ? 100 : 0);
-                itemLot.LotItemBasePoint03 = (ushort)(itemLot.LotItemId03 == itemId ? 100 : 0);
-                itemLot.LotItemBasePoint04 = (ushort)(itemLot.LotItemId04 == itemId ? 100 : 0);
-                itemLot.LotItemBasePoint05 = (ushort)(itemLot.LotItemId05 == itemId ? 100 : 0);
-                itemLot.LotItemBasePoint06 = (ushort)(itemLot.LotItemId06 == itemId ? 100 : 0);
-                itemLot.LotItemBasePoint07 = (ushort)(itemLot.LotItemId07 == itemId ? 100 : 0);
-                itemLot.LotItemBasePoint08 = (ushort)(itemLot.LotItemId08 == itemId ? 100 : 0);
-            });
+            darkSouls.SetLoadingScreenItem(i, 1004000);
         }
         
+        //trident
+        GuaranteeDrop(23700000, 1004000);
+        GuaranteeDrop(23700100, 1004000);
+        GuaranteeDrop(23700200, 1004000);
 
-        private readonly List<SwitchableDrop> _switchableWeapons = new List<SwitchableDrop>()
+        //Eye of death
+        GuaranteeDrop(32700000, 109);
+        GuaranteeDrop(32700100, 109);
+
+        //Souvenir
+        GuaranteeDrop(23100000, 374);
+
+        foreach (var s in _switchableWeapons)
         {
-            //Darkroot
-            new SwitchableDrop(ItemType.StoneGreatsword          , 23800000, 306000 , 1503000),
-
-            //Anor londo
-            new SwitchableDrop(ItemType.SilverKnightStraightSword, 24100000, 208000 , 1473000),
-            new SwitchableDrop(ItemType.SilverKnightSpear        , 24100300, 1006000, 1473000),
-            
-            //kiln
-            new SwitchableDrop(ItemType.BlackKnightHalberd       , 27905300, 1105000, 1474000),
-            new SwitchableDrop(ItemType.BlackKnightGreataxe      , 27905200, 753000 , 1474000),
-            new SwitchableDrop(ItemType.BlackKnightSword         , 27905000, 310000 , 1474000),
-            new SwitchableDrop(ItemType.BlackKnightGreatsword    , 27905100, 355000 , 1474000),
-            
-            //Darkroot Garden
-            new SwitchableDrop(ItemType.BlackKnightHalberd       , 27901000, 1105000, 1474000),
-            
-            //undead burg
-            new SwitchableDrop(ItemType.BlackKnightSword         , 27900000, 1105000, 1474000),
-
-            //Asylum
-            new SwitchableDrop(ItemType.BlackKnightSword         , 27907000, 310000 , 1474000),
-
-            //Catacombs
-            new SwitchableDrop(ItemType.BlackKnightGreataxe      , 27902000, 753000 , 1474000),
-            new SwitchableDrop(ItemType.BlackKnightHalberd       , 27903000, 1105000, 1474000),
-        };
-
-        private struct SwitchableDrop
-        {
-            public SwitchableDrop(ItemType switchItem, int rowId, int itemId1, int itemId2)
-            {
-                ShouldSwitch = true;
-                SwitchItem   = switchItem  ;
-                RowId        = rowId       ;
-                ItemId1      = itemId1     ;
-                ItemId2      = itemId2     ;
-            }
-            
-            public bool ShouldSwitch;
-            public ItemType SwitchItem;
-            public int RowId;
-            public int ItemId1;
-            public int ItemId2;
+            GuaranteeDrop(s.RowId, s.ItemId1);
         }
+    }
+
+    public void UpdateAllAchievements()
+    {
+        var items = darkSouls.GetInventory();
+
+        foreach (SwitchableDrop temp in _switchableWeapons)
+        {
+            var s = temp; //structs need to be put in a variable in order to be mutable. Meme.
+            if (s.ShouldSwitch && items.Any(j => j.ItemType == s.SwitchItem))
+            {
+                GuaranteeDrop(s.RowId, s.ItemId2);
+                s.ShouldSwitch = false;
+            }
+        }
+    }
+
+    public void ResetAllAchievements()
+    {
+        foreach (SwitchableDrop temp in _switchableWeapons)
+        {
+            var s = temp; //structs need to be put in a variable in order to be mutable. Meme.
+            s.ShouldSwitch = true;
+        }
+    }
+
+    private void GuaranteeDrop(int rowId, int itemId)
+    {
+        darkSouls.WriteItemLotParam(rowId, (itemLot) =>
+        {
+            itemLot.LotItemBasePoint01 = (ushort)(itemLot.LotItemId01 == itemId ? 100 : 0);
+            itemLot.LotItemBasePoint02 = (ushort)(itemLot.LotItemId02 == itemId ? 100 : 0);
+            itemLot.LotItemBasePoint03 = (ushort)(itemLot.LotItemId03 == itemId ? 100 : 0);
+            itemLot.LotItemBasePoint04 = (ushort)(itemLot.LotItemId04 == itemId ? 100 : 0);
+            itemLot.LotItemBasePoint05 = (ushort)(itemLot.LotItemId05 == itemId ? 100 : 0);
+            itemLot.LotItemBasePoint06 = (ushort)(itemLot.LotItemId06 == itemId ? 100 : 0);
+            itemLot.LotItemBasePoint07 = (ushort)(itemLot.LotItemId07 == itemId ? 100 : 0);
+            itemLot.LotItemBasePoint08 = (ushort)(itemLot.LotItemId08 == itemId ? 100 : 0);
+        });
+    }
+    
+
+    private readonly List<SwitchableDrop> _switchableWeapons =
+    [
+        new SwitchableDrop(ItemType.StoneGreatsword, 23800000, 306000, 1503000),
+
+        //Anor londo
+        new SwitchableDrop(ItemType.SilverKnightStraightSword, 24100000, 208000, 1473000),
+        new SwitchableDrop(ItemType.SilverKnightSpear, 24100300, 1006000, 1473000),
+
+        //kiln
+        new SwitchableDrop(ItemType.BlackKnightHalberd, 27905300, 1105000, 1474000),
+        new SwitchableDrop(ItemType.BlackKnightGreataxe, 27905200, 753000, 1474000),
+        new SwitchableDrop(ItemType.BlackKnightSword, 27905000, 310000, 1474000),
+        new SwitchableDrop(ItemType.BlackKnightGreatsword, 27905100, 355000, 1474000),
+
+        //Darkroot Garden
+        new SwitchableDrop(ItemType.BlackKnightHalberd, 27901000, 1105000, 1474000),
+
+        //undead burg
+        new SwitchableDrop(ItemType.BlackKnightSword, 27900000, 1105000, 1474000),
+
+        //Asylum
+        new SwitchableDrop(ItemType.BlackKnightSword, 27907000, 310000, 1474000),
+
+        //Catacombs
+        new SwitchableDrop(ItemType.BlackKnightGreataxe, 27902000, 753000, 1474000),
+        new SwitchableDrop(ItemType.BlackKnightHalberd, 27903000, 1105000, 1474000)
+    ];
+
+    private struct SwitchableDrop(ItemType switchItem, int rowId, int itemId1, int itemId2)
+    {
+        public bool ShouldSwitch = true;
+        public ItemType SwitchItem = switchItem;
+        public int RowId = rowId;
+        public int ItemId1 = itemId1;
+        public int ItemId2 = itemId2;
     }
 }

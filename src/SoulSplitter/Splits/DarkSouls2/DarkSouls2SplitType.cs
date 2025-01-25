@@ -14,13 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulSplitter.Splits.DarkSouls2
+namespace SoulSplitter.Splits.DarkSouls2;
+
+public enum DarkSouls2SplitType
 {
-    public enum DarkSouls2SplitType
-    {
-        Position,
-        BossKill,
-        Attribute,
-        Flag,
-    }
+    Position,
+    BossKill,
+    Attribute,
+    Flag,
 }

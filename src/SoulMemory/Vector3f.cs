@@ -16,33 +16,32 @@
 
 using System.Xml.Serialization;
 
-namespace SoulMemory
+namespace SoulMemory;
+
+[XmlType(Namespace = "SoulMemory")]
+public class Vector3f
 {
-    [XmlType(Namespace = "SoulMemory")]
-    public class Vector3f
+    public Vector3f(){ }
+    public Vector3f(float x, float y, float z)
     {
-        public Vector3f(){ }
-        public Vector3f(float x, float y, float z)
-        {
-            X = x;
-            Y = y;
-            Z = z;
-        }
-        
-        public float X { get; set; }
-        
-        public float Y { get; set; }
-        
-        public float Z { get; set; }
+        X = x;
+        Y = y;
+        Z = z;
+    }
+    
+    public float X { get; set; }
+    
+    public float Y { get; set; }
+    
+    public float Z { get; set; }
 
-        public Vector3f Clone()
-        {
-            return new Vector3f(X, Y, Z);
-        }
+    public Vector3f Clone()
+    {
+        return new Vector3f(X, Y, Z);
+    }
 
-        public override string ToString()
-        {
-            return $"{X:N2}, {Y:N2}, {Z:N2}";
-        }
+    public override string ToString()
+    {
+        return $"{X:N2}, {Y:N2}, {Z:N2}";
     }
 }

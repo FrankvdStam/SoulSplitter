@@ -18,44 +18,41 @@ using SoulMemory.Memory;
 using SoulMemory.Parameters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.DarkSouls1.Parameters;
+
+[ExcludeFromCodeCoverage]
+public class WhiteCoolTimeParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
-    [ExcludeFromCodeCoverage]
-    public class WhiteCoolTimeParam : BaseParam
+    [ParamField(0x0, ParamType.F32)]
+    public float TimeLimit0
     {
-        public WhiteCoolTimeParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
-        [ParamField(0x0, ParamType.F32)]
-        public float TimeLimit0
-        {
-            get => _TimeLimit0;
-            set => WriteParamField(ref _TimeLimit0, value);
-        }
-        private float _TimeLimit0;
-
-        [ParamField(0x4, ParamType.F32)]
-        public float TimeLimit1
-        {
-            get => _TimeLimit1;
-            set => WriteParamField(ref _TimeLimit1, value);
-        }
-        private float _TimeLimit1;
-
-        [ParamField(0x8, ParamType.F32)]
-        public float TimeLimit2
-        {
-            get => _TimeLimit2;
-            set => WriteParamField(ref _TimeLimit2, value);
-        }
-        private float _TimeLimit2;
-
-        [ParamField(0xC, ParamType.F32)]
-        public float TimeLimit3
-        {
-            get => _TimeLimit3;
-            set => WriteParamField(ref _TimeLimit3, value);
-        }
-        private float _TimeLimit3;
-
+        get => _TimeLimit0;
+        set => WriteParamField(ref _TimeLimit0, value);
     }
+    private float _TimeLimit0;
+
+    [ParamField(0x4, ParamType.F32)]
+    public float TimeLimit1
+    {
+        get => _TimeLimit1;
+        set => WriteParamField(ref _TimeLimit1, value);
+    }
+    private float _TimeLimit1;
+
+    [ParamField(0x8, ParamType.F32)]
+    public float TimeLimit2
+    {
+        get => _TimeLimit2;
+        set => WriteParamField(ref _TimeLimit2, value);
+    }
+    private float _TimeLimit2;
+
+    [ParamField(0xC, ParamType.F32)]
+    public float TimeLimit3
+    {
+        get => _TimeLimit3;
+        set => WriteParamField(ref _TimeLimit3, value);
+    }
+    private float _TimeLimit3;
+
 }

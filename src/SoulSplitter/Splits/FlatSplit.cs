@@ -16,12 +16,11 @@
 
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.Splits
+namespace SoulSplitter.Splits;
+
+public class FlatSplit
 {
-    public class FlatSplit
-    {
-        public TimingType TimingType;
-        public SplitType SplitType;
-        public object Split;
-    }
+    public TimingType TimingType;
+    public SplitType SplitType;
+    public object Split = null!;
 }

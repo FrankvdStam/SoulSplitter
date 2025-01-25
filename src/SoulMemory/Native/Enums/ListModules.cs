@@ -14,13 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Native.Enums
+namespace SoulMemory.Native.Enums;
+
+public enum ListModules : uint
 {
-    public enum ListModules : uint
-    {
-        LIST_MODULES_DEFAULT = 0x0,
-        LIST_MODULES_32BIT = 0x01,
-        LIST_MODULES_64BIT = 0x02,
-        LIST_MODULES_ALL = 0x03
-    }
+    LIST_MODULES_DEFAULT = 0x0,
+    LIST_MODULES_32BIT = 0x01,
+    LIST_MODULES_64BIT = 0x02,
+    LIST_MODULES_ALL = 0x03
 }

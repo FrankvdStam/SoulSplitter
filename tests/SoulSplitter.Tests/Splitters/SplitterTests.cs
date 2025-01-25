@@ -40,7 +40,7 @@ namespace SoulSplitter.Tests.Splitters
             timerModel.Setup(t => t.Reset())
                 .Raises(t => t.OnReset += null, this, TimerPhase.NotRunning);
             
-            var liveSplitStateMock = new Mock<LiveSplitState>(args: new object[] { null, null, null, null, null });
+            var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
             timerModel.Setup(i => i.CurrentState).Returns(liveSplitStateMock.Object);
             liveSplitStateMock.Object.RegisterTimerModel(timerModel.Object);
 
@@ -192,7 +192,7 @@ namespace SoulSplitter.Tests.Splitters
                         break;
        
                     case SplitType.Bonfire:
-                        darkSouls1.Setup(d => d.GetBonfireState(((Splits.DarkSouls1.BonfireState)split.Split).Bonfire.Value)).Returns(((Splits.DarkSouls1.BonfireState)split.Split).State);
+                        darkSouls1.Setup(d => d.GetBonfireState(((Splits.DarkSouls1.BonfireState)split.Split).Bonfire!.Value)).Returns(((Splits.DarkSouls1.BonfireState)split.Split).State);
                         break;
        
                     case SplitType.Position:
@@ -239,7 +239,7 @@ namespace SoulSplitter.Tests.Splitters
                 //It seems like GameTime might be updated from somewhere else. The logic inside livesplit is complicated.
                 //I noticed that its value (in millis) can be 51.6 after setting it to 50.0
                 //If this asserts starts being funny, just get rid of it.
-                Assert.AreEqual(igt, timerModel.Object.CurrentState.CurrentTime.GameTime.Value.TotalMilliseconds);
+                Assert.AreEqual(igt, timerModel.Object.CurrentState.CurrentTime.GameTime!.Value.TotalMilliseconds);
 
                 darkSouls1.Setup(d => d.GetPosition()).Returns(new SoulMemory.Vector3f());//reset position
             }

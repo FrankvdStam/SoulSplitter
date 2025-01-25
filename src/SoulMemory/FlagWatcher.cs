@@ -18,40 +18,39 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace SoulMemory
+namespace SoulMemory;
+
+/// <summary>
+/// Util to easily track event flag changes, helps with debugging.
+/// </summary>
+[ExcludeFromCodeCoverage]
+public class FlagWatcher
 {
-    /// <summary>
-    /// Util to easily track event flag changes, helps with debugging.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class FlagWatcher
+    public FlagWatcher(IGame game, IEnumerable<uint> flags)
     {
-        public FlagWatcher(IGame game, IEnumerable<uint> flags)
+        _game = game;
+        foreach (var flag in flags)
         {
-            _game = game;
-            foreach (var flag in flags)
+            _flags.Add(flag, _game.ReadEventFlag(flag));
+        }
+    }
+
+    private readonly IGame _game;
+    private readonly Dictionary<uint, bool> _flags = new();
+
+    public Dictionary<uint, bool> Update()
+    {
+        var result = new Dictionary<uint, bool>();
+        for (int i = 0; i < _flags.Count; i++)
+        {
+            var flag = _flags.ElementAt(i);
+            var value = _game.ReadEventFlag(flag.Key);
+            if (value != flag.Value)
             {
-                _flags.Add(flag, _game.ReadEventFlag(flag));
+                result.Add(flag.Key, value);
+                _flags[flag.Key] = value;
             }
         }
-
-        private readonly IGame _game;
-        private readonly Dictionary<uint, bool> _flags = new Dictionary<uint, bool>();
-
-        public Dictionary<uint, bool> Update()
-        {
-            var result = new Dictionary<uint, bool>();
-            for (int i = 0; i < _flags.Count; i++)
-            {
-                var flag = _flags.ElementAt(i);
-                var value = _game.ReadEventFlag(flag.Key);
-                if (value != flag.Value)
-                {
-                    result.Add(flag.Key, value);
-                    _flags[flag.Key] = value;
-                }
-            }
-            return result;
-        }
+        return result;
     }
 }

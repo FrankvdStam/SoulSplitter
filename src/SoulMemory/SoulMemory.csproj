@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>13</LangVersion>
+    <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <Platforms>x64</Platforms>
@@ -75,12 +77,10 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
       <CallTarget Targets="CargoRelease" Condition="'$(Configuration)'=='Release'" />
       <CallTarget Targets="CargoDebug" Condition="'$(Configuration)'=='Debug'" />
   </Target>
-
   <Target Name="CargoDebug">
       <Message Text="Building soulmods x64, debug mode" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target x86_64-pc-windows-msvc" />

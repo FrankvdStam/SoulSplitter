@@ -16,20 +16,19 @@
 
 using SoulMemory;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+public enum TimingType
 {
-    public enum TimingType
-    {
-        [Annotation(Name = "immediate")]
-        Immediate,
-        
-        [Annotation(Name = "on loading")]
-        OnLoading,
+    [Annotation(Name = "immediate")]
+    Immediate,
+    
+    [Annotation(Name = "on loading")]
+    OnLoading,
 
-        [Annotation(Name = "on blackscreen")]
-        OnBlackscreen,
+    [Annotation(Name = "on blackscreen")]
+    OnBlackscreen,
 
-        [Annotation(Name = "on warp")]
-        OnWarp,
-    }
+    [Annotation(Name = "on warp")]
+    OnWarp,
 }

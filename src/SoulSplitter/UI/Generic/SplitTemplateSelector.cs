@@ -18,27 +18,20 @@ using System;
 using System.Windows.Controls;
 using System.Windows;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+public class SplitTemplateSelector : DataTemplateSelector
 {
-    public class SplitTemplateSelector : DataTemplateSelector
+    public DataTemplate EnumTemplate { get; set; } = null!;
+    public DataTemplate VectorSizeTemplate { get; set; } = null!;
+
+    public override DataTemplate SelectTemplate(object? item, DependencyObject container)
     {
-        public DataTemplate EnumTemplate { get; set; }
-        public DataTemplate VectorSizeTemplate { get; set; }
-
-        public override DataTemplate SelectTemplate(object item, DependencyObject container) 
+        return item switch
         {
-            if(item is Enum)
-            {
-                return EnumTemplate;
-            }
-            else if (item is VectorSize)
-            {
-                return VectorSizeTemplate;
-            }
-
-            return VectorSizeTemplate;
-
-            
-        }
+            Enum => EnumTemplate,
+            VectorSize => VectorSizeTemplate,
+            _ => VectorSizeTemplate
+        };
     }
 }

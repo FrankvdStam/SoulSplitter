@@ -15,116 +15,92 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using SoulMemory.EldenRing;
 using SoulSplitter.Splits.EldenRing;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.UI.EldenRing
+namespace SoulSplitter.UI.EldenRing;
+
+public class HierarchicalTimingTypeViewModel : ICustomNotifyPropertyChanged
 {
-    public class HierarchicalTimingTypeViewModel : INotifyPropertyChanged
+    public TimingType TimingType
     {
-        public TimingType TimingType
-        {
-            get => _timingType;
-            set => SetField(ref _timingType, value);
-        }
-        private TimingType _timingType;
+        get => _timingType;
+        set => this.SetField(ref _timingType, value);
+    }
+    private TimingType _timingType;
 
-        public ObservableCollection<HierarchicalSplitTypeViewModel> Children { get; set; } = new ObservableCollection<HierarchicalSplitTypeViewModel>();
+    public ObservableCollection<HierarchicalSplitTypeViewModel> Children { get; set; } = [];
 
-        #region INotifyPropertyChanged
+    #region ICustomNotifyPropertyChanged
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
-        #endregion
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    public class HierarchicalSplitTypeViewModel : INotifyPropertyChanged
+    #endregion
+}
+
+public class HierarchicalSplitTypeViewModel : ICustomNotifyPropertyChanged
+{
+    [XmlIgnore]
+    [NonSerialized]
+    public HierarchicalTimingTypeViewModel? Parent;
+
+    public EldenRingSplitType EldenRingSplitType
     {
-        [XmlIgnore]
-        [NonSerialized]
-        public HierarchicalTimingTypeViewModel Parent;
+        get => _eldenRingSplitType;
+        set => this.SetField(ref _eldenRingSplitType, value);
+    }
+    private EldenRingSplitType _eldenRingSplitType;
 
-        public EldenRingSplitType EldenRingSplitType
-        {
-            get => _eldenRingSplitType;
-            set => SetField(ref _eldenRingSplitType, value);
-        }
-        private EldenRingSplitType _eldenRingSplitType;
+    public ObservableCollection<HierarchicalSplitViewModel> Children { get; set; } = [];
 
-        public ObservableCollection<HierarchicalSplitViewModel> Children { get; set; } = new ObservableCollection<HierarchicalSplitViewModel>();
+    #region ICustomNotifyPropertyChanged
 
-        #region INotifyPropertyChanged
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
-        #endregion
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    [XmlInclude(typeof(Boss))]
-    [XmlInclude(typeof(Grace))]
-    [XmlInclude(typeof(ItemPickup))]
-    [XmlInclude(typeof(uint))]
-    [XmlInclude(typeof(Item))]
-    [XmlInclude(typeof(Position))]
-    public class HierarchicalSplitViewModel : INotifyPropertyChanged
+    #endregion
+}
+
+[XmlInclude(typeof(Boss))]
+[XmlInclude(typeof(Grace))]
+[XmlInclude(typeof(ItemPickup))]
+[XmlInclude(typeof(uint))]
+[XmlInclude(typeof(Item))]
+[XmlInclude(typeof(Position))]
+public class HierarchicalSplitViewModel : ICustomNotifyPropertyChanged
+{
+    [XmlIgnore]
+    [NonSerialized]
+    public HierarchicalSplitTypeViewModel? Parent;
+
+    public object Split
     {
-        [XmlIgnore]
-        [NonSerialized]
-        public HierarchicalSplitTypeViewModel Parent;
-
-        public object Split
-        {
-            get => _split;
-            set => SetField(ref _split, value);
-        }
-        private object _split;
-
-        #region INotifyPropertyChanged
-
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
-        #endregion
+        get => _split;
+        set => this.SetField(ref _split, value);
     }
+    private object _split = null!;
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

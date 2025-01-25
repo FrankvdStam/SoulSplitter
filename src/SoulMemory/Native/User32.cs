@@ -18,22 +18,21 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
-namespace SoulMemory.Native
+namespace SoulMemory.Native;
+
+[ExcludeFromCodeCoverage]
+internal static class User32
 {
-    [ExcludeFromCodeCoverage]
-    internal static class User32
+    [DllImport("user32.dll")]
+    private static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint processId);
+
+    [DllImport("user32.dll")]
+    private static extern IntPtr GetForegroundWindow();
+
+    public static uint GetForegroundProcessId()
     {
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint processId);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
-
-        public static uint GetForegroundProcessId()
-        {
-            IntPtr hWnd = GetForegroundWindow();
-            GetWindowThreadProcessId(hWnd, out uint pid);
-            return pid;
-        }
+        IntPtr hWnd = GetForegroundWindow();
+        GetWindowThreadProcessId(hWnd, out uint pid);
+        return pid;
     }
 }

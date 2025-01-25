@@ -16,29 +16,28 @@
 
 using System.Collections.Generic;
 
-namespace SoulMemory.Memory
+namespace SoulMemory.Memory;
+
+public class PointerNode
 {
-    public class PointerNode
-    {
-        public NodeType NodeType;
+    public NodeType NodeType;
 
-        //Used for scans
-        public string Name = "";
-        public string Pattern = "";
+    //Used for scans
+    public string Name = "";
+    public string Pattern = "";
 
-        //Used for relative scans
-        public long AddressOffset;
-        public long InstructionSize;
+    //Used for relative scans
+    public long AddressOffset;
+    public long InstructionSize;
 
-        //used for absolute scans
-        public long? Offset;
+    //used for absolute scans
+    public long? Offset;
 
-        //used for pointers
-        public long[] Offsets = new long[] { };
-        public Pointer Pointer = new Pointer();
+    //used for pointers
+    public long[] Offsets = [];
+    public Pointer Pointer = new();
 
-        public List<PointerNode> Pointers = new List<PointerNode>();
+    public List<PointerNode> Pointers = [];
 
-        public override string ToString() => Name;
-    }
+    public override string ToString() => Name;
 }

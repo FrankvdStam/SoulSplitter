@@ -18,23 +18,22 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace SoulSplitter.UI.Converters
+namespace SoulSplitter.UI.Converters;
+
+public class EnumValueEnumParameterConverter : IValueConverter
 {
-    public class EnumValueEnumParameterConverter : IValueConverter
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        if (value is Enum valueEnum && parameter is Enum valueParameter && valueEnum.GetType() == valueParameter.GetType())
         {
-            if (value is Enum valueEnum && parameter is Enum valueParameter && valueEnum.GetType() == valueParameter.GetType())
-            {
-                return valueEnum.Equals(valueParameter);
-            }
-
-            return false;
+            return valueEnum.Equals(valueParameter);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return parameter;
-        }
+        return false;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return parameter!;
     }
 }

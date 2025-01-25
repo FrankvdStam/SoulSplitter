@@ -22,112 +22,92 @@ using SoulMemory.DarkSouls3;
 using SoulSplitter.UI.Generic;
 using Attribute = SoulSplitter.Splits.DarkSouls3.Attribute;
 
-namespace SoulSplitter.UI.DarkSouls3
+namespace SoulSplitter.UI.DarkSouls3;
+
+public class DarkSouls3ViewModel : BaseViewModel
 {
-    public class DarkSouls3ViewModel : BaseViewModel
+    public DarkSouls3ViewModel()
     {
-        public DarkSouls3ViewModel()
+        AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
+    }
+
+    #region add/remove splits ============================================================================================================================================
+
+    private bool CanAddSplit() 
+    {
+        if(NewSplitTimingType == null || NewSplitType == null)
         {
-            AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
+            return false;
         }
 
-        #region add/remove splits ============================================================================================================================================
-
-        private bool CanAddSplit(object param) 
+        return NewSplitType switch
         {
-            if(NewSplitTimingType == null || NewSplitType == null)
+            SplitType.Flag => FlagDescription != null,
+            SplitType.Position => Position != null,
+            _ => NewSplitValue != null
+        };
+    }
+
+    private void AddSplit()
+    {
+        var split = NewSplitType switch
+        {
+            SplitType.Boss or SplitType.Bonfire or SplitType.ItemPickup or SplitType.Attribute => NewSplitValue!,
+            SplitType.Position => Position,
+            SplitType.Flag => FlagDescription,
+            _ => throw new ArgumentException($"{NewSplitType} not supported")
+        };
+        SplitsViewModel.AddSplit(NewSplitTimingType!.Value, NewSplitType.Value, split!);
+
+        NewSplitTimingType = null;
+        NewSplitEnabledSplitType = false;
+        NewSplitType = null;
+    }
+
+    #endregion
+
+    #region Properties for new splits ============================================================================================================================================
+
+    public bool LockIgtToZero
+    {
+        get => _lockIgtToZero;
+        set => this.SetField(ref _lockIgtToZero, value);
+    }
+    private bool _lockIgtToZero;
+
+    [XmlIgnore]
+    public new SplitType? NewSplitType
+    {
+        get => _newSplitType;
+        set
+        {
+            this.SetField(ref _newSplitType, value);
+
+            if(NewSplitType == SplitType.Attribute)
             {
-                return false;
-            }
-            
-            if(NewSplitType == SplitType.Flag)
-            {
-                return FlagDescription != null;
+                NewSplitValue = new Attribute() { AttributeType = SoulMemory.DarkSouls3.Attribute.Vigor, Level = 10 };
             }
 
             if(NewSplitType == SplitType.Position)
             {
-                return Position != null;
+                Position = new VectorSize() { Position = CurrentPosition.Clone() };
             }
 
-            return NewSplitValue != null;
-        }
-
-        private void AddSplit(object param)
-        {
-            object split = null;
-            switch (NewSplitType)
+            if(NewSplitType == SplitType.Flag)
             {
-                default:
-                    throw new ArgumentException($"{NewSplitType} not supported");
-
-                case SplitType.Boss:
-                case SplitType.Bonfire:
-                case SplitType.ItemPickup:
-                case SplitType.Attribute:
-                    split = NewSplitValue;
-                    break;
-
-                case SplitType.Position:
-                    split = Position;
-                    break;
-
-                case SplitType.Flag:
-                    split = FlagDescription;
-                    break;
-            }
-            SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);
-
-            NewSplitTimingType = null;
-            NewSplitEnabledSplitType = false;
-            NewSplitType = null;
-        }
-
-        #endregion
-
-        #region Properties for new splits ============================================================================================================================================
-
-        public bool LockIgtToZero
-        {
-            get => _lockIgtToZero;
-            set => SetField(ref _lockIgtToZero, value);
-        }
-        private bool _lockIgtToZero = false;
-
-        [XmlIgnore]
-        public new SplitType? NewSplitType
-        {
-            get => _newSplitType;
-            set
-            {
-                SetField(ref _newSplitType, value);
-
-                if(NewSplitType == SplitType.Attribute)
-                {
-                    NewSplitValue = new Attribute() { AttributeType = SoulMemory.DarkSouls3.Attribute.Vigor, Level = 10 };
-                }
-
-                if(NewSplitType == SplitType.Position)
-                {
-                    Position = new VectorSize() { Position = CurrentPosition.Clone() };
-                }
-
-                if(NewSplitType == SplitType.Flag)
-                {
-                    FlagDescription = new FlagDescription();
-                }
+                FlagDescription = new FlagDescription();
             }
         }
-        private SplitType? _newSplitType = null;
-
-        #endregion
-
-        #region Static UI source data ============================================================================================================================================
-
-        public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<Boss>>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
-        public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = new ObservableCollection<EnumFlagViewModel<Bonfire>>(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
-        public static ObservableCollection<EnumFlagViewModel<ItemPickup>> ItemPickups { get; set; } = new ObservableCollection<EnumFlagViewModel<ItemPickup>>(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new EnumFlagViewModel<ItemPickup>(i)));
-
-        #endregion
     }
+    private SplitType? _newSplitType;
+
+    #endregion
+
+    #region Static UI source data ============================================================================================================================================
+
+    public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
+    public static ObservableCollection<EnumFlagViewModel<Bonfire>> Bonfires { get; set; } = new(Enum.GetValues(typeof(Bonfire)).Cast<Bonfire>().Select(i => new EnumFlagViewModel<Bonfire>(i)));
+    public static ObservableCollection<EnumFlagViewModel<ItemPickup>> ItemPickups { get; set; } = new(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new EnumFlagViewModel<ItemPickup>(i)));
+
+    #endregion
 }

@@ -15,82 +15,72 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using SoulMemory.Memory;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+public class EnumFlagViewModel<T> : ICustomNotifyPropertyChanged where T : Enum
 {
-    public class EnumFlagViewModel<T> : INotifyPropertyChanged where T : Enum
+    public EnumFlagViewModel(T tEnum)
     {
-        public EnumFlagViewModel(T tEnum)
-        {
-            Value = tEnum;
-            Name = Value.GetDisplayName();
-            Area = Value.GetDisplayDescription();
-            Flag = Convert.ToUInt32(Value);
-        }
-        
-        public T Value
-        {
-            get => _value;
-            set => SetField(ref _value, value);
-        }
-        private T _value;
+        Value = tEnum;
+        Name = Value.GetDisplayName();
+        Area = Value.GetDisplayDescription();
+        Flag = Convert.ToUInt32(Value);
+    }
+    
+    public T Value
+    {
+        get => _value;
+        set => this.SetField(ref _value, value);
+    }
+    private T _value = default!;
 
-        public string Area
-        {
-            get => _area;
-            set => SetField(ref _area, value);
-        }
-        private string _area;
+    public string Area
+    {
+        get => _area;
+        set => this.SetField(ref _area, value);
+    }
+    private string _area = null!;
 
-        public string Name
-        {
-            get => _name;
-            set => SetField(ref _name, value);
-        }
-        private string _name;
+    public string Name
+    {
+        get => _name;
+        set => this.SetField(ref _name, value);
+    }
+    private string _name = null!;
 
-        public uint Flag
-        {
-            get => _flag;
-            set => SetField(ref _flag, value);
-        }
-        private uint _flag;
+    public uint Flag
+    {
+        get => _flag;
+        set => this.SetField(ref _flag, value);
+    }
+    private uint _flag;
 
-        /// <summary>
-        /// Used to compare items in the filtered combobox
-        /// </summary>
-        public override string ToString()
-        {
-            return Name;
-        }
+    /// <summary>
+    /// Used to compare items in the filtered combobox
+    /// </summary>
+    public override string ToString()
+    {
+        return Name;
+    }
 
-        #region INotifyPropertyChanged
-        private bool SetField<U>(ref U field, U value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<U>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
+    #region ICustomNotifyPropertyChanged
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
-        #endregion
+    #endregion
 
-        public static ObservableCollection<EnumFlagViewModel<T>> GetEnumViewModels()
-        {
-            return new ObservableCollection<EnumFlagViewModel<T>>(Enum.GetValues(typeof(T)).Cast<T>().Select(i => new EnumFlagViewModel<T>(i)));
-        }
+    public static ObservableCollection<EnumFlagViewModel<T>> GetEnumViewModels()
+    {
+        return new ObservableCollection<EnumFlagViewModel<T>>(Enum.GetValues(typeof(T)).Cast<T>().Select(i => new EnumFlagViewModel<T>(i)));
     }
 }

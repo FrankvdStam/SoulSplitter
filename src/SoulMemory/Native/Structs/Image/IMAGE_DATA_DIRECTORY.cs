@@ -16,12 +16,11 @@
 
 using System.Runtime.InteropServices;
 
-namespace SoulMemory.Native.Structs.Image
+namespace SoulMemory.Native.Structs.Image;
+
+[StructLayout(LayoutKind.Sequential)]
+public struct IMAGE_DATA_DIRECTORY
 {
-    [StructLayout(LayoutKind.Sequential)]
-    public struct IMAGE_DATA_DIRECTORY
-    {
-        public uint VirtualAddress;
-        public uint Size;
-    }
+    public uint VirtualAddress;
+    public uint Size;
 }

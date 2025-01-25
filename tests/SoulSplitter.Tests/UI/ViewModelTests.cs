@@ -42,24 +42,13 @@ namespace SoulSplitter.Tests.UI
         [DynamicData(nameof(TestCases))]
         public void AddSplitTest(GameType gameType, AddSplit addSplit, TimingType timingType, SplitType splitType, object split)
         {
-            BaseViewModel viewModel = null;
-            switch(gameType)
+            BaseViewModel viewModel = gameType switch
             {
-                case GameType.DarkSouls1:
-                    viewModel = new DarkSouls1ViewModel();
-                    break;
-
-                case GameType.DarkSouls3:
-                    viewModel = new DarkSouls3ViewModel();
-                    break;
-
-                case GameType.Sekiro:
-                    viewModel = new SekiroViewModel();
-                    break;
-
-                default:
-                    throw new Exception($"unsupported GameType {gameType}");
-            }
+                GameType.DarkSouls1 => new DarkSouls1ViewModel(),
+                GameType.DarkSouls3 => new DarkSouls3ViewModel(),
+                GameType.Sekiro => new SekiroViewModel(),
+                _ => throw new Exception($"unsupported GameType {gameType}")
+            };
 
             addSplit(viewModel, timingType, splitType, split);
 
@@ -98,24 +87,13 @@ namespace SoulSplitter.Tests.UI
                 var expectedTimingTypes = new Dictionary<TimingType, int>();
                 var expectedSplitTypes = new Dictionary<SplitType, int>();
 
-                BaseViewModel viewModel = null;
-                switch (gameType.Key)
+                BaseViewModel viewModel = gameType.Key switch
                 {
-                    case GameType.DarkSouls1:
-                        viewModel = new DarkSouls1ViewModel();
-                        break;
-
-                    case GameType.DarkSouls3:
-                        viewModel = new DarkSouls3ViewModel();
-                        break;
-
-                    case GameType.Sekiro:
-                        viewModel = new SekiroViewModel();
-                        break;
-
-                    default:
-                        throw new Exception($"unsupported GameType {gameType}");
-                }
+                    GameType.DarkSouls1 => new DarkSouls1ViewModel(),
+                    GameType.DarkSouls3 => new DarkSouls3ViewModel(),
+                    GameType.Sekiro => new SekiroViewModel(),
+                    _ => throw new Exception($"unsupported GameType {gameType}")
+                };
 
                 //Add all the splits defined in the testdata to the VM
                 foreach (var testCaseData in testData)
