@@ -45,8 +45,15 @@ jobs:
       - name: Qodana Scan
         if: ${{ !github.event.pull_request.head.repo.fork }}
         uses: JetBrains/qodana-action@v2024.1
+        with:
+          args: --baseline,qodana.sarif.json
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+ 
+      - name: upload to github code scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
 
         #Collect all the artifacts and publish them
       - name: collect artifacts
