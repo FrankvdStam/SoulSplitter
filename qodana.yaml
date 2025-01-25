@@ -19,8 +19,6 @@ exclude:
       - tests
       - src/Cli
 
-linter: jetbrains/qodana-dotnet:2024.3
-
 dependencyOverrides:
     #this unfortunately does not get detected automatically by qodana
   - name: "NETStandard.Library"
