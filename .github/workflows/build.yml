@@ -18,14 +18,12 @@ jobs:
       pull-requests: write
       checks: write
     steps:
-        #clone, setup dotnet, restore packages
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: get version
-        shell: pwsh
         run: |
             $version = select-xml -path "Directory.Build.props" -xpath "//PropertyGroup//Version" | Select-Object  -ExpandProperty Node | Select-Object -ExpandProperty '#text'
             echo "VERSION=$version" >> $env:GITHUB_ENV
@@ -52,7 +50,7 @@ jobs:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
  
       - name: upload to github code scanning
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
 
