@@ -47,7 +47,6 @@ jobs:
         uses: JetBrains/qodana-action@v2024.1
         with:
           args: --baseline,qodana.sarif.json
-          push-fixes: pull-request
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
  
