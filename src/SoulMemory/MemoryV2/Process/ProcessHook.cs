@@ -20,15 +20,16 @@ namespace SoulMemory.MemoryV2.Process
 {
     public class ProcessHook : IProcessHook
     {
-        public ProcessHook(string name)
+        public ProcessHook(string name, IProcessWrapper processWrapper = null)
         {
             _name = name;
+            ProcessWrapper = processWrapper ?? new ProcessWrapper();
         }
 
         private readonly string _name;
 
 
-        public IProcessWrapper ProcessWrapper { get; set; } = new ProcessWrapper();
+        public IProcessWrapper ProcessWrapper { get; set; }
 
         public System.Diagnostics.Process GetProcess() => ProcessWrapper.GetProcess();
 

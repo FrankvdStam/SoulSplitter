@@ -58,5 +58,16 @@ namespace SoulMemory.Memory
             }
             return displayName;
         }
+
+        public static T GetEnumAttribute<T>(this Enum value) where T : Attribute
+        {
+            var attribute = value
+                .GetType()
+                .GetMember(value.ToString())
+                .FirstOrDefault()
+                .GetCustomAttribute<T>();
+
+            return attribute;
+        }
     }
 }

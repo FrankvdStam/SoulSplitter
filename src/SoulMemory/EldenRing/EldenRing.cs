@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using Pointer = SoulMemory.Memory.Pointer;
@@ -80,39 +81,49 @@ namespace SoulMemory.EldenRing
             var version = GetVersion(v);
             switch (version)
             {
-                case EldenRingVersion.V102:
+                case EldenRingVersion.V1_02_0:
+                case EldenRingVersion.V1_02_1:
+                case EldenRingVersion.V1_02_2:
+                case EldenRingVersion.V1_02_3:
                     _screenStateOffset = 0x718;
                     _positionOffset = 0x6b8;
                     _mapIdOffset = 0x6c8;
                     _playerInsOffset = 0x18468;
                     break;
 
-                case EldenRingVersion.V103:
+                case EldenRingVersion.V1_03_0:
+                case EldenRingVersion.V1_03_1:
+                case EldenRingVersion.V1_03_2:
                     _screenStateOffset = 0x728;
                     _positionOffset = 0x6b8;
                     _mapIdOffset = 0x6c8;
                     _playerInsOffset = 0x18468;
                     break;
 
-                case EldenRingVersion.V104:
-                case EldenRingVersion.V105:
-                case EldenRingVersion.V106:
+
+                case EldenRingVersion.V1_04_0:
+                case EldenRingVersion.V1_04_1:
+                case EldenRingVersion.V1_05_0:
+                case EldenRingVersion.V1_06_0:
                     _screenStateOffset = 0x728;
                     _positionOffset = 0x6B0;
                     _mapIdOffset = 0x6c0;
                     _playerInsOffset = 0x18468;
                     break;
 
-                case EldenRingVersion.V107:
+                case EldenRingVersion.V1_07_0:
                     _screenStateOffset = 0x728;
                     _positionOffset = 0x6B0;
                     _mapIdOffset = 0x6c0;
                     _playerInsOffset = 0x1e508;
                     break;
 
-                case EldenRingVersion.V108:
-                case EldenRingVersion.V109:
-                case EldenRingVersion.V110:
+                case EldenRingVersion.V1_08_0:
+                case EldenRingVersion.V1_08_1:
+                case EldenRingVersion.V1_09_0:
+                case EldenRingVersion.V1_09_1:
+                case EldenRingVersion.V1_10_0:
+                case EldenRingVersion.V1_10_1:
                     _screenStateOffset = 0x728;
                     _positionOffset = 0x6d4;
                     _mapIdOffset = 0x6d0;
@@ -120,7 +131,12 @@ namespace SoulMemory.EldenRing
                     break;
 
                 default:
-                case EldenRingVersion.V112:
+                case EldenRingVersion.V1_12_0:
+                case EldenRingVersion.V1_12_3:
+                case EldenRingVersion.V1_13_0:
+                case EldenRingVersion.V1_14_0:
+                case EldenRingVersion.V1_15_0:
+                case EldenRingVersion.V1_16_0:
                     _screenStateOffset = 0x730;
                     _positionOffset = 0x6d4;
                     _mapIdOffset = 0x6d0;
@@ -186,66 +202,90 @@ namespace SoulMemory.EldenRing
 
         #endregion
 
+        #region version ================================================================================================
+
+        private readonly List<(EldenRingVersion eldenRingVersion, Version version)> _versions = new List<(EldenRingVersion, Version)>()
+        {
+
+            (EldenRingVersion.V1_02_0, new Version(1,2,0,0)),
+            (EldenRingVersion.V1_02_1, new Version(1,2,1,0)),
+            (EldenRingVersion.V1_02_2, new Version(1,2,2,0)),
+            (EldenRingVersion.V1_02_3, new Version(1,2,3,0)),
+            (EldenRingVersion.V1_03_0, new Version(1,3,0,0)),
+            (EldenRingVersion.V1_03_1, new Version(1,3,1,0)),
+            (EldenRingVersion.V1_03_2, new Version(1,3,2,0)),
+            (EldenRingVersion.V1_04_0, new Version(1,4,0,0)),
+            (EldenRingVersion.V1_04_1, new Version(1,4,1,0)),
+            (EldenRingVersion.V1_05_0, new Version(1,5,0,0)),
+            (EldenRingVersion.V1_06_0, new Version(1,6,0,0)),
+            (EldenRingVersion.V1_07_0, new Version(1,7,0,0)),
+            (EldenRingVersion.V1_08_0, new Version(1,8,0,0)),
+            (EldenRingVersion.V1_08_1, new Version(1,8,1,0)),
+            (EldenRingVersion.V1_09_0, new Version(1,9,0,0)),
+            (EldenRingVersion.V1_09_1, new Version(1,9,1,0)),
+            //1.10 turned into 2.0.0.0 for some reason
+            (EldenRingVersion.V1_10_0, new Version(2,0,0,0)),
+            (EldenRingVersion.V1_10_0, new Version(2,0,0,1)), //JP-only version for 1.10
+            (EldenRingVersion.V1_10_1, new Version(2,0,1,0)),
+            (EldenRingVersion.V1_12_0, new Version(2,2,0,0)),
+            (EldenRingVersion.V1_12_3, new Version(2,2,3,0)),
+            (EldenRingVersion.V1_13_0, new Version(2,3,0,0)),
+            (EldenRingVersion.V1_14_0, new Version(2,4,0,0)),
+            (EldenRingVersion.V1_15_0, new Version(2,5,0,0)),
+            (EldenRingVersion.V1_16_0, new Version(2,6,0,0)),
+        };
 
         public enum EldenRingVersion
         {
-            V102,
-            V103,
-            V104,
-            V105,
-            V106,
-            V107,
-            V108,
-            V109,
-            V110,
-            V112,
+            
+            V1_02_0,
+            V1_02_1,
+            V1_02_2,
+            V1_02_3,
+
+            V1_03_0,
+            V1_03_1,
+            V1_03_2,
+
+            V1_04_0,
+            V1_04_1,
+
+            V1_05_0,
+            V1_06_0,
+            V1_07_0,
+
+            V1_08_0,
+            V1_08_1,
+
+            V1_09_0,
+            V1_09_1,
+
+            V1_10_0,
+            V1_10_1,
+
+            V1_12_0,
+            V1_12_3,
+
+            V1_13_0,
+            V1_14_0,
+            V1_15_0,
+            V1_16_0,
+
             Unknown,
         };
 
         public EldenRingVersion GetVersion(Version v)
         {
-            switch (v.Major)
+            var version = _versions.FirstOrDefault(i => i.version.CompareTo(v) == 0);
+            if (version.version == null)
             {
-                default:
-                    return EldenRingVersion.Unknown;
-
-                case 1:
-                    switch (v.Minor)
-                    {
-                        default:
-                            return EldenRingVersion.Unknown;
-                        case 2:
-                            return EldenRingVersion.V102;
-                        case 3:
-                            return EldenRingVersion.V103;
-                        case 4:
-                            return EldenRingVersion.V104;
-                        case 5:
-                            return EldenRingVersion.V105;
-                        case 6:
-                            return EldenRingVersion.V106;
-                        case 7:
-                            return EldenRingVersion.V107;
-                        case 8:
-                            return EldenRingVersion.V108;
-                        case 9:
-                            return EldenRingVersion.V109;
-                        case 10:
-                            return EldenRingVersion.V110;
-                    }
-
-                case 2:
-                    switch (v.Minor)
-                    {
-                        default:
-                            return EldenRingVersion.Unknown;
-                        case 0:
-                            return EldenRingVersion.V110;
-                        case 2:
-                            return EldenRingVersion.V112;
-                    }
+                return EldenRingVersion.Unknown;
             }
+
+            return version.eldenRingVersion;
         }
+
+        #endregion
 
         public void EnableHud()
         {

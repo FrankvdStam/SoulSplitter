@@ -16,7 +16,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Xml;
+using SoulMemory.Memory;
 
 namespace SoulMemory
 {
@@ -80,5 +83,20 @@ namespace SoulMemory
             return l & ~((long)0x1 << index);
         }
 
+        public static T ResolveVersion<T>(this FileVersionInfo fileVersionInfo) where T : Enum
+        {
+            var values = Enum.GetValues(typeof(T))
+                .Cast<T>()
+                .Select(i => (i, i.GetEnumAttribute<VersionAttribute>().Version))
+                .ToList();
+
+            var versionStr = $"{fileVersionInfo.FileMajorPart}.{fileVersionInfo.FileMinorPart}.{fileVersionInfo.FileBuildPart}.{fileVersionInfo.FilePrivatePart}";
+            if (values.Any(i => i.Version == versionStr))
+            {
+                return values.First(i => i.Version == versionStr).i;
+            }
+
+            return values.First(i => i.Version == "unknown").i;
+        }
     }
 }
