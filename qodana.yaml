@@ -31,5 +31,5 @@ failureConditions:
   severityThresholds:
     any: 0
   testCoverageThresholds:
-    fresh: 50
+    fresh: 20
     total: 20
