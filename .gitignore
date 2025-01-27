@@ -364,8 +364,8 @@ Cargo.lock
 tests/SoulMemory.Tests/coverage.opencover.xml
 tests/SoulSplitter.Tests/coverage.opencover.xml
 
-src/SoulMemory/soulmods/x64/soulmods.dll
-src/SoulMemory/soulmods/x86/soulmods.dll
+src/SoulMemory/soulmods/x64/soulmods_x64.dll
+src/SoulMemory/soulmods/x86/soulmods_x86.dll
 
 src/SoulSplitter/soulmemory-rs/x64/soulmemory_rs.dll
 src/SoulSplitter/soulmemory-rs/x64/launcher.exe
