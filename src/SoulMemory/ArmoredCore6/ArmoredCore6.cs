@@ -102,7 +102,7 @@ public class ArmoredCore6 : IGame
         }
         catch (Exception e) { exception = e; }
 
-        var module = _armoredCore6.ProcessWrapper.GetProcessModules().Find(i => i.ModuleName == "soulmods.dll");
+        var module = _armoredCore6.ProcessWrapper.GetProcessModules().Find(i => i.ModuleName == (_armoredCore6.ProcessWrapper.Is64Bit() ? "soulmods_x64.dll" : "soulmods_x86.dll"));
         if (module != null)
         {
             return Result.Ok();

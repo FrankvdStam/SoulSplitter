@@ -41,6 +41,8 @@ public class EldenRing : IGame
     private long _positionOffset;
     private long _mapIdOffset;
     private long _playerInsOffset;
+
+    private Dictionary<string, long> _soulmodsExports = new();
     
 
     #region Refresh/init/reset ================================================================================================
@@ -173,7 +175,17 @@ public class EldenRing : IGame
                 _igt.Clear();
                 return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "soulmods injection failed"));
             }
-            
+
+            if (_process?.GetModuleExports(_process.Is64Bit().Unwrap() ? "soulmods_x64.dll" : "soulmods_x86.dll") is Dictionary<string, long>  exports)
+            {
+                _soulmodsExports = exports;
+            } 
+            else
+            {
+                return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "Getting soulmods exports failed"));
+            }
+
+
             return Result.Ok();
         }
         catch (Exception e)
@@ -608,5 +620,48 @@ public class EldenRing : IGame
         _igt.WriteInt32(milliseconds);
     }
 
+    #endregion
+
+    #region soulmods
+    public bool? FpsPatchGet()
+    {
+        if (_soulmodsExports.TryGetValue("ER_FPS_PATCH_ENABLED", out var address))
+        {
+            return _process?.ReadMemory<bool>(address).Unwrap();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void FpsPatchSet(bool b)
+    {
+        if (_soulmodsExports.TryGetValue("ER_FPS_PATCH_ENABLED", out var address))
+        {
+            _process?.WriteProcessMemory(address, BitConverter.GetBytes(b));
+        }
+    }
+
+
+    public float? FpsLimitGet()
+    {
+        if (_soulmodsExports.TryGetValue("ER_FPS_CUSTOM_LIMIT", out var address))
+        {
+            return _process?.ReadMemory<float>(address).Unwrap();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void FpsLimitSet(float f)
+    {
+        if (_soulmodsExports.TryGetValue("ER_FPS_CUSTOM_LIMIT", out var address))
+        {
+            _process?.WriteProcessMemory(address, BitConverter.GetBytes(f));
+        }
+    }
     #endregion
 }

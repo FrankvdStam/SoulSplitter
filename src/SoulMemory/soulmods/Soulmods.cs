@@ -68,11 +68,11 @@ public static class Soulmods
     
 
 
-    private static List<(string name, long address)>? _soulmodsMethods;
+    private static Dictionary<string, long>? _soulmodsExports;
     public static TSized RustCall<TSized>(this Process process, string function, TSized? parameter = null) where TSized : struct
     {
-        _soulmodsMethods ??= process.GetModuleExportedFunctions("soulmods.dll");
-        var functionPtr = _soulmodsMethods.First(i => i.name == function).address;
+        _soulmodsExports ??= process.GetModuleExports(process.Is64Bit().Unwrap() ? "soulmods_x64.dll" :"soulmods_x86.dll");
+        var functionPtr = _soulmodsExports[function];
 
         var buffer = process.Allocate(Marshal.SizeOf<TSized>());
         if (parameter.HasValue)
@@ -89,8 +89,8 @@ public static class Soulmods
     public static void GetMorphemeMessages(Process process)
     {
         //Get function address
-        var soulmods = process.GetModuleExportedFunctions("soulmods.dll");
-        var func = soulmods.First(i => i.name == "GetQueuedDarkSouls2MorphemeMessages").address;
+        var soulmods = process.GetModuleExports(process.Is64Bit().Unwrap() ? "soulmods_x64.dll" : "soulmods_x86.dll");
+        var func = soulmods["GetQueuedDarkSouls2MorphemeMessages"];
 
         //Get buffer size
         var buffer = process.Allocate(4);

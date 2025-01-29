@@ -317,7 +317,7 @@ public static class Kernel32
 
     
 
-    public static List<(string name, long address)> GetModuleExportedFunctions(this Process process, string hModuleName)
+    public static Dictionary<string, long> GetModuleExports(this Process process, string hModuleName)
     {
         var modules = process.GetModulesViaSnapshot();
         var module = modules.First(i => i.szModule.ToLowerInvariant() == hModuleName.ToLowerInvariant());
@@ -347,12 +347,12 @@ public static class Kernel32
         var ordinalTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfNameOrdinals;
         var functionOffsetTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfFunctions;
 
-        var functions = new List<(string name, long address)>();
+        var functions = new Dictionary<string, long>();
         for (var i = 0; i < exportTable.NumberOfNames; i++)
         {
-            var EAT = module.modBaseAddr.ToInt64() + exportTable.AddressOfFunctions;
+            var eat = module.modBaseAddr.ToInt64() + exportTable.AddressOfFunctions;
 
-            var EATPtr = (IntPtr)EAT;
+            var eatPtr = (IntPtr)eat;
 
             //Function name offset is an array of 4byte numbers
             var functionNameOffset = process.ReadMemory<uint>(nameOffsetTable + i * sizeof(uint)).Unwrap();
@@ -365,7 +365,7 @@ public static class Kernel32
             var functionOffset = process.ReadMemory<uint>(functionOffsetTable + i * sizeof(uint)).Unwrap();
             var functionAddress = module.modBaseAddr.ToInt64() + functionOffset;
 
-            functions.Add((functionName, functionAddress));
+            functions.Add(functionName, functionAddress);
         }
 
         return functions;
