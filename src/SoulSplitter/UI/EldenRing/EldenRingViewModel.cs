@@ -18,8 +18,10 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
 using System.Xml.Serialization;
 using SoulMemory.EldenRing;
+using SoulSplitter.Hotkeys;
 using SoulSplitter.Splits.EldenRing;
 using SoulSplitter.UI.Generic;
 
@@ -29,6 +31,9 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
 {
     public EldenRingViewModel()
     {
+        Hotkeys.Add(new FpsPatchHotkey(){ Action = FpsPatchHotkeyAction.SetFpsValue,    Hotkey = new Hotkey(){ Key = Key.A, Modifiers = ModifierKeys.Control }, Fps = 33});
+        Hotkeys.Add(new FpsPatchHotkey(){ Action = FpsPatchHotkeyAction.SetFpsValue,    Hotkey = new Hotkey(){ Key = Key.B, Modifiers = ModifierKeys.Shift }, Fps = 24});
+        Hotkeys.Add(new FpsPatchHotkey(){ Action = FpsPatchHotkeyAction.RemoveFpsPatch, Hotkey = new Hotkey(){ Key = Key.C, Modifiers = ModifierKeys.Alt }});
     }
 
     public bool StartAutomatically
@@ -438,14 +443,29 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
 
     #endregion
 
+        #region Fps hotkeys
 
-    public ObservableCollection<HierarchicalTimingTypeViewModel> Splits { get; set; }= [];
-    
-    //source lists
-    public static ObservableCollection<BossViewModel> Bosses { get; set; } = new(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new BossViewModel(i)));
-    public static ObservableCollection<GraceViewModel> Graces { get; set; } = new(Enum.GetValues(typeof(Grace)).Cast<Grace>().Select(i => new GraceViewModel(i)));
-    public static ObservableCollection<ItemPickupViewModel> ItemPickups { get; set; } = new(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new ItemPickupViewModel(i)));
-    public static ObservableCollection<KnownFlagViewModel> KnownFlags { get; set; } = new(Enum.GetValues(typeof(KnownFlag)).Cast<KnownFlag>().Select(i => new KnownFlagViewModel(i)));
+        [XmlIgnore]
+        public int NewFpsValue
+        {
+            get => _newFpsValue;
+            set => this.SetField(ref _newFpsValue, value);
+        }
+        private int _newFpsValue = 30;
+
+        public ObservableCollection<FpsPatchHotkey> Hotkeys { get; set; } = new ObservableCollection<FpsPatchHotkey>();
+
+        
+
+
+        #endregion
+        public ObservableCollection<HierarchicalTimingTypeViewModel> Splits { get; set; }= new ObservableCollection<HierarchicalTimingTypeViewModel>();
+        
+        //source lists
+        public static ObservableCollection<BossViewModel> Bosses { get; set; } = new ObservableCollection<BossViewModel>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new BossViewModel(i)));
+        public static ObservableCollection<GraceViewModel> Graces { get; set; } = new ObservableCollection<GraceViewModel>(Enum.GetValues(typeof(Grace)).Cast<Grace>().Select(i => new GraceViewModel(i)));
+        public static ObservableCollection<ItemPickupViewModel> ItemPickups { get; set; } = new ObservableCollection<ItemPickupViewModel>(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new ItemPickupViewModel(i)));
+        public static ObservableCollection<KnownFlagViewModel> KnownFlags { get; set; } = new ObservableCollection<KnownFlagViewModel>(Enum.GetValues(typeof(KnownFlag)).Cast<KnownFlag>().Select(i => new KnownFlagViewModel(i)));
 
 
     #region ICustomNotifyPropertyChanged
