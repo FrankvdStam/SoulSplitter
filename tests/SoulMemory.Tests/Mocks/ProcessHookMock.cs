@@ -19,100 +19,100 @@ using SoulMemory.MemoryV2.Memory;
 using SoulMemory.MemoryV2.PointerTreeBuilder;
 using SoulMemory.MemoryV2.Process;
 
-namespace SoulMemory.Tests.Mocks
+namespace SoulMemory.Tests.Mocks;
+
+public class ProcessHookMock : IProcessHook
 {
-    public class ProcessHookMock : IProcessHook
+    public ProcessHookMock()
     {
-        public ProcessHookMock()
+        Hooked += () =>
         {
-            Hooked += () =>
-            {
-                HookedInvokedCount++;
-                return HookedResult;
-            };
+            HookedInvokedCount++;
+            return HookedResult;
+        };
 
-            Exited += (e) =>
-            {
-                if (e != null)
-                {
-                    ExitedExceptions.Add(e);
-                }
-                ExitedInvokedCount++;
-            };
-        }
-
-        public Dictionary<long, byte[]> Data = new Dictionary<long, byte[]>();
-
-        public byte[] ReadBytes(long offset, int length)
+        Exited += (e) =>
         {
-            var data = Data[offset];
-            if (data.Length != length)
+            if (e != null)
             {
-                throw new ArgumentException("Data size mismatch");
+                ExitedExceptions.Add(e);
             }
+            ExitedInvokedCount++;
+        };
+        ProcessWrapper = null!;
+    }
 
-            return data;
+    public Dictionary<long, byte[]> Data = new();
+
+    public byte[] ReadBytes(long offset, int length)
+    {
+        var data = Data[offset];
+        if (data.Length != length)
+        {
+            throw new ArgumentException("Data size mismatch");
         }
 
-        public void WriteBytes(long offset, byte[] bytes)
+        return data;
+    }
+
+    public void WriteBytes(long offset, byte[] bytes)
+    {
+        //Allow overwriting existing key
+        if (!Data.ContainsKey(offset))
         {
-            //Allow overwriting existing key
-            if (!Data.ContainsKey(offset))
+            //check for overlap
+            var end = offset + bytes.Length;
+            foreach (var item in Data)
             {
-                //check for overlap
-                var end = offset + bytes.Length;
-                foreach (var item in Data)
+                if (offset <= item.Key && item.Key < end)
                 {
-                    if (offset <= item.Key && item.Key < end)
-                    {
-                        throw new ArgumentException("Found overlap");
-                    }
+                    throw new ArgumentException("Found overlap");
                 }
             }
-
-            Data[offset] = bytes;
         }
 
-        public Process? GetProcess()
+        Data[offset] = bytes;
+    }
+
+    public Process? GetProcess()
+    {
+        return null;
+    }
+
+    public List<(string name, int index, long address)> PointerValues = new();
+
+    public void SetPointer(string name, int index, long address)
+    {
+        //"Self jump"
+        Data[address] = BitConverter.GetBytes(address);
+        PointerValues.Add((name, index, address));
+    }
+
+    
+    public ResultErr<RefreshError> TryRefresh()
+    {
+        foreach (var ptrValue in PointerValues)
         {
-            return null;
+            var node = PointerTreeBuilder.Tree.First(i => i.Name == ptrValue.name);
+            node = node.Pointers[ptrValue.index];
+            node.Pointer.Path.Add(new PointerPath { Offset = ptrValue.address });
         }
 
-        public List<(string name, int index, long address)> PointerValues = new List<(string name, int index, long address)>();
+        return Result.Ok();
+    }
 
-        public void SetPointer(string name, int index, long address)
-        {
-            //"Self jump"
-            Data[address] = BitConverter.GetBytes(address);
-            PointerValues.Add((name, index, address));
-        }
+    public int HookedInvokedCount;
+    public int ExitedInvokedCount;
 
-        
-        public ResultErr<RefreshError> TryRefresh()
-        {
-            foreach (var ptrValue in PointerValues)
-            {
-                var node = PointerTreeBuilder.Tree.First(i => i.Name == ptrValue.name);
-                node = node.Pointers[ptrValue.index];
-                node.Pointer.Path.Add(new PointerPath { Offset = ptrValue.address });
-            }
-
-            return Result.Ok();
-        }
-
-        public int HookedInvokedCount = 0;
-        public int ExitedInvokedCount = 0;
-
-        public ResultErr<RefreshError> HookedResult = Result.Ok();
-        public List<Exception> ExitedExceptions = new List<Exception>();
+    public ResultErr<RefreshError> HookedResult = Result.Ok();
+    public List<Exception> ExitedExceptions = new();
 
 
 #pragma warning disable CS0067
-        public event Func<ResultErr<RefreshError>>? Hooked;
-        public event Action<Exception?>? Exited;
+    public event Func<ResultErr<RefreshError>>? Hooked;
+    public event Action<Exception?>? Exited;
 #pragma warning restore CS0067
 
-        public PointerTreeBuilder PointerTreeBuilder { get; set; } = new PointerTreeBuilder();
-        public IProcessWrapper? ProcessWrapper { get; set; }
-    }
+    public PointerTreeBuilder PointerTreeBuilder { get; set; } = new();
+    public IProcessWrapper ProcessWrapper { get; set; }
 }

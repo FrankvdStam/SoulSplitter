@@ -28,7 +28,7 @@ namespace SoulSplitter.Tests.Integration
             _soulsComponentTestWrapper = new SoulsComponentTestWrapper(XmlData.ExampleSplits, "Armored Core VI: Fires of Rubicon");
         }
 
-        private SoulsComponentTestWrapper _soulsComponentTestWrapper;
+        private SoulsComponentTestWrapper _soulsComponentTestWrapper = null!;
 
         //[TestMethod]
         public void Testy()

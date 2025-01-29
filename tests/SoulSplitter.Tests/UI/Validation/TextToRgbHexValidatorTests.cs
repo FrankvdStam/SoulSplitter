@@ -26,8 +26,8 @@ namespace SoulSplitter.Tests.UI.Validation
         public void Validate()
         {
             var validator = new TextToRgbHexValidator();
-            Assert.IsTrue(validator.Validate("#123456", null).IsValid);
-            Assert.IsTrue(validator.Validate("#A2C4DD", null).IsValid);
+            Assert.IsTrue(validator.Validate("#123456", null!).IsValid);
+            Assert.IsTrue(validator.Validate("#A2C4DD", null!).IsValid);
         }
 
 
@@ -35,10 +35,10 @@ namespace SoulSplitter.Tests.UI.Validation
         public void Validate_Invalid_Hex()
         {
             var validator = new TextToRgbHexValidator();
-            Assert.IsFalse(validator.Validate("123456", null).IsValid);
-            Assert.IsFalse(validator.Validate("#12345G", null).IsValid);
-            Assert.IsFalse(validator.Validate("test", null).IsValid);
-            Assert.AreEqual("test is not a valid RGB hex", validator.Validate("test", null).ErrorContent);
+            Assert.IsFalse(validator.Validate("123456", null!).IsValid);
+            Assert.IsFalse(validator.Validate("#12345G", null!).IsValid);
+            Assert.IsFalse(validator.Validate("test", null!).IsValid);
+            Assert.AreEqual("test is not a valid RGB hex", validator.Validate("test", null!).ErrorContent);
         }
     }
 }

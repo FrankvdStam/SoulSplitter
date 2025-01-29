@@ -14,11 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Native.Enums
+namespace SoulMemory.Native.Enums;
+
+public enum MagicType : ushort
 {
-    public enum MagicType : ushort
-    {
-        IMAGE_NT_OPTIONAL_HDR32_MAGIC = 0x10b,
-        IMAGE_NT_OPTIONAL_HDR64_MAGIC = 0x20b
-    }
+    IMAGE_NT_OPTIONAL_HDR32_MAGIC = 0x10b,
+    IMAGE_NT_OPTIONAL_HDR64_MAGIC = 0x20b
 }

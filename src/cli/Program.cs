@@ -31,7 +31,6 @@ using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
 using SoulSplitter.Hotkeys;
-using SoulSplitter.soulmemory_rs;
 
 #pragma warning disable CS0162
 
@@ -53,9 +52,9 @@ namespace cli
                 Console.WriteLine($"IGT: {igtElapsed} slot: {saveSlot} pos: {pos}");
             });
 
-            GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });
-            GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
-            GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
+            //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });
+            //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
+            //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
             
 
             //TestUi();
@@ -329,7 +328,7 @@ namespace cli
                     Test("AreCreditsRolling", () => { ds1.AreCreditsRolling(); });
                     Test("GetBonfireState", () => { ds1.GetBonfireState(SoulMemory.DarkSouls1.Bonfire.UndeadAsylumCourtyard); });
                     Test("GetSaveFileLocation", () => { ds1.GetSaveFileLocation(); });
-                    Test("GetSaveFileGameTimeMilliseconds", () => { ds1.GetSaveFileGameTimeMilliseconds(ds1.GetSaveFileLocation(), ds1.GetCurrentSaveSlot()); });
+                    Test("GetSaveFileGameTimeMilliseconds", () => { ds1.GetSaveFileGameTimeMilliseconds(ds1.GetSaveFileLocation() ?? "", ds1.GetCurrentSaveSlot()); });
 
 
                     Console.WriteLine("Done, press any key to exit.");

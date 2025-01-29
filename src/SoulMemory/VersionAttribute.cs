@@ -16,16 +16,10 @@
 
 using System;
 
-namespace SoulMemory
-{
-    public class VersionAttribute : Attribute
-    {
-        public VersionAttribute(string version)
-        {
-            Version = version;
-        }
+namespace SoulMemory;
 
-        public string Version { get; }
-        public Version GetVersion() => new Version(Version);
-    }
+public class VersionAttribute(string version) : Attribute
+{
+    public string Version { get; } = version;
+    public Version GetVersion() => new(Version);
 }

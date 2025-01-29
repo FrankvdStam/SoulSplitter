@@ -29,46 +29,46 @@ namespace SoulSplitter.Tests.UI.Converters
         public void Convert_Enum()
         {
             var converter = new SplitObjectToDescriptionConverter();
-            Assert.AreEqual("The Bed of Chaos", converter.Convert(SoulMemory.DarkSouls1.Boss.BedOfChaos, null, null, null));
-            Assert.AreEqual("Beside the Rampart Gaol", converter.Convert(SoulMemory.EldenRing.Grace.BesideTheRampartGaol, null, null, null));
+            Assert.AreEqual("The Bed of Chaos", converter.Convert(SoulMemory.DarkSouls1.Boss.BedOfChaos, null!, null, null!));
+            Assert.AreEqual("Beside the Rampart Gaol", converter.Convert(SoulMemory.EldenRing.Grace.BesideTheRampartGaol, null!, null, null!));
         }
 
         [TestMethod]
         public void Convert_Object_ToString()
         {
             var converter = new SplitObjectToDescriptionConverter();
-            Assert.AreEqual("12345 Test flag", converter.Convert(new FlagDescription(){ Description = "Test flag", Flag = 12345}, null, null, null));
-            Assert.AreEqual("Dexterity 10", converter.Convert(new SoulSplitter.Splits.DarkSouls1.Attribute{AttributeType = SoulMemory.DarkSouls1.Attribute.Dexterity, Level = 10}, null, null, null));
+            Assert.AreEqual("12345 Test flag", converter.Convert(new FlagDescription(){ Description = "Test flag", Flag = 12345}, null!, null, null!));
+            Assert.AreEqual("Dexterity 10", converter.Convert(new SoulSplitter.Splits.DarkSouls1.Attribute{AttributeType = SoulMemory.DarkSouls1.Attribute.Dexterity, Level = 10}, null!, null, null!));
         }
 
         [TestMethod]
         public void Convert_Uint()
         {
             var converter = new SplitObjectToDescriptionConverter();
-            Assert.AreEqual((uint)12345, converter.Convert((uint)12345, null, null, null));
-            Assert.AreEqual((uint)999999, converter.Convert((uint)999999, null, null, null));
+            Assert.AreEqual((uint)12345, converter.Convert((uint)12345, null!, null, null!));
+            Assert.AreEqual((uint)999999, converter.Convert((uint)999999, null!, null, null!));
         }
 
         [TestMethod]
         public void Convert_Other_Types()
         {
             var converter = new SplitObjectToDescriptionConverter();
-            Assert.AreEqual("", converter.Convert((long)12345, null, null, null));
-            Assert.AreEqual("", converter.Convert((float)999999, null, null, null));
-            Assert.AreEqual("", converter.Convert((double)1.2, null, null, null));
-            Assert.AreEqual("", converter.Convert(new Color(), null, null, null));
+            Assert.AreEqual("", converter.Convert((long)12345, null!, null, null!));
+            Assert.AreEqual("", converter.Convert((float)999999, null!, null, null!));
+            Assert.AreEqual("", converter.Convert((double)1.2, null!, null, null!));
+            Assert.AreEqual("", converter.Convert(new Color(), null!, null, null!));
         }
 
         [TestMethod]
         public void ConvertBack()
         {
             var converter = new SplitObjectToDescriptionConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new FlagDescription() { Description = "Test flag", Flag = 12345 }, null, null, null));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((uint)12345, null, null, null));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((long)12345, null, null, null));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((float)999999, null, null, null));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((double)1.2, null, null, null));
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new Color(), null, null, null));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new FlagDescription() { Description = "Test flag", Flag = 12345 }, null!, null, null!));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((uint)12345, null!, null, null!));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((long)12345, null!, null, null!));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((float)999999, null!, null, null!));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack((double)1.2, null!, null, null!));
+            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new Color(), null!, null, null!));
         }
     }
 }

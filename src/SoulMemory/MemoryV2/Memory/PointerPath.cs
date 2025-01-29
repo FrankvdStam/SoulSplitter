@@ -14,16 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.MemoryV2.Memory
-{
-    public class PointerPath
-    {
-        public long Offset;
-        public long Address;
+namespace SoulMemory.MemoryV2.Memory;
 
-        public override string ToString()
-        {
-            return $"0x{Offset:x8} - 0x{Address:x8}";
-        }
+public class PointerPath
+{
+    public long Offset;
+    public long Address;
+
+    public override string ToString()
+    {
+        return $"0x{Offset:x8} - 0x{Address:x8}";
     }
 }

@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Memory
+namespace SoulMemory.Memory;
+
+public enum NodeType
 {
-    public enum NodeType
-    {
-        RelativeScan,
-        AbsoluteScan,
-        Pointer,
-    }
+    RelativeScan,
+    AbsoluteScan,
+    Pointer,
 }

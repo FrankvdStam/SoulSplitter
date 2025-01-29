@@ -20,90 +20,65 @@ using System.Linq;
 using SoulMemory.Sekiro;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.UI.Sekiro
+namespace SoulSplitter.UI.Sekiro;
+
+public class SekiroViewModel : BaseViewModel
 {
-    public class SekiroViewModel : BaseViewModel
+    public SekiroViewModel()
     {
-        public SekiroViewModel()
-        {
-            AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
-        }
-
-        public bool OverwriteIgtOnStart
-        {
-            get => _overwriteIgtOnStart;
-            set => SetField(ref _overwriteIgtOnStart, value);
-        }
-        private bool _overwriteIgtOnStart = false;
-        
-
-        #region add/remove splits ============================================================================================================================================
-
-        private bool CanAddSplit(object param)
-        {
-            if (!NewSplitTimingType.HasValue || !NewSplitType.HasValue)
-            {
-                return false;
-            }
-
-            switch (NewSplitType)
-            {
-                default:
-                    throw new ArgumentException($"{NewSplitType} not supported");
-            
-                case SplitType.Boss:
-                case SplitType.Bonfire:
-                case SplitType.Attribute:
-                    return NewSplitValue != null;
-            
-                case SplitType.Position:
-                    return Position != null;
-
-                case SplitType.Flag:
-                    return FlagDescription != null;
-            }
-        }
-
-        private void AddSplit(object param)
-        {
-            object split = null;
-            switch (NewSplitType)
-            {
-                default:
-                    throw new ArgumentException($"{NewSplitType} not supported");
-
-                case SplitType.Boss:
-                case SplitType.Bonfire:
-                    split = NewSplitValue;
-                    break;
-
-                case SplitType.Position:
-                    split = Position;
-                    break;
-
-                case SplitType.Attribute:
-                    split = NewSplitValue;
-                    break;
-
-                case SplitType.Flag:
-                    split = FlagDescription;
-                    break;
-            }
-            SplitsViewModel.AddSplit(NewSplitTimingType.Value, NewSplitType.Value, split);
-
-            NewSplitTimingType = null;
-            NewSplitEnabledSplitType = false;
-            NewSplitType = null;
-        }
-
-
-        #endregion
-
-        #region Static UI source data ============================================================================================================================================
-
-        public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new ObservableCollection<EnumFlagViewModel<Boss>>(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
-        public static ObservableCollection<EnumFlagViewModel<Idol>> Idols { get; set; } = new ObservableCollection<EnumFlagViewModel<Idol>>(Enum.GetValues(typeof(Idol)).Cast<Idol>().Select(i => new EnumFlagViewModel<Idol>(i)));
-        
-        #endregion
+        AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
     }
+
+    public bool OverwriteIgtOnStart
+    {
+        get => _overwriteIgtOnStart;
+        set => this.SetField(ref _overwriteIgtOnStart, value);
+    }
+    private bool _overwriteIgtOnStart;
+    
+
+    #region add/remove splits ============================================================================================================================================
+
+    private bool CanAddSplit()
+    {
+        if (!NewSplitTimingType.HasValue || !NewSplitType.HasValue)
+        {
+            return false;
+        }
+
+        return NewSplitType switch
+        {
+            SplitType.Boss or SplitType.Bonfire or SplitType.Attribute => NewSplitValue != null,
+            SplitType.Position => Position != null,
+            SplitType.Flag => FlagDescription != null,
+            _ => throw new ArgumentException($"{NewSplitType} not supported")
+        };
+    }
+
+    private void AddSplit()
+    {
+        var split = NewSplitType switch
+        {
+            SplitType.Boss or SplitType.Bonfire => NewSplitValue,
+            SplitType.Position => Position,
+            SplitType.Attribute => NewSplitValue,
+            SplitType.Flag => FlagDescription,
+            _ => throw new ArgumentException($"{NewSplitType} not supported")
+        };
+        SplitsViewModel.AddSplit(NewSplitTimingType!.Value, NewSplitType.Value, split!);
+
+        NewSplitTimingType = null;
+        NewSplitEnabledSplitType = false;
+        NewSplitType = null;
+    }
+
+
+    #endregion
+
+    #region Static UI source data ============================================================================================================================================
+
+    public static ObservableCollection<EnumFlagViewModel<Boss>> Bosses { get; set; } = new(Enum.GetValues(typeof(Boss)).Cast<Boss>().Select(i => new EnumFlagViewModel<Boss>(i)));
+    public static ObservableCollection<EnumFlagViewModel<Idol>> Idols { get; set; } = new(Enum.GetValues(typeof(Idol)).Cast<Idol>().Select(i => new EnumFlagViewModel<Idol>(i)));
+    
+    #endregion
 }

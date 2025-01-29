@@ -16,12 +16,11 @@
 
 using System.Xml.Serialization;
 
-namespace SoulMemory.Sekiro
+namespace SoulMemory.Sekiro;
+
+[XmlType(Namespace = "SoulMemory.Sekiro")]
+public enum Attribute
 {
-    [XmlType(Namespace = "SoulMemory.Sekiro")]
-    public enum Attribute
-    {
-        Vitality,
-        AttackPower
-    }
+    Vitality,
+    AttackPower
 }

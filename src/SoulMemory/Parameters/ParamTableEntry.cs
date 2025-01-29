@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Parameters
-{
-    public class ParamTableEntry
-    {
-        public int Id { get; set; }
-        public uint DataOffset { get; set; }
-        public uint NameOffset { get; set; }
+namespace SoulMemory.Parameters;
 
-        public override string ToString() => Id.ToString();
-    }
+public class ParamTableEntry
+{
+    public int Id { get; set; }
+    public uint DataOffset { get; set; }
+    public uint NameOffset { get; set; }
+
+    public override string ToString() => Id.ToString();
 }

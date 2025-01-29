@@ -18,77 +18,74 @@ using SoulMemory.Memory;
 using SoulMemory.Parameters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SoulMemory.DarkSouls1.Parameters
+namespace SoulMemory.DarkSouls1.Parameters;
+
+[ExcludeFromCodeCoverage]
+public class HitMtrlParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
-    [ExcludeFromCodeCoverage]
-    public class HitMtrlParam : BaseParam
+    [ParamField(0x0, ParamType.F32)]
+    public float AiVolumeRate
     {
-        public HitMtrlParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : base(basePointer, memory, offset, paramTableEntry){}
-
-        [ParamField(0x0, ParamType.F32)]
-        public float AiVolumeRate
-        {
-            get => _AiVolumeRate;
-            set => WriteParamField(ref _AiVolumeRate, value);
-        }
-        private float _AiVolumeRate;
-
-        [ParamField(0x4, ParamType.I32)]
-        public int SpEffectIdOnHit0
-        {
-            get => _SpEffectIdOnHit0;
-            set => WriteParamField(ref _SpEffectIdOnHit0, value);
-        }
-        private int _SpEffectIdOnHit0;
-
-        [ParamField(0x8, ParamType.I32)]
-        public int SpEffectIdOnHit1
-        {
-            get => _SpEffectIdOnHit1;
-            set => WriteParamField(ref _SpEffectIdOnHit1, value);
-        }
-        private int _SpEffectIdOnHit1;
-
-        #region BitField FootEffectHeightTypeBitfield ==============================================================================
-
-        [ParamField(0xC, ParamType.U8)]
-        public byte FootEffectHeightTypeBitfield
-        {
-            get => _FootEffectHeightTypeBitfield;
-            set => WriteParamField(ref _FootEffectHeightTypeBitfield, value);
-        }
-        private byte _FootEffectHeightTypeBitfield;
-
-        [ParamBitField(nameof(FootEffectHeightTypeBitfield), bits: 2, bitsOffset: 0)]
-        public byte FootEffectHeightType
-        {
-            get => GetbitfieldValue(_FootEffectHeightTypeBitfield);
-            set => SetBitfieldValue(ref _FootEffectHeightTypeBitfield, value);
-        }
-
-        [ParamBitField(nameof(FootEffectHeightTypeBitfield), bits: 2, bitsOffset: 2)]
-        public byte FootEffectDirType
-        {
-            get => GetbitfieldValue(_FootEffectHeightTypeBitfield);
-            set => SetBitfieldValue(ref _FootEffectHeightTypeBitfield, value);
-        }
-
-        [ParamBitField(nameof(FootEffectHeightTypeBitfield), bits: 2, bitsOffset: 4)]
-        public byte FloorHeightType
-        {
-            get => GetbitfieldValue(_FootEffectHeightTypeBitfield);
-            set => SetBitfieldValue(ref _FootEffectHeightTypeBitfield, value);
-        }
-
-        #endregion BitField FootEffectHeightTypeBitfield
-
-        [ParamField(0xD, ParamType.Dummy8, 3)]
-        public byte[] Pad0
-        {
-            get => _Pad0;
-            set => WriteParamField(ref _Pad0, value);
-        }
-        private byte[] _Pad0;
-
+        get => _AiVolumeRate;
+        set => WriteParamField(ref _AiVolumeRate, value);
     }
+    private float _AiVolumeRate;
+
+    [ParamField(0x4, ParamType.I32)]
+    public int SpEffectIdOnHit0
+    {
+        get => _SpEffectIdOnHit0;
+        set => WriteParamField(ref _SpEffectIdOnHit0, value);
+    }
+    private int _SpEffectIdOnHit0;
+
+    [ParamField(0x8, ParamType.I32)]
+    public int SpEffectIdOnHit1
+    {
+        get => _SpEffectIdOnHit1;
+        set => WriteParamField(ref _SpEffectIdOnHit1, value);
+    }
+    private int _SpEffectIdOnHit1;
+
+    #region BitField FootEffectHeightTypeBitfield ==============================================================================
+
+    [ParamField(0xC, ParamType.U8)]
+    public byte FootEffectHeightTypeBitfield
+    {
+        get => _FootEffectHeightTypeBitfield;
+        set => WriteParamField(ref _FootEffectHeightTypeBitfield, value);
+    }
+    private byte _FootEffectHeightTypeBitfield;
+
+    [ParamBitField(nameof(FootEffectHeightTypeBitfield), bits: 2, bitsOffset: 0)]
+    public byte FootEffectHeightType
+    {
+        get => GetbitfieldValue(_FootEffectHeightTypeBitfield);
+        set => SetBitfieldValue(ref _FootEffectHeightTypeBitfield, value);
+    }
+
+    [ParamBitField(nameof(FootEffectHeightTypeBitfield), bits: 2, bitsOffset: 2)]
+    public byte FootEffectDirType
+    {
+        get => GetbitfieldValue(_FootEffectHeightTypeBitfield);
+        set => SetBitfieldValue(ref _FootEffectHeightTypeBitfield, value);
+    }
+
+    [ParamBitField(nameof(FootEffectHeightTypeBitfield), bits: 2, bitsOffset: 4)]
+    public byte FloorHeightType
+    {
+        get => GetbitfieldValue(_FootEffectHeightTypeBitfield);
+        set => SetBitfieldValue(ref _FootEffectHeightTypeBitfield, value);
+    }
+
+    #endregion BitField FootEffectHeightTypeBitfield
+
+    [ParamField(0xD, ParamType.Dummy8, 3)]
+    public byte[] Pad0
+    {
+        get => _Pad0;
+        set => WriteParamField(ref _Pad0, value);
+    }
+    private byte[] _Pad0 = null!;
+
 }

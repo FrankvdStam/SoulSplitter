@@ -22,66 +22,65 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
-namespace SoulMemory.Native
+namespace SoulMemory.Native;
+
+[ExcludeFromCodeCoverage]
+internal static class NativeMethods
 {
-    [ExcludeFromCodeCoverage]
-    internal static class NativeMethods
-    {
-        [DllImport("kernel32.dll", SetLastError = true)]
-        internal static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
+    [DllImport("kernel32.dll", SetLastError = true)]
+    internal static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
 
-        [DllImport("kernel32.dll")]
-        internal static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out uint lpNumberOfBytesWritten);
+    [DllImport("kernel32.dll")]
+    internal static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out uint lpNumberOfBytesWritten);
 
-        [DllImport("kernel32.dll")]
-        internal static extern int VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MemoryBasicInformation64 lpBuffer, uint dwLength);
+    [DllImport("kernel32.dll")]
+    internal static extern int VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MemoryBasicInformation64 lpBuffer, uint dwLength);
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        internal static extern bool IsWow64Process(IntPtr processHandle, out bool wow64Process);
+    [DllImport("kernel32.dll", SetLastError = true)]
+    internal static extern bool IsWow64Process(IntPtr processHandle, out bool wow64Process);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
-        internal static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+    [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
+    internal static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        internal static extern IntPtr GetModuleHandleW(string lpModuleName);
+    [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+    internal static extern IntPtr GetModuleHandleW(string lpModuleName);
 
-        [DllImport("kernel32", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-        internal static extern IntPtr CreateToolhelp32Snapshot([In] UInt32 dwFlags, [In] UInt32 th32ProcessID);
+    [DllImport("kernel32", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+    internal static extern IntPtr CreateToolhelp32Snapshot([In] UInt32 dwFlags, [In] UInt32 th32ProcessID);
 
-        [DllImport("kernel32", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-        internal static extern bool Process32First([In] IntPtr hSnapshot, ref PROCESSENTRY32 lppe);
+    [DllImport("kernel32", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+    internal static extern bool Process32First([In] IntPtr hSnapshot, ref PROCESSENTRY32 lppe);
 
-        [DllImport("kernel32", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-        internal static extern bool Process32Next([In] IntPtr hSnapshot, ref PROCESSENTRY32 lppe);
+    [DllImport("kernel32", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+    internal static extern bool Process32Next([In] IntPtr hSnapshot, ref PROCESSENTRY32 lppe);
 
-        [DllImport("kernel32.dll")]
-        internal static extern bool Module32FirstW(IntPtr hSnapshot, ref MODULEENTRY32W lpme);
+    [DllImport("kernel32.dll")]
+    internal static extern bool Module32FirstW(IntPtr hSnapshot, ref MODULEENTRY32W lpme);
 
-        [DllImport("kernel32.dll")]
-        internal static extern bool Module32NextW(IntPtr hSnapshot, ref MODULEENTRY32W lpme);
+    [DllImport("kernel32.dll")]
+    internal static extern bool Module32NextW(IntPtr hSnapshot, ref MODULEENTRY32W lpme);
 
-        [DllImport("psapi.dll", SetLastError = true)]
-        internal static extern bool EnumProcessModulesEx(
-            IntPtr hProcess,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U4)][In][Out] IntPtr[] lphModule,
-            uint cb,
-            [MarshalAs(UnmanagedType.U4)] out uint lpcbNeeded,
-            ListModules dwFilterFlag
-        );
+    [DllImport("psapi.dll", SetLastError = true)]
+    internal static extern bool EnumProcessModulesEx(
+        IntPtr hProcess,
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U4)][In][Out] IntPtr[] lphModule,
+        uint cb,
+        [MarshalAs(UnmanagedType.U4)] out uint lpcbNeeded,
+        ListModules dwFilterFlag
+    );
 
-        [DllImport("kernel32.dll")]
-        internal static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+    [DllImport("kernel32.dll")]
+    internal static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
-        [DllImport("kernel32.dll")]
-        internal static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
+    [DllImport("kernel32.dll")]
+    internal static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
 
-        [DllImport("kernel32.dll")]
-        internal static extern bool CloseHandle(IntPtr hObject);
+    [DllImport("kernel32.dll")]
+    internal static extern bool CloseHandle(IntPtr hObject);
 
-        [DllImport("kernel32.dll")]
-        internal static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint flAllocationType, uint flProtect);
+    [DllImport("kernel32.dll")]
+    internal static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint flAllocationType, uint flProtect);
 
-        [DllImport("kernel32.dll")]
-        internal static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint dwFreeType);
-    }
+    [DllImport("kernel32.dll")]
+    internal static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint dwFreeType);
 }

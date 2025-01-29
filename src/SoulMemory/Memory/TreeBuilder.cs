@@ -16,42 +16,41 @@
 
 using System.Collections.Generic;
 
-namespace SoulMemory.Memory
+namespace SoulMemory.Memory;
+
+/// <summary>
+/// A TreeBuilder lets you define a data tree, from scans and offsets, that end in pointers.
+/// The tree doesn't do anything on it's own, but you can pass it to the MemoryScanner to resolve the pointers,
+/// or to validate the patterns.
+/// </summary>
+public class TreeBuilder
 {
-    /// <summary>
-    /// A TreeBuilder lets you define a data tree, from scans and offsets, that end in pointers.
-    /// The tree doesn't do anything on it's own, but you can pass it to the MemoryScanner to resolve the pointers,
-    /// or to validate the patterns.
-    /// </summary>
-    public class TreeBuilder
+    public List<PointerNode> Tree = [];
+
+    public PointerAppender ScanRelative(string name, string pattern, long addressOffset, long instructionSize)
     {
-        public List<PointerNode> Tree = new List<PointerNode>();
-
-        public PointerAppender ScanRelative(string name, string pattern, long addressOffset, long instructionSize)
+        var node = new PointerNode
         {
-            var node = new PointerNode
-            {
-                NodeType = NodeType.RelativeScan,
-                Name = name,
-                Pattern = pattern,
-                AddressOffset = addressOffset,
-                InstructionSize = instructionSize,
-            };
-            Tree.Add(node);
-            return new PointerAppender(node);
-        }
+            NodeType = NodeType.RelativeScan,
+            Name = name,
+            Pattern = pattern,
+            AddressOffset = addressOffset,
+            InstructionSize = instructionSize,
+        };
+        Tree.Add(node);
+        return new PointerAppender(node);
+    }
 
-        public PointerAppender ScanAbsolute(string name, string pattern, long? offset)
+    public PointerAppender ScanAbsolute(string name, string pattern, long? offset)
+    {
+        var node = new PointerNode
         {
-            var node = new PointerNode
-            {
-                NodeType = NodeType.AbsoluteScan,
-                Name = name,
-                Pattern = pattern,
-                Offset = offset,
-            };
-            Tree.Add(node);
-            return new PointerAppender(node);
-        }
+            NodeType = NodeType.AbsoluteScan,
+            Name = name,
+            Pattern = pattern,
+            Offset = offset,
+        };
+        Tree.Add(node);
+        return new PointerAppender(node);
     }
 }

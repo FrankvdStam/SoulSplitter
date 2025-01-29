@@ -28,7 +28,7 @@ namespace SoulSplitter.Hotkeys
     {
         private static readonly List<(int id, Hotkey hotkey, Action action)> Hotkeys = new List<(int, Hotkey, Action)>();
         private static readonly ManualResetEvent WindowReadyEvent = new ManualResetEvent(false);
-        public static volatile HotkeyForm HotkeyForm;
+        public static volatile HotkeyForm HotkeyForm = null!;
         public static volatile IntPtr Handle;
         private static int _currentId;
 

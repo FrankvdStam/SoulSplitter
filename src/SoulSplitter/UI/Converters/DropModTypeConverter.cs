@@ -19,22 +19,21 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace SoulSplitter.UI.Converters
-{
-    public class DropModTypeConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if(value is DropModType valueDropModType && parameter is DropModType parameterDropModType)
-            {
-                return valueDropModType == parameterDropModType;
-            }
-            return false;
-        }
+namespace SoulSplitter.UI.Converters;
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+public class DropModTypeConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if(value is DropModType valueDropModType && parameter is DropModType parameterDropModType)
         {
-            return (DropModType)parameter;
+            return valueDropModType == parameterDropModType;
         }
+        return false;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return (DropModType)parameter!;
     }
 }

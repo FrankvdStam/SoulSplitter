@@ -33,7 +33,7 @@ namespace SoulSplitter.UI.EldenRing
     public class FpsPatchHotkey
     {
         public int Fps { get; set; }
-        public Hotkey Hotkey { get; set; }
+        public Hotkey Hotkey { get; set; } = null!;
         public FpsPatchHotkeyAction Action { get; set; }
     }
 }

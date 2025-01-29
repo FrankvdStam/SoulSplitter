@@ -19,24 +19,23 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
-namespace SoulMemory.Native
+namespace SoulMemory.Native;
+
+[ExcludeFromCodeCoverage]
+public static class Ntdll
 {
-    [ExcludeFromCodeCoverage]
-    public static class Ntdll
+    [DllImport("ntdll.dll", SetLastError = true)]
+    private static extern IntPtr NtSuspendProcess(IntPtr hProcess);
+    public static void NtSuspendProcess(this Process process)
     {
-        [DllImport("ntdll.dll", SetLastError = true)]
-        private static extern IntPtr NtSuspendProcess(IntPtr hProcess);
-        public static void NtSuspendProcess(this Process process)
-        {
-            NtSuspendProcess(process.Handle);
-        }
+        NtSuspendProcess(process.Handle);
+    }
 
 
-        [DllImport("ntdll.dll", SetLastError = true)]
-        private static extern IntPtr NtResumeProcess(IntPtr hProcess);
-        public static void NtResumeProcess(this Process process)
-        {
-            NtResumeProcess(process.Handle);
-        }
+    [DllImport("ntdll.dll", SetLastError = true)]
+    private static extern IntPtr NtResumeProcess(IntPtr hProcess);
+    public static void NtResumeProcess(this Process process)
+    {
+        NtResumeProcess(process.Handle);
     }
 }

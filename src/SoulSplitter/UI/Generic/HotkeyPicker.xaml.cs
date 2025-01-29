@@ -37,12 +37,12 @@ namespace SoulSplitter.UI.Generic
 
         public class HotkeyCompletedParameter
         {
-            public object Sender;
+            public object Sender { get; set; } = null!;
             public ModifierKeys ModifierKeys;
             public Key Key;
         }
 
-        public RelayCommand HotkeyCompletedCommand { get; set; }
+        public RelayCommand HotkeyCompletedCommand { get; set; } = null!;
 
         private bool _isActive = false;
         private ModifierKeys _modifierKeys = ModifierKeys.None;

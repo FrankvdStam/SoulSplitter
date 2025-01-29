@@ -18,11 +18,10 @@ using SoulMemory;
 using SoulSplitter.UI;
 using System;
 
-namespace SoulSplitter.Splitters
+namespace SoulSplitter.Splitters;
+
+internal interface ISplitter : IDisposable
 {
-    internal interface ISplitter : IDisposable
-    {
-        ResultErr<RefreshError> Update(MainViewModel mainViewModel);
-        void SetViewModel(MainViewModel mainViewModel);
-    }
+    ResultErr<RefreshError> Update(MainViewModel mainViewModel);
+    void SetViewModel(MainViewModel mainViewModel);
 }

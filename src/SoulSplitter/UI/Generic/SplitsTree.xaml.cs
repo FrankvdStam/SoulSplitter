@@ -17,40 +17,39 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SoulSplitter.UI.Generic
-{
-    /// <summary>
-    /// Interaction logic for SplitsTree.xaml
-    /// </summary>
-    public partial class SplitsTree : UserControl
-    {
-        public SplitsTree()
-        {
-            InitializeComponent();
-        }
-        
-        public static readonly DependencyProperty SplitsViewModelDependencyProperty =
-            DependencyProperty.Register(nameof(SplitsViewModel), typeof(SplitsViewModel), typeof(SplitsTree),
-                new FrameworkPropertyMetadata(new SplitsViewModel(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+namespace SoulSplitter.UI.Generic;
 
-        public SplitsViewModel SplitsViewModel
+/// <summary>
+/// Interaction logic for SplitsTree.xaml
+/// </summary>
+public partial class SplitsTree : UserControl
+{
+    public SplitsTree()
+    {
+        InitializeComponent();
+    }
+    
+    public static readonly DependencyProperty SplitsViewModelDependencyProperty =
+        DependencyProperty.Register(nameof(SplitsViewModel), typeof(SplitsViewModel), typeof(SplitsTree),
+            new FrameworkPropertyMetadata(new SplitsViewModel(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+    public SplitsViewModel SplitsViewModel
+    {
+        get =>(SplitsViewModel)GetValue(SplitsViewModelDependencyProperty);
+        set => SetValue(SplitsViewModelDependencyProperty, value);
+    }
+    
+    private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+        if (sender is TreeView treeView)
         {
-            get =>(SplitsViewModel)GetValue(SplitsViewModelDependencyProperty);
-            set => SetValue(SplitsViewModelDependencyProperty, value);
-        }
-        
-        private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            if (sender is TreeView treeView)
+            if (treeView.SelectedItem is SplitViewModel splitViewModel)
             {
-                if (treeView.SelectedItem is SplitViewModel splitViewModel)
-                {
-                    SplitsViewModel.SelectedSplit = splitViewModel;
-                }
-                else
-                {
-                    SplitsViewModel.SelectedSplit = null;
-                }
+                SplitsViewModel.SelectedSplit = splitViewModel;
+            }
+            else
+            {
+                SplitsViewModel.SelectedSplit = null;
             }
         }
     }

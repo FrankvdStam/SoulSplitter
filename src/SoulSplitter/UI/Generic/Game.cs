@@ -14,15 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+public enum Game
 {
-    public enum Game
-    {
-        DarkSouls1 = 0,
-        DarkSouls2 = 1,
-        DarkSouls3 = 2,
-        Sekiro = 3,
-        EldenRing = 4,
-        ArmoredCore6 = 5,
-    }
+    DarkSouls1 = 0,
+    DarkSouls2 = 1,
+    DarkSouls3 = 2,
+    Sekiro = 3,
+    EldenRing = 4,
+    ArmoredCore6 = 5,
 }

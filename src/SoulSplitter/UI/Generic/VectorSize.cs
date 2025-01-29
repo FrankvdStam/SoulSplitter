@@ -14,56 +14,47 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using SoulMemory;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+public class VectorSize : ICustomNotifyPropertyChanged
 {
-    public class VectorSize : INotifyPropertyChanged
+    public Vector3f Position
     {
-        public Vector3f Position
-        {
-            get => _position;
-            set => SetField(ref _position, value);
-        }
-        private Vector3f _position = new Vector3f(0,0,0);
-
-        public float Size
-        {
-            get => _size;
-            set => SetField(ref _size, value);
-        }
-        private float _size = 5.0f;
-
-        public string Description
-        {
-            get => _description;
-            set => SetField(ref _description, value);
-        }
-        private string _description = "";
-
-        public override string ToString()
-        {
-            return $"{Position}, size {Size}, {Description}";
-        }
-
-        #region INotifyPropertyChanged
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
-        #endregion
+        get => _position;
+        set => this.SetField(ref _position, value);
     }
+    private Vector3f _position = new(0,0,0);
+
+    public float Size
+    {
+        get => _size;
+        set => this.SetField(ref _size, value);
+    }
+    private float _size = 5.0f;
+
+    public string Description
+    {
+        get => _description;
+        set => this.SetField(ref _description, value);
+    }
+    private string _description = "";
+
+    public override string ToString()
+    {
+        return $"{Position}, size {Size}, {Description}";
+    }
+
+    #region ICustomNotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void InvokePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    #endregion
 }

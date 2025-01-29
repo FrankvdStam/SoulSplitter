@@ -19,28 +19,27 @@ using System.Windows;
 using System.Windows.Data;
 using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.UI.Converters
+namespace SoulSplitter.UI.Converters;
+
+public class SplitTypeVisibilityConverter : IValueConverter
 {
-    public class SplitTypeVisibilityConverter : IValueConverter
+    public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            var result =
-                value is SplitType splitType &&
-                parameter is string s &&
-                Enum.TryParse(s, out SplitType target) &&
-                splitType == target;
+        var result =
+            value is SplitType splitType &&
+            parameter is string s &&
+            Enum.TryParse(s, out SplitType target) &&
+            splitType == target;
 
-            if (result)
-            {
-                return Visibility.Visible;
-            }
-            return Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        if (result)
         {
-            throw new NotSupportedException();
+            return Visibility.Visible;
         }
+        return Visibility.Collapsed;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
+    {
+        throw new NotSupportedException();
     }
 }

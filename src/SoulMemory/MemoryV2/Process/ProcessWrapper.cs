@@ -20,77 +20,76 @@ using System.Diagnostics;
 using System.Linq;
 using SoulMemory.Native;
 
-namespace SoulMemory.MemoryV2.Process
+namespace SoulMemory.MemoryV2.Process;
+
+public class ProcessWrapper : IProcessWrapper
 {
-    public class ProcessWrapper : IProcessWrapper
+    private System.Diagnostics.Process? _process;
+    public System.Diagnostics.Process? GetProcess() => _process;
+    public bool Is64Bit() => _process?.Is64Bit() ?? false;
+    public ProcessWrapperModule? GetMainModule() => _process?.MainModule == null ? null : ProcessWrapperModule.FromProcessModule(_process.MainModule);
+
+    public List<ProcessWrapperModule> GetProcessModules()
     {
-        private System.Diagnostics.Process _process;
-        public System.Diagnostics.Process GetProcess() => _process;
-        public bool Is64Bit() => _process.Is64Bit();
-        public ProcessWrapperModule GetMainModule() => _process.MainModule == null ? null : ProcessWrapperModule.FromProcessModule(_process.MainModule);
+        return (from object pm in _process?.Modules select ProcessWrapperModule.FromProcessModule((ProcessModule)pm)).ToList();
+    }
 
-        public List<ProcessWrapperModule> GetProcessModules()
+    /// <summary>
+    /// Refresh attachment to a process
+    /// </summary>
+    /// <returns></returns>
+    public ProcessRefreshResult TryRefresh(string name, out Exception? exception)
+    {
+        exception = null;
+
+        try
         {
-            return (from object pm in _process.Modules select ProcessWrapperModule.FromProcessModule((ProcessModule)pm)).ToList();
-        }
-
-        /// <summary>
-        /// Refresh attachment to a process
-        /// </summary>
-        /// <returns></returns>
-        public ProcessRefreshResult TryRefresh(string name, out Exception exception)
-        {
-            exception = null;
-
-            try
-            {
-                //Process not attached - find it in the process list
-                if (_process == null)
-                {
-                    _process = System.Diagnostics.Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == name.ToLower() && !i.HasExited);
-                    if (_process == null)
-                    {
-                        return ProcessRefreshResult.ProcessNotRunning;
-                    }
-                    else
-                    {
-                        return ProcessRefreshResult.Initialized;
-                    }
-                }
-                //Process is attached, make sure it is still running
-                else
-                {
-                    if (_process.HasExited)
-                    {
-                        _process = null;
-                        return ProcessRefreshResult.Exited;
-                    }
-
-                    //Nothing going on, process still running
-                    return ProcessRefreshResult.Refreshed;
-                }
-            }
-            catch (Exception e)
-            {
-                exception = e;
-                _process = null;
-                return ProcessRefreshResult.Error;
-            }
-        }
-
-        #region IMemory
-
-        public byte[] ReadBytes(long offset, int length)
-        {
+            //Process not attached - find it in the process list
             if (_process == null)
             {
-                return new byte[length];
+                _process = System.Diagnostics.Process.GetProcesses().FirstOrDefault(i => i.ProcessName.ToLower() == name.ToLower() && !i.HasExited);
+                if (_process == null)
+                {
+                    return ProcessRefreshResult.ProcessNotRunning;
+                }
+                else
+                {
+                    return ProcessRefreshResult.Initialized;
+                }
             }
-            return _process.ReadProcessMemoryNoError(offset, length);
+            //Process is attached, make sure it is still running
+            else
+            {
+                if (_process.HasExited)
+                {
+                    _process = null;
+                    return ProcessRefreshResult.Exited;
+                }
+
+                //Nothing going on, process still running
+                return ProcessRefreshResult.Refreshed;
+            }
         }
-
-        public void WriteBytes(long offset, byte[] bytes) => _process?.WriteProcessMemoryNoError(offset, bytes);
-
-        #endregion
+        catch (Exception e)
+        {
+            exception = e;
+            _process = null;
+            return ProcessRefreshResult.Error;
+        }
     }
+
+    #region IMemory
+
+    public byte[] ReadBytes(long offset, int length)
+    {
+        if (_process == null)
+        {
+            return new byte[length];
+        }
+        return _process.ReadProcessMemoryNoError(offset, length);
+    }
+
+    public void WriteBytes(long offset, byte[] bytes) => _process?.WriteProcessMemoryNoError(offset, bytes);
+
+    #endregion
 }

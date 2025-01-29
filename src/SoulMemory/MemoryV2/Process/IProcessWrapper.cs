@@ -18,17 +18,16 @@ using SoulMemory.MemoryV2.Memory;
 using System;
 using System.Collections.Generic;
 
-namespace SoulMemory.MemoryV2.Process
+namespace SoulMemory.MemoryV2.Process;
+
+/// <summary>
+/// Abstract away the functionality from System.Diagnostics.Process, to make it injectable and testable
+/// </summary>
+public interface IProcessWrapper : IMemory
 {
-    /// <summary>
-    /// Abstract away the functionality from System.Diagnostics.Process, to make it injectable and testable
-    /// </summary>
-    public interface IProcessWrapper : IMemory
-    {
-        ProcessRefreshResult TryRefresh(string name, out Exception exception);
-        ProcessWrapperModule GetMainModule();
-        List<ProcessWrapperModule> GetProcessModules();
-        System.Diagnostics.Process GetProcess();
-        bool Is64Bit();
-    }
+    ProcessRefreshResult TryRefresh(string name, out Exception? exception);
+    ProcessWrapperModule? GetMainModule();
+    List<ProcessWrapperModule> GetProcessModules();
+    System.Diagnostics.Process? GetProcess();
+    bool Is64Bit();
 }

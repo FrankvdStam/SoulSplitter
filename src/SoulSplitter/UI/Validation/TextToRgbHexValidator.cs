@@ -18,19 +18,18 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 
-namespace SoulSplitter.UI.Validation
-{
-    public class TextToRgbHexValidator : ValidationRule
-    {
-        private static readonly Regex RgbValidator = new Regex("^#(?:[0-9a-fA-F]{3}){1,2}$");
+namespace SoulSplitter.UI.Validation;
 
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+public class TextToRgbHexValidator : ValidationRule
+{
+    private static readonly Regex RgbValidator = new("^#(?:[0-9a-fA-F]{3}){1,2}$");
+
+    public override ValidationResult Validate(object? value, CultureInfo cultureInfo)
+    {
+        if (value is string hex && RgbValidator.Match(hex).Success)
         {
-            if (value is string hex && RgbValidator.Match(hex).Success)
-            {
-                return new ValidationResult(true, null);
-            }
-            return new ValidationResult(false, $"{value} is not a valid RGB hex");
+            return new ValidationResult(true, null);
         }
+        return new ValidationResult(false, $"{value} is not a valid RGB hex");
     }
 }

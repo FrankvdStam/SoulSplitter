@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.MemoryV2.Memory
+namespace SoulMemory.MemoryV2.Memory;
+
+/// <summary>
+/// Abstracts a resource that can be read from and written to
+/// </summary>
+public interface IMemory
 {
-    /// <summary>
-    /// Abstracts a resource that can be read from and written to
-    /// </summary>
-    public interface IMemory
-    {
-        byte[] ReadBytes(long offset, int length);
-        void WriteBytes(long offset, byte[] bytes);
-    }
+    byte[] ReadBytes(long offset, int length);
+    void WriteBytes(long offset, byte[] bytes);
 }

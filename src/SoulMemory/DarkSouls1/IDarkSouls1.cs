@@ -18,28 +18,27 @@ using SoulMemory.DarkSouls1.Parameters;
 using System;
 using System.Collections.Generic;
 
-namespace SoulMemory.DarkSouls1
+namespace SoulMemory.DarkSouls1;
+
+public interface IDarkSouls1 : IGame
 {
-    public interface IDarkSouls1 : IGame
-    {
-        int GetAttribute(Attribute attribute);
-        bool IsWarpRequested();
-        bool IsPlayerLoaded();
-        int NgCount();
-        int GetCurrentSaveSlot();
-        Vector3f GetPosition();
-        bool AreCreditsRolling();
-        void ResetInventoryIndices();
-        List<Item> GetInventory();
-        BonfireState GetBonfireState(Bonfire bonfire);
-        string GetSaveFileLocation();
-        int GetSaveFileGameTimeMilliseconds(string path, int slot);
-        void WriteWeaponDescription(uint weaponId, string description);
-        void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor);
-        void SetLoadingScreenItem(int index, uint item);
+    int GetAttribute(Attribute attribute);
+    bool IsWarpRequested();
+    bool IsPlayerLoaded();
+    int NgCount();
+    int GetCurrentSaveSlot();
+    Vector3f GetPosition();
+    bool AreCreditsRolling();
+    void ResetInventoryIndices();
+    List<Item> GetInventory();
+    BonfireState GetBonfireState(Bonfire bonfire);
+    string? GetSaveFileLocation();
+    int GetSaveFileGameTimeMilliseconds(string path, int slot);
+    void WriteWeaponDescription(uint weaponId, string description);
+    void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor);
+    void SetLoadingScreenItem(int index, uint item);
 
 #if DEBUG
-        object GetTestValue();
+    object GetTestValue();
 #endif
-    }
 }

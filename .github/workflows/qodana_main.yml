@@ -1,0 +1,50 @@
+name: qodana main
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: qodana main
+    runs-on: windows-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v3
+
+      - name: dotnet restore
+        run: dotnet restore
+
+      - name: Build solution
+        run: dotnet build -c release
+
+      - name: Run tests with code coverage
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
+
+      - name: Qodana Scan
+        continue-on-error: true
+        uses: JetBrains/qodana-action@v2024.3
+        with:
+          args: --baseline,qodana.sarif.json
+          pr-mode: false
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+ 
+      - name: upload to github code scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json

@@ -16,16 +16,15 @@
 
 using System.Windows.Controls;
 
-namespace SoulSplitter.UI.Generic
+namespace SoulSplitter.UI.Generic;
+
+/// <summary>
+/// Interaction logic for AddRemoveSplits.xaml
+/// </summary>
+public partial class AddRemoveSplits : UserControl
 {
-    /// <summary>
-    /// Interaction logic for AddRemoveSplits.xaml
-    /// </summary>
-    public partial class AddRemoveSplits : UserControl
+    public AddRemoveSplits()
     {
-        public AddRemoveSplits()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

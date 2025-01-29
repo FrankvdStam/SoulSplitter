@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.DarkSouls1
+namespace SoulMemory.DarkSouls1;
+
+public enum DropModType
 {
-    public enum DropModType
-    {
-        None,
-        AnyPercent,
-        AllAchievements
-    }
+    None,
+    AnyPercent,
+    AllAchievements
 }

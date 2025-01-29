@@ -17,62 +17,61 @@
 using System;
 using System.Text;
 
-namespace SoulMemory
+namespace SoulMemory;
+
+public class RefreshError
 {
-    public class RefreshError
+    public static ResultErr<RefreshError> FromException(Exception e)
     {
-        public static ResultErr<RefreshError> FromException(Exception e)
-        {
-            return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, e));
-        }
-
-        public RefreshError(RefreshErrorReason reason)
-        {
-            Reason = reason;
-        }
-
-        public RefreshError(RefreshErrorReason reason, string message)
-        {
-            Reason = reason;
-            Message = message;
-        }
-
-        public RefreshError(RefreshErrorReason reason, Exception exception)
-        {
-            Reason = reason;
-            Exception = exception;
-        }
-
-        public RefreshErrorReason Reason { get; }
-        public string Message { get; }
-        public Exception Exception { get; }
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder(Reason.ToString());
-            if (!string.IsNullOrWhiteSpace(Message))
-            {
-                sb.Append(" - ");
-                sb.Append(Message);
-            }
-            if (Exception != null)
-            {
-                sb.Append(" - ");
-                sb.Append(Exception);
-            }
-
-            return sb.ToString();
-        }
+        return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, e));
     }
 
-    public enum RefreshErrorReason
+    public RefreshError(RefreshErrorReason reason)
     {
-        UnknownException,
-        ScansFailed,
-        ProcessNotRunning,
-        ProcessExited,
-        MainModuleNull,
-        AccessDenied,
-        ModLoadFailed,
+        Reason = reason;
     }
+
+    public RefreshError(RefreshErrorReason reason, string message)
+    {
+        Reason = reason;
+        Message = message;
+    }
+
+    public RefreshError(RefreshErrorReason reason, Exception exception)
+    {
+        Reason = reason;
+        Exception = exception;
+    }
+
+    public RefreshErrorReason Reason { get; }
+    public string Message { get; } = null!;
+    public Exception? Exception { get; }
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder(Reason.ToString());
+        if (!string.IsNullOrWhiteSpace(Message))
+        {
+            sb.Append(" - ");
+            sb.Append(Message);
+        }
+        if (Exception != null)
+        {
+            sb.Append(" - ");
+            sb.Append(Exception);
+        }
+
+        return sb.ToString();
+    }
+}
+
+public enum RefreshErrorReason
+{
+    UnknownException,
+    ScansFailed,
+    ProcessNotRunning,
+    ProcessExited,
+    MainModuleNull,
+    AccessDenied,
+    ModLoadFailed,
 }

@@ -18,28 +18,27 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace SoulSplitter.UI.Converters
+namespace SoulSplitter.UI.Converters;
+
+public class DoubleToGridLengthConverter : IValueConverter
 {
-    public class DoubleToGridLengthConverter : IValueConverter
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        if(value is double d)
         {
-            if(value is double d)
-            {
-                return new System.Windows.GridLength(d);
-            }
-
-            throw new NotSupportedException($"Type not supported {targetType}");
+            return new System.Windows.GridLength(d);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is System.Windows.GridLength g)
-            {
-                return g.Value;
-            }
+        throw new NotSupportedException($"Type not supported {targetType}");
+    }
 
-            throw new NotSupportedException($"Type not supported {targetType}");
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is System.Windows.GridLength g)
+        {
+            return g.Value;
         }
+
+        throw new NotSupportedException($"Type not supported {targetType}");
     }
 }

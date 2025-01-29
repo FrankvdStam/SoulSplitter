@@ -21,36 +21,35 @@ using System.Linq;
 using SoulMemory.soulmods;
 using SoulMemory.Native;
 
-namespace SoulSplitter.soulmemory_rs
+namespace SoulSplitter.soulmemory_rs;
+
+public static class SoulMemoryRs
 {
-    public static class SoulMemoryRs
+    public static void Launch()
     {
-        public static void Launch()
+        var games = new List<string>()
         {
-            var games = new List<string>()
-            {
-                "darksouls",
-                "darksoulsremastered",
-                "darksoulsii",
-                "darksoulsiii",
-                "sekiro",
-                "eldenring",
-                "armoredcore6",
-            };
+            "darksouls",
+            "darksoulsremastered",
+            "darksoulsii",
+            "darksoulsiii",
+            "sekiro",
+            "eldenring",
+            "armoredcore6",
+        };
 
-            var process = Process.GetProcesses().FirstOrDefault(p => games.Contains(p.ProcessName.ToLower()));
-            if (process == null)
-            {
-                return;
-            }
-
-            var x64 = process.Is64Bit().Unwrap();
-
-            var launcherPath = Path.Combine(Path.GetDirectoryName(typeof(Soulmods).Assembly.Location), $"{(x64 ? "launcher_x64.exe" : "launcher_x86.exe")}");
-            var dllPath = Path.Combine(Path.GetDirectoryName(typeof(Soulmods).Assembly.Location), $"{(x64 ? "soulmemory_rs_x64.dll" : "soulmemory_rs_x86.dll")}");
-            var args = $"--processname={process.ProcessName} --dllpath=\"{dllPath}\"";
-
-            Process.Start(launcherPath, args);
+        var process = Process.GetProcesses().FirstOrDefault(p => games.Contains(p.ProcessName.ToLower()));
+        if (process == null)
+        {
+            return;
         }
+
+        var x64 = process.Is64Bit().Unwrap();
+
+        var launcherPath = Path.Combine(Path.GetDirectoryName(typeof(Soulmods).Assembly.Location), $"{(x64 ? "launcher_x64.exe" : "launcher_x86.exe")}");
+        var dllPath = Path.Combine(Path.GetDirectoryName(typeof(Soulmods).Assembly.Location), $"{(x64 ? "soulmemory_rs_x64.dll" : "soulmemory_rs_x86.dll")}");
+        var args = $"--processname={process.ProcessName} --dllpath=\"{dllPath}\"";
+
+        Process.Start(launcherPath, args);
     }
 }

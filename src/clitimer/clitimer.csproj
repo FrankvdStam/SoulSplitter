@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
     <PropertyGroup>
-		<OutputType>Exe</OutputType>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net481</TargetFramework>
         <PlatformTarget>x64</PlatformTarget>
-		<Platforms>x64</Platforms>
+        <Platforms>x64</Platforms>
+        <LangVersion>13</LangVersion>
+        <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
-		<Title>CliTimer</Title>
-		<PackageProjectUrl>https://github.com/FrankvdStam/SoulSplitter</PackageProjectUrl>
+        <Title>CliTimer</Title>
+        <PackageProjectUrl>https://github.com/FrankvdStam/SoulSplitter</PackageProjectUrl>
         <RepositoryUrl>https://github.com/FrankvdStam/SoulSplitter</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>Dark Souls; Dark Souls 2; Dark Souls 3; Sekiro; Sekiro: Shadows Die Twice; Elden Ring; Armored Core 6;</PackageTags>
@@ -14,9 +16,9 @@
         <PackageLicenseFile>../../LICENSE</PackageLicenseFile>
         <Copyright>(c) 2022 by Frank van der Stam, GPL-v3 licensed</Copyright>
         <SonarQubeExclude>true</SonarQubeExclude>
-	</PropertyGroup>
-	
-	<ItemGroup>
-		<ProjectReference Include="..\SoulMemory\SoulMemory.csproj" />
-	</ItemGroup>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\SoulMemory\SoulMemory.csproj" />
+    </ItemGroup>
 </Project>

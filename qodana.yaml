@@ -13,6 +13,23 @@ exclude:
     paths:
       - src/cli
       - tests
-      
-dependencyIgnores:
+  - name: SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+  - name: All
+    paths:
+      - tests
+      - src/Cli
+
+dependencyOverrides:
+    #this unfortunately does not get detected automatically by qodana
   - name: "NETStandard.Library"
+    version: "2.0.3"
+    licenses:
+      - key: "MIT"
+        url: "https://nuget.info/packages/NETStandard.Library/2.0.3"
+
+failureConditions:
+  severityThresholds:
+    any: 0
+  testCoverageThresholds:
+    fresh: 80
+    total: 20
