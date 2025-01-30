@@ -350,10 +350,6 @@ public static class Kernel32
         var functions = new Dictionary<string, long>();
         for (var i = 0; i < exportTable.NumberOfNames; i++)
         {
-            var eat = module.modBaseAddr.ToInt64() + exportTable.AddressOfFunctions;
-
-            var eatPtr = (IntPtr)eat;
-
             //Function name offset is an array of 4byte numbers
             var functionNameOffset = process.ReadMemory<uint>(nameOffsetTable + i * sizeof(uint)).Unwrap();
             var functionName = process.ReadAsciiString(module.modBaseAddr.ToInt64() + functionNameOffset);
