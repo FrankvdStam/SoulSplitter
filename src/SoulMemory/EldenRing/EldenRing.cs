@@ -623,16 +623,16 @@ public class EldenRing : IGame
     #endregion
 
     #region soulmods
-    public bool? FpsPatchGet()
+    public bool FpsPatchGet()
     {
         if (_soulmodsExports.TryGetValue("ER_FPS_PATCH_ENABLED", out var address))
         {
-            return _process?.ReadMemory<bool>(address).Unwrap();
+            if (_process?.ReadMemory<bool>(address).Unwrap() is bool enabled)
+            {
+                return enabled;
+            }
         }
-        else
-        {
-            return null;
-        }
+        return false;
     }
 
     public void FpsPatchSet(bool b)
@@ -643,17 +643,16 @@ public class EldenRing : IGame
         }
     }
 
-
-    public float? FpsLimitGet()
+    public float FpsLimitGet()
     {
         if (_soulmodsExports.TryGetValue("ER_FPS_CUSTOM_LIMIT", out var address))
         {
-            return _process?.ReadMemory<float>(address).Unwrap();
+            if (_process?.ReadMemory<float>(address).Unwrap() is float fps)
+            {
+                return fps;
+            }
         }
-        else
-        {
-            return null;
-        }
+        return 0.0f;
     }
 
     public void FpsLimitSet(float f)
