@@ -260,7 +260,7 @@ unsafe extern "win64" fn frame_advance(registers: *mut Registers, _:usize)
     {
         ER_FRAME_RUNNING = false;
 
-        while !ER_FRAME_RUNNING {
+        while !ER_FRAME_RUNNING && ER_FRAME_ADVANCE_ENABLED {
             thread::sleep(Duration::from_micros(10));
         }
     }
