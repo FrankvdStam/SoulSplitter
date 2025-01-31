@@ -41,6 +41,8 @@ public class EldenRing : IGame
     private long _positionOffset;
     private long _mapIdOffset;
     private long _playerInsOffset;
+
+    private Dictionary<string, long> _soulmodsExports = new();
     
 
     #region Refresh/init/reset ================================================================================================
@@ -168,12 +170,13 @@ public class EldenRing : IGame
 
             ApplyNoLogo();
 
-            if (!soulmods.Soulmods.Inject(_process!))
+            var injectResult = soulmods.Soulmods.Inject(_process!);
+            if (injectResult.IsErr)
             {
                 _igt.Clear();
-                return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "soulmods injection failed"));
+                return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, "soulmods injection failed"));
             }
-            
+            _soulmodsExports = injectResult.Unwrap();
             return Result.Ok();
         }
         catch (Exception e)
@@ -608,5 +611,41 @@ public class EldenRing : IGame
         _igt.WriteInt32(milliseconds);
     }
 
+    #endregion
+
+    #region soulmods
+    public bool FpsPatchGet()
+    {
+        if (_soulmodsExports.TryGetValue("ER_FPS_PATCH_ENABLED", out var address))
+        {
+            return _process?.ReadMemory<bool>(address).Unwrap() ?? false;
+        }
+        return false;
+    }
+
+    public void FpsPatchSet(bool b)
+    {
+        if (_soulmodsExports.TryGetValue("ER_FPS_PATCH_ENABLED", out var address))
+        {
+            _process?.WriteProcessMemory(address, BitConverter.GetBytes(b));
+        }
+    }
+
+    public float FpsLimitGet()
+    {
+        if (_soulmodsExports.TryGetValue("ER_FPS_CUSTOM_LIMIT", out var address))
+        {
+            return _process?.ReadMemory<float>(address).Unwrap() ?? 0.0f;
+        }
+        return 0.0f;
+    }
+
+    public void FpsLimitSet(float f)
+    {
+        if (_soulmodsExports.TryGetValue("ER_FPS_CUSTOM_LIMIT", out var address))
+        {
+            _process?.WriteProcessMemory(address, BitConverter.GetBytes(f));
+        }
+    }
     #endregion
 }

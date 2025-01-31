@@ -31,14 +31,19 @@ public class FilteredComboBox : ComboBox
 
     protected TextBox EditableTextBox => (GetTemplateChild("PART_EditableTextBox") as TextBox)!;
     
-    protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
+    protected override void OnItemsSourceChanged(IEnumerable? oldValue, IEnumerable? newValue)
     {
-        var newView = CollectionViewSource.GetDefaultView(newValue);
-        newView.Filter += FilterItem;
-    
-        var oldView = CollectionViewSource.GetDefaultView(oldValue);
-        oldView.Filter -= FilterItem;
-    
+        if (newValue != null)
+        {
+            var newView = CollectionViewSource.GetDefaultView(newValue);
+            newView.Filter += FilterItem;
+        }
+
+        if (oldValue != null)
+        {
+            var oldView = CollectionViewSource.GetDefaultView(oldValue);
+            oldView.Filter -= FilterItem;
+        }
 
         base.OnItemsSourceChanged(oldValue, newValue);
     }

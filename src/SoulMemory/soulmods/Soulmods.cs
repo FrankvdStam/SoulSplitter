@@ -47,32 +47,37 @@ public class RustCallAttribute : Attribute
 
 public static class Soulmods
 {
-    public static bool Inject(Process process)
+    private static string SoulmodsModuleName(this Process process)
+    {
+        return process.Is64Bit().Unwrap() ? "soulmods_x64.dll" : "soulmods_x86.dll";
+    }
+
+    public static ResultOk<Dictionary<string, long>> Inject(Process process)
     {
         var dir = Path.GetDirectoryName(typeof(Soulmods).Assembly.Location)!;
-        var path = process.Is64Bit().Unwrap() ? Path.Combine(dir, @"soulmods_x64.dll") : Path.Combine(dir, @"soulmods_x86.dll");
+        var soulmodsModuleName = process.SoulmodsModuleName();
+        var path = Path.Combine(dir, soulmodsModuleName);
 
         process.InjectDll(path);
 
-        foreach (ProcessModule processModule in process.Modules)
+        if (process.Modules.Cast<ProcessModule>().Any(processModule => processModule.ModuleName == soulmodsModuleName))
         {
-            if (processModule.ModuleName is "soulmods_x64.dll" or "soulmods_x86.dll")
-            {
-                return true;
-            }
+            _soulmodsExports = process.GetModuleExports(soulmodsModuleName);
+            return Result.Ok(_soulmodsExports);
         }
-        return false;
+        return Result.Err();
     }
 
+    private static Dictionary<string, long>? _soulmodsExports;
+
+
+    /*
     public static MorphemeMessageBuffer GetMorphemeMessages2(Process process) => process.RustCall<MorphemeMessageBuffer>("GetQueuedDarkSouls2MorphemeMessages2");
     
-
-
-    private static List<(string name, long address)>? _soulmodsMethods;
     public static TSized RustCall<TSized>(this Process process, string function, TSized? parameter = null) where TSized : struct
     {
-        _soulmodsMethods ??= process.GetModuleExportedFunctions("soulmods.dll");
-        var functionPtr = _soulmodsMethods.First(i => i.name == function).address;
+        _soulmodsExports ??= process.GetModuleExports(process.Is64Bit().Unwrap() ? "soulmods_x64.dll" :"soulmods_x86.dll");
+        var functionPtr = _soulmodsExports[function];
 
         var buffer = process.Allocate(Marshal.SizeOf<TSized>());
         if (parameter.HasValue)
@@ -89,8 +94,8 @@ public static class Soulmods
     public static void GetMorphemeMessages(Process process)
     {
         //Get function address
-        var soulmods = process.GetModuleExportedFunctions("soulmods.dll");
-        var func = soulmods.First(i => i.name == "GetQueuedDarkSouls2MorphemeMessages").address;
+        var soulmods = process.GetModuleExports(process.Is64Bit().Unwrap() ? "soulmods_x64.dll" : "soulmods_x86.dll");
+        var func = soulmods["GetQueuedDarkSouls2MorphemeMessages"];
 
         //Get buffer size
         var buffer = process.Allocate(4);
@@ -110,25 +115,5 @@ public static class Soulmods
             process.Free(buffer);
         }
     }
-
-    private static void OverwriteFile(string manifestResourceName, string path)
-    {
-        using var stream = typeof(Soulmods).Assembly.GetManifestResourceStream(manifestResourceName)!;
-        var buffer = new byte[stream.Length];
-        _ = stream.Read(buffer, 0, buffer.Length);
-        
-        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-
-        try
-        {
-            File.WriteAllBytes(path, buffer);
-
-        }
-        catch (IOException)
-        {
-            // ignore exception when overwriting existing file, may be in use by game process
-        }
-
-       
-    }
+    */
 }
