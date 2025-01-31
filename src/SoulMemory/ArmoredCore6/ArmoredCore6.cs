@@ -95,22 +95,16 @@ public class ArmoredCore6 : IGame
 
     private ResultErr<RefreshError> InjectMods()
     {
-        Exception? exception = null;
         try
         {
-            soulmods.Soulmods.Inject(GetProcess()!);
+            if (soulmods.Soulmods.Inject(GetProcess()!).IsErr)
+            {
+                return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed));
+            }
         }
-        catch (Exception e) { exception = e; }
-
-        var module = _armoredCore6.ProcessWrapper.GetProcessModules().Find(i => i.ModuleName == (_armoredCore6.ProcessWrapper.Is64Bit() ? "soulmods_x64.dll" : "soulmods_x86.dll"));
-        if (module != null)
+        catch (Exception e)
         {
-            return Result.Ok();
-        }
-
-        if (exception != null)
-        {
-            return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, exception));
+            return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, e));
         }
 
         return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, "module not loaded"));

@@ -170,22 +170,13 @@ public class EldenRing : IGame
 
             ApplyNoLogo();
 
-            if (!soulmods.Soulmods.Inject(_process!))
+            var injectResult = soulmods.Soulmods.Inject(_process!);
+            if (injectResult.IsErr)
             {
                 _igt.Clear();
-                return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "soulmods injection failed"));
+                return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, "soulmods injection failed"));
             }
-
-            if (_process?.GetModuleExports(_process.Is64Bit().Unwrap() ? "soulmods_x64.dll" : "soulmods_x86.dll") is Dictionary<string, long>  exports)
-            {
-                _soulmodsExports = exports;
-            } 
-            else
-            {
-                return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "Getting soulmods exports failed"));
-            }
-
-
+            _soulmodsExports = injectResult.Unwrap();
             return Result.Ok();
         }
         catch (Exception e)
