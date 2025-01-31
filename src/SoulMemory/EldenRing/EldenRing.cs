@@ -618,10 +618,7 @@ public class EldenRing : IGame
     {
         if (_soulmodsExports.TryGetValue("ER_FPS_PATCH_ENABLED", out var address))
         {
-            if (_process?.ReadMemory<bool>(address).Unwrap() is bool enabled)
-            {
-                return enabled;
-            }
+            return _process?.ReadMemory<bool>(address).Unwrap() ?? false;
         }
         return false;
     }
@@ -638,10 +635,7 @@ public class EldenRing : IGame
     {
         if (_soulmodsExports.TryGetValue("ER_FPS_CUSTOM_LIMIT", out var address))
         {
-            if (_process?.ReadMemory<float>(address).Unwrap() is float fps)
-            {
-                return fps;
-            }
+            return _process?.ReadMemory<float>(address).Unwrap() ?? 0.0f;
         }
         return 0.0f;
     }
