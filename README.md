@@ -18,7 +18,7 @@
 
 <p align="center">
     <a href="https://github.com/FrankvdStam/SoulSplitter/actions">
-        <img src="https://img.shields.io/github/actions/workflow/status/FrankvdStam/SoulSplitter/build.yml?branch=main"/>
+        <img src="https://img.shields.io/github/actions/workflow/status/FrankvdStam/SoulSplitter/qodana_main.yml?branch=main"/>
     </a>
     <a href="https://www.nuget.org/packages/SoulMemory/">
         <img src="https://img.shields.io/nuget/v/SoulMemory"/>

@@ -48,18 +48,23 @@ namespace cli
             //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
             //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
 
+            var er = new EldenRing();
+            er.TryRefresh();
+            er.WriteInGameTimeMilliseconds(0);
+
 
             //TestUi();
-            GameLoop<DarkSouls1>(
+            GameLoop<EldenRing>(
                 (d) =>
                 {
-                    var dropmod = new DropMod(d);
-                    dropmod.InitBkh();
-                    
-
-
-                    var igtElapsed = TimeSpan.FromMilliseconds(d.GetInGameTimeMilliseconds());
-                    Console.WriteLine($"IGT: {igtElapsed}");
+                    d.WriteInGameTimeMilliseconds(0);
+                    //var dropmod = new DropMod(d);
+                    //dropmod.InitBkh();
+                    //
+                    //
+                    //
+                    //var igtElapsed = TimeSpan.FromMilliseconds(d.GetInGameTimeMilliseconds());
+                    //Console.WriteLine($"IGT: {igtElapsed}");
                 }
             );
         }
