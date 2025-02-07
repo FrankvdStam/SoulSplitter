@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.8.0">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+            <file path="Components/soulmods_x86.dll"                status="changed"/>
+            <file path="Components/soulmods_x64.dll"                status="changed"/>
+            <file path="Components/soulmemory_rs_x86.dll"           status="changed"/>
+            <file path="Components/soulmemory_rs_x64.dll"           status="changed"/>
+            <file path="Components/launcher_x86.exe"                status="changed"/>
+            <file path="Components/launcher_x64.exe"                status="changed"/>
+        </files>
+        <changelog>
+            <change>Update C# from 7.3 to 13</change>
+            <change>Dark Souls PTDE/Remastered: Added dropmod items: bkgs, bkugs, short bow, balder knight rapier, large club</change>
+        </changelog>
+    </update>
     <update version="1.7.5">
         <files>
             <file path="Components/soulinjectee.dll"                status="removed"/>
@@ -220,8 +236,8 @@
     </update>
     <update version="1.4.1">
         <files>
-             <file path="Components/SoulMemory.dll"   status="changed"/>
-             <file path="Components/SoulSplitter.dll" status="changed"/>
+            <file path="Components/SoulMemory.dll"   status="changed"/>
+            <file path="Components/SoulSplitter.dll" status="changed"/>
         </files>
         <changelog>
             <change>Hotfix error in event flag tracker</change>
