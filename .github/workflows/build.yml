@@ -47,6 +47,7 @@ jobs:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
  
       - name: upload to github code scanning
+        if: ${{ !github.event.pull_request.head.repo.fork }}
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
@@ -75,6 +76,7 @@ jobs:
             copy src\CliTimer\bin\x64\release\net481\soulmods_x64.dll                    artifact\CliTimer
 
       - name: sign artifacts
+        if: ${{ !github.event.pull_request.head.repo.fork }}
         run: |
             $bytes = [Convert]::FromBase64String("${{SECRETS.CERT_PFX_BASE64}}")
             [IO.File]::WriteAllBytes("SoulSplitter.pfx", $bytes)
@@ -93,6 +95,7 @@ jobs:
             & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\soulmods_x64.dll"
 
       - name: Publish SoulSplitter
+        if: ${{ !github.event.pull_request.head.repo.fork }}
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.VERSION }}

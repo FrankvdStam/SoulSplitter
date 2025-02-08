@@ -89,7 +89,7 @@ internal class EldenRingSplitter : ISplitter
         });
 
         //Lock IGT to 0 if requested
-        if (_eldenRingViewModel.LockIgtToZero)
+        if (result!.IsOk && _eldenRingViewModel.LockIgtToZero)
         {
             mainViewModel.TryAndHandleError(() => _eldenRing.WriteInGameTimeMilliseconds(0));
             return Result.Ok();//Don't allow other features to be used while locking the timer
