@@ -57,7 +57,7 @@ internal static class Logger
                 {
                     var lines = File.ReadAllLines(filePath);
                     File.Delete(filePath);
-                    File.WriteAllLines(filePath, lines.Skip(lines.Count() / 2));
+                    File.WriteAllLines(filePath, lines.Skip(lines.Length / 2));
                 }
 
                 //Log the message
