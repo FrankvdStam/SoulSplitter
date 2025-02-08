@@ -30,7 +30,6 @@ struct FpsOffsets
     frame_delta: isize,
     timestamp_previous: isize,
     timestamp_current: isize,
-    timestamp_history: isize,
 }
 
 static mut IGT_BUFFER: f32 = 0.0f32;
@@ -46,7 +45,6 @@ static mut FPS_OFFSETS: FpsOffsets = FpsOffsets {
     frame_delta: 0x0,
     timestamp_previous: 0x0,
     timestamp_current: 0x0,
-    timestamp_history: 0x0,
 };
 
 #[no_mangle]
@@ -100,11 +98,10 @@ pub fn init_eldenring()
                 frame_delta: 0x264,
                 timestamp_previous: 0x20,
                 timestamp_current: 0x28,
-                timestamp_history: 0x0,
             };
 
             fps_aob = "8b 83 64 02 00 00 89 83 b4 02 00 00";
-            fps_history_aob = "0f b6 83 74 02 00 00 89 44 cb 08";
+            fps_history_aob = "48 89 04 cb 0f b6 83 74 02 00 00 89 44 cb 08";
             fps_custom_limit_aob = "0F 57 F6 44 38 BB D0 02 00 00";
         }
         else
@@ -116,11 +113,10 @@ pub fn init_eldenring()
                 frame_delta: 0x26c,
                 timestamp_previous: 0x28,
                 timestamp_current: 0x30,
-                timestamp_history: 0x68,
             };
 
             fps_aob = "8b 83 6c 02 00 00 89 83 bc 02 00 00";
-            fps_history_aob = "0f b6 83 7c 02 00 00 89 44 cb 70";
+            fps_history_aob = "48 89 44 cb 68 0f b6 83 7c 02 00 00 89 44 cb 70";
             fps_custom_limit_aob = "0F 57 F6 44 38 BB D8 02 00 00";
         }
 
@@ -217,14 +213,10 @@ unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
         let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
         let ptr_target_frame_delta = ptr_flipper.offset(FPS_OFFSETS.target_frame_delta) as *mut f32; // Target frame delta - Set in a switch/case at the start
-        let ptr_frame_delta_history = ptr_flipper.offset((*registers).rcx as isize * 0x8 + FPS_OFFSETS.timestamp_history) as *mut u64; // Frame delta history - In an array of 32, with the index incrementing each frame
 
-        // Read the target frame delta and calculate the frame delta timestamp
+        // Read the target frame delta and write back the calculated frame delta timestamp
         let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
-        let target_frame_delta_history = (target_frame_delta * 10000000.0) as u64;
-
-        // Write values back
-        std::ptr::write_volatile(ptr_frame_delta_history, target_frame_delta_history);
+        (*registers).rax = (target_frame_delta * 10000000.0) as u64;
     }
 }
 

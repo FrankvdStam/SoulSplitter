@@ -135,14 +135,10 @@ unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
         let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
         let ptr_target_frame_delta = ptr_flipper.offset(0x18) as *mut f32; // Target frame delta - Set in a switch/case at the start
-        let ptr_frame_delta_history = ptr_flipper.offset((*registers).rcx as isize * 0x8) as *mut u64; // Frame delta history - In an array of 32, with the index incrementing each frame
 
-        // Read the target frame delta and calculate the frame delta timestamp
+        // Read the target frame delta and write back the calculated frame delta timestamp
         let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
-        let target_frame_delta_history = (target_frame_delta * 10000000.0) as u64;
-
-        // Write values back
-        std::ptr::write_volatile(ptr_frame_delta_history, target_frame_delta_history);
+        (*registers).rax = (target_frame_delta * 10000000.0) as u64;
     }
 }
 
