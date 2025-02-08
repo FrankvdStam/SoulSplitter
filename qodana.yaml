@@ -9,7 +9,7 @@ include:
     - name: NetCoverageInspection
 
 exclude:
-  - name: exclude
+  - name: All
     paths:
       - qodana.yaml
       - README.md
@@ -19,10 +19,6 @@ exclude:
       - src/cli
       - tests
   - name: SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
-  - name: All
-    paths:
-      - tests
-      - src/Cli
 
 dependencyOverrides:
     #this unfortunately does not get detected automatically by qodana
