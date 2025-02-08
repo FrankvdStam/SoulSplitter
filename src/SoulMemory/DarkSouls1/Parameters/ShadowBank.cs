@@ -120,12 +120,12 @@ public class ShadowBank(Pointer basePointer, ByteArrayMemory memory, long offset
     private float _PersedDepthOffset;
 
     [ParamField(0x24, ParamType.F32)]
-    public float ＧradFactor
+    public float GradFactor
     {
-        get => _ＧradFactor;
-        set => WriteParamField(ref _ＧradFactor, value);
+        get => _GradFactor;
+        set => WriteParamField(ref _GradFactor, value);
     }
-    private float _ＧradFactor;
+    private float _GradFactor;
 
     [ParamField(0x28, ParamType.F32)]
     public float ShadowVolumeDepth
