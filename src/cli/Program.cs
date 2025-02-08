@@ -43,7 +43,7 @@ namespace cli
         {
             
 
-            //TestUi();
+            TestUi();
             //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });
             //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
             //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });

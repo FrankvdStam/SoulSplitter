@@ -11,6 +11,9 @@ include:
 exclude:
   - name: exclude
     paths:
+      - qodana.yaml
+      - README.md
+      - src/SoulMemory/README.md
       - src/cli
       - tests
   - name: SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault

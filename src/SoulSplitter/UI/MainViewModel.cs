@@ -64,7 +64,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     }
 
 
-    public string Version { get; set; } = VersionHelper.Version.ToString();
+    public string Version { get; } = VersionHelper.Version.ToString();
 
     public Game SelectedGame
     {
@@ -210,20 +210,10 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     }
 
     [XmlIgnore]
-    public RelayCommand CommandClearErrors
-    {
-        get => _commandClearErrors;
-        set => this.SetField(ref _commandClearErrors, value);
-    }
-    private RelayCommand _commandClearErrors = null!;
+    public RelayCommand CommandClearErrors { get; }
 
     [XmlIgnore]
-    public RelayCommand CommandShowErrors
-    {
-        get => _commandShowErrors;
-        set => this.SetField(ref _commandShowErrors, value);
-    }
-    private RelayCommand _commandShowErrors = null!;
+    public RelayCommand CommandShowErrors { get; }
 
     private ErrorWindow? _errorWindow;
     private void ShowErrorWindow()
@@ -274,19 +264,14 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     private Visibility _badgeVisibilityInverse = Visibility.Visible;
 
     [XmlIgnore]
-    public ObservableCollection<ErrorViewModel> Errors { get; set; } = [];
+    public ObservableCollection<ErrorViewModel> Errors { get; } = [];
 
     #endregion
 
     #region Menu
 
-    [XmlIgnore]
-    public RelayCommand CommandTroubleShooting
-    {
-        get => _commandTroubleShooting;
-        set => this.SetField(ref _commandTroubleShooting, value);
-    }
-    private RelayCommand _commandTroubleShooting = null!;
+    [XmlIgnore] 
+    public RelayCommand CommandTroubleShooting { get; }
 
     private const string TroubleshootingUrl = "https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting";
     private void OpenTroubleshootingWebpage()
@@ -295,12 +280,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     }
 
     [XmlIgnore]
-    public RelayCommand CommandRunEventFlagLogger
-    {
-        get => _commandRunEventFlagLogger;
-        set => this.SetField(ref _commandRunEventFlagLogger, value);
-    }
-    private RelayCommand _commandRunEventFlagLogger = null!;
+    public RelayCommand CommandRunEventFlagLogger { get; }
 
     private void RunEventFlagLogger()
     {
@@ -308,12 +288,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     }
     
     [XmlIgnore]
-    public RelayCommand CommandOpenFlagTrackerWindow
-    {
-        get => _commandOpenFlagTrackerWindow;
-        set => this.SetField(ref _commandOpenFlagTrackerWindow, value);
-    }
-    private RelayCommand _commandOpenFlagTrackerWindow = null!;
+    public RelayCommand CommandOpenFlagTrackerWindow { get; }
 
     private FlagTrackerWindow? _flagTrackerWindow;
     private void OpenFlagTrackerWindow()
@@ -336,12 +311,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
 
     //For debugging purposes
     [XmlIgnore]
-    public RelayCommand CommandAddError
-    {
-        get => _commandAddError;
-        set => this.SetField(ref _commandAddError, value);
-    }
-    private RelayCommand _commandAddError = null!;
+    public RelayCommand CommandAddError { get; }
 
     //For debugging purposes
     private void AddErrorCommand()
@@ -350,12 +320,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     }
 
     [XmlIgnore]
-    public RelayCommand CommandImportSettingsFromFile
-    {
-        get => _commandImportSettingsFromFile;
-        set => this.SetField(ref _commandImportSettingsFromFile, value);
-    }
-    private RelayCommand _commandImportSettingsFromFile = null!;
+    public RelayCommand CommandImportSettingsFromFile { get; }
 
     private void ImportSettings()
     {
@@ -377,12 +342,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     [XmlIgnore] public string? ImportXml;
 
     [XmlIgnore]
-    public RelayCommand CommandExportSettingsFromFile
-    {
-        get => _commandExportSettingsFromFile;
-        set => this.SetField(ref _commandExportSettingsFromFile, value);
-    }
-    private RelayCommand _commandExportSettingsFromFile = null!;
+    public RelayCommand CommandExportSettingsFromFile { get; }
 
     private void ExportSettings()
     {
