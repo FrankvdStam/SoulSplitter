@@ -110,14 +110,7 @@ public class MemoryTests
     {
         var memory = new ByteArrayMemory(DataTypesTestData);
         var ptr = memory.Pointer64(0x0);
-
-        BitConverter.GetBytes(125.24f);
-        BitConverter.GetBytes(87.85d);
-
-        memory.ReadFloat(23);
-        memory.ReadDouble(27);
-        memory.ReadUInt64(15);
-
+        
         Assert.AreEqual(-93, memory.ReadSByte(8));
         Assert.AreEqual(163, memory.ReadByte(8));
         Assert.AreEqual(-93, ptr.ReadSByte(0));

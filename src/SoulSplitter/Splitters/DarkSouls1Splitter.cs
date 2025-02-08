@@ -372,9 +372,6 @@ public class DarkSouls1Splitter : ISplitter
     #region Dropmod
     private void UpdateDropMod()
     {
-        _darkSouls1.GetProcess();
-        
-
         //Check exit request
         if (_mainViewModel.DarkSouls1ViewModel.DropModRequestGameExit)
         {
