@@ -45,10 +45,10 @@ public class Item
     public static Item FromLookupTable(Category category, uint id)
     {
         return LookupTable.First(i => i.Category == category && i.Id == id);
-    }        
+    }
 
-    private readonly static ReadOnlyCollection<Item> LookupTable = new(new List<Item>()
-    {
+    private static readonly ReadOnlyCollection<Item> LookupTable = new((List<Item>)
+    [
         new() { Category = Category.Protector,GroupName = "Armor", Name = "Iron Helmet", Id = 40000 },
         new() { Category = Category.Protector,GroupName = "Armor", Name = "Scale Armor", Id = 40100 },
         new() { Category = Category.Protector,GroupName = "Armor", Name = "Iron Gauntlets", Id = 40200 },
@@ -2708,5 +2708,5 @@ public class Item
         new() { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Erdtree Seal", Id = 34070000 },
         new() { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Dragon Communion Seal", Id = 34080000 },
         new() { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Frenzied Flame Seal", Id = 34090000 },
-    });
+    ]);
 }
