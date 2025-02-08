@@ -26,137 +26,137 @@ public class LightScatteringBank(Pointer basePointer, ByteArrayMemory memory, lo
     [ParamField(0x0, ParamType.I16)]
     public short SunRotX
     {
-        get => _SunRotX;
-        set => WriteParamField(ref _SunRotX, value);
+        get => _sunRotX;
+        set => WriteParamField(ref _sunRotX, value);
     }
-    private short _SunRotX;
+    private short _sunRotX;
 
     [ParamField(0x2, ParamType.I16)]
     public short SunRotY
     {
-        get => _SunRotY;
-        set => WriteParamField(ref _SunRotY, value);
+        get => _sunRotY;
+        set => WriteParamField(ref _sunRotY, value);
     }
-    private short _SunRotY;
+    private short _sunRotY;
 
     [ParamField(0x4, ParamType.I16)]
     public short DistanceMul
     {
-        get => _DistanceMul;
-        set => WriteParamField(ref _DistanceMul, value);
+        get => _distanceMul;
+        set => WriteParamField(ref _distanceMul, value);
     }
-    private short _DistanceMul;
+    private short _distanceMul;
 
     [ParamField(0x6, ParamType.I16)]
     public short SunR
     {
-        get => _SunR;
-        set => WriteParamField(ref _SunR, value);
+        get => _sunR;
+        set => WriteParamField(ref _sunR, value);
     }
-    private short _SunR;
+    private short _sunR;
 
     [ParamField(0x8, ParamType.I16)]
     public short SunG
     {
-        get => _SunG;
-        set => WriteParamField(ref _SunG, value);
+        get => _sunG;
+        set => WriteParamField(ref _sunG, value);
     }
-    private short _SunG;
+    private short _sunG;
 
     [ParamField(0xA, ParamType.I16)]
     public short SunB
     {
-        get => _SunB;
-        set => WriteParamField(ref _SunB, value);
+        get => _sunB;
+        set => WriteParamField(ref _sunB, value);
     }
-    private short _SunB;
+    private short _sunB;
 
     [ParamField(0xC, ParamType.I16)]
     public short SunA
     {
-        get => _SunA;
-        set => WriteParamField(ref _SunA, value);
+        get => _sunA;
+        set => WriteParamField(ref _sunA, value);
     }
-    private short _SunA;
+    private short _sunA;
 
     [ParamField(0xE, ParamType.Dummy8, 2)]
-    public byte[] Pad_0
+    public byte[] Pad0
     {
-        get => _Pad_0;
-        set => WriteParamField(ref _Pad_0, value);
+        get => _pad0;
+        set => WriteParamField(ref _pad0, value);
     }
-    private byte[] _Pad_0 = null!;
+    private byte[] _pad0 = null!;
 
     [ParamField(0x10, ParamType.F32)]
     public float LsHGg
     {
-        get => _LsHGg;
-        set => WriteParamField(ref _LsHGg, value);
+        get => _lsHGg;
+        set => WriteParamField(ref _lsHGg, value);
     }
-    private float _LsHGg;
+    private float _lsHGg;
 
     [ParamField(0x14, ParamType.F32)]
     public float LsBetaRay
     {
-        get => _LsBetaRay;
-        set => WriteParamField(ref _LsBetaRay, value);
+        get => _lsBetaRay;
+        set => WriteParamField(ref _lsBetaRay, value);
     }
-    private float _LsBetaRay;
+    private float _lsBetaRay;
 
     [ParamField(0x18, ParamType.F32)]
     public float LsBetaMie
     {
-        get => _LsBetaMie;
-        set => WriteParamField(ref _LsBetaMie, value);
+        get => _lsBetaMie;
+        set => WriteParamField(ref _lsBetaMie, value);
     }
-    private float _LsBetaMie;
+    private float _lsBetaMie;
 
     [ParamField(0x1C, ParamType.I16)]
     public short BlendCoef
     {
-        get => _BlendCoef;
-        set => WriteParamField(ref _BlendCoef, value);
+        get => _blendCoef;
+        set => WriteParamField(ref _blendCoef, value);
     }
-    private short _BlendCoef;
+    private short _blendCoef;
 
     [ParamField(0x1E, ParamType.I16)]
     public short ReflectanceR
     {
-        get => _ReflectanceR;
-        set => WriteParamField(ref _ReflectanceR, value);
+        get => _reflectanceR;
+        set => WriteParamField(ref _reflectanceR, value);
     }
-    private short _ReflectanceR;
+    private short _reflectanceR;
 
     [ParamField(0x20, ParamType.I16)]
     public short ReflectanceG
     {
-        get => _ReflectanceG;
-        set => WriteParamField(ref _ReflectanceG, value);
+        get => _reflectanceG;
+        set => WriteParamField(ref _reflectanceG, value);
     }
-    private short _ReflectanceG;
+    private short _reflectanceG;
 
     [ParamField(0x22, ParamType.I16)]
     public short ReflectanceB
     {
-        get => _ReflectanceB;
-        set => WriteParamField(ref _ReflectanceB, value);
+        get => _reflectanceB;
+        set => WriteParamField(ref _reflectanceB, value);
     }
-    private short _ReflectanceB;
+    private short _reflectanceB;
 
     [ParamField(0x24, ParamType.I16)]
     public short ReflectanceA
     {
-        get => _ReflectanceA;
-        set => WriteParamField(ref _ReflectanceA, value);
+        get => _reflectanceA;
+        set => WriteParamField(ref _reflectanceA, value);
     }
-    private short _ReflectanceA;
+    private short _reflectanceA;
 
     [ParamField(0x26, ParamType.Dummy8, 2)]
-    public byte[] Pad_1
+    public byte[] Pad1
     {
-        get => _Pad_1;
-        set => WriteParamField(ref _Pad_1, value);
+        get => _pad1;
+        set => WriteParamField(ref _pad1, value);
     }
-    private byte[] _Pad_1 = null!;
+    private byte[] _pad1 = null!;
 
 }

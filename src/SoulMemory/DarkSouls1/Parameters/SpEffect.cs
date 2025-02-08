@@ -26,955 +26,955 @@ public class SpEffect(Pointer basePointer, ByteArrayMemory memory, long offset, 
     [ParamField(0x0, ParamType.I32)]
     public int IconId
     {
-        get => _IconId;
-        set => WriteParamField(ref _IconId, value);
+        get => _iconId;
+        set => WriteParamField(ref _iconId, value);
     }
-    private int _IconId;
+    private int _iconId;
 
     [ParamField(0x4, ParamType.F32)]
     public float ConditionHp
     {
-        get => _ConditionHp;
-        set => WriteParamField(ref _ConditionHp, value);
+        get => _conditionHp;
+        set => WriteParamField(ref _conditionHp, value);
     }
-    private float _ConditionHp;
+    private float _conditionHp;
 
     [ParamField(0x8, ParamType.F32)]
     public float EffectEndurance
     {
-        get => _EffectEndurance;
-        set => WriteParamField(ref _EffectEndurance, value);
+        get => _effectEndurance;
+        set => WriteParamField(ref _effectEndurance, value);
     }
-    private float _EffectEndurance;
+    private float _effectEndurance;
 
     [ParamField(0xC, ParamType.F32)]
     public float MotionInterval
     {
-        get => _MotionInterval;
-        set => WriteParamField(ref _MotionInterval, value);
+        get => _motionInterval;
+        set => WriteParamField(ref _motionInterval, value);
     }
-    private float _MotionInterval;
+    private float _motionInterval;
 
     [ParamField(0x10, ParamType.F32)]
     public float MaxHpRate
     {
-        get => _MaxHpRate;
-        set => WriteParamField(ref _MaxHpRate, value);
+        get => _maxHpRate;
+        set => WriteParamField(ref _maxHpRate, value);
     }
-    private float _MaxHpRate;
+    private float _maxHpRate;
 
     [ParamField(0x14, ParamType.F32)]
     public float MaxMpRate
     {
-        get => _MaxMpRate;
-        set => WriteParamField(ref _MaxMpRate, value);
+        get => _maxMpRate;
+        set => WriteParamField(ref _maxMpRate, value);
     }
-    private float _MaxMpRate;
+    private float _maxMpRate;
 
     [ParamField(0x18, ParamType.F32)]
     public float MaxStaminaRate
     {
-        get => _MaxStaminaRate;
-        set => WriteParamField(ref _MaxStaminaRate, value);
+        get => _maxStaminaRate;
+        set => WriteParamField(ref _maxStaminaRate, value);
     }
-    private float _MaxStaminaRate;
+    private float _maxStaminaRate;
 
     [ParamField(0x1C, ParamType.F32)]
     public float SlashDamageCutRate
     {
-        get => _SlashDamageCutRate;
-        set => WriteParamField(ref _SlashDamageCutRate, value);
+        get => _slashDamageCutRate;
+        set => WriteParamField(ref _slashDamageCutRate, value);
     }
-    private float _SlashDamageCutRate;
+    private float _slashDamageCutRate;
 
     [ParamField(0x20, ParamType.F32)]
     public float BlowDamageCutRate
     {
-        get => _BlowDamageCutRate;
-        set => WriteParamField(ref _BlowDamageCutRate, value);
+        get => _blowDamageCutRate;
+        set => WriteParamField(ref _blowDamageCutRate, value);
     }
-    private float _BlowDamageCutRate;
+    private float _blowDamageCutRate;
 
     [ParamField(0x24, ParamType.F32)]
     public float ThrustDamageCutRate
     {
-        get => _ThrustDamageCutRate;
-        set => WriteParamField(ref _ThrustDamageCutRate, value);
+        get => _thrustDamageCutRate;
+        set => WriteParamField(ref _thrustDamageCutRate, value);
     }
-    private float _ThrustDamageCutRate;
+    private float _thrustDamageCutRate;
 
     [ParamField(0x28, ParamType.F32)]
     public float NeutralDamageCutRate
     {
-        get => _NeutralDamageCutRate;
-        set => WriteParamField(ref _NeutralDamageCutRate, value);
+        get => _neutralDamageCutRate;
+        set => WriteParamField(ref _neutralDamageCutRate, value);
     }
-    private float _NeutralDamageCutRate;
+    private float _neutralDamageCutRate;
 
     [ParamField(0x2C, ParamType.F32)]
     public float MagicDamageCutRate
     {
-        get => _MagicDamageCutRate;
-        set => WriteParamField(ref _MagicDamageCutRate, value);
+        get => _magicDamageCutRate;
+        set => WriteParamField(ref _magicDamageCutRate, value);
     }
-    private float _MagicDamageCutRate;
+    private float _magicDamageCutRate;
 
     [ParamField(0x30, ParamType.F32)]
     public float FireDamageCutRate
     {
-        get => _FireDamageCutRate;
-        set => WriteParamField(ref _FireDamageCutRate, value);
+        get => _fireDamageCutRate;
+        set => WriteParamField(ref _fireDamageCutRate, value);
     }
-    private float _FireDamageCutRate;
+    private float _fireDamageCutRate;
 
     [ParamField(0x34, ParamType.F32)]
     public float ThunderDamageCutRate
     {
-        get => _ThunderDamageCutRate;
-        set => WriteParamField(ref _ThunderDamageCutRate, value);
+        get => _thunderDamageCutRate;
+        set => WriteParamField(ref _thunderDamageCutRate, value);
     }
-    private float _ThunderDamageCutRate;
+    private float _thunderDamageCutRate;
 
     [ParamField(0x38, ParamType.F32)]
     public float PhysicsAttackRate
     {
-        get => _PhysicsAttackRate;
-        set => WriteParamField(ref _PhysicsAttackRate, value);
+        get => _physicsAttackRate;
+        set => WriteParamField(ref _physicsAttackRate, value);
     }
-    private float _PhysicsAttackRate;
+    private float _physicsAttackRate;
 
     [ParamField(0x3C, ParamType.F32)]
     public float MagicAttackRate
     {
-        get => _MagicAttackRate;
-        set => WriteParamField(ref _MagicAttackRate, value);
+        get => _magicAttackRate;
+        set => WriteParamField(ref _magicAttackRate, value);
     }
-    private float _MagicAttackRate;
+    private float _magicAttackRate;
 
     [ParamField(0x40, ParamType.F32)]
     public float FireAttackRate
     {
-        get => _FireAttackRate;
-        set => WriteParamField(ref _FireAttackRate, value);
+        get => _fireAttackRate;
+        set => WriteParamField(ref _fireAttackRate, value);
     }
-    private float _FireAttackRate;
+    private float _fireAttackRate;
 
     [ParamField(0x44, ParamType.F32)]
     public float ThunderAttackRate
     {
-        get => _ThunderAttackRate;
-        set => WriteParamField(ref _ThunderAttackRate, value);
+        get => _thunderAttackRate;
+        set => WriteParamField(ref _thunderAttackRate, value);
     }
-    private float _ThunderAttackRate;
+    private float _thunderAttackRate;
 
     [ParamField(0x48, ParamType.F32)]
     public float PhysicsAttackPowerRate
     {
-        get => _PhysicsAttackPowerRate;
-        set => WriteParamField(ref _PhysicsAttackPowerRate, value);
+        get => _physicsAttackPowerRate;
+        set => WriteParamField(ref _physicsAttackPowerRate, value);
     }
-    private float _PhysicsAttackPowerRate;
+    private float _physicsAttackPowerRate;
 
     [ParamField(0x4C, ParamType.F32)]
     public float MagicAttackPowerRate
     {
-        get => _MagicAttackPowerRate;
-        set => WriteParamField(ref _MagicAttackPowerRate, value);
+        get => _magicAttackPowerRate;
+        set => WriteParamField(ref _magicAttackPowerRate, value);
     }
-    private float _MagicAttackPowerRate;
+    private float _magicAttackPowerRate;
 
     [ParamField(0x50, ParamType.F32)]
     public float FireAttackPowerRate
     {
-        get => _FireAttackPowerRate;
-        set => WriteParamField(ref _FireAttackPowerRate, value);
+        get => _fireAttackPowerRate;
+        set => WriteParamField(ref _fireAttackPowerRate, value);
     }
-    private float _FireAttackPowerRate;
+    private float _fireAttackPowerRate;
 
     [ParamField(0x54, ParamType.F32)]
     public float ThunderAttackPowerRate
     {
-        get => _ThunderAttackPowerRate;
-        set => WriteParamField(ref _ThunderAttackPowerRate, value);
+        get => _thunderAttackPowerRate;
+        set => WriteParamField(ref _thunderAttackPowerRate, value);
     }
-    private float _ThunderAttackPowerRate;
+    private float _thunderAttackPowerRate;
 
     [ParamField(0x58, ParamType.I32)]
     public int PhysicsAttackPower
     {
-        get => _PhysicsAttackPower;
-        set => WriteParamField(ref _PhysicsAttackPower, value);
+        get => _physicsAttackPower;
+        set => WriteParamField(ref _physicsAttackPower, value);
     }
-    private int _PhysicsAttackPower;
+    private int _physicsAttackPower;
 
     [ParamField(0x5C, ParamType.I32)]
     public int MagicAttackPower
     {
-        get => _MagicAttackPower;
-        set => WriteParamField(ref _MagicAttackPower, value);
+        get => _magicAttackPower;
+        set => WriteParamField(ref _magicAttackPower, value);
     }
-    private int _MagicAttackPower;
+    private int _magicAttackPower;
 
     [ParamField(0x60, ParamType.I32)]
     public int FireAttackPower
     {
-        get => _FireAttackPower;
-        set => WriteParamField(ref _FireAttackPower, value);
+        get => _fireAttackPower;
+        set => WriteParamField(ref _fireAttackPower, value);
     }
-    private int _FireAttackPower;
+    private int _fireAttackPower;
 
     [ParamField(0x64, ParamType.I32)]
     public int ThunderAttackPower
     {
-        get => _ThunderAttackPower;
-        set => WriteParamField(ref _ThunderAttackPower, value);
+        get => _thunderAttackPower;
+        set => WriteParamField(ref _thunderAttackPower, value);
     }
-    private int _ThunderAttackPower;
+    private int _thunderAttackPower;
 
     [ParamField(0x68, ParamType.F32)]
     public float PhysicsDiffenceRate
     {
-        get => _PhysicsDiffenceRate;
-        set => WriteParamField(ref _PhysicsDiffenceRate, value);
+        get => _physicsDiffenceRate;
+        set => WriteParamField(ref _physicsDiffenceRate, value);
     }
-    private float _PhysicsDiffenceRate;
+    private float _physicsDiffenceRate;
 
     [ParamField(0x6C, ParamType.F32)]
     public float MagicDiffenceRate
     {
-        get => _MagicDiffenceRate;
-        set => WriteParamField(ref _MagicDiffenceRate, value);
+        get => _magicDiffenceRate;
+        set => WriteParamField(ref _magicDiffenceRate, value);
     }
-    private float _MagicDiffenceRate;
+    private float _magicDiffenceRate;
 
     [ParamField(0x70, ParamType.F32)]
     public float FireDiffenceRate
     {
-        get => _FireDiffenceRate;
-        set => WriteParamField(ref _FireDiffenceRate, value);
+        get => _fireDiffenceRate;
+        set => WriteParamField(ref _fireDiffenceRate, value);
     }
-    private float _FireDiffenceRate;
+    private float _fireDiffenceRate;
 
     [ParamField(0x74, ParamType.F32)]
     public float ThunderDiffenceRate
     {
-        get => _ThunderDiffenceRate;
-        set => WriteParamField(ref _ThunderDiffenceRate, value);
+        get => _thunderDiffenceRate;
+        set => WriteParamField(ref _thunderDiffenceRate, value);
     }
-    private float _ThunderDiffenceRate;
+    private float _thunderDiffenceRate;
 
     [ParamField(0x78, ParamType.I32)]
     public int PhysicsDiffence
     {
-        get => _PhysicsDiffence;
-        set => WriteParamField(ref _PhysicsDiffence, value);
+        get => _physicsDiffence;
+        set => WriteParamField(ref _physicsDiffence, value);
     }
-    private int _PhysicsDiffence;
+    private int _physicsDiffence;
 
     [ParamField(0x7C, ParamType.I32)]
     public int MagicDiffence
     {
-        get => _MagicDiffence;
-        set => WriteParamField(ref _MagicDiffence, value);
+        get => _magicDiffence;
+        set => WriteParamField(ref _magicDiffence, value);
     }
-    private int _MagicDiffence;
+    private int _magicDiffence;
 
     [ParamField(0x80, ParamType.I32)]
     public int FireDiffence
     {
-        get => _FireDiffence;
-        set => WriteParamField(ref _FireDiffence, value);
+        get => _fireDiffence;
+        set => WriteParamField(ref _fireDiffence, value);
     }
-    private int _FireDiffence;
+    private int _fireDiffence;
 
     [ParamField(0x84, ParamType.I32)]
     public int ThunderDiffence
     {
-        get => _ThunderDiffence;
-        set => WriteParamField(ref _ThunderDiffence, value);
+        get => _thunderDiffence;
+        set => WriteParamField(ref _thunderDiffence, value);
     }
-    private int _ThunderDiffence;
+    private int _thunderDiffence;
 
     [ParamField(0x88, ParamType.F32)]
     public float NoGuardDamageRate
     {
-        get => _NoGuardDamageRate;
-        set => WriteParamField(ref _NoGuardDamageRate, value);
+        get => _noGuardDamageRate;
+        set => WriteParamField(ref _noGuardDamageRate, value);
     }
-    private float _NoGuardDamageRate;
+    private float _noGuardDamageRate;
 
     [ParamField(0x8C, ParamType.F32)]
     public float VitalSpotChangeRate
     {
-        get => _VitalSpotChangeRate;
-        set => WriteParamField(ref _VitalSpotChangeRate, value);
+        get => _vitalSpotChangeRate;
+        set => WriteParamField(ref _vitalSpotChangeRate, value);
     }
-    private float _VitalSpotChangeRate;
+    private float _vitalSpotChangeRate;
 
     [ParamField(0x90, ParamType.F32)]
     public float NormalSpotChangeRate
     {
-        get => _NormalSpotChangeRate;
-        set => WriteParamField(ref _NormalSpotChangeRate, value);
+        get => _normalSpotChangeRate;
+        set => WriteParamField(ref _normalSpotChangeRate, value);
     }
-    private float _NormalSpotChangeRate;
+    private float _normalSpotChangeRate;
 
     [ParamField(0x94, ParamType.F32)]
     public float MaxHpChangeRate
     {
-        get => _MaxHpChangeRate;
-        set => WriteParamField(ref _MaxHpChangeRate, value);
+        get => _maxHpChangeRate;
+        set => WriteParamField(ref _maxHpChangeRate, value);
     }
-    private float _MaxHpChangeRate;
+    private float _maxHpChangeRate;
 
     [ParamField(0x98, ParamType.I32)]
     public int BehaviorId
     {
-        get => _BehaviorId;
-        set => WriteParamField(ref _BehaviorId, value);
+        get => _behaviorId;
+        set => WriteParamField(ref _behaviorId, value);
     }
-    private int _BehaviorId;
+    private int _behaviorId;
 
     [ParamField(0x9C, ParamType.F32)]
     public float ChangeHpRate
     {
-        get => _ChangeHpRate;
-        set => WriteParamField(ref _ChangeHpRate, value);
+        get => _changeHpRate;
+        set => WriteParamField(ref _changeHpRate, value);
     }
-    private float _ChangeHpRate;
+    private float _changeHpRate;
 
     [ParamField(0xA0, ParamType.I32)]
     public int ChangeHpPoint
     {
-        get => _ChangeHpPoint;
-        set => WriteParamField(ref _ChangeHpPoint, value);
+        get => _changeHpPoint;
+        set => WriteParamField(ref _changeHpPoint, value);
     }
-    private int _ChangeHpPoint;
+    private int _changeHpPoint;
 
     [ParamField(0xA4, ParamType.F32)]
     public float ChangeMpRate
     {
-        get => _ChangeMpRate;
-        set => WriteParamField(ref _ChangeMpRate, value);
+        get => _changeMpRate;
+        set => WriteParamField(ref _changeMpRate, value);
     }
-    private float _ChangeMpRate;
+    private float _changeMpRate;
 
     [ParamField(0xA8, ParamType.I32)]
     public int ChangeMpPoint
     {
-        get => _ChangeMpPoint;
-        set => WriteParamField(ref _ChangeMpPoint, value);
+        get => _changeMpPoint;
+        set => WriteParamField(ref _changeMpPoint, value);
     }
-    private int _ChangeMpPoint;
+    private int _changeMpPoint;
 
     [ParamField(0xAC, ParamType.I32)]
     public int MpRecoverChangeSpeed
     {
-        get => _MpRecoverChangeSpeed;
-        set => WriteParamField(ref _MpRecoverChangeSpeed, value);
+        get => _mpRecoverChangeSpeed;
+        set => WriteParamField(ref _mpRecoverChangeSpeed, value);
     }
-    private int _MpRecoverChangeSpeed;
+    private int _mpRecoverChangeSpeed;
 
     [ParamField(0xB0, ParamType.F32)]
     public float ChangeStaminaRate
     {
-        get => _ChangeStaminaRate;
-        set => WriteParamField(ref _ChangeStaminaRate, value);
+        get => _changeStaminaRate;
+        set => WriteParamField(ref _changeStaminaRate, value);
     }
-    private float _ChangeStaminaRate;
+    private float _changeStaminaRate;
 
     [ParamField(0xB4, ParamType.I32)]
     public int ChangeStaminaPoint
     {
-        get => _ChangeStaminaPoint;
-        set => WriteParamField(ref _ChangeStaminaPoint, value);
+        get => _changeStaminaPoint;
+        set => WriteParamField(ref _changeStaminaPoint, value);
     }
-    private int _ChangeStaminaPoint;
+    private int _changeStaminaPoint;
 
     [ParamField(0xB8, ParamType.I32)]
     public int StaminaRecoverChangeSpeed
     {
-        get => _StaminaRecoverChangeSpeed;
-        set => WriteParamField(ref _StaminaRecoverChangeSpeed, value);
+        get => _staminaRecoverChangeSpeed;
+        set => WriteParamField(ref _staminaRecoverChangeSpeed, value);
     }
-    private int _StaminaRecoverChangeSpeed;
+    private int _staminaRecoverChangeSpeed;
 
     [ParamField(0xBC, ParamType.F32)]
     public float MagicEffectTimeChange
     {
-        get => _MagicEffectTimeChange;
-        set => WriteParamField(ref _MagicEffectTimeChange, value);
+        get => _magicEffectTimeChange;
+        set => WriteParamField(ref _magicEffectTimeChange, value);
     }
-    private float _MagicEffectTimeChange;
+    private float _magicEffectTimeChange;
 
     [ParamField(0xC0, ParamType.I32)]
     public int InsideDurability
     {
-        get => _InsideDurability;
-        set => WriteParamField(ref _InsideDurability, value);
+        get => _insideDurability;
+        set => WriteParamField(ref _insideDurability, value);
     }
-    private int _InsideDurability;
+    private int _insideDurability;
 
     [ParamField(0xC4, ParamType.I32)]
     public int MaxDurability
     {
-        get => _MaxDurability;
-        set => WriteParamField(ref _MaxDurability, value);
+        get => _maxDurability;
+        set => WriteParamField(ref _maxDurability, value);
     }
-    private int _MaxDurability;
+    private int _maxDurability;
 
     [ParamField(0xC8, ParamType.F32)]
     public float StaminaAttackRate
     {
-        get => _StaminaAttackRate;
-        set => WriteParamField(ref _StaminaAttackRate, value);
+        get => _staminaAttackRate;
+        set => WriteParamField(ref _staminaAttackRate, value);
     }
-    private float _StaminaAttackRate;
+    private float _staminaAttackRate;
 
     [ParamField(0xCC, ParamType.I32)]
     public int PoizonAttackPower
     {
-        get => _PoizonAttackPower;
-        set => WriteParamField(ref _PoizonAttackPower, value);
+        get => _poizonAttackPower;
+        set => WriteParamField(ref _poizonAttackPower, value);
     }
-    private int _PoizonAttackPower;
+    private int _poizonAttackPower;
 
     [ParamField(0xD0, ParamType.I32)]
     public int RegistIllness
     {
-        get => _RegistIllness;
-        set => WriteParamField(ref _RegistIllness, value);
+        get => _registIllness;
+        set => WriteParamField(ref _registIllness, value);
     }
-    private int _RegistIllness;
+    private int _registIllness;
 
     [ParamField(0xD4, ParamType.I32)]
     public int RegistBlood
     {
-        get => _RegistBlood;
-        set => WriteParamField(ref _RegistBlood, value);
+        get => _registBlood;
+        set => WriteParamField(ref _registBlood, value);
     }
-    private int _RegistBlood;
+    private int _registBlood;
 
     [ParamField(0xD8, ParamType.I32)]
     public int RegistCurse
     {
-        get => _RegistCurse;
-        set => WriteParamField(ref _RegistCurse, value);
+        get => _registCurse;
+        set => WriteParamField(ref _registCurse, value);
     }
-    private int _RegistCurse;
+    private int _registCurse;
 
     [ParamField(0xDC, ParamType.F32)]
     public float FallDamageRate
     {
-        get => _FallDamageRate;
-        set => WriteParamField(ref _FallDamageRate, value);
+        get => _fallDamageRate;
+        set => WriteParamField(ref _fallDamageRate, value);
     }
-    private float _FallDamageRate;
+    private float _fallDamageRate;
 
     [ParamField(0xE0, ParamType.F32)]
     public float SoulRate
     {
-        get => _SoulRate;
-        set => WriteParamField(ref _SoulRate, value);
+        get => _soulRate;
+        set => WriteParamField(ref _soulRate, value);
     }
-    private float _SoulRate;
+    private float _soulRate;
 
     [ParamField(0xE4, ParamType.F32)]
     public float EquipWeightChangeRate
     {
-        get => _EquipWeightChangeRate;
-        set => WriteParamField(ref _EquipWeightChangeRate, value);
+        get => _equipWeightChangeRate;
+        set => WriteParamField(ref _equipWeightChangeRate, value);
     }
-    private float _EquipWeightChangeRate;
+    private float _equipWeightChangeRate;
 
     [ParamField(0xE8, ParamType.F32)]
     public float AllItemWeightChangeRate
     {
-        get => _AllItemWeightChangeRate;
-        set => WriteParamField(ref _AllItemWeightChangeRate, value);
+        get => _allItemWeightChangeRate;
+        set => WriteParamField(ref _allItemWeightChangeRate, value);
     }
-    private float _AllItemWeightChangeRate;
+    private float _allItemWeightChangeRate;
 
     [ParamField(0xEC, ParamType.I32)]
     public int Soul
     {
-        get => _Soul;
-        set => WriteParamField(ref _Soul, value);
+        get => _soul;
+        set => WriteParamField(ref _soul, value);
     }
-    private int _Soul;
+    private int _soul;
 
     [ParamField(0xF0, ParamType.I32)]
     public int AnimIdOffset
     {
-        get => _AnimIdOffset;
-        set => WriteParamField(ref _AnimIdOffset, value);
+        get => _animIdOffset;
+        set => WriteParamField(ref _animIdOffset, value);
     }
-    private int _AnimIdOffset;
+    private int _animIdOffset;
 
     [ParamField(0xF4, ParamType.F32)]
     public float HaveSoulRate
     {
-        get => _HaveSoulRate;
-        set => WriteParamField(ref _HaveSoulRate, value);
+        get => _haveSoulRate;
+        set => WriteParamField(ref _haveSoulRate, value);
     }
-    private float _HaveSoulRate;
+    private float _haveSoulRate;
 
     [ParamField(0xF8, ParamType.F32)]
     public float TargetPriority
     {
-        get => _TargetPriority;
-        set => WriteParamField(ref _TargetPriority, value);
+        get => _targetPriority;
+        set => WriteParamField(ref _targetPriority, value);
     }
-    private float _TargetPriority;
+    private float _targetPriority;
 
     [ParamField(0xFC, ParamType.I32)]
     public int SightSearchEnemyCut
     {
-        get => _SightSearchEnemyCut;
-        set => WriteParamField(ref _SightSearchEnemyCut, value);
+        get => _sightSearchEnemyCut;
+        set => WriteParamField(ref _sightSearchEnemyCut, value);
     }
-    private int _SightSearchEnemyCut;
+    private int _sightSearchEnemyCut;
 
     [ParamField(0x100, ParamType.I32)]
     public int HearingSearchEnemyCut
     {
-        get => _HearingSearchEnemyCut;
-        set => WriteParamField(ref _HearingSearchEnemyCut, value);
+        get => _hearingSearchEnemyCut;
+        set => WriteParamField(ref _hearingSearchEnemyCut, value);
     }
-    private int _HearingSearchEnemyCut;
+    private int _hearingSearchEnemyCut;
 
     [ParamField(0x104, ParamType.F32)]
     public float GrabityRate
     {
-        get => _GrabityRate;
-        set => WriteParamField(ref _GrabityRate, value);
+        get => _grabityRate;
+        set => WriteParamField(ref _grabityRate, value);
     }
-    private float _GrabityRate;
+    private float _grabityRate;
 
     [ParamField(0x108, ParamType.F32)]
     public float RegistPoizonChangeRate
     {
-        get => _RegistPoizonChangeRate;
-        set => WriteParamField(ref _RegistPoizonChangeRate, value);
+        get => _registPoizonChangeRate;
+        set => WriteParamField(ref _registPoizonChangeRate, value);
     }
-    private float _RegistPoizonChangeRate;
+    private float _registPoizonChangeRate;
 
     [ParamField(0x10C, ParamType.F32)]
     public float RegistIllnessChangeRate
     {
-        get => _RegistIllnessChangeRate;
-        set => WriteParamField(ref _RegistIllnessChangeRate, value);
+        get => _registIllnessChangeRate;
+        set => WriteParamField(ref _registIllnessChangeRate, value);
     }
-    private float _RegistIllnessChangeRate;
+    private float _registIllnessChangeRate;
 
     [ParamField(0x110, ParamType.F32)]
     public float RegistBloodChangeRate
     {
-        get => _RegistBloodChangeRate;
-        set => WriteParamField(ref _RegistBloodChangeRate, value);
+        get => _registBloodChangeRate;
+        set => WriteParamField(ref _registBloodChangeRate, value);
     }
-    private float _RegistBloodChangeRate;
+    private float _registBloodChangeRate;
 
     [ParamField(0x114, ParamType.F32)]
     public float RegistCurseChangeRate
     {
-        get => _RegistCurseChangeRate;
-        set => WriteParamField(ref _RegistCurseChangeRate, value);
+        get => _registCurseChangeRate;
+        set => WriteParamField(ref _registCurseChangeRate, value);
     }
-    private float _RegistCurseChangeRate;
+    private float _registCurseChangeRate;
 
     [ParamField(0x118, ParamType.F32)]
     public float SoulStealRate
     {
-        get => _SoulStealRate;
-        set => WriteParamField(ref _SoulStealRate, value);
+        get => _soulStealRate;
+        set => WriteParamField(ref _soulStealRate, value);
     }
-    private float _SoulStealRate;
+    private float _soulStealRate;
 
     [ParamField(0x11C, ParamType.F32)]
     public float LifeReductionRate
     {
-        get => _LifeReductionRate;
-        set => WriteParamField(ref _LifeReductionRate, value);
+        get => _lifeReductionRate;
+        set => WriteParamField(ref _lifeReductionRate, value);
     }
-    private float _LifeReductionRate;
+    private float _lifeReductionRate;
 
     [ParamField(0x120, ParamType.F32)]
     public float HpRecoverRate
     {
-        get => _HpRecoverRate;
-        set => WriteParamField(ref _HpRecoverRate, value);
+        get => _hpRecoverRate;
+        set => WriteParamField(ref _hpRecoverRate, value);
     }
-    private float _HpRecoverRate;
+    private float _hpRecoverRate;
 
     [ParamField(0x124, ParamType.I32)]
     public int ReplaceSpEffectId
     {
-        get => _ReplaceSpEffectId;
-        set => WriteParamField(ref _ReplaceSpEffectId, value);
+        get => _replaceSpEffectId;
+        set => WriteParamField(ref _replaceSpEffectId, value);
     }
-    private int _ReplaceSpEffectId;
+    private int _replaceSpEffectId;
 
     [ParamField(0x128, ParamType.I32)]
     public int CycleOccurrenceSpEffectId
     {
-        get => _CycleOccurrenceSpEffectId;
-        set => WriteParamField(ref _CycleOccurrenceSpEffectId, value);
+        get => _cycleOccurrenceSpEffectId;
+        set => WriteParamField(ref _cycleOccurrenceSpEffectId, value);
     }
-    private int _CycleOccurrenceSpEffectId;
+    private int _cycleOccurrenceSpEffectId;
 
     [ParamField(0x12C, ParamType.I32)]
     public int AtkOccurrenceSpEffectId
     {
-        get => _AtkOccurrenceSpEffectId;
-        set => WriteParamField(ref _AtkOccurrenceSpEffectId, value);
+        get => _atkOccurrenceSpEffectId;
+        set => WriteParamField(ref _atkOccurrenceSpEffectId, value);
     }
-    private int _AtkOccurrenceSpEffectId;
+    private int _atkOccurrenceSpEffectId;
 
     [ParamField(0x130, ParamType.F32)]
     public float GuardDefFlickPowerRate
     {
-        get => _GuardDefFlickPowerRate;
-        set => WriteParamField(ref _GuardDefFlickPowerRate, value);
+        get => _guardDefFlickPowerRate;
+        set => WriteParamField(ref _guardDefFlickPowerRate, value);
     }
-    private float _GuardDefFlickPowerRate;
+    private float _guardDefFlickPowerRate;
 
     [ParamField(0x134, ParamType.F32)]
     public float GuardStaminaCutRate
     {
-        get => _GuardStaminaCutRate;
-        set => WriteParamField(ref _GuardStaminaCutRate, value);
+        get => _guardStaminaCutRate;
+        set => WriteParamField(ref _guardStaminaCutRate, value);
     }
-    private float _GuardStaminaCutRate;
+    private float _guardStaminaCutRate;
 
     [ParamField(0x138, ParamType.I16)]
     public short RayCastPassedTime
     {
-        get => _RayCastPassedTime;
-        set => WriteParamField(ref _RayCastPassedTime, value);
+        get => _rayCastPassedTime;
+        set => WriteParamField(ref _rayCastPassedTime, value);
     }
-    private short _RayCastPassedTime;
+    private short _rayCastPassedTime;
 
     [ParamField(0x13A, ParamType.I16)]
     public short ChangeSuperArmorPoint
     {
-        get => _ChangeSuperArmorPoint;
-        set => WriteParamField(ref _ChangeSuperArmorPoint, value);
+        get => _changeSuperArmorPoint;
+        set => WriteParamField(ref _changeSuperArmorPoint, value);
     }
-    private short _ChangeSuperArmorPoint;
+    private short _changeSuperArmorPoint;
 
     [ParamField(0x13C, ParamType.I16)]
     public short BowDistRate
     {
-        get => _BowDistRate;
-        set => WriteParamField(ref _BowDistRate, value);
+        get => _bowDistRate;
+        set => WriteParamField(ref _bowDistRate, value);
     }
-    private short _BowDistRate;
+    private short _bowDistRate;
 
     [ParamField(0x13E, ParamType.U16)]
     public ushort SpCategory
     {
-        get => _SpCategory;
-        set => WriteParamField(ref _SpCategory, value);
+        get => _spCategory;
+        set => WriteParamField(ref _spCategory, value);
     }
-    private ushort _SpCategory;
+    private ushort _spCategory;
 
     [ParamField(0x140, ParamType.U8)]
     public byte CategoryPriority
     {
-        get => _CategoryPriority;
-        set => WriteParamField(ref _CategoryPriority, value);
+        get => _categoryPriority;
+        set => WriteParamField(ref _categoryPriority, value);
     }
-    private byte _CategoryPriority;
+    private byte _categoryPriority;
 
     [ParamField(0x141, ParamType.I8)]
     public sbyte SaveCategory
     {
-        get => _SaveCategory;
-        set => WriteParamField(ref _SaveCategory, value);
+        get => _saveCategory;
+        set => WriteParamField(ref _saveCategory, value);
     }
-    private sbyte _SaveCategory;
+    private sbyte _saveCategory;
 
     [ParamField(0x142, ParamType.U8)]
     public byte ChangeMagicSlot
     {
-        get => _ChangeMagicSlot;
-        set => WriteParamField(ref _ChangeMagicSlot, value);
+        get => _changeMagicSlot;
+        set => WriteParamField(ref _changeMagicSlot, value);
     }
-    private byte _ChangeMagicSlot;
+    private byte _changeMagicSlot;
 
     [ParamField(0x143, ParamType.U8)]
     public byte ChangeMiracleSlot
     {
-        get => _ChangeMiracleSlot;
-        set => WriteParamField(ref _ChangeMiracleSlot, value);
+        get => _changeMiracleSlot;
+        set => WriteParamField(ref _changeMiracleSlot, value);
     }
-    private byte _ChangeMiracleSlot;
+    private byte _changeMiracleSlot;
 
     [ParamField(0x144, ParamType.I8)]
     public sbyte HeroPointDamage
     {
-        get => _HeroPointDamage;
-        set => WriteParamField(ref _HeroPointDamage, value);
+        get => _heroPointDamage;
+        set => WriteParamField(ref _heroPointDamage, value);
     }
-    private sbyte _HeroPointDamage;
+    private sbyte _heroPointDamage;
 
     [ParamField(0x145, ParamType.U8)]
     public byte DefFlickPower
     {
-        get => _DefFlickPower;
-        set => WriteParamField(ref _DefFlickPower, value);
+        get => _defFlickPower;
+        set => WriteParamField(ref _defFlickPower, value);
     }
-    private byte _DefFlickPower;
+    private byte _defFlickPower;
 
     [ParamField(0x146, ParamType.U8)]
     public byte FlickDamageCutRate
     {
-        get => _FlickDamageCutRate;
-        set => WriteParamField(ref _FlickDamageCutRate, value);
+        get => _flickDamageCutRate;
+        set => WriteParamField(ref _flickDamageCutRate, value);
     }
-    private byte _FlickDamageCutRate;
+    private byte _flickDamageCutRate;
 
     [ParamField(0x147, ParamType.U8)]
     public byte BloodDamageRate
     {
-        get => _BloodDamageRate;
-        set => WriteParamField(ref _BloodDamageRate, value);
+        get => _bloodDamageRate;
+        set => WriteParamField(ref _bloodDamageRate, value);
     }
-    private byte _BloodDamageRate;
+    private byte _bloodDamageRate;
 
     [ParamField(0x148, ParamType.I8)]
-    public sbyte DmgLv_None
+    public sbyte DmgLvNone
     {
-        get => _DmgLv_None;
-        set => WriteParamField(ref _DmgLv_None, value);
+        get => _dmgLvNone;
+        set => WriteParamField(ref _dmgLvNone, value);
     }
-    private sbyte _DmgLv_None;
+    private sbyte _dmgLvNone;
 
     [ParamField(0x149, ParamType.I8)]
-    public sbyte DmgLv_S
+    public sbyte DmgLvS
     {
-        get => _DmgLv_S;
-        set => WriteParamField(ref _DmgLv_S, value);
+        get => _dmgLvS;
+        set => WriteParamField(ref _dmgLvS, value);
     }
-    private sbyte _DmgLv_S;
+    private sbyte _dmgLvS;
 
     [ParamField(0x14A, ParamType.I8)]
-    public sbyte DmgLv_M
+    public sbyte DmgLvM
     {
-        get => _DmgLv_M;
-        set => WriteParamField(ref _DmgLv_M, value);
+        get => _dmgLvM;
+        set => WriteParamField(ref _dmgLvM, value);
     }
-    private sbyte _DmgLv_M;
+    private sbyte _dmgLvM;
 
     [ParamField(0x14B, ParamType.I8)]
-    public sbyte DmgLv_L
+    public sbyte DmgLvL
     {
-        get => _DmgLv_L;
-        set => WriteParamField(ref _DmgLv_L, value);
+        get => _dmgLvL;
+        set => WriteParamField(ref _dmgLvL, value);
     }
-    private sbyte _DmgLv_L;
+    private sbyte _dmgLvL;
 
     [ParamField(0x14C, ParamType.I8)]
-    public sbyte DmgLv_BlowM
+    public sbyte DmgLvBlowM
     {
-        get => _DmgLv_BlowM;
-        set => WriteParamField(ref _DmgLv_BlowM, value);
+        get => _dmgLvBlowM;
+        set => WriteParamField(ref _dmgLvBlowM, value);
     }
-    private sbyte _DmgLv_BlowM;
+    private sbyte _dmgLvBlowM;
 
     [ParamField(0x14D, ParamType.I8)]
-    public sbyte DmgLv_Push
+    public sbyte DmgLvPush
     {
-        get => _DmgLv_Push;
-        set => WriteParamField(ref _DmgLv_Push, value);
+        get => _dmgLvPush;
+        set => WriteParamField(ref _dmgLvPush, value);
     }
-    private sbyte _DmgLv_Push;
+    private sbyte _dmgLvPush;
 
     [ParamField(0x14E, ParamType.I8)]
-    public sbyte DmgLv_Strike
+    public sbyte DmgLvStrike
     {
-        get => _DmgLv_Strike;
-        set => WriteParamField(ref _DmgLv_Strike, value);
+        get => _dmgLvStrike;
+        set => WriteParamField(ref _dmgLvStrike, value);
     }
-    private sbyte _DmgLv_Strike;
+    private sbyte _dmgLvStrike;
 
     [ParamField(0x14F, ParamType.I8)]
-    public sbyte DmgLv_BlowS
+    public sbyte DmgLvBlowS
     {
-        get => _DmgLv_BlowS;
-        set => WriteParamField(ref _DmgLv_BlowS, value);
+        get => _dmgLvBlowS;
+        set => WriteParamField(ref _dmgLvBlowS, value);
     }
-    private sbyte _DmgLv_BlowS;
+    private sbyte _dmgLvBlowS;
 
     [ParamField(0x150, ParamType.I8)]
-    public sbyte DmgLv_Min
+    public sbyte DmgLvMin
     {
-        get => _DmgLv_Min;
-        set => WriteParamField(ref _DmgLv_Min, value);
+        get => _dmgLvMin;
+        set => WriteParamField(ref _dmgLvMin, value);
     }
-    private sbyte _DmgLv_Min;
+    private sbyte _dmgLvMin;
 
     [ParamField(0x151, ParamType.I8)]
-    public sbyte DmgLv_Uppercut
+    public sbyte DmgLvUppercut
     {
-        get => _DmgLv_Uppercut;
-        set => WriteParamField(ref _DmgLv_Uppercut, value);
+        get => _dmgLvUppercut;
+        set => WriteParamField(ref _dmgLvUppercut, value);
     }
-    private sbyte _DmgLv_Uppercut;
+    private sbyte _dmgLvUppercut;
 
     [ParamField(0x152, ParamType.I8)]
-    public sbyte DmgLv_BlowLL
+    public sbyte DmgLvBlowLl
     {
-        get => _DmgLv_BlowLL;
-        set => WriteParamField(ref _DmgLv_BlowLL, value);
+        get => _dmgLvBlowLl;
+        set => WriteParamField(ref _dmgLvBlowLl, value);
     }
-    private sbyte _DmgLv_BlowLL;
+    private sbyte _dmgLvBlowLl;
 
     [ParamField(0x153, ParamType.I8)]
-    public sbyte DmgLv_Breath
+    public sbyte DmgLvBreath
     {
-        get => _DmgLv_Breath;
-        set => WriteParamField(ref _DmgLv_Breath, value);
+        get => _dmgLvBreath;
+        set => WriteParamField(ref _dmgLvBreath, value);
     }
-    private sbyte _DmgLv_Breath;
+    private sbyte _dmgLvBreath;
 
     [ParamField(0x154, ParamType.U8)]
     public byte AtkAttribute
     {
-        get => _AtkAttribute;
-        set => WriteParamField(ref _AtkAttribute, value);
+        get => _atkAttribute;
+        set => WriteParamField(ref _atkAttribute, value);
     }
-    private byte _AtkAttribute;
+    private byte _atkAttribute;
 
     [ParamField(0x155, ParamType.U8)]
     public byte SpAttribute
     {
-        get => _SpAttribute;
-        set => WriteParamField(ref _SpAttribute, value);
+        get => _spAttribute;
+        set => WriteParamField(ref _spAttribute, value);
     }
-    private byte _SpAttribute;
+    private byte _spAttribute;
 
     [ParamField(0x156, ParamType.U8)]
     public byte StateInfo
     {
-        get => _StateInfo;
-        set => WriteParamField(ref _StateInfo, value);
+        get => _stateInfo;
+        set => WriteParamField(ref _stateInfo, value);
     }
-    private byte _StateInfo;
+    private byte _stateInfo;
 
     [ParamField(0x157, ParamType.U8)]
     public byte WepParamChange
     {
-        get => _WepParamChange;
-        set => WriteParamField(ref _WepParamChange, value);
+        get => _wepParamChange;
+        set => WriteParamField(ref _wepParamChange, value);
     }
-    private byte _WepParamChange;
+    private byte _wepParamChange;
 
     [ParamField(0x158, ParamType.U8)]
     public byte MoveType
     {
-        get => _MoveType;
-        set => WriteParamField(ref _MoveType, value);
+        get => _moveType;
+        set => WriteParamField(ref _moveType, value);
     }
-    private byte _MoveType;
+    private byte _moveType;
 
     [ParamField(0x159, ParamType.U8)]
     public byte LifeReductionType
     {
-        get => _LifeReductionType;
-        set => WriteParamField(ref _LifeReductionType, value);
+        get => _lifeReductionType;
+        set => WriteParamField(ref _lifeReductionType, value);
     }
-    private byte _LifeReductionType;
+    private byte _lifeReductionType;
 
     [ParamField(0x15A, ParamType.U8)]
     public byte ThrowCondition
     {
-        get => _ThrowCondition;
-        set => WriteParamField(ref _ThrowCondition, value);
+        get => _throwCondition;
+        set => WriteParamField(ref _throwCondition, value);
     }
-    private byte _ThrowCondition;
+    private byte _throwCondition;
 
     [ParamField(0x15B, ParamType.I8)]
-    public sbyte AddBehaviorJudgeId_condition
+    public sbyte AddBehaviorJudgeIdCondition
     {
-        get => _AddBehaviorJudgeId_condition;
-        set => WriteParamField(ref _AddBehaviorJudgeId_condition, value);
+        get => _addBehaviorJudgeIdCondition;
+        set => WriteParamField(ref _addBehaviorJudgeIdCondition, value);
     }
-    private sbyte _AddBehaviorJudgeId_condition;
+    private sbyte _addBehaviorJudgeIdCondition;
 
     [ParamField(0x15C, ParamType.U8)]
-    public byte AddBehaviorJudgeId_add
+    public byte AddBehaviorJudgeIdAdd
     {
-        get => _AddBehaviorJudgeId_add;
-        set => WriteParamField(ref _AddBehaviorJudgeId_add, value);
+        get => _addBehaviorJudgeIdAdd;
+        set => WriteParamField(ref _addBehaviorJudgeIdAdd, value);
     }
-    private byte _AddBehaviorJudgeId_add;
+    private byte _addBehaviorJudgeIdAdd;
 
     #region BitField EffectTargetSelfBitfield ==============================================================================
 
     [ParamField(0x15D, ParamType.U8)]
     public byte EffectTargetSelfBitfield
     {
-        get => _EffectTargetSelfBitfield;
-        set => WriteParamField(ref _EffectTargetSelfBitfield, value);
+        get => _effectTargetSelfBitfield;
+        set => WriteParamField(ref _effectTargetSelfBitfield, value);
     }
-    private byte _EffectTargetSelfBitfield;
+    private byte _effectTargetSelfBitfield;
 
     [ParamBitField(nameof(EffectTargetSelfBitfield), bits: 1, bitsOffset: 0)]
     public byte EffectTargetSelf
     {
-        get => GetbitfieldValue(_EffectTargetSelfBitfield);
-        set => SetBitfieldValue(ref _EffectTargetSelfBitfield, value);
+        get => GetbitfieldValue(_effectTargetSelfBitfield);
+        set => SetBitfieldValue(ref _effectTargetSelfBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetSelfBitfield), bits: 1, bitsOffset: 1)]
     public byte EffectTargetFriend
     {
-        get => GetbitfieldValue(_EffectTargetSelfBitfield);
-        set => SetBitfieldValue(ref _EffectTargetSelfBitfield, value);
+        get => GetbitfieldValue(_effectTargetSelfBitfield);
+        set => SetBitfieldValue(ref _effectTargetSelfBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetSelfBitfield), bits: 1, bitsOffset: 2)]
     public byte EffectTargetEnemy
     {
-        get => GetbitfieldValue(_EffectTargetSelfBitfield);
-        set => SetBitfieldValue(ref _EffectTargetSelfBitfield, value);
+        get => GetbitfieldValue(_effectTargetSelfBitfield);
+        set => SetBitfieldValue(ref _effectTargetSelfBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetSelfBitfield), bits: 1, bitsOffset: 3)]
     public byte EffectTargetPlayer
     {
-        get => GetbitfieldValue(_EffectTargetSelfBitfield);
-        set => SetBitfieldValue(ref _EffectTargetSelfBitfield, value);
+        get => GetbitfieldValue(_effectTargetSelfBitfield);
+        set => SetBitfieldValue(ref _effectTargetSelfBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetSelfBitfield), bits: 1, bitsOffset: 4)]
-    public byte EffectTargetAI
+    public byte EffectTargetAi
     {
-        get => GetbitfieldValue(_EffectTargetSelfBitfield);
-        set => SetBitfieldValue(ref _EffectTargetSelfBitfield, value);
+        get => GetbitfieldValue(_effectTargetSelfBitfield);
+        set => SetBitfieldValue(ref _effectTargetSelfBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetSelfBitfield), bits: 1, bitsOffset: 5)]
     public byte EffectTargetLive
     {
-        get => GetbitfieldValue(_EffectTargetSelfBitfield);
-        set => SetBitfieldValue(ref _EffectTargetSelfBitfield, value);
+        get => GetbitfieldValue(_effectTargetSelfBitfield);
+        set => SetBitfieldValue(ref _effectTargetSelfBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetSelfBitfield), bits: 1, bitsOffset: 6)]
     public byte EffectTargetGhost
     {
-        get => GetbitfieldValue(_EffectTargetSelfBitfield);
-        set => SetBitfieldValue(ref _EffectTargetSelfBitfield, value);
+        get => GetbitfieldValue(_effectTargetSelfBitfield);
+        set => SetBitfieldValue(ref _effectTargetSelfBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetSelfBitfield), bits: 1, bitsOffset: 7)]
     public byte EffectTargetWhiteGhost
     {
-        get => GetbitfieldValue(_EffectTargetSelfBitfield);
-        set => SetBitfieldValue(ref _EffectTargetSelfBitfield, value);
+        get => GetbitfieldValue(_effectTargetSelfBitfield);
+        set => SetBitfieldValue(ref _effectTargetSelfBitfield, value);
     }
 
     #endregion BitField EffectTargetSelfBitfield
@@ -984,65 +984,65 @@ public class SpEffect(Pointer basePointer, ByteArrayMemory memory, long offset, 
     [ParamField(0x15E, ParamType.U8)]
     public byte EffectTargetBlackGhostBitfield
     {
-        get => _EffectTargetBlackGhostBitfield;
-        set => WriteParamField(ref _EffectTargetBlackGhostBitfield, value);
+        get => _effectTargetBlackGhostBitfield;
+        set => WriteParamField(ref _effectTargetBlackGhostBitfield, value);
     }
-    private byte _EffectTargetBlackGhostBitfield;
+    private byte _effectTargetBlackGhostBitfield;
 
     [ParamBitField(nameof(EffectTargetBlackGhostBitfield), bits: 1, bitsOffset: 0)]
     public byte EffectTargetBlackGhost
     {
-        get => GetbitfieldValue(_EffectTargetBlackGhostBitfield);
-        set => SetBitfieldValue(ref _EffectTargetBlackGhostBitfield, value);
+        get => GetbitfieldValue(_effectTargetBlackGhostBitfield);
+        set => SetBitfieldValue(ref _effectTargetBlackGhostBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetBlackGhostBitfield), bits: 1, bitsOffset: 1)]
     public byte EffectTargetAttacker
     {
-        get => GetbitfieldValue(_EffectTargetBlackGhostBitfield);
-        set => SetBitfieldValue(ref _EffectTargetBlackGhostBitfield, value);
+        get => GetbitfieldValue(_effectTargetBlackGhostBitfield);
+        set => SetBitfieldValue(ref _effectTargetBlackGhostBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetBlackGhostBitfield), bits: 1, bitsOffset: 2)]
     public byte DispIconNonactive
     {
-        get => GetbitfieldValue(_EffectTargetBlackGhostBitfield);
-        set => SetBitfieldValue(ref _EffectTargetBlackGhostBitfield, value);
+        get => GetbitfieldValue(_effectTargetBlackGhostBitfield);
+        set => SetBitfieldValue(ref _effectTargetBlackGhostBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetBlackGhostBitfield), bits: 1, bitsOffset: 3)]
     public byte UseSpEffectEffect
     {
-        get => GetbitfieldValue(_EffectTargetBlackGhostBitfield);
-        set => SetBitfieldValue(ref _EffectTargetBlackGhostBitfield, value);
+        get => GetbitfieldValue(_effectTargetBlackGhostBitfield);
+        set => SetBitfieldValue(ref _effectTargetBlackGhostBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetBlackGhostBitfield), bits: 1, bitsOffset: 4)]
     public byte BAdjustMagicAblity
     {
-        get => GetbitfieldValue(_EffectTargetBlackGhostBitfield);
-        set => SetBitfieldValue(ref _EffectTargetBlackGhostBitfield, value);
+        get => GetbitfieldValue(_effectTargetBlackGhostBitfield);
+        set => SetBitfieldValue(ref _effectTargetBlackGhostBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetBlackGhostBitfield), bits: 1, bitsOffset: 5)]
     public byte BAdjustFaithAblity
     {
-        get => GetbitfieldValue(_EffectTargetBlackGhostBitfield);
-        set => SetBitfieldValue(ref _EffectTargetBlackGhostBitfield, value);
+        get => GetbitfieldValue(_effectTargetBlackGhostBitfield);
+        set => SetBitfieldValue(ref _effectTargetBlackGhostBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetBlackGhostBitfield), bits: 1, bitsOffset: 6)]
     public byte BGameClearBonus
     {
-        get => GetbitfieldValue(_EffectTargetBlackGhostBitfield);
-        set => SetBitfieldValue(ref _EffectTargetBlackGhostBitfield, value);
+        get => GetbitfieldValue(_effectTargetBlackGhostBitfield);
+        set => SetBitfieldValue(ref _effectTargetBlackGhostBitfield, value);
     }
 
     [ParamBitField(nameof(EffectTargetBlackGhostBitfield), bits: 1, bitsOffset: 7)]
     public byte MagParamChange
     {
-        get => GetbitfieldValue(_EffectTargetBlackGhostBitfield);
-        set => SetBitfieldValue(ref _EffectTargetBlackGhostBitfield, value);
+        get => GetbitfieldValue(_effectTargetBlackGhostBitfield);
+        set => SetBitfieldValue(ref _effectTargetBlackGhostBitfield, value);
     }
 
     #endregion BitField EffectTargetBlackGhostBitfield
@@ -1052,65 +1052,65 @@ public class SpEffect(Pointer basePointer, ByteArrayMemory memory, long offset, 
     [ParamField(0x15F, ParamType.U8)]
     public byte MiracleParamChangeBitfield
     {
-        get => _MiracleParamChangeBitfield;
-        set => WriteParamField(ref _MiracleParamChangeBitfield, value);
+        get => _miracleParamChangeBitfield;
+        set => WriteParamField(ref _miracleParamChangeBitfield, value);
     }
-    private byte _MiracleParamChangeBitfield;
+    private byte _miracleParamChangeBitfield;
 
     [ParamBitField(nameof(MiracleParamChangeBitfield), bits: 1, bitsOffset: 0)]
     public byte MiracleParamChange
     {
-        get => GetbitfieldValue(_MiracleParamChangeBitfield);
-        set => SetBitfieldValue(ref _MiracleParamChangeBitfield, value);
+        get => GetbitfieldValue(_miracleParamChangeBitfield);
+        set => SetBitfieldValue(ref _miracleParamChangeBitfield, value);
     }
 
     [ParamBitField(nameof(MiracleParamChangeBitfield), bits: 1, bitsOffset: 1)]
     public byte ClearSoul
     {
-        get => GetbitfieldValue(_MiracleParamChangeBitfield);
-        set => SetBitfieldValue(ref _MiracleParamChangeBitfield, value);
+        get => GetbitfieldValue(_miracleParamChangeBitfield);
+        set => SetBitfieldValue(ref _miracleParamChangeBitfield, value);
     }
 
     [ParamBitField(nameof(MiracleParamChangeBitfield), bits: 1, bitsOffset: 2)]
-    public byte RequestSOS
+    public byte RequestSos
     {
-        get => GetbitfieldValue(_MiracleParamChangeBitfield);
-        set => SetBitfieldValue(ref _MiracleParamChangeBitfield, value);
+        get => GetbitfieldValue(_miracleParamChangeBitfield);
+        set => SetBitfieldValue(ref _miracleParamChangeBitfield, value);
     }
 
     [ParamBitField(nameof(MiracleParamChangeBitfield), bits: 1, bitsOffset: 3)]
-    public byte RequestBlackSOS
+    public byte RequestBlackSos
     {
-        get => GetbitfieldValue(_MiracleParamChangeBitfield);
-        set => SetBitfieldValue(ref _MiracleParamChangeBitfield, value);
+        get => GetbitfieldValue(_miracleParamChangeBitfield);
+        set => SetBitfieldValue(ref _miracleParamChangeBitfield, value);
     }
 
     [ParamBitField(nameof(MiracleParamChangeBitfield), bits: 1, bitsOffset: 4)]
-    public byte RequestForceJoinBlackSOS
+    public byte RequestForceJoinBlackSos
     {
-        get => GetbitfieldValue(_MiracleParamChangeBitfield);
-        set => SetBitfieldValue(ref _MiracleParamChangeBitfield, value);
+        get => GetbitfieldValue(_miracleParamChangeBitfield);
+        set => SetBitfieldValue(ref _miracleParamChangeBitfield, value);
     }
 
     [ParamBitField(nameof(MiracleParamChangeBitfield), bits: 1, bitsOffset: 5)]
     public byte RequestKickSession
     {
-        get => GetbitfieldValue(_MiracleParamChangeBitfield);
-        set => SetBitfieldValue(ref _MiracleParamChangeBitfield, value);
+        get => GetbitfieldValue(_miracleParamChangeBitfield);
+        set => SetBitfieldValue(ref _miracleParamChangeBitfield, value);
     }
 
     [ParamBitField(nameof(MiracleParamChangeBitfield), bits: 1, bitsOffset: 6)]
     public byte RequestLeaveSession
     {
-        get => GetbitfieldValue(_MiracleParamChangeBitfield);
-        set => SetBitfieldValue(ref _MiracleParamChangeBitfield, value);
+        get => GetbitfieldValue(_miracleParamChangeBitfield);
+        set => SetBitfieldValue(ref _miracleParamChangeBitfield, value);
     }
 
     [ParamBitField(nameof(MiracleParamChangeBitfield), bits: 1, bitsOffset: 7)]
     public byte RequestNpcInveda
     {
-        get => GetbitfieldValue(_MiracleParamChangeBitfield);
-        set => SetBitfieldValue(ref _MiracleParamChangeBitfield, value);
+        get => GetbitfieldValue(_miracleParamChangeBitfield);
+        set => SetBitfieldValue(ref _miracleParamChangeBitfield, value);
     }
 
     #endregion BitField MiracleParamChangeBitfield
@@ -1120,65 +1120,65 @@ public class SpEffect(Pointer basePointer, ByteArrayMemory memory, long offset, 
     [ParamField(0x160, ParamType.U8)]
     public byte NoDeadBitfield
     {
-        get => _NoDeadBitfield;
-        set => WriteParamField(ref _NoDeadBitfield, value);
+        get => _noDeadBitfield;
+        set => WriteParamField(ref _noDeadBitfield, value);
     }
-    private byte _NoDeadBitfield;
+    private byte _noDeadBitfield;
 
     [ParamBitField(nameof(NoDeadBitfield), bits: 1, bitsOffset: 0)]
     public byte NoDead
     {
-        get => GetbitfieldValue(_NoDeadBitfield);
-        set => SetBitfieldValue(ref _NoDeadBitfield, value);
+        get => GetbitfieldValue(_noDeadBitfield);
+        set => SetBitfieldValue(ref _noDeadBitfield, value);
     }
 
     [ParamBitField(nameof(NoDeadBitfield), bits: 1, bitsOffset: 1)]
-    public byte BCurrHPIndependeMaxHP
+    public byte BCurrHpIndependeMaxHp
     {
-        get => GetbitfieldValue(_NoDeadBitfield);
-        set => SetBitfieldValue(ref _NoDeadBitfield, value);
+        get => GetbitfieldValue(_noDeadBitfield);
+        set => SetBitfieldValue(ref _noDeadBitfield, value);
     }
 
     [ParamBitField(nameof(NoDeadBitfield), bits: 1, bitsOffset: 2)]
     public byte CorrosionIgnore
     {
-        get => GetbitfieldValue(_NoDeadBitfield);
-        set => SetBitfieldValue(ref _NoDeadBitfield, value);
+        get => GetbitfieldValue(_noDeadBitfield);
+        set => SetBitfieldValue(ref _noDeadBitfield, value);
     }
 
     [ParamBitField(nameof(NoDeadBitfield), bits: 1, bitsOffset: 3)]
     public byte SightSearchCutIgnore
     {
-        get => GetbitfieldValue(_NoDeadBitfield);
-        set => SetBitfieldValue(ref _NoDeadBitfield, value);
+        get => GetbitfieldValue(_noDeadBitfield);
+        set => SetBitfieldValue(ref _noDeadBitfield, value);
     }
 
     [ParamBitField(nameof(NoDeadBitfield), bits: 1, bitsOffset: 4)]
     public byte HearingSearchCutIgnore
     {
-        get => GetbitfieldValue(_NoDeadBitfield);
-        set => SetBitfieldValue(ref _NoDeadBitfield, value);
+        get => GetbitfieldValue(_noDeadBitfield);
+        set => SetBitfieldValue(ref _noDeadBitfield, value);
     }
 
     [ParamBitField(nameof(NoDeadBitfield), bits: 1, bitsOffset: 5)]
     public byte AntiMagicIgnore
     {
-        get => GetbitfieldValue(_NoDeadBitfield);
-        set => SetBitfieldValue(ref _NoDeadBitfield, value);
+        get => GetbitfieldValue(_noDeadBitfield);
+        set => SetBitfieldValue(ref _noDeadBitfield, value);
     }
 
     [ParamBitField(nameof(NoDeadBitfield), bits: 1, bitsOffset: 6)]
     public byte FakeTargetIgnore
     {
-        get => GetbitfieldValue(_NoDeadBitfield);
-        set => SetBitfieldValue(ref _NoDeadBitfield, value);
+        get => GetbitfieldValue(_noDeadBitfield);
+        set => SetBitfieldValue(ref _noDeadBitfield, value);
     }
 
     [ParamBitField(nameof(NoDeadBitfield), bits: 1, bitsOffset: 7)]
     public byte FakeTargetIgnoreUndead
     {
-        get => GetbitfieldValue(_NoDeadBitfield);
-        set => SetBitfieldValue(ref _NoDeadBitfield, value);
+        get => GetbitfieldValue(_noDeadBitfield);
+        set => SetBitfieldValue(ref _noDeadBitfield, value);
     }
 
     #endregion BitField NoDeadBitfield
@@ -1188,65 +1188,65 @@ public class SpEffect(Pointer basePointer, ByteArrayMemory memory, long offset, 
     [ParamField(0x161, ParamType.U8)]
     public byte FakeTargetIgnoreAnimalBitfield
     {
-        get => _FakeTargetIgnoreAnimalBitfield;
-        set => WriteParamField(ref _FakeTargetIgnoreAnimalBitfield, value);
+        get => _fakeTargetIgnoreAnimalBitfield;
+        set => WriteParamField(ref _fakeTargetIgnoreAnimalBitfield, value);
     }
-    private byte _FakeTargetIgnoreAnimalBitfield;
+    private byte _fakeTargetIgnoreAnimalBitfield;
 
     [ParamBitField(nameof(FakeTargetIgnoreAnimalBitfield), bits: 1, bitsOffset: 0)]
     public byte FakeTargetIgnoreAnimal
     {
-        get => GetbitfieldValue(_FakeTargetIgnoreAnimalBitfield);
-        set => SetBitfieldValue(ref _FakeTargetIgnoreAnimalBitfield, value);
+        get => GetbitfieldValue(_fakeTargetIgnoreAnimalBitfield);
+        set => SetBitfieldValue(ref _fakeTargetIgnoreAnimalBitfield, value);
     }
 
     [ParamBitField(nameof(FakeTargetIgnoreAnimalBitfield), bits: 1, bitsOffset: 1)]
     public byte GrabityIgnore
     {
-        get => GetbitfieldValue(_FakeTargetIgnoreAnimalBitfield);
-        set => SetBitfieldValue(ref _FakeTargetIgnoreAnimalBitfield, value);
+        get => GetbitfieldValue(_fakeTargetIgnoreAnimalBitfield);
+        set => SetBitfieldValue(ref _fakeTargetIgnoreAnimalBitfield, value);
     }
 
     [ParamBitField(nameof(FakeTargetIgnoreAnimalBitfield), bits: 1, bitsOffset: 2)]
     public byte DisablePoison
     {
-        get => GetbitfieldValue(_FakeTargetIgnoreAnimalBitfield);
-        set => SetBitfieldValue(ref _FakeTargetIgnoreAnimalBitfield, value);
+        get => GetbitfieldValue(_fakeTargetIgnoreAnimalBitfield);
+        set => SetBitfieldValue(ref _fakeTargetIgnoreAnimalBitfield, value);
     }
 
     [ParamBitField(nameof(FakeTargetIgnoreAnimalBitfield), bits: 1, bitsOffset: 3)]
     public byte DisableDisease
     {
-        get => GetbitfieldValue(_FakeTargetIgnoreAnimalBitfield);
-        set => SetBitfieldValue(ref _FakeTargetIgnoreAnimalBitfield, value);
+        get => GetbitfieldValue(_fakeTargetIgnoreAnimalBitfield);
+        set => SetBitfieldValue(ref _fakeTargetIgnoreAnimalBitfield, value);
     }
 
     [ParamBitField(nameof(FakeTargetIgnoreAnimalBitfield), bits: 1, bitsOffset: 4)]
     public byte DisableBlood
     {
-        get => GetbitfieldValue(_FakeTargetIgnoreAnimalBitfield);
-        set => SetBitfieldValue(ref _FakeTargetIgnoreAnimalBitfield, value);
+        get => GetbitfieldValue(_fakeTargetIgnoreAnimalBitfield);
+        set => SetBitfieldValue(ref _fakeTargetIgnoreAnimalBitfield, value);
     }
 
     [ParamBitField(nameof(FakeTargetIgnoreAnimalBitfield), bits: 1, bitsOffset: 5)]
     public byte DisableCurse
     {
-        get => GetbitfieldValue(_FakeTargetIgnoreAnimalBitfield);
-        set => SetBitfieldValue(ref _FakeTargetIgnoreAnimalBitfield, value);
+        get => GetbitfieldValue(_fakeTargetIgnoreAnimalBitfield);
+        set => SetBitfieldValue(ref _fakeTargetIgnoreAnimalBitfield, value);
     }
 
     [ParamBitField(nameof(FakeTargetIgnoreAnimalBitfield), bits: 1, bitsOffset: 6)]
     public byte EnableCharm
     {
-        get => GetbitfieldValue(_FakeTargetIgnoreAnimalBitfield);
-        set => SetBitfieldValue(ref _FakeTargetIgnoreAnimalBitfield, value);
+        get => GetbitfieldValue(_fakeTargetIgnoreAnimalBitfield);
+        set => SetBitfieldValue(ref _fakeTargetIgnoreAnimalBitfield, value);
     }
 
     [ParamBitField(nameof(FakeTargetIgnoreAnimalBitfield), bits: 1, bitsOffset: 7)]
     public byte EnableLifeTime
     {
-        get => GetbitfieldValue(_FakeTargetIgnoreAnimalBitfield);
-        set => SetBitfieldValue(ref _FakeTargetIgnoreAnimalBitfield, value);
+        get => GetbitfieldValue(_fakeTargetIgnoreAnimalBitfield);
+        set => SetBitfieldValue(ref _fakeTargetIgnoreAnimalBitfield, value);
     }
 
     #endregion BitField FakeTargetIgnoreAnimalBitfield
@@ -1256,44 +1256,44 @@ public class SpEffect(Pointer basePointer, ByteArrayMemory memory, long offset, 
     [ParamField(0x162, ParamType.U8)]
     public byte HasTargetBitfield
     {
-        get => _HasTargetBitfield;
-        set => WriteParamField(ref _HasTargetBitfield, value);
+        get => _hasTargetBitfield;
+        set => WriteParamField(ref _hasTargetBitfield, value);
     }
-    private byte _HasTargetBitfield;
+    private byte _hasTargetBitfield;
 
     [ParamBitField(nameof(HasTargetBitfield), bits: 1, bitsOffset: 0)]
     public byte HasTarget
     {
-        get => GetbitfieldValue(_HasTargetBitfield);
-        set => SetBitfieldValue(ref _HasTargetBitfield, value);
+        get => GetbitfieldValue(_hasTargetBitfield);
+        set => SetBitfieldValue(ref _hasTargetBitfield, value);
     }
 
     [ParamBitField(nameof(HasTargetBitfield), bits: 1, bitsOffset: 1)]
     public byte IsFireDamageCancel
     {
-        get => GetbitfieldValue(_HasTargetBitfield);
-        set => SetBitfieldValue(ref _HasTargetBitfield, value);
+        get => GetbitfieldValue(_hasTargetBitfield);
+        set => SetBitfieldValue(ref _hasTargetBitfield, value);
     }
 
     [ParamBitField(nameof(HasTargetBitfield), bits: 1, bitsOffset: 2)]
     public byte IsExtendSpEffectLife
     {
-        get => GetbitfieldValue(_HasTargetBitfield);
-        set => SetBitfieldValue(ref _HasTargetBitfield, value);
+        get => GetbitfieldValue(_hasTargetBitfield);
+        set => SetBitfieldValue(ref _hasTargetBitfield, value);
     }
 
     [ParamBitField(nameof(HasTargetBitfield), bits: 1, bitsOffset: 3)]
     public byte RequestLeaveColiseumSession
     {
-        get => GetbitfieldValue(_HasTargetBitfield);
-        set => SetBitfieldValue(ref _HasTargetBitfield, value);
+        get => GetbitfieldValue(_hasTargetBitfield);
+        set => SetBitfieldValue(ref _hasTargetBitfield, value);
     }
 
     [ParamBitField(nameof(HasTargetBitfield), bits: 4, bitsOffset: 4)]
-    public byte Pad_2
+    public byte Pad2
     {
-        get => GetbitfieldValue(_HasTargetBitfield);
-        set => SetBitfieldValue(ref _HasTargetBitfield, value);
+        get => GetbitfieldValue(_hasTargetBitfield);
+        set => SetBitfieldValue(ref _hasTargetBitfield, value);
     }
 
     #endregion BitField HasTargetBitfield
@@ -1303,65 +1303,65 @@ public class SpEffect(Pointer basePointer, ByteArrayMemory memory, long offset, 
     [ParamField(0x163, ParamType.U8)]
     public byte VowType0Bitfield
     {
-        get => _VowType0Bitfield;
-        set => WriteParamField(ref _VowType0Bitfield, value);
+        get => _vowType0Bitfield;
+        set => WriteParamField(ref _vowType0Bitfield, value);
     }
-    private byte _VowType0Bitfield;
+    private byte _vowType0Bitfield;
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 0)]
     public byte VowType0
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 1)]
     public byte VowType1
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 2)]
     public byte VowType2
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 3)]
     public byte VowType3
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 4)]
     public byte VowType4
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 5)]
     public byte VowType5
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 6)]
     public byte VowType6
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 7)]
     public byte VowType7
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     #endregion BitField VowType0Bitfield
@@ -1371,65 +1371,65 @@ public class SpEffect(Pointer basePointer, ByteArrayMemory memory, long offset, 
     [ParamField(0x164, ParamType.U8)]
     public byte VowType8Bitfield
     {
-        get => _VowType8Bitfield;
-        set => WriteParamField(ref _VowType8Bitfield, value);
+        get => _vowType8Bitfield;
+        set => WriteParamField(ref _vowType8Bitfield, value);
     }
-    private byte _VowType8Bitfield;
+    private byte _vowType8Bitfield;
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 0)]
     public byte VowType8
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 1)]
     public byte VowType9
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 2)]
     public byte VowType10
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 3)]
     public byte VowType11
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 4)]
     public byte VowType12
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 5)]
     public byte VowType13
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 6)]
     public byte VowType14
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 7)]
     public byte VowType15
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     #endregion BitField VowType8Bitfield
@@ -1437,9 +1437,9 @@ public class SpEffect(Pointer basePointer, ByteArrayMemory memory, long offset, 
     [ParamField(0x165, ParamType.Dummy8, 11)]
     public byte[] Pad1
     {
-        get => _Pad1;
-        set => WriteParamField(ref _Pad1, value);
+        get => _pad1;
+        set => WriteParamField(ref _pad1, value);
     }
-    private byte[] _Pad1 = null!;
+    private byte[] _pad1 = null!;
 
 }

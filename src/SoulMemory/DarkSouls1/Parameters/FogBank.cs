@@ -26,65 +26,65 @@ public class FogBank(Pointer basePointer, ByteArrayMemory memory, long offset, P
     [ParamField(0x0, ParamType.I16)]
     public short FogBeginZ
     {
-        get => _FogBeginZ;
-        set => WriteParamField(ref _FogBeginZ, value);
+        get => _fogBeginZ;
+        set => WriteParamField(ref _fogBeginZ, value);
     }
-    private short _FogBeginZ;
+    private short _fogBeginZ;
 
     [ParamField(0x2, ParamType.I16)]
     public short FogEndZ
     {
-        get => _FogEndZ;
-        set => WriteParamField(ref _FogEndZ, value);
+        get => _fogEndZ;
+        set => WriteParamField(ref _fogEndZ, value);
     }
-    private short _FogEndZ;
+    private short _fogEndZ;
 
     [ParamField(0x4, ParamType.I16)]
     public short DegRotZ
     {
-        get => _DegRotZ;
-        set => WriteParamField(ref _DegRotZ, value);
+        get => _degRotZ;
+        set => WriteParamField(ref _degRotZ, value);
     }
-    private short _DegRotZ;
+    private short _degRotZ;
 
     [ParamField(0x6, ParamType.I16)]
     public short DegRotW
     {
-        get => _DegRotW;
-        set => WriteParamField(ref _DegRotW, value);
+        get => _degRotW;
+        set => WriteParamField(ref _degRotW, value);
     }
-    private short _DegRotW;
+    private short _degRotW;
 
     [ParamField(0x8, ParamType.I16)]
     public short ColR
     {
-        get => _ColR;
-        set => WriteParamField(ref _ColR, value);
+        get => _colR;
+        set => WriteParamField(ref _colR, value);
     }
-    private short _ColR;
+    private short _colR;
 
     [ParamField(0xA, ParamType.I16)]
     public short ColG
     {
-        get => _ColG;
-        set => WriteParamField(ref _ColG, value);
+        get => _colG;
+        set => WriteParamField(ref _colG, value);
     }
-    private short _ColG;
+    private short _colG;
 
     [ParamField(0xC, ParamType.I16)]
     public short ColB
     {
-        get => _ColB;
-        set => WriteParamField(ref _ColB, value);
+        get => _colB;
+        set => WriteParamField(ref _colB, value);
     }
-    private short _ColB;
+    private short _colB;
 
     [ParamField(0xE, ParamType.I16)]
     public short ColA
     {
-        get => _ColA;
-        set => WriteParamField(ref _ColA, value);
+        get => _colA;
+        set => WriteParamField(ref _colA, value);
     }
-    private short _ColA;
+    private short _colA;
 
 }

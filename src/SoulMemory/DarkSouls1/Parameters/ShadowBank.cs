@@ -26,113 +26,113 @@ public class ShadowBank(Pointer basePointer, ByteArrayMemory memory, long offset
     [ParamField(0x0, ParamType.I16)]
     public short LightDegRotX
     {
-        get => _LightDegRotX;
-        set => WriteParamField(ref _LightDegRotX, value);
+        get => _lightDegRotX;
+        set => WriteParamField(ref _lightDegRotX, value);
     }
-    private short _LightDegRotX;
+    private short _lightDegRotX;
 
     [ParamField(0x2, ParamType.I16)]
     public short LightDegRotY
     {
-        get => _LightDegRotY;
-        set => WriteParamField(ref _LightDegRotY, value);
+        get => _lightDegRotY;
+        set => WriteParamField(ref _lightDegRotY, value);
     }
-    private short _LightDegRotY;
+    private short _lightDegRotY;
 
     [ParamField(0x4, ParamType.I16)]
     public short DensityRatio
     {
-        get => _DensityRatio;
-        set => WriteParamField(ref _DensityRatio, value);
+        get => _densityRatio;
+        set => WriteParamField(ref _densityRatio, value);
     }
-    private short _DensityRatio;
+    private short _densityRatio;
 
     [ParamField(0x6, ParamType.I16)]
     public short ColR
     {
-        get => _ColR;
-        set => WriteParamField(ref _ColR, value);
+        get => _colR;
+        set => WriteParamField(ref _colR, value);
     }
-    private short _ColR;
+    private short _colR;
 
     [ParamField(0x8, ParamType.I16)]
     public short ColG
     {
-        get => _ColG;
-        set => WriteParamField(ref _ColG, value);
+        get => _colG;
+        set => WriteParamField(ref _colG, value);
     }
-    private short _ColG;
+    private short _colG;
 
     [ParamField(0xA, ParamType.I16)]
     public short ColB
     {
-        get => _ColB;
-        set => WriteParamField(ref _ColB, value);
+        get => _colB;
+        set => WriteParamField(ref _colB, value);
     }
-    private short _ColB;
+    private short _colB;
 
     [ParamField(0xC, ParamType.F32)]
     public float BeginDist
     {
-        get => _BeginDist;
-        set => WriteParamField(ref _BeginDist, value);
+        get => _beginDist;
+        set => WriteParamField(ref _beginDist, value);
     }
-    private float _BeginDist;
+    private float _beginDist;
 
     [ParamField(0x10, ParamType.F32)]
     public float EndDist
     {
-        get => _EndDist;
-        set => WriteParamField(ref _EndDist, value);
+        get => _endDist;
+        set => WriteParamField(ref _endDist, value);
     }
-    private float _EndDist;
+    private float _endDist;
 
     [ParamField(0x14, ParamType.F32)]
     public float CalibulateFar
     {
-        get => _CalibulateFar;
-        set => WriteParamField(ref _CalibulateFar, value);
+        get => _calibulateFar;
+        set => WriteParamField(ref _calibulateFar, value);
     }
-    private float _CalibulateFar;
+    private float _calibulateFar;
 
     [ParamField(0x18, ParamType.F32)]
     public float FadeBeginDist
     {
-        get => _FadeBeginDist;
-        set => WriteParamField(ref _FadeBeginDist, value);
+        get => _fadeBeginDist;
+        set => WriteParamField(ref _fadeBeginDist, value);
     }
-    private float _FadeBeginDist;
+    private float _fadeBeginDist;
 
     [ParamField(0x1C, ParamType.F32)]
     public float FadeDist
     {
-        get => _FadeDist;
-        set => WriteParamField(ref _FadeDist, value);
+        get => _fadeDist;
+        set => WriteParamField(ref _fadeDist, value);
     }
-    private float _FadeDist;
+    private float _fadeDist;
 
     [ParamField(0x20, ParamType.F32)]
     public float PersedDepthOffset
     {
-        get => _PersedDepthOffset;
-        set => WriteParamField(ref _PersedDepthOffset, value);
+        get => _persedDepthOffset;
+        set => WriteParamField(ref _persedDepthOffset, value);
     }
-    private float _PersedDepthOffset;
+    private float _persedDepthOffset;
 
     [ParamField(0x24, ParamType.F32)]
     public float GradFactor
     {
-        get => _GradFactor;
-        set => WriteParamField(ref _GradFactor, value);
+        get => _gradFactor;
+        set => WriteParamField(ref _gradFactor, value);
     }
-    private float _GradFactor;
+    private float _gradFactor;
 
     [ParamField(0x28, ParamType.F32)]
     public float ShadowVolumeDepth
     {
-        get => _ShadowVolumeDepth;
-        set => WriteParamField(ref _ShadowVolumeDepth, value);
+        get => _shadowVolumeDepth;
+        set => WriteParamField(ref _shadowVolumeDepth, value);
     }
-    private float _ShadowVolumeDepth;
+    private float _shadowVolumeDepth;
 
 }

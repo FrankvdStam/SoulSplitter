@@ -26,289 +26,289 @@ public class MoveParam(Pointer basePointer, ByteArrayMemory memory, long offset,
     [ParamField(0x0, ParamType.I32)]
     public int StayId
     {
-        get => _StayId;
-        set => WriteParamField(ref _StayId, value);
+        get => _stayId;
+        set => WriteParamField(ref _stayId, value);
     }
-    private int _StayId;
+    private int _stayId;
 
     [ParamField(0x4, ParamType.I32)]
     public int WalkF
     {
-        get => _WalkF;
-        set => WriteParamField(ref _WalkF, value);
+        get => _walkF;
+        set => WriteParamField(ref _walkF, value);
     }
-    private int _WalkF;
+    private int _walkF;
 
     [ParamField(0x8, ParamType.I32)]
     public int WalkB
     {
-        get => _WalkB;
-        set => WriteParamField(ref _WalkB, value);
+        get => _walkB;
+        set => WriteParamField(ref _walkB, value);
     }
-    private int _WalkB;
+    private int _walkB;
 
     [ParamField(0xC, ParamType.I32)]
     public int WalkL
     {
-        get => _WalkL;
-        set => WriteParamField(ref _WalkL, value);
+        get => _walkL;
+        set => WriteParamField(ref _walkL, value);
     }
-    private int _WalkL;
+    private int _walkL;
 
     [ParamField(0x10, ParamType.I32)]
     public int WalkR
     {
-        get => _WalkR;
-        set => WriteParamField(ref _WalkR, value);
+        get => _walkR;
+        set => WriteParamField(ref _walkR, value);
     }
-    private int _WalkR;
+    private int _walkR;
 
     [ParamField(0x14, ParamType.I32)]
     public int DashF
     {
-        get => _DashF;
-        set => WriteParamField(ref _DashF, value);
+        get => _dashF;
+        set => WriteParamField(ref _dashF, value);
     }
-    private int _DashF;
+    private int _dashF;
 
     [ParamField(0x18, ParamType.I32)]
     public int DashB
     {
-        get => _DashB;
-        set => WriteParamField(ref _DashB, value);
+        get => _dashB;
+        set => WriteParamField(ref _dashB, value);
     }
-    private int _DashB;
+    private int _dashB;
 
     [ParamField(0x1C, ParamType.I32)]
     public int DashL
     {
-        get => _DashL;
-        set => WriteParamField(ref _DashL, value);
+        get => _dashL;
+        set => WriteParamField(ref _dashL, value);
     }
-    private int _DashL;
+    private int _dashL;
 
     [ParamField(0x20, ParamType.I32)]
     public int DashR
     {
-        get => _DashR;
-        set => WriteParamField(ref _DashR, value);
+        get => _dashR;
+        set => WriteParamField(ref _dashR, value);
     }
-    private int _DashR;
+    private int _dashR;
 
     [ParamField(0x24, ParamType.I32)]
     public int SuperDash
     {
-        get => _SuperDash;
-        set => WriteParamField(ref _SuperDash, value);
+        get => _superDash;
+        set => WriteParamField(ref _superDash, value);
     }
-    private int _SuperDash;
+    private int _superDash;
 
     [ParamField(0x28, ParamType.I32)]
     public int EscapeF
     {
-        get => _EscapeF;
-        set => WriteParamField(ref _EscapeF, value);
+        get => _escapeF;
+        set => WriteParamField(ref _escapeF, value);
     }
-    private int _EscapeF;
+    private int _escapeF;
 
     [ParamField(0x2C, ParamType.I32)]
     public int EscapeB
     {
-        get => _EscapeB;
-        set => WriteParamField(ref _EscapeB, value);
+        get => _escapeB;
+        set => WriteParamField(ref _escapeB, value);
     }
-    private int _EscapeB;
+    private int _escapeB;
 
     [ParamField(0x30, ParamType.I32)]
     public int EscapeL
     {
-        get => _EscapeL;
-        set => WriteParamField(ref _EscapeL, value);
+        get => _escapeL;
+        set => WriteParamField(ref _escapeL, value);
     }
-    private int _EscapeL;
+    private int _escapeL;
 
     [ParamField(0x34, ParamType.I32)]
     public int EscapeR
     {
-        get => _EscapeR;
-        set => WriteParamField(ref _EscapeR, value);
+        get => _escapeR;
+        set => WriteParamField(ref _escapeR, value);
     }
-    private int _EscapeR;
+    private int _escapeR;
 
     [ParamField(0x38, ParamType.I32)]
     public int TurnL
     {
-        get => _TurnL;
-        set => WriteParamField(ref _TurnL, value);
+        get => _turnL;
+        set => WriteParamField(ref _turnL, value);
     }
-    private int _TurnL;
+    private int _turnL;
 
     [ParamField(0x3C, ParamType.I32)]
     public int TrunR
     {
-        get => _TrunR;
-        set => WriteParamField(ref _TrunR, value);
+        get => _trunR;
+        set => WriteParamField(ref _trunR, value);
     }
-    private int _TrunR;
+    private int _trunR;
 
     [ParamField(0x40, ParamType.I32)]
     public int LargeTurnL
     {
-        get => _LargeTurnL;
-        set => WriteParamField(ref _LargeTurnL, value);
+        get => _largeTurnL;
+        set => WriteParamField(ref _largeTurnL, value);
     }
-    private int _LargeTurnL;
+    private int _largeTurnL;
 
     [ParamField(0x44, ParamType.I32)]
     public int LargeTurnR
     {
-        get => _LargeTurnR;
-        set => WriteParamField(ref _LargeTurnR, value);
+        get => _largeTurnR;
+        set => WriteParamField(ref _largeTurnR, value);
     }
-    private int _LargeTurnR;
+    private int _largeTurnR;
 
     [ParamField(0x48, ParamType.I32)]
     public int StepMove
     {
-        get => _StepMove;
-        set => WriteParamField(ref _StepMove, value);
+        get => _stepMove;
+        set => WriteParamField(ref _stepMove, value);
     }
-    private int _StepMove;
+    private int _stepMove;
 
     [ParamField(0x4C, ParamType.I32)]
     public int FlyStay
     {
-        get => _FlyStay;
-        set => WriteParamField(ref _FlyStay, value);
+        get => _flyStay;
+        set => WriteParamField(ref _flyStay, value);
     }
-    private int _FlyStay;
+    private int _flyStay;
 
     [ParamField(0x50, ParamType.I32)]
     public int FlyWalkF
     {
-        get => _FlyWalkF;
-        set => WriteParamField(ref _FlyWalkF, value);
+        get => _flyWalkF;
+        set => WriteParamField(ref _flyWalkF, value);
     }
-    private int _FlyWalkF;
+    private int _flyWalkF;
 
     [ParamField(0x54, ParamType.I32)]
-    public int FlyWalkFL
+    public int FlyWalkFl
     {
-        get => _FlyWalkFL;
-        set => WriteParamField(ref _FlyWalkFL, value);
+        get => _flyWalkFl;
+        set => WriteParamField(ref _flyWalkFl, value);
     }
-    private int _FlyWalkFL;
+    private int _flyWalkFl;
 
     [ParamField(0x58, ParamType.I32)]
-    public int FlyWalkFR
+    public int FlyWalkFr
     {
-        get => _FlyWalkFR;
-        set => WriteParamField(ref _FlyWalkFR, value);
+        get => _flyWalkFr;
+        set => WriteParamField(ref _flyWalkFr, value);
     }
-    private int _FlyWalkFR;
+    private int _flyWalkFr;
 
     [ParamField(0x5C, ParamType.I32)]
-    public int FlyWalkFL2
+    public int FlyWalkFl2
     {
-        get => _FlyWalkFL2;
-        set => WriteParamField(ref _FlyWalkFL2, value);
+        get => _flyWalkFl2;
+        set => WriteParamField(ref _flyWalkFl2, value);
     }
-    private int _FlyWalkFL2;
+    private int _flyWalkFl2;
 
     [ParamField(0x60, ParamType.I32)]
-    public int FlyWalkFR2
+    public int FlyWalkFr2
     {
-        get => _FlyWalkFR2;
-        set => WriteParamField(ref _FlyWalkFR2, value);
+        get => _flyWalkFr2;
+        set => WriteParamField(ref _flyWalkFr2, value);
     }
-    private int _FlyWalkFR2;
+    private int _flyWalkFr2;
 
     [ParamField(0x64, ParamType.I32)]
     public int FlyDashF
     {
-        get => _FlyDashF;
-        set => WriteParamField(ref _FlyDashF, value);
+        get => _flyDashF;
+        set => WriteParamField(ref _flyDashF, value);
     }
-    private int _FlyDashF;
+    private int _flyDashF;
 
     [ParamField(0x68, ParamType.I32)]
-    public int FlyDashFL
+    public int FlyDashFl
     {
-        get => _FlyDashFL;
-        set => WriteParamField(ref _FlyDashFL, value);
+        get => _flyDashFl;
+        set => WriteParamField(ref _flyDashFl, value);
     }
-    private int _FlyDashFL;
+    private int _flyDashFl;
 
     [ParamField(0x6C, ParamType.I32)]
-    public int FlyDashFR
+    public int FlyDashFr
     {
-        get => _FlyDashFR;
-        set => WriteParamField(ref _FlyDashFR, value);
+        get => _flyDashFr;
+        set => WriteParamField(ref _flyDashFr, value);
     }
-    private int _FlyDashFR;
+    private int _flyDashFr;
 
     [ParamField(0x70, ParamType.I32)]
-    public int FlyDashFL2
+    public int FlyDashFl2
     {
-        get => _FlyDashFL2;
-        set => WriteParamField(ref _FlyDashFL2, value);
+        get => _flyDashFl2;
+        set => WriteParamField(ref _flyDashFl2, value);
     }
-    private int _FlyDashFL2;
+    private int _flyDashFl2;
 
     [ParamField(0x74, ParamType.I32)]
-    public int FlyDashFR2
+    public int FlyDashFr2
     {
-        get => _FlyDashFR2;
-        set => WriteParamField(ref _FlyDashFR2, value);
+        get => _flyDashFr2;
+        set => WriteParamField(ref _flyDashFr2, value);
     }
-    private int _FlyDashFR2;
+    private int _flyDashFr2;
 
     [ParamField(0x78, ParamType.I32)]
     public int DashEscapeF
     {
-        get => _DashEscapeF;
-        set => WriteParamField(ref _DashEscapeF, value);
+        get => _dashEscapeF;
+        set => WriteParamField(ref _dashEscapeF, value);
     }
-    private int _DashEscapeF;
+    private int _dashEscapeF;
 
     [ParamField(0x7C, ParamType.I32)]
     public int DashEscapeB
     {
-        get => _DashEscapeB;
-        set => WriteParamField(ref _DashEscapeB, value);
+        get => _dashEscapeB;
+        set => WriteParamField(ref _dashEscapeB, value);
     }
-    private int _DashEscapeB;
+    private int _dashEscapeB;
 
     [ParamField(0x80, ParamType.I32)]
     public int DashEscapeL
     {
-        get => _DashEscapeL;
-        set => WriteParamField(ref _DashEscapeL, value);
+        get => _dashEscapeL;
+        set => WriteParamField(ref _dashEscapeL, value);
     }
-    private int _DashEscapeL;
+    private int _dashEscapeL;
 
     [ParamField(0x84, ParamType.I32)]
     public int DashEscapeR
     {
-        get => _DashEscapeR;
-        set => WriteParamField(ref _DashEscapeR, value);
+        get => _dashEscapeR;
+        set => WriteParamField(ref _dashEscapeR, value);
     }
-    private int _DashEscapeR;
+    private int _dashEscapeR;
 
     [ParamField(0x88, ParamType.I32)]
     public int AnalogMoveParamId
     {
-        get => _AnalogMoveParamId;
-        set => WriteParamField(ref _AnalogMoveParamId, value);
+        get => _analogMoveParamId;
+        set => WriteParamField(ref _analogMoveParamId, value);
     }
-    private int _AnalogMoveParamId;
+    private int _analogMoveParamId;
 
     [ParamField(0x8C, ParamType.Dummy8, 4)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
 }

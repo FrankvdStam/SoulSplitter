@@ -26,126 +26,126 @@ public class EquipMtrlSetParam(Pointer basePointer, ByteArrayMemory memory, long
     [ParamField(0x0, ParamType.I32)]
     public int MaterialId01
     {
-        get => _MaterialId01;
-        set => WriteParamField(ref _MaterialId01, value);
+        get => _materialId01;
+        set => WriteParamField(ref _materialId01, value);
     }
-    private int _MaterialId01;
+    private int _materialId01;
 
     [ParamField(0x4, ParamType.I32)]
     public int MaterialId02
     {
-        get => _MaterialId02;
-        set => WriteParamField(ref _MaterialId02, value);
+        get => _materialId02;
+        set => WriteParamField(ref _materialId02, value);
     }
-    private int _MaterialId02;
+    private int _materialId02;
 
     [ParamField(0x8, ParamType.I32)]
     public int MaterialId03
     {
-        get => _MaterialId03;
-        set => WriteParamField(ref _MaterialId03, value);
+        get => _materialId03;
+        set => WriteParamField(ref _materialId03, value);
     }
-    private int _MaterialId03;
+    private int _materialId03;
 
     [ParamField(0xC, ParamType.I32)]
     public int MaterialId04
     {
-        get => _MaterialId04;
-        set => WriteParamField(ref _MaterialId04, value);
+        get => _materialId04;
+        set => WriteParamField(ref _materialId04, value);
     }
-    private int _MaterialId04;
+    private int _materialId04;
 
     [ParamField(0x10, ParamType.I32)]
     public int MaterialId05
     {
-        get => _MaterialId05;
-        set => WriteParamField(ref _MaterialId05, value);
+        get => _materialId05;
+        set => WriteParamField(ref _materialId05, value);
     }
-    private int _MaterialId05;
+    private int _materialId05;
 
     [ParamField(0x14, ParamType.I8)]
     public sbyte ItemNum01
     {
-        get => _ItemNum01;
-        set => WriteParamField(ref _ItemNum01, value);
+        get => _itemNum01;
+        set => WriteParamField(ref _itemNum01, value);
     }
-    private sbyte _ItemNum01;
+    private sbyte _itemNum01;
 
     [ParamField(0x15, ParamType.I8)]
     public sbyte ItemNum02
     {
-        get => _ItemNum02;
-        set => WriteParamField(ref _ItemNum02, value);
+        get => _itemNum02;
+        set => WriteParamField(ref _itemNum02, value);
     }
-    private sbyte _ItemNum02;
+    private sbyte _itemNum02;
 
     [ParamField(0x16, ParamType.I8)]
     public sbyte ItemNum03
     {
-        get => _ItemNum03;
-        set => WriteParamField(ref _ItemNum03, value);
+        get => _itemNum03;
+        set => WriteParamField(ref _itemNum03, value);
     }
-    private sbyte _ItemNum03;
+    private sbyte _itemNum03;
 
     [ParamField(0x17, ParamType.I8)]
     public sbyte ItemNum04
     {
-        get => _ItemNum04;
-        set => WriteParamField(ref _ItemNum04, value);
+        get => _itemNum04;
+        set => WriteParamField(ref _itemNum04, value);
     }
-    private sbyte _ItemNum04;
+    private sbyte _itemNum04;
 
     [ParamField(0x18, ParamType.I8)]
     public sbyte ItemNum05
     {
-        get => _ItemNum05;
-        set => WriteParamField(ref _ItemNum05, value);
+        get => _itemNum05;
+        set => WriteParamField(ref _itemNum05, value);
     }
-    private sbyte _ItemNum05;
+    private sbyte _itemNum05;
 
     #region BitField IsDisableDispNum01Bitfield ==============================================================================
 
     [ParamField(0x19, ParamType.U8)]
     public byte IsDisableDispNum01Bitfield
     {
-        get => _IsDisableDispNum01Bitfield;
-        set => WriteParamField(ref _IsDisableDispNum01Bitfield, value);
+        get => _isDisableDispNum01Bitfield;
+        set => WriteParamField(ref _isDisableDispNum01Bitfield, value);
     }
-    private byte _IsDisableDispNum01Bitfield;
+    private byte _isDisableDispNum01Bitfield;
 
     [ParamBitField(nameof(IsDisableDispNum01Bitfield), bits: 1, bitsOffset: 0)]
     public byte IsDisableDispNum01
     {
-        get => GetbitfieldValue(_IsDisableDispNum01Bitfield);
-        set => SetBitfieldValue(ref _IsDisableDispNum01Bitfield, value);
+        get => GetbitfieldValue(_isDisableDispNum01Bitfield);
+        set => SetBitfieldValue(ref _isDisableDispNum01Bitfield, value);
     }
 
     [ParamBitField(nameof(IsDisableDispNum01Bitfield), bits: 1, bitsOffset: 1)]
     public byte IsDisableDispNum02
     {
-        get => GetbitfieldValue(_IsDisableDispNum01Bitfield);
-        set => SetBitfieldValue(ref _IsDisableDispNum01Bitfield, value);
+        get => GetbitfieldValue(_isDisableDispNum01Bitfield);
+        set => SetBitfieldValue(ref _isDisableDispNum01Bitfield, value);
     }
 
     [ParamBitField(nameof(IsDisableDispNum01Bitfield), bits: 1, bitsOffset: 2)]
     public byte IsDisableDispNum03
     {
-        get => GetbitfieldValue(_IsDisableDispNum01Bitfield);
-        set => SetBitfieldValue(ref _IsDisableDispNum01Bitfield, value);
+        get => GetbitfieldValue(_isDisableDispNum01Bitfield);
+        set => SetBitfieldValue(ref _isDisableDispNum01Bitfield, value);
     }
 
     [ParamBitField(nameof(IsDisableDispNum01Bitfield), bits: 1, bitsOffset: 3)]
     public byte IsDisableDispNum04
     {
-        get => GetbitfieldValue(_IsDisableDispNum01Bitfield);
-        set => SetBitfieldValue(ref _IsDisableDispNum01Bitfield, value);
+        get => GetbitfieldValue(_isDisableDispNum01Bitfield);
+        set => SetBitfieldValue(ref _isDisableDispNum01Bitfield, value);
     }
 
     [ParamBitField(nameof(IsDisableDispNum01Bitfield), bits: 1, bitsOffset: 4)]
     public byte IsDisableDispNum05
     {
-        get => GetbitfieldValue(_IsDisableDispNum01Bitfield);
-        set => SetBitfieldValue(ref _IsDisableDispNum01Bitfield, value);
+        get => GetbitfieldValue(_isDisableDispNum01Bitfield);
+        set => SetBitfieldValue(ref _isDisableDispNum01Bitfield, value);
     }
 
     #endregion BitField IsDisableDispNum01Bitfield
@@ -153,9 +153,9 @@ public class EquipMtrlSetParam(Pointer basePointer, ByteArrayMemory memory, long
     [ParamField(0x1A, ParamType.Dummy8, 6)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
 }

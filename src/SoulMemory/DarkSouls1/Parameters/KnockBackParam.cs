@@ -24,251 +24,251 @@ namespace SoulMemory.DarkSouls1.Parameters;
 public class KnockBackParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
     [ParamField(0x0, ParamType.F32)]
-    public float Damage_Min_ContTime
+    public float DamageMinContTime
     {
-        get => _Damage_Min_ContTime;
-        set => WriteParamField(ref _Damage_Min_ContTime, value);
+        get => _damageMinContTime;
+        set => WriteParamField(ref _damageMinContTime, value);
     }
-    private float _Damage_Min_ContTime;
+    private float _damageMinContTime;
 
     [ParamField(0x4, ParamType.F32)]
-    public float Damage_S_ContTime
+    public float DamageSContTime
     {
-        get => _Damage_S_ContTime;
-        set => WriteParamField(ref _Damage_S_ContTime, value);
+        get => _damageSContTime;
+        set => WriteParamField(ref _damageSContTime, value);
     }
-    private float _Damage_S_ContTime;
+    private float _damageSContTime;
 
     [ParamField(0x8, ParamType.F32)]
-    public float Damage_M_ContTime
+    public float DamageMContTime
     {
-        get => _Damage_M_ContTime;
-        set => WriteParamField(ref _Damage_M_ContTime, value);
+        get => _damageMContTime;
+        set => WriteParamField(ref _damageMContTime, value);
     }
-    private float _Damage_M_ContTime;
+    private float _damageMContTime;
 
     [ParamField(0xC, ParamType.F32)]
-    public float Damage_L_ContTime
+    public float DamageLContTime
     {
-        get => _Damage_L_ContTime;
-        set => WriteParamField(ref _Damage_L_ContTime, value);
+        get => _damageLContTime;
+        set => WriteParamField(ref _damageLContTime, value);
     }
-    private float _Damage_L_ContTime;
+    private float _damageLContTime;
 
     [ParamField(0x10, ParamType.F32)]
-    public float Damage_BlowS_ContTime
+    public float DamageBlowSContTime
     {
-        get => _Damage_BlowS_ContTime;
-        set => WriteParamField(ref _Damage_BlowS_ContTime, value);
+        get => _damageBlowSContTime;
+        set => WriteParamField(ref _damageBlowSContTime, value);
     }
-    private float _Damage_BlowS_ContTime;
+    private float _damageBlowSContTime;
 
     [ParamField(0x14, ParamType.F32)]
-    public float Damage_BlowM_ContTime
+    public float DamageBlowMContTime
     {
-        get => _Damage_BlowM_ContTime;
-        set => WriteParamField(ref _Damage_BlowM_ContTime, value);
+        get => _damageBlowMContTime;
+        set => WriteParamField(ref _damageBlowMContTime, value);
     }
-    private float _Damage_BlowM_ContTime;
+    private float _damageBlowMContTime;
 
     [ParamField(0x18, ParamType.F32)]
-    public float Damage_Strike_ContTime
+    public float DamageStrikeContTime
     {
-        get => _Damage_Strike_ContTime;
-        set => WriteParamField(ref _Damage_Strike_ContTime, value);
+        get => _damageStrikeContTime;
+        set => WriteParamField(ref _damageStrikeContTime, value);
     }
-    private float _Damage_Strike_ContTime;
+    private float _damageStrikeContTime;
 
     [ParamField(0x1C, ParamType.F32)]
-    public float Damage_Uppercut_ContTime
+    public float DamageUppercutContTime
     {
-        get => _Damage_Uppercut_ContTime;
-        set => WriteParamField(ref _Damage_Uppercut_ContTime, value);
+        get => _damageUppercutContTime;
+        set => WriteParamField(ref _damageUppercutContTime, value);
     }
-    private float _Damage_Uppercut_ContTime;
+    private float _damageUppercutContTime;
 
     [ParamField(0x20, ParamType.F32)]
-    public float Damage_Push_ContTime
+    public float DamagePushContTime
     {
-        get => _Damage_Push_ContTime;
-        set => WriteParamField(ref _Damage_Push_ContTime, value);
+        get => _damagePushContTime;
+        set => WriteParamField(ref _damagePushContTime, value);
     }
-    private float _Damage_Push_ContTime;
+    private float _damagePushContTime;
 
     [ParamField(0x24, ParamType.F32)]
-    public float Damage_Breath_ContTime
+    public float DamageBreathContTime
     {
-        get => _Damage_Breath_ContTime;
-        set => WriteParamField(ref _Damage_Breath_ContTime, value);
+        get => _damageBreathContTime;
+        set => WriteParamField(ref _damageBreathContTime, value);
     }
-    private float _Damage_Breath_ContTime;
+    private float _damageBreathContTime;
 
     [ParamField(0x28, ParamType.F32)]
-    public float Damage_HeadShot_ContTime
+    public float DamageHeadShotContTime
     {
-        get => _Damage_HeadShot_ContTime;
-        set => WriteParamField(ref _Damage_HeadShot_ContTime, value);
+        get => _damageHeadShotContTime;
+        set => WriteParamField(ref _damageHeadShotContTime, value);
     }
-    private float _Damage_HeadShot_ContTime;
+    private float _damageHeadShotContTime;
 
     [ParamField(0x2C, ParamType.F32)]
-    public float Guard_S_ContTime
+    public float GuardSContTime
     {
-        get => _Guard_S_ContTime;
-        set => WriteParamField(ref _Guard_S_ContTime, value);
+        get => _guardSContTime;
+        set => WriteParamField(ref _guardSContTime, value);
     }
-    private float _Guard_S_ContTime;
+    private float _guardSContTime;
 
     [ParamField(0x30, ParamType.F32)]
-    public float Guard_L_ContTime
+    public float GuardLContTime
     {
-        get => _Guard_L_ContTime;
-        set => WriteParamField(ref _Guard_L_ContTime, value);
+        get => _guardLContTime;
+        set => WriteParamField(ref _guardLContTime, value);
     }
-    private float _Guard_L_ContTime;
+    private float _guardLContTime;
 
     [ParamField(0x34, ParamType.F32)]
-    public float Guard_LL_ContTime
+    public float GuardLlContTime
     {
-        get => _Guard_LL_ContTime;
-        set => WriteParamField(ref _Guard_LL_ContTime, value);
+        get => _guardLlContTime;
+        set => WriteParamField(ref _guardLlContTime, value);
     }
-    private float _Guard_LL_ContTime;
+    private float _guardLlContTime;
 
     [ParamField(0x38, ParamType.F32)]
-    public float GuardBrake_ContTime
+    public float GuardBrakeContTime
     {
-        get => _GuardBrake_ContTime;
-        set => WriteParamField(ref _GuardBrake_ContTime, value);
+        get => _guardBrakeContTime;
+        set => WriteParamField(ref _guardBrakeContTime, value);
     }
-    private float _GuardBrake_ContTime;
+    private float _guardBrakeContTime;
 
     [ParamField(0x3C, ParamType.F32)]
-    public float Damage_Min_DecTime
+    public float DamageMinDecTime
     {
-        get => _Damage_Min_DecTime;
-        set => WriteParamField(ref _Damage_Min_DecTime, value);
+        get => _damageMinDecTime;
+        set => WriteParamField(ref _damageMinDecTime, value);
     }
-    private float _Damage_Min_DecTime;
+    private float _damageMinDecTime;
 
     [ParamField(0x40, ParamType.F32)]
-    public float Damage_S_DecTime
+    public float DamageSDecTime
     {
-        get => _Damage_S_DecTime;
-        set => WriteParamField(ref _Damage_S_DecTime, value);
+        get => _damageSDecTime;
+        set => WriteParamField(ref _damageSDecTime, value);
     }
-    private float _Damage_S_DecTime;
+    private float _damageSDecTime;
 
     [ParamField(0x44, ParamType.F32)]
-    public float Damage_M_DecTime
+    public float DamageMDecTime
     {
-        get => _Damage_M_DecTime;
-        set => WriteParamField(ref _Damage_M_DecTime, value);
+        get => _damageMDecTime;
+        set => WriteParamField(ref _damageMDecTime, value);
     }
-    private float _Damage_M_DecTime;
+    private float _damageMDecTime;
 
     [ParamField(0x48, ParamType.F32)]
-    public float Damage_L_DecTime
+    public float DamageLDecTime
     {
-        get => _Damage_L_DecTime;
-        set => WriteParamField(ref _Damage_L_DecTime, value);
+        get => _damageLDecTime;
+        set => WriteParamField(ref _damageLDecTime, value);
     }
-    private float _Damage_L_DecTime;
+    private float _damageLDecTime;
 
     [ParamField(0x4C, ParamType.F32)]
-    public float Damage_BlowS_DecTime
+    public float DamageBlowSDecTime
     {
-        get => _Damage_BlowS_DecTime;
-        set => WriteParamField(ref _Damage_BlowS_DecTime, value);
+        get => _damageBlowSDecTime;
+        set => WriteParamField(ref _damageBlowSDecTime, value);
     }
-    private float _Damage_BlowS_DecTime;
+    private float _damageBlowSDecTime;
 
     [ParamField(0x50, ParamType.F32)]
-    public float Damage_BlowM_DecTime
+    public float DamageBlowMDecTime
     {
-        get => _Damage_BlowM_DecTime;
-        set => WriteParamField(ref _Damage_BlowM_DecTime, value);
+        get => _damageBlowMDecTime;
+        set => WriteParamField(ref _damageBlowMDecTime, value);
     }
-    private float _Damage_BlowM_DecTime;
+    private float _damageBlowMDecTime;
 
     [ParamField(0x54, ParamType.F32)]
-    public float Damage_Strike_DecTime
+    public float DamageStrikeDecTime
     {
-        get => _Damage_Strike_DecTime;
-        set => WriteParamField(ref _Damage_Strike_DecTime, value);
+        get => _damageStrikeDecTime;
+        set => WriteParamField(ref _damageStrikeDecTime, value);
     }
-    private float _Damage_Strike_DecTime;
+    private float _damageStrikeDecTime;
 
     [ParamField(0x58, ParamType.F32)]
-    public float Damage_Uppercut_DecTime
+    public float DamageUppercutDecTime
     {
-        get => _Damage_Uppercut_DecTime;
-        set => WriteParamField(ref _Damage_Uppercut_DecTime, value);
+        get => _damageUppercutDecTime;
+        set => WriteParamField(ref _damageUppercutDecTime, value);
     }
-    private float _Damage_Uppercut_DecTime;
+    private float _damageUppercutDecTime;
 
     [ParamField(0x5C, ParamType.F32)]
-    public float Damage_Push_DecTime
+    public float DamagePushDecTime
     {
-        get => _Damage_Push_DecTime;
-        set => WriteParamField(ref _Damage_Push_DecTime, value);
+        get => _damagePushDecTime;
+        set => WriteParamField(ref _damagePushDecTime, value);
     }
-    private float _Damage_Push_DecTime;
+    private float _damagePushDecTime;
 
     [ParamField(0x60, ParamType.F32)]
-    public float Damage_Breath_DecTime
+    public float DamageBreathDecTime
     {
-        get => _Damage_Breath_DecTime;
-        set => WriteParamField(ref _Damage_Breath_DecTime, value);
+        get => _damageBreathDecTime;
+        set => WriteParamField(ref _damageBreathDecTime, value);
     }
-    private float _Damage_Breath_DecTime;
+    private float _damageBreathDecTime;
 
     [ParamField(0x64, ParamType.F32)]
-    public float Damage_HeadShot_DecTime
+    public float DamageHeadShotDecTime
     {
-        get => _Damage_HeadShot_DecTime;
-        set => WriteParamField(ref _Damage_HeadShot_DecTime, value);
+        get => _damageHeadShotDecTime;
+        set => WriteParamField(ref _damageHeadShotDecTime, value);
     }
-    private float _Damage_HeadShot_DecTime;
+    private float _damageHeadShotDecTime;
 
     [ParamField(0x68, ParamType.F32)]
-    public float Guard_S_DecTime
+    public float GuardSDecTime
     {
-        get => _Guard_S_DecTime;
-        set => WriteParamField(ref _Guard_S_DecTime, value);
+        get => _guardSDecTime;
+        set => WriteParamField(ref _guardSDecTime, value);
     }
-    private float _Guard_S_DecTime;
+    private float _guardSDecTime;
 
     [ParamField(0x6C, ParamType.F32)]
-    public float Guard_L_DecTime
+    public float GuardLDecTime
     {
-        get => _Guard_L_DecTime;
-        set => WriteParamField(ref _Guard_L_DecTime, value);
+        get => _guardLDecTime;
+        set => WriteParamField(ref _guardLDecTime, value);
     }
-    private float _Guard_L_DecTime;
+    private float _guardLDecTime;
 
     [ParamField(0x70, ParamType.F32)]
-    public float Guard_LL_DecTime
+    public float GuardLlDecTime
     {
-        get => _Guard_LL_DecTime;
-        set => WriteParamField(ref _Guard_LL_DecTime, value);
+        get => _guardLlDecTime;
+        set => WriteParamField(ref _guardLlDecTime, value);
     }
-    private float _Guard_LL_DecTime;
+    private float _guardLlDecTime;
 
     [ParamField(0x74, ParamType.F32)]
-    public float GuardBrake_DecTime
+    public float GuardBrakeDecTime
     {
-        get => _GuardBrake_DecTime;
-        set => WriteParamField(ref _GuardBrake_DecTime, value);
+        get => _guardBrakeDecTime;
+        set => WriteParamField(ref _guardBrakeDecTime, value);
     }
-    private float _GuardBrake_DecTime;
+    private float _guardBrakeDecTime;
 
     [ParamField(0x78, ParamType.Dummy8, 8)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
 }

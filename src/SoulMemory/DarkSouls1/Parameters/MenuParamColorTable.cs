@@ -26,33 +26,33 @@ public class MenuParamColorTable(Pointer basePointer, ByteArrayMemory memory, lo
     [ParamField(0x0, ParamType.U8)]
     public byte R
     {
-        get => _R;
-        set => WriteParamField(ref _R, value);
+        get => _r;
+        set => WriteParamField(ref _r, value);
     }
-    private byte _R;
+    private byte _r;
 
     [ParamField(0x1, ParamType.U8)]
     public byte G
     {
-        get => _G;
-        set => WriteParamField(ref _G, value);
+        get => _g;
+        set => WriteParamField(ref _g, value);
     }
-    private byte _G;
+    private byte _g;
 
     [ParamField(0x2, ParamType.U8)]
     public byte B
     {
-        get => _B;
-        set => WriteParamField(ref _B, value);
+        get => _b;
+        set => WriteParamField(ref _b, value);
     }
-    private byte _B;
+    private byte _b;
 
     [ParamField(0x3, ParamType.U8)]
     public byte A
     {
-        get => _A;
-        set => WriteParamField(ref _A, value);
+        get => _a;
+        set => WriteParamField(ref _a, value);
     }
-    private byte _A;
+    private byte _a;
 
 }

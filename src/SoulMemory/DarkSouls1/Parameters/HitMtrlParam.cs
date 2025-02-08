@@ -26,56 +26,56 @@ public class HitMtrlParam(Pointer basePointer, ByteArrayMemory memory, long offs
     [ParamField(0x0, ParamType.F32)]
     public float AiVolumeRate
     {
-        get => _AiVolumeRate;
-        set => WriteParamField(ref _AiVolumeRate, value);
+        get => _aiVolumeRate;
+        set => WriteParamField(ref _aiVolumeRate, value);
     }
-    private float _AiVolumeRate;
+    private float _aiVolumeRate;
 
     [ParamField(0x4, ParamType.I32)]
     public int SpEffectIdOnHit0
     {
-        get => _SpEffectIdOnHit0;
-        set => WriteParamField(ref _SpEffectIdOnHit0, value);
+        get => _spEffectIdOnHit0;
+        set => WriteParamField(ref _spEffectIdOnHit0, value);
     }
-    private int _SpEffectIdOnHit0;
+    private int _spEffectIdOnHit0;
 
     [ParamField(0x8, ParamType.I32)]
     public int SpEffectIdOnHit1
     {
-        get => _SpEffectIdOnHit1;
-        set => WriteParamField(ref _SpEffectIdOnHit1, value);
+        get => _spEffectIdOnHit1;
+        set => WriteParamField(ref _spEffectIdOnHit1, value);
     }
-    private int _SpEffectIdOnHit1;
+    private int _spEffectIdOnHit1;
 
     #region BitField FootEffectHeightTypeBitfield ==============================================================================
 
     [ParamField(0xC, ParamType.U8)]
     public byte FootEffectHeightTypeBitfield
     {
-        get => _FootEffectHeightTypeBitfield;
-        set => WriteParamField(ref _FootEffectHeightTypeBitfield, value);
+        get => _footEffectHeightTypeBitfield;
+        set => WriteParamField(ref _footEffectHeightTypeBitfield, value);
     }
-    private byte _FootEffectHeightTypeBitfield;
+    private byte _footEffectHeightTypeBitfield;
 
     [ParamBitField(nameof(FootEffectHeightTypeBitfield), bits: 2, bitsOffset: 0)]
     public byte FootEffectHeightType
     {
-        get => GetbitfieldValue(_FootEffectHeightTypeBitfield);
-        set => SetBitfieldValue(ref _FootEffectHeightTypeBitfield, value);
+        get => GetbitfieldValue(_footEffectHeightTypeBitfield);
+        set => SetBitfieldValue(ref _footEffectHeightTypeBitfield, value);
     }
 
     [ParamBitField(nameof(FootEffectHeightTypeBitfield), bits: 2, bitsOffset: 2)]
     public byte FootEffectDirType
     {
-        get => GetbitfieldValue(_FootEffectHeightTypeBitfield);
-        set => SetBitfieldValue(ref _FootEffectHeightTypeBitfield, value);
+        get => GetbitfieldValue(_footEffectHeightTypeBitfield);
+        set => SetBitfieldValue(ref _footEffectHeightTypeBitfield, value);
     }
 
     [ParamBitField(nameof(FootEffectHeightTypeBitfield), bits: 2, bitsOffset: 4)]
     public byte FloorHeightType
     {
-        get => GetbitfieldValue(_FootEffectHeightTypeBitfield);
-        set => SetBitfieldValue(ref _FootEffectHeightTypeBitfield, value);
+        get => GetbitfieldValue(_footEffectHeightTypeBitfield);
+        set => SetBitfieldValue(ref _footEffectHeightTypeBitfield, value);
     }
 
     #endregion BitField FootEffectHeightTypeBitfield
@@ -83,9 +83,9 @@ public class HitMtrlParam(Pointer basePointer, ByteArrayMemory memory, long offs
     [ParamField(0xD, ParamType.Dummy8, 3)]
     public byte[] Pad0
     {
-        get => _Pad0;
-        set => WriteParamField(ref _Pad0, value);
+        get => _pad0;
+        set => WriteParamField(ref _pad0, value);
     }
-    private byte[] _Pad0 = null!;
+    private byte[] _pad0 = null!;
 
 }

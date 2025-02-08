@@ -26,89 +26,89 @@ public class RagdollParam(Pointer basePointer, ByteArrayMemory memory, long offs
     [ParamField(0x0, ParamType.F32)]
     public float HierarchyGain
     {
-        get => _HierarchyGain;
-        set => WriteParamField(ref _HierarchyGain, value);
+        get => _hierarchyGain;
+        set => WriteParamField(ref _hierarchyGain, value);
     }
-    private float _HierarchyGain;
+    private float _hierarchyGain;
 
     [ParamField(0x4, ParamType.F32)]
     public float VelocityDamping
     {
-        get => _VelocityDamping;
-        set => WriteParamField(ref _VelocityDamping, value);
+        get => _velocityDamping;
+        set => WriteParamField(ref _velocityDamping, value);
     }
-    private float _VelocityDamping;
+    private float _velocityDamping;
 
     [ParamField(0x8, ParamType.F32)]
     public float AccelGain
     {
-        get => _AccelGain;
-        set => WriteParamField(ref _AccelGain, value);
+        get => _accelGain;
+        set => WriteParamField(ref _accelGain, value);
     }
-    private float _AccelGain;
+    private float _accelGain;
 
     [ParamField(0xC, ParamType.F32)]
     public float VelocityGain
     {
-        get => _VelocityGain;
-        set => WriteParamField(ref _VelocityGain, value);
+        get => _velocityGain;
+        set => WriteParamField(ref _velocityGain, value);
     }
-    private float _VelocityGain;
+    private float _velocityGain;
 
     [ParamField(0x10, ParamType.F32)]
     public float PositionGain
     {
-        get => _PositionGain;
-        set => WriteParamField(ref _PositionGain, value);
+        get => _positionGain;
+        set => WriteParamField(ref _positionGain, value);
     }
-    private float _PositionGain;
+    private float _positionGain;
 
     [ParamField(0x14, ParamType.F32)]
     public float MaxLinerVelocity
     {
-        get => _MaxLinerVelocity;
-        set => WriteParamField(ref _MaxLinerVelocity, value);
+        get => _maxLinerVelocity;
+        set => WriteParamField(ref _maxLinerVelocity, value);
     }
-    private float _MaxLinerVelocity;
+    private float _maxLinerVelocity;
 
     [ParamField(0x18, ParamType.F32)]
     public float MaxAngularVelocity
     {
-        get => _MaxAngularVelocity;
-        set => WriteParamField(ref _MaxAngularVelocity, value);
+        get => _maxAngularVelocity;
+        set => WriteParamField(ref _maxAngularVelocity, value);
     }
-    private float _MaxAngularVelocity;
+    private float _maxAngularVelocity;
 
     [ParamField(0x1C, ParamType.F32)]
     public float SnapGain
     {
-        get => _SnapGain;
-        set => WriteParamField(ref _SnapGain, value);
+        get => _snapGain;
+        set => WriteParamField(ref _snapGain, value);
     }
-    private float _SnapGain;
+    private float _snapGain;
 
     [ParamField(0x20, ParamType.U8)]
     public byte Enable
     {
-        get => _Enable;
-        set => WriteParamField(ref _Enable, value);
+        get => _enable;
+        set => WriteParamField(ref _enable, value);
     }
-    private byte _Enable;
+    private byte _enable;
 
     [ParamField(0x21, ParamType.I8)]
     public sbyte PartsHitMaskNo
     {
-        get => _PartsHitMaskNo;
-        set => WriteParamField(ref _PartsHitMaskNo, value);
+        get => _partsHitMaskNo;
+        set => WriteParamField(ref _partsHitMaskNo, value);
     }
-    private sbyte _PartsHitMaskNo;
+    private sbyte _partsHitMaskNo;
 
     [ParamField(0x22, ParamType.Dummy8, 14)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
 }

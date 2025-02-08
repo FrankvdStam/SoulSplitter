@@ -26,873 +26,873 @@ public class FaceGenParam(Pointer basePointer, ByteArrayMemory memory, long offs
     [ParamField(0x0, ParamType.U8)]
     public byte FaceGeoData00
     {
-        get => _FaceGeoData00;
-        set => WriteParamField(ref _FaceGeoData00, value);
+        get => _faceGeoData00;
+        set => WriteParamField(ref _faceGeoData00, value);
     }
-    private byte _FaceGeoData00;
+    private byte _faceGeoData00;
 
     [ParamField(0x1, ParamType.U8)]
     public byte FaceGeoData01
     {
-        get => _FaceGeoData01;
-        set => WriteParamField(ref _FaceGeoData01, value);
+        get => _faceGeoData01;
+        set => WriteParamField(ref _faceGeoData01, value);
     }
-    private byte _FaceGeoData01;
+    private byte _faceGeoData01;
 
     [ParamField(0x2, ParamType.U8)]
     public byte FaceGeoData02
     {
-        get => _FaceGeoData02;
-        set => WriteParamField(ref _FaceGeoData02, value);
+        get => _faceGeoData02;
+        set => WriteParamField(ref _faceGeoData02, value);
     }
-    private byte _FaceGeoData02;
+    private byte _faceGeoData02;
 
     [ParamField(0x3, ParamType.U8)]
     public byte FaceGeoData03
     {
-        get => _FaceGeoData03;
-        set => WriteParamField(ref _FaceGeoData03, value);
+        get => _faceGeoData03;
+        set => WriteParamField(ref _faceGeoData03, value);
     }
-    private byte _FaceGeoData03;
+    private byte _faceGeoData03;
 
     [ParamField(0x4, ParamType.U8)]
     public byte FaceGeoData04
     {
-        get => _FaceGeoData04;
-        set => WriteParamField(ref _FaceGeoData04, value);
+        get => _faceGeoData04;
+        set => WriteParamField(ref _faceGeoData04, value);
     }
-    private byte _FaceGeoData04;
+    private byte _faceGeoData04;
 
     [ParamField(0x5, ParamType.U8)]
     public byte FaceGeoData05
     {
-        get => _FaceGeoData05;
-        set => WriteParamField(ref _FaceGeoData05, value);
+        get => _faceGeoData05;
+        set => WriteParamField(ref _faceGeoData05, value);
     }
-    private byte _FaceGeoData05;
+    private byte _faceGeoData05;
 
     [ParamField(0x6, ParamType.U8)]
     public byte FaceGeoData06
     {
-        get => _FaceGeoData06;
-        set => WriteParamField(ref _FaceGeoData06, value);
+        get => _faceGeoData06;
+        set => WriteParamField(ref _faceGeoData06, value);
     }
-    private byte _FaceGeoData06;
+    private byte _faceGeoData06;
 
     [ParamField(0x7, ParamType.U8)]
     public byte FaceGeoData07
     {
-        get => _FaceGeoData07;
-        set => WriteParamField(ref _FaceGeoData07, value);
+        get => _faceGeoData07;
+        set => WriteParamField(ref _faceGeoData07, value);
     }
-    private byte _FaceGeoData07;
+    private byte _faceGeoData07;
 
     [ParamField(0x8, ParamType.U8)]
     public byte FaceGeoData08
     {
-        get => _FaceGeoData08;
-        set => WriteParamField(ref _FaceGeoData08, value);
+        get => _faceGeoData08;
+        set => WriteParamField(ref _faceGeoData08, value);
     }
-    private byte _FaceGeoData08;
+    private byte _faceGeoData08;
 
     [ParamField(0x9, ParamType.U8)]
     public byte FaceGeoData09
     {
-        get => _FaceGeoData09;
-        set => WriteParamField(ref _FaceGeoData09, value);
+        get => _faceGeoData09;
+        set => WriteParamField(ref _faceGeoData09, value);
     }
-    private byte _FaceGeoData09;
+    private byte _faceGeoData09;
 
     [ParamField(0xA, ParamType.U8)]
     public byte FaceGeoData10
     {
-        get => _FaceGeoData10;
-        set => WriteParamField(ref _FaceGeoData10, value);
+        get => _faceGeoData10;
+        set => WriteParamField(ref _faceGeoData10, value);
     }
-    private byte _FaceGeoData10;
+    private byte _faceGeoData10;
 
     [ParamField(0xB, ParamType.U8)]
     public byte FaceGeoData11
     {
-        get => _FaceGeoData11;
-        set => WriteParamField(ref _FaceGeoData11, value);
+        get => _faceGeoData11;
+        set => WriteParamField(ref _faceGeoData11, value);
     }
-    private byte _FaceGeoData11;
+    private byte _faceGeoData11;
 
     [ParamField(0xC, ParamType.U8)]
     public byte FaceGeoData12
     {
-        get => _FaceGeoData12;
-        set => WriteParamField(ref _FaceGeoData12, value);
+        get => _faceGeoData12;
+        set => WriteParamField(ref _faceGeoData12, value);
     }
-    private byte _FaceGeoData12;
+    private byte _faceGeoData12;
 
     [ParamField(0xD, ParamType.U8)]
     public byte FaceGeoData13
     {
-        get => _FaceGeoData13;
-        set => WriteParamField(ref _FaceGeoData13, value);
+        get => _faceGeoData13;
+        set => WriteParamField(ref _faceGeoData13, value);
     }
-    private byte _FaceGeoData13;
+    private byte _faceGeoData13;
 
     [ParamField(0xE, ParamType.U8)]
     public byte FaceGeoData14
     {
-        get => _FaceGeoData14;
-        set => WriteParamField(ref _FaceGeoData14, value);
+        get => _faceGeoData14;
+        set => WriteParamField(ref _faceGeoData14, value);
     }
-    private byte _FaceGeoData14;
+    private byte _faceGeoData14;
 
     [ParamField(0xF, ParamType.U8)]
     public byte FaceGeoData15
     {
-        get => _FaceGeoData15;
-        set => WriteParamField(ref _FaceGeoData15, value);
+        get => _faceGeoData15;
+        set => WriteParamField(ref _faceGeoData15, value);
     }
-    private byte _FaceGeoData15;
+    private byte _faceGeoData15;
 
     [ParamField(0x10, ParamType.U8)]
     public byte FaceGeoData16
     {
-        get => _FaceGeoData16;
-        set => WriteParamField(ref _FaceGeoData16, value);
+        get => _faceGeoData16;
+        set => WriteParamField(ref _faceGeoData16, value);
     }
-    private byte _FaceGeoData16;
+    private byte _faceGeoData16;
 
     [ParamField(0x11, ParamType.U8)]
     public byte FaceGeoData17
     {
-        get => _FaceGeoData17;
-        set => WriteParamField(ref _FaceGeoData17, value);
+        get => _faceGeoData17;
+        set => WriteParamField(ref _faceGeoData17, value);
     }
-    private byte _FaceGeoData17;
+    private byte _faceGeoData17;
 
     [ParamField(0x12, ParamType.U8)]
     public byte FaceGeoData18
     {
-        get => _FaceGeoData18;
-        set => WriteParamField(ref _FaceGeoData18, value);
+        get => _faceGeoData18;
+        set => WriteParamField(ref _faceGeoData18, value);
     }
-    private byte _FaceGeoData18;
+    private byte _faceGeoData18;
 
     [ParamField(0x13, ParamType.U8)]
     public byte FaceGeoData19
     {
-        get => _FaceGeoData19;
-        set => WriteParamField(ref _FaceGeoData19, value);
+        get => _faceGeoData19;
+        set => WriteParamField(ref _faceGeoData19, value);
     }
-    private byte _FaceGeoData19;
+    private byte _faceGeoData19;
 
     [ParamField(0x14, ParamType.U8)]
     public byte FaceGeoData20
     {
-        get => _FaceGeoData20;
-        set => WriteParamField(ref _FaceGeoData20, value);
+        get => _faceGeoData20;
+        set => WriteParamField(ref _faceGeoData20, value);
     }
-    private byte _FaceGeoData20;
+    private byte _faceGeoData20;
 
     [ParamField(0x15, ParamType.U8)]
     public byte FaceGeoData21
     {
-        get => _FaceGeoData21;
-        set => WriteParamField(ref _FaceGeoData21, value);
+        get => _faceGeoData21;
+        set => WriteParamField(ref _faceGeoData21, value);
     }
-    private byte _FaceGeoData21;
+    private byte _faceGeoData21;
 
     [ParamField(0x16, ParamType.U8)]
     public byte FaceGeoData22
     {
-        get => _FaceGeoData22;
-        set => WriteParamField(ref _FaceGeoData22, value);
+        get => _faceGeoData22;
+        set => WriteParamField(ref _faceGeoData22, value);
     }
-    private byte _FaceGeoData22;
+    private byte _faceGeoData22;
 
     [ParamField(0x17, ParamType.U8)]
     public byte FaceGeoData23
     {
-        get => _FaceGeoData23;
-        set => WriteParamField(ref _FaceGeoData23, value);
+        get => _faceGeoData23;
+        set => WriteParamField(ref _faceGeoData23, value);
     }
-    private byte _FaceGeoData23;
+    private byte _faceGeoData23;
 
     [ParamField(0x18, ParamType.U8)]
     public byte FaceGeoData24
     {
-        get => _FaceGeoData24;
-        set => WriteParamField(ref _FaceGeoData24, value);
+        get => _faceGeoData24;
+        set => WriteParamField(ref _faceGeoData24, value);
     }
-    private byte _FaceGeoData24;
+    private byte _faceGeoData24;
 
     [ParamField(0x19, ParamType.U8)]
     public byte FaceGeoData25
     {
-        get => _FaceGeoData25;
-        set => WriteParamField(ref _FaceGeoData25, value);
+        get => _faceGeoData25;
+        set => WriteParamField(ref _faceGeoData25, value);
     }
-    private byte _FaceGeoData25;
+    private byte _faceGeoData25;
 
     [ParamField(0x1A, ParamType.U8)]
     public byte FaceGeoData26
     {
-        get => _FaceGeoData26;
-        set => WriteParamField(ref _FaceGeoData26, value);
+        get => _faceGeoData26;
+        set => WriteParamField(ref _faceGeoData26, value);
     }
-    private byte _FaceGeoData26;
+    private byte _faceGeoData26;
 
     [ParamField(0x1B, ParamType.U8)]
     public byte FaceGeoData27
     {
-        get => _FaceGeoData27;
-        set => WriteParamField(ref _FaceGeoData27, value);
+        get => _faceGeoData27;
+        set => WriteParamField(ref _faceGeoData27, value);
     }
-    private byte _FaceGeoData27;
+    private byte _faceGeoData27;
 
     [ParamField(0x1C, ParamType.U8)]
     public byte FaceGeoData28
     {
-        get => _FaceGeoData28;
-        set => WriteParamField(ref _FaceGeoData28, value);
+        get => _faceGeoData28;
+        set => WriteParamField(ref _faceGeoData28, value);
     }
-    private byte _FaceGeoData28;
+    private byte _faceGeoData28;
 
     [ParamField(0x1D, ParamType.U8)]
     public byte FaceGeoData29
     {
-        get => _FaceGeoData29;
-        set => WriteParamField(ref _FaceGeoData29, value);
+        get => _faceGeoData29;
+        set => WriteParamField(ref _faceGeoData29, value);
     }
-    private byte _FaceGeoData29;
+    private byte _faceGeoData29;
 
     [ParamField(0x1E, ParamType.U8)]
     public byte FaceGeoData30
     {
-        get => _FaceGeoData30;
-        set => WriteParamField(ref _FaceGeoData30, value);
+        get => _faceGeoData30;
+        set => WriteParamField(ref _faceGeoData30, value);
     }
-    private byte _FaceGeoData30;
+    private byte _faceGeoData30;
 
     [ParamField(0x1F, ParamType.U8)]
     public byte FaceGeoData31
     {
-        get => _FaceGeoData31;
-        set => WriteParamField(ref _FaceGeoData31, value);
+        get => _faceGeoData31;
+        set => WriteParamField(ref _faceGeoData31, value);
     }
-    private byte _FaceGeoData31;
+    private byte _faceGeoData31;
 
     [ParamField(0x20, ParamType.U8)]
     public byte FaceGeoData32
     {
-        get => _FaceGeoData32;
-        set => WriteParamField(ref _FaceGeoData32, value);
+        get => _faceGeoData32;
+        set => WriteParamField(ref _faceGeoData32, value);
     }
-    private byte _FaceGeoData32;
+    private byte _faceGeoData32;
 
     [ParamField(0x21, ParamType.U8)]
     public byte FaceGeoData33
     {
-        get => _FaceGeoData33;
-        set => WriteParamField(ref _FaceGeoData33, value);
+        get => _faceGeoData33;
+        set => WriteParamField(ref _faceGeoData33, value);
     }
-    private byte _FaceGeoData33;
+    private byte _faceGeoData33;
 
     [ParamField(0x22, ParamType.U8)]
     public byte FaceGeoData34
     {
-        get => _FaceGeoData34;
-        set => WriteParamField(ref _FaceGeoData34, value);
+        get => _faceGeoData34;
+        set => WriteParamField(ref _faceGeoData34, value);
     }
-    private byte _FaceGeoData34;
+    private byte _faceGeoData34;
 
     [ParamField(0x23, ParamType.U8)]
     public byte FaceGeoData35
     {
-        get => _FaceGeoData35;
-        set => WriteParamField(ref _FaceGeoData35, value);
+        get => _faceGeoData35;
+        set => WriteParamField(ref _faceGeoData35, value);
     }
-    private byte _FaceGeoData35;
+    private byte _faceGeoData35;
 
     [ParamField(0x24, ParamType.U8)]
     public byte FaceGeoData36
     {
-        get => _FaceGeoData36;
-        set => WriteParamField(ref _FaceGeoData36, value);
+        get => _faceGeoData36;
+        set => WriteParamField(ref _faceGeoData36, value);
     }
-    private byte _FaceGeoData36;
+    private byte _faceGeoData36;
 
     [ParamField(0x25, ParamType.U8)]
     public byte FaceGeoData37
     {
-        get => _FaceGeoData37;
-        set => WriteParamField(ref _FaceGeoData37, value);
+        get => _faceGeoData37;
+        set => WriteParamField(ref _faceGeoData37, value);
     }
-    private byte _FaceGeoData37;
+    private byte _faceGeoData37;
 
     [ParamField(0x26, ParamType.U8)]
     public byte FaceGeoData38
     {
-        get => _FaceGeoData38;
-        set => WriteParamField(ref _FaceGeoData38, value);
+        get => _faceGeoData38;
+        set => WriteParamField(ref _faceGeoData38, value);
     }
-    private byte _FaceGeoData38;
+    private byte _faceGeoData38;
 
     [ParamField(0x27, ParamType.U8)]
     public byte FaceGeoData39
     {
-        get => _FaceGeoData39;
-        set => WriteParamField(ref _FaceGeoData39, value);
+        get => _faceGeoData39;
+        set => WriteParamField(ref _faceGeoData39, value);
     }
-    private byte _FaceGeoData39;
+    private byte _faceGeoData39;
 
     [ParamField(0x28, ParamType.U8)]
     public byte FaceGeoData40
     {
-        get => _FaceGeoData40;
-        set => WriteParamField(ref _FaceGeoData40, value);
+        get => _faceGeoData40;
+        set => WriteParamField(ref _faceGeoData40, value);
     }
-    private byte _FaceGeoData40;
+    private byte _faceGeoData40;
 
     [ParamField(0x29, ParamType.U8)]
     public byte FaceGeoData41
     {
-        get => _FaceGeoData41;
-        set => WriteParamField(ref _FaceGeoData41, value);
+        get => _faceGeoData41;
+        set => WriteParamField(ref _faceGeoData41, value);
     }
-    private byte _FaceGeoData41;
+    private byte _faceGeoData41;
 
     [ParamField(0x2A, ParamType.U8)]
     public byte FaceGeoData42
     {
-        get => _FaceGeoData42;
-        set => WriteParamField(ref _FaceGeoData42, value);
+        get => _faceGeoData42;
+        set => WriteParamField(ref _faceGeoData42, value);
     }
-    private byte _FaceGeoData42;
+    private byte _faceGeoData42;
 
     [ParamField(0x2B, ParamType.U8)]
     public byte FaceGeoData43
     {
-        get => _FaceGeoData43;
-        set => WriteParamField(ref _FaceGeoData43, value);
+        get => _faceGeoData43;
+        set => WriteParamField(ref _faceGeoData43, value);
     }
-    private byte _FaceGeoData43;
+    private byte _faceGeoData43;
 
     [ParamField(0x2C, ParamType.U8)]
     public byte FaceGeoData44
     {
-        get => _FaceGeoData44;
-        set => WriteParamField(ref _FaceGeoData44, value);
+        get => _faceGeoData44;
+        set => WriteParamField(ref _faceGeoData44, value);
     }
-    private byte _FaceGeoData44;
+    private byte _faceGeoData44;
 
     [ParamField(0x2D, ParamType.U8)]
     public byte FaceGeoData45
     {
-        get => _FaceGeoData45;
-        set => WriteParamField(ref _FaceGeoData45, value);
+        get => _faceGeoData45;
+        set => WriteParamField(ref _faceGeoData45, value);
     }
-    private byte _FaceGeoData45;
+    private byte _faceGeoData45;
 
     [ParamField(0x2E, ParamType.U8)]
     public byte FaceGeoData46
     {
-        get => _FaceGeoData46;
-        set => WriteParamField(ref _FaceGeoData46, value);
+        get => _faceGeoData46;
+        set => WriteParamField(ref _faceGeoData46, value);
     }
-    private byte _FaceGeoData46;
+    private byte _faceGeoData46;
 
     [ParamField(0x2F, ParamType.U8)]
     public byte FaceGeoData47
     {
-        get => _FaceGeoData47;
-        set => WriteParamField(ref _FaceGeoData47, value);
+        get => _faceGeoData47;
+        set => WriteParamField(ref _faceGeoData47, value);
     }
-    private byte _FaceGeoData47;
+    private byte _faceGeoData47;
 
     [ParamField(0x30, ParamType.U8)]
     public byte FaceGeoData48
     {
-        get => _FaceGeoData48;
-        set => WriteParamField(ref _FaceGeoData48, value);
+        get => _faceGeoData48;
+        set => WriteParamField(ref _faceGeoData48, value);
     }
-    private byte _FaceGeoData48;
+    private byte _faceGeoData48;
 
     [ParamField(0x31, ParamType.U8)]
     public byte FaceGeoData49
     {
-        get => _FaceGeoData49;
-        set => WriteParamField(ref _FaceGeoData49, value);
+        get => _faceGeoData49;
+        set => WriteParamField(ref _faceGeoData49, value);
     }
-    private byte _FaceGeoData49;
+    private byte _faceGeoData49;
 
     [ParamField(0x32, ParamType.U8)]
     public byte FaceTexData00
     {
-        get => _FaceTexData00;
-        set => WriteParamField(ref _FaceTexData00, value);
+        get => _faceTexData00;
+        set => WriteParamField(ref _faceTexData00, value);
     }
-    private byte _FaceTexData00;
+    private byte _faceTexData00;
 
     [ParamField(0x33, ParamType.U8)]
     public byte FaceTexData01
     {
-        get => _FaceTexData01;
-        set => WriteParamField(ref _FaceTexData01, value);
+        get => _faceTexData01;
+        set => WriteParamField(ref _faceTexData01, value);
     }
-    private byte _FaceTexData01;
+    private byte _faceTexData01;
 
     [ParamField(0x34, ParamType.U8)]
     public byte FaceTexData02
     {
-        get => _FaceTexData02;
-        set => WriteParamField(ref _FaceTexData02, value);
+        get => _faceTexData02;
+        set => WriteParamField(ref _faceTexData02, value);
     }
-    private byte _FaceTexData02;
+    private byte _faceTexData02;
 
     [ParamField(0x35, ParamType.U8)]
     public byte FaceTexData03
     {
-        get => _FaceTexData03;
-        set => WriteParamField(ref _FaceTexData03, value);
+        get => _faceTexData03;
+        set => WriteParamField(ref _faceTexData03, value);
     }
-    private byte _FaceTexData03;
+    private byte _faceTexData03;
 
     [ParamField(0x36, ParamType.U8)]
     public byte FaceTexData04
     {
-        get => _FaceTexData04;
-        set => WriteParamField(ref _FaceTexData04, value);
+        get => _faceTexData04;
+        set => WriteParamField(ref _faceTexData04, value);
     }
-    private byte _FaceTexData04;
+    private byte _faceTexData04;
 
     [ParamField(0x37, ParamType.U8)]
     public byte FaceTexData05
     {
-        get => _FaceTexData05;
-        set => WriteParamField(ref _FaceTexData05, value);
+        get => _faceTexData05;
+        set => WriteParamField(ref _faceTexData05, value);
     }
-    private byte _FaceTexData05;
+    private byte _faceTexData05;
 
     [ParamField(0x38, ParamType.U8)]
     public byte FaceTexData06
     {
-        get => _FaceTexData06;
-        set => WriteParamField(ref _FaceTexData06, value);
+        get => _faceTexData06;
+        set => WriteParamField(ref _faceTexData06, value);
     }
-    private byte _FaceTexData06;
+    private byte _faceTexData06;
 
     [ParamField(0x39, ParamType.U8)]
     public byte FaceTexData07
     {
-        get => _FaceTexData07;
-        set => WriteParamField(ref _FaceTexData07, value);
+        get => _faceTexData07;
+        set => WriteParamField(ref _faceTexData07, value);
     }
-    private byte _FaceTexData07;
+    private byte _faceTexData07;
 
     [ParamField(0x3A, ParamType.U8)]
     public byte FaceTexData08
     {
-        get => _FaceTexData08;
-        set => WriteParamField(ref _FaceTexData08, value);
+        get => _faceTexData08;
+        set => WriteParamField(ref _faceTexData08, value);
     }
-    private byte _FaceTexData08;
+    private byte _faceTexData08;
 
     [ParamField(0x3B, ParamType.U8)]
     public byte FaceTexData09
     {
-        get => _FaceTexData09;
-        set => WriteParamField(ref _FaceTexData09, value);
+        get => _faceTexData09;
+        set => WriteParamField(ref _faceTexData09, value);
     }
-    private byte _FaceTexData09;
+    private byte _faceTexData09;
 
     [ParamField(0x3C, ParamType.U8)]
     public byte FaceTexData10
     {
-        get => _FaceTexData10;
-        set => WriteParamField(ref _FaceTexData10, value);
+        get => _faceTexData10;
+        set => WriteParamField(ref _faceTexData10, value);
     }
-    private byte _FaceTexData10;
+    private byte _faceTexData10;
 
     [ParamField(0x3D, ParamType.U8)]
     public byte FaceTexData11
     {
-        get => _FaceTexData11;
-        set => WriteParamField(ref _FaceTexData11, value);
+        get => _faceTexData11;
+        set => WriteParamField(ref _faceTexData11, value);
     }
-    private byte _FaceTexData11;
+    private byte _faceTexData11;
 
     [ParamField(0x3E, ParamType.U8)]
     public byte FaceTexData12
     {
-        get => _FaceTexData12;
-        set => WriteParamField(ref _FaceTexData12, value);
+        get => _faceTexData12;
+        set => WriteParamField(ref _faceTexData12, value);
     }
-    private byte _FaceTexData12;
+    private byte _faceTexData12;
 
     [ParamField(0x3F, ParamType.U8)]
     public byte FaceTexData13
     {
-        get => _FaceTexData13;
-        set => WriteParamField(ref _FaceTexData13, value);
+        get => _faceTexData13;
+        set => WriteParamField(ref _faceTexData13, value);
     }
-    private byte _FaceTexData13;
+    private byte _faceTexData13;
 
     [ParamField(0x40, ParamType.U8)]
     public byte FaceTexData14
     {
-        get => _FaceTexData14;
-        set => WriteParamField(ref _FaceTexData14, value);
+        get => _faceTexData14;
+        set => WriteParamField(ref _faceTexData14, value);
     }
-    private byte _FaceTexData14;
+    private byte _faceTexData14;
 
     [ParamField(0x41, ParamType.U8)]
     public byte FaceTexData15
     {
-        get => _FaceTexData15;
-        set => WriteParamField(ref _FaceTexData15, value);
+        get => _faceTexData15;
+        set => WriteParamField(ref _faceTexData15, value);
     }
-    private byte _FaceTexData15;
+    private byte _faceTexData15;
 
     [ParamField(0x42, ParamType.U8)]
     public byte FaceTexData16
     {
-        get => _FaceTexData16;
-        set => WriteParamField(ref _FaceTexData16, value);
+        get => _faceTexData16;
+        set => WriteParamField(ref _faceTexData16, value);
     }
-    private byte _FaceTexData16;
+    private byte _faceTexData16;
 
     [ParamField(0x43, ParamType.U8)]
     public byte FaceTexData17
     {
-        get => _FaceTexData17;
-        set => WriteParamField(ref _FaceTexData17, value);
+        get => _faceTexData17;
+        set => WriteParamField(ref _faceTexData17, value);
     }
-    private byte _FaceTexData17;
+    private byte _faceTexData17;
 
     [ParamField(0x44, ParamType.U8)]
     public byte FaceTexData18
     {
-        get => _FaceTexData18;
-        set => WriteParamField(ref _FaceTexData18, value);
+        get => _faceTexData18;
+        set => WriteParamField(ref _faceTexData18, value);
     }
-    private byte _FaceTexData18;
+    private byte _faceTexData18;
 
     [ParamField(0x45, ParamType.U8)]
     public byte FaceTexData19
     {
-        get => _FaceTexData19;
-        set => WriteParamField(ref _FaceTexData19, value);
+        get => _faceTexData19;
+        set => WriteParamField(ref _faceTexData19, value);
     }
-    private byte _FaceTexData19;
+    private byte _faceTexData19;
 
     [ParamField(0x46, ParamType.U8)]
     public byte FaceTexData20
     {
-        get => _FaceTexData20;
-        set => WriteParamField(ref _FaceTexData20, value);
+        get => _faceTexData20;
+        set => WriteParamField(ref _faceTexData20, value);
     }
-    private byte _FaceTexData20;
+    private byte _faceTexData20;
 
     [ParamField(0x47, ParamType.U8)]
     public byte FaceTexData21
     {
-        get => _FaceTexData21;
-        set => WriteParamField(ref _FaceTexData21, value);
+        get => _faceTexData21;
+        set => WriteParamField(ref _faceTexData21, value);
     }
-    private byte _FaceTexData21;
+    private byte _faceTexData21;
 
     [ParamField(0x48, ParamType.U8)]
     public byte FaceTexData22
     {
-        get => _FaceTexData22;
-        set => WriteParamField(ref _FaceTexData22, value);
+        get => _faceTexData22;
+        set => WriteParamField(ref _faceTexData22, value);
     }
-    private byte _FaceTexData22;
+    private byte _faceTexData22;
 
     [ParamField(0x49, ParamType.U8)]
     public byte FaceTexData23
     {
-        get => _FaceTexData23;
-        set => WriteParamField(ref _FaceTexData23, value);
+        get => _faceTexData23;
+        set => WriteParamField(ref _faceTexData23, value);
     }
-    private byte _FaceTexData23;
+    private byte _faceTexData23;
 
     [ParamField(0x4A, ParamType.U8)]
     public byte FaceTexData24
     {
-        get => _FaceTexData24;
-        set => WriteParamField(ref _FaceTexData24, value);
+        get => _faceTexData24;
+        set => WriteParamField(ref _faceTexData24, value);
     }
-    private byte _FaceTexData24;
+    private byte _faceTexData24;
 
     [ParamField(0x4B, ParamType.U8)]
     public byte FaceTexData25
     {
-        get => _FaceTexData25;
-        set => WriteParamField(ref _FaceTexData25, value);
+        get => _faceTexData25;
+        set => WriteParamField(ref _faceTexData25, value);
     }
-    private byte _FaceTexData25;
+    private byte _faceTexData25;
 
     [ParamField(0x4C, ParamType.U8)]
     public byte FaceTexData26
     {
-        get => _FaceTexData26;
-        set => WriteParamField(ref _FaceTexData26, value);
+        get => _faceTexData26;
+        set => WriteParamField(ref _faceTexData26, value);
     }
-    private byte _FaceTexData26;
+    private byte _faceTexData26;
 
     [ParamField(0x4D, ParamType.U8)]
     public byte FaceTexData27
     {
-        get => _FaceTexData27;
-        set => WriteParamField(ref _FaceTexData27, value);
+        get => _faceTexData27;
+        set => WriteParamField(ref _faceTexData27, value);
     }
-    private byte _FaceTexData27;
+    private byte _faceTexData27;
 
     [ParamField(0x4E, ParamType.U8)]
     public byte FaceTexData28
     {
-        get => _FaceTexData28;
-        set => WriteParamField(ref _FaceTexData28, value);
+        get => _faceTexData28;
+        set => WriteParamField(ref _faceTexData28, value);
     }
-    private byte _FaceTexData28;
+    private byte _faceTexData28;
 
     [ParamField(0x4F, ParamType.U8)]
     public byte FaceTexData29
     {
-        get => _FaceTexData29;
-        set => WriteParamField(ref _FaceTexData29, value);
+        get => _faceTexData29;
+        set => WriteParamField(ref _faceTexData29, value);
     }
-    private byte _FaceTexData29;
+    private byte _faceTexData29;
 
     [ParamField(0x50, ParamType.U8)]
     public byte FaceTexData30
     {
-        get => _FaceTexData30;
-        set => WriteParamField(ref _FaceTexData30, value);
+        get => _faceTexData30;
+        set => WriteParamField(ref _faceTexData30, value);
     }
-    private byte _FaceTexData30;
+    private byte _faceTexData30;
 
     [ParamField(0x51, ParamType.U8)]
     public byte FaceTexData31
     {
-        get => _FaceTexData31;
-        set => WriteParamField(ref _FaceTexData31, value);
+        get => _faceTexData31;
+        set => WriteParamField(ref _faceTexData31, value);
     }
-    private byte _FaceTexData31;
+    private byte _faceTexData31;
 
     [ParamField(0x52, ParamType.U8)]
     public byte FaceTexData32
     {
-        get => _FaceTexData32;
-        set => WriteParamField(ref _FaceTexData32, value);
+        get => _faceTexData32;
+        set => WriteParamField(ref _faceTexData32, value);
     }
-    private byte _FaceTexData32;
+    private byte _faceTexData32;
 
     [ParamField(0x53, ParamType.U8)]
     public byte FaceTexData33
     {
-        get => _FaceTexData33;
-        set => WriteParamField(ref _FaceTexData33, value);
+        get => _faceTexData33;
+        set => WriteParamField(ref _faceTexData33, value);
     }
-    private byte _FaceTexData33;
+    private byte _faceTexData33;
 
     [ParamField(0x54, ParamType.U8)]
     public byte FaceTexData34
     {
-        get => _FaceTexData34;
-        set => WriteParamField(ref _FaceTexData34, value);
+        get => _faceTexData34;
+        set => WriteParamField(ref _faceTexData34, value);
     }
-    private byte _FaceTexData34;
+    private byte _faceTexData34;
 
     [ParamField(0x55, ParamType.U8)]
     public byte FaceTexData35
     {
-        get => _FaceTexData35;
-        set => WriteParamField(ref _FaceTexData35, value);
+        get => _faceTexData35;
+        set => WriteParamField(ref _faceTexData35, value);
     }
-    private byte _FaceTexData35;
+    private byte _faceTexData35;
 
     [ParamField(0x56, ParamType.U8)]
     public byte FaceTexData36
     {
-        get => _FaceTexData36;
-        set => WriteParamField(ref _FaceTexData36, value);
+        get => _faceTexData36;
+        set => WriteParamField(ref _faceTexData36, value);
     }
-    private byte _FaceTexData36;
+    private byte _faceTexData36;
 
     [ParamField(0x57, ParamType.U8)]
     public byte FaceTexData37
     {
-        get => _FaceTexData37;
-        set => WriteParamField(ref _FaceTexData37, value);
+        get => _faceTexData37;
+        set => WriteParamField(ref _faceTexData37, value);
     }
-    private byte _FaceTexData37;
+    private byte _faceTexData37;
 
     [ParamField(0x58, ParamType.U8)]
     public byte FaceTexData38
     {
-        get => _FaceTexData38;
-        set => WriteParamField(ref _FaceTexData38, value);
+        get => _faceTexData38;
+        set => WriteParamField(ref _faceTexData38, value);
     }
-    private byte _FaceTexData38;
+    private byte _faceTexData38;
 
     [ParamField(0x59, ParamType.U8)]
     public byte FaceTexData39
     {
-        get => _FaceTexData39;
-        set => WriteParamField(ref _FaceTexData39, value);
+        get => _faceTexData39;
+        set => WriteParamField(ref _faceTexData39, value);
     }
-    private byte _FaceTexData39;
+    private byte _faceTexData39;
 
     [ParamField(0x5A, ParamType.U8)]
     public byte FaceTexData40
     {
-        get => _FaceTexData40;
-        set => WriteParamField(ref _FaceTexData40, value);
+        get => _faceTexData40;
+        set => WriteParamField(ref _faceTexData40, value);
     }
-    private byte _FaceTexData40;
+    private byte _faceTexData40;
 
     [ParamField(0x5B, ParamType.U8)]
     public byte FaceTexData41
     {
-        get => _FaceTexData41;
-        set => WriteParamField(ref _FaceTexData41, value);
+        get => _faceTexData41;
+        set => WriteParamField(ref _faceTexData41, value);
     }
-    private byte _FaceTexData41;
+    private byte _faceTexData41;
 
     [ParamField(0x5C, ParamType.U8)]
     public byte FaceTexData42
     {
-        get => _FaceTexData42;
-        set => WriteParamField(ref _FaceTexData42, value);
+        get => _faceTexData42;
+        set => WriteParamField(ref _faceTexData42, value);
     }
-    private byte _FaceTexData42;
+    private byte _faceTexData42;
 
     [ParamField(0x5D, ParamType.U8)]
     public byte FaceTexData43
     {
-        get => _FaceTexData43;
-        set => WriteParamField(ref _FaceTexData43, value);
+        get => _faceTexData43;
+        set => WriteParamField(ref _faceTexData43, value);
     }
-    private byte _FaceTexData43;
+    private byte _faceTexData43;
 
     [ParamField(0x5E, ParamType.U8)]
     public byte FaceTexData44
     {
-        get => _FaceTexData44;
-        set => WriteParamField(ref _FaceTexData44, value);
+        get => _faceTexData44;
+        set => WriteParamField(ref _faceTexData44, value);
     }
-    private byte _FaceTexData44;
+    private byte _faceTexData44;
 
     [ParamField(0x5F, ParamType.U8)]
     public byte FaceTexData45
     {
-        get => _FaceTexData45;
-        set => WriteParamField(ref _FaceTexData45, value);
+        get => _faceTexData45;
+        set => WriteParamField(ref _faceTexData45, value);
     }
-    private byte _FaceTexData45;
+    private byte _faceTexData45;
 
     [ParamField(0x60, ParamType.U8)]
     public byte FaceTexData46
     {
-        get => _FaceTexData46;
-        set => WriteParamField(ref _FaceTexData46, value);
+        get => _faceTexData46;
+        set => WriteParamField(ref _faceTexData46, value);
     }
-    private byte _FaceTexData46;
+    private byte _faceTexData46;
 
     [ParamField(0x61, ParamType.U8)]
     public byte FaceTexData47
     {
-        get => _FaceTexData47;
-        set => WriteParamField(ref _FaceTexData47, value);
+        get => _faceTexData47;
+        set => WriteParamField(ref _faceTexData47, value);
     }
-    private byte _FaceTexData47;
+    private byte _faceTexData47;
 
     [ParamField(0x62, ParamType.U8)]
     public byte FaceTexData48
     {
-        get => _FaceTexData48;
-        set => WriteParamField(ref _FaceTexData48, value);
+        get => _faceTexData48;
+        set => WriteParamField(ref _faceTexData48, value);
     }
-    private byte _FaceTexData48;
+    private byte _faceTexData48;
 
     [ParamField(0x63, ParamType.U8)]
     public byte FaceTexData49
     {
-        get => _FaceTexData49;
-        set => WriteParamField(ref _FaceTexData49, value);
+        get => _faceTexData49;
+        set => WriteParamField(ref _faceTexData49, value);
     }
-    private byte _FaceTexData49;
+    private byte _faceTexData49;
 
     [ParamField(0x64, ParamType.U8)]
     public byte HairStyle
     {
-        get => _HairStyle;
-        set => WriteParamField(ref _HairStyle, value);
+        get => _hairStyle;
+        set => WriteParamField(ref _hairStyle, value);
     }
-    private byte _HairStyle;
+    private byte _hairStyle;
 
     [ParamField(0x65, ParamType.U8)]
-    public byte HairColor_Base
+    public byte HairColorBase
     {
-        get => _HairColor_Base;
-        set => WriteParamField(ref _HairColor_Base, value);
+        get => _hairColorBase;
+        set => WriteParamField(ref _hairColorBase, value);
     }
-    private byte _HairColor_Base;
+    private byte _hairColorBase;
 
     [ParamField(0x66, ParamType.U8)]
-    public byte HairColor_R
+    public byte HairColorR
     {
-        get => _HairColor_R;
-        set => WriteParamField(ref _HairColor_R, value);
+        get => _hairColorR;
+        set => WriteParamField(ref _hairColorR, value);
     }
-    private byte _HairColor_R;
+    private byte _hairColorR;
 
     [ParamField(0x67, ParamType.U8)]
-    public byte HairColor_G
+    public byte HairColorG
     {
-        get => _HairColor_G;
-        set => WriteParamField(ref _HairColor_G, value);
+        get => _hairColorG;
+        set => WriteParamField(ref _hairColorG, value);
     }
-    private byte _HairColor_G;
+    private byte _hairColorG;
 
     [ParamField(0x68, ParamType.U8)]
-    public byte HairColor_B
+    public byte HairColorB
     {
-        get => _HairColor_B;
-        set => WriteParamField(ref _HairColor_B, value);
+        get => _hairColorB;
+        set => WriteParamField(ref _hairColorB, value);
     }
-    private byte _HairColor_B;
+    private byte _hairColorB;
 
     [ParamField(0x69, ParamType.U8)]
-    public byte EyeColor_R
+    public byte EyeColorR
     {
-        get => _EyeColor_R;
-        set => WriteParamField(ref _EyeColor_R, value);
+        get => _eyeColorR;
+        set => WriteParamField(ref _eyeColorR, value);
     }
-    private byte _EyeColor_R;
+    private byte _eyeColorR;
 
     [ParamField(0x6A, ParamType.U8)]
-    public byte EyeColor_G
+    public byte EyeColorG
     {
-        get => _EyeColor_G;
-        set => WriteParamField(ref _EyeColor_G, value);
+        get => _eyeColorG;
+        set => WriteParamField(ref _eyeColorG, value);
     }
-    private byte _EyeColor_G;
+    private byte _eyeColorG;
 
     [ParamField(0x6B, ParamType.U8)]
-    public byte EyeColor_B
+    public byte EyeColorB
     {
-        get => _EyeColor_B;
-        set => WriteParamField(ref _EyeColor_B, value);
+        get => _eyeColorB;
+        set => WriteParamField(ref _eyeColorB, value);
     }
-    private byte _EyeColor_B;
+    private byte _eyeColorB;
 
     [ParamField(0x6C, ParamType.Dummy8, 20)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
 }

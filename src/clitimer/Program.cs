@@ -28,7 +28,7 @@ namespace CliTimer
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             // Re-enable the cursor and move down a line on CTRL + C, in order to properly clean up timer stuff
             Console.CancelKeyPress += (object sender, ConsoleCancelEventArgs e) =>

@@ -26,283 +26,283 @@ public class EquipParamGoods(Pointer basePointer, ByteArrayMemory memory, long o
     [ParamField(0x0, ParamType.I32)]
     public int RefId
     {
-        get => _RefId;
-        set => WriteParamField(ref _RefId, value);
+        get => _refId;
+        set => WriteParamField(ref _refId, value);
     }
-    private int _RefId;
+    private int _refId;
 
     [ParamField(0x4, ParamType.I32)]
     public int SfxVariationId
     {
-        get => _SfxVariationId;
-        set => WriteParamField(ref _SfxVariationId, value);
+        get => _sfxVariationId;
+        set => WriteParamField(ref _sfxVariationId, value);
     }
-    private int _SfxVariationId;
+    private int _sfxVariationId;
 
     [ParamField(0x8, ParamType.F32)]
     public float Weight
     {
-        get => _Weight;
-        set => WriteParamField(ref _Weight, value);
+        get => _weight;
+        set => WriteParamField(ref _weight, value);
     }
-    private float _Weight;
+    private float _weight;
 
     [ParamField(0xC, ParamType.I32)]
     public int BasicPrice
     {
-        get => _BasicPrice;
-        set => WriteParamField(ref _BasicPrice, value);
+        get => _basicPrice;
+        set => WriteParamField(ref _basicPrice, value);
     }
-    private int _BasicPrice;
+    private int _basicPrice;
 
     [ParamField(0x10, ParamType.I32)]
     public int SellValue
     {
-        get => _SellValue;
-        set => WriteParamField(ref _SellValue, value);
+        get => _sellValue;
+        set => WriteParamField(ref _sellValue, value);
     }
-    private int _SellValue;
+    private int _sellValue;
 
     [ParamField(0x14, ParamType.I32)]
     public int BehaviorId
     {
-        get => _BehaviorId;
-        set => WriteParamField(ref _BehaviorId, value);
+        get => _behaviorId;
+        set => WriteParamField(ref _behaviorId, value);
     }
-    private int _BehaviorId;
+    private int _behaviorId;
 
     [ParamField(0x18, ParamType.I32)]
     public int ReplaceItemId
     {
-        get => _ReplaceItemId;
-        set => WriteParamField(ref _ReplaceItemId, value);
+        get => _replaceItemId;
+        set => WriteParamField(ref _replaceItemId, value);
     }
-    private int _ReplaceItemId;
+    private int _replaceItemId;
 
     [ParamField(0x1C, ParamType.I32)]
     public int SortId
     {
-        get => _SortId;
-        set => WriteParamField(ref _SortId, value);
+        get => _sortId;
+        set => WriteParamField(ref _sortId, value);
     }
-    private int _SortId;
+    private int _sortId;
 
     [ParamField(0x20, ParamType.I32)]
     public int QwcId
     {
-        get => _QwcId;
-        set => WriteParamField(ref _QwcId, value);
+        get => _qwcId;
+        set => WriteParamField(ref _qwcId, value);
     }
-    private int _QwcId;
+    private int _qwcId;
 
     [ParamField(0x24, ParamType.I32)]
     public int YesNoDialogMessageId
     {
-        get => _YesNoDialogMessageId;
-        set => WriteParamField(ref _YesNoDialogMessageId, value);
+        get => _yesNoDialogMessageId;
+        set => WriteParamField(ref _yesNoDialogMessageId, value);
     }
-    private int _YesNoDialogMessageId;
+    private int _yesNoDialogMessageId;
 
     [ParamField(0x28, ParamType.I32)]
     public int MagicId
     {
-        get => _MagicId;
-        set => WriteParamField(ref _MagicId, value);
+        get => _magicId;
+        set => WriteParamField(ref _magicId, value);
     }
-    private int _MagicId;
+    private int _magicId;
 
     [ParamField(0x2C, ParamType.U16)]
     public ushort IconId
     {
-        get => _IconId;
-        set => WriteParamField(ref _IconId, value);
+        get => _iconId;
+        set => WriteParamField(ref _iconId, value);
     }
-    private ushort _IconId;
+    private ushort _iconId;
 
     [ParamField(0x2E, ParamType.U16)]
     public ushort ModelId
     {
-        get => _ModelId;
-        set => WriteParamField(ref _ModelId, value);
+        get => _modelId;
+        set => WriteParamField(ref _modelId, value);
     }
-    private ushort _ModelId;
+    private ushort _modelId;
 
     [ParamField(0x30, ParamType.I16)]
     public short ShopLv
     {
-        get => _ShopLv;
-        set => WriteParamField(ref _ShopLv, value);
+        get => _shopLv;
+        set => WriteParamField(ref _shopLv, value);
     }
-    private short _ShopLv;
+    private short _shopLv;
 
     [ParamField(0x32, ParamType.I16)]
     public short CompTrophySedId
     {
-        get => _CompTrophySedId;
-        set => WriteParamField(ref _CompTrophySedId, value);
+        get => _compTrophySedId;
+        set => WriteParamField(ref _compTrophySedId, value);
     }
-    private short _CompTrophySedId;
+    private short _compTrophySedId;
 
     [ParamField(0x34, ParamType.I16)]
     public short TrophySeqId
     {
-        get => _TrophySeqId;
-        set => WriteParamField(ref _TrophySeqId, value);
+        get => _trophySeqId;
+        set => WriteParamField(ref _trophySeqId, value);
     }
-    private short _TrophySeqId;
+    private short _trophySeqId;
 
     [ParamField(0x36, ParamType.I16)]
     public short MaxNum
     {
-        get => _MaxNum;
-        set => WriteParamField(ref _MaxNum, value);
+        get => _maxNum;
+        set => WriteParamField(ref _maxNum, value);
     }
-    private short _MaxNum;
+    private short _maxNum;
 
     [ParamField(0x38, ParamType.U8)]
     public byte ConsumeHeroPoint
     {
-        get => _ConsumeHeroPoint;
-        set => WriteParamField(ref _ConsumeHeroPoint, value);
+        get => _consumeHeroPoint;
+        set => WriteParamField(ref _consumeHeroPoint, value);
     }
-    private byte _ConsumeHeroPoint;
+    private byte _consumeHeroPoint;
 
     [ParamField(0x39, ParamType.U8)]
     public byte OverDexterity
     {
-        get => _OverDexterity;
-        set => WriteParamField(ref _OverDexterity, value);
+        get => _overDexterity;
+        set => WriteParamField(ref _overDexterity, value);
     }
-    private byte _OverDexterity;
+    private byte _overDexterity;
 
     [ParamField(0x3A, ParamType.U8)]
     public byte GoodsType
     {
-        get => _GoodsType;
-        set => WriteParamField(ref _GoodsType, value);
+        get => _goodsType;
+        set => WriteParamField(ref _goodsType, value);
     }
-    private byte _GoodsType;
+    private byte _goodsType;
 
     [ParamField(0x3B, ParamType.U8)]
     public byte RefCategory
     {
-        get => _RefCategory;
-        set => WriteParamField(ref _RefCategory, value);
+        get => _refCategory;
+        set => WriteParamField(ref _refCategory, value);
     }
-    private byte _RefCategory;
+    private byte _refCategory;
 
     [ParamField(0x3C, ParamType.U8)]
     public byte SpEffectCategory
     {
-        get => _SpEffectCategory;
-        set => WriteParamField(ref _SpEffectCategory, value);
+        get => _spEffectCategory;
+        set => WriteParamField(ref _spEffectCategory, value);
     }
-    private byte _SpEffectCategory;
+    private byte _spEffectCategory;
 
     [ParamField(0x3D, ParamType.U8)]
     public byte GoodsCategory
     {
-        get => _GoodsCategory;
-        set => WriteParamField(ref _GoodsCategory, value);
+        get => _goodsCategory;
+        set => WriteParamField(ref _goodsCategory, value);
     }
-    private byte _GoodsCategory;
+    private byte _goodsCategory;
 
     [ParamField(0x3E, ParamType.U8)]
     public byte GoodsUseAnim
     {
-        get => _GoodsUseAnim;
-        set => WriteParamField(ref _GoodsUseAnim, value);
+        get => _goodsUseAnim;
+        set => WriteParamField(ref _goodsUseAnim, value);
     }
-    private byte _GoodsUseAnim;
+    private byte _goodsUseAnim;
 
     [ParamField(0x3F, ParamType.U8)]
     public byte OpmeMenuType
     {
-        get => _OpmeMenuType;
-        set => WriteParamField(ref _OpmeMenuType, value);
+        get => _opmeMenuType;
+        set => WriteParamField(ref _opmeMenuType, value);
     }
-    private byte _OpmeMenuType;
+    private byte _opmeMenuType;
 
     [ParamField(0x40, ParamType.U8)]
     public byte UseLimitCategory
     {
-        get => _UseLimitCategory;
-        set => WriteParamField(ref _UseLimitCategory, value);
+        get => _useLimitCategory;
+        set => WriteParamField(ref _useLimitCategory, value);
     }
-    private byte _UseLimitCategory;
+    private byte _useLimitCategory;
 
     [ParamField(0x41, ParamType.U8)]
     public byte ReplaceCategory
     {
-        get => _ReplaceCategory;
-        set => WriteParamField(ref _ReplaceCategory, value);
+        get => _replaceCategory;
+        set => WriteParamField(ref _replaceCategory, value);
     }
-    private byte _ReplaceCategory;
+    private byte _replaceCategory;
 
     #region BitField VowType0Bitfield ==============================================================================
 
     [ParamField(0x42, ParamType.U8)]
     public byte VowType0Bitfield
     {
-        get => _VowType0Bitfield;
-        set => WriteParamField(ref _VowType0Bitfield, value);
+        get => _vowType0Bitfield;
+        set => WriteParamField(ref _vowType0Bitfield, value);
     }
-    private byte _VowType0Bitfield;
+    private byte _vowType0Bitfield;
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 0)]
     public byte VowType0
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 1)]
     public byte VowType1
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 2)]
     public byte VowType2
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 3)]
     public byte VowType3
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 4)]
     public byte VowType4
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 5)]
     public byte VowType5
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 6)]
     public byte VowType6
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType0Bitfield), bits: 1, bitsOffset: 7)]
     public byte VowType7
     {
-        get => GetbitfieldValue(_VowType0Bitfield);
-        set => SetBitfieldValue(ref _VowType0Bitfield, value);
+        get => GetbitfieldValue(_vowType0Bitfield);
+        set => SetBitfieldValue(ref _vowType0Bitfield, value);
     }
 
     #endregion BitField VowType0Bitfield
@@ -312,65 +312,65 @@ public class EquipParamGoods(Pointer basePointer, ByteArrayMemory memory, long o
     [ParamField(0x43, ParamType.U8)]
     public byte VowType8Bitfield
     {
-        get => _VowType8Bitfield;
-        set => WriteParamField(ref _VowType8Bitfield, value);
+        get => _vowType8Bitfield;
+        set => WriteParamField(ref _vowType8Bitfield, value);
     }
-    private byte _VowType8Bitfield;
+    private byte _vowType8Bitfield;
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 0)]
     public byte VowType8
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 1)]
     public byte VowType9
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 2)]
     public byte VowType10
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 3)]
     public byte VowType11
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 4)]
     public byte VowType12
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 5)]
     public byte VowType13
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 6)]
     public byte VowType14
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     [ParamBitField(nameof(VowType8Bitfield), bits: 1, bitsOffset: 7)]
     public byte VowType15
     {
-        get => GetbitfieldValue(_VowType8Bitfield);
-        set => SetBitfieldValue(ref _VowType8Bitfield, value);
+        get => GetbitfieldValue(_vowType8Bitfield);
+        set => SetBitfieldValue(ref _vowType8Bitfield, value);
     }
 
     #endregion BitField VowType8Bitfield
@@ -378,67 +378,67 @@ public class EquipParamGoods(Pointer basePointer, ByteArrayMemory memory, long o
     #region BitField Enable_liveBitfield ==============================================================================
 
     [ParamField(0x44, ParamType.U8)]
-    public byte Enable_liveBitfield
+    public byte EnableLiveBitfield
     {
-        get => _Enable_liveBitfield;
-        set => WriteParamField(ref _Enable_liveBitfield, value);
+        get => _enableLiveBitfield;
+        set => WriteParamField(ref _enableLiveBitfield, value);
     }
-    private byte _Enable_liveBitfield;
+    private byte _enableLiveBitfield;
 
-    [ParamBitField(nameof(Enable_liveBitfield), bits: 1, bitsOffset: 0)]
-    public byte Enable_live
+    [ParamBitField(nameof(EnableLiveBitfield), bits: 1, bitsOffset: 0)]
+    public byte EnableLive
     {
-        get => GetbitfieldValue(_Enable_liveBitfield);
-        set => SetBitfieldValue(ref _Enable_liveBitfield, value);
-    }
-
-    [ParamBitField(nameof(Enable_liveBitfield), bits: 1, bitsOffset: 1)]
-    public byte Enable_gray
-    {
-        get => GetbitfieldValue(_Enable_liveBitfield);
-        set => SetBitfieldValue(ref _Enable_liveBitfield, value);
+        get => GetbitfieldValue(_enableLiveBitfield);
+        set => SetBitfieldValue(ref _enableLiveBitfield, value);
     }
 
-    [ParamBitField(nameof(Enable_liveBitfield), bits: 1, bitsOffset: 2)]
-    public byte Enable_white
+    [ParamBitField(nameof(EnableLiveBitfield), bits: 1, bitsOffset: 1)]
+    public byte EnableGray
     {
-        get => GetbitfieldValue(_Enable_liveBitfield);
-        set => SetBitfieldValue(ref _Enable_liveBitfield, value);
+        get => GetbitfieldValue(_enableLiveBitfield);
+        set => SetBitfieldValue(ref _enableLiveBitfield, value);
     }
 
-    [ParamBitField(nameof(Enable_liveBitfield), bits: 1, bitsOffset: 3)]
-    public byte Enable_black
+    [ParamBitField(nameof(EnableLiveBitfield), bits: 1, bitsOffset: 2)]
+    public byte EnableWhite
     {
-        get => GetbitfieldValue(_Enable_liveBitfield);
-        set => SetBitfieldValue(ref _Enable_liveBitfield, value);
+        get => GetbitfieldValue(_enableLiveBitfield);
+        set => SetBitfieldValue(ref _enableLiveBitfield, value);
     }
 
-    [ParamBitField(nameof(Enable_liveBitfield), bits: 1, bitsOffset: 4)]
-    public byte Enable_multi
+    [ParamBitField(nameof(EnableLiveBitfield), bits: 1, bitsOffset: 3)]
+    public byte EnableBlack
     {
-        get => GetbitfieldValue(_Enable_liveBitfield);
-        set => SetBitfieldValue(ref _Enable_liveBitfield, value);
+        get => GetbitfieldValue(_enableLiveBitfield);
+        set => SetBitfieldValue(ref _enableLiveBitfield, value);
     }
 
-    [ParamBitField(nameof(Enable_liveBitfield), bits: 1, bitsOffset: 5)]
-    public byte Enable_pvp
+    [ParamBitField(nameof(EnableLiveBitfield), bits: 1, bitsOffset: 4)]
+    public byte EnableMulti
     {
-        get => GetbitfieldValue(_Enable_liveBitfield);
-        set => SetBitfieldValue(ref _Enable_liveBitfield, value);
+        get => GetbitfieldValue(_enableLiveBitfield);
+        set => SetBitfieldValue(ref _enableLiveBitfield, value);
     }
 
-    [ParamBitField(nameof(Enable_liveBitfield), bits: 1, bitsOffset: 6)]
-    public byte Disable_offline
+    [ParamBitField(nameof(EnableLiveBitfield), bits: 1, bitsOffset: 5)]
+    public byte EnablePvp
     {
-        get => GetbitfieldValue(_Enable_liveBitfield);
-        set => SetBitfieldValue(ref _Enable_liveBitfield, value);
+        get => GetbitfieldValue(_enableLiveBitfield);
+        set => SetBitfieldValue(ref _enableLiveBitfield, value);
     }
 
-    [ParamBitField(nameof(Enable_liveBitfield), bits: 1, bitsOffset: 7)]
+    [ParamBitField(nameof(EnableLiveBitfield), bits: 1, bitsOffset: 6)]
+    public byte DisableOffline
+    {
+        get => GetbitfieldValue(_enableLiveBitfield);
+        set => SetBitfieldValue(ref _enableLiveBitfield, value);
+    }
+
+    [ParamBitField(nameof(EnableLiveBitfield), bits: 1, bitsOffset: 7)]
     public byte IsEquip
     {
-        get => GetbitfieldValue(_Enable_liveBitfield);
-        set => SetBitfieldValue(ref _Enable_liveBitfield, value);
+        get => GetbitfieldValue(_enableLiveBitfield);
+        set => SetBitfieldValue(ref _enableLiveBitfield, value);
     }
 
     #endregion BitField Enable_liveBitfield
@@ -448,65 +448,65 @@ public class EquipParamGoods(Pointer basePointer, ByteArrayMemory memory, long o
     [ParamField(0x45, ParamType.U8)]
     public byte IsConsumeBitfield
     {
-        get => _IsConsumeBitfield;
-        set => WriteParamField(ref _IsConsumeBitfield, value);
+        get => _isConsumeBitfield;
+        set => WriteParamField(ref _isConsumeBitfield, value);
     }
-    private byte _IsConsumeBitfield;
+    private byte _isConsumeBitfield;
 
     [ParamBitField(nameof(IsConsumeBitfield), bits: 1, bitsOffset: 0)]
     public byte IsConsume
     {
-        get => GetbitfieldValue(_IsConsumeBitfield);
-        set => SetBitfieldValue(ref _IsConsumeBitfield, value);
+        get => GetbitfieldValue(_isConsumeBitfield);
+        set => SetBitfieldValue(ref _isConsumeBitfield, value);
     }
 
     [ParamBitField(nameof(IsConsumeBitfield), bits: 1, bitsOffset: 1)]
     public byte IsAutoEquip
     {
-        get => GetbitfieldValue(_IsConsumeBitfield);
-        set => SetBitfieldValue(ref _IsConsumeBitfield, value);
+        get => GetbitfieldValue(_isConsumeBitfield);
+        set => SetBitfieldValue(ref _isConsumeBitfield, value);
     }
 
     [ParamBitField(nameof(IsConsumeBitfield), bits: 1, bitsOffset: 2)]
     public byte IsEstablishment
     {
-        get => GetbitfieldValue(_IsConsumeBitfield);
-        set => SetBitfieldValue(ref _IsConsumeBitfield, value);
+        get => GetbitfieldValue(_isConsumeBitfield);
+        set => SetBitfieldValue(ref _isConsumeBitfield, value);
     }
 
     [ParamBitField(nameof(IsConsumeBitfield), bits: 1, bitsOffset: 3)]
     public byte IsOnlyOne
     {
-        get => GetbitfieldValue(_IsConsumeBitfield);
-        set => SetBitfieldValue(ref _IsConsumeBitfield, value);
+        get => GetbitfieldValue(_isConsumeBitfield);
+        set => SetBitfieldValue(ref _isConsumeBitfield, value);
     }
 
     [ParamBitField(nameof(IsConsumeBitfield), bits: 1, bitsOffset: 4)]
     public byte IsDrop
     {
-        get => GetbitfieldValue(_IsConsumeBitfield);
-        set => SetBitfieldValue(ref _IsConsumeBitfield, value);
+        get => GetbitfieldValue(_isConsumeBitfield);
+        set => SetBitfieldValue(ref _isConsumeBitfield, value);
     }
 
     [ParamBitField(nameof(IsConsumeBitfield), bits: 1, bitsOffset: 5)]
     public byte IsDeposit
     {
-        get => GetbitfieldValue(_IsConsumeBitfield);
-        set => SetBitfieldValue(ref _IsConsumeBitfield, value);
+        get => GetbitfieldValue(_isConsumeBitfield);
+        set => SetBitfieldValue(ref _isConsumeBitfield, value);
     }
 
     [ParamBitField(nameof(IsConsumeBitfield), bits: 1, bitsOffset: 6)]
     public byte IsDisableHand
     {
-        get => GetbitfieldValue(_IsConsumeBitfield);
-        set => SetBitfieldValue(ref _IsConsumeBitfield, value);
+        get => GetbitfieldValue(_isConsumeBitfield);
+        set => SetBitfieldValue(ref _isConsumeBitfield, value);
     }
 
     [ParamBitField(nameof(IsConsumeBitfield), bits: 1, bitsOffset: 7)]
     public byte IsTravelItem
     {
-        get => GetbitfieldValue(_IsConsumeBitfield);
-        set => SetBitfieldValue(ref _IsConsumeBitfield, value);
+        get => GetbitfieldValue(_isConsumeBitfield);
+        set => SetBitfieldValue(ref _isConsumeBitfield, value);
     }
 
     #endregion BitField IsConsumeBitfield
@@ -516,58 +516,58 @@ public class EquipParamGoods(Pointer basePointer, ByteArrayMemory memory, long o
     [ParamField(0x46, ParamType.U8)]
     public byte IsSuppleItemBitfield
     {
-        get => _IsSuppleItemBitfield;
-        set => WriteParamField(ref _IsSuppleItemBitfield, value);
+        get => _isSuppleItemBitfield;
+        set => WriteParamField(ref _isSuppleItemBitfield, value);
     }
-    private byte _IsSuppleItemBitfield;
+    private byte _isSuppleItemBitfield;
 
     [ParamBitField(nameof(IsSuppleItemBitfield), bits: 1, bitsOffset: 0)]
     public byte IsSuppleItem
     {
-        get => GetbitfieldValue(_IsSuppleItemBitfield);
-        set => SetBitfieldValue(ref _IsSuppleItemBitfield, value);
+        get => GetbitfieldValue(_isSuppleItemBitfield);
+        set => SetBitfieldValue(ref _isSuppleItemBitfield, value);
     }
 
     [ParamBitField(nameof(IsSuppleItemBitfield), bits: 1, bitsOffset: 1)]
     public byte IsFullSuppleItem
     {
-        get => GetbitfieldValue(_IsSuppleItemBitfield);
-        set => SetBitfieldValue(ref _IsSuppleItemBitfield, value);
+        get => GetbitfieldValue(_isSuppleItemBitfield);
+        set => SetBitfieldValue(ref _isSuppleItemBitfield, value);
     }
 
     [ParamBitField(nameof(IsSuppleItemBitfield), bits: 1, bitsOffset: 2)]
     public byte IsEnhance
     {
-        get => GetbitfieldValue(_IsSuppleItemBitfield);
-        set => SetBitfieldValue(ref _IsSuppleItemBitfield, value);
+        get => GetbitfieldValue(_isSuppleItemBitfield);
+        set => SetBitfieldValue(ref _isSuppleItemBitfield, value);
     }
 
     [ParamBitField(nameof(IsSuppleItemBitfield), bits: 1, bitsOffset: 3)]
     public byte IsFixItem
     {
-        get => GetbitfieldValue(_IsSuppleItemBitfield);
-        set => SetBitfieldValue(ref _IsSuppleItemBitfield, value);
+        get => GetbitfieldValue(_isSuppleItemBitfield);
+        set => SetBitfieldValue(ref _isSuppleItemBitfield, value);
     }
 
     [ParamBitField(nameof(IsSuppleItemBitfield), bits: 1, bitsOffset: 4)]
     public byte DisableMultiDropShare
     {
-        get => GetbitfieldValue(_IsSuppleItemBitfield);
-        set => SetBitfieldValue(ref _IsSuppleItemBitfield, value);
+        get => GetbitfieldValue(_isSuppleItemBitfield);
+        set => SetBitfieldValue(ref _isSuppleItemBitfield, value);
     }
 
     [ParamBitField(nameof(IsSuppleItemBitfield), bits: 1, bitsOffset: 5)]
     public byte DisableUseAtColiseum
     {
-        get => GetbitfieldValue(_IsSuppleItemBitfield);
-        set => SetBitfieldValue(ref _IsSuppleItemBitfield, value);
+        get => GetbitfieldValue(_isSuppleItemBitfield);
+        set => SetBitfieldValue(ref _isSuppleItemBitfield, value);
     }
 
     [ParamBitField(nameof(IsSuppleItemBitfield), bits: 1, bitsOffset: 6)]
     public byte DisableUseAtOutOfColiseum
     {
-        get => GetbitfieldValue(_IsSuppleItemBitfield);
-        set => SetBitfieldValue(ref _IsSuppleItemBitfield, value);
+        get => GetbitfieldValue(_isSuppleItemBitfield);
+        set => SetBitfieldValue(ref _isSuppleItemBitfield, value);
     }
 
     #endregion BitField IsSuppleItemBitfield
@@ -575,33 +575,33 @@ public class EquipParamGoods(Pointer basePointer, ByteArrayMemory memory, long o
     [ParamField(0x47, ParamType.Dummy8, 9)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
     [ParamField(0x50, ParamType.I32)]
     public int VagrantItemLotId
     {
-        get => _VagrantItemLotId;
-        set => WriteParamField(ref _VagrantItemLotId, value);
+        get => _vagrantItemLotId;
+        set => WriteParamField(ref _vagrantItemLotId, value);
     }
-    private int _VagrantItemLotId;
+    private int _vagrantItemLotId;
 
     [ParamField(0x54, ParamType.I32)]
     public int VagrantBonusEneDropItemLotId
     {
-        get => _VagrantBonusEneDropItemLotId;
-        set => WriteParamField(ref _VagrantBonusEneDropItemLotId, value);
+        get => _vagrantBonusEneDropItemLotId;
+        set => WriteParamField(ref _vagrantBonusEneDropItemLotId, value);
     }
-    private int _VagrantBonusEneDropItemLotId;
+    private int _vagrantBonusEneDropItemLotId;
 
     [ParamField(0x58, ParamType.I32)]
     public int VagrantItemEneDropItemLotId
     {
-        get => _VagrantItemEneDropItemLotId;
-        set => WriteParamField(ref _VagrantItemEneDropItemLotId, value);
+        get => _vagrantItemEneDropItemLotId;
+        set => WriteParamField(ref _vagrantItemEneDropItemLotId, value);
     }
-    private int _VagrantItemEneDropItemLotId;
+    private int _vagrantItemEneDropItemLotId;
 
 }

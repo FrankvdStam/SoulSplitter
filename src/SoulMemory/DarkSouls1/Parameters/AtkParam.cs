@@ -24,565 +24,565 @@ namespace SoulMemory.DarkSouls1.Parameters;
 public class AtkParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
     [ParamField(0x0, ParamType.F32)]
-    public float Hit0_Radius
+    public float Hit0Radius
     {
-        get => _Hit0_Radius;
-        set => WriteParamField(ref _Hit0_Radius, value);
+        get => _hit0Radius;
+        set => WriteParamField(ref _hit0Radius, value);
     }
-    private float _Hit0_Radius;
+    private float _hit0Radius;
 
     [ParamField(0x4, ParamType.F32)]
-    public float Hit1_Radius
+    public float Hit1Radius
     {
-        get => _Hit1_Radius;
-        set => WriteParamField(ref _Hit1_Radius, value);
+        get => _hit1Radius;
+        set => WriteParamField(ref _hit1Radius, value);
     }
-    private float _Hit1_Radius;
+    private float _hit1Radius;
 
     [ParamField(0x8, ParamType.F32)]
-    public float Hit2_Radius
+    public float Hit2Radius
     {
-        get => _Hit2_Radius;
-        set => WriteParamField(ref _Hit2_Radius, value);
+        get => _hit2Radius;
+        set => WriteParamField(ref _hit2Radius, value);
     }
-    private float _Hit2_Radius;
+    private float _hit2Radius;
 
     [ParamField(0xC, ParamType.F32)]
-    public float Hit3_Radius
+    public float Hit3Radius
     {
-        get => _Hit3_Radius;
-        set => WriteParamField(ref _Hit3_Radius, value);
+        get => _hit3Radius;
+        set => WriteParamField(ref _hit3Radius, value);
     }
-    private float _Hit3_Radius;
+    private float _hit3Radius;
 
     [ParamField(0x10, ParamType.F32)]
     public float KnockbackDist
     {
-        get => _KnockbackDist;
-        set => WriteParamField(ref _KnockbackDist, value);
+        get => _knockbackDist;
+        set => WriteParamField(ref _knockbackDist, value);
     }
-    private float _KnockbackDist;
+    private float _knockbackDist;
 
     [ParamField(0x14, ParamType.F32)]
     public float HitStopTime
     {
-        get => _HitStopTime;
-        set => WriteParamField(ref _HitStopTime, value);
+        get => _hitStopTime;
+        set => WriteParamField(ref _hitStopTime, value);
     }
-    private float _HitStopTime;
+    private float _hitStopTime;
 
     [ParamField(0x18, ParamType.I32)]
     public int SpEffectId0
     {
-        get => _SpEffectId0;
-        set => WriteParamField(ref _SpEffectId0, value);
+        get => _spEffectId0;
+        set => WriteParamField(ref _spEffectId0, value);
     }
-    private int _SpEffectId0;
+    private int _spEffectId0;
 
     [ParamField(0x1C, ParamType.I32)]
     public int SpEffectId1
     {
-        get => _SpEffectId1;
-        set => WriteParamField(ref _SpEffectId1, value);
+        get => _spEffectId1;
+        set => WriteParamField(ref _spEffectId1, value);
     }
-    private int _SpEffectId1;
+    private int _spEffectId1;
 
     [ParamField(0x20, ParamType.I32)]
     public int SpEffectId2
     {
-        get => _SpEffectId2;
-        set => WriteParamField(ref _SpEffectId2, value);
+        get => _spEffectId2;
+        set => WriteParamField(ref _spEffectId2, value);
     }
-    private int _SpEffectId2;
+    private int _spEffectId2;
 
     [ParamField(0x24, ParamType.I32)]
     public int SpEffectId3
     {
-        get => _SpEffectId3;
-        set => WriteParamField(ref _SpEffectId3, value);
+        get => _spEffectId3;
+        set => WriteParamField(ref _spEffectId3, value);
     }
-    private int _SpEffectId3;
+    private int _spEffectId3;
 
     [ParamField(0x28, ParamType.I32)]
     public int SpEffectId4
     {
-        get => _SpEffectId4;
-        set => WriteParamField(ref _SpEffectId4, value);
+        get => _spEffectId4;
+        set => WriteParamField(ref _spEffectId4, value);
     }
-    private int _SpEffectId4;
+    private int _spEffectId4;
 
     [ParamField(0x2C, ParamType.I16)]
-    public short Hit0_DmyPoly1
+    public short Hit0DmyPoly1
     {
-        get => _Hit0_DmyPoly1;
-        set => WriteParamField(ref _Hit0_DmyPoly1, value);
+        get => _hit0DmyPoly1;
+        set => WriteParamField(ref _hit0DmyPoly1, value);
     }
-    private short _Hit0_DmyPoly1;
+    private short _hit0DmyPoly1;
 
     [ParamField(0x2E, ParamType.I16)]
-    public short Hit1_DmyPoly1
+    public short Hit1DmyPoly1
     {
-        get => _Hit1_DmyPoly1;
-        set => WriteParamField(ref _Hit1_DmyPoly1, value);
+        get => _hit1DmyPoly1;
+        set => WriteParamField(ref _hit1DmyPoly1, value);
     }
-    private short _Hit1_DmyPoly1;
+    private short _hit1DmyPoly1;
 
     [ParamField(0x30, ParamType.I16)]
-    public short Hit2_DmyPoly1
+    public short Hit2DmyPoly1
     {
-        get => _Hit2_DmyPoly1;
-        set => WriteParamField(ref _Hit2_DmyPoly1, value);
+        get => _hit2DmyPoly1;
+        set => WriteParamField(ref _hit2DmyPoly1, value);
     }
-    private short _Hit2_DmyPoly1;
+    private short _hit2DmyPoly1;
 
     [ParamField(0x32, ParamType.I16)]
-    public short Hit3_DmyPoly1
+    public short Hit3DmyPoly1
     {
-        get => _Hit3_DmyPoly1;
-        set => WriteParamField(ref _Hit3_DmyPoly1, value);
+        get => _hit3DmyPoly1;
+        set => WriteParamField(ref _hit3DmyPoly1, value);
     }
-    private short _Hit3_DmyPoly1;
+    private short _hit3DmyPoly1;
 
     [ParamField(0x34, ParamType.I16)]
-    public short Hit0_DmyPoly2
+    public short Hit0DmyPoly2
     {
-        get => _Hit0_DmyPoly2;
-        set => WriteParamField(ref _Hit0_DmyPoly2, value);
+        get => _hit0DmyPoly2;
+        set => WriteParamField(ref _hit0DmyPoly2, value);
     }
-    private short _Hit0_DmyPoly2;
+    private short _hit0DmyPoly2;
 
     [ParamField(0x36, ParamType.I16)]
-    public short Hit1_DmyPoly2
+    public short Hit1DmyPoly2
     {
-        get => _Hit1_DmyPoly2;
-        set => WriteParamField(ref _Hit1_DmyPoly2, value);
+        get => _hit1DmyPoly2;
+        set => WriteParamField(ref _hit1DmyPoly2, value);
     }
-    private short _Hit1_DmyPoly2;
+    private short _hit1DmyPoly2;
 
     [ParamField(0x38, ParamType.I16)]
-    public short Hit2_DmyPoly2
+    public short Hit2DmyPoly2
     {
-        get => _Hit2_DmyPoly2;
-        set => WriteParamField(ref _Hit2_DmyPoly2, value);
+        get => _hit2DmyPoly2;
+        set => WriteParamField(ref _hit2DmyPoly2, value);
     }
-    private short _Hit2_DmyPoly2;
+    private short _hit2DmyPoly2;
 
     [ParamField(0x3A, ParamType.I16)]
-    public short Hit3_DmyPoly2
+    public short Hit3DmyPoly2
     {
-        get => _Hit3_DmyPoly2;
-        set => WriteParamField(ref _Hit3_DmyPoly2, value);
+        get => _hit3DmyPoly2;
+        set => WriteParamField(ref _hit3DmyPoly2, value);
     }
-    private short _Hit3_DmyPoly2;
+    private short _hit3DmyPoly2;
 
     [ParamField(0x3C, ParamType.U16)]
     public ushort BlowingCorrection
     {
-        get => _BlowingCorrection;
-        set => WriteParamField(ref _BlowingCorrection, value);
+        get => _blowingCorrection;
+        set => WriteParamField(ref _blowingCorrection, value);
     }
-    private ushort _BlowingCorrection;
+    private ushort _blowingCorrection;
 
     [ParamField(0x3E, ParamType.U16)]
     public ushort AtkPhysCorrection
     {
-        get => _AtkPhysCorrection;
-        set => WriteParamField(ref _AtkPhysCorrection, value);
+        get => _atkPhysCorrection;
+        set => WriteParamField(ref _atkPhysCorrection, value);
     }
-    private ushort _AtkPhysCorrection;
+    private ushort _atkPhysCorrection;
 
     [ParamField(0x40, ParamType.U16)]
     public ushort AtkMagCorrection
     {
-        get => _AtkMagCorrection;
-        set => WriteParamField(ref _AtkMagCorrection, value);
+        get => _atkMagCorrection;
+        set => WriteParamField(ref _atkMagCorrection, value);
     }
-    private ushort _AtkMagCorrection;
+    private ushort _atkMagCorrection;
 
     [ParamField(0x42, ParamType.U16)]
     public ushort AtkFireCorrection
     {
-        get => _AtkFireCorrection;
-        set => WriteParamField(ref _AtkFireCorrection, value);
+        get => _atkFireCorrection;
+        set => WriteParamField(ref _atkFireCorrection, value);
     }
-    private ushort _AtkFireCorrection;
+    private ushort _atkFireCorrection;
 
     [ParamField(0x44, ParamType.U16)]
     public ushort AtkThunCorrection
     {
-        get => _AtkThunCorrection;
-        set => WriteParamField(ref _AtkThunCorrection, value);
+        get => _atkThunCorrection;
+        set => WriteParamField(ref _atkThunCorrection, value);
     }
-    private ushort _AtkThunCorrection;
+    private ushort _atkThunCorrection;
 
     [ParamField(0x46, ParamType.U16)]
     public ushort AtkStamCorrection
     {
-        get => _AtkStamCorrection;
-        set => WriteParamField(ref _AtkStamCorrection, value);
+        get => _atkStamCorrection;
+        set => WriteParamField(ref _atkStamCorrection, value);
     }
-    private ushort _AtkStamCorrection;
+    private ushort _atkStamCorrection;
 
     [ParamField(0x48, ParamType.U16)]
     public ushort GuardAtkRateCorrection
     {
-        get => _GuardAtkRateCorrection;
-        set => WriteParamField(ref _GuardAtkRateCorrection, value);
+        get => _guardAtkRateCorrection;
+        set => WriteParamField(ref _guardAtkRateCorrection, value);
     }
-    private ushort _GuardAtkRateCorrection;
+    private ushort _guardAtkRateCorrection;
 
     [ParamField(0x4A, ParamType.U16)]
     public ushort GuardBreakCorrection
     {
-        get => _GuardBreakCorrection;
-        set => WriteParamField(ref _GuardBreakCorrection, value);
+        get => _guardBreakCorrection;
+        set => WriteParamField(ref _guardBreakCorrection, value);
     }
-    private ushort _GuardBreakCorrection;
+    private ushort _guardBreakCorrection;
 
     [ParamField(0x4C, ParamType.U16)]
     public ushort AtkThrowEscapeCorrection
     {
-        get => _AtkThrowEscapeCorrection;
-        set => WriteParamField(ref _AtkThrowEscapeCorrection, value);
+        get => _atkThrowEscapeCorrection;
+        set => WriteParamField(ref _atkThrowEscapeCorrection, value);
     }
-    private ushort _AtkThrowEscapeCorrection;
+    private ushort _atkThrowEscapeCorrection;
 
     [ParamField(0x4E, ParamType.U16)]
     public ushort AtkSuperArmorCorrection
     {
-        get => _AtkSuperArmorCorrection;
-        set => WriteParamField(ref _AtkSuperArmorCorrection, value);
+        get => _atkSuperArmorCorrection;
+        set => WriteParamField(ref _atkSuperArmorCorrection, value);
     }
-    private ushort _AtkSuperArmorCorrection;
+    private ushort _atkSuperArmorCorrection;
 
     [ParamField(0x50, ParamType.U16)]
     public ushort AtkPhys
     {
-        get => _AtkPhys;
-        set => WriteParamField(ref _AtkPhys, value);
+        get => _atkPhys;
+        set => WriteParamField(ref _atkPhys, value);
     }
-    private ushort _AtkPhys;
+    private ushort _atkPhys;
 
     [ParamField(0x52, ParamType.U16)]
     public ushort AtkMag
     {
-        get => _AtkMag;
-        set => WriteParamField(ref _AtkMag, value);
+        get => _atkMag;
+        set => WriteParamField(ref _atkMag, value);
     }
-    private ushort _AtkMag;
+    private ushort _atkMag;
 
     [ParamField(0x54, ParamType.U16)]
     public ushort AtkFire
     {
-        get => _AtkFire;
-        set => WriteParamField(ref _AtkFire, value);
+        get => _atkFire;
+        set => WriteParamField(ref _atkFire, value);
     }
-    private ushort _AtkFire;
+    private ushort _atkFire;
 
     [ParamField(0x56, ParamType.U16)]
     public ushort AtkThun
     {
-        get => _AtkThun;
-        set => WriteParamField(ref _AtkThun, value);
+        get => _atkThun;
+        set => WriteParamField(ref _atkThun, value);
     }
-    private ushort _AtkThun;
+    private ushort _atkThun;
 
     [ParamField(0x58, ParamType.U16)]
     public ushort AtkStam
     {
-        get => _AtkStam;
-        set => WriteParamField(ref _AtkStam, value);
+        get => _atkStam;
+        set => WriteParamField(ref _atkStam, value);
     }
-    private ushort _AtkStam;
+    private ushort _atkStam;
 
     [ParamField(0x5A, ParamType.U16)]
     public ushort GuardAtkRate
     {
-        get => _GuardAtkRate;
-        set => WriteParamField(ref _GuardAtkRate, value);
+        get => _guardAtkRate;
+        set => WriteParamField(ref _guardAtkRate, value);
     }
-    private ushort _GuardAtkRate;
+    private ushort _guardAtkRate;
 
     [ParamField(0x5C, ParamType.U16)]
     public ushort GuardBreakRate
     {
-        get => _GuardBreakRate;
-        set => WriteParamField(ref _GuardBreakRate, value);
+        get => _guardBreakRate;
+        set => WriteParamField(ref _guardBreakRate, value);
     }
-    private ushort _GuardBreakRate;
+    private ushort _guardBreakRate;
 
     [ParamField(0x5E, ParamType.U16)]
     public ushort AtkSuperArmor
     {
-        get => _AtkSuperArmor;
-        set => WriteParamField(ref _AtkSuperArmor, value);
+        get => _atkSuperArmor;
+        set => WriteParamField(ref _atkSuperArmor, value);
     }
-    private ushort _AtkSuperArmor;
+    private ushort _atkSuperArmor;
 
     [ParamField(0x60, ParamType.U16)]
     public ushort AtkThrowEscape
     {
-        get => _AtkThrowEscape;
-        set => WriteParamField(ref _AtkThrowEscape, value);
+        get => _atkThrowEscape;
+        set => WriteParamField(ref _atkThrowEscape, value);
     }
-    private ushort _AtkThrowEscape;
+    private ushort _atkThrowEscape;
 
     [ParamField(0x62, ParamType.U16)]
     public ushort AtkObj
     {
-        get => _AtkObj;
-        set => WriteParamField(ref _AtkObj, value);
+        get => _atkObj;
+        set => WriteParamField(ref _atkObj, value);
     }
-    private ushort _AtkObj;
+    private ushort _atkObj;
 
     [ParamField(0x64, ParamType.I16)]
     public short GuardStaminaCutRate
     {
-        get => _GuardStaminaCutRate;
-        set => WriteParamField(ref _GuardStaminaCutRate, value);
+        get => _guardStaminaCutRate;
+        set => WriteParamField(ref _guardStaminaCutRate, value);
     }
-    private short _GuardStaminaCutRate;
+    private short _guardStaminaCutRate;
 
     [ParamField(0x66, ParamType.I16)]
     public short GuardRate
     {
-        get => _GuardRate;
-        set => WriteParamField(ref _GuardRate, value);
+        get => _guardRate;
+        set => WriteParamField(ref _guardRate, value);
     }
-    private short _GuardRate;
+    private short _guardRate;
 
     [ParamField(0x68, ParamType.U16)]
     public ushort ThrowTypeId
     {
-        get => _ThrowTypeId;
-        set => WriteParamField(ref _ThrowTypeId, value);
+        get => _throwTypeId;
+        set => WriteParamField(ref _throwTypeId, value);
     }
-    private ushort _ThrowTypeId;
+    private ushort _throwTypeId;
 
     [ParamField(0x6A, ParamType.U8)]
-    public byte Hit0_hitType
+    public byte Hit0HitType
     {
-        get => _Hit0_hitType;
-        set => WriteParamField(ref _Hit0_hitType, value);
+        get => _hit0HitType;
+        set => WriteParamField(ref _hit0HitType, value);
     }
-    private byte _Hit0_hitType;
+    private byte _hit0HitType;
 
     [ParamField(0x6B, ParamType.U8)]
-    public byte Hit1_hitType
+    public byte Hit1HitType
     {
-        get => _Hit1_hitType;
-        set => WriteParamField(ref _Hit1_hitType, value);
+        get => _hit1HitType;
+        set => WriteParamField(ref _hit1HitType, value);
     }
-    private byte _Hit1_hitType;
+    private byte _hit1HitType;
 
     [ParamField(0x6C, ParamType.U8)]
-    public byte Hit2_hitType
+    public byte Hit2HitType
     {
-        get => _Hit2_hitType;
-        set => WriteParamField(ref _Hit2_hitType, value);
+        get => _hit2HitType;
+        set => WriteParamField(ref _hit2HitType, value);
     }
-    private byte _Hit2_hitType;
+    private byte _hit2HitType;
 
     [ParamField(0x6D, ParamType.U8)]
-    public byte Hit3_hitType
+    public byte Hit3HitType
     {
-        get => _Hit3_hitType;
-        set => WriteParamField(ref _Hit3_hitType, value);
+        get => _hit3HitType;
+        set => WriteParamField(ref _hit3HitType, value);
     }
-    private byte _Hit3_hitType;
+    private byte _hit3HitType;
 
     [ParamField(0x6E, ParamType.U8)]
-    public byte Hti0_Priority
+    public byte Hti0Priority
     {
-        get => _Hti0_Priority;
-        set => WriteParamField(ref _Hti0_Priority, value);
+        get => _hti0Priority;
+        set => WriteParamField(ref _hti0Priority, value);
     }
-    private byte _Hti0_Priority;
+    private byte _hti0Priority;
 
     [ParamField(0x6F, ParamType.U8)]
-    public byte Hti1_Priority
+    public byte Hti1Priority
     {
-        get => _Hti1_Priority;
-        set => WriteParamField(ref _Hti1_Priority, value);
+        get => _hti1Priority;
+        set => WriteParamField(ref _hti1Priority, value);
     }
-    private byte _Hti1_Priority;
+    private byte _hti1Priority;
 
     [ParamField(0x70, ParamType.U8)]
-    public byte Hti2_Priority
+    public byte Hti2Priority
     {
-        get => _Hti2_Priority;
-        set => WriteParamField(ref _Hti2_Priority, value);
+        get => _hti2Priority;
+        set => WriteParamField(ref _hti2Priority, value);
     }
-    private byte _Hti2_Priority;
+    private byte _hti2Priority;
 
     [ParamField(0x71, ParamType.U8)]
-    public byte Hti3_Priority
+    public byte Hti3Priority
     {
-        get => _Hti3_Priority;
-        set => WriteParamField(ref _Hti3_Priority, value);
+        get => _hti3Priority;
+        set => WriteParamField(ref _hti3Priority, value);
     }
-    private byte _Hti3_Priority;
+    private byte _hti3Priority;
 
     [ParamField(0x72, ParamType.U8)]
     public byte DmgLevel
     {
-        get => _DmgLevel;
-        set => WriteParamField(ref _DmgLevel, value);
+        get => _dmgLevel;
+        set => WriteParamField(ref _dmgLevel, value);
     }
-    private byte _DmgLevel;
+    private byte _dmgLevel;
 
     [ParamField(0x73, ParamType.U8)]
     public byte MapHitType
     {
-        get => _MapHitType;
-        set => WriteParamField(ref _MapHitType, value);
+        get => _mapHitType;
+        set => WriteParamField(ref _mapHitType, value);
     }
-    private byte _MapHitType;
+    private byte _mapHitType;
 
     [ParamField(0x74, ParamType.I8)]
     public sbyte GuardCutCancelRate
     {
-        get => _GuardCutCancelRate;
-        set => WriteParamField(ref _GuardCutCancelRate, value);
+        get => _guardCutCancelRate;
+        set => WriteParamField(ref _guardCutCancelRate, value);
     }
-    private sbyte _GuardCutCancelRate;
+    private sbyte _guardCutCancelRate;
 
     [ParamField(0x75, ParamType.U8)]
     public byte AtkAttribute
     {
-        get => _AtkAttribute;
-        set => WriteParamField(ref _AtkAttribute, value);
+        get => _atkAttribute;
+        set => WriteParamField(ref _atkAttribute, value);
     }
-    private byte _AtkAttribute;
+    private byte _atkAttribute;
 
     [ParamField(0x76, ParamType.U8)]
     public byte SpAttribute
     {
-        get => _SpAttribute;
-        set => WriteParamField(ref _SpAttribute, value);
+        get => _spAttribute;
+        set => WriteParamField(ref _spAttribute, value);
     }
-    private byte _SpAttribute;
+    private byte _spAttribute;
 
     [ParamField(0x77, ParamType.U8)]
     public byte AtkType
     {
-        get => _AtkType;
-        set => WriteParamField(ref _AtkType, value);
+        get => _atkType;
+        set => WriteParamField(ref _atkType, value);
     }
-    private byte _AtkType;
+    private byte _atkType;
 
     [ParamField(0x78, ParamType.U8)]
     public byte AtkMaterial
     {
-        get => _AtkMaterial;
-        set => WriteParamField(ref _AtkMaterial, value);
+        get => _atkMaterial;
+        set => WriteParamField(ref _atkMaterial, value);
     }
-    private byte _AtkMaterial;
+    private byte _atkMaterial;
 
     [ParamField(0x79, ParamType.U8)]
     public byte AtkSize
     {
-        get => _AtkSize;
-        set => WriteParamField(ref _AtkSize, value);
+        get => _atkSize;
+        set => WriteParamField(ref _atkSize, value);
     }
-    private byte _AtkSize;
+    private byte _atkSize;
 
     [ParamField(0x7A, ParamType.U8)]
     public byte DefMaterial
     {
-        get => _DefMaterial;
-        set => WriteParamField(ref _DefMaterial, value);
+        get => _defMaterial;
+        set => WriteParamField(ref _defMaterial, value);
     }
-    private byte _DefMaterial;
+    private byte _defMaterial;
 
     [ParamField(0x7B, ParamType.U8)]
     public byte DefSfxMaterial
     {
-        get => _DefSfxMaterial;
-        set => WriteParamField(ref _DefSfxMaterial, value);
+        get => _defSfxMaterial;
+        set => WriteParamField(ref _defSfxMaterial, value);
     }
-    private byte _DefSfxMaterial;
+    private byte _defSfxMaterial;
 
     [ParamField(0x7C, ParamType.U8)]
     public byte HitSourceType
     {
-        get => _HitSourceType;
-        set => WriteParamField(ref _HitSourceType, value);
+        get => _hitSourceType;
+        set => WriteParamField(ref _hitSourceType, value);
     }
-    private byte _HitSourceType;
+    private byte _hitSourceType;
 
     [ParamField(0x7D, ParamType.U8)]
     public byte ThrowFlag
     {
-        get => _ThrowFlag;
-        set => WriteParamField(ref _ThrowFlag, value);
+        get => _throwFlag;
+        set => WriteParamField(ref _throwFlag, value);
     }
-    private byte _ThrowFlag;
+    private byte _throwFlag;
 
     #region BitField DisableGuardBitfield ==============================================================================
 
     [ParamField(0x7E, ParamType.U8)]
     public byte DisableGuardBitfield
     {
-        get => _DisableGuardBitfield;
-        set => WriteParamField(ref _DisableGuardBitfield, value);
+        get => _disableGuardBitfield;
+        set => WriteParamField(ref _disableGuardBitfield, value);
     }
-    private byte _DisableGuardBitfield;
+    private byte _disableGuardBitfield;
 
     [ParamBitField(nameof(DisableGuardBitfield), bits: 1, bitsOffset: 0)]
     public byte DisableGuard
     {
-        get => GetbitfieldValue(_DisableGuardBitfield);
-        set => SetBitfieldValue(ref _DisableGuardBitfield, value);
+        get => GetbitfieldValue(_disableGuardBitfield);
+        set => SetBitfieldValue(ref _disableGuardBitfield, value);
     }
 
     [ParamBitField(nameof(DisableGuardBitfield), bits: 1, bitsOffset: 1)]
     public byte DisableStaminaAttack
     {
-        get => GetbitfieldValue(_DisableGuardBitfield);
-        set => SetBitfieldValue(ref _DisableGuardBitfield, value);
+        get => GetbitfieldValue(_disableGuardBitfield);
+        set => SetBitfieldValue(ref _disableGuardBitfield, value);
     }
 
     [ParamBitField(nameof(DisableGuardBitfield), bits: 1, bitsOffset: 2)]
     public byte DisableHitSpEffect
     {
-        get => GetbitfieldValue(_DisableGuardBitfield);
-        set => SetBitfieldValue(ref _DisableGuardBitfield, value);
+        get => GetbitfieldValue(_disableGuardBitfield);
+        set => SetBitfieldValue(ref _disableGuardBitfield, value);
     }
 
     [ParamBitField(nameof(DisableGuardBitfield), bits: 1, bitsOffset: 3)]
-    public byte IgnoreNotifyMissSwingForAI
+    public byte IgnoreNotifyMissSwingForAi
     {
-        get => GetbitfieldValue(_DisableGuardBitfield);
-        set => SetBitfieldValue(ref _DisableGuardBitfield, value);
+        get => GetbitfieldValue(_disableGuardBitfield);
+        set => SetBitfieldValue(ref _disableGuardBitfield, value);
     }
 
     [ParamBitField(nameof(DisableGuardBitfield), bits: 1, bitsOffset: 4)]
     public byte RepeatHitSfx
     {
-        get => GetbitfieldValue(_DisableGuardBitfield);
-        set => SetBitfieldValue(ref _DisableGuardBitfield, value);
+        get => GetbitfieldValue(_disableGuardBitfield);
+        set => SetBitfieldValue(ref _disableGuardBitfield, value);
     }
 
     [ParamBitField(nameof(DisableGuardBitfield), bits: 1, bitsOffset: 5)]
     public byte IsArrowAtk
     {
-        get => GetbitfieldValue(_DisableGuardBitfield);
-        set => SetBitfieldValue(ref _DisableGuardBitfield, value);
+        get => GetbitfieldValue(_disableGuardBitfield);
+        set => SetBitfieldValue(ref _disableGuardBitfield, value);
     }
 
     [ParamBitField(nameof(DisableGuardBitfield), bits: 1, bitsOffset: 6)]
     public byte IsGhostAtk
     {
-        get => GetbitfieldValue(_DisableGuardBitfield);
-        set => SetBitfieldValue(ref _DisableGuardBitfield, value);
+        get => GetbitfieldValue(_disableGuardBitfield);
+        set => SetBitfieldValue(ref _disableGuardBitfield, value);
     }
 
     [ParamBitField(nameof(DisableGuardBitfield), bits: 1, bitsOffset: 7)]
     public byte IsDisableNoDamage
     {
-        get => GetbitfieldValue(_DisableGuardBitfield);
-        set => SetBitfieldValue(ref _DisableGuardBitfield, value);
+        get => GetbitfieldValue(_disableGuardBitfield);
+        set => SetBitfieldValue(ref _disableGuardBitfield, value);
     }
 
     #endregion BitField DisableGuardBitfield
@@ -590,9 +590,9 @@ public class AtkParam(Pointer basePointer, ByteArrayMemory memory, long offset, 
     [ParamField(0x7F, ParamType.Dummy8, 1)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
 }

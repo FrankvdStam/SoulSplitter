@@ -26,161 +26,161 @@ public class CalcCorrectGraph(Pointer basePointer, ByteArrayMemory memory, long 
     [ParamField(0x0, ParamType.F32)]
     public float StageMaxVal0
     {
-        get => _StageMaxVal0;
-        set => WriteParamField(ref _StageMaxVal0, value);
+        get => _stageMaxVal0;
+        set => WriteParamField(ref _stageMaxVal0, value);
     }
-    private float _StageMaxVal0;
+    private float _stageMaxVal0;
 
     [ParamField(0x4, ParamType.F32)]
     public float StageMaxVal1
     {
-        get => _StageMaxVal1;
-        set => WriteParamField(ref _StageMaxVal1, value);
+        get => _stageMaxVal1;
+        set => WriteParamField(ref _stageMaxVal1, value);
     }
-    private float _StageMaxVal1;
+    private float _stageMaxVal1;
 
     [ParamField(0x8, ParamType.F32)]
     public float StageMaxVal2
     {
-        get => _StageMaxVal2;
-        set => WriteParamField(ref _StageMaxVal2, value);
+        get => _stageMaxVal2;
+        set => WriteParamField(ref _stageMaxVal2, value);
     }
-    private float _StageMaxVal2;
+    private float _stageMaxVal2;
 
     [ParamField(0xC, ParamType.F32)]
     public float StageMaxVal3
     {
-        get => _StageMaxVal3;
-        set => WriteParamField(ref _StageMaxVal3, value);
+        get => _stageMaxVal3;
+        set => WriteParamField(ref _stageMaxVal3, value);
     }
-    private float _StageMaxVal3;
+    private float _stageMaxVal3;
 
     [ParamField(0x10, ParamType.F32)]
     public float StageMaxVal4
     {
-        get => _StageMaxVal4;
-        set => WriteParamField(ref _StageMaxVal4, value);
+        get => _stageMaxVal4;
+        set => WriteParamField(ref _stageMaxVal4, value);
     }
-    private float _StageMaxVal4;
+    private float _stageMaxVal4;
 
     [ParamField(0x14, ParamType.F32)]
     public float StageMaxGrowVal0
     {
-        get => _StageMaxGrowVal0;
-        set => WriteParamField(ref _StageMaxGrowVal0, value);
+        get => _stageMaxGrowVal0;
+        set => WriteParamField(ref _stageMaxGrowVal0, value);
     }
-    private float _StageMaxGrowVal0;
+    private float _stageMaxGrowVal0;
 
     [ParamField(0x18, ParamType.F32)]
     public float StageMaxGrowVal1
     {
-        get => _StageMaxGrowVal1;
-        set => WriteParamField(ref _StageMaxGrowVal1, value);
+        get => _stageMaxGrowVal1;
+        set => WriteParamField(ref _stageMaxGrowVal1, value);
     }
-    private float _StageMaxGrowVal1;
+    private float _stageMaxGrowVal1;
 
     [ParamField(0x1C, ParamType.F32)]
     public float StageMaxGrowVal2
     {
-        get => _StageMaxGrowVal2;
-        set => WriteParamField(ref _StageMaxGrowVal2, value);
+        get => _stageMaxGrowVal2;
+        set => WriteParamField(ref _stageMaxGrowVal2, value);
     }
-    private float _StageMaxGrowVal2;
+    private float _stageMaxGrowVal2;
 
     [ParamField(0x20, ParamType.F32)]
     public float StageMaxGrowVal3
     {
-        get => _StageMaxGrowVal3;
-        set => WriteParamField(ref _StageMaxGrowVal3, value);
+        get => _stageMaxGrowVal3;
+        set => WriteParamField(ref _stageMaxGrowVal3, value);
     }
-    private float _StageMaxGrowVal3;
+    private float _stageMaxGrowVal3;
 
     [ParamField(0x24, ParamType.F32)]
     public float StageMaxGrowVal4
     {
-        get => _StageMaxGrowVal4;
-        set => WriteParamField(ref _StageMaxGrowVal4, value);
+        get => _stageMaxGrowVal4;
+        set => WriteParamField(ref _stageMaxGrowVal4, value);
     }
-    private float _StageMaxGrowVal4;
+    private float _stageMaxGrowVal4;
 
     [ParamField(0x28, ParamType.F32)]
-    public float AdjPt_maxGrowVal0
+    public float AdjPtMaxGrowVal0
     {
-        get => _AdjPt_maxGrowVal0;
-        set => WriteParamField(ref _AdjPt_maxGrowVal0, value);
+        get => _adjPtMaxGrowVal0;
+        set => WriteParamField(ref _adjPtMaxGrowVal0, value);
     }
-    private float _AdjPt_maxGrowVal0;
+    private float _adjPtMaxGrowVal0;
 
     [ParamField(0x2C, ParamType.F32)]
-    public float AdjPt_maxGrowVal1
+    public float AdjPtMaxGrowVal1
     {
-        get => _AdjPt_maxGrowVal1;
-        set => WriteParamField(ref _AdjPt_maxGrowVal1, value);
+        get => _adjPtMaxGrowVal1;
+        set => WriteParamField(ref _adjPtMaxGrowVal1, value);
     }
-    private float _AdjPt_maxGrowVal1;
+    private float _adjPtMaxGrowVal1;
 
     [ParamField(0x30, ParamType.F32)]
-    public float AdjPt_maxGrowVal2
+    public float AdjPtMaxGrowVal2
     {
-        get => _AdjPt_maxGrowVal2;
-        set => WriteParamField(ref _AdjPt_maxGrowVal2, value);
+        get => _adjPtMaxGrowVal2;
+        set => WriteParamField(ref _adjPtMaxGrowVal2, value);
     }
-    private float _AdjPt_maxGrowVal2;
+    private float _adjPtMaxGrowVal2;
 
     [ParamField(0x34, ParamType.F32)]
-    public float AdjPt_maxGrowVal3
+    public float AdjPtMaxGrowVal3
     {
-        get => _AdjPt_maxGrowVal3;
-        set => WriteParamField(ref _AdjPt_maxGrowVal3, value);
+        get => _adjPtMaxGrowVal3;
+        set => WriteParamField(ref _adjPtMaxGrowVal3, value);
     }
-    private float _AdjPt_maxGrowVal3;
+    private float _adjPtMaxGrowVal3;
 
     [ParamField(0x38, ParamType.F32)]
-    public float AdjPt_maxGrowVal4
+    public float AdjPtMaxGrowVal4
     {
-        get => _AdjPt_maxGrowVal4;
-        set => WriteParamField(ref _AdjPt_maxGrowVal4, value);
+        get => _adjPtMaxGrowVal4;
+        set => WriteParamField(ref _adjPtMaxGrowVal4, value);
     }
-    private float _AdjPt_maxGrowVal4;
+    private float _adjPtMaxGrowVal4;
 
     [ParamField(0x3C, ParamType.F32)]
-    public float Init_inclination_soul
+    public float InitInclinationSoul
     {
-        get => _Init_inclination_soul;
-        set => WriteParamField(ref _Init_inclination_soul, value);
+        get => _initInclinationSoul;
+        set => WriteParamField(ref _initInclinationSoul, value);
     }
-    private float _Init_inclination_soul;
+    private float _initInclinationSoul;
 
     [ParamField(0x40, ParamType.F32)]
-    public float Adjustment_value
+    public float AdjustmentValue
     {
-        get => _Adjustment_value;
-        set => WriteParamField(ref _Adjustment_value, value);
+        get => _adjustmentValue;
+        set => WriteParamField(ref _adjustmentValue, value);
     }
-    private float _Adjustment_value;
+    private float _adjustmentValue;
 
     [ParamField(0x44, ParamType.F32)]
-    public float Boundry_inclination_soul
+    public float BoundryInclinationSoul
     {
-        get => _Boundry_inclination_soul;
-        set => WriteParamField(ref _Boundry_inclination_soul, value);
+        get => _boundryInclinationSoul;
+        set => WriteParamField(ref _boundryInclinationSoul, value);
     }
-    private float _Boundry_inclination_soul;
+    private float _boundryInclinationSoul;
 
     [ParamField(0x48, ParamType.F32)]
-    public float Boundry_value
+    public float BoundryValue
     {
-        get => _Boundry_value;
-        set => WriteParamField(ref _Boundry_value, value);
+        get => _boundryValue;
+        set => WriteParamField(ref _boundryValue, value);
     }
-    private float _Boundry_value;
+    private float _boundryValue;
 
     [ParamField(0x4C, ParamType.Dummy8, 4)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
 }

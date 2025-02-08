@@ -26,753 +26,753 @@ public class EnvLightTexBank(Pointer basePointer, ByteArrayMemory memory, long o
     [ParamField(0x0, ParamType.I8)]
     public sbyte IsUse
     {
-        get => _IsUse;
-        set => WriteParamField(ref _IsUse, value);
+        get => _isUse;
+        set => WriteParamField(ref _isUse, value);
     }
-    private sbyte _IsUse;
+    private sbyte _isUse;
 
     [ParamField(0x1, ParamType.I8)]
     public sbyte AutoUpdate
     {
-        get => _AutoUpdate;
-        set => WriteParamField(ref _AutoUpdate, value);
+        get => _autoUpdate;
+        set => WriteParamField(ref _autoUpdate, value);
     }
-    private sbyte _AutoUpdate;
+    private sbyte _autoUpdate;
 
     [ParamField(0x2, ParamType.Dummy8, 12)]
-    public byte[] Pad_0
+    public byte[] Pad0
     {
-        get => _Pad_0;
-        set => WriteParamField(ref _Pad_0, value);
+        get => _pad0;
+        set => WriteParamField(ref _pad0, value);
     }
-    private byte[] _Pad_0 = null!;
+    private byte[] _pad0 = null!;
 
     [ParamField(0xE, ParamType.I16)]
     public short InvMulCol
     {
-        get => _InvMulCol;
-        set => WriteParamField(ref _InvMulCol, value);
+        get => _invMulCol;
+        set => WriteParamField(ref _invMulCol, value);
     }
-    private short _InvMulCol;
+    private short _invMulCol;
 
     [ParamField(0x10, ParamType.I16)]
-    public short ResNameId_Dif0
+    public short ResNameIdDif0
     {
-        get => _ResNameId_Dif0;
-        set => WriteParamField(ref _ResNameId_Dif0, value);
+        get => _resNameIdDif0;
+        set => WriteParamField(ref _resNameIdDif0, value);
     }
-    private short _ResNameId_Dif0;
+    private short _resNameIdDif0;
 
     [ParamField(0x12, ParamType.I16)]
-    public short InvMulCol_Dif0
+    public short InvMulColDif0
     {
-        get => _InvMulCol_Dif0;
-        set => WriteParamField(ref _InvMulCol_Dif0, value);
+        get => _invMulColDif0;
+        set => WriteParamField(ref _invMulColDif0, value);
     }
-    private short _InvMulCol_Dif0;
+    private short _invMulColDif0;
 
     [ParamField(0x14, ParamType.F32)]
-    public float SepcPow_Dif0
+    public float SepcPowDif0
     {
-        get => _SepcPow_Dif0;
-        set => WriteParamField(ref _SepcPow_Dif0, value);
+        get => _sepcPowDif0;
+        set => WriteParamField(ref _sepcPowDif0, value);
     }
-    private float _SepcPow_Dif0;
+    private float _sepcPowDif0;
 
     [ParamField(0x18, ParamType.Dummy8, 8)]
-    public byte[] Pad_Dif0
+    public byte[] PadDif0
     {
-        get => _Pad_Dif0;
-        set => WriteParamField(ref _Pad_Dif0, value);
+        get => _padDif0;
+        set => WriteParamField(ref _padDif0, value);
     }
-    private byte[] _Pad_Dif0 = null!;
+    private byte[] _padDif0 = null!;
 
     [ParamField(0x20, ParamType.I16)]
-    public short ResNameId_Spc0
+    public short ResNameIdSpc0
     {
-        get => _ResNameId_Spc0;
-        set => WriteParamField(ref _ResNameId_Spc0, value);
+        get => _resNameIdSpc0;
+        set => WriteParamField(ref _resNameIdSpc0, value);
     }
-    private short _ResNameId_Spc0;
+    private short _resNameIdSpc0;
 
     [ParamField(0x22, ParamType.I16)]
-    public short InvMulCol_Spc0
+    public short InvMulColSpc0
     {
-        get => _InvMulCol_Spc0;
-        set => WriteParamField(ref _InvMulCol_Spc0, value);
+        get => _invMulColSpc0;
+        set => WriteParamField(ref _invMulColSpc0, value);
     }
-    private short _InvMulCol_Spc0;
+    private short _invMulColSpc0;
 
     [ParamField(0x24, ParamType.F32)]
-    public float SepcPow_Spc0
+    public float SepcPowSpc0
     {
-        get => _SepcPow_Spc0;
-        set => WriteParamField(ref _SepcPow_Spc0, value);
+        get => _sepcPowSpc0;
+        set => WriteParamField(ref _sepcPowSpc0, value);
     }
-    private float _SepcPow_Spc0;
+    private float _sepcPowSpc0;
 
     [ParamField(0x28, ParamType.Dummy8, 8)]
-    public byte[] Pad_Spc0
+    public byte[] PadSpc0
     {
-        get => _Pad_Spc0;
-        set => WriteParamField(ref _Pad_Spc0, value);
+        get => _padSpc0;
+        set => WriteParamField(ref _padSpc0, value);
     }
-    private byte[] _Pad_Spc0 = null!;
+    private byte[] _padSpc0 = null!;
 
     [ParamField(0x30, ParamType.I16)]
-    public short ResNameId_Spc1
+    public short ResNameIdSpc1
     {
-        get => _ResNameId_Spc1;
-        set => WriteParamField(ref _ResNameId_Spc1, value);
+        get => _resNameIdSpc1;
+        set => WriteParamField(ref _resNameIdSpc1, value);
     }
-    private short _ResNameId_Spc1;
+    private short _resNameIdSpc1;
 
     [ParamField(0x32, ParamType.I16)]
-    public short InvMulCol_Spc1
+    public short InvMulColSpc1
     {
-        get => _InvMulCol_Spc1;
-        set => WriteParamField(ref _InvMulCol_Spc1, value);
+        get => _invMulColSpc1;
+        set => WriteParamField(ref _invMulColSpc1, value);
     }
-    private short _InvMulCol_Spc1;
+    private short _invMulColSpc1;
 
     [ParamField(0x34, ParamType.F32)]
-    public float SepcPow_Spc1
+    public float SepcPowSpc1
     {
-        get => _SepcPow_Spc1;
-        set => WriteParamField(ref _SepcPow_Spc1, value);
+        get => _sepcPowSpc1;
+        set => WriteParamField(ref _sepcPowSpc1, value);
     }
-    private float _SepcPow_Spc1;
+    private float _sepcPowSpc1;
 
     [ParamField(0x38, ParamType.Dummy8, 8)]
-    public byte[] Pad_Spc1
+    public byte[] PadSpc1
     {
-        get => _Pad_Spc1;
-        set => WriteParamField(ref _Pad_Spc1, value);
+        get => _padSpc1;
+        set => WriteParamField(ref _padSpc1, value);
     }
-    private byte[] _Pad_Spc1 = null!;
+    private byte[] _padSpc1 = null!;
 
     [ParamField(0x40, ParamType.I16)]
-    public short ResNameId_Spc2
+    public short ResNameIdSpc2
     {
-        get => _ResNameId_Spc2;
-        set => WriteParamField(ref _ResNameId_Spc2, value);
+        get => _resNameIdSpc2;
+        set => WriteParamField(ref _resNameIdSpc2, value);
     }
-    private short _ResNameId_Spc2;
+    private short _resNameIdSpc2;
 
     [ParamField(0x42, ParamType.I16)]
-    public short InvMulCol_Spc2
+    public short InvMulColSpc2
     {
-        get => _InvMulCol_Spc2;
-        set => WriteParamField(ref _InvMulCol_Spc2, value);
+        get => _invMulColSpc2;
+        set => WriteParamField(ref _invMulColSpc2, value);
     }
-    private short _InvMulCol_Spc2;
+    private short _invMulColSpc2;
 
     [ParamField(0x44, ParamType.F32)]
-    public float SepcPow_Spc2
+    public float SepcPowSpc2
     {
-        get => _SepcPow_Spc2;
-        set => WriteParamField(ref _SepcPow_Spc2, value);
+        get => _sepcPowSpc2;
+        set => WriteParamField(ref _sepcPowSpc2, value);
     }
-    private float _SepcPow_Spc2;
+    private float _sepcPowSpc2;
 
     [ParamField(0x48, ParamType.Dummy8, 8)]
-    public byte[] Pad_Spc2
+    public byte[] PadSpc2
     {
-        get => _Pad_Spc2;
-        set => WriteParamField(ref _Pad_Spc2, value);
+        get => _padSpc2;
+        set => WriteParamField(ref _padSpc2, value);
     }
-    private byte[] _Pad_Spc2 = null!;
+    private byte[] _padSpc2 = null!;
 
     [ParamField(0x50, ParamType.I16)]
-    public short ResNameId_Spc3
+    public short ResNameIdSpc3
     {
-        get => _ResNameId_Spc3;
-        set => WriteParamField(ref _ResNameId_Spc3, value);
+        get => _resNameIdSpc3;
+        set => WriteParamField(ref _resNameIdSpc3, value);
     }
-    private short _ResNameId_Spc3;
+    private short _resNameIdSpc3;
 
     [ParamField(0x52, ParamType.I16)]
-    public short InvMulCol_Spc3
+    public short InvMulColSpc3
     {
-        get => _InvMulCol_Spc3;
-        set => WriteParamField(ref _InvMulCol_Spc3, value);
+        get => _invMulColSpc3;
+        set => WriteParamField(ref _invMulColSpc3, value);
     }
-    private short _InvMulCol_Spc3;
+    private short _invMulColSpc3;
 
     [ParamField(0x54, ParamType.F32)]
-    public float SepcPow_Spc3
+    public float SepcPowSpc3
     {
-        get => _SepcPow_Spc3;
-        set => WriteParamField(ref _SepcPow_Spc3, value);
+        get => _sepcPowSpc3;
+        set => WriteParamField(ref _sepcPowSpc3, value);
     }
-    private float _SepcPow_Spc3;
+    private float _sepcPowSpc3;
 
     [ParamField(0x58, ParamType.Dummy8, 8)]
-    public byte[] Pad_Spc3
+    public byte[] PadSpc3
     {
-        get => _Pad_Spc3;
-        set => WriteParamField(ref _Pad_Spc3, value);
+        get => _padSpc3;
+        set => WriteParamField(ref _padSpc3, value);
     }
-    private byte[] _Pad_Spc3 = null!;
+    private byte[] _padSpc3 = null!;
 
     [ParamField(0x60, ParamType.I16)]
-    public short DegRotX_00
+    public short DegRotX00
     {
-        get => _DegRotX_00;
-        set => WriteParamField(ref _DegRotX_00, value);
+        get => _degRotX00;
+        set => WriteParamField(ref _degRotX00, value);
     }
-    private short _DegRotX_00;
+    private short _degRotX00;
 
     [ParamField(0x62, ParamType.I16)]
-    public short DegRotY_00
+    public short DegRotY00
     {
-        get => _DegRotY_00;
-        set => WriteParamField(ref _DegRotY_00, value);
+        get => _degRotY00;
+        set => WriteParamField(ref _degRotY00, value);
     }
-    private short _DegRotY_00;
+    private short _degRotY00;
 
     [ParamField(0x64, ParamType.I16)]
-    public short ColR_00
+    public short ColR00
     {
-        get => _ColR_00;
-        set => WriteParamField(ref _ColR_00, value);
+        get => _colR00;
+        set => WriteParamField(ref _colR00, value);
     }
-    private short _ColR_00;
+    private short _colR00;
 
     [ParamField(0x66, ParamType.I16)]
-    public short ColG_00
+    public short ColG00
     {
-        get => _ColG_00;
-        set => WriteParamField(ref _ColG_00, value);
+        get => _colG00;
+        set => WriteParamField(ref _colG00, value);
     }
-    private short _ColG_00;
+    private short _colG00;
 
     [ParamField(0x68, ParamType.I16)]
-    public short ColB_00
+    public short ColB00
     {
-        get => _ColB_00;
-        set => WriteParamField(ref _ColB_00, value);
+        get => _colB00;
+        set => WriteParamField(ref _colB00, value);
     }
-    private short _ColB_00;
+    private short _colB00;
 
     [ParamField(0x6A, ParamType.I16)]
-    public short ColA_00
+    public short ColA00
     {
-        get => _ColA_00;
-        set => WriteParamField(ref _ColA_00, value);
+        get => _colA00;
+        set => WriteParamField(ref _colA00, value);
     }
-    private short _ColA_00;
+    private short _colA00;
 
     [ParamField(0x6C, ParamType.Dummy8, 4)]
-    public byte[] Pad_00
+    public byte[] Pad00
     {
-        get => _Pad_00;
-        set => WriteParamField(ref _Pad_00, value);
+        get => _pad00;
+        set => WriteParamField(ref _pad00, value);
     }
-    private byte[] _Pad_00 = null!;
+    private byte[] _pad00 = null!;
 
     [ParamField(0x70, ParamType.I16)]
-    public short DegRotX_01
+    public short DegRotX01
     {
-        get => _DegRotX_01;
-        set => WriteParamField(ref _DegRotX_01, value);
+        get => _degRotX01;
+        set => WriteParamField(ref _degRotX01, value);
     }
-    private short _DegRotX_01;
+    private short _degRotX01;
 
     [ParamField(0x72, ParamType.I16)]
-    public short DegRotY_01
+    public short DegRotY01
     {
-        get => _DegRotY_01;
-        set => WriteParamField(ref _DegRotY_01, value);
+        get => _degRotY01;
+        set => WriteParamField(ref _degRotY01, value);
     }
-    private short _DegRotY_01;
+    private short _degRotY01;
 
     [ParamField(0x74, ParamType.I16)]
-    public short ColR_01
+    public short ColR01
     {
-        get => _ColR_01;
-        set => WriteParamField(ref _ColR_01, value);
+        get => _colR01;
+        set => WriteParamField(ref _colR01, value);
     }
-    private short _ColR_01;
+    private short _colR01;
 
     [ParamField(0x76, ParamType.I16)]
-    public short ColG_01
+    public short ColG01
     {
-        get => _ColG_01;
-        set => WriteParamField(ref _ColG_01, value);
+        get => _colG01;
+        set => WriteParamField(ref _colG01, value);
     }
-    private short _ColG_01;
+    private short _colG01;
 
     [ParamField(0x78, ParamType.I16)]
-    public short ColB_01
+    public short ColB01
     {
-        get => _ColB_01;
-        set => WriteParamField(ref _ColB_01, value);
+        get => _colB01;
+        set => WriteParamField(ref _colB01, value);
     }
-    private short _ColB_01;
+    private short _colB01;
 
     [ParamField(0x7A, ParamType.I16)]
-    public short ColA_01
+    public short ColA01
     {
-        get => _ColA_01;
-        set => WriteParamField(ref _ColA_01, value);
+        get => _colA01;
+        set => WriteParamField(ref _colA01, value);
     }
-    private short _ColA_01;
+    private short _colA01;
 
     [ParamField(0x7C, ParamType.Dummy8, 4)]
-    public byte[] Pad_01
+    public byte[] Pad01
     {
-        get => _Pad_01;
-        set => WriteParamField(ref _Pad_01, value);
+        get => _pad01;
+        set => WriteParamField(ref _pad01, value);
     }
-    private byte[] _Pad_01 = null!;
+    private byte[] _pad01 = null!;
 
     [ParamField(0x80, ParamType.I16)]
-    public short DegRotX_02
+    public short DegRotX02
     {
-        get => _DegRotX_02;
-        set => WriteParamField(ref _DegRotX_02, value);
+        get => _degRotX02;
+        set => WriteParamField(ref _degRotX02, value);
     }
-    private short _DegRotX_02;
+    private short _degRotX02;
 
     [ParamField(0x82, ParamType.I16)]
-    public short DegRotY_02
+    public short DegRotY02
     {
-        get => _DegRotY_02;
-        set => WriteParamField(ref _DegRotY_02, value);
+        get => _degRotY02;
+        set => WriteParamField(ref _degRotY02, value);
     }
-    private short _DegRotY_02;
+    private short _degRotY02;
 
     [ParamField(0x84, ParamType.I16)]
-    public short ColR_02
+    public short ColR02
     {
-        get => _ColR_02;
-        set => WriteParamField(ref _ColR_02, value);
+        get => _colR02;
+        set => WriteParamField(ref _colR02, value);
     }
-    private short _ColR_02;
+    private short _colR02;
 
     [ParamField(0x86, ParamType.I16)]
-    public short ColG_02
+    public short ColG02
     {
-        get => _ColG_02;
-        set => WriteParamField(ref _ColG_02, value);
+        get => _colG02;
+        set => WriteParamField(ref _colG02, value);
     }
-    private short _ColG_02;
+    private short _colG02;
 
     [ParamField(0x88, ParamType.I16)]
-    public short ColB_02
+    public short ColB02
     {
-        get => _ColB_02;
-        set => WriteParamField(ref _ColB_02, value);
+        get => _colB02;
+        set => WriteParamField(ref _colB02, value);
     }
-    private short _ColB_02;
+    private short _colB02;
 
     [ParamField(0x8A, ParamType.I16)]
-    public short ColA_02
+    public short ColA02
     {
-        get => _ColA_02;
-        set => WriteParamField(ref _ColA_02, value);
+        get => _colA02;
+        set => WriteParamField(ref _colA02, value);
     }
-    private short _ColA_02;
+    private short _colA02;
 
     [ParamField(0x8C, ParamType.Dummy8, 4)]
-    public byte[] Pad_02
+    public byte[] Pad02
     {
-        get => _Pad_02;
-        set => WriteParamField(ref _Pad_02, value);
+        get => _pad02;
+        set => WriteParamField(ref _pad02, value);
     }
-    private byte[] _Pad_02 = null!;
+    private byte[] _pad02 = null!;
 
     [ParamField(0x90, ParamType.I16)]
-    public short DegRotX_03
+    public short DegRotX03
     {
-        get => _DegRotX_03;
-        set => WriteParamField(ref _DegRotX_03, value);
+        get => _degRotX03;
+        set => WriteParamField(ref _degRotX03, value);
     }
-    private short _DegRotX_03;
+    private short _degRotX03;
 
     [ParamField(0x92, ParamType.I16)]
-    public short DegRotY_03
+    public short DegRotY03
     {
-        get => _DegRotY_03;
-        set => WriteParamField(ref _DegRotY_03, value);
+        get => _degRotY03;
+        set => WriteParamField(ref _degRotY03, value);
     }
-    private short _DegRotY_03;
+    private short _degRotY03;
 
     [ParamField(0x94, ParamType.I16)]
-    public short ColR_03
+    public short ColR03
     {
-        get => _ColR_03;
-        set => WriteParamField(ref _ColR_03, value);
+        get => _colR03;
+        set => WriteParamField(ref _colR03, value);
     }
-    private short _ColR_03;
+    private short _colR03;
 
     [ParamField(0x96, ParamType.I16)]
-    public short ColG_03
+    public short ColG03
     {
-        get => _ColG_03;
-        set => WriteParamField(ref _ColG_03, value);
+        get => _colG03;
+        set => WriteParamField(ref _colG03, value);
     }
-    private short _ColG_03;
+    private short _colG03;
 
     [ParamField(0x98, ParamType.I16)]
-    public short ColB_03
+    public short ColB03
     {
-        get => _ColB_03;
-        set => WriteParamField(ref _ColB_03, value);
+        get => _colB03;
+        set => WriteParamField(ref _colB03, value);
     }
-    private short _ColB_03;
+    private short _colB03;
 
     [ParamField(0x9A, ParamType.I16)]
-    public short ColA_03
+    public short ColA03
     {
-        get => _ColA_03;
-        set => WriteParamField(ref _ColA_03, value);
+        get => _colA03;
+        set => WriteParamField(ref _colA03, value);
     }
-    private short _ColA_03;
+    private short _colA03;
 
     [ParamField(0x9C, ParamType.Dummy8, 4)]
-    public byte[] Pad_03
+    public byte[] Pad03
     {
-        get => _Pad_03;
-        set => WriteParamField(ref _Pad_03, value);
+        get => _pad03;
+        set => WriteParamField(ref _pad03, value);
     }
-    private byte[] _Pad_03 = null!;
+    private byte[] _pad03 = null!;
 
     [ParamField(0xA0, ParamType.I16)]
-    public short DegRotX_04
+    public short DegRotX04
     {
-        get => _DegRotX_04;
-        set => WriteParamField(ref _DegRotX_04, value);
+        get => _degRotX04;
+        set => WriteParamField(ref _degRotX04, value);
     }
-    private short _DegRotX_04;
+    private short _degRotX04;
 
     [ParamField(0xA2, ParamType.I16)]
-    public short DegRotY_04
+    public short DegRotY04
     {
-        get => _DegRotY_04;
-        set => WriteParamField(ref _DegRotY_04, value);
+        get => _degRotY04;
+        set => WriteParamField(ref _degRotY04, value);
     }
-    private short _DegRotY_04;
+    private short _degRotY04;
 
     [ParamField(0xA4, ParamType.I16)]
-    public short ColR_04
+    public short ColR04
     {
-        get => _ColR_04;
-        set => WriteParamField(ref _ColR_04, value);
+        get => _colR04;
+        set => WriteParamField(ref _colR04, value);
     }
-    private short _ColR_04;
+    private short _colR04;
 
     [ParamField(0xA6, ParamType.I16)]
-    public short ColG_04
+    public short ColG04
     {
-        get => _ColG_04;
-        set => WriteParamField(ref _ColG_04, value);
+        get => _colG04;
+        set => WriteParamField(ref _colG04, value);
     }
-    private short _ColG_04;
+    private short _colG04;
 
     [ParamField(0xA8, ParamType.I16)]
-    public short ColB_04
+    public short ColB04
     {
-        get => _ColB_04;
-        set => WriteParamField(ref _ColB_04, value);
+        get => _colB04;
+        set => WriteParamField(ref _colB04, value);
     }
-    private short _ColB_04;
+    private short _colB04;
 
     [ParamField(0xAA, ParamType.I16)]
-    public short ColA_04
+    public short ColA04
     {
-        get => _ColA_04;
-        set => WriteParamField(ref _ColA_04, value);
+        get => _colA04;
+        set => WriteParamField(ref _colA04, value);
     }
-    private short _ColA_04;
+    private short _colA04;
 
     [ParamField(0xAC, ParamType.Dummy8, 4)]
-    public byte[] Pad_04
+    public byte[] Pad04
     {
-        get => _Pad_04;
-        set => WriteParamField(ref _Pad_04, value);
+        get => _pad04;
+        set => WriteParamField(ref _pad04, value);
     }
-    private byte[] _Pad_04 = null!;
+    private byte[] _pad04 = null!;
 
     [ParamField(0xB0, ParamType.I16)]
-    public short DegRotX_05
+    public short DegRotX05
     {
-        get => _DegRotX_05;
-        set => WriteParamField(ref _DegRotX_05, value);
+        get => _degRotX05;
+        set => WriteParamField(ref _degRotX05, value);
     }
-    private short _DegRotX_05;
+    private short _degRotX05;
 
     [ParamField(0xB2, ParamType.I16)]
-    public short DegRotY_05
+    public short DegRotY05
     {
-        get => _DegRotY_05;
-        set => WriteParamField(ref _DegRotY_05, value);
+        get => _degRotY05;
+        set => WriteParamField(ref _degRotY05, value);
     }
-    private short _DegRotY_05;
+    private short _degRotY05;
 
     [ParamField(0xB4, ParamType.I16)]
-    public short ColR_05
+    public short ColR05
     {
-        get => _ColR_05;
-        set => WriteParamField(ref _ColR_05, value);
+        get => _colR05;
+        set => WriteParamField(ref _colR05, value);
     }
-    private short _ColR_05;
+    private short _colR05;
 
     [ParamField(0xB6, ParamType.I16)]
-    public short ColG_05
+    public short ColG05
     {
-        get => _ColG_05;
-        set => WriteParamField(ref _ColG_05, value);
+        get => _colG05;
+        set => WriteParamField(ref _colG05, value);
     }
-    private short _ColG_05;
+    private short _colG05;
 
     [ParamField(0xB8, ParamType.I16)]
-    public short ColB_05
+    public short ColB05
     {
-        get => _ColB_05;
-        set => WriteParamField(ref _ColB_05, value);
+        get => _colB05;
+        set => WriteParamField(ref _colB05, value);
     }
-    private short _ColB_05;
+    private short _colB05;
 
     [ParamField(0xBA, ParamType.I16)]
-    public short ColA_05
+    public short ColA05
     {
-        get => _ColA_05;
-        set => WriteParamField(ref _ColA_05, value);
+        get => _colA05;
+        set => WriteParamField(ref _colA05, value);
     }
-    private short _ColA_05;
+    private short _colA05;
 
     [ParamField(0xBC, ParamType.Dummy8, 4)]
-    public byte[] Pad_05
+    public byte[] Pad05
     {
-        get => _Pad_05;
-        set => WriteParamField(ref _Pad_05, value);
+        get => _pad05;
+        set => WriteParamField(ref _pad05, value);
     }
-    private byte[] _Pad_05 = null!;
+    private byte[] _pad05 = null!;
 
     [ParamField(0xC0, ParamType.I16)]
-    public short DegRotX_06
+    public short DegRotX06
     {
-        get => _DegRotX_06;
-        set => WriteParamField(ref _DegRotX_06, value);
+        get => _degRotX06;
+        set => WriteParamField(ref _degRotX06, value);
     }
-    private short _DegRotX_06;
+    private short _degRotX06;
 
     [ParamField(0xC2, ParamType.I16)]
-    public short DegRotY_06
+    public short DegRotY06
     {
-        get => _DegRotY_06;
-        set => WriteParamField(ref _DegRotY_06, value);
+        get => _degRotY06;
+        set => WriteParamField(ref _degRotY06, value);
     }
-    private short _DegRotY_06;
+    private short _degRotY06;
 
     [ParamField(0xC4, ParamType.I16)]
-    public short ColR_06
+    public short ColR06
     {
-        get => _ColR_06;
-        set => WriteParamField(ref _ColR_06, value);
+        get => _colR06;
+        set => WriteParamField(ref _colR06, value);
     }
-    private short _ColR_06;
+    private short _colR06;
 
     [ParamField(0xC6, ParamType.I16)]
-    public short ColG_06
+    public short ColG06
     {
-        get => _ColG_06;
-        set => WriteParamField(ref _ColG_06, value);
+        get => _colG06;
+        set => WriteParamField(ref _colG06, value);
     }
-    private short _ColG_06;
+    private short _colG06;
 
     [ParamField(0xC8, ParamType.I16)]
-    public short ColB_06
+    public short ColB06
     {
-        get => _ColB_06;
-        set => WriteParamField(ref _ColB_06, value);
+        get => _colB06;
+        set => WriteParamField(ref _colB06, value);
     }
-    private short _ColB_06;
+    private short _colB06;
 
     [ParamField(0xCA, ParamType.I16)]
-    public short ColA_06
+    public short ColA06
     {
-        get => _ColA_06;
-        set => WriteParamField(ref _ColA_06, value);
+        get => _colA06;
+        set => WriteParamField(ref _colA06, value);
     }
-    private short _ColA_06;
+    private short _colA06;
 
     [ParamField(0xCC, ParamType.Dummy8, 4)]
-    public byte[] Pad_06
+    public byte[] Pad06
     {
-        get => _Pad_06;
-        set => WriteParamField(ref _Pad_06, value);
+        get => _pad06;
+        set => WriteParamField(ref _pad06, value);
     }
-    private byte[] _Pad_06 = null!;
+    private byte[] _pad06 = null!;
 
     [ParamField(0xD0, ParamType.I16)]
-    public short DegRotX_07
+    public short DegRotX07
     {
-        get => _DegRotX_07;
-        set => WriteParamField(ref _DegRotX_07, value);
+        get => _degRotX07;
+        set => WriteParamField(ref _degRotX07, value);
     }
-    private short _DegRotX_07;
+    private short _degRotX07;
 
     [ParamField(0xD2, ParamType.I16)]
-    public short DegRotY_07
+    public short DegRotY07
     {
-        get => _DegRotY_07;
-        set => WriteParamField(ref _DegRotY_07, value);
+        get => _degRotY07;
+        set => WriteParamField(ref _degRotY07, value);
     }
-    private short _DegRotY_07;
+    private short _degRotY07;
 
     [ParamField(0xD4, ParamType.I16)]
-    public short ColR_07
+    public short ColR07
     {
-        get => _ColR_07;
-        set => WriteParamField(ref _ColR_07, value);
+        get => _colR07;
+        set => WriteParamField(ref _colR07, value);
     }
-    private short _ColR_07;
+    private short _colR07;
 
     [ParamField(0xD6, ParamType.I16)]
-    public short ColG_07
+    public short ColG07
     {
-        get => _ColG_07;
-        set => WriteParamField(ref _ColG_07, value);
+        get => _colG07;
+        set => WriteParamField(ref _colG07, value);
     }
-    private short _ColG_07;
+    private short _colG07;
 
     [ParamField(0xD8, ParamType.I16)]
-    public short ColB_07
+    public short ColB07
     {
-        get => _ColB_07;
-        set => WriteParamField(ref _ColB_07, value);
+        get => _colB07;
+        set => WriteParamField(ref _colB07, value);
     }
-    private short _ColB_07;
+    private short _colB07;
 
     [ParamField(0xDA, ParamType.I16)]
-    public short ColA_07
+    public short ColA07
     {
-        get => _ColA_07;
-        set => WriteParamField(ref _ColA_07, value);
+        get => _colA07;
+        set => WriteParamField(ref _colA07, value);
     }
-    private short _ColA_07;
+    private short _colA07;
 
     [ParamField(0xDC, ParamType.Dummy8, 4)]
-    public byte[] Pad_07
+    public byte[] Pad07
     {
-        get => _Pad_07;
-        set => WriteParamField(ref _Pad_07, value);
+        get => _pad07;
+        set => WriteParamField(ref _pad07, value);
     }
-    private byte[] _Pad_07 = null!;
+    private byte[] _pad07 = null!;
 
     [ParamField(0xE0, ParamType.I16)]
-    public short DegRotX_08
+    public short DegRotX08
     {
-        get => _DegRotX_08;
-        set => WriteParamField(ref _DegRotX_08, value);
+        get => _degRotX08;
+        set => WriteParamField(ref _degRotX08, value);
     }
-    private short _DegRotX_08;
+    private short _degRotX08;
 
     [ParamField(0xE2, ParamType.I16)]
-    public short DegRotY_08
+    public short DegRotY08
     {
-        get => _DegRotY_08;
-        set => WriteParamField(ref _DegRotY_08, value);
+        get => _degRotY08;
+        set => WriteParamField(ref _degRotY08, value);
     }
-    private short _DegRotY_08;
+    private short _degRotY08;
 
     [ParamField(0xE4, ParamType.I16)]
-    public short ColR_08
+    public short ColR08
     {
-        get => _ColR_08;
-        set => WriteParamField(ref _ColR_08, value);
+        get => _colR08;
+        set => WriteParamField(ref _colR08, value);
     }
-    private short _ColR_08;
+    private short _colR08;
 
     [ParamField(0xE6, ParamType.I16)]
-    public short ColG_08
+    public short ColG08
     {
-        get => _ColG_08;
-        set => WriteParamField(ref _ColG_08, value);
+        get => _colG08;
+        set => WriteParamField(ref _colG08, value);
     }
-    private short _ColG_08;
+    private short _colG08;
 
     [ParamField(0xE8, ParamType.I16)]
-    public short ColB_08
+    public short ColB08
     {
-        get => _ColB_08;
-        set => WriteParamField(ref _ColB_08, value);
+        get => _colB08;
+        set => WriteParamField(ref _colB08, value);
     }
-    private short _ColB_08;
+    private short _colB08;
 
     [ParamField(0xEA, ParamType.I16)]
-    public short ColA_08
+    public short ColA08
     {
-        get => _ColA_08;
-        set => WriteParamField(ref _ColA_08, value);
+        get => _colA08;
+        set => WriteParamField(ref _colA08, value);
     }
-    private short _ColA_08;
+    private short _colA08;
 
     [ParamField(0xEC, ParamType.Dummy8, 4)]
-    public byte[] Pad_08
+    public byte[] Pad08
     {
-        get => _Pad_08;
-        set => WriteParamField(ref _Pad_08, value);
+        get => _pad08;
+        set => WriteParamField(ref _pad08, value);
     }
-    private byte[] _Pad_08 = null!;
+    private byte[] _pad08 = null!;
 
     [ParamField(0xF0, ParamType.I16)]
-    public short DegRotX_09
+    public short DegRotX09
     {
-        get => _DegRotX_09;
-        set => WriteParamField(ref _DegRotX_09, value);
+        get => _degRotX09;
+        set => WriteParamField(ref _degRotX09, value);
     }
-    private short _DegRotX_09;
+    private short _degRotX09;
 
     [ParamField(0xF2, ParamType.I16)]
-    public short DegRotY_09
+    public short DegRotY09
     {
-        get => _DegRotY_09;
-        set => WriteParamField(ref _DegRotY_09, value);
+        get => _degRotY09;
+        set => WriteParamField(ref _degRotY09, value);
     }
-    private short _DegRotY_09;
+    private short _degRotY09;
 
     [ParamField(0xF4, ParamType.I16)]
-    public short ColR_09
+    public short ColR09
     {
-        get => _ColR_09;
-        set => WriteParamField(ref _ColR_09, value);
+        get => _colR09;
+        set => WriteParamField(ref _colR09, value);
     }
-    private short _ColR_09;
+    private short _colR09;
 
     [ParamField(0xF6, ParamType.I16)]
-    public short ColG_09
+    public short ColG09
     {
-        get => _ColG_09;
-        set => WriteParamField(ref _ColG_09, value);
+        get => _colG09;
+        set => WriteParamField(ref _colG09, value);
     }
-    private short _ColG_09;
+    private short _colG09;
 
     [ParamField(0xF8, ParamType.I16)]
-    public short ColB_09
+    public short ColB09
     {
-        get => _ColB_09;
-        set => WriteParamField(ref _ColB_09, value);
+        get => _colB09;
+        set => WriteParamField(ref _colB09, value);
     }
-    private short _ColB_09;
+    private short _colB09;
 
     [ParamField(0xFA, ParamType.I16)]
-    public short ColA_09
+    public short ColA09
     {
-        get => _ColA_09;
-        set => WriteParamField(ref _ColA_09, value);
+        get => _colA09;
+        set => WriteParamField(ref _colA09, value);
     }
-    private short _ColA_09;
+    private short _colA09;
 
     [ParamField(0xFC, ParamType.Dummy8, 4)]
-    public byte[] Pad_09
+    public byte[] Pad09
     {
-        get => _Pad_09;
-        set => WriteParamField(ref _Pad_09, value);
+        get => _pad09;
+        set => WriteParamField(ref _pad09, value);
     }
-    private byte[] _Pad_09 = null!;
+    private byte[] _pad09 = null!;
 
 }

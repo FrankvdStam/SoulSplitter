@@ -24,107 +24,107 @@ namespace SoulMemory.DarkSouls1.Parameters;
 public class GameAreaParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
     [ParamField(0x0, ParamType.U32)]
-    public uint BonusSoul_single
+    public uint BonusSoulSingle
     {
-        get => _BonusSoul_single;
-        set => WriteParamField(ref _BonusSoul_single, value);
+        get => _bonusSoulSingle;
+        set => WriteParamField(ref _bonusSoulSingle, value);
     }
-    private uint _BonusSoul_single;
+    private uint _bonusSoulSingle;
 
     [ParamField(0x4, ParamType.U32)]
-    public uint BonusSoul_multi
+    public uint BonusSoulMulti
     {
-        get => _BonusSoul_multi;
-        set => WriteParamField(ref _BonusSoul_multi, value);
+        get => _bonusSoulMulti;
+        set => WriteParamField(ref _bonusSoulMulti, value);
     }
-    private uint _BonusSoul_multi;
+    private uint _bonusSoulMulti;
 
     [ParamField(0x8, ParamType.I32)]
     public int HumanityPointCountFlagIdTop
     {
-        get => _HumanityPointCountFlagIdTop;
-        set => WriteParamField(ref _HumanityPointCountFlagIdTop, value);
+        get => _humanityPointCountFlagIdTop;
+        set => WriteParamField(ref _humanityPointCountFlagIdTop, value);
     }
-    private int _HumanityPointCountFlagIdTop;
+    private int _humanityPointCountFlagIdTop;
 
     [ParamField(0xC, ParamType.U16)]
     public ushort HumanityDropPoint1
     {
-        get => _HumanityDropPoint1;
-        set => WriteParamField(ref _HumanityDropPoint1, value);
+        get => _humanityDropPoint1;
+        set => WriteParamField(ref _humanityDropPoint1, value);
     }
-    private ushort _HumanityDropPoint1;
+    private ushort _humanityDropPoint1;
 
     [ParamField(0xE, ParamType.U16)]
     public ushort HumanityDropPoint2
     {
-        get => _HumanityDropPoint2;
-        set => WriteParamField(ref _HumanityDropPoint2, value);
+        get => _humanityDropPoint2;
+        set => WriteParamField(ref _humanityDropPoint2, value);
     }
-    private ushort _HumanityDropPoint2;
+    private ushort _humanityDropPoint2;
 
     [ParamField(0x10, ParamType.U16)]
     public ushort HumanityDropPoint3
     {
-        get => _HumanityDropPoint3;
-        set => WriteParamField(ref _HumanityDropPoint3, value);
+        get => _humanityDropPoint3;
+        set => WriteParamField(ref _humanityDropPoint3, value);
     }
-    private ushort _HumanityDropPoint3;
+    private ushort _humanityDropPoint3;
 
     [ParamField(0x12, ParamType.U16)]
     public ushort HumanityDropPoint4
     {
-        get => _HumanityDropPoint4;
-        set => WriteParamField(ref _HumanityDropPoint4, value);
+        get => _humanityDropPoint4;
+        set => WriteParamField(ref _humanityDropPoint4, value);
     }
-    private ushort _HumanityDropPoint4;
+    private ushort _humanityDropPoint4;
 
     [ParamField(0x14, ParamType.U16)]
     public ushort HumanityDropPoint5
     {
-        get => _HumanityDropPoint5;
-        set => WriteParamField(ref _HumanityDropPoint5, value);
+        get => _humanityDropPoint5;
+        set => WriteParamField(ref _humanityDropPoint5, value);
     }
-    private ushort _HumanityDropPoint5;
+    private ushort _humanityDropPoint5;
 
     [ParamField(0x16, ParamType.U16)]
     public ushort HumanityDropPoint6
     {
-        get => _HumanityDropPoint6;
-        set => WriteParamField(ref _HumanityDropPoint6, value);
+        get => _humanityDropPoint6;
+        set => WriteParamField(ref _humanityDropPoint6, value);
     }
-    private ushort _HumanityDropPoint6;
+    private ushort _humanityDropPoint6;
 
     [ParamField(0x18, ParamType.U16)]
     public ushort HumanityDropPoint7
     {
-        get => _HumanityDropPoint7;
-        set => WriteParamField(ref _HumanityDropPoint7, value);
+        get => _humanityDropPoint7;
+        set => WriteParamField(ref _humanityDropPoint7, value);
     }
-    private ushort _HumanityDropPoint7;
+    private ushort _humanityDropPoint7;
 
     [ParamField(0x1A, ParamType.U16)]
     public ushort HumanityDropPoint8
     {
-        get => _HumanityDropPoint8;
-        set => WriteParamField(ref _HumanityDropPoint8, value);
+        get => _humanityDropPoint8;
+        set => WriteParamField(ref _humanityDropPoint8, value);
     }
-    private ushort _HumanityDropPoint8;
+    private ushort _humanityDropPoint8;
 
     [ParamField(0x1C, ParamType.U16)]
     public ushort HumanityDropPoint9
     {
-        get => _HumanityDropPoint9;
-        set => WriteParamField(ref _HumanityDropPoint9, value);
+        get => _humanityDropPoint9;
+        set => WriteParamField(ref _humanityDropPoint9, value);
     }
-    private ushort _HumanityDropPoint9;
+    private ushort _humanityDropPoint9;
 
     [ParamField(0x1E, ParamType.U16)]
     public ushort HumanityDropPoint10
     {
-        get => _HumanityDropPoint10;
-        set => WriteParamField(ref _HumanityDropPoint10, value);
+        get => _humanityDropPoint10;
+        set => WriteParamField(ref _humanityDropPoint10, value);
     }
-    private ushort _HumanityDropPoint10;
+    private ushort _humanityDropPoint10;
 
 }

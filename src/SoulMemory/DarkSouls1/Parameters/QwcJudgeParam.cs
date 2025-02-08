@@ -24,67 +24,67 @@ namespace SoulMemory.DarkSouls1.Parameters;
 public class QwcJudgeParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
     [ParamField(0x0, ParamType.I16)]
-    public short PcJudgeUnderWB
+    public short PcJudgeUnderWb
     {
-        get => _PcJudgeUnderWB;
-        set => WriteParamField(ref _PcJudgeUnderWB, value);
+        get => _pcJudgeUnderWb;
+        set => WriteParamField(ref _pcJudgeUnderWb, value);
     }
-    private short _PcJudgeUnderWB;
+    private short _pcJudgeUnderWb;
 
     [ParamField(0x2, ParamType.I16)]
-    public short PcJudgeTopWB
+    public short PcJudgeTopWb
     {
-        get => _PcJudgeTopWB;
-        set => WriteParamField(ref _PcJudgeTopWB, value);
+        get => _pcJudgeTopWb;
+        set => WriteParamField(ref _pcJudgeTopWb, value);
     }
-    private short _PcJudgeTopWB;
+    private short _pcJudgeTopWb;
 
     [ParamField(0x4, ParamType.I16)]
-    public short PcJudgeUnderLR
+    public short PcJudgeUnderLr
     {
-        get => _PcJudgeUnderLR;
-        set => WriteParamField(ref _PcJudgeUnderLR, value);
+        get => _pcJudgeUnderLr;
+        set => WriteParamField(ref _pcJudgeUnderLr, value);
     }
-    private short _PcJudgeUnderLR;
+    private short _pcJudgeUnderLr;
 
     [ParamField(0x6, ParamType.I16)]
-    public short PcJudgeTopLR
+    public short PcJudgeTopLr
     {
-        get => _PcJudgeTopLR;
-        set => WriteParamField(ref _PcJudgeTopLR, value);
+        get => _pcJudgeTopLr;
+        set => WriteParamField(ref _pcJudgeTopLr, value);
     }
-    private short _PcJudgeTopLR;
+    private short _pcJudgeTopLr;
 
     [ParamField(0x8, ParamType.I16)]
-    public short AreaJudgeUnderWB
+    public short AreaJudgeUnderWb
     {
-        get => _AreaJudgeUnderWB;
-        set => WriteParamField(ref _AreaJudgeUnderWB, value);
+        get => _areaJudgeUnderWb;
+        set => WriteParamField(ref _areaJudgeUnderWb, value);
     }
-    private short _AreaJudgeUnderWB;
+    private short _areaJudgeUnderWb;
 
     [ParamField(0xA, ParamType.I16)]
-    public short AreaJudgeTopWB
+    public short AreaJudgeTopWb
     {
-        get => _AreaJudgeTopWB;
-        set => WriteParamField(ref _AreaJudgeTopWB, value);
+        get => _areaJudgeTopWb;
+        set => WriteParamField(ref _areaJudgeTopWb, value);
     }
-    private short _AreaJudgeTopWB;
+    private short _areaJudgeTopWb;
 
     [ParamField(0xC, ParamType.I16)]
-    public short AreaJudgeUnderLR
+    public short AreaJudgeUnderLr
     {
-        get => _AreaJudgeUnderLR;
-        set => WriteParamField(ref _AreaJudgeUnderLR, value);
+        get => _areaJudgeUnderLr;
+        set => WriteParamField(ref _areaJudgeUnderLr, value);
     }
-    private short _AreaJudgeUnderLR;
+    private short _areaJudgeUnderLr;
 
     [ParamField(0xE, ParamType.I16)]
-    public short AreaJudgeTopLR
+    public short AreaJudgeTopLr
     {
-        get => _AreaJudgeTopLR;
-        set => WriteParamField(ref _AreaJudgeTopLR, value);
+        get => _areaJudgeTopLr;
+        set => WriteParamField(ref _areaJudgeTopLr, value);
     }
-    private short _AreaJudgeTopLR;
+    private short _areaJudgeTopLr;
 
 }

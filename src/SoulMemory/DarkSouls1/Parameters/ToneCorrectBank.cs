@@ -26,73 +26,73 @@ public class ToneCorrectBank(Pointer basePointer, ByteArrayMemory memory, long o
     [ParamField(0x0, ParamType.F32)]
     public float BrightnessR
     {
-        get => _BrightnessR;
-        set => WriteParamField(ref _BrightnessR, value);
+        get => _brightnessR;
+        set => WriteParamField(ref _brightnessR, value);
     }
-    private float _BrightnessR;
+    private float _brightnessR;
 
     [ParamField(0x4, ParamType.F32)]
     public float BrightnessG
     {
-        get => _BrightnessG;
-        set => WriteParamField(ref _BrightnessG, value);
+        get => _brightnessG;
+        set => WriteParamField(ref _brightnessG, value);
     }
-    private float _BrightnessG;
+    private float _brightnessG;
 
     [ParamField(0x8, ParamType.F32)]
     public float BrightnessB
     {
-        get => _BrightnessB;
-        set => WriteParamField(ref _BrightnessB, value);
+        get => _brightnessB;
+        set => WriteParamField(ref _brightnessB, value);
     }
-    private float _BrightnessB;
+    private float _brightnessB;
 
     [ParamField(0xC, ParamType.F32)]
     public float ContrastR
     {
-        get => _ContrastR;
-        set => WriteParamField(ref _ContrastR, value);
+        get => _contrastR;
+        set => WriteParamField(ref _contrastR, value);
     }
-    private float _ContrastR;
+    private float _contrastR;
 
     [ParamField(0x10, ParamType.F32)]
     public float ContrastG
     {
-        get => _ContrastG;
-        set => WriteParamField(ref _ContrastG, value);
+        get => _contrastG;
+        set => WriteParamField(ref _contrastG, value);
     }
-    private float _ContrastG;
+    private float _contrastG;
 
     [ParamField(0x14, ParamType.F32)]
     public float ContrastB
     {
-        get => _ContrastB;
-        set => WriteParamField(ref _ContrastB, value);
+        get => _contrastB;
+        set => WriteParamField(ref _contrastB, value);
     }
-    private float _ContrastB;
+    private float _contrastB;
 
     [ParamField(0x18, ParamType.F32)]
     public float Saturation
     {
-        get => _Saturation;
-        set => WriteParamField(ref _Saturation, value);
+        get => _saturation;
+        set => WriteParamField(ref _saturation, value);
     }
-    private float _Saturation;
+    private float _saturation;
 
     [ParamField(0x1C, ParamType.F32)]
     public float Hue
     {
-        get => _Hue;
-        set => WriteParamField(ref _Hue, value);
+        get => _hue;
+        set => WriteParamField(ref _hue, value);
     }
-    private float _Hue;
+    private float _hue;
 
     [ParamField(0x20, ParamType.F32)]
     public float SfxMultiplier
     {
-        get => _SfxMultiplier;
-        set => WriteParamField(ref _SfxMultiplier, value);
+        get => _sfxMultiplier;
+        set => WriteParamField(ref _sfxMultiplier, value);
     }
-    private float _SfxMultiplier;
+    private float _sfxMultiplier;
 
 }

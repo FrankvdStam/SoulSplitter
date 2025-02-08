@@ -26,208 +26,208 @@ public class EquipParamAccessory(Pointer basePointer, ByteArrayMemory memory, lo
     [ParamField(0x0, ParamType.I32)]
     public int RefId
     {
-        get => _RefId;
-        set => WriteParamField(ref _RefId, value);
+        get => _refId;
+        set => WriteParamField(ref _refId, value);
     }
-    private int _RefId;
+    private int _refId;
 
     [ParamField(0x4, ParamType.I32)]
     public int SfxVariationId
     {
-        get => _SfxVariationId;
-        set => WriteParamField(ref _SfxVariationId, value);
+        get => _sfxVariationId;
+        set => WriteParamField(ref _sfxVariationId, value);
     }
-    private int _SfxVariationId;
+    private int _sfxVariationId;
 
     [ParamField(0x8, ParamType.F32)]
     public float Weight
     {
-        get => _Weight;
-        set => WriteParamField(ref _Weight, value);
+        get => _weight;
+        set => WriteParamField(ref _weight, value);
     }
-    private float _Weight;
+    private float _weight;
 
     [ParamField(0xC, ParamType.I32)]
     public int BehaviorId
     {
-        get => _BehaviorId;
-        set => WriteParamField(ref _BehaviorId, value);
+        get => _behaviorId;
+        set => WriteParamField(ref _behaviorId, value);
     }
-    private int _BehaviorId;
+    private int _behaviorId;
 
     [ParamField(0x10, ParamType.I32)]
     public int BasicPrice
     {
-        get => _BasicPrice;
-        set => WriteParamField(ref _BasicPrice, value);
+        get => _basicPrice;
+        set => WriteParamField(ref _basicPrice, value);
     }
-    private int _BasicPrice;
+    private int _basicPrice;
 
     [ParamField(0x14, ParamType.I32)]
     public int SellValue
     {
-        get => _SellValue;
-        set => WriteParamField(ref _SellValue, value);
+        get => _sellValue;
+        set => WriteParamField(ref _sellValue, value);
     }
-    private int _SellValue;
+    private int _sellValue;
 
     [ParamField(0x18, ParamType.I32)]
     public int SortId
     {
-        get => _SortId;
-        set => WriteParamField(ref _SortId, value);
+        get => _sortId;
+        set => WriteParamField(ref _sortId, value);
     }
-    private int _SortId;
+    private int _sortId;
 
     [ParamField(0x1C, ParamType.I32)]
     public int QwcId
     {
-        get => _QwcId;
-        set => WriteParamField(ref _QwcId, value);
+        get => _qwcId;
+        set => WriteParamField(ref _qwcId, value);
     }
-    private int _QwcId;
+    private int _qwcId;
 
     [ParamField(0x20, ParamType.U16)]
     public ushort EquipModelId
     {
-        get => _EquipModelId;
-        set => WriteParamField(ref _EquipModelId, value);
+        get => _equipModelId;
+        set => WriteParamField(ref _equipModelId, value);
     }
-    private ushort _EquipModelId;
+    private ushort _equipModelId;
 
     [ParamField(0x22, ParamType.U16)]
     public ushort IconId
     {
-        get => _IconId;
-        set => WriteParamField(ref _IconId, value);
+        get => _iconId;
+        set => WriteParamField(ref _iconId, value);
     }
-    private ushort _IconId;
+    private ushort _iconId;
 
     [ParamField(0x24, ParamType.I16)]
     public short ShopLv
     {
-        get => _ShopLv;
-        set => WriteParamField(ref _ShopLv, value);
+        get => _shopLv;
+        set => WriteParamField(ref _shopLv, value);
     }
-    private short _ShopLv;
+    private short _shopLv;
 
     [ParamField(0x26, ParamType.I16)]
     public short TrophySGradeId
     {
-        get => _TrophySGradeId;
-        set => WriteParamField(ref _TrophySGradeId, value);
+        get => _trophySGradeId;
+        set => WriteParamField(ref _trophySGradeId, value);
     }
-    private short _TrophySGradeId;
+    private short _trophySGradeId;
 
     [ParamField(0x28, ParamType.I16)]
     public short TrophySeqId
     {
-        get => _TrophySeqId;
-        set => WriteParamField(ref _TrophySeqId, value);
+        get => _trophySeqId;
+        set => WriteParamField(ref _trophySeqId, value);
     }
-    private short _TrophySeqId;
+    private short _trophySeqId;
 
     [ParamField(0x2A, ParamType.U8)]
     public byte EquipModelCategory
     {
-        get => _EquipModelCategory;
-        set => WriteParamField(ref _EquipModelCategory, value);
+        get => _equipModelCategory;
+        set => WriteParamField(ref _equipModelCategory, value);
     }
-    private byte _EquipModelCategory;
+    private byte _equipModelCategory;
 
     [ParamField(0x2B, ParamType.U8)]
     public byte EquipModelGender
     {
-        get => _EquipModelGender;
-        set => WriteParamField(ref _EquipModelGender, value);
+        get => _equipModelGender;
+        set => WriteParamField(ref _equipModelGender, value);
     }
-    private byte _EquipModelGender;
+    private byte _equipModelGender;
 
     [ParamField(0x2C, ParamType.U8)]
     public byte AccessoryCategory
     {
-        get => _AccessoryCategory;
-        set => WriteParamField(ref _AccessoryCategory, value);
+        get => _accessoryCategory;
+        set => WriteParamField(ref _accessoryCategory, value);
     }
-    private byte _AccessoryCategory;
+    private byte _accessoryCategory;
 
     [ParamField(0x2D, ParamType.U8)]
     public byte RefCategory
     {
-        get => _RefCategory;
-        set => WriteParamField(ref _RefCategory, value);
+        get => _refCategory;
+        set => WriteParamField(ref _refCategory, value);
     }
-    private byte _RefCategory;
+    private byte _refCategory;
 
     [ParamField(0x2E, ParamType.U8)]
     public byte SpEffectCategory
     {
-        get => _SpEffectCategory;
-        set => WriteParamField(ref _SpEffectCategory, value);
+        get => _spEffectCategory;
+        set => WriteParamField(ref _spEffectCategory, value);
     }
-    private byte _SpEffectCategory;
+    private byte _spEffectCategory;
 
     [ParamField(0x2F, ParamType.Dummy8, 1)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
     [ParamField(0x30, ParamType.I32)]
     public int VagrantItemLotId
     {
-        get => _VagrantItemLotId;
-        set => WriteParamField(ref _VagrantItemLotId, value);
+        get => _vagrantItemLotId;
+        set => WriteParamField(ref _vagrantItemLotId, value);
     }
-    private int _VagrantItemLotId;
+    private int _vagrantItemLotId;
 
     [ParamField(0x34, ParamType.I32)]
     public int VagrantBonusEneDropItemLotId
     {
-        get => _VagrantBonusEneDropItemLotId;
-        set => WriteParamField(ref _VagrantBonusEneDropItemLotId, value);
+        get => _vagrantBonusEneDropItemLotId;
+        set => WriteParamField(ref _vagrantBonusEneDropItemLotId, value);
     }
-    private int _VagrantBonusEneDropItemLotId;
+    private int _vagrantBonusEneDropItemLotId;
 
     [ParamField(0x38, ParamType.I32)]
     public int VagrantItemEneDropItemLotId
     {
-        get => _VagrantItemEneDropItemLotId;
-        set => WriteParamField(ref _VagrantItemEneDropItemLotId, value);
+        get => _vagrantItemEneDropItemLotId;
+        set => WriteParamField(ref _vagrantItemEneDropItemLotId, value);
     }
-    private int _VagrantItemEneDropItemLotId;
+    private int _vagrantItemEneDropItemLotId;
 
     #region BitField IsDepositBitfield ==============================================================================
 
     [ParamField(0x3C, ParamType.U8)]
     public byte IsDepositBitfield
     {
-        get => _IsDepositBitfield;
-        set => WriteParamField(ref _IsDepositBitfield, value);
+        get => _isDepositBitfield;
+        set => WriteParamField(ref _isDepositBitfield, value);
     }
-    private byte _IsDepositBitfield;
+    private byte _isDepositBitfield;
 
     [ParamBitField(nameof(IsDepositBitfield), bits: 1, bitsOffset: 0)]
     public byte IsDeposit
     {
-        get => GetbitfieldValue(_IsDepositBitfield);
-        set => SetBitfieldValue(ref _IsDepositBitfield, value);
+        get => GetbitfieldValue(_isDepositBitfield);
+        set => SetBitfieldValue(ref _isDepositBitfield, value);
     }
 
     [ParamBitField(nameof(IsDepositBitfield), bits: 1, bitsOffset: 1)]
     public byte IsEquipOutBrake
     {
-        get => GetbitfieldValue(_IsDepositBitfield);
-        set => SetBitfieldValue(ref _IsDepositBitfield, value);
+        get => GetbitfieldValue(_isDepositBitfield);
+        set => SetBitfieldValue(ref _isDepositBitfield, value);
     }
 
     [ParamBitField(nameof(IsDepositBitfield), bits: 1, bitsOffset: 2)]
     public byte DisableMultiDropShare
     {
-        get => GetbitfieldValue(_IsDepositBitfield);
-        set => SetBitfieldValue(ref _IsDepositBitfield, value);
+        get => GetbitfieldValue(_isDepositBitfield);
+        set => SetBitfieldValue(ref _isDepositBitfield, value);
     }
 
     #endregion BitField IsDepositBitfield
@@ -235,9 +235,9 @@ public class EquipParamAccessory(Pointer basePointer, ByteArrayMemory memory, lo
     [ParamField(0x3D, ParamType.Dummy8, 3)]
     public byte[] Pad1
     {
-        get => _Pad1;
-        set => WriteParamField(ref _Pad1, value);
+        get => _pad1;
+        set => WriteParamField(ref _pad1, value);
     }
-    private byte[] _Pad1 = null!;
+    private byte[] _pad1 = null!;
 
 }
