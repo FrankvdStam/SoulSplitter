@@ -23,4 +23,5 @@ pub use
     crate::games::x64::armoredcore6::init_armoredcore6,
     crate::games::x64::darksouls2scholarofthefirstsin::init_scholar,
     crate::games::x64::eldenring::init_eldenring,
+    crate::games::x64::sekiro::init_sekiro,
 };
