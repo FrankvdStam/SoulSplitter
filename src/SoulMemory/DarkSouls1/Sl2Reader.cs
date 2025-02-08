@@ -42,9 +42,6 @@ internal static class Sl2Reader
     /// <summary>
     /// Read the IGT from an SL2 file
     /// </summary>
-    /// <param name="path">path to the SL2 file</param>
-    /// <param name="slot">the slot to read the IGT from</param>
-    /// <param name="version">The game version</param>
     /// <returns>IGT or -1 if sometimes failed</returns>
     public static int? GetSaveFileIgt(string? path, int slot, bool ptde)
     {
@@ -109,10 +106,6 @@ internal static class Sl2Reader
     /// <summary>
     /// Each USERDATA file is individually AES-128-CBC encrypted. 
     /// </summary>
-    /// <param name="cipherBytes">encrypted bytes</param>
-    /// <param name="key">key</param>
-    /// <param name="iv">iv</param>
-    /// <returns>decrypted bytes</returns>
     private static byte[] DecryptSl2(byte[] cipherBytes)
     {
         var encryptor = Aes.Create();
