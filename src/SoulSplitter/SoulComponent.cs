@@ -367,9 +367,9 @@ public class SoulComponent : IComponent
     private void ThrowIfInstallationInvalid()
     {
         var assemblyPath = Assembly.GetAssembly(typeof(SoulComponent)).Location;
-        var directory = Path.GetDirectoryName(assemblyPath);
+        var directory = Path.GetDirectoryName(assemblyPath)!;
 
-        var files = Directory.EnumerateFiles(directory).Select(i => Path.GetFileName(i)).ToList();
+        var files = Directory.EnumerateFiles(directory).Select(i => Path.GetFileName(i)!).ToList();
         var missing = _installedFiles.Except(files).ToList();
 
         if (missing.Any())
