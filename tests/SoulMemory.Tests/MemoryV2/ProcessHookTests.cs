@@ -178,7 +178,7 @@ public class ProcessHookTests
     [TestMethod]
     public void TryRefresh_Error_Access_Denied()
     {
-        Exception? ex = new Exception("Access is denied");
+        var ex = new Exception("Access is denied");
         _mockProcessWrapper
             .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
             .Returns(ProcessRefreshResult.Error);
@@ -196,7 +196,7 @@ public class ProcessHookTests
     [TestMethod]
     public void TryRefresh_Error_Unknown()
     {
-        Exception? ex = new Exception("Your computer is on fire");
+        var ex = new Exception("Your computer is on fire");
         _mockProcessWrapper
             .Setup(i => i.TryRefresh(It.IsAny<string>(), out ex))
             .Returns(ProcessRefreshResult.Error);

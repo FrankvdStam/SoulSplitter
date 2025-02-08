@@ -28,10 +28,10 @@ namespace CliTimer
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main(string[] _)
         {
             // Re-enable the cursor and move down a line on CTRL + C, in order to properly clean up timer stuff
-            Console.CancelKeyPress += (object sender, ConsoleCancelEventArgs e) =>
+            Console.CancelKeyPress += (object _, ConsoleCancelEventArgs _) =>
             {
                 Console.CursorVisible = true;
                 Console.SetCursorPosition(0, Console.CursorTop + 1);
@@ -75,9 +75,9 @@ namespace CliTimer
             Console.CursorVisible = false;
 
             // Prep
-            int inGameTime = 0;
+            var inGameTime = 0;
             var ds1 = new DarkSouls1();
-            bool hadError = false;
+            var hadError = false;
 
             // Timer loop, refreshes roughly every frame @ 60 FPS
             // Prints the current time or error and immediately moves back a line (or multiple at least for longer errors)
@@ -109,7 +109,7 @@ namespace CliTimer
                 }
 
                 // Finally format the current time and output it
-                TimeSpan ts = TimeSpan.FromMilliseconds(inGameTime);
+                var ts = TimeSpan.FromMilliseconds(inGameTime);
                 Console.WriteLine($"{(int)ts.TotalHours:D2}" + ts.ToString(@"\:mm\:ss\.fff"));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
 
@@ -123,9 +123,9 @@ namespace CliTimer
             Console.CursorVisible = false;
 
             // Prep
-            int inGameTime = 0;
+            var inGameTime = 0;
             var ds2 = new DarkSouls2();
-            bool hadError = false;
+            var hadError = false;
 
             // Timer loop, refreshes roughly every frame @ 60 FPS
             // Prints the current time or error and immediately moves back a line (or multiple at least for longer errors)
@@ -157,7 +157,7 @@ namespace CliTimer
                 }
 
                 // Finally format the current time and output it
-                TimeSpan ts = TimeSpan.FromMilliseconds(inGameTime);
+                var ts = TimeSpan.FromMilliseconds(inGameTime);
                 Console.WriteLine($"{(int)ts.TotalHours:D2}" + ts.ToString(@"\:mm\:ss\.fff"));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
 
@@ -171,9 +171,9 @@ namespace CliTimer
             Console.CursorVisible = false;
 
             // Prep
-            int inGameTime = 0;
+            var inGameTime = 0;
             var ds3 = new DarkSouls3();
-            bool hadError = false;
+            var hadError = false;
 
             // Timer loop, refreshes roughly every frame @ 60 FPS
             // Prints the current time or error and immediately moves back a line (or multiple at least for longer errors)
@@ -215,7 +215,7 @@ namespace CliTimer
                 }
 
                 // Finally format the current time and output it
-                TimeSpan ts = TimeSpan.FromMilliseconds(inGameTime);
+                var ts = TimeSpan.FromMilliseconds(inGameTime);
                 Console.WriteLine($"{(int)ts.TotalHours:D2}" + ts.ToString(@"\:mm\:ss\.fff"));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
 
@@ -229,9 +229,9 @@ namespace CliTimer
             Console.CursorVisible = false;
 
             // Prep
-            int inGameTime = 0;
+            var inGameTime = 0;
             var sekiro = new Sekiro();
-            bool hadError = false;
+            var hadError = false;
 
             // Timer loop, refreshes roughly every frame @ 60 FPS
             // Prints the current time or error and immediately moves back a line (or multiple at least for longer errors)
@@ -273,7 +273,7 @@ namespace CliTimer
                 }
 
                 // Finally format the current time and output it
-                TimeSpan ts = TimeSpan.FromMilliseconds(inGameTime);
+                var ts = TimeSpan.FromMilliseconds(inGameTime);
                 Console.WriteLine($"{(int)ts.TotalHours:D2}" + ts.ToString(@"\:mm\:ss\.fff"));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
 
@@ -287,9 +287,9 @@ namespace CliTimer
             Console.CursorVisible = false;
 
             // Prep
-            int inGameTime = 0;
+            var inGameTime = 0;
             var er = new EldenRing();
-            bool hadError = false;
+            var hadError = false;
 
             // Timer loop, refreshes roughly every frame @ 60 FPS
             // Prints the current time or error and immediately moves back a line (or multiple at least for longer errors)
@@ -331,7 +331,7 @@ namespace CliTimer
                 }
 
                 // Finally format the current time and output it
-                TimeSpan ts = TimeSpan.FromMilliseconds(inGameTime);
+                var ts = TimeSpan.FromMilliseconds(inGameTime);
                 Console.WriteLine($"{(int)ts.TotalHours:D2}" + ts.ToString(@"\:mm\:ss\.fff"));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
 

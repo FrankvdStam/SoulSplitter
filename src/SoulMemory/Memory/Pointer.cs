@@ -88,8 +88,8 @@ public class Pointer
 
         debugStringBuilder?.Append($" 0x{BaseAddress:x}");
 
-        long ptr = BaseAddress;
-        for (int i = 0; i < offsets.Count; i++)
+        var ptr = BaseAddress;
+        for (var i = 0; i < offsets.Count; i++)
         {
             var offset = offsets[i];
 
@@ -244,7 +244,7 @@ public class Pointer
     {
         var data = ReadMemory(offset, maxSize);
         length = 0;
-        for (int i = 1; i < data.Length; i++)
+        for (var i = 1; i < data.Length; i++)
         {
             if (data[i - 1] == 0 && data[i] == 0)
             {

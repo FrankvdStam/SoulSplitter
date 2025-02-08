@@ -124,7 +124,7 @@ internal class Scholar : IDarkSouls2
         var offset = r8d * 0x8 + 0x20;
         var vector = _eventFlagManager.CreatePointerFromAddress(offset);
 
-        for (int i = 0; i < 100; i++) //Replaced infinite while with for loop, in case some memes occur and the function never returns
+        for (var i = 0; i < 100; i++) //Replaced infinite while with for loop, in case some memes occur and the function never returns
         {
             if (vector.IsNullPtr())
             {

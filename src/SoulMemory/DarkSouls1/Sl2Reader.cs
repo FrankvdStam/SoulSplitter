@@ -60,23 +60,23 @@ internal static class Sl2Reader
             {
                 if (ptde)
                 {
-                    byte[] file = File.ReadAllBytes(path);
-                    int saveSlotSize = 0x60020;
+                    var file = File.ReadAllBytes(path);
+                    var saveSlotSize = 0x60020;
 
                     // Seems like GFWL files have a different slot size
                     if (file.Length != 4326432)
                         saveSlotSize = 0x60190;
 
-                    int igtOffset = 0x2dc + (saveSlotSize * slot);
+                    var igtOffset = 0x2dc + (saveSlotSize * slot);
                     igt = BitConverter.ToInt32(file, igtOffset);
                 }
                 else
                 {
                     // Each USERDATA file is individually AES - 128 - CBC encrypted.
-                    byte[] file = File.ReadAllBytes(path);
+                    var file = File.ReadAllBytes(path);
                     file = DecryptSl2(file);
-                    int saveSlotSize = 0x60030;
-                    int igtOffset = 0x2EC + (saveSlotSize * slot);
+                    var saveSlotSize = 0x60030;
+                    var igtOffset = 0x2EC + (saveSlotSize * slot);
                     igt = BitConverter.ToInt32(file, igtOffset);
                 }
             }

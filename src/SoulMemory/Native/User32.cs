@@ -31,8 +31,8 @@ internal static class User32
 
     public static uint GetForegroundProcessId()
     {
-        IntPtr hWnd = GetForegroundWindow();
-        GetWindowThreadProcessId(hWnd, out uint pid);
+        var hWnd = GetForegroundWindow();
+        GetWindowThreadProcessId(hWnd, out var pid);
         return pid;
     }
 }

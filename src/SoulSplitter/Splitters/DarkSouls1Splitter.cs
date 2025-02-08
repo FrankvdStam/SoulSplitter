@@ -372,7 +372,7 @@ public class DarkSouls1Splitter : ISplitter
     #region Dropmod
     private void UpdateDropMod()
     {
-        var process = _darkSouls1.GetProcess();
+        _darkSouls1.GetProcess();
         
 
         //Check exit request

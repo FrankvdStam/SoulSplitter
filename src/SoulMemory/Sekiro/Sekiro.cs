@@ -278,7 +278,7 @@ public class Sekiro : IGame
             var vector = worldInfoOwner.Append(0x10);
 
             //Loop over worldInfo structs
-            for (int i = 0; i < size; i++)
+            for (var i = 0; i < size; i++)
             {
                 var area = vector.ReadByte((i * 0x38) + 0xb);
                 if (area == eventFlagArea)
@@ -571,7 +571,7 @@ public class Sekiro : IGame
         
         //fix detour
         var igtFixDetourCode = new List<byte>(){0xE9};
-        int detourTarget = (int) (igtFixCodeLoc-(igtFixEntryPoint+5));
+        var detourTarget = (int) (igtFixCodeLoc-(igtFixEntryPoint+5));
         igtFixDetourCode.AddRange(BitConverter.GetBytes(detourTarget));
 
         //fix body
@@ -606,7 +606,7 @@ public class Sekiro : IGame
             0xE9 //jmp return igtFixEntryPoint +5
         ]);
 
-        int jmpTarget = (int)((igtFixEntryPoint+5)-(igtFixCodeLoc+103+5));
+        var jmpTarget = (int)((igtFixEntryPoint+5)-(igtFixCodeLoc+103+5));
         igtFixCode.AddRange(BitConverter.GetBytes(jmpTarget));
 
 

@@ -29,7 +29,7 @@ public static class Gdi32
     public static Color BitBlt(IntPtr src, int x, int y)
     {
         var screenPixel = new Bitmap(1, 1);
-        using (Graphics gdest = Graphics.FromImage(screenPixel))
+        using (var gdest = Graphics.FromImage(screenPixel))
         {
             var hDC = gdest.GetHdc();
             BitBlt(hDC, 0, 0, 1, 1, src, x, y, (int)CopyPixelOperation.SourceCopy);

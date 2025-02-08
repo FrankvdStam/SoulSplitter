@@ -81,7 +81,7 @@ public class DarkSouls3 : IGame
         {
             var versionString = _process?.MainModule?.FileVersionInfo.ProductVersion ?? "Read failed";
 
-            if (!Version.TryParse(versionString, out Version v))
+            if (!Version.TryParse(versionString, out var v))
             {
                 return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {versionString}"));
             }
@@ -220,7 +220,7 @@ public class DarkSouls3 : IGame
             var vector = worldInfoOwner.Append(0x10);
 
             //Loop over worldInfo structs
-            for (int i = 0; i < size; i++)
+            for (var i = 0; i < size; i++)
             {
                 //0x00007ff4fd9ba4c3
                 var area = vector.ReadByte((i * 0x38) + 0xb);

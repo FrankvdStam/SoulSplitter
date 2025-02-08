@@ -161,7 +161,7 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
         var changedCategories = new List<FlagTrackerCategoryViewModel>();
 
         //Check the next x flags
-        for(int i = 0; i < FlagsPerFrame; i++)
+        for(var i = 0; i < FlagsPerFrame; i++)
         {
             var (category, flag) = _lookup[_currentIndex];
             if (!flag.State)

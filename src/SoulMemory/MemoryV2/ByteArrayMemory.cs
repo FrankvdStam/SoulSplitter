@@ -33,7 +33,7 @@ public class ByteArrayMemory(byte[] data) : IMemory
 
     public void WriteBytes(long offset, byte[] bytes)
     {
-        for (int i = 0; i < bytes.Length; i++)
+        for (var i = 0; i < bytes.Length; i++)
         {
             data[offset + i] = bytes[i];
         }

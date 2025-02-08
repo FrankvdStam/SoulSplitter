@@ -248,11 +248,11 @@ public class SoulComponent : IComponent
 
     public XmlNode GetSettings(XmlDocument document)
     {
-        XmlElement root = document.CreateElement("Settings");
+        var root = document.CreateElement("Settings");
         MainWindow.Dispatcher.Invoke(() =>
         {
             var xml = MainWindow.MainViewModel.Serialize();
-            XmlDocumentFragment fragment = document.CreateDocumentFragment();
+            var fragment = document.CreateDocumentFragment();
             fragment.InnerXml = xml;
             root.AppendChild(fragment);
         });

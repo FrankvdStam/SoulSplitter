@@ -76,8 +76,6 @@ public class MemoryTests
 
         ptr3 = memory.Pointer64(0x0).Pointer64(0x0).Pointer64(0x0);
         Assert.AreEqual(32, ptr3.ReadInt64(0));
-
-        var testy = ptr3.ToString();
     }
 
 
@@ -113,12 +111,12 @@ public class MemoryTests
         var memory = new ByteArrayMemory(DataTypesTestData);
         var ptr = memory.Pointer64(0x0);
 
-        var f = BitConverter.GetBytes(125.24f);
-        var da = BitConverter.GetBytes(87.85d);
+        BitConverter.GetBytes(125.24f);
+        BitConverter.GetBytes(87.85d);
 
-        var a = memory.ReadFloat(23);
-        var d = memory.ReadDouble(27);
-        var v = memory.ReadUInt64(15);
+        memory.ReadFloat(23);
+        memory.ReadDouble(27);
+        memory.ReadUInt64(15);
 
         Assert.AreEqual(-93, memory.ReadSByte(8));
         Assert.AreEqual(163, memory.ReadByte(8));

@@ -51,7 +51,7 @@ public class Pointer : IMemory
 
     public long ResolveOffsets()
     {
-        long currentAddress = AbsoluteOffset;//0 for standard pointers. Only has a value when coming from an absolute scan
+        var currentAddress = AbsoluteOffset;//0 for standard pointers. Only has a value when coming from an absolute scan
 
         //Resolve offsets
         foreach (var step in Path)

@@ -45,7 +45,7 @@ public class Item(string name, int id, ItemType itemType, ItemCategory category,
 
     public int GetGameValue()
     {
-        int id = (int)ItemType;
+        var id = (int)ItemType;
         if (Upgrade is ItemUpgrade.PyroFlame or ItemUpgrade.PyroFlameAscended)
         {
             id += UpgradeLevel * 100;

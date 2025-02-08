@@ -153,7 +153,7 @@ public class EldenRing : IGame
         try
         {
             var versionString = _process?.MainModule?.FileVersionInfo.ProductVersion ?? "Read failed";
-            if (!Version.TryParse(versionString, out Version v))
+            if (!Version.TryParse(versionString, out var v))
             {
                 return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {versionString}"));
             }
@@ -368,7 +368,7 @@ public class EldenRing : IGame
     
     private int DeleteFromEnd(int num, int n)
     {
-        for (int i = 1; num != 0; i++)
+        for (var i = 1; num != 0; i++)
         {
             num = num / 10;
     
@@ -386,7 +386,7 @@ public class EldenRing : IGame
         var inventoryCount = _playerGameData.ReadInt32(0x420);
         var inventory = _inventory.ReadBytes(inventoryCount * InventoryEntrySize);
     
-        for (int i = 0; i < inventoryCount; i++)
+        for (var i = 0; i < inventoryCount; i++)
         {
             var itemIndex = i * InventoryEntrySize;
     
@@ -399,7 +399,7 @@ public class EldenRing : IGame
                 0x0
             ], 0);
     
-            byte cat = inventory[itemIndex + 0X7];
+            var cat = inventory[itemIndex + 0X7];
             byte mask = 0xF0;
             cat &= mask;
             var category = (Category)(cat * 0x1000000);

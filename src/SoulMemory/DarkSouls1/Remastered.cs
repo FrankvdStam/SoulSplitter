@@ -294,7 +294,7 @@ public class Remastered : IDarkSouls1
             var bonfireId = netBonfireDbItem.ReadInt32(0x8);
             if (bonfireId == (int)bonfire)
             { 
-                int bonfireState = netBonfireDbItem.ReadInt32(0xc);
+                var bonfireState = netBonfireDbItem.ReadInt32(0xc);
                 return (BonfireState)bonfireState;
             }
 
@@ -346,17 +346,17 @@ public class Remastered : IDarkSouls1
 
     private int GetEventFlagOffset(uint eventFlagId, out uint mask)
     {
-        string idString = eventFlagId.ToString("D8");
+        var idString = eventFlagId.ToString("D8");
         if (idString.Length == 8)
         {
-            string group = idString.Substring(0, 1);
-            string area = idString.Substring(1, 3);
-            int section = Int32.Parse(idString.Substring(4, 1));
-            int number = Int32.Parse(idString.Substring(5, 3));
+            var group = idString.Substring(0, 1);
+            var area = idString.Substring(1, 3);
+            var section = Int32.Parse(idString.Substring(4, 1));
+            var number = Int32.Parse(idString.Substring(5, 3));
 
             if (EventFlagGroups.ContainsKey(group) && EventFlagAreas.ContainsKey(area))
             {
-                int offset = EventFlagGroups[group];
+                var offset = EventFlagGroups[group];
                 offset += EventFlagAreas[area] * 0x500;
                 offset += section * 128;
                 offset += (number - (number % 32)) / 8;
@@ -370,8 +370,8 @@ public class Remastered : IDarkSouls1
 
     public bool ReadEventFlag(uint eventFlagId)
     {
-        int offset = GetEventFlagOffset(eventFlagId, out uint mask);
-        uint value = _eventFlags.ReadUInt32(offset);
+        var offset = GetEventFlagOffset(eventFlagId, out var mask);
+        var value = _eventFlags.ReadUInt32(offset);
         return (value & mask) != 0;
     }
     #endregion
@@ -379,7 +379,7 @@ public class Remastered : IDarkSouls1
     //Imported from CapitaineToinon. Thanks!
     public void ResetInventoryIndices()
     {
-        for (int i = 0; i < 20; i++)
+        for (var i = 0; i < 20; i++)
         {
             _inventoryIndices.WriteUint32(0x4 * i, uint.MaxValue);
         }
@@ -426,7 +426,7 @@ public class Remastered : IDarkSouls1
     /// </summary>
     private int GetSteamId3()
     {
-        string name = "steam_api64.dll";
+        var name = "steam_api64.dll";
         ProcessModule? module = null;
 
         foreach (ProcessModule item in _process!.Modules)
@@ -471,10 +471,10 @@ public class Remastered : IDarkSouls1
     private byte[] LoadDefuseOutput(string lines)
     {
         List<byte> bytes = [];
-        foreach (string line in Regex.Split(lines, "[\r\n]+"))
+        foreach (var line in Regex.Split(lines, "[\r\n]+"))
         {
-            Match match = _assemblyRegex.Match(line);
-            string hexes = match.Groups[1].Value;
+            var match = _assemblyRegex.Match(line);
+            var hexes = match.Groups[1].Value;
             foreach (Match hex in Regex.Matches(hexes, @"\S+"))
                 bytes.Add(Byte.Parse(hex.Value, System.Globalization.NumberStyles.AllowHexSpecifier));
         }
@@ -494,14 +494,14 @@ public class Remastered : IDarkSouls1
         // choice but calling that function manually
 
         var getRegionAddress = _getRegion.BaseAddress;
-        IntPtr callPtr = (IntPtr)getRegionAddress;
-        IntPtr resultPtr = _process!.Allocate(0x4);
+        var callPtr = (IntPtr)getRegionAddress;
+        var resultPtr = _process!.Allocate(0x4);
 
         // build asm and replace the function pointers
-        byte[] asm = LoadDefuseOutput(IsJapaneseAsm);
-        byte[] callBytes = BitConverter.GetBytes((ulong)callPtr);
+        var asm = LoadDefuseOutput(IsJapaneseAsm);
+        var callBytes = BitConverter.GetBytes((ulong)callPtr);
         Array.Copy(callBytes, 0, asm, 0x6, 8);
-        byte[] resultBytes = BitConverter.GetBytes((ulong)resultPtr);
+        var resultBytes = BitConverter.GetBytes((ulong)resultPtr);
         Array.Copy(resultBytes, 0, asm, 0x13, 8);
 
         _process!.Execute(asm);
@@ -549,7 +549,7 @@ public class Remastered : IDarkSouls1
 
         var dataOffset = weaponDescriptionsPointer.ReadInt32(0x14);
         var textOffset = weaponDescriptionsPointer.ReadInt32(dataOffset + weaponDescription.DataOffset * 4);
-        weaponDescriptionsPointer.ReadUnicodeString(out int length, offset: textOffset);
+        weaponDescriptionsPointer.ReadUnicodeString(out var length, offset: textOffset);
 
         var buffer = Encoding.Unicode.GetBytes(description);
         var bytes = new byte[length];
