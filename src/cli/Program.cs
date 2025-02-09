@@ -22,7 +22,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Windows.Input;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
 using SoulMemory.EldenRing;
@@ -30,7 +29,6 @@ using SoulMemory;
 using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
-using SoulSplitter.Hotkeys;
 
 #pragma warning disable CS0162
 
