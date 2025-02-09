@@ -30,6 +30,7 @@ exclude:
       - src/SoulMemory/EldenRing/KnownFlag.cs
       - src/SoulMemory/Sekiro/Boss.cs
       - src/SoulMemory/Sekiro/Idol.cs
+      - src/SoulMemory/DarkSouls1/Parameters
   - name: SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
   - name: ArrangeRedundantParentheses
 
