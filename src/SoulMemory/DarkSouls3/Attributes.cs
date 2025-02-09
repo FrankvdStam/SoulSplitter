@@ -32,5 +32,5 @@ public enum Attribute
     Luck = 0x60,
 
     SoulLevel = 0x70,
-    Humanity = 0x68,
+    Humanity = 0x68
 }

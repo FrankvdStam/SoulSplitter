@@ -19,6 +19,11 @@ exclude:
       - src/cli
       - tests
   - name: SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+  - name: UnusedMember.Global
+    paths: 
+      - src/SoulMemory/DarkSouls3/Bonfire.cs
+      - src/SoulMemory/DarkSouls3/Boss.cs
+      - src/SoulMemory/DarkSouls3/ItemPickup.cs
 
 dependencyOverrides:
     #this unfortunately does not get detected automatically by qodana
