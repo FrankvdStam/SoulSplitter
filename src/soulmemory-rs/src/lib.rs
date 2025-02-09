@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+#![allow(static_mut_refs)]
+
 mod util;
 pub mod app;
 pub mod games;

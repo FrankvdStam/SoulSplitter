@@ -16,8 +16,9 @@
 
 using System;
 using System.ComponentModel;
+using SoulSplitter.UI.Generic;
 
-namespace SoulSplitter.UI.Generic;
+namespace SoulSplitter.UI;
 
 public class ErrorViewModel : ICustomNotifyPropertyChanged
 {

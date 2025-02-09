@@ -215,7 +215,7 @@ public class Ptde : IDarkSouls1
             var bonfireId = netBonfireDbItem.ReadInt32(0x4);
             if (bonfireId == (int)bonfire)
             {
-                int bonfireState = netBonfireDbItem.ReadInt32(0x8);
+                var bonfireState = netBonfireDbItem.ReadInt32(0x8);
                 return (BonfireState)bonfireState;
             }
 
@@ -287,17 +287,17 @@ public class Ptde : IDarkSouls1
 
     private int GetEventFlagOffset(uint eventFlagId, out uint mask)
     {
-        string idString = eventFlagId.ToString("D8");
+        var idString = eventFlagId.ToString("D8");
         if (idString.Length == 8)
         {
-            string group = idString.Substring(0, 1);
-            string area = idString.Substring(1, 3);
-            int section = int.Parse(idString.Substring(4, 1));
-            int number = int.Parse(idString.Substring(5, 3));
+            var group = idString.Substring(0, 1);
+            var area = idString.Substring(1, 3);
+            var section = int.Parse(idString.Substring(4, 1));
+            var number = int.Parse(idString.Substring(5, 3));
 
             if (EventFlagGroups.ContainsKey(group) && EventFlagAreas.ContainsKey(area))
             {
-                int offset = EventFlagGroups[group];
+                var offset = EventFlagGroups[group];
                 offset += EventFlagAreas[area] * 0x500;
                 offset += section * 128;
                 offset += (number - (number % 32)) / 8;
@@ -311,8 +311,8 @@ public class Ptde : IDarkSouls1
     
     public bool ReadEventFlag(uint eventFlagId)
     {
-        int offset = GetEventFlagOffset(eventFlagId, out uint mask);
-        uint value = _eventFlags.ReadUInt32(offset);
+        var offset = GetEventFlagOffset(eventFlagId, out var mask);
+        var value = _eventFlags.ReadUInt32(offset);
         return (value & mask) != 0;
     }
 
@@ -322,7 +322,7 @@ public class Ptde : IDarkSouls1
     
     public void ResetInventoryIndices()
     {
-        for (int i = 0; i < 20; i++)
+        for (var i = 0; i < 20; i++)
         {
             _inventoryIndices.WriteUint32(0x4 * i, uint.MaxValue);
         }
@@ -347,7 +347,7 @@ public class Ptde : IDarkSouls1
             var strPointer = _saveInfo.CreatePointerFromAddress(0x0);
             var bytes = strPointer.ReadBytes(128);
 
-            for (int i = 0; i < 128; i += 2)
+            for (var i = 0; i < 128; i += 2)
             {
                 if (bytes[i] == 0 && bytes[i + 1] == 0)
                 {
@@ -395,7 +395,7 @@ public class Ptde : IDarkSouls1
 
         var dataPointer = weaponDescriptionsPointer.CreatePointerFromAddress(0x14);
         var textOffset = dataPointer.ReadInt32(weaponDescription.DataOffset * 4);
-        weaponDescriptionsPointer.ReadUnicodeString(out int length, offset: textOffset);
+        weaponDescriptionsPointer.ReadUnicodeString(out var length, offset: textOffset);
         
         var buffer = Encoding.Unicode.GetBytes(description);
         var bytes = new byte[length];

@@ -56,7 +56,7 @@ public partial class EldenRingControl : UserControl
 
     private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        if (sender is TextBox textBox && uint.TryParse(textBox.Text, out uint result))
+        if (sender is TextBox textBox && uint.TryParse(textBox.Text, out var result))
         {
             GetEldenRingViewModel().NewSplitFlag = result;
             return;

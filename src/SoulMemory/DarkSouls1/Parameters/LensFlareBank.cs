@@ -26,81 +26,81 @@ public class LensFlareBank(Pointer basePointer, ByteArrayMemory memory, long off
     [ParamField(0x0, ParamType.I8)]
     public sbyte TexId
     {
-        get => _TexId;
-        set => WriteParamField(ref _TexId, value);
+        get => _texId;
+        set => WriteParamField(ref _texId, value);
     }
-    private sbyte _TexId;
+    private sbyte _texId;
 
     [ParamField(0x1, ParamType.U8)]
     public byte IsFlare
     {
-        get => _IsFlare;
-        set => WriteParamField(ref _IsFlare, value);
+        get => _isFlare;
+        set => WriteParamField(ref _isFlare, value);
     }
-    private byte _IsFlare;
+    private byte _isFlare;
 
     [ParamField(0x2, ParamType.U8)]
     public byte EnableRoll
     {
-        get => _EnableRoll;
-        set => WriteParamField(ref _EnableRoll, value);
+        get => _enableRoll;
+        set => WriteParamField(ref _enableRoll, value);
     }
-    private byte _EnableRoll;
+    private byte _enableRoll;
 
     [ParamField(0x3, ParamType.U8)]
     public byte EnableScale
     {
-        get => _EnableScale;
-        set => WriteParamField(ref _EnableScale, value);
+        get => _enableScale;
+        set => WriteParamField(ref _enableScale, value);
     }
-    private byte _EnableScale;
+    private byte _enableScale;
 
     [ParamField(0x4, ParamType.F32)]
     public float LocateDistRate
     {
-        get => _LocateDistRate;
-        set => WriteParamField(ref _LocateDistRate, value);
+        get => _locateDistRate;
+        set => WriteParamField(ref _locateDistRate, value);
     }
-    private float _LocateDistRate;
+    private float _locateDistRate;
 
     [ParamField(0x8, ParamType.F32)]
     public float TexScale
     {
-        get => _TexScale;
-        set => WriteParamField(ref _TexScale, value);
+        get => _texScale;
+        set => WriteParamField(ref _texScale, value);
     }
-    private float _TexScale;
+    private float _texScale;
 
     [ParamField(0xC, ParamType.I16)]
     public short ColR
     {
-        get => _ColR;
-        set => WriteParamField(ref _ColR, value);
+        get => _colR;
+        set => WriteParamField(ref _colR, value);
     }
-    private short _ColR;
+    private short _colR;
 
     [ParamField(0xE, ParamType.I16)]
     public short ColG
     {
-        get => _ColG;
-        set => WriteParamField(ref _ColG, value);
+        get => _colG;
+        set => WriteParamField(ref _colG, value);
     }
-    private short _ColG;
+    private short _colG;
 
     [ParamField(0x10, ParamType.I16)]
     public short ColB
     {
-        get => _ColB;
-        set => WriteParamField(ref _ColB, value);
+        get => _colB;
+        set => WriteParamField(ref _colB, value);
     }
-    private short _ColB;
+    private short _colB;
 
     [ParamField(0x12, ParamType.I16)]
     public short ColA
     {
-        get => _ColA;
-        set => WriteParamField(ref _ColA, value);
+        get => _colA;
+        set => WriteParamField(ref _colA, value);
     }
-    private short _ColA;
+    private short _colA;
 
 }

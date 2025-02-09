@@ -26,137 +26,137 @@ public class ObjActParam(Pointer basePointer, ByteArrayMemory memory, long offse
     [ParamField(0x0, ParamType.I32)]
     public int ActionEnableMsgId
     {
-        get => _ActionEnableMsgId;
-        set => WriteParamField(ref _ActionEnableMsgId, value);
+        get => _actionEnableMsgId;
+        set => WriteParamField(ref _actionEnableMsgId, value);
     }
-    private int _ActionEnableMsgId;
+    private int _actionEnableMsgId;
 
     [ParamField(0x4, ParamType.I32)]
     public int ActionFailedMsgId
     {
-        get => _ActionFailedMsgId;
-        set => WriteParamField(ref _ActionFailedMsgId, value);
+        get => _actionFailedMsgId;
+        set => WriteParamField(ref _actionFailedMsgId, value);
     }
-    private int _ActionFailedMsgId;
+    private int _actionFailedMsgId;
 
     [ParamField(0x8, ParamType.I32)]
     public int SpQualifiedPassEventFlag
     {
-        get => _SpQualifiedPassEventFlag;
-        set => WriteParamField(ref _SpQualifiedPassEventFlag, value);
+        get => _spQualifiedPassEventFlag;
+        set => WriteParamField(ref _spQualifiedPassEventFlag, value);
     }
-    private int _SpQualifiedPassEventFlag;
+    private int _spQualifiedPassEventFlag;
 
     [ParamField(0xC, ParamType.U16)]
     public ushort ValidDist
     {
-        get => _ValidDist;
-        set => WriteParamField(ref _ValidDist, value);
+        get => _validDist;
+        set => WriteParamField(ref _validDist, value);
     }
-    private ushort _ValidDist;
+    private ushort _validDist;
 
     [ParamField(0xE, ParamType.U16)]
     public ushort PlayerAnimId
     {
-        get => _PlayerAnimId;
-        set => WriteParamField(ref _PlayerAnimId, value);
+        get => _playerAnimId;
+        set => WriteParamField(ref _playerAnimId, value);
     }
-    private ushort _PlayerAnimId;
+    private ushort _playerAnimId;
 
     [ParamField(0x10, ParamType.U16)]
     public ushort ChrAnimId
     {
-        get => _ChrAnimId;
-        set => WriteParamField(ref _ChrAnimId, value);
+        get => _chrAnimId;
+        set => WriteParamField(ref _chrAnimId, value);
     }
-    private ushort _ChrAnimId;
+    private ushort _chrAnimId;
 
     [ParamField(0x12, ParamType.U16)]
     public ushort SpQualifiedId
     {
-        get => _SpQualifiedId;
-        set => WriteParamField(ref _SpQualifiedId, value);
+        get => _spQualifiedId;
+        set => WriteParamField(ref _spQualifiedId, value);
     }
-    private ushort _SpQualifiedId;
+    private ushort _spQualifiedId;
 
     [ParamField(0x14, ParamType.U16)]
     public ushort SpQualifiedId2
     {
-        get => _SpQualifiedId2;
-        set => WriteParamField(ref _SpQualifiedId2, value);
+        get => _spQualifiedId2;
+        set => WriteParamField(ref _spQualifiedId2, value);
     }
-    private ushort _SpQualifiedId2;
+    private ushort _spQualifiedId2;
 
     [ParamField(0x16, ParamType.U8)]
     public byte ObjDummyId
     {
-        get => _ObjDummyId;
-        set => WriteParamField(ref _ObjDummyId, value);
+        get => _objDummyId;
+        set => WriteParamField(ref _objDummyId, value);
     }
-    private byte _ObjDummyId;
+    private byte _objDummyId;
 
     [ParamField(0x17, ParamType.U8)]
     public byte ObjAnimId
     {
-        get => _ObjAnimId;
-        set => WriteParamField(ref _ObjAnimId, value);
+        get => _objAnimId;
+        set => WriteParamField(ref _objAnimId, value);
     }
-    private byte _ObjAnimId;
+    private byte _objAnimId;
 
     [ParamField(0x18, ParamType.U8)]
     public byte ValidPlayerAngle
     {
-        get => _ValidPlayerAngle;
-        set => WriteParamField(ref _ValidPlayerAngle, value);
+        get => _validPlayerAngle;
+        set => WriteParamField(ref _validPlayerAngle, value);
     }
-    private byte _ValidPlayerAngle;
+    private byte _validPlayerAngle;
 
     [ParamField(0x19, ParamType.U8)]
     public byte SpQualifiedType
     {
-        get => _SpQualifiedType;
-        set => WriteParamField(ref _SpQualifiedType, value);
+        get => _spQualifiedType;
+        set => WriteParamField(ref _spQualifiedType, value);
     }
-    private byte _SpQualifiedType;
+    private byte _spQualifiedType;
 
     [ParamField(0x1A, ParamType.U8)]
     public byte SpQualifiedType2
     {
-        get => _SpQualifiedType2;
-        set => WriteParamField(ref _SpQualifiedType2, value);
+        get => _spQualifiedType2;
+        set => WriteParamField(ref _spQualifiedType2, value);
     }
-    private byte _SpQualifiedType2;
+    private byte _spQualifiedType2;
 
     [ParamField(0x1B, ParamType.U8)]
     public byte ValidObjAngle
     {
-        get => _ValidObjAngle;
-        set => WriteParamField(ref _ValidObjAngle, value);
+        get => _validObjAngle;
+        set => WriteParamField(ref _validObjAngle, value);
     }
-    private byte _ValidObjAngle;
+    private byte _validObjAngle;
 
     [ParamField(0x1C, ParamType.U8)]
     public byte ChrSorbType
     {
-        get => _ChrSorbType;
-        set => WriteParamField(ref _ChrSorbType, value);
+        get => _chrSorbType;
+        set => WriteParamField(ref _chrSorbType, value);
     }
-    private byte _ChrSorbType;
+    private byte _chrSorbType;
 
     [ParamField(0x1D, ParamType.U8)]
     public byte EventKickTiming
     {
-        get => _EventKickTiming;
-        set => WriteParamField(ref _EventKickTiming, value);
+        get => _eventKickTiming;
+        set => WriteParamField(ref _eventKickTiming, value);
     }
-    private byte _EventKickTiming;
+    private byte _eventKickTiming;
 
     [ParamField(0x1E, ParamType.Dummy8, 2)]
     public byte[] Pad1
     {
-        get => _Pad1;
-        set => WriteParamField(ref _Pad1, value);
+        get => _pad1;
+        set => WriteParamField(ref _pad1, value);
     }
-    private byte[] _Pad1 = null!;
+    private byte[] _pad1 = null!;
 
 }

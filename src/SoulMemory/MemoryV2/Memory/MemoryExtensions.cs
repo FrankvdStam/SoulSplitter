@@ -99,7 +99,7 @@ public static class MemoryExtensions
     {
         var data = memory.ReadBytes(offset, maxSize);
         length = 0;
-        for (int i = 1; i < data.Length; i++)
+        for (var i = 1; i < data.Length; i++)
         {
             if (data[i - 1] == 0 && data[i] == 0)
             {

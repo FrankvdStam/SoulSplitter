@@ -24,7 +24,7 @@ public class DropMod(IDarkSouls1 darkSouls)
     public void InitBkh()
     {
         darkSouls.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\nBlack Knight Ultra GreatSword\nBlack Knight Greatsword\nLarge Club\nShort Bow\nBalder Knight Rapier\n\n\n\n");
-        for (int i = 0; i < 62; i++)
+        for (var i = 0; i < 62; i++)
         {
             darkSouls.SetLoadingScreenItem(i, 1105000);
         }
@@ -40,7 +40,7 @@ public class DropMod(IDarkSouls1 darkSouls)
     {
         darkSouls.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\nEye of Death\n\n\n\n\n");
 
-        for (int i = 0; i < 62; i++)
+        for (var i = 0; i < 62; i++)
         {
             darkSouls.SetLoadingScreenItem(i, 1004000);
         }
@@ -67,7 +67,7 @@ public class DropMod(IDarkSouls1 darkSouls)
     {
         var items = darkSouls.GetInventory();
 
-        foreach (SwitchableDrop temp in _switchableWeapons)
+        foreach (var temp in _switchableWeapons)
         {
             var s = temp; //structs need to be put in a variable in order to be mutable. Meme.
             if (s.ShouldSwitch && items.Any(j => j.ItemType == s.SwitchItem))
@@ -80,7 +80,7 @@ public class DropMod(IDarkSouls1 darkSouls)
 
     public void ResetAllAchievements()
     {
-        foreach (SwitchableDrop temp in _switchableWeapons)
+        foreach (var temp in _switchableWeapons)
         {
             var s = temp; //structs need to be put in a variable in order to be mutable. Meme.
             s.ShouldSwitch = true;
@@ -105,30 +105,30 @@ public class DropMod(IDarkSouls1 darkSouls)
 
     private readonly List<SwitchableDrop> _switchableWeapons =
     [
-        new SwitchableDrop(ItemType.StoneGreatsword, 23800000, 306000, 1503000),
+        new (ItemType.StoneGreatsword, 23800000, 306000, 1503000),
 
         //Anor londo
-        new SwitchableDrop(ItemType.SilverKnightStraightSword, 24100000, 208000, 1473000),
-        new SwitchableDrop(ItemType.SilverKnightSpear, 24100300, 1006000, 1473000),
+        new (ItemType.SilverKnightStraightSword, 24100000, 208000, 1473000),
+        new (ItemType.SilverKnightSpear, 24100300, 1006000, 1473000),
 
         //kiln
-        new SwitchableDrop(ItemType.BlackKnightHalberd, 27905300, 1105000, 1474000),
-        new SwitchableDrop(ItemType.BlackKnightGreataxe, 27905200, 753000, 1474000),
-        new SwitchableDrop(ItemType.BlackKnightSword, 27905000, 310000, 1474000),
-        new SwitchableDrop(ItemType.BlackKnightGreatsword, 27905100, 355000, 1474000),
+        new (ItemType.BlackKnightHalberd, 27905300, 1105000, 1474000),
+        new (ItemType.BlackKnightGreataxe, 27905200, 753000, 1474000),
+        new (ItemType.BlackKnightSword, 27905000, 310000, 1474000),
+        new (ItemType.BlackKnightGreatsword, 27905100, 355000, 1474000),
 
         //Darkroot Garden
-        new SwitchableDrop(ItemType.BlackKnightHalberd, 27901000, 1105000, 1474000),
+        new (ItemType.BlackKnightHalberd, 27901000, 1105000, 1474000),
 
         //undead burg
-        new SwitchableDrop(ItemType.BlackKnightSword, 27900000, 1105000, 1474000),
+        new (ItemType.BlackKnightSword, 27900000, 1105000, 1474000),
 
         //Asylum
-        new SwitchableDrop(ItemType.BlackKnightSword, 27907000, 310000, 1474000),
+        new (ItemType.BlackKnightSword, 27907000, 310000, 1474000),
 
         //Catacombs
-        new SwitchableDrop(ItemType.BlackKnightGreataxe, 27902000, 753000, 1474000),
-        new SwitchableDrop(ItemType.BlackKnightHalberd, 27903000, 1105000, 1474000)
+        new (ItemType.BlackKnightGreataxe, 27902000, 753000, 1474000),
+        new (ItemType.BlackKnightHalberd, 27903000, 1105000, 1474000)
     ];
 
     private struct SwitchableDrop(ItemType switchItem, int rowId, int itemId1, int itemId2)

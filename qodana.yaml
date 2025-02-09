@@ -9,15 +9,29 @@ include:
     - name: NetCoverageInspection
 
 exclude:
-  - name: exclude
-    paths:
-      - src/cli
-      - tests
-  - name: SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
   - name: All
     paths:
+      - qodana.yaml
+      - README.md
+      - src/SoulMemory/README.md
+      - .editorconfig
+      - Components/MaterialDesignThemes.Wpf.xml
+      - src/cli
       - tests
-      - src/Cli
+      - src/SoulMemory/DarkSouls1/Bonfire.cs
+      - src/SoulMemory/DarkSouls1/Boss.cs
+      - src/SoulMemory/DarkSouls1/KnownFlag.cs
+      - src/SoulMemory/DarkSouls2/BossType.cs
+      - src/SoulMemory/DarkSouls3/Bonfire.cs
+      - src/SoulMemory/DarkSouls3/Boss.cs
+      - src/SoulMemory/DarkSouls3/ItemPickup.cs
+      - src/SoulMemory/EldenRing/Boss.cs
+      - src/SoulMemory/EldenRing/Grace.cs
+      - src/SoulMemory/EldenRing/KnownFlag.cs
+      - src/SoulMemory/Sekiro/Boss.cs
+      - src/SoulMemory/Sekiro/Idol.cs
+  - name: SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+  - name: ArrangeRedundantParentheses
 
 dependencyOverrides:
     #this unfortunately does not get detected automatically by qodana

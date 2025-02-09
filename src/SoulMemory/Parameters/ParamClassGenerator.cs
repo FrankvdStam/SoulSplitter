@@ -190,7 +190,7 @@ public static class ParamClassGenerator
         Bitfield? currentBitfield = null;
         var offset = 0;
 
-        for(int i = 0; i < preParsedFields.Count; i++)
+        for(var i = 0; i < preParsedFields.Count; i++)
         {
             //Grab current and next field if available
             var currentField = preParsedFields[i];

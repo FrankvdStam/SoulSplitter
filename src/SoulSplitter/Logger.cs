@@ -47,7 +47,7 @@ internal static class Logger
                 //Create the file if it does not exist
                 if (!info.Exists)
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
                     File.Create(filePath).Close();
                     info = new FileInfo(filePath);
                 }
@@ -57,12 +57,12 @@ internal static class Logger
                 {
                     var lines = File.ReadAllLines(filePath);
                     File.Delete(filePath);
-                    File.WriteAllLines(filePath, lines.Skip(lines.Count() / 2));
+                    File.WriteAllLines(filePath, lines.Skip(lines.Length / 2));
                 }
 
                 //Log the message
                 using var writer = File.AppendText(filePath);
-                writer.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")}: {message}");
+                writer.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff}: {message}");
                 writer.Flush();
             }
             catch

@@ -246,7 +246,7 @@ unsafe extern "win64" fn fps_custom_limit(registers: *mut Registers, _:usize)
 }
 
 // Frame advance patch
-unsafe extern "win64" fn frame_advance(registers: *mut Registers, _:usize)
+unsafe extern "win64" fn frame_advance(_registers: *mut Registers, _:usize)
 {
     if ER_FRAME_ADVANCE_ENABLED
     {

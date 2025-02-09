@@ -26,121 +26,121 @@ public class ToneMapBank(Pointer basePointer, ByteArrayMemory memory, long offse
     [ParamField(0x0, ParamType.I16)]
     public short BloomBegin
     {
-        get => _BloomBegin;
-        set => WriteParamField(ref _BloomBegin, value);
+        get => _bloomBegin;
+        set => WriteParamField(ref _bloomBegin, value);
     }
-    private short _BloomBegin;
+    private short _bloomBegin;
 
     [ParamField(0x2, ParamType.I16)]
     public short BloomMul
     {
-        get => _BloomMul;
-        set => WriteParamField(ref _BloomMul, value);
+        get => _bloomMul;
+        set => WriteParamField(ref _bloomMul, value);
     }
-    private short _BloomMul;
+    private short _bloomMul;
 
     [ParamField(0x4, ParamType.I16)]
     public short BloomBeginFar
     {
-        get => _BloomBeginFar;
-        set => WriteParamField(ref _BloomBeginFar, value);
+        get => _bloomBeginFar;
+        set => WriteParamField(ref _bloomBeginFar, value);
     }
-    private short _BloomBeginFar;
+    private short _bloomBeginFar;
 
     [ParamField(0x6, ParamType.I16)]
     public short BloomMulFar
     {
-        get => _BloomMulFar;
-        set => WriteParamField(ref _BloomMulFar, value);
+        get => _bloomMulFar;
+        set => WriteParamField(ref _bloomMulFar, value);
     }
-    private short _BloomMulFar;
+    private short _bloomMulFar;
 
     [ParamField(0x8, ParamType.F32)]
     public float BloomNearDist
     {
-        get => _BloomNearDist;
-        set => WriteParamField(ref _BloomNearDist, value);
+        get => _bloomNearDist;
+        set => WriteParamField(ref _bloomNearDist, value);
     }
-    private float _BloomNearDist;
+    private float _bloomNearDist;
 
     [ParamField(0xC, ParamType.F32)]
     public float BloomFarDist
     {
-        get => _BloomFarDist;
-        set => WriteParamField(ref _BloomFarDist, value);
+        get => _bloomFarDist;
+        set => WriteParamField(ref _bloomFarDist, value);
     }
-    private float _BloomFarDist;
+    private float _bloomFarDist;
 
     [ParamField(0x10, ParamType.F32)]
     public float GrayKeyValue
     {
-        get => _GrayKeyValue;
-        set => WriteParamField(ref _GrayKeyValue, value);
+        get => _grayKeyValue;
+        set => WriteParamField(ref _grayKeyValue, value);
     }
-    private float _GrayKeyValue;
+    private float _grayKeyValue;
 
     [ParamField(0x14, ParamType.F32)]
     public float MinAdaptedLum
     {
-        get => _MinAdaptedLum;
-        set => WriteParamField(ref _MinAdaptedLum, value);
+        get => _minAdaptedLum;
+        set => WriteParamField(ref _minAdaptedLum, value);
     }
-    private float _MinAdaptedLum;
+    private float _minAdaptedLum;
 
     [ParamField(0x18, ParamType.F32)]
     public float MaxAdapredLum
     {
-        get => _MaxAdapredLum;
-        set => WriteParamField(ref _MaxAdapredLum, value);
+        get => _maxAdapredLum;
+        set => WriteParamField(ref _maxAdapredLum, value);
     }
-    private float _MaxAdapredLum;
+    private float _maxAdapredLum;
 
     [ParamField(0x1C, ParamType.F32)]
     public float AdaptSpeed
     {
-        get => _AdaptSpeed;
-        set => WriteParamField(ref _AdaptSpeed, value);
+        get => _adaptSpeed;
+        set => WriteParamField(ref _adaptSpeed, value);
     }
-    private float _AdaptSpeed;
+    private float _adaptSpeed;
 
     [ParamField(0x20, ParamType.I8)]
     public sbyte LightShaftBegin
     {
-        get => _LightShaftBegin;
-        set => WriteParamField(ref _LightShaftBegin, value);
+        get => _lightShaftBegin;
+        set => WriteParamField(ref _lightShaftBegin, value);
     }
-    private sbyte _LightShaftBegin;
+    private sbyte _lightShaftBegin;
 
     [ParamField(0x21, ParamType.Dummy8, 3)]
-    public byte[] Pad_0
+    public byte[] Pad0
     {
-        get => _Pad_0;
-        set => WriteParamField(ref _Pad_0, value);
+        get => _pad0;
+        set => WriteParamField(ref _pad0, value);
     }
-    private byte[] _Pad_0 = null!;
+    private byte[] _pad0 = null!;
 
     [ParamField(0x24, ParamType.F32)]
     public float LightShaftPower
     {
-        get => _LightShaftPower;
-        set => WriteParamField(ref _LightShaftPower, value);
+        get => _lightShaftPower;
+        set => WriteParamField(ref _lightShaftPower, value);
     }
-    private float _LightShaftPower;
+    private float _lightShaftPower;
 
     [ParamField(0x28, ParamType.F32)]
     public float LightShaftAttenRate
     {
-        get => _LightShaftAttenRate;
-        set => WriteParamField(ref _LightShaftAttenRate, value);
+        get => _lightShaftAttenRate;
+        set => WriteParamField(ref _lightShaftAttenRate, value);
     }
-    private float _LightShaftAttenRate;
+    private float _lightShaftAttenRate;
 
     [ParamField(0x2C, ParamType.F32)]
     public float InverseToneMapMul
     {
-        get => _InverseToneMapMul;
-        set => WriteParamField(ref _InverseToneMapMul, value);
+        get => _inverseToneMapMul;
+        set => WriteParamField(ref _inverseToneMapMul, value);
     }
-    private float _InverseToneMapMul;
+    private float _inverseToneMapMul;
 
 }

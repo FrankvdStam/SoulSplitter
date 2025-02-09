@@ -26,225 +26,225 @@ public class ReinforceParamWeapon(Pointer basePointer, ByteArrayMemory memory, l
     [ParamField(0x0, ParamType.F32)]
     public float PhysicsAtkRate
     {
-        get => _PhysicsAtkRate;
-        set => WriteParamField(ref _PhysicsAtkRate, value);
+        get => _physicsAtkRate;
+        set => WriteParamField(ref _physicsAtkRate, value);
     }
-    private float _PhysicsAtkRate;
+    private float _physicsAtkRate;
 
     [ParamField(0x4, ParamType.F32)]
     public float MagicAtkRate
     {
-        get => _MagicAtkRate;
-        set => WriteParamField(ref _MagicAtkRate, value);
+        get => _magicAtkRate;
+        set => WriteParamField(ref _magicAtkRate, value);
     }
-    private float _MagicAtkRate;
+    private float _magicAtkRate;
 
     [ParamField(0x8, ParamType.F32)]
     public float FireAtkRate
     {
-        get => _FireAtkRate;
-        set => WriteParamField(ref _FireAtkRate, value);
+        get => _fireAtkRate;
+        set => WriteParamField(ref _fireAtkRate, value);
     }
-    private float _FireAtkRate;
+    private float _fireAtkRate;
 
     [ParamField(0xC, ParamType.F32)]
     public float ThunderAtkRate
     {
-        get => _ThunderAtkRate;
-        set => WriteParamField(ref _ThunderAtkRate, value);
+        get => _thunderAtkRate;
+        set => WriteParamField(ref _thunderAtkRate, value);
     }
-    private float _ThunderAtkRate;
+    private float _thunderAtkRate;
 
     [ParamField(0x10, ParamType.F32)]
     public float StaminaAtkRate
     {
-        get => _StaminaAtkRate;
-        set => WriteParamField(ref _StaminaAtkRate, value);
+        get => _staminaAtkRate;
+        set => WriteParamField(ref _staminaAtkRate, value);
     }
-    private float _StaminaAtkRate;
+    private float _staminaAtkRate;
 
     [ParamField(0x14, ParamType.F32)]
     public float SaWeaponAtkRate
     {
-        get => _SaWeaponAtkRate;
-        set => WriteParamField(ref _SaWeaponAtkRate, value);
+        get => _saWeaponAtkRate;
+        set => WriteParamField(ref _saWeaponAtkRate, value);
     }
-    private float _SaWeaponAtkRate;
+    private float _saWeaponAtkRate;
 
     [ParamField(0x18, ParamType.F32)]
     public float SaDurabilityRate
     {
-        get => _SaDurabilityRate;
-        set => WriteParamField(ref _SaDurabilityRate, value);
+        get => _saDurabilityRate;
+        set => WriteParamField(ref _saDurabilityRate, value);
     }
-    private float _SaDurabilityRate;
+    private float _saDurabilityRate;
 
     [ParamField(0x1C, ParamType.F32)]
     public float CorrectStrengthRate
     {
-        get => _CorrectStrengthRate;
-        set => WriteParamField(ref _CorrectStrengthRate, value);
+        get => _correctStrengthRate;
+        set => WriteParamField(ref _correctStrengthRate, value);
     }
-    private float _CorrectStrengthRate;
+    private float _correctStrengthRate;
 
     [ParamField(0x20, ParamType.F32)]
     public float CorrectAgilityRate
     {
-        get => _CorrectAgilityRate;
-        set => WriteParamField(ref _CorrectAgilityRate, value);
+        get => _correctAgilityRate;
+        set => WriteParamField(ref _correctAgilityRate, value);
     }
-    private float _CorrectAgilityRate;
+    private float _correctAgilityRate;
 
     [ParamField(0x24, ParamType.F32)]
     public float CorrectMagicRate
     {
-        get => _CorrectMagicRate;
-        set => WriteParamField(ref _CorrectMagicRate, value);
+        get => _correctMagicRate;
+        set => WriteParamField(ref _correctMagicRate, value);
     }
-    private float _CorrectMagicRate;
+    private float _correctMagicRate;
 
     [ParamField(0x28, ParamType.F32)]
     public float CorrectFaithRate
     {
-        get => _CorrectFaithRate;
-        set => WriteParamField(ref _CorrectFaithRate, value);
+        get => _correctFaithRate;
+        set => WriteParamField(ref _correctFaithRate, value);
     }
-    private float _CorrectFaithRate;
+    private float _correctFaithRate;
 
     [ParamField(0x2C, ParamType.F32)]
     public float PhysicsGuardCutRate
     {
-        get => _PhysicsGuardCutRate;
-        set => WriteParamField(ref _PhysicsGuardCutRate, value);
+        get => _physicsGuardCutRate;
+        set => WriteParamField(ref _physicsGuardCutRate, value);
     }
-    private float _PhysicsGuardCutRate;
+    private float _physicsGuardCutRate;
 
     [ParamField(0x30, ParamType.F32)]
     public float MagicGuardCutRate
     {
-        get => _MagicGuardCutRate;
-        set => WriteParamField(ref _MagicGuardCutRate, value);
+        get => _magicGuardCutRate;
+        set => WriteParamField(ref _magicGuardCutRate, value);
     }
-    private float _MagicGuardCutRate;
+    private float _magicGuardCutRate;
 
     [ParamField(0x34, ParamType.F32)]
     public float FireGuardCutRate
     {
-        get => _FireGuardCutRate;
-        set => WriteParamField(ref _FireGuardCutRate, value);
+        get => _fireGuardCutRate;
+        set => WriteParamField(ref _fireGuardCutRate, value);
     }
-    private float _FireGuardCutRate;
+    private float _fireGuardCutRate;
 
     [ParamField(0x38, ParamType.F32)]
     public float ThunderGuardCutRate
     {
-        get => _ThunderGuardCutRate;
-        set => WriteParamField(ref _ThunderGuardCutRate, value);
+        get => _thunderGuardCutRate;
+        set => WriteParamField(ref _thunderGuardCutRate, value);
     }
-    private float _ThunderGuardCutRate;
+    private float _thunderGuardCutRate;
 
     [ParamField(0x3C, ParamType.F32)]
     public float PoisonGuardResistRate
     {
-        get => _PoisonGuardResistRate;
-        set => WriteParamField(ref _PoisonGuardResistRate, value);
+        get => _poisonGuardResistRate;
+        set => WriteParamField(ref _poisonGuardResistRate, value);
     }
-    private float _PoisonGuardResistRate;
+    private float _poisonGuardResistRate;
 
     [ParamField(0x40, ParamType.F32)]
     public float DiseaseGuardResistRate
     {
-        get => _DiseaseGuardResistRate;
-        set => WriteParamField(ref _DiseaseGuardResistRate, value);
+        get => _diseaseGuardResistRate;
+        set => WriteParamField(ref _diseaseGuardResistRate, value);
     }
-    private float _DiseaseGuardResistRate;
+    private float _diseaseGuardResistRate;
 
     [ParamField(0x44, ParamType.F32)]
     public float BloodGuardResistRate
     {
-        get => _BloodGuardResistRate;
-        set => WriteParamField(ref _BloodGuardResistRate, value);
+        get => _bloodGuardResistRate;
+        set => WriteParamField(ref _bloodGuardResistRate, value);
     }
-    private float _BloodGuardResistRate;
+    private float _bloodGuardResistRate;
 
     [ParamField(0x48, ParamType.F32)]
     public float CurseGuardResistRate
     {
-        get => _CurseGuardResistRate;
-        set => WriteParamField(ref _CurseGuardResistRate, value);
+        get => _curseGuardResistRate;
+        set => WriteParamField(ref _curseGuardResistRate, value);
     }
-    private float _CurseGuardResistRate;
+    private float _curseGuardResistRate;
 
     [ParamField(0x4C, ParamType.F32)]
     public float StaminaGuardDefRate
     {
-        get => _StaminaGuardDefRate;
-        set => WriteParamField(ref _StaminaGuardDefRate, value);
+        get => _staminaGuardDefRate;
+        set => WriteParamField(ref _staminaGuardDefRate, value);
     }
-    private float _StaminaGuardDefRate;
+    private float _staminaGuardDefRate;
 
     [ParamField(0x50, ParamType.U8)]
     public byte SpEffectId1
     {
-        get => _SpEffectId1;
-        set => WriteParamField(ref _SpEffectId1, value);
+        get => _spEffectId1;
+        set => WriteParamField(ref _spEffectId1, value);
     }
-    private byte _SpEffectId1;
+    private byte _spEffectId1;
 
     [ParamField(0x51, ParamType.U8)]
     public byte SpEffectId2
     {
-        get => _SpEffectId2;
-        set => WriteParamField(ref _SpEffectId2, value);
+        get => _spEffectId2;
+        set => WriteParamField(ref _spEffectId2, value);
     }
-    private byte _SpEffectId2;
+    private byte _spEffectId2;
 
     [ParamField(0x52, ParamType.U8)]
     public byte SpEffectId3
     {
-        get => _SpEffectId3;
-        set => WriteParamField(ref _SpEffectId3, value);
+        get => _spEffectId3;
+        set => WriteParamField(ref _spEffectId3, value);
     }
-    private byte _SpEffectId3;
+    private byte _spEffectId3;
 
     [ParamField(0x53, ParamType.U8)]
     public byte ResidentSpEffectId1
     {
-        get => _ResidentSpEffectId1;
-        set => WriteParamField(ref _ResidentSpEffectId1, value);
+        get => _residentSpEffectId1;
+        set => WriteParamField(ref _residentSpEffectId1, value);
     }
-    private byte _ResidentSpEffectId1;
+    private byte _residentSpEffectId1;
 
     [ParamField(0x54, ParamType.U8)]
     public byte ResidentSpEffectId2
     {
-        get => _ResidentSpEffectId2;
-        set => WriteParamField(ref _ResidentSpEffectId2, value);
+        get => _residentSpEffectId2;
+        set => WriteParamField(ref _residentSpEffectId2, value);
     }
-    private byte _ResidentSpEffectId2;
+    private byte _residentSpEffectId2;
 
     [ParamField(0x55, ParamType.U8)]
     public byte ResidentSpEffectId3
     {
-        get => _ResidentSpEffectId3;
-        set => WriteParamField(ref _ResidentSpEffectId3, value);
+        get => _residentSpEffectId3;
+        set => WriteParamField(ref _residentSpEffectId3, value);
     }
-    private byte _ResidentSpEffectId3;
+    private byte _residentSpEffectId3;
 
     [ParamField(0x56, ParamType.U8)]
     public byte MaterialSetId
     {
-        get => _MaterialSetId;
-        set => WriteParamField(ref _MaterialSetId, value);
+        get => _materialSetId;
+        set => WriteParamField(ref _materialSetId, value);
     }
-    private byte _MaterialSetId;
+    private byte _materialSetId;
 
     [ParamField(0x57, ParamType.U8)]
     public byte ReinforcementLevel
     {
-        get => _ReinforcementLevel;
-        set => WriteParamField(ref _ReinforcementLevel, value);
+        get => _reinforcementLevel;
+        set => WriteParamField(ref _reinforcementLevel, value);
     }
-    private byte _ReinforcementLevel;
+    private byte _reinforcementLevel;
 
 }

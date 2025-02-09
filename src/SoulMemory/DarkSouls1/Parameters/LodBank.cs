@@ -24,35 +24,35 @@ namespace SoulMemory.DarkSouls1.Parameters;
 public class LodBank(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
     [ParamField(0x0, ParamType.F32)]
-    public float Lv01_BorderDist
+    public float Lv01BorderDist
     {
-        get => _Lv01_BorderDist;
-        set => WriteParamField(ref _Lv01_BorderDist, value);
+        get => _lv01BorderDist;
+        set => WriteParamField(ref _lv01BorderDist, value);
     }
-    private float _Lv01_BorderDist;
+    private float _lv01BorderDist;
 
     [ParamField(0x4, ParamType.F32)]
-    public float Lv01_PlayDist
+    public float Lv01PlayDist
     {
-        get => _Lv01_PlayDist;
-        set => WriteParamField(ref _Lv01_PlayDist, value);
+        get => _lv01PlayDist;
+        set => WriteParamField(ref _lv01PlayDist, value);
     }
-    private float _Lv01_PlayDist;
+    private float _lv01PlayDist;
 
     [ParamField(0x8, ParamType.F32)]
-    public float Lv12_BorderDist
+    public float Lv12BorderDist
     {
-        get => _Lv12_BorderDist;
-        set => WriteParamField(ref _Lv12_BorderDist, value);
+        get => _lv12BorderDist;
+        set => WriteParamField(ref _lv12BorderDist, value);
     }
-    private float _Lv12_BorderDist;
+    private float _lv12BorderDist;
 
     [ParamField(0xC, ParamType.F32)]
-    public float Lv12_PlayDist
+    public float Lv12PlayDist
     {
-        get => _Lv12_PlayDist;
-        set => WriteParamField(ref _Lv12_PlayDist, value);
+        get => _lv12PlayDist;
+        set => WriteParamField(ref _lv12PlayDist, value);
     }
-    private float _Lv12_PlayDist;
+    private float _lv12PlayDist;
 
 }

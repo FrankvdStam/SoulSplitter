@@ -26,65 +26,65 @@ public class QwcChangeParam(Pointer basePointer, ByteArrayMemory memory, long of
     [ParamField(0x0, ParamType.I16)]
     public short PcAttrB
     {
-        get => _PcAttrB;
-        set => WriteParamField(ref _PcAttrB, value);
+        get => _pcAttrB;
+        set => WriteParamField(ref _pcAttrB, value);
     }
-    private short _PcAttrB;
+    private short _pcAttrB;
 
     [ParamField(0x2, ParamType.I16)]
     public short PcAttrW
     {
-        get => _PcAttrW;
-        set => WriteParamField(ref _PcAttrW, value);
+        get => _pcAttrW;
+        set => WriteParamField(ref _pcAttrW, value);
     }
-    private short _PcAttrW;
+    private short _pcAttrW;
 
     [ParamField(0x4, ParamType.I16)]
     public short PcAttrL
     {
-        get => _PcAttrL;
-        set => WriteParamField(ref _PcAttrL, value);
+        get => _pcAttrL;
+        set => WriteParamField(ref _pcAttrL, value);
     }
-    private short _PcAttrL;
+    private short _pcAttrL;
 
     [ParamField(0x6, ParamType.I16)]
     public short PcAttrR
     {
-        get => _PcAttrR;
-        set => WriteParamField(ref _PcAttrR, value);
+        get => _pcAttrR;
+        set => WriteParamField(ref _pcAttrR, value);
     }
-    private short _PcAttrR;
+    private short _pcAttrR;
 
     [ParamField(0x8, ParamType.I16)]
     public short AreaAttrB
     {
-        get => _AreaAttrB;
-        set => WriteParamField(ref _AreaAttrB, value);
+        get => _areaAttrB;
+        set => WriteParamField(ref _areaAttrB, value);
     }
-    private short _AreaAttrB;
+    private short _areaAttrB;
 
     [ParamField(0xA, ParamType.I16)]
     public short AreaAttrW
     {
-        get => _AreaAttrW;
-        set => WriteParamField(ref _AreaAttrW, value);
+        get => _areaAttrW;
+        set => WriteParamField(ref _areaAttrW, value);
     }
-    private short _AreaAttrW;
+    private short _areaAttrW;
 
     [ParamField(0xC, ParamType.I16)]
     public short AreaAttrL
     {
-        get => _AreaAttrL;
-        set => WriteParamField(ref _AreaAttrL, value);
+        get => _areaAttrL;
+        set => WriteParamField(ref _areaAttrL, value);
     }
-    private short _AreaAttrL;
+    private short _areaAttrL;
 
     [ParamField(0xE, ParamType.I16)]
     public short AreaAttrR
     {
-        get => _AreaAttrR;
-        set => WriteParamField(ref _AreaAttrR, value);
+        get => _areaAttrR;
+        set => WriteParamField(ref _areaAttrR, value);
     }
-    private short _AreaAttrR;
+    private short _areaAttrR;
 
 }

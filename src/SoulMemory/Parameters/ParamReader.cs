@@ -32,7 +32,7 @@ public static class ParamReader
         var tableBytes = textBasePointer.ReadBytes(12 * rowCount, 0x18);
 
         var data = new List<TextTableEntry>();
-        for (int i = 0; i < rowCount; i++)
+        for (var i = 0; i < rowCount; i++)
         {
             var offset = i * 12;
 
@@ -65,7 +65,7 @@ public static class ParamReader
 
         var parameters = new List<T>();
 
-        for (int i = 0; i < rowCount; i++)
+        for (var i = 0; i < rowCount; i++)
         {
             var offset = i * 12;
 

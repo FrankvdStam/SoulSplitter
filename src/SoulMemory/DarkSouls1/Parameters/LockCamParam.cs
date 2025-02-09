@@ -26,57 +26,57 @@ public class LockCamParam(Pointer basePointer, ByteArrayMemory memory, long offs
     [ParamField(0x0, ParamType.F32)]
     public float CamDistTarget
     {
-        get => _CamDistTarget;
-        set => WriteParamField(ref _CamDistTarget, value);
+        get => _camDistTarget;
+        set => WriteParamField(ref _camDistTarget, value);
     }
-    private float _CamDistTarget;
+    private float _camDistTarget;
 
     [ParamField(0x4, ParamType.F32)]
     public float RotRangeMinX
     {
-        get => _RotRangeMinX;
-        set => WriteParamField(ref _RotRangeMinX, value);
+        get => _rotRangeMinX;
+        set => WriteParamField(ref _rotRangeMinX, value);
     }
-    private float _RotRangeMinX;
+    private float _rotRangeMinX;
 
     [ParamField(0x8, ParamType.F32)]
     public float LockRotXShiftRatio
     {
-        get => _LockRotXShiftRatio;
-        set => WriteParamField(ref _LockRotXShiftRatio, value);
+        get => _lockRotXShiftRatio;
+        set => WriteParamField(ref _lockRotXShiftRatio, value);
     }
-    private float _LockRotXShiftRatio;
+    private float _lockRotXShiftRatio;
 
     [ParamField(0xC, ParamType.F32)]
-    public float ChrOrgOffset_Y
+    public float ChrOrgOffsetY
     {
-        get => _ChrOrgOffset_Y;
-        set => WriteParamField(ref _ChrOrgOffset_Y, value);
+        get => _chrOrgOffsetY;
+        set => WriteParamField(ref _chrOrgOffsetY, value);
     }
-    private float _ChrOrgOffset_Y;
+    private float _chrOrgOffsetY;
 
     [ParamField(0x10, ParamType.F32)]
     public float ChrLockRangeMaxRadius
     {
-        get => _ChrLockRangeMaxRadius;
-        set => WriteParamField(ref _ChrLockRangeMaxRadius, value);
+        get => _chrLockRangeMaxRadius;
+        set => WriteParamField(ref _chrLockRangeMaxRadius, value);
     }
-    private float _ChrLockRangeMaxRadius;
+    private float _chrLockRangeMaxRadius;
 
     [ParamField(0x14, ParamType.F32)]
     public float CamFovY
     {
-        get => _CamFovY;
-        set => WriteParamField(ref _CamFovY, value);
+        get => _camFovY;
+        set => WriteParamField(ref _camFovY, value);
     }
-    private float _CamFovY;
+    private float _camFovY;
 
     [ParamField(0x18, ParamType.Dummy8, 8)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
 }

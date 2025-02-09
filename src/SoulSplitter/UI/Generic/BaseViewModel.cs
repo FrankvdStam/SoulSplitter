@@ -96,29 +96,15 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
     #endregion
 
     #region Relay commands
-    [XmlIgnore]
-    public RelayCommand AddSplitCommand
-    {
-        get => _addSplitCommand;
-        set => this.SetField(ref _addSplitCommand, value);
-    }
-    private RelayCommand _addSplitCommand = null!;
+
+    [XmlIgnore] 
+    public RelayCommand AddSplitCommand { get; set; } = null!;
 
     [XmlIgnore]
-    public RelayCommand RemoveSplitCommand
-    {
-        get => _removeSplitCommand;
-        set => this.SetField(ref _removeSplitCommand, value);
-    }
-    private RelayCommand _removeSplitCommand = null!;
+    public RelayCommand RemoveSplitCommand { get; set; }
 
     [XmlIgnore]
-    public RelayCommand CopyGamePositionCommand
-    {
-        get => _copyGamePositionCommand;
-        set => this.SetField(ref _copyGamePositionCommand, value);
-    }
-    private RelayCommand _copyGamePositionCommand = null!;
+    public RelayCommand CopyGamePositionCommand { get; set; }
 
     #endregion
 

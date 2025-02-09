@@ -26,121 +26,121 @@ public class ReinforceParamProtector(Pointer basePointer, ByteArrayMemory memory
     [ParamField(0x0, ParamType.F32)]
     public float PhysicsDefRate
     {
-        get => _PhysicsDefRate;
-        set => WriteParamField(ref _PhysicsDefRate, value);
+        get => _physicsDefRate;
+        set => WriteParamField(ref _physicsDefRate, value);
     }
-    private float _PhysicsDefRate;
+    private float _physicsDefRate;
 
     [ParamField(0x4, ParamType.F32)]
     public float MagicDefRate
     {
-        get => _MagicDefRate;
-        set => WriteParamField(ref _MagicDefRate, value);
+        get => _magicDefRate;
+        set => WriteParamField(ref _magicDefRate, value);
     }
-    private float _MagicDefRate;
+    private float _magicDefRate;
 
     [ParamField(0x8, ParamType.F32)]
     public float FireDefRate
     {
-        get => _FireDefRate;
-        set => WriteParamField(ref _FireDefRate, value);
+        get => _fireDefRate;
+        set => WriteParamField(ref _fireDefRate, value);
     }
-    private float _FireDefRate;
+    private float _fireDefRate;
 
     [ParamField(0xC, ParamType.F32)]
     public float ThunderDefRate
     {
-        get => _ThunderDefRate;
-        set => WriteParamField(ref _ThunderDefRate, value);
+        get => _thunderDefRate;
+        set => WriteParamField(ref _thunderDefRate, value);
     }
-    private float _ThunderDefRate;
+    private float _thunderDefRate;
 
     [ParamField(0x10, ParamType.F32)]
     public float SlashDefRate
     {
-        get => _SlashDefRate;
-        set => WriteParamField(ref _SlashDefRate, value);
+        get => _slashDefRate;
+        set => WriteParamField(ref _slashDefRate, value);
     }
-    private float _SlashDefRate;
+    private float _slashDefRate;
 
     [ParamField(0x14, ParamType.F32)]
     public float BlowDefRate
     {
-        get => _BlowDefRate;
-        set => WriteParamField(ref _BlowDefRate, value);
+        get => _blowDefRate;
+        set => WriteParamField(ref _blowDefRate, value);
     }
-    private float _BlowDefRate;
+    private float _blowDefRate;
 
     [ParamField(0x18, ParamType.F32)]
     public float ThrustDefRate
     {
-        get => _ThrustDefRate;
-        set => WriteParamField(ref _ThrustDefRate, value);
+        get => _thrustDefRate;
+        set => WriteParamField(ref _thrustDefRate, value);
     }
-    private float _ThrustDefRate;
+    private float _thrustDefRate;
 
     [ParamField(0x1C, ParamType.F32)]
     public float ResistPoisonRate
     {
-        get => _ResistPoisonRate;
-        set => WriteParamField(ref _ResistPoisonRate, value);
+        get => _resistPoisonRate;
+        set => WriteParamField(ref _resistPoisonRate, value);
     }
-    private float _ResistPoisonRate;
+    private float _resistPoisonRate;
 
     [ParamField(0x20, ParamType.F32)]
     public float ResistDiseaseRate
     {
-        get => _ResistDiseaseRate;
-        set => WriteParamField(ref _ResistDiseaseRate, value);
+        get => _resistDiseaseRate;
+        set => WriteParamField(ref _resistDiseaseRate, value);
     }
-    private float _ResistDiseaseRate;
+    private float _resistDiseaseRate;
 
     [ParamField(0x24, ParamType.F32)]
     public float ResistBloodRate
     {
-        get => _ResistBloodRate;
-        set => WriteParamField(ref _ResistBloodRate, value);
+        get => _resistBloodRate;
+        set => WriteParamField(ref _resistBloodRate, value);
     }
-    private float _ResistBloodRate;
+    private float _resistBloodRate;
 
     [ParamField(0x28, ParamType.F32)]
     public float ResistCurseRate
     {
-        get => _ResistCurseRate;
-        set => WriteParamField(ref _ResistCurseRate, value);
+        get => _resistCurseRate;
+        set => WriteParamField(ref _resistCurseRate, value);
     }
-    private float _ResistCurseRate;
+    private float _resistCurseRate;
 
     [ParamField(0x2C, ParamType.U8)]
     public byte ResidentSpEffectId1
     {
-        get => _ResidentSpEffectId1;
-        set => WriteParamField(ref _ResidentSpEffectId1, value);
+        get => _residentSpEffectId1;
+        set => WriteParamField(ref _residentSpEffectId1, value);
     }
-    private byte _ResidentSpEffectId1;
+    private byte _residentSpEffectId1;
 
     [ParamField(0x2D, ParamType.U8)]
     public byte ResidentSpEffectId2
     {
-        get => _ResidentSpEffectId2;
-        set => WriteParamField(ref _ResidentSpEffectId2, value);
+        get => _residentSpEffectId2;
+        set => WriteParamField(ref _residentSpEffectId2, value);
     }
-    private byte _ResidentSpEffectId2;
+    private byte _residentSpEffectId2;
 
     [ParamField(0x2E, ParamType.U8)]
     public byte ResidentSpEffectId3
     {
-        get => _ResidentSpEffectId3;
-        set => WriteParamField(ref _ResidentSpEffectId3, value);
+        get => _residentSpEffectId3;
+        set => WriteParamField(ref _residentSpEffectId3, value);
     }
-    private byte _ResidentSpEffectId3;
+    private byte _residentSpEffectId3;
 
     [ParamField(0x2F, ParamType.U8)]
     public byte MaterialSetId
     {
-        get => _MaterialSetId;
-        set => WriteParamField(ref _MaterialSetId, value);
+        get => _materialSetId;
+        set => WriteParamField(ref _materialSetId, value);
     }
-    private byte _MaterialSetId;
+    private byte _materialSetId;
 
 }

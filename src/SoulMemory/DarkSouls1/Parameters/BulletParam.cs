@@ -24,465 +24,465 @@ namespace SoulMemory.DarkSouls1.Parameters;
 public class BulletParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
     [ParamField(0x0, ParamType.I32)]
-    public int AtkId_Bullet
+    public int AtkIdBullet
     {
-        get => _AtkId_Bullet;
-        set => WriteParamField(ref _AtkId_Bullet, value);
+        get => _atkIdBullet;
+        set => WriteParamField(ref _atkIdBullet, value);
     }
-    private int _AtkId_Bullet;
+    private int _atkIdBullet;
 
     [ParamField(0x4, ParamType.I32)]
-    public int SfxId_Bullet
+    public int SfxIdBullet
     {
-        get => _SfxId_Bullet;
-        set => WriteParamField(ref _SfxId_Bullet, value);
+        get => _sfxIdBullet;
+        set => WriteParamField(ref _sfxIdBullet, value);
     }
-    private int _SfxId_Bullet;
+    private int _sfxIdBullet;
 
     [ParamField(0x8, ParamType.I32)]
-    public int SfxId_Hit
+    public int SfxIdHit
     {
-        get => _SfxId_Hit;
-        set => WriteParamField(ref _SfxId_Hit, value);
+        get => _sfxIdHit;
+        set => WriteParamField(ref _sfxIdHit, value);
     }
-    private int _SfxId_Hit;
+    private int _sfxIdHit;
 
     [ParamField(0xC, ParamType.I32)]
-    public int SfxId_Flick
+    public int SfxIdFlick
     {
-        get => _SfxId_Flick;
-        set => WriteParamField(ref _SfxId_Flick, value);
+        get => _sfxIdFlick;
+        set => WriteParamField(ref _sfxIdFlick, value);
     }
-    private int _SfxId_Flick;
+    private int _sfxIdFlick;
 
     [ParamField(0x10, ParamType.F32)]
     public float Life
     {
-        get => _Life;
-        set => WriteParamField(ref _Life, value);
+        get => _life;
+        set => WriteParamField(ref _life, value);
     }
-    private float _Life;
+    private float _life;
 
     [ParamField(0x14, ParamType.F32)]
     public float Dist
     {
-        get => _Dist;
-        set => WriteParamField(ref _Dist, value);
+        get => _dist;
+        set => WriteParamField(ref _dist, value);
     }
-    private float _Dist;
+    private float _dist;
 
     [ParamField(0x18, ParamType.F32)]
     public float ShootInterval
     {
-        get => _ShootInterval;
-        set => WriteParamField(ref _ShootInterval, value);
+        get => _shootInterval;
+        set => WriteParamField(ref _shootInterval, value);
     }
-    private float _ShootInterval;
+    private float _shootInterval;
 
     [ParamField(0x1C, ParamType.F32)]
     public float GravityInRange
     {
-        get => _GravityInRange;
-        set => WriteParamField(ref _GravityInRange, value);
+        get => _gravityInRange;
+        set => WriteParamField(ref _gravityInRange, value);
     }
-    private float _GravityInRange;
+    private float _gravityInRange;
 
     [ParamField(0x20, ParamType.F32)]
     public float GravityOutRange
     {
-        get => _GravityOutRange;
-        set => WriteParamField(ref _GravityOutRange, value);
+        get => _gravityOutRange;
+        set => WriteParamField(ref _gravityOutRange, value);
     }
-    private float _GravityOutRange;
+    private float _gravityOutRange;
 
     [ParamField(0x24, ParamType.F32)]
     public float HormingStopRange
     {
-        get => _HormingStopRange;
-        set => WriteParamField(ref _HormingStopRange, value);
+        get => _hormingStopRange;
+        set => WriteParamField(ref _hormingStopRange, value);
     }
-    private float _HormingStopRange;
+    private float _hormingStopRange;
 
     [ParamField(0x28, ParamType.F32)]
     public float InitVellocity
     {
-        get => _InitVellocity;
-        set => WriteParamField(ref _InitVellocity, value);
+        get => _initVellocity;
+        set => WriteParamField(ref _initVellocity, value);
     }
-    private float _InitVellocity;
+    private float _initVellocity;
 
     [ParamField(0x2C, ParamType.F32)]
     public float AccelInRange
     {
-        get => _AccelInRange;
-        set => WriteParamField(ref _AccelInRange, value);
+        get => _accelInRange;
+        set => WriteParamField(ref _accelInRange, value);
     }
-    private float _AccelInRange;
+    private float _accelInRange;
 
     [ParamField(0x30, ParamType.F32)]
     public float AccelOutRange
     {
-        get => _AccelOutRange;
-        set => WriteParamField(ref _AccelOutRange, value);
+        get => _accelOutRange;
+        set => WriteParamField(ref _accelOutRange, value);
     }
-    private float _AccelOutRange;
+    private float _accelOutRange;
 
     [ParamField(0x34, ParamType.F32)]
     public float MaxVellocity
     {
-        get => _MaxVellocity;
-        set => WriteParamField(ref _MaxVellocity, value);
+        get => _maxVellocity;
+        set => WriteParamField(ref _maxVellocity, value);
     }
-    private float _MaxVellocity;
+    private float _maxVellocity;
 
     [ParamField(0x38, ParamType.F32)]
     public float MinVellocity
     {
-        get => _MinVellocity;
-        set => WriteParamField(ref _MinVellocity, value);
+        get => _minVellocity;
+        set => WriteParamField(ref _minVellocity, value);
     }
-    private float _MinVellocity;
+    private float _minVellocity;
 
     [ParamField(0x3C, ParamType.F32)]
     public float AccelTime
     {
-        get => _AccelTime;
-        set => WriteParamField(ref _AccelTime, value);
+        get => _accelTime;
+        set => WriteParamField(ref _accelTime, value);
     }
-    private float _AccelTime;
+    private float _accelTime;
 
     [ParamField(0x40, ParamType.F32)]
     public float HomingBeginDist
     {
-        get => _HomingBeginDist;
-        set => WriteParamField(ref _HomingBeginDist, value);
+        get => _homingBeginDist;
+        set => WriteParamField(ref _homingBeginDist, value);
     }
-    private float _HomingBeginDist;
+    private float _homingBeginDist;
 
     [ParamField(0x44, ParamType.F32)]
     public float HitRadius
     {
-        get => _HitRadius;
-        set => WriteParamField(ref _HitRadius, value);
+        get => _hitRadius;
+        set => WriteParamField(ref _hitRadius, value);
     }
-    private float _HitRadius;
+    private float _hitRadius;
 
     [ParamField(0x48, ParamType.F32)]
     public float HitRadiusMax
     {
-        get => _HitRadiusMax;
-        set => WriteParamField(ref _HitRadiusMax, value);
+        get => _hitRadiusMax;
+        set => WriteParamField(ref _hitRadiusMax, value);
     }
-    private float _HitRadiusMax;
+    private float _hitRadiusMax;
 
     [ParamField(0x4C, ParamType.F32)]
     public float SpreadTime
     {
-        get => _SpreadTime;
-        set => WriteParamField(ref _SpreadTime, value);
+        get => _spreadTime;
+        set => WriteParamField(ref _spreadTime, value);
     }
-    private float _SpreadTime;
+    private float _spreadTime;
 
     [ParamField(0x50, ParamType.F32)]
     public float ExpDelay
     {
-        get => _ExpDelay;
-        set => WriteParamField(ref _ExpDelay, value);
+        get => _expDelay;
+        set => WriteParamField(ref _expDelay, value);
     }
-    private float _ExpDelay;
+    private float _expDelay;
 
     [ParamField(0x54, ParamType.F32)]
     public float HormingOffsetRange
     {
-        get => _HormingOffsetRange;
-        set => WriteParamField(ref _HormingOffsetRange, value);
+        get => _hormingOffsetRange;
+        set => WriteParamField(ref _hormingOffsetRange, value);
     }
-    private float _HormingOffsetRange;
+    private float _hormingOffsetRange;
 
     [ParamField(0x58, ParamType.F32)]
     public float DmgHitRecordLifeTime
     {
-        get => _DmgHitRecordLifeTime;
-        set => WriteParamField(ref _DmgHitRecordLifeTime, value);
+        get => _dmgHitRecordLifeTime;
+        set => WriteParamField(ref _dmgHitRecordLifeTime, value);
     }
-    private float _DmgHitRecordLifeTime;
+    private float _dmgHitRecordLifeTime;
 
     [ParamField(0x5C, ParamType.F32)]
     public float ExternalForce
     {
-        get => _ExternalForce;
-        set => WriteParamField(ref _ExternalForce, value);
+        get => _externalForce;
+        set => WriteParamField(ref _externalForce, value);
     }
-    private float _ExternalForce;
+    private float _externalForce;
 
     [ParamField(0x60, ParamType.I32)]
-    public int SpEffectIDForShooter
+    public int SpEffectIdForShooter
     {
-        get => _SpEffectIDForShooter;
-        set => WriteParamField(ref _SpEffectIDForShooter, value);
+        get => _spEffectIdForShooter;
+        set => WriteParamField(ref _spEffectIdForShooter, value);
     }
-    private int _SpEffectIDForShooter;
+    private int _spEffectIdForShooter;
 
     [ParamField(0x64, ParamType.I32)]
-    public int AutoSearchNPCThinkID
+    public int AutoSearchNpcThinkId
     {
-        get => _AutoSearchNPCThinkID;
-        set => WriteParamField(ref _AutoSearchNPCThinkID, value);
+        get => _autoSearchNpcThinkId;
+        set => WriteParamField(ref _autoSearchNpcThinkId, value);
     }
-    private int _AutoSearchNPCThinkID;
+    private int _autoSearchNpcThinkId;
 
     [ParamField(0x68, ParamType.I32)]
-    public int HitBulletID
+    public int HitBulletId
     {
-        get => _HitBulletID;
-        set => WriteParamField(ref _HitBulletID, value);
+        get => _hitBulletId;
+        set => WriteParamField(ref _hitBulletId, value);
     }
-    private int _HitBulletID;
+    private int _hitBulletId;
 
     [ParamField(0x6C, ParamType.I32)]
     public int SpEffectId0
     {
-        get => _SpEffectId0;
-        set => WriteParamField(ref _SpEffectId0, value);
+        get => _spEffectId0;
+        set => WriteParamField(ref _spEffectId0, value);
     }
-    private int _SpEffectId0;
+    private int _spEffectId0;
 
     [ParamField(0x70, ParamType.I32)]
     public int SpEffectId1
     {
-        get => _SpEffectId1;
-        set => WriteParamField(ref _SpEffectId1, value);
+        get => _spEffectId1;
+        set => WriteParamField(ref _spEffectId1, value);
     }
-    private int _SpEffectId1;
+    private int _spEffectId1;
 
     [ParamField(0x74, ParamType.I32)]
     public int SpEffectId2
     {
-        get => _SpEffectId2;
-        set => WriteParamField(ref _SpEffectId2, value);
+        get => _spEffectId2;
+        set => WriteParamField(ref _spEffectId2, value);
     }
-    private int _SpEffectId2;
+    private int _spEffectId2;
 
     [ParamField(0x78, ParamType.I32)]
     public int SpEffectId3
     {
-        get => _SpEffectId3;
-        set => WriteParamField(ref _SpEffectId3, value);
+        get => _spEffectId3;
+        set => WriteParamField(ref _spEffectId3, value);
     }
-    private int _SpEffectId3;
+    private int _spEffectId3;
 
     [ParamField(0x7C, ParamType.I32)]
     public int SpEffectId4
     {
-        get => _SpEffectId4;
-        set => WriteParamField(ref _SpEffectId4, value);
+        get => _spEffectId4;
+        set => WriteParamField(ref _spEffectId4, value);
     }
-    private int _SpEffectId4;
+    private int _spEffectId4;
 
     [ParamField(0x80, ParamType.U16)]
     public ushort NumShoot
     {
-        get => _NumShoot;
-        set => WriteParamField(ref _NumShoot, value);
+        get => _numShoot;
+        set => WriteParamField(ref _numShoot, value);
     }
-    private ushort _NumShoot;
+    private ushort _numShoot;
 
     [ParamField(0x82, ParamType.I16)]
     public short HomingAngle
     {
-        get => _HomingAngle;
-        set => WriteParamField(ref _HomingAngle, value);
+        get => _homingAngle;
+        set => WriteParamField(ref _homingAngle, value);
     }
-    private short _HomingAngle;
+    private short _homingAngle;
 
     [ParamField(0x84, ParamType.I16)]
     public short ShootAngle
     {
-        get => _ShootAngle;
-        set => WriteParamField(ref _ShootAngle, value);
+        get => _shootAngle;
+        set => WriteParamField(ref _shootAngle, value);
     }
-    private short _ShootAngle;
+    private short _shootAngle;
 
     [ParamField(0x86, ParamType.I16)]
     public short ShootAngleInterval
     {
-        get => _ShootAngleInterval;
-        set => WriteParamField(ref _ShootAngleInterval, value);
+        get => _shootAngleInterval;
+        set => WriteParamField(ref _shootAngleInterval, value);
     }
-    private short _ShootAngleInterval;
+    private short _shootAngleInterval;
 
     [ParamField(0x88, ParamType.I16)]
     public short ShootAngleXInterval
     {
-        get => _ShootAngleXInterval;
-        set => WriteParamField(ref _ShootAngleXInterval, value);
+        get => _shootAngleXInterval;
+        set => WriteParamField(ref _shootAngleXInterval, value);
     }
-    private short _ShootAngleXInterval;
+    private short _shootAngleXInterval;
 
     [ParamField(0x8A, ParamType.I8)]
     public sbyte DamageDamp
     {
-        get => _DamageDamp;
-        set => WriteParamField(ref _DamageDamp, value);
+        get => _damageDamp;
+        set => WriteParamField(ref _damageDamp, value);
     }
-    private sbyte _DamageDamp;
+    private sbyte _damageDamp;
 
     [ParamField(0x8B, ParamType.I8)]
     public sbyte SpelDamageDamp
     {
-        get => _SpelDamageDamp;
-        set => WriteParamField(ref _SpelDamageDamp, value);
+        get => _spelDamageDamp;
+        set => WriteParamField(ref _spelDamageDamp, value);
     }
-    private sbyte _SpelDamageDamp;
+    private sbyte _spelDamageDamp;
 
     [ParamField(0x8C, ParamType.I8)]
     public sbyte FireDamageDamp
     {
-        get => _FireDamageDamp;
-        set => WriteParamField(ref _FireDamageDamp, value);
+        get => _fireDamageDamp;
+        set => WriteParamField(ref _fireDamageDamp, value);
     }
-    private sbyte _FireDamageDamp;
+    private sbyte _fireDamageDamp;
 
     [ParamField(0x8D, ParamType.I8)]
     public sbyte ThunderDamageDamp
     {
-        get => _ThunderDamageDamp;
-        set => WriteParamField(ref _ThunderDamageDamp, value);
+        get => _thunderDamageDamp;
+        set => WriteParamField(ref _thunderDamageDamp, value);
     }
-    private sbyte _ThunderDamageDamp;
+    private sbyte _thunderDamageDamp;
 
     [ParamField(0x8E, ParamType.I8)]
     public sbyte StaminaDamp
     {
-        get => _StaminaDamp;
-        set => WriteParamField(ref _StaminaDamp, value);
+        get => _staminaDamp;
+        set => WriteParamField(ref _staminaDamp, value);
     }
-    private sbyte _StaminaDamp;
+    private sbyte _staminaDamp;
 
     [ParamField(0x8F, ParamType.I8)]
     public sbyte KnockbackDamp
     {
-        get => _KnockbackDamp;
-        set => WriteParamField(ref _KnockbackDamp, value);
+        get => _knockbackDamp;
+        set => WriteParamField(ref _knockbackDamp, value);
     }
-    private sbyte _KnockbackDamp;
+    private sbyte _knockbackDamp;
 
     [ParamField(0x90, ParamType.I8)]
-    public sbyte ShootAngleXZ
+    public sbyte ShootAngleXz
     {
-        get => _ShootAngleXZ;
-        set => WriteParamField(ref _ShootAngleXZ, value);
+        get => _shootAngleXz;
+        set => WriteParamField(ref _shootAngleXz, value);
     }
-    private sbyte _ShootAngleXZ;
+    private sbyte _shootAngleXz;
 
     [ParamField(0x91, ParamType.U8)]
     public byte LockShootLimitAng
     {
-        get => _LockShootLimitAng;
-        set => WriteParamField(ref _LockShootLimitAng, value);
+        get => _lockShootLimitAng;
+        set => WriteParamField(ref _lockShootLimitAng, value);
     }
-    private byte _LockShootLimitAng;
+    private byte _lockShootLimitAng;
 
     [ParamField(0x92, ParamType.U8)]
     public byte IsPenetrate
     {
-        get => _IsPenetrate;
-        set => WriteParamField(ref _IsPenetrate, value);
+        get => _isPenetrate;
+        set => WriteParamField(ref _isPenetrate, value);
     }
-    private byte _IsPenetrate;
+    private byte _isPenetrate;
 
     [ParamField(0x93, ParamType.U8)]
     public byte PrevVelocityDirRate
     {
-        get => _PrevVelocityDirRate;
-        set => WriteParamField(ref _PrevVelocityDirRate, value);
+        get => _prevVelocityDirRate;
+        set => WriteParamField(ref _prevVelocityDirRate, value);
     }
-    private byte _PrevVelocityDirRate;
+    private byte _prevVelocityDirRate;
 
     [ParamField(0x94, ParamType.U8)]
     public byte AtkAttribute
     {
-        get => _AtkAttribute;
-        set => WriteParamField(ref _AtkAttribute, value);
+        get => _atkAttribute;
+        set => WriteParamField(ref _atkAttribute, value);
     }
-    private byte _AtkAttribute;
+    private byte _atkAttribute;
 
     [ParamField(0x95, ParamType.U8)]
     public byte SpAttribute
     {
-        get => _SpAttribute;
-        set => WriteParamField(ref _SpAttribute, value);
+        get => _spAttribute;
+        set => WriteParamField(ref _spAttribute, value);
     }
-    private byte _SpAttribute;
+    private byte _spAttribute;
 
     [ParamField(0x96, ParamType.U8)]
-    public byte Material_AttackType
+    public byte MaterialAttackType
     {
-        get => _Material_AttackType;
-        set => WriteParamField(ref _Material_AttackType, value);
+        get => _materialAttackType;
+        set => WriteParamField(ref _materialAttackType, value);
     }
-    private byte _Material_AttackType;
+    private byte _materialAttackType;
 
     [ParamField(0x97, ParamType.U8)]
-    public byte Material_AttackMaterial
+    public byte MaterialAttackMaterial
     {
-        get => _Material_AttackMaterial;
-        set => WriteParamField(ref _Material_AttackMaterial, value);
+        get => _materialAttackMaterial;
+        set => WriteParamField(ref _materialAttackMaterial, value);
     }
-    private byte _Material_AttackMaterial;
+    private byte _materialAttackMaterial;
 
     [ParamField(0x98, ParamType.U8)]
-    public byte Material_Size
+    public byte MaterialSize
     {
-        get => _Material_Size;
-        set => WriteParamField(ref _Material_Size, value);
+        get => _materialSize;
+        set => WriteParamField(ref _materialSize, value);
     }
-    private byte _Material_Size;
+    private byte _materialSize;
 
     [ParamField(0x99, ParamType.U8)]
     public byte LaunchConditionType
     {
-        get => _LaunchConditionType;
-        set => WriteParamField(ref _LaunchConditionType, value);
+        get => _launchConditionType;
+        set => WriteParamField(ref _launchConditionType, value);
     }
-    private byte _LaunchConditionType;
+    private byte _launchConditionType;
 
     #region BitField FollowTypeBitfield ==============================================================================
 
     [ParamField(0x9A, ParamType.U8)]
     public byte FollowTypeBitfield
     {
-        get => _FollowTypeBitfield;
-        set => WriteParamField(ref _FollowTypeBitfield, value);
+        get => _followTypeBitfield;
+        set => WriteParamField(ref _followTypeBitfield, value);
     }
-    private byte _FollowTypeBitfield;
+    private byte _followTypeBitfield;
 
     [ParamBitField(nameof(FollowTypeBitfield), bits: 3, bitsOffset: 0)]
     public byte FollowType
     {
-        get => GetbitfieldValue(_FollowTypeBitfield);
-        set => SetBitfieldValue(ref _FollowTypeBitfield, value);
+        get => GetbitfieldValue(_followTypeBitfield);
+        set => SetBitfieldValue(ref _followTypeBitfield, value);
     }
 
     [ParamBitField(nameof(FollowTypeBitfield), bits: 3, bitsOffset: 3)]
     public byte EmittePosType
     {
-        get => GetbitfieldValue(_FollowTypeBitfield);
-        set => SetBitfieldValue(ref _FollowTypeBitfield, value);
+        get => GetbitfieldValue(_followTypeBitfield);
+        set => SetBitfieldValue(ref _followTypeBitfield, value);
     }
 
     [ParamBitField(nameof(FollowTypeBitfield), bits: 1, bitsOffset: 6)]
-    public byte IsAttackSFX
+    public byte IsAttackSfx
     {
-        get => GetbitfieldValue(_FollowTypeBitfield);
-        set => SetBitfieldValue(ref _FollowTypeBitfield, value);
+        get => GetbitfieldValue(_followTypeBitfield);
+        set => SetBitfieldValue(ref _followTypeBitfield, value);
     }
 
     [ParamBitField(nameof(FollowTypeBitfield), bits: 1, bitsOffset: 7)]
     public byte IsEndlessHit
     {
-        get => GetbitfieldValue(_FollowTypeBitfield);
-        set => SetBitfieldValue(ref _FollowTypeBitfield, value);
+        get => GetbitfieldValue(_followTypeBitfield);
+        set => SetBitfieldValue(ref _followTypeBitfield, value);
     }
 
     #endregion BitField FollowTypeBitfield
@@ -492,58 +492,58 @@ public class BulletParam(Pointer basePointer, ByteArrayMemory memory, long offse
     [ParamField(0x9B, ParamType.U8)]
     public byte IsPenetrateMapBitfield
     {
-        get => _IsPenetrateMapBitfield;
-        set => WriteParamField(ref _IsPenetrateMapBitfield, value);
+        get => _isPenetrateMapBitfield;
+        set => WriteParamField(ref _isPenetrateMapBitfield, value);
     }
-    private byte _IsPenetrateMapBitfield;
+    private byte _isPenetrateMapBitfield;
 
     [ParamBitField(nameof(IsPenetrateMapBitfield), bits: 1, bitsOffset: 0)]
     public byte IsPenetrateMap
     {
-        get => GetbitfieldValue(_IsPenetrateMapBitfield);
-        set => SetBitfieldValue(ref _IsPenetrateMapBitfield, value);
+        get => GetbitfieldValue(_isPenetrateMapBitfield);
+        set => SetBitfieldValue(ref _isPenetrateMapBitfield, value);
     }
 
     [ParamBitField(nameof(IsPenetrateMapBitfield), bits: 1, bitsOffset: 1)]
     public byte IsHitBothTeam
     {
-        get => GetbitfieldValue(_IsPenetrateMapBitfield);
-        set => SetBitfieldValue(ref _IsPenetrateMapBitfield, value);
+        get => GetbitfieldValue(_isPenetrateMapBitfield);
+        set => SetBitfieldValue(ref _isPenetrateMapBitfield, value);
     }
 
     [ParamBitField(nameof(IsPenetrateMapBitfield), bits: 1, bitsOffset: 2)]
     public byte IsUseSharedHitList
     {
-        get => GetbitfieldValue(_IsPenetrateMapBitfield);
-        set => SetBitfieldValue(ref _IsPenetrateMapBitfield, value);
+        get => GetbitfieldValue(_isPenetrateMapBitfield);
+        set => SetBitfieldValue(ref _isPenetrateMapBitfield, value);
     }
 
     [ParamBitField(nameof(IsPenetrateMapBitfield), bits: 1, bitsOffset: 3)]
     public byte IsUseMultiDmyPolyIfPlace
     {
-        get => GetbitfieldValue(_IsPenetrateMapBitfield);
-        set => SetBitfieldValue(ref _IsPenetrateMapBitfield, value);
+        get => GetbitfieldValue(_isPenetrateMapBitfield);
+        set => SetBitfieldValue(ref _isPenetrateMapBitfield, value);
     }
 
     [ParamBitField(nameof(IsPenetrateMapBitfield), bits: 2, bitsOffset: 4)]
     public byte AttachEffectType
     {
-        get => GetbitfieldValue(_IsPenetrateMapBitfield);
-        set => SetBitfieldValue(ref _IsPenetrateMapBitfield, value);
+        get => GetbitfieldValue(_isPenetrateMapBitfield);
+        set => SetBitfieldValue(ref _isPenetrateMapBitfield, value);
     }
 
     [ParamBitField(nameof(IsPenetrateMapBitfield), bits: 1, bitsOffset: 6)]
     public byte IsHitForceMagic
     {
-        get => GetbitfieldValue(_IsPenetrateMapBitfield);
-        set => SetBitfieldValue(ref _IsPenetrateMapBitfield, value);
+        get => GetbitfieldValue(_isPenetrateMapBitfield);
+        set => SetBitfieldValue(ref _isPenetrateMapBitfield, value);
     }
 
     [ParamBitField(nameof(IsPenetrateMapBitfield), bits: 1, bitsOffset: 7)]
     public byte IsIgnoreSfxIfHitWater
     {
-        get => GetbitfieldValue(_IsPenetrateMapBitfield);
-        set => SetBitfieldValue(ref _IsPenetrateMapBitfield, value);
+        get => GetbitfieldValue(_isPenetrateMapBitfield);
+        set => SetBitfieldValue(ref _isPenetrateMapBitfield, value);
     }
 
     #endregion BitField IsPenetrateMapBitfield
@@ -553,23 +553,23 @@ public class BulletParam(Pointer basePointer, ByteArrayMemory memory, long offse
     [ParamField(0x9C, ParamType.U8)]
     public byte IsIgnoreMoveStateIfHitWaterBitfield
     {
-        get => _IsIgnoreMoveStateIfHitWaterBitfield;
-        set => WriteParamField(ref _IsIgnoreMoveStateIfHitWaterBitfield, value);
+        get => _isIgnoreMoveStateIfHitWaterBitfield;
+        set => WriteParamField(ref _isIgnoreMoveStateIfHitWaterBitfield, value);
     }
-    private byte _IsIgnoreMoveStateIfHitWaterBitfield;
+    private byte _isIgnoreMoveStateIfHitWaterBitfield;
 
     [ParamBitField(nameof(IsIgnoreMoveStateIfHitWaterBitfield), bits: 1, bitsOffset: 0)]
     public byte IsIgnoreMoveStateIfHitWater
     {
-        get => GetbitfieldValue(_IsIgnoreMoveStateIfHitWaterBitfield);
-        set => SetBitfieldValue(ref _IsIgnoreMoveStateIfHitWaterBitfield, value);
+        get => GetbitfieldValue(_isIgnoreMoveStateIfHitWaterBitfield);
+        set => SetBitfieldValue(ref _isIgnoreMoveStateIfHitWaterBitfield, value);
     }
 
     [ParamBitField(nameof(IsIgnoreMoveStateIfHitWaterBitfield), bits: 1, bitsOffset: 1)]
     public byte IsHitDarkForceMagic
     {
-        get => GetbitfieldValue(_IsIgnoreMoveStateIfHitWaterBitfield);
-        set => SetBitfieldValue(ref _IsIgnoreMoveStateIfHitWaterBitfield, value);
+        get => GetbitfieldValue(_isIgnoreMoveStateIfHitWaterBitfield);
+        set => SetBitfieldValue(ref _isIgnoreMoveStateIfHitWaterBitfield, value);
     }
 
     #endregion BitField IsIgnoreMoveStateIfHitWaterBitfield
@@ -577,9 +577,9 @@ public class BulletParam(Pointer basePointer, ByteArrayMemory memory, long offse
     [ParamField(0x9D, ParamType.Dummy8, 3)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
 }

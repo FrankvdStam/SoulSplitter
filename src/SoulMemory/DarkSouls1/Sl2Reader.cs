@@ -42,9 +42,6 @@ internal static class Sl2Reader
     /// <summary>
     /// Read the IGT from an SL2 file
     /// </summary>
-    /// <param name="path">path to the SL2 file</param>
-    /// <param name="slot">the slot to read the IGT from</param>
-    /// <param name="version">The game version</param>
     /// <returns>IGT or -1 if sometimes failed</returns>
     public static int? GetSaveFileIgt(string? path, int slot, bool ptde)
     {
@@ -63,23 +60,23 @@ internal static class Sl2Reader
             {
                 if (ptde)
                 {
-                    byte[] file = File.ReadAllBytes(path);
-                    int saveSlotSize = 0x60020;
+                    var file = File.ReadAllBytes(path);
+                    var saveSlotSize = 0x60020;
 
                     // Seems like GFWL files have a different slot size
                     if (file.Length != 4326432)
                         saveSlotSize = 0x60190;
 
-                    int igtOffset = 0x2dc + (saveSlotSize * slot);
+                    var igtOffset = 0x2dc + (saveSlotSize * slot);
                     igt = BitConverter.ToInt32(file, igtOffset);
                 }
                 else
                 {
                     // Each USERDATA file is individually AES - 128 - CBC encrypted.
-                    byte[] file = File.ReadAllBytes(path);
+                    var file = File.ReadAllBytes(path);
                     file = DecryptSl2(file);
-                    int saveSlotSize = 0x60030;
-                    int igtOffset = 0x2EC + (saveSlotSize * slot);
+                    var saveSlotSize = 0x60030;
+                    var igtOffset = 0x2EC + (saveSlotSize * slot);
                     igt = BitConverter.ToInt32(file, igtOffset);
                 }
             }
@@ -109,10 +106,6 @@ internal static class Sl2Reader
     /// <summary>
     /// Each USERDATA file is individually AES-128-CBC encrypted. 
     /// </summary>
-    /// <param name="cipherBytes">encrypted bytes</param>
-    /// <param name="key">key</param>
-    /// <param name="iv">iv</param>
-    /// <returns>decrypted bytes</returns>
     private static byte[] DecryptSl2(byte[] cipherBytes)
     {
         var encryptor = Aes.Create();

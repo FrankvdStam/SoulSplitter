@@ -26,49 +26,49 @@ public class PointLightBank(Pointer basePointer, ByteArrayMemory memory, long of
     [ParamField(0x0, ParamType.F32)]
     public float DwindleBegin
     {
-        get => _DwindleBegin;
-        set => WriteParamField(ref _DwindleBegin, value);
+        get => _dwindleBegin;
+        set => WriteParamField(ref _dwindleBegin, value);
     }
-    private float _DwindleBegin;
+    private float _dwindleBegin;
 
     [ParamField(0x4, ParamType.F32)]
     public float DwindleEnd
     {
-        get => _DwindleEnd;
-        set => WriteParamField(ref _DwindleEnd, value);
+        get => _dwindleEnd;
+        set => WriteParamField(ref _dwindleEnd, value);
     }
-    private float _DwindleEnd;
+    private float _dwindleEnd;
 
     [ParamField(0x8, ParamType.I16)]
     public short ColR
     {
-        get => _ColR;
-        set => WriteParamField(ref _ColR, value);
+        get => _colR;
+        set => WriteParamField(ref _colR, value);
     }
-    private short _ColR;
+    private short _colR;
 
     [ParamField(0xA, ParamType.I16)]
     public short ColG
     {
-        get => _ColG;
-        set => WriteParamField(ref _ColG, value);
+        get => _colG;
+        set => WriteParamField(ref _colG, value);
     }
-    private short _ColG;
+    private short _colG;
 
     [ParamField(0xC, ParamType.I16)]
     public short ColB
     {
-        get => _ColB;
-        set => WriteParamField(ref _ColB, value);
+        get => _colB;
+        set => WriteParamField(ref _colB, value);
     }
-    private short _ColB;
+    private short _colB;
 
     [ParamField(0xE, ParamType.I16)]
     public short ColA
     {
-        get => _ColA;
-        set => WriteParamField(ref _ColA, value);
+        get => _colA;
+        set => WriteParamField(ref _colA, value);
     }
-    private short _ColA;
+    private short _colA;
 
 }

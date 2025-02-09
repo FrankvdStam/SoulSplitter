@@ -24,787 +24,787 @@ namespace SoulMemory.DarkSouls1.Parameters;
 public class LevelSyncParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
     [ParamField(0x0, ParamType.I16)]
-    public short SCLUA
+    public short Sclua
     {
-        get => _SCLUA;
-        set => WriteParamField(ref _SCLUA, value);
+        get => _sclua;
+        set => WriteParamField(ref _sclua, value);
     }
-    private short _SCLUA;
+    private short _sclua;
 
     [ParamField(0x2, ParamType.I16)]
-    public short SDCLUR
+    public short Sdclur
     {
-        get => _SDCLUR;
-        set => WriteParamField(ref _SDCLUR, value);
+        get => _sdclur;
+        set => WriteParamField(ref _sdclur, value);
     }
-    private short _SDCLUR;
+    private short _sdclur;
 
     [ParamField(0x4, ParamType.I16)]
-    public short SDCWLM
+    public short Sdcwlm
     {
-        get => _SDCWLM;
-        set => WriteParamField(ref _SDCWLM, value);
+        get => _sdcwlm;
+        set => WriteParamField(ref _sdcwlm, value);
     }
-    private short _SDCWLM;
+    private short _sdcwlm;
 
     [ParamField(0x6, ParamType.U8)]
-    public byte MLWSUR
+    public byte Mlwsur
     {
-        get => _MLWSUR;
-        set => WriteParamField(ref _MLWSUR, value);
+        get => _mlwsur;
+        set => WriteParamField(ref _mlwsur, value);
     }
-    private byte _MLWSUR;
+    private byte _mlwsur;
 
     [ParamField(0x7, ParamType.U8)]
-    public byte MLWSUA
+    public byte Mlwsua
     {
-        get => _MLWSUA;
-        set => WriteParamField(ref _MLWSUA, value);
+        get => _mlwsua;
+        set => WriteParamField(ref _mlwsua, value);
     }
-    private byte _MLWSUA;
+    private byte _mlwsua;
 
     [ParamField(0x8, ParamType.U8)]
-    public byte MLRSUR
+    public byte Mlrsur
     {
-        get => _MLRSUR;
-        set => WriteParamField(ref _MLRSUR, value);
+        get => _mlrsur;
+        set => WriteParamField(ref _mlrsur, value);
     }
-    private byte _MLRSUR;
+    private byte _mlrsur;
 
     [ParamField(0x9, ParamType.U8)]
-    public byte MLRSUA
+    public byte Mlrsua
     {
-        get => _MLRSUA;
-        set => WriteParamField(ref _MLRSUA, value);
+        get => _mlrsua;
+        set => WriteParamField(ref _mlrsua, value);
     }
-    private byte _MLRSUA;
+    private byte _mlrsua;
 
     [ParamField(0xA, ParamType.U8)]
-    public byte MWLUWS0
+    public byte Mwluws0
     {
-        get => _MWLUWS0;
-        set => WriteParamField(ref _MWLUWS0, value);
+        get => _mwluws0;
+        set => WriteParamField(ref _mwluws0, value);
     }
-    private byte _MWLUWS0;
+    private byte _mwluws0;
 
     [ParamField(0xB, ParamType.U8)]
-    public byte MWLUWS1
+    public byte Mwluws1
     {
-        get => _MWLUWS1;
-        set => WriteParamField(ref _MWLUWS1, value);
+        get => _mwluws1;
+        set => WriteParamField(ref _mwluws1, value);
     }
-    private byte _MWLUWS1;
+    private byte _mwluws1;
 
     [ParamField(0xC, ParamType.U8)]
-    public byte MWLUWS2
+    public byte Mwluws2
     {
-        get => _MWLUWS2;
-        set => WriteParamField(ref _MWLUWS2, value);
+        get => _mwluws2;
+        set => WriteParamField(ref _mwluws2, value);
     }
-    private byte _MWLUWS2;
+    private byte _mwluws2;
 
     [ParamField(0xD, ParamType.U8)]
-    public byte MWLUWS3
+    public byte Mwluws3
     {
-        get => _MWLUWS3;
-        set => WriteParamField(ref _MWLUWS3, value);
+        get => _mwluws3;
+        set => WriteParamField(ref _mwluws3, value);
     }
-    private byte _MWLUWS3;
+    private byte _mwluws3;
 
     [ParamField(0xE, ParamType.U8)]
-    public byte MWLUWS4
+    public byte Mwluws4
     {
-        get => _MWLUWS4;
-        set => WriteParamField(ref _MWLUWS4, value);
+        get => _mwluws4;
+        set => WriteParamField(ref _mwluws4, value);
     }
-    private byte _MWLUWS4;
+    private byte _mwluws4;
 
     [ParamField(0xF, ParamType.U8)]
-    public byte MWLUWS5
+    public byte Mwluws5
     {
-        get => _MWLUWS5;
-        set => WriteParamField(ref _MWLUWS5, value);
+        get => _mwluws5;
+        set => WriteParamField(ref _mwluws5, value);
     }
-    private byte _MWLUWS5;
+    private byte _mwluws5;
 
     [ParamField(0x10, ParamType.U8)]
-    public byte MWLUWS6
+    public byte Mwluws6
     {
-        get => _MWLUWS6;
-        set => WriteParamField(ref _MWLUWS6, value);
+        get => _mwluws6;
+        set => WriteParamField(ref _mwluws6, value);
     }
-    private byte _MWLUWS6;
+    private byte _mwluws6;
 
     [ParamField(0x11, ParamType.U8)]
-    public byte MWLUWS7
+    public byte Mwluws7
     {
-        get => _MWLUWS7;
-        set => WriteParamField(ref _MWLUWS7, value);
+        get => _mwluws7;
+        set => WriteParamField(ref _mwluws7, value);
     }
-    private byte _MWLUWS7;
+    private byte _mwluws7;
 
     [ParamField(0x12, ParamType.U8)]
-    public byte MWLUWS8
+    public byte Mwluws8
     {
-        get => _MWLUWS8;
-        set => WriteParamField(ref _MWLUWS8, value);
+        get => _mwluws8;
+        set => WriteParamField(ref _mwluws8, value);
     }
-    private byte _MWLUWS8;
+    private byte _mwluws8;
 
     [ParamField(0x13, ParamType.U8)]
-    public byte MWLUWS9
+    public byte Mwluws9
     {
-        get => _MWLUWS9;
-        set => WriteParamField(ref _MWLUWS9, value);
+        get => _mwluws9;
+        set => WriteParamField(ref _mwluws9, value);
     }
-    private byte _MWLUWS9;
+    private byte _mwluws9;
 
     [ParamField(0x14, ParamType.U8)]
-    public byte MWLUWS10
+    public byte Mwluws10
     {
-        get => _MWLUWS10;
-        set => WriteParamField(ref _MWLUWS10, value);
+        get => _mwluws10;
+        set => WriteParamField(ref _mwluws10, value);
     }
-    private byte _MWLUWS10;
+    private byte _mwluws10;
 
     [ParamField(0x15, ParamType.U8)]
-    public byte MWLURS0
+    public byte Mwlurs0
     {
-        get => _MWLURS0;
-        set => WriteParamField(ref _MWLURS0, value);
+        get => _mwlurs0;
+        set => WriteParamField(ref _mwlurs0, value);
     }
-    private byte _MWLURS0;
+    private byte _mwlurs0;
 
     [ParamField(0x16, ParamType.U8)]
-    public byte MWLURS1
+    public byte Mwlurs1
     {
-        get => _MWLURS1;
-        set => WriteParamField(ref _MWLURS1, value);
+        get => _mwlurs1;
+        set => WriteParamField(ref _mwlurs1, value);
     }
-    private byte _MWLURS1;
+    private byte _mwlurs1;
 
     [ParamField(0x17, ParamType.U8)]
-    public byte MWLURS2
+    public byte Mwlurs2
     {
-        get => _MWLURS2;
-        set => WriteParamField(ref _MWLURS2, value);
+        get => _mwlurs2;
+        set => WriteParamField(ref _mwlurs2, value);
     }
-    private byte _MWLURS2;
+    private byte _mwlurs2;
 
     [ParamField(0x18, ParamType.U8)]
-    public byte MWLURS3
+    public byte Mwlurs3
     {
-        get => _MWLURS3;
-        set => WriteParamField(ref _MWLURS3, value);
+        get => _mwlurs3;
+        set => WriteParamField(ref _mwlurs3, value);
     }
-    private byte _MWLURS3;
+    private byte _mwlurs3;
 
     [ParamField(0x19, ParamType.U8)]
-    public byte MWLURS4
+    public byte Mwlurs4
     {
-        get => _MWLURS4;
-        set => WriteParamField(ref _MWLURS4, value);
+        get => _mwlurs4;
+        set => WriteParamField(ref _mwlurs4, value);
     }
-    private byte _MWLURS4;
+    private byte _mwlurs4;
 
     [ParamField(0x1A, ParamType.U8)]
-    public byte MWLURS5
+    public byte Mwlurs5
     {
-        get => _MWLURS5;
-        set => WriteParamField(ref _MWLURS5, value);
+        get => _mwlurs5;
+        set => WriteParamField(ref _mwlurs5, value);
     }
-    private byte _MWLURS5;
+    private byte _mwlurs5;
 
     [ParamField(0x1B, ParamType.U8)]
-    public byte MWLURS6
+    public byte Mwlurs6
     {
-        get => _MWLURS6;
-        set => WriteParamField(ref _MWLURS6, value);
+        get => _mwlurs6;
+        set => WriteParamField(ref _mwlurs6, value);
     }
-    private byte _MWLURS6;
+    private byte _mwlurs6;
 
     [ParamField(0x1C, ParamType.U8)]
-    public byte MWLURS7
+    public byte Mwlurs7
     {
-        get => _MWLURS7;
-        set => WriteParamField(ref _MWLURS7, value);
+        get => _mwlurs7;
+        set => WriteParamField(ref _mwlurs7, value);
     }
-    private byte _MWLURS7;
+    private byte _mwlurs7;
 
     [ParamField(0x1D, ParamType.U8)]
-    public byte MWLURS8
+    public byte Mwlurs8
     {
-        get => _MWLURS8;
-        set => WriteParamField(ref _MWLURS8, value);
+        get => _mwlurs8;
+        set => WriteParamField(ref _mwlurs8, value);
     }
-    private byte _MWLURS8;
+    private byte _mwlurs8;
 
     [ParamField(0x1E, ParamType.U8)]
-    public byte MWLURS9
+    public byte Mwlurs9
     {
-        get => _MWLURS9;
-        set => WriteParamField(ref _MWLURS9, value);
+        get => _mwlurs9;
+        set => WriteParamField(ref _mwlurs9, value);
     }
-    private byte _MWLURS9;
+    private byte _mwlurs9;
 
     [ParamField(0x1F, ParamType.U8)]
-    public byte MWLURS10
+    public byte Mwlurs10
     {
-        get => _MWLURS10;
-        set => WriteParamField(ref _MWLURS10, value);
+        get => _mwlurs10;
+        set => WriteParamField(ref _mwlurs10, value);
     }
-    private byte _MWLURS10;
+    private byte _mwlurs10;
 
     [ParamField(0x20, ParamType.U8)]
-    public byte MWLUA0
+    public byte Mwlua0
     {
-        get => _MWLUA0;
-        set => WriteParamField(ref _MWLUA0, value);
+        get => _mwlua0;
+        set => WriteParamField(ref _mwlua0, value);
     }
-    private byte _MWLUA0;
+    private byte _mwlua0;
 
     [ParamField(0x21, ParamType.U8)]
-    public byte MWLUA1
+    public byte Mwlua1
     {
-        get => _MWLUA1;
-        set => WriteParamField(ref _MWLUA1, value);
+        get => _mwlua1;
+        set => WriteParamField(ref _mwlua1, value);
     }
-    private byte _MWLUA1;
+    private byte _mwlua1;
 
     [ParamField(0x22, ParamType.U8)]
-    public byte MWLUA2
+    public byte Mwlua2
     {
-        get => _MWLUA2;
-        set => WriteParamField(ref _MWLUA2, value);
+        get => _mwlua2;
+        set => WriteParamField(ref _mwlua2, value);
     }
-    private byte _MWLUA2;
+    private byte _mwlua2;
 
     [ParamField(0x23, ParamType.U8)]
-    public byte MWLUA3
+    public byte Mwlua3
     {
-        get => _MWLUA3;
-        set => WriteParamField(ref _MWLUA3, value);
+        get => _mwlua3;
+        set => WriteParamField(ref _mwlua3, value);
     }
-    private byte _MWLUA3;
+    private byte _mwlua3;
 
     [ParamField(0x24, ParamType.U8)]
-    public byte MWLUA4
+    public byte Mwlua4
     {
-        get => _MWLUA4;
-        set => WriteParamField(ref _MWLUA4, value);
+        get => _mwlua4;
+        set => WriteParamField(ref _mwlua4, value);
     }
-    private byte _MWLUA4;
+    private byte _mwlua4;
 
     [ParamField(0x25, ParamType.U8)]
-    public byte MWLUA5
+    public byte Mwlua5
     {
-        get => _MWLUA5;
-        set => WriteParamField(ref _MWLUA5, value);
+        get => _mwlua5;
+        set => WriteParamField(ref _mwlua5, value);
     }
-    private byte _MWLUA5;
+    private byte _mwlua5;
 
     [ParamField(0x26, ParamType.U8)]
-    public byte MWLUA6
+    public byte Mwlua6
     {
-        get => _MWLUA6;
-        set => WriteParamField(ref _MWLUA6, value);
+        get => _mwlua6;
+        set => WriteParamField(ref _mwlua6, value);
     }
-    private byte _MWLUA6;
+    private byte _mwlua6;
 
     [ParamField(0x27, ParamType.U8)]
-    public byte MWLUA7
+    public byte Mwlua7
     {
-        get => _MWLUA7;
-        set => WriteParamField(ref _MWLUA7, value);
+        get => _mwlua7;
+        set => WriteParamField(ref _mwlua7, value);
     }
-    private byte _MWLUA7;
+    private byte _mwlua7;
 
     [ParamField(0x28, ParamType.U8)]
-    public byte MWLUA8
+    public byte Mwlua8
     {
-        get => _MWLUA8;
-        set => WriteParamField(ref _MWLUA8, value);
+        get => _mwlua8;
+        set => WriteParamField(ref _mwlua8, value);
     }
-    private byte _MWLUA8;
+    private byte _mwlua8;
 
     [ParamField(0x29, ParamType.U8)]
-    public byte MWLUA9
+    public byte Mwlua9
     {
-        get => _MWLUA9;
-        set => WriteParamField(ref _MWLUA9, value);
+        get => _mwlua9;
+        set => WriteParamField(ref _mwlua9, value);
     }
-    private byte _MWLUA9;
+    private byte _mwlua9;
 
     [ParamField(0x2A, ParamType.U8)]
-    public byte MWLUA10
+    public byte Mwlua10
     {
-        get => _MWLUA10;
-        set => WriteParamField(ref _MWLUA10, value);
+        get => _mwlua10;
+        set => WriteParamField(ref _mwlua10, value);
     }
-    private byte _MWLUA10;
+    private byte _mwlua10;
 
     [ParamField(0x2B, ParamType.U8)]
-    public byte MLASUR
+    public byte Mlasur
     {
-        get => _MLASUR;
-        set => WriteParamField(ref _MLASUR, value);
+        get => _mlasur;
+        set => WriteParamField(ref _mlasur, value);
     }
-    private byte _MLASUR;
+    private byte _mlasur;
 
     [ParamField(0x2C, ParamType.U8)]
-    public byte MLASUA
+    public byte Mlasua
     {
-        get => _MLASUA;
-        set => WriteParamField(ref _MLASUA, value);
+        get => _mlasua;
+        set => WriteParamField(ref _mlasua, value);
     }
-    private byte _MLASUA;
+    private byte _mlasua;
 
     [ParamField(0x2D, ParamType.Dummy8, 3)]
     public byte[] Pad
     {
-        get => _Pad;
-        set => WriteParamField(ref _Pad, value);
+        get => _pad;
+        set => WriteParamField(ref _pad, value);
     }
-    private byte[] _Pad = null!;
+    private byte[] _pad = null!;
 
     [ParamField(0x30, ParamType.F32)]
     public float SummonTimeoutTime
     {
-        get => _SummonTimeoutTime;
-        set => WriteParamField(ref _SummonTimeoutTime, value);
+        get => _summonTimeoutTime;
+        set => WriteParamField(ref _summonTimeoutTime, value);
     }
-    private float _SummonTimeoutTime;
+    private float _summonTimeoutTime;
 
     [ParamField(0x34, ParamType.U32)]
     public uint SingGetMax
     {
-        get => _SingGetMax;
-        set => WriteParamField(ref _SingGetMax, value);
+        get => _singGetMax;
+        set => WriteParamField(ref _singGetMax, value);
     }
-    private uint _SingGetMax;
+    private uint _singGetMax;
 
     [ParamField(0x38, ParamType.F32)]
     public float SignDownloadSpan
     {
-        get => _SignDownloadSpan;
-        set => WriteParamField(ref _SignDownloadSpan, value);
+        get => _signDownloadSpan;
+        set => WriteParamField(ref _signDownloadSpan, value);
     }
-    private float _SignDownloadSpan;
+    private float _signDownloadSpan;
 
     [ParamField(0x3C, ParamType.F32)]
     public float NitoSignDownloadSpan
     {
-        get => _NitoSignDownloadSpan;
-        set => WriteParamField(ref _NitoSignDownloadSpan, value);
+        get => _nitoSignDownloadSpan;
+        set => WriteParamField(ref _nitoSignDownloadSpan, value);
     }
-    private float _NitoSignDownloadSpan;
+    private float _nitoSignDownloadSpan;
 
     [ParamField(0x40, ParamType.F32)]
     public float SignUpdateSpan
     {
-        get => _SignUpdateSpan;
-        set => WriteParamField(ref _SignUpdateSpan, value);
+        get => _signUpdateSpan;
+        set => WriteParamField(ref _signUpdateSpan, value);
     }
-    private float _SignUpdateSpan;
+    private float _signUpdateSpan;
 
     [ParamField(0x44, ParamType.U32)]
     public uint MaxBreakInTargetListCount
     {
-        get => _MaxBreakInTargetListCount;
-        set => WriteParamField(ref _MaxBreakInTargetListCount, value);
+        get => _maxBreakInTargetListCount;
+        set => WriteParamField(ref _maxBreakInTargetListCount, value);
     }
-    private uint _MaxBreakInTargetListCount;
+    private uint _maxBreakInTargetListCount;
 
     [ParamField(0x48, ParamType.F32)]
     public float BreakInRequestIntervalTimeSec
     {
-        get => _BreakInRequestIntervalTimeSec;
-        set => WriteParamField(ref _BreakInRequestIntervalTimeSec, value);
+        get => _breakInRequestIntervalTimeSec;
+        set => WriteParamField(ref _breakInRequestIntervalTimeSec, value);
     }
-    private float _BreakInRequestIntervalTimeSec;
+    private float _breakInRequestIntervalTimeSec;
 
     [ParamField(0x4C, ParamType.F32)]
     public float BreakInRequestTimeOutSec
     {
-        get => _BreakInRequestTimeOutSec;
-        set => WriteParamField(ref _BreakInRequestTimeOutSec, value);
+        get => _breakInRequestTimeOutSec;
+        set => WriteParamField(ref _breakInRequestTimeOutSec, value);
     }
-    private float _BreakInRequestTimeOutSec;
+    private float _breakInRequestTimeOutSec;
 
     [ParamField(0x50, ParamType.U32)]
-    public uint ReloadSignTotalCount_0
+    public uint ReloadSignTotalCount0
     {
-        get => _ReloadSignTotalCount_0;
-        set => WriteParamField(ref _ReloadSignTotalCount_0, value);
+        get => _reloadSignTotalCount0;
+        set => WriteParamField(ref _reloadSignTotalCount0, value);
     }
-    private uint _ReloadSignTotalCount_0;
+    private uint _reloadSignTotalCount0;
 
     [ParamField(0x54, ParamType.F32)]
-    public float ReloadSignIntervalTime_0
+    public float ReloadSignIntervalTime0
     {
-        get => _ReloadSignIntervalTime_0;
-        set => WriteParamField(ref _ReloadSignIntervalTime_0, value);
+        get => _reloadSignIntervalTime0;
+        set => WriteParamField(ref _reloadSignIntervalTime0, value);
     }
-    private float _ReloadSignIntervalTime_0;
+    private float _reloadSignIntervalTime0;
 
     [ParamField(0x58, ParamType.F32)]
-    public float ReloadSignIntervalTime_1
+    public float ReloadSignIntervalTime1
     {
-        get => _ReloadSignIntervalTime_1;
-        set => WriteParamField(ref _ReloadSignIntervalTime_1, value);
+        get => _reloadSignIntervalTime1;
+        set => WriteParamField(ref _reloadSignIntervalTime1, value);
     }
-    private float _ReloadSignIntervalTime_1;
+    private float _reloadSignIntervalTime1;
 
     [ParamField(0x5C, ParamType.U32)]
-    public uint ReloadSignTotalCount_1
+    public uint ReloadSignTotalCount1
     {
-        get => _ReloadSignTotalCount_1;
-        set => WriteParamField(ref _ReloadSignTotalCount_1, value);
+        get => _reloadSignTotalCount1;
+        set => WriteParamField(ref _reloadSignTotalCount1, value);
     }
-    private uint _ReloadSignTotalCount_1;
+    private uint _reloadSignTotalCount1;
 
     [ParamField(0x60, ParamType.U32)]
     public uint ReloadSignCellCount
     {
-        get => _ReloadSignCellCount;
-        set => WriteParamField(ref _ReloadSignCellCount, value);
+        get => _reloadSignCellCount;
+        set => WriteParamField(ref _reloadSignCellCount, value);
     }
-    private uint _ReloadSignCellCount;
+    private uint _reloadSignCellCount;
 
     [ParamField(0x64, ParamType.F32)]
-    public float ReloadSignIntervalTime_2
+    public float ReloadSignIntervalTime2
     {
-        get => _ReloadSignIntervalTime_2;
-        set => WriteParamField(ref _ReloadSignIntervalTime_2, value);
+        get => _reloadSignIntervalTime2;
+        set => WriteParamField(ref _reloadSignIntervalTime2, value);
     }
-    private float _ReloadSignIntervalTime_2;
+    private float _reloadSignIntervalTime2;
 
     [ParamField(0x68, ParamType.U32)]
     public uint ReloadGhostTotalCount
     {
-        get => _ReloadGhostTotalCount;
-        set => WriteParamField(ref _ReloadGhostTotalCount, value);
+        get => _reloadGhostTotalCount;
+        set => WriteParamField(ref _reloadGhostTotalCount, value);
     }
-    private uint _ReloadGhostTotalCount;
+    private uint _reloadGhostTotalCount;
 
     [ParamField(0x6C, ParamType.U32)]
     public uint ReloadGhostCellCount
     {
-        get => _ReloadGhostCellCount;
-        set => WriteParamField(ref _ReloadGhostCellCount, value);
+        get => _reloadGhostCellCount;
+        set => WriteParamField(ref _reloadGhostCellCount, value);
     }
-    private uint _ReloadGhostCellCount;
+    private uint _reloadGhostCellCount;
 
     [ParamField(0x70, ParamType.U32)]
     public uint MaxGhostTotalCount
     {
-        get => _MaxGhostTotalCount;
-        set => WriteParamField(ref _MaxGhostTotalCount, value);
+        get => _maxGhostTotalCount;
+        set => WriteParamField(ref _maxGhostTotalCount, value);
     }
-    private uint _MaxGhostTotalCount;
+    private uint _maxGhostTotalCount;
 
     [ParamField(0x74, ParamType.F32)]
     public float UpdateWanderGhostIntervalTime
     {
-        get => _UpdateWanderGhostIntervalTime;
-        set => WriteParamField(ref _UpdateWanderGhostIntervalTime, value);
+        get => _updateWanderGhostIntervalTime;
+        set => WriteParamField(ref _updateWanderGhostIntervalTime, value);
     }
-    private float _UpdateWanderGhostIntervalTime;
+    private float _updateWanderGhostIntervalTime;
 
     [ParamField(0x78, ParamType.F32)]
     public float MinReplayIntervalTime
     {
-        get => _MinReplayIntervalTime;
-        set => WriteParamField(ref _MinReplayIntervalTime, value);
+        get => _minReplayIntervalTime;
+        set => WriteParamField(ref _minReplayIntervalTime, value);
     }
-    private float _MinReplayIntervalTime;
+    private float _minReplayIntervalTime;
 
     [ParamField(0x7C, ParamType.F32)]
     public float MaxReplayIntervalTime
     {
-        get => _MaxReplayIntervalTime;
-        set => WriteParamField(ref _MaxReplayIntervalTime, value);
+        get => _maxReplayIntervalTime;
+        set => WriteParamField(ref _maxReplayIntervalTime, value);
     }
-    private float _MaxReplayIntervalTime;
+    private float _maxReplayIntervalTime;
 
     [ParamField(0x80, ParamType.F32)]
     public float ReloadGhostIntervalTime
     {
-        get => _ReloadGhostIntervalTime;
-        set => WriteParamField(ref _ReloadGhostIntervalTime, value);
+        get => _reloadGhostIntervalTime;
+        set => WriteParamField(ref _reloadGhostIntervalTime, value);
     }
-    private float _ReloadGhostIntervalTime;
+    private float _reloadGhostIntervalTime;
 
     [ParamField(0x84, ParamType.F32)]
     public float ReplayBonfireModeRange
     {
-        get => _ReplayBonfireModeRange;
-        set => WriteParamField(ref _ReplayBonfireModeRange, value);
+        get => _replayBonfireModeRange;
+        set => WriteParamField(ref _replayBonfireModeRange, value);
     }
-    private float _ReplayBonfireModeRange;
+    private float _replayBonfireModeRange;
 
     [ParamField(0x88, ParamType.F32)]
     public float WanderGhostIntervalLifeTime
     {
-        get => _WanderGhostIntervalLifeTime;
-        set => WriteParamField(ref _WanderGhostIntervalLifeTime, value);
+        get => _wanderGhostIntervalLifeTime;
+        set => WriteParamField(ref _wanderGhostIntervalLifeTime, value);
     }
-    private float _WanderGhostIntervalLifeTime;
+    private float _wanderGhostIntervalLifeTime;
 
     [ParamField(0x8C, ParamType.F32)]
     public float SummonMessageInterval
     {
-        get => _SummonMessageInterval;
-        set => WriteParamField(ref _SummonMessageInterval, value);
+        get => _summonMessageInterval;
+        set => WriteParamField(ref _summonMessageInterval, value);
     }
-    private float _SummonMessageInterval;
+    private float _summonMessageInterval;
 
     [ParamField(0x90, ParamType.F32)]
     public float HostRegisterUpdateTime
     {
-        get => _HostRegisterUpdateTime;
-        set => WriteParamField(ref _HostRegisterUpdateTime, value);
+        get => _hostRegisterUpdateTime;
+        set => WriteParamField(ref _hostRegisterUpdateTime, value);
     }
-    private float _HostRegisterUpdateTime;
+    private float _hostRegisterUpdateTime;
 
     [ParamField(0x94, ParamType.U32)]
     public uint RequestSearchQuickMatchLimit
     {
-        get => _RequestSearchQuickMatchLimit;
-        set => WriteParamField(ref _RequestSearchQuickMatchLimit, value);
+        get => _requestSearchQuickMatchLimit;
+        set => WriteParamField(ref _requestSearchQuickMatchLimit, value);
     }
-    private uint _RequestSearchQuickMatchLimit;
+    private uint _requestSearchQuickMatchLimit;
 
     [ParamField(0x98, ParamType.F32)]
     public float MyTeamInviteTimeoutTime
     {
-        get => _MyTeamInviteTimeoutTime;
-        set => WriteParamField(ref _MyTeamInviteTimeoutTime, value);
+        get => _myTeamInviteTimeoutTime;
+        set => WriteParamField(ref _myTeamInviteTimeoutTime, value);
     }
-    private float _MyTeamInviteTimeoutTime;
+    private float _myTeamInviteTimeoutTime;
 
     [ParamField(0x9C, ParamType.U32)]
     public uint VisitorListMax
     {
-        get => _VisitorListMax;
-        set => WriteParamField(ref _VisitorListMax, value);
+        get => _visitorListMax;
+        set => WriteParamField(ref _visitorListMax, value);
     }
-    private uint _VisitorListMax;
+    private uint _visitorListMax;
 
     [ParamField(0xA0, ParamType.F32)]
     public float VisitorTimeOutTime
     {
-        get => _VisitorTimeOutTime;
-        set => WriteParamField(ref _VisitorTimeOutTime, value);
+        get => _visitorTimeOutTime;
+        set => WriteParamField(ref _visitorTimeOutTime, value);
     }
-    private float _VisitorTimeOutTime;
+    private float _visitorTimeOutTime;
 
     [ParamField(0xA4, ParamType.F32)]
     public float DownloadSpan
     {
-        get => _DownloadSpan;
-        set => WriteParamField(ref _DownloadSpan, value);
+        get => _downloadSpan;
+        set => WriteParamField(ref _downloadSpan, value);
     }
-    private float _DownloadSpan;
+    private float _downloadSpan;
 
     [ParamField(0xA8, ParamType.F32)]
     public float BonfireLowerBoundCoolTime
     {
-        get => _BonfireLowerBoundCoolTime;
-        set => WriteParamField(ref _BonfireLowerBoundCoolTime, value);
+        get => _bonfireLowerBoundCoolTime;
+        set => WriteParamField(ref _bonfireLowerBoundCoolTime, value);
     }
-    private float _BonfireLowerBoundCoolTime;
+    private float _bonfireLowerBoundCoolTime;
 
     [ParamField(0xAC, ParamType.F32)]
     public float BonfireUpperBoundCoolTime
     {
-        get => _BonfireUpperBoundCoolTime;
-        set => WriteParamField(ref _BonfireUpperBoundCoolTime, value);
+        get => _bonfireUpperBoundCoolTime;
+        set => WriteParamField(ref _bonfireUpperBoundCoolTime, value);
     }
-    private float _BonfireUpperBoundCoolTime;
+    private float _bonfireUpperBoundCoolTime;
 
     [ParamField(0xB0, ParamType.F32)]
     public float ResonanceMagicDbDistInterval
     {
-        get => _ResonanceMagicDbDistInterval;
-        set => WriteParamField(ref _ResonanceMagicDbDistInterval, value);
+        get => _resonanceMagicDbDistInterval;
+        set => WriteParamField(ref _resonanceMagicDbDistInterval, value);
     }
-    private float _ResonanceMagicDbDistInterval;
+    private float _resonanceMagicDbDistInterval;
 
     [ParamField(0xB4, ParamType.F32)]
     public float InputTimeoutSec
     {
-        get => _InputTimeoutSec;
-        set => WriteParamField(ref _InputTimeoutSec, value);
+        get => _inputTimeoutSec;
+        set => WriteParamField(ref _inputTimeoutSec, value);
     }
-    private float _InputTimeoutSec;
+    private float _inputTimeoutSec;
 
     [ParamField(0xB8, ParamType.F32)]
     public float GeneralPurposeParam1
     {
-        get => _GeneralPurposeParam1;
-        set => WriteParamField(ref _GeneralPurposeParam1, value);
+        get => _generalPurposeParam1;
+        set => WriteParamField(ref _generalPurposeParam1, value);
     }
-    private float _GeneralPurposeParam1;
+    private float _generalPurposeParam1;
 
     [ParamField(0xBC, ParamType.F32)]
     public float GeneralPurposeParam2
     {
-        get => _GeneralPurposeParam2;
-        set => WriteParamField(ref _GeneralPurposeParam2, value);
+        get => _generalPurposeParam2;
+        set => WriteParamField(ref _generalPurposeParam2, value);
     }
-    private float _GeneralPurposeParam2;
+    private float _generalPurposeParam2;
 
     [ParamField(0xC0, ParamType.F32)]
     public float GeneralPurposeParam3
     {
-        get => _GeneralPurposeParam3;
-        set => WriteParamField(ref _GeneralPurposeParam3, value);
+        get => _generalPurposeParam3;
+        set => WriteParamField(ref _generalPurposeParam3, value);
     }
-    private float _GeneralPurposeParam3;
+    private float _generalPurposeParam3;
 
     [ParamField(0xC4, ParamType.F32)]
     public float GeneralPurposeParam4
     {
-        get => _GeneralPurposeParam4;
-        set => WriteParamField(ref _GeneralPurposeParam4, value);
+        get => _generalPurposeParam4;
+        set => WriteParamField(ref _generalPurposeParam4, value);
     }
-    private float _GeneralPurposeParam4;
+    private float _generalPurposeParam4;
 
     [ParamField(0xC8, ParamType.F32)]
     public float GeneralPurposeParam5
     {
-        get => _GeneralPurposeParam5;
-        set => WriteParamField(ref _GeneralPurposeParam5, value);
+        get => _generalPurposeParam5;
+        set => WriteParamField(ref _generalPurposeParam5, value);
     }
-    private float _GeneralPurposeParam5;
+    private float _generalPurposeParam5;
 
     [ParamField(0xCC, ParamType.U8)]
-    public byte MWLUWS_11
+    public byte Mwluws11
     {
-        get => _MWLUWS_11;
-        set => WriteParamField(ref _MWLUWS_11, value);
+        get => _mwluws11;
+        set => WriteParamField(ref _mwluws11, value);
     }
-    private byte _MWLUWS_11;
+    private byte _mwluws11;
 
     [ParamField(0xCD, ParamType.U8)]
-    public byte MWLUWS_12
+    public byte Mwluws12
     {
-        get => _MWLUWS_12;
-        set => WriteParamField(ref _MWLUWS_12, value);
+        get => _mwluws12;
+        set => WriteParamField(ref _mwluws12, value);
     }
-    private byte _MWLUWS_12;
+    private byte _mwluws12;
 
     [ParamField(0xCE, ParamType.U8)]
-    public byte MWLUWS_13
+    public byte Mwluws13
     {
-        get => _MWLUWS_13;
-        set => WriteParamField(ref _MWLUWS_13, value);
+        get => _mwluws13;
+        set => WriteParamField(ref _mwluws13, value);
     }
-    private byte _MWLUWS_13;
+    private byte _mwluws13;
 
     [ParamField(0xCF, ParamType.U8)]
-    public byte MWLUWS_14
+    public byte Mwluws14
     {
-        get => _MWLUWS_14;
-        set => WriteParamField(ref _MWLUWS_14, value);
+        get => _mwluws14;
+        set => WriteParamField(ref _mwluws14, value);
     }
-    private byte _MWLUWS_14;
+    private byte _mwluws14;
 
     [ParamField(0xD0, ParamType.U8)]
-    public byte MWLUWS_15
+    public byte Mwluws15
     {
-        get => _MWLUWS_15;
-        set => WriteParamField(ref _MWLUWS_15, value);
+        get => _mwluws15;
+        set => WriteParamField(ref _mwluws15, value);
     }
-    private byte _MWLUWS_15;
+    private byte _mwluws15;
 
     [ParamField(0xD1, ParamType.U8)]
-    public byte MWLURS_11
+    public byte Mwlurs11
     {
-        get => _MWLURS_11;
-        set => WriteParamField(ref _MWLURS_11, value);
+        get => _mwlurs11;
+        set => WriteParamField(ref _mwlurs11, value);
     }
-    private byte _MWLURS_11;
+    private byte _mwlurs11;
 
     [ParamField(0xD2, ParamType.U8)]
-    public byte MWLURS_12
+    public byte Mwlurs12
     {
-        get => _MWLURS_12;
-        set => WriteParamField(ref _MWLURS_12, value);
+        get => _mwlurs12;
+        set => WriteParamField(ref _mwlurs12, value);
     }
-    private byte _MWLURS_12;
+    private byte _mwlurs12;
 
     [ParamField(0xD3, ParamType.U8)]
-    public byte MWLURS_13
+    public byte Mwlurs13
     {
-        get => _MWLURS_13;
-        set => WriteParamField(ref _MWLURS_13, value);
+        get => _mwlurs13;
+        set => WriteParamField(ref _mwlurs13, value);
     }
-    private byte _MWLURS_13;
+    private byte _mwlurs13;
 
     [ParamField(0xD4, ParamType.U8)]
-    public byte MWLURS_14
+    public byte Mwlurs14
     {
-        get => _MWLURS_14;
-        set => WriteParamField(ref _MWLURS_14, value);
+        get => _mwlurs14;
+        set => WriteParamField(ref _mwlurs14, value);
     }
-    private byte _MWLURS_14;
+    private byte _mwlurs14;
 
     [ParamField(0xD5, ParamType.U8)]
-    public byte MWLURS_15
+    public byte Mwlurs15
     {
-        get => _MWLURS_15;
-        set => WriteParamField(ref _MWLURS_15, value);
+        get => _mwlurs15;
+        set => WriteParamField(ref _mwlurs15, value);
     }
-    private byte _MWLURS_15;
+    private byte _mwlurs15;
 
     [ParamField(0xD6, ParamType.U8)]
-    public byte MWLUAR_11
+    public byte Mwluar11
     {
-        get => _MWLUAR_11;
-        set => WriteParamField(ref _MWLUAR_11, value);
+        get => _mwluar11;
+        set => WriteParamField(ref _mwluar11, value);
     }
-    private byte _MWLUAR_11;
+    private byte _mwluar11;
 
     [ParamField(0xD7, ParamType.U8)]
-    public byte MWLUAR_12
+    public byte Mwluar12
     {
-        get => _MWLUAR_12;
-        set => WriteParamField(ref _MWLUAR_12, value);
+        get => _mwluar12;
+        set => WriteParamField(ref _mwluar12, value);
     }
-    private byte _MWLUAR_12;
+    private byte _mwluar12;
 
     [ParamField(0xD8, ParamType.U8)]
-    public byte MWLUAR_13
+    public byte Mwluar13
     {
-        get => _MWLUAR_13;
-        set => WriteParamField(ref _MWLUAR_13, value);
+        get => _mwluar13;
+        set => WriteParamField(ref _mwluar13, value);
     }
-    private byte _MWLUAR_13;
+    private byte _mwluar13;
 
     [ParamField(0xD9, ParamType.U8)]
-    public byte MWLUAR_14
+    public byte Mwluar14
     {
-        get => _MWLUAR_14;
-        set => WriteParamField(ref _MWLUAR_14, value);
+        get => _mwluar14;
+        set => WriteParamField(ref _mwluar14, value);
     }
-    private byte _MWLUAR_14;
+    private byte _mwluar14;
 
     [ParamField(0xDA, ParamType.U8)]
-    public byte MWLUAR_15
+    public byte Mwluar15
     {
-        get => _MWLUAR_15;
-        set => WriteParamField(ref _MWLUAR_15, value);
+        get => _mwluar15;
+        set => WriteParamField(ref _mwluar15, value);
     }
-    private byte _MWLUAR_15;
+    private byte _mwluar15;
 
     [ParamField(0xDB, ParamType.U8)]
     public byte GeneralPurposeParam6
     {
-        get => _GeneralPurposeParam6;
-        set => WriteParamField(ref _GeneralPurposeParam6, value);
+        get => _generalPurposeParam6;
+        set => WriteParamField(ref _generalPurposeParam6, value);
     }
-    private byte _GeneralPurposeParam6;
+    private byte _generalPurposeParam6;
 
 }

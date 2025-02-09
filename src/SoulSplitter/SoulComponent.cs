@@ -248,11 +248,11 @@ public class SoulComponent : IComponent
 
     public XmlNode GetSettings(XmlDocument document)
     {
-        XmlElement root = document.CreateElement("Settings");
+        var root = document.CreateElement("Settings");
         MainWindow.Dispatcher.Invoke(() =>
         {
             var xml = MainWindow.MainViewModel.Serialize();
-            XmlDocumentFragment fragment = document.CreateDocumentFragment();
+            var fragment = document.CreateDocumentFragment();
             fragment.InnerXml = xml;
             root.AppendChild(fragment);
         });
@@ -367,9 +367,9 @@ public class SoulComponent : IComponent
     private void ThrowIfInstallationInvalid()
     {
         var assemblyPath = Assembly.GetAssembly(typeof(SoulComponent)).Location;
-        var directory = Path.GetDirectoryName(assemblyPath);
+        var directory = Path.GetDirectoryName(assemblyPath)!;
 
-        var files = Directory.EnumerateFiles(directory).Select(i => Path.GetFileName(i)).ToList();
+        var files = Directory.EnumerateFiles(directory).Select(i => Path.GetFileName(i)!).ToList();
         var missing = _installedFiles.Except(files).ToList();
 
         if (missing.Any())

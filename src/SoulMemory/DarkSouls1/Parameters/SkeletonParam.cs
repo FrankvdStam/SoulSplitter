@@ -26,209 +26,209 @@ public class SkeletonParam(Pointer basePointer, ByteArrayMemory memory, long off
     [ParamField(0x0, ParamType.F32)]
     public float NeckTurnGain
     {
-        get => _NeckTurnGain;
-        set => WriteParamField(ref _NeckTurnGain, value);
+        get => _neckTurnGain;
+        set => WriteParamField(ref _neckTurnGain, value);
     }
-    private float _NeckTurnGain;
+    private float _neckTurnGain;
 
     [ParamField(0x4, ParamType.I16)]
-    public short OriginalGroundHeightMS
+    public short OriginalGroundHeightMs
     {
-        get => _OriginalGroundHeightMS;
-        set => WriteParamField(ref _OriginalGroundHeightMS, value);
+        get => _originalGroundHeightMs;
+        set => WriteParamField(ref _originalGroundHeightMs, value);
     }
-    private short _OriginalGroundHeightMS;
+    private short _originalGroundHeightMs;
 
     [ParamField(0x6, ParamType.I16)]
-    public short MinAnkleHeightMS
+    public short MinAnkleHeightMs
     {
-        get => _MinAnkleHeightMS;
-        set => WriteParamField(ref _MinAnkleHeightMS, value);
+        get => _minAnkleHeightMs;
+        set => WriteParamField(ref _minAnkleHeightMs, value);
     }
-    private short _MinAnkleHeightMS;
+    private short _minAnkleHeightMs;
 
     [ParamField(0x8, ParamType.I16)]
-    public short MaxAnkleHeightMS
+    public short MaxAnkleHeightMs
     {
-        get => _MaxAnkleHeightMS;
-        set => WriteParamField(ref _MaxAnkleHeightMS, value);
+        get => _maxAnkleHeightMs;
+        set => WriteParamField(ref _maxAnkleHeightMs, value);
     }
-    private short _MaxAnkleHeightMS;
+    private short _maxAnkleHeightMs;
 
     [ParamField(0xA, ParamType.I16)]
     public short CosineMaxKneeAngle
     {
-        get => _CosineMaxKneeAngle;
-        set => WriteParamField(ref _CosineMaxKneeAngle, value);
+        get => _cosineMaxKneeAngle;
+        set => WriteParamField(ref _cosineMaxKneeAngle, value);
     }
-    private short _CosineMaxKneeAngle;
+    private short _cosineMaxKneeAngle;
 
     [ParamField(0xC, ParamType.I16)]
     public short CosineMinKneeAngle
     {
-        get => _CosineMinKneeAngle;
-        set => WriteParamField(ref _CosineMinKneeAngle, value);
+        get => _cosineMinKneeAngle;
+        set => WriteParamField(ref _cosineMinKneeAngle, value);
     }
-    private short _CosineMinKneeAngle;
+    private short _cosineMinKneeAngle;
 
     [ParamField(0xE, ParamType.I16)]
-    public short FootPlantedAnkleHeightMS
+    public short FootPlantedAnkleHeightMs
     {
-        get => _FootPlantedAnkleHeightMS;
-        set => WriteParamField(ref _FootPlantedAnkleHeightMS, value);
+        get => _footPlantedAnkleHeightMs;
+        set => WriteParamField(ref _footPlantedAnkleHeightMs, value);
     }
-    private short _FootPlantedAnkleHeightMS;
+    private short _footPlantedAnkleHeightMs;
 
     [ParamField(0x10, ParamType.I16)]
-    public short FootRaisedAnkleHeightMS
+    public short FootRaisedAnkleHeightMs
     {
-        get => _FootRaisedAnkleHeightMS;
-        set => WriteParamField(ref _FootRaisedAnkleHeightMS, value);
+        get => _footRaisedAnkleHeightMs;
+        set => WriteParamField(ref _footRaisedAnkleHeightMs, value);
     }
-    private short _FootRaisedAnkleHeightMS;
+    private short _footRaisedAnkleHeightMs;
 
     [ParamField(0x12, ParamType.I16)]
     public short RaycastDistanceUp
     {
-        get => _RaycastDistanceUp;
-        set => WriteParamField(ref _RaycastDistanceUp, value);
+        get => _raycastDistanceUp;
+        set => WriteParamField(ref _raycastDistanceUp, value);
     }
-    private short _RaycastDistanceUp;
+    private short _raycastDistanceUp;
 
     [ParamField(0x14, ParamType.I16)]
     public short RaycastDistanceDown
     {
-        get => _RaycastDistanceDown;
-        set => WriteParamField(ref _RaycastDistanceDown, value);
+        get => _raycastDistanceDown;
+        set => WriteParamField(ref _raycastDistanceDown, value);
     }
-    private short _RaycastDistanceDown;
+    private short _raycastDistanceDown;
 
     [ParamField(0x16, ParamType.I16)]
-    public short FootEndLS_X
+    public short FootEndLsX
     {
-        get => _FootEndLS_X;
-        set => WriteParamField(ref _FootEndLS_X, value);
+        get => _footEndLsX;
+        set => WriteParamField(ref _footEndLsX, value);
     }
-    private short _FootEndLS_X;
+    private short _footEndLsX;
 
     [ParamField(0x18, ParamType.I16)]
-    public short FootEndLS_Y
+    public short FootEndLsY
     {
-        get => _FootEndLS_Y;
-        set => WriteParamField(ref _FootEndLS_Y, value);
+        get => _footEndLsY;
+        set => WriteParamField(ref _footEndLsY, value);
     }
-    private short _FootEndLS_Y;
+    private short _footEndLsY;
 
     [ParamField(0x1A, ParamType.I16)]
-    public short FootEndLS_Z
+    public short FootEndLsZ
     {
-        get => _FootEndLS_Z;
-        set => WriteParamField(ref _FootEndLS_Z, value);
+        get => _footEndLsZ;
+        set => WriteParamField(ref _footEndLsZ, value);
     }
-    private short _FootEndLS_Z;
+    private short _footEndLsZ;
 
     [ParamField(0x1C, ParamType.I16)]
     public short OnOffGain
     {
-        get => _OnOffGain;
-        set => WriteParamField(ref _OnOffGain, value);
+        get => _onOffGain;
+        set => WriteParamField(ref _onOffGain, value);
     }
-    private short _OnOffGain;
+    private short _onOffGain;
 
     [ParamField(0x1E, ParamType.I16)]
     public short GroundAscendingGain
     {
-        get => _GroundAscendingGain;
-        set => WriteParamField(ref _GroundAscendingGain, value);
+        get => _groundAscendingGain;
+        set => WriteParamField(ref _groundAscendingGain, value);
     }
-    private short _GroundAscendingGain;
+    private short _groundAscendingGain;
 
     [ParamField(0x20, ParamType.I16)]
     public short GroundDescendingGain
     {
-        get => _GroundDescendingGain;
-        set => WriteParamField(ref _GroundDescendingGain, value);
+        get => _groundDescendingGain;
+        set => WriteParamField(ref _groundDescendingGain, value);
     }
-    private short _GroundDescendingGain;
+    private short _groundDescendingGain;
 
     [ParamField(0x22, ParamType.I16)]
     public short FootRaisedGain
     {
-        get => _FootRaisedGain;
-        set => WriteParamField(ref _FootRaisedGain, value);
+        get => _footRaisedGain;
+        set => WriteParamField(ref _footRaisedGain, value);
     }
-    private short _FootRaisedGain;
+    private short _footRaisedGain;
 
     [ParamField(0x24, ParamType.I16)]
     public short FootPlantedGain
     {
-        get => _FootPlantedGain;
-        set => WriteParamField(ref _FootPlantedGain, value);
+        get => _footPlantedGain;
+        set => WriteParamField(ref _footPlantedGain, value);
     }
-    private short _FootPlantedGain;
+    private short _footPlantedGain;
 
     [ParamField(0x26, ParamType.I16)]
     public short FootUnlockGain
     {
-        get => _FootUnlockGain;
-        set => WriteParamField(ref _FootUnlockGain, value);
+        get => _footUnlockGain;
+        set => WriteParamField(ref _footUnlockGain, value);
     }
-    private short _FootUnlockGain;
+    private short _footUnlockGain;
 
     [ParamField(0x28, ParamType.U8)]
     public byte KneeAxisType
     {
-        get => _KneeAxisType;
-        set => WriteParamField(ref _KneeAxisType, value);
+        get => _kneeAxisType;
+        set => WriteParamField(ref _kneeAxisType, value);
     }
-    private byte _KneeAxisType;
+    private byte _kneeAxisType;
 
     [ParamField(0x29, ParamType.U8)]
     public byte UseFootLocking
     {
-        get => _UseFootLocking;
-        set => WriteParamField(ref _UseFootLocking, value);
+        get => _useFootLocking;
+        set => WriteParamField(ref _useFootLocking, value);
     }
-    private byte _UseFootLocking;
+    private byte _useFootLocking;
 
     [ParamField(0x2A, ParamType.U8)]
     public byte FootPlacementOn
     {
-        get => _FootPlacementOn;
-        set => WriteParamField(ref _FootPlacementOn, value);
+        get => _footPlacementOn;
+        set => WriteParamField(ref _footPlacementOn, value);
     }
-    private byte _FootPlacementOn;
+    private byte _footPlacementOn;
 
     [ParamField(0x2B, ParamType.U8)]
     public byte TwistKneeAxisType
     {
-        get => _TwistKneeAxisType;
-        set => WriteParamField(ref _TwistKneeAxisType, value);
+        get => _twistKneeAxisType;
+        set => WriteParamField(ref _twistKneeAxisType, value);
     }
-    private byte _TwistKneeAxisType;
+    private byte _twistKneeAxisType;
 
     [ParamField(0x2C, ParamType.I8)]
     public sbyte NeckTurnPriority
     {
-        get => _NeckTurnPriority;
-        set => WriteParamField(ref _NeckTurnPriority, value);
+        get => _neckTurnPriority;
+        set => WriteParamField(ref _neckTurnPriority, value);
     }
-    private sbyte _NeckTurnPriority;
+    private sbyte _neckTurnPriority;
 
     [ParamField(0x2D, ParamType.U8)]
     public byte NeckTurnMaxAngle
     {
-        get => _NeckTurnMaxAngle;
-        set => WriteParamField(ref _NeckTurnMaxAngle, value);
+        get => _neckTurnMaxAngle;
+        set => WriteParamField(ref _neckTurnMaxAngle, value);
     }
-    private byte _NeckTurnMaxAngle;
+    private byte _neckTurnMaxAngle;
 
     [ParamField(0x2E, ParamType.Dummy8, 2)]
     public byte[] Pad1
     {
-        get => _Pad1;
-        set => WriteParamField(ref _Pad1, value);
+        get => _pad1;
+        set => WriteParamField(ref _pad1, value);
     }
-    private byte[] _Pad1 = null!;
+    private byte[] _pad1 = null!;
 
 }

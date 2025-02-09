@@ -59,7 +59,7 @@ public static class GlobalHotKey
         WindowReadyEvent.WaitOne(); //wait for hotkey window to have initialized
 
         var virtualKeyCode = (Keys)KeyInterop.VirtualKeyFromKey(key);
-        int id = Interlocked.Increment(ref _currentId);
+        var id = Interlocked.Increment(ref _currentId);
 
         Delegate register = (Action)(() =>
         {

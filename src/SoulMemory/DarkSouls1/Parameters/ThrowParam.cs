@@ -26,215 +26,215 @@ public class ThrowParam(Pointer basePointer, ByteArrayMemory memory, long offset
     [ParamField(0x0, ParamType.I32)]
     public int AtkChrId
     {
-        get => _AtkChrId;
-        set => WriteParamField(ref _AtkChrId, value);
+        get => _atkChrId;
+        set => WriteParamField(ref _atkChrId, value);
     }
-    private int _AtkChrId;
+    private int _atkChrId;
 
     [ParamField(0x4, ParamType.I32)]
     public int DefChrId
     {
-        get => _DefChrId;
-        set => WriteParamField(ref _DefChrId, value);
+        get => _defChrId;
+        set => WriteParamField(ref _defChrId, value);
     }
-    private int _DefChrId;
+    private int _defChrId;
 
     [ParamField(0x8, ParamType.F32)]
     public float Dist
     {
-        get => _Dist;
-        set => WriteParamField(ref _Dist, value);
+        get => _dist;
+        set => WriteParamField(ref _dist, value);
     }
-    private float _Dist;
+    private float _dist;
 
     [ParamField(0xC, ParamType.F32)]
     public float DiffAngMin
     {
-        get => _DiffAngMin;
-        set => WriteParamField(ref _DiffAngMin, value);
+        get => _diffAngMin;
+        set => WriteParamField(ref _diffAngMin, value);
     }
-    private float _DiffAngMin;
+    private float _diffAngMin;
 
     [ParamField(0x10, ParamType.F32)]
     public float DiffAngMax
     {
-        get => _DiffAngMax;
-        set => WriteParamField(ref _DiffAngMax, value);
+        get => _diffAngMax;
+        set => WriteParamField(ref _diffAngMax, value);
     }
-    private float _DiffAngMax;
+    private float _diffAngMax;
 
     [ParamField(0x14, ParamType.F32)]
     public float UpperYRange
     {
-        get => _UpperYRange;
-        set => WriteParamField(ref _UpperYRange, value);
+        get => _upperYRange;
+        set => WriteParamField(ref _upperYRange, value);
     }
-    private float _UpperYRange;
+    private float _upperYRange;
 
     [ParamField(0x18, ParamType.F32)]
     public float LowerYRange
     {
-        get => _LowerYRange;
-        set => WriteParamField(ref _LowerYRange, value);
+        get => _lowerYRange;
+        set => WriteParamField(ref _lowerYRange, value);
     }
-    private float _LowerYRange;
+    private float _lowerYRange;
 
     [ParamField(0x1C, ParamType.F32)]
     public float DiffAngMyToDef
     {
-        get => _DiffAngMyToDef;
-        set => WriteParamField(ref _DiffAngMyToDef, value);
+        get => _diffAngMyToDef;
+        set => WriteParamField(ref _diffAngMyToDef, value);
     }
-    private float _DiffAngMyToDef;
+    private float _diffAngMyToDef;
 
     [ParamField(0x20, ParamType.I32)]
     public int ThrowTypeId
     {
-        get => _ThrowTypeId;
-        set => WriteParamField(ref _ThrowTypeId, value);
+        get => _throwTypeId;
+        set => WriteParamField(ref _throwTypeId, value);
     }
-    private int _ThrowTypeId;
+    private int _throwTypeId;
 
     [ParamField(0x24, ParamType.I32)]
     public int AtkAnimId
     {
-        get => _AtkAnimId;
-        set => WriteParamField(ref _AtkAnimId, value);
+        get => _atkAnimId;
+        set => WriteParamField(ref _atkAnimId, value);
     }
-    private int _AtkAnimId;
+    private int _atkAnimId;
 
     [ParamField(0x28, ParamType.I32)]
     public int DefAnimId
     {
-        get => _DefAnimId;
-        set => WriteParamField(ref _DefAnimId, value);
+        get => _defAnimId;
+        set => WriteParamField(ref _defAnimId, value);
     }
-    private int _DefAnimId;
+    private int _defAnimId;
 
     [ParamField(0x2C, ParamType.U16)]
     public ushort EscHp
     {
-        get => _EscHp;
-        set => WriteParamField(ref _EscHp, value);
+        get => _escHp;
+        set => WriteParamField(ref _escHp, value);
     }
-    private ushort _EscHp;
+    private ushort _escHp;
 
     [ParamField(0x2E, ParamType.U16)]
     public ushort SelfEscCycleTime
     {
-        get => _SelfEscCycleTime;
-        set => WriteParamField(ref _SelfEscCycleTime, value);
+        get => _selfEscCycleTime;
+        set => WriteParamField(ref _selfEscCycleTime, value);
     }
-    private ushort _SelfEscCycleTime;
+    private ushort _selfEscCycleTime;
 
     [ParamField(0x30, ParamType.U16)]
     public ushort SphereCastRadiusRateTop
     {
-        get => _SphereCastRadiusRateTop;
-        set => WriteParamField(ref _SphereCastRadiusRateTop, value);
+        get => _sphereCastRadiusRateTop;
+        set => WriteParamField(ref _sphereCastRadiusRateTop, value);
     }
-    private ushort _SphereCastRadiusRateTop;
+    private ushort _sphereCastRadiusRateTop;
 
     [ParamField(0x32, ParamType.U16)]
     public ushort SphereCastRadiusRateLow
     {
-        get => _SphereCastRadiusRateLow;
-        set => WriteParamField(ref _SphereCastRadiusRateLow, value);
+        get => _sphereCastRadiusRateLow;
+        set => WriteParamField(ref _sphereCastRadiusRateLow, value);
     }
-    private ushort _SphereCastRadiusRateLow;
+    private ushort _sphereCastRadiusRateLow;
 
     [ParamField(0x34, ParamType.U8)]
     public byte PadType
     {
-        get => _PadType;
-        set => WriteParamField(ref _PadType, value);
+        get => _padType;
+        set => WriteParamField(ref _padType, value);
     }
-    private byte _PadType;
+    private byte _padType;
 
     [ParamField(0x35, ParamType.U8)]
     public byte AtkEnableState
     {
-        get => _AtkEnableState;
-        set => WriteParamField(ref _AtkEnableState, value);
+        get => _atkEnableState;
+        set => WriteParamField(ref _atkEnableState, value);
     }
-    private byte _AtkEnableState;
+    private byte _atkEnableState;
 
     [ParamField(0x36, ParamType.U8)]
     public byte AtkSorbDmyId
     {
-        get => _AtkSorbDmyId;
-        set => WriteParamField(ref _AtkSorbDmyId, value);
+        get => _atkSorbDmyId;
+        set => WriteParamField(ref _atkSorbDmyId, value);
     }
-    private byte _AtkSorbDmyId;
+    private byte _atkSorbDmyId;
 
     [ParamField(0x37, ParamType.U8)]
     public byte DefSorbDmyId
     {
-        get => _DefSorbDmyId;
-        set => WriteParamField(ref _DefSorbDmyId, value);
+        get => _defSorbDmyId;
+        set => WriteParamField(ref _defSorbDmyId, value);
     }
-    private byte _DefSorbDmyId;
+    private byte _defSorbDmyId;
 
     [ParamField(0x38, ParamType.U8)]
     public byte ThrowType
     {
-        get => _ThrowType;
-        set => WriteParamField(ref _ThrowType, value);
+        get => _throwType;
+        set => WriteParamField(ref _throwType, value);
     }
-    private byte _ThrowType;
+    private byte _throwType;
 
     [ParamField(0x39, ParamType.U8)]
     public byte SelfEscCycleCnt
     {
-        get => _SelfEscCycleCnt;
-        set => WriteParamField(ref _SelfEscCycleCnt, value);
+        get => _selfEscCycleCnt;
+        set => WriteParamField(ref _selfEscCycleCnt, value);
     }
-    private byte _SelfEscCycleCnt;
+    private byte _selfEscCycleCnt;
 
     [ParamField(0x3A, ParamType.U8)]
     public byte DmyHasChrDirType
     {
-        get => _DmyHasChrDirType;
-        set => WriteParamField(ref _DmyHasChrDirType, value);
+        get => _dmyHasChrDirType;
+        set => WriteParamField(ref _dmyHasChrDirType, value);
     }
-    private byte _DmyHasChrDirType;
+    private byte _dmyHasChrDirType;
 
     #region BitField IsTurnAtkerBitfield ==============================================================================
 
     [ParamField(0x3B, ParamType.U8)]
     public byte IsTurnAtkerBitfield
     {
-        get => _IsTurnAtkerBitfield;
-        set => WriteParamField(ref _IsTurnAtkerBitfield, value);
+        get => _isTurnAtkerBitfield;
+        set => WriteParamField(ref _isTurnAtkerBitfield, value);
     }
-    private byte _IsTurnAtkerBitfield;
+    private byte _isTurnAtkerBitfield;
 
     [ParamBitField(nameof(IsTurnAtkerBitfield), bits: 1, bitsOffset: 0)]
     public byte IsTurnAtker
     {
-        get => GetbitfieldValue(_IsTurnAtkerBitfield);
-        set => SetBitfieldValue(ref _IsTurnAtkerBitfield, value);
+        get => GetbitfieldValue(_isTurnAtkerBitfield);
+        set => SetBitfieldValue(ref _isTurnAtkerBitfield, value);
     }
 
     [ParamBitField(nameof(IsTurnAtkerBitfield), bits: 1, bitsOffset: 1)]
     public byte IsSkipWepCate
     {
-        get => GetbitfieldValue(_IsTurnAtkerBitfield);
-        set => SetBitfieldValue(ref _IsTurnAtkerBitfield, value);
+        get => GetbitfieldValue(_isTurnAtkerBitfield);
+        set => SetBitfieldValue(ref _isTurnAtkerBitfield, value);
     }
 
     [ParamBitField(nameof(IsTurnAtkerBitfield), bits: 1, bitsOffset: 2)]
     public byte IsSkipSphereCast
     {
-        get => GetbitfieldValue(_IsTurnAtkerBitfield);
-        set => SetBitfieldValue(ref _IsTurnAtkerBitfield, value);
+        get => GetbitfieldValue(_isTurnAtkerBitfield);
+        set => SetBitfieldValue(ref _isTurnAtkerBitfield, value);
     }
 
     [ParamBitField(nameof(IsTurnAtkerBitfield), bits: 5, bitsOffset: 3)]
     public byte Pad0
     {
-        get => GetbitfieldValue(_IsTurnAtkerBitfield);
-        set => SetBitfieldValue(ref _IsTurnAtkerBitfield, value);
+        get => GetbitfieldValue(_isTurnAtkerBitfield);
+        set => SetBitfieldValue(ref _isTurnAtkerBitfield, value);
     }
 
     #endregion BitField IsTurnAtkerBitfield
@@ -242,9 +242,9 @@ public class ThrowParam(Pointer basePointer, ByteArrayMemory memory, long offset
     [ParamField(0x3C, ParamType.Dummy8, 4)]
     public byte[] Pad1
     {
-        get => _Pad1;
-        set => WriteParamField(ref _Pad1, value);
+        get => _pad1;
+        set => WriteParamField(ref _pad1, value);
     }
-    private byte[] _Pad1 = null!;
+    private byte[] _pad1 = null!;
 
 }

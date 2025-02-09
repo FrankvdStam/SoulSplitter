@@ -55,7 +55,7 @@ public partial class DarkSouls2Control : UserControl
     {
         if (_darkSouls2ViewModel.NewSplitType is DarkSouls2SplitType.Flag && sender is TextBox textBox)
         {
-            if (uint.TryParse(textBox.Text, out uint result))
+            if (uint.TryParse(textBox.Text, out var result))
             {
                 _darkSouls2ViewModel.NewSplitValue = result;
                 return;

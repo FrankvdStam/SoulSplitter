@@ -26,430 +26,430 @@ public class NpcThinkParam(Pointer basePointer, ByteArrayMemory memory, long off
     [ParamField(0x0, ParamType.I32)]
     public int LogicId
     {
-        get => _LogicId;
-        set => WriteParamField(ref _LogicId, value);
+        get => _logicId;
+        set => WriteParamField(ref _logicId, value);
     }
-    private int _LogicId;
+    private int _logicId;
 
     [ParamField(0x4, ParamType.I32)]
-    public int BattleGoalID
+    public int BattleGoalId
     {
-        get => _BattleGoalID;
-        set => WriteParamField(ref _BattleGoalID, value);
+        get => _battleGoalId;
+        set => WriteParamField(ref _battleGoalId, value);
     }
-    private int _BattleGoalID;
+    private int _battleGoalId;
 
     [ParamField(0x8, ParamType.F32)]
     public float NearDist
     {
-        get => _NearDist;
-        set => WriteParamField(ref _NearDist, value);
+        get => _nearDist;
+        set => WriteParamField(ref _nearDist, value);
     }
-    private float _NearDist;
+    private float _nearDist;
 
     [ParamField(0xC, ParamType.F32)]
     public float MidDist
     {
-        get => _MidDist;
-        set => WriteParamField(ref _MidDist, value);
+        get => _midDist;
+        set => WriteParamField(ref _midDist, value);
     }
-    private float _MidDist;
+    private float _midDist;
 
     [ParamField(0x10, ParamType.F32)]
     public float FarDist
     {
-        get => _FarDist;
-        set => WriteParamField(ref _FarDist, value);
+        get => _farDist;
+        set => WriteParamField(ref _farDist, value);
     }
-    private float _FarDist;
+    private float _farDist;
 
     [ParamField(0x14, ParamType.F32)]
     public float OutDist
     {
-        get => _OutDist;
-        set => WriteParamField(ref _OutDist, value);
+        get => _outDist;
+        set => WriteParamField(ref _outDist, value);
     }
-    private float _OutDist;
+    private float _outDist;
 
     [ParamField(0x18, ParamType.F32)]
-    public float BackHomeLife_OnHitEneWal
+    public float BackHomeLifeOnHitEneWal
     {
-        get => _BackHomeLife_OnHitEneWal;
-        set => WriteParamField(ref _BackHomeLife_OnHitEneWal, value);
+        get => _backHomeLifeOnHitEneWal;
+        set => WriteParamField(ref _backHomeLifeOnHitEneWal, value);
     }
-    private float _BackHomeLife_OnHitEneWal;
+    private float _backHomeLifeOnHitEneWal;
 
     [ParamField(0x1C, ParamType.I32)]
-    public int GoalID_ToCaution
+    public int GoalIdToCaution
     {
-        get => _GoalID_ToCaution;
-        set => WriteParamField(ref _GoalID_ToCaution, value);
+        get => _goalIdToCaution;
+        set => WriteParamField(ref _goalIdToCaution, value);
     }
-    private int _GoalID_ToCaution;
+    private int _goalIdToCaution;
 
     [ParamField(0x20, ParamType.I32)]
     public int IdAttackCannotMove
     {
-        get => _IdAttackCannotMove;
-        set => WriteParamField(ref _IdAttackCannotMove, value);
+        get => _idAttackCannotMove;
+        set => WriteParamField(ref _idAttackCannotMove, value);
     }
-    private int _IdAttackCannotMove;
+    private int _idAttackCannotMove;
 
     [ParamField(0x24, ParamType.I32)]
-    public int GoalID_ToFind
+    public int GoalIdToFind
     {
-        get => _GoalID_ToFind;
-        set => WriteParamField(ref _GoalID_ToFind, value);
+        get => _goalIdToFind;
+        set => WriteParamField(ref _goalIdToFind, value);
     }
-    private int _GoalID_ToFind;
+    private int _goalIdToFind;
 
     [ParamField(0x28, ParamType.I32)]
-    public int CallHelp_ActionAnimId
+    public int CallHelpActionAnimId
     {
-        get => _CallHelp_ActionAnimId;
-        set => WriteParamField(ref _CallHelp_ActionAnimId, value);
+        get => _callHelpActionAnimId;
+        set => WriteParamField(ref _callHelpActionAnimId, value);
     }
-    private int _CallHelp_ActionAnimId;
+    private int _callHelpActionAnimId;
 
     [ParamField(0x2C, ParamType.I32)]
-    public int CallHelp_CallActionId
+    public int CallHelpCallActionId
     {
-        get => _CallHelp_CallActionId;
-        set => WriteParamField(ref _CallHelp_CallActionId, value);
+        get => _callHelpCallActionId;
+        set => WriteParamField(ref _callHelpCallActionId, value);
     }
-    private int _CallHelp_CallActionId;
+    private int _callHelpCallActionId;
 
     [ParamField(0x30, ParamType.U16)]
-    public ushort Eye_dist
+    public ushort EyeDist
     {
-        get => _Eye_dist;
-        set => WriteParamField(ref _Eye_dist, value);
+        get => _eyeDist;
+        set => WriteParamField(ref _eyeDist, value);
     }
-    private ushort _Eye_dist;
+    private ushort _eyeDist;
 
     [ParamField(0x32, ParamType.U16)]
-    public ushort Ear_dist
+    public ushort EarDist
     {
-        get => _Ear_dist;
-        set => WriteParamField(ref _Ear_dist, value);
+        get => _earDist;
+        set => WriteParamField(ref _earDist, value);
     }
-    private ushort _Ear_dist;
+    private ushort _earDist;
 
     [ParamField(0x34, ParamType.U16)]
-    public ushort Ear_soundcut_dist
+    public ushort EarSoundcutDist
     {
-        get => _Ear_soundcut_dist;
-        set => WriteParamField(ref _Ear_soundcut_dist, value);
+        get => _earSoundcutDist;
+        set => WriteParamField(ref _earSoundcutDist, value);
     }
-    private ushort _Ear_soundcut_dist;
+    private ushort _earSoundcutDist;
 
     [ParamField(0x36, ParamType.U16)]
-    public ushort Nose_dist
+    public ushort NoseDist
     {
-        get => _Nose_dist;
-        set => WriteParamField(ref _Nose_dist, value);
+        get => _noseDist;
+        set => WriteParamField(ref _noseDist, value);
     }
-    private ushort _Nose_dist;
+    private ushort _noseDist;
 
     [ParamField(0x38, ParamType.U16)]
     public ushort MaxBackhomeDist
     {
-        get => _MaxBackhomeDist;
-        set => WriteParamField(ref _MaxBackhomeDist, value);
+        get => _maxBackhomeDist;
+        set => WriteParamField(ref _maxBackhomeDist, value);
     }
-    private ushort _MaxBackhomeDist;
+    private ushort _maxBackhomeDist;
 
     [ParamField(0x3A, ParamType.U16)]
     public ushort BackhomeDist
     {
-        get => _BackhomeDist;
-        set => WriteParamField(ref _BackhomeDist, value);
+        get => _backhomeDist;
+        set => WriteParamField(ref _backhomeDist, value);
     }
-    private ushort _BackhomeDist;
+    private ushort _backhomeDist;
 
     [ParamField(0x3C, ParamType.U16)]
     public ushort BackhomeBattleDist
     {
-        get => _BackhomeBattleDist;
-        set => WriteParamField(ref _BackhomeBattleDist, value);
+        get => _backhomeBattleDist;
+        set => WriteParamField(ref _backhomeBattleDist, value);
     }
-    private ushort _BackhomeBattleDist;
+    private ushort _backhomeBattleDist;
 
     [ParamField(0x3E, ParamType.U16)]
     public ushort NonBattleActLife
     {
-        get => _NonBattleActLife;
-        set => WriteParamField(ref _NonBattleActLife, value);
+        get => _nonBattleActLife;
+        set => WriteParamField(ref _nonBattleActLife, value);
     }
-    private ushort _NonBattleActLife;
+    private ushort _nonBattleActLife;
 
     [ParamField(0x40, ParamType.U16)]
-    public ushort BackHome_LookTargetTime
+    public ushort BackHomeLookTargetTime
     {
-        get => _BackHome_LookTargetTime;
-        set => WriteParamField(ref _BackHome_LookTargetTime, value);
+        get => _backHomeLookTargetTime;
+        set => WriteParamField(ref _backHomeLookTargetTime, value);
     }
-    private ushort _BackHome_LookTargetTime;
+    private ushort _backHomeLookTargetTime;
 
     [ParamField(0x42, ParamType.U16)]
-    public ushort BackHome_LookTargetDist
+    public ushort BackHomeLookTargetDist
     {
-        get => _BackHome_LookTargetDist;
-        set => WriteParamField(ref _BackHome_LookTargetDist, value);
+        get => _backHomeLookTargetDist;
+        set => WriteParamField(ref _backHomeLookTargetDist, value);
     }
-    private ushort _BackHome_LookTargetDist;
+    private ushort _backHomeLookTargetDist;
 
     [ParamField(0x44, ParamType.U16)]
     public ushort SightTargetForgetTime
     {
-        get => _SightTargetForgetTime;
-        set => WriteParamField(ref _SightTargetForgetTime, value);
+        get => _sightTargetForgetTime;
+        set => WriteParamField(ref _sightTargetForgetTime, value);
     }
-    private ushort _SightTargetForgetTime;
+    private ushort _sightTargetForgetTime;
 
     [ParamField(0x46, ParamType.U16)]
     public ushort SoundTargetForgetTime
     {
-        get => _SoundTargetForgetTime;
-        set => WriteParamField(ref _SoundTargetForgetTime, value);
+        get => _soundTargetForgetTime;
+        set => WriteParamField(ref _soundTargetForgetTime, value);
     }
-    private ushort _SoundTargetForgetTime;
+    private ushort _soundTargetForgetTime;
 
     [ParamField(0x48, ParamType.U16)]
     public ushort BattleStartDist
     {
-        get => _BattleStartDist;
-        set => WriteParamField(ref _BattleStartDist, value);
+        get => _battleStartDist;
+        set => WriteParamField(ref _battleStartDist, value);
     }
-    private ushort _BattleStartDist;
+    private ushort _battleStartDist;
 
     [ParamField(0x4A, ParamType.U16)]
-    public ushort CallHelp_MyPeerId
+    public ushort CallHelpMyPeerId
     {
-        get => _CallHelp_MyPeerId;
-        set => WriteParamField(ref _CallHelp_MyPeerId, value);
+        get => _callHelpMyPeerId;
+        set => WriteParamField(ref _callHelpMyPeerId, value);
     }
-    private ushort _CallHelp_MyPeerId;
+    private ushort _callHelpMyPeerId;
 
     [ParamField(0x4C, ParamType.U16)]
-    public ushort CallHelp_CallPeerId
+    public ushort CallHelpCallPeerId
     {
-        get => _CallHelp_CallPeerId;
-        set => WriteParamField(ref _CallHelp_CallPeerId, value);
+        get => _callHelpCallPeerId;
+        set => WriteParamField(ref _callHelpCallPeerId, value);
     }
-    private ushort _CallHelp_CallPeerId;
+    private ushort _callHelpCallPeerId;
 
     [ParamField(0x4E, ParamType.U16)]
-    public ushort TargetSys_DmgEffectRate
+    public ushort TargetSysDmgEffectRate
     {
-        get => _TargetSys_DmgEffectRate;
-        set => WriteParamField(ref _TargetSys_DmgEffectRate, value);
+        get => _targetSysDmgEffectRate;
+        set => WriteParamField(ref _targetSysDmgEffectRate, value);
     }
-    private ushort _TargetSys_DmgEffectRate;
+    private ushort _targetSysDmgEffectRate;
 
     [ParamField(0x50, ParamType.U8)]
     public byte TeamAttackEffectivity
     {
-        get => _TeamAttackEffectivity;
-        set => WriteParamField(ref _TeamAttackEffectivity, value);
+        get => _teamAttackEffectivity;
+        set => WriteParamField(ref _teamAttackEffectivity, value);
     }
-    private byte _TeamAttackEffectivity;
+    private byte _teamAttackEffectivity;
 
     [ParamField(0x51, ParamType.U8)]
-    public byte Eye_angX
+    public byte EyeAngX
     {
-        get => _Eye_angX;
-        set => WriteParamField(ref _Eye_angX, value);
+        get => _eyeAngX;
+        set => WriteParamField(ref _eyeAngX, value);
     }
-    private byte _Eye_angX;
+    private byte _eyeAngX;
 
     [ParamField(0x52, ParamType.U8)]
-    public byte Eye_angY
+    public byte EyeAngY
     {
-        get => _Eye_angY;
-        set => WriteParamField(ref _Eye_angY, value);
+        get => _eyeAngY;
+        set => WriteParamField(ref _eyeAngY, value);
     }
-    private byte _Eye_angY;
+    private byte _eyeAngY;
 
     [ParamField(0x53, ParamType.U8)]
-    public byte Ear_angX
+    public byte EarAngX
     {
-        get => _Ear_angX;
-        set => WriteParamField(ref _Ear_angX, value);
+        get => _earAngX;
+        set => WriteParamField(ref _earAngX, value);
     }
-    private byte _Ear_angX;
+    private byte _earAngX;
 
     [ParamField(0x54, ParamType.U8)]
-    public byte Ear_angY
+    public byte EarAngY
     {
-        get => _Ear_angY;
-        set => WriteParamField(ref _Ear_angY, value);
+        get => _earAngY;
+        set => WriteParamField(ref _earAngY, value);
     }
-    private byte _Ear_angY;
+    private byte _earAngY;
 
     [ParamField(0x55, ParamType.U8)]
-    public byte CallHelp_CallValidMinDistTarget
+    public byte CallHelpCallValidMinDistTarget
     {
-        get => _CallHelp_CallValidMinDistTarget;
-        set => WriteParamField(ref _CallHelp_CallValidMinDistTarget, value);
+        get => _callHelpCallValidMinDistTarget;
+        set => WriteParamField(ref _callHelpCallValidMinDistTarget, value);
     }
-    private byte _CallHelp_CallValidMinDistTarget;
+    private byte _callHelpCallValidMinDistTarget;
 
     [ParamField(0x56, ParamType.U8)]
-    public byte CallHelp_CallValidRange
+    public byte CallHelpCallValidRange
     {
-        get => _CallHelp_CallValidRange;
-        set => WriteParamField(ref _CallHelp_CallValidRange, value);
+        get => _callHelpCallValidRange;
+        set => WriteParamField(ref _callHelpCallValidRange, value);
     }
-    private byte _CallHelp_CallValidRange;
+    private byte _callHelpCallValidRange;
 
     [ParamField(0x57, ParamType.U8)]
-    public byte CallHelp_ForgetTimeByArrival
+    public byte CallHelpForgetTimeByArrival
     {
-        get => _CallHelp_ForgetTimeByArrival;
-        set => WriteParamField(ref _CallHelp_ForgetTimeByArrival, value);
+        get => _callHelpForgetTimeByArrival;
+        set => WriteParamField(ref _callHelpForgetTimeByArrival, value);
     }
-    private byte _CallHelp_ForgetTimeByArrival;
+    private byte _callHelpForgetTimeByArrival;
 
     [ParamField(0x58, ParamType.U8)]
-    public byte CallHelp_MinWaitTime
+    public byte CallHelpMinWaitTime
     {
-        get => _CallHelp_MinWaitTime;
-        set => WriteParamField(ref _CallHelp_MinWaitTime, value);
+        get => _callHelpMinWaitTime;
+        set => WriteParamField(ref _callHelpMinWaitTime, value);
     }
-    private byte _CallHelp_MinWaitTime;
+    private byte _callHelpMinWaitTime;
 
     [ParamField(0x59, ParamType.U8)]
-    public byte CallHelp_MaxWaitTime
+    public byte CallHelpMaxWaitTime
     {
-        get => _CallHelp_MaxWaitTime;
-        set => WriteParamField(ref _CallHelp_MaxWaitTime, value);
+        get => _callHelpMaxWaitTime;
+        set => WriteParamField(ref _callHelpMaxWaitTime, value);
     }
-    private byte _CallHelp_MaxWaitTime;
+    private byte _callHelpMaxWaitTime;
 
     [ParamField(0x5A, ParamType.U8)]
-    public byte GoalAction_ToCaution
+    public byte GoalActionToCaution
     {
-        get => _GoalAction_ToCaution;
-        set => WriteParamField(ref _GoalAction_ToCaution, value);
+        get => _goalActionToCaution;
+        set => WriteParamField(ref _goalActionToCaution, value);
     }
-    private byte _GoalAction_ToCaution;
+    private byte _goalActionToCaution;
 
     [ParamField(0x5B, ParamType.U8)]
-    public byte GoalAction_ToFind
+    public byte GoalActionToFind
     {
-        get => _GoalAction_ToFind;
-        set => WriteParamField(ref _GoalAction_ToFind, value);
+        get => _goalActionToFind;
+        set => WriteParamField(ref _goalActionToFind, value);
     }
-    private byte _GoalAction_ToFind;
+    private byte _goalActionToFind;
 
     [ParamField(0x5C, ParamType.U8)]
-    public byte CallHelp_ReplyBehaviorType
+    public byte CallHelpReplyBehaviorType
     {
-        get => _CallHelp_ReplyBehaviorType;
-        set => WriteParamField(ref _CallHelp_ReplyBehaviorType, value);
+        get => _callHelpReplyBehaviorType;
+        set => WriteParamField(ref _callHelpReplyBehaviorType, value);
     }
-    private byte _CallHelp_ReplyBehaviorType;
+    private byte _callHelpReplyBehaviorType;
 
     [ParamField(0x5D, ParamType.U8)]
     public byte DisablePathMove
     {
-        get => _DisablePathMove;
-        set => WriteParamField(ref _DisablePathMove, value);
+        get => _disablePathMove;
+        set => WriteParamField(ref _disablePathMove, value);
     }
-    private byte _DisablePathMove;
+    private byte _disablePathMove;
 
     [ParamField(0x5E, ParamType.U8)]
     public byte SkipArrivalVisibleCheck
     {
-        get => _SkipArrivalVisibleCheck;
-        set => WriteParamField(ref _SkipArrivalVisibleCheck, value);
+        get => _skipArrivalVisibleCheck;
+        set => WriteParamField(ref _skipArrivalVisibleCheck, value);
     }
-    private byte _SkipArrivalVisibleCheck;
+    private byte _skipArrivalVisibleCheck;
 
     [ParamField(0x5F, ParamType.U8)]
-    public byte ThinkAttr_doAdmirer
+    public byte ThinkAttrDoAdmirer
     {
-        get => _ThinkAttr_doAdmirer;
-        set => WriteParamField(ref _ThinkAttr_doAdmirer, value);
+        get => _thinkAttrDoAdmirer;
+        set => WriteParamField(ref _thinkAttrDoAdmirer, value);
     }
-    private byte _ThinkAttr_doAdmirer;
+    private byte _thinkAttrDoAdmirer;
 
     #region BitField EnableNaviFlg_EdgeBitfield ==============================================================================
 
     [ParamField(0x60, ParamType.U8)]
-    public byte EnableNaviFlg_EdgeBitfield
+    public byte EnableNaviFlgEdgeBitfield
     {
-        get => _EnableNaviFlg_EdgeBitfield;
-        set => WriteParamField(ref _EnableNaviFlg_EdgeBitfield, value);
+        get => _enableNaviFlgEdgeBitfield;
+        set => WriteParamField(ref _enableNaviFlgEdgeBitfield, value);
     }
-    private byte _EnableNaviFlg_EdgeBitfield;
+    private byte _enableNaviFlgEdgeBitfield;
 
-    [ParamBitField(nameof(EnableNaviFlg_EdgeBitfield), bits: 1, bitsOffset: 0)]
-    public byte EnableNaviFlg_Edge
+    [ParamBitField(nameof(EnableNaviFlgEdgeBitfield), bits: 1, bitsOffset: 0)]
+    public byte EnableNaviFlgEdge
     {
-        get => GetbitfieldValue(_EnableNaviFlg_EdgeBitfield);
-        set => SetBitfieldValue(ref _EnableNaviFlg_EdgeBitfield, value);
-    }
-
-    [ParamBitField(nameof(EnableNaviFlg_EdgeBitfield), bits: 1, bitsOffset: 1)]
-    public byte EnableNaviFlg_LargeSpace
-    {
-        get => GetbitfieldValue(_EnableNaviFlg_EdgeBitfield);
-        set => SetBitfieldValue(ref _EnableNaviFlg_EdgeBitfield, value);
+        get => GetbitfieldValue(_enableNaviFlgEdgeBitfield);
+        set => SetBitfieldValue(ref _enableNaviFlgEdgeBitfield, value);
     }
 
-    [ParamBitField(nameof(EnableNaviFlg_EdgeBitfield), bits: 1, bitsOffset: 2)]
-    public byte EnableNaviFlg_Ladder
+    [ParamBitField(nameof(EnableNaviFlgEdgeBitfield), bits: 1, bitsOffset: 1)]
+    public byte EnableNaviFlgLargeSpace
     {
-        get => GetbitfieldValue(_EnableNaviFlg_EdgeBitfield);
-        set => SetBitfieldValue(ref _EnableNaviFlg_EdgeBitfield, value);
+        get => GetbitfieldValue(_enableNaviFlgEdgeBitfield);
+        set => SetBitfieldValue(ref _enableNaviFlgEdgeBitfield, value);
     }
 
-    [ParamBitField(nameof(EnableNaviFlg_EdgeBitfield), bits: 1, bitsOffset: 3)]
-    public byte EnableNaviFlg_Hole
+    [ParamBitField(nameof(EnableNaviFlgEdgeBitfield), bits: 1, bitsOffset: 2)]
+    public byte EnableNaviFlgLadder
     {
-        get => GetbitfieldValue(_EnableNaviFlg_EdgeBitfield);
-        set => SetBitfieldValue(ref _EnableNaviFlg_EdgeBitfield, value);
+        get => GetbitfieldValue(_enableNaviFlgEdgeBitfield);
+        set => SetBitfieldValue(ref _enableNaviFlgEdgeBitfield, value);
     }
 
-    [ParamBitField(nameof(EnableNaviFlg_EdgeBitfield), bits: 1, bitsOffset: 4)]
-    public byte EnableNaviFlg_Door
+    [ParamBitField(nameof(EnableNaviFlgEdgeBitfield), bits: 1, bitsOffset: 3)]
+    public byte EnableNaviFlgHole
     {
-        get => GetbitfieldValue(_EnableNaviFlg_EdgeBitfield);
-        set => SetBitfieldValue(ref _EnableNaviFlg_EdgeBitfield, value);
+        get => GetbitfieldValue(_enableNaviFlgEdgeBitfield);
+        set => SetBitfieldValue(ref _enableNaviFlgEdgeBitfield, value);
     }
 
-    [ParamBitField(nameof(EnableNaviFlg_EdgeBitfield), bits: 1, bitsOffset: 5)]
-    public byte EnableNaviFlg_InSideWall
+    [ParamBitField(nameof(EnableNaviFlgEdgeBitfield), bits: 1, bitsOffset: 4)]
+    public byte EnableNaviFlgDoor
     {
-        get => GetbitfieldValue(_EnableNaviFlg_EdgeBitfield);
-        set => SetBitfieldValue(ref _EnableNaviFlg_EdgeBitfield, value);
+        get => GetbitfieldValue(_enableNaviFlgEdgeBitfield);
+        set => SetBitfieldValue(ref _enableNaviFlgEdgeBitfield, value);
     }
 
-    [ParamBitField(nameof(EnableNaviFlg_EdgeBitfield), bits: 2, bitsOffset: 6)]
-    public byte EnableNaviFlg_reserve0
+    [ParamBitField(nameof(EnableNaviFlgEdgeBitfield), bits: 1, bitsOffset: 5)]
+    public byte EnableNaviFlgInSideWall
     {
-        get => GetbitfieldValue(_EnableNaviFlg_EdgeBitfield);
-        set => SetBitfieldValue(ref _EnableNaviFlg_EdgeBitfield, value);
+        get => GetbitfieldValue(_enableNaviFlgEdgeBitfield);
+        set => SetBitfieldValue(ref _enableNaviFlgEdgeBitfield, value);
+    }
+
+    [ParamBitField(nameof(EnableNaviFlgEdgeBitfield), bits: 2, bitsOffset: 6)]
+    public byte EnableNaviFlgReserve0
+    {
+        get => GetbitfieldValue(_enableNaviFlgEdgeBitfield);
+        set => SetBitfieldValue(ref _enableNaviFlgEdgeBitfield, value);
     }
 
     #endregion BitField EnableNaviFlg_EdgeBitfield
 
     [ParamField(0x61, ParamType.Dummy8, 3)]
-    public byte[] EnableNaviFlg_reserve1
+    public byte[] EnableNaviFlgReserve1
     {
-        get => _EnableNaviFlg_reserve1;
-        set => WriteParamField(ref _EnableNaviFlg_reserve1, value);
+        get => _enableNaviFlgReserve1;
+        set => WriteParamField(ref _enableNaviFlgReserve1, value);
     }
-    private byte[] _EnableNaviFlg_reserve1 = null!;
+    private byte[] _enableNaviFlgReserve1 = null!;
 
     [ParamField(0x64, ParamType.Dummy8, 12)]
     public byte[] Pad0
     {
-        get => _Pad0;
-        set => WriteParamField(ref _Pad0, value);
+        get => _pad0;
+        set => WriteParamField(ref _pad0, value);
     }
-    private byte[] _Pad0 = null!;
+    private byte[] _pad0 = null!;
 
 }

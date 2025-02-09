@@ -67,7 +67,7 @@ namespace SoulSplitter.Tests.UI
             var gameData = new Dictionary<GameType, List<(AddSplit addSplit, TimingType timingType, SplitType splitType, object split)>>();
             foreach (var objectArray in TestCases)
             {
-                (GameType gameType, AddSplit addSplit, TimingType timingType, SplitType splitType, object split) = 
+                (var gameType, var addSplit, var timingType, var splitType, var split) = 
                     ((GameType)objectArray[0], (AddSplit)objectArray[1], (TimingType)objectArray[2], (SplitType)objectArray[3], objectArray[4]);
                 
                 if (!gameData.ContainsKey(gameType))

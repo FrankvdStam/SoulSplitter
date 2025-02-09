@@ -77,7 +77,7 @@ public static class Kernel32
         var type = typeof(T);
         var size = Marshal.SizeOf(type);
         var bytes = new byte[size];
-        IntPtr ptr = IntPtr.Zero;
+        var ptr = IntPtr.Zero;
         try
         {
             ptr = Marshal.AllocHGlobal(size);
@@ -124,11 +124,11 @@ public static class Kernel32
 
         var result = new List<MemoryBasicInformation64>();
         var maxAddress = (process.MainModule.BaseAddress + process.MainModule.ModuleMemorySize).ToInt64();
-        long address = process.MainModule.BaseAddress.ToInt64();
+        var address = process.MainModule.BaseAddress.ToInt64();
 
         while (address < maxAddress)
         {
-            var queryEx = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)address, out MemoryBasicInformation64 memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
+            var queryEx = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)address, out var memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
             if (queryEx == 0)
             {
                 return Result.Err();
@@ -146,7 +146,7 @@ public static class Kernel32
 
     public static Result WriteProcessMemory(this Process process, long address, byte[] buffer)
     {
-        var result = NativeMethods.WriteProcessMemory(process.Handle, (IntPtr)address, buffer, (uint)buffer.Length, out uint bytesWritten);
+        var result = NativeMethods.WriteProcessMemory(process.Handle, (IntPtr)address, buffer, (uint)buffer.Length, out var bytesWritten);
 
         if (!result || bytesWritten != buffer.Length)
         {
@@ -163,7 +163,7 @@ public static class Kernel32
 
     public static ResultOk<bool> Is64Bit(this Process process)
     {
-        var result = NativeMethods.IsWow64Process(process.Handle, out bool isWow64Result);
+        var result = NativeMethods.IsWow64Process(process.Handle, out var isWow64Result);
         if (!result)
         {
             return Result.Err();
@@ -202,7 +202,7 @@ public static class Kernel32
     public static void Execute(this Process process, IntPtr startAddress, IntPtr? parameter = null)
     {
         process.NtSuspendProcess();
-        IntPtr thread = NativeMethods.CreateRemoteThread(process.Handle, IntPtr.Zero, 0, startAddress, parameter ?? IntPtr.Zero, 0, IntPtr.Zero);
+        var thread = NativeMethods.CreateRemoteThread(process.Handle, IntPtr.Zero, 0, startAddress, parameter ?? IntPtr.Zero, 0, IntPtr.Zero);
         NativeMethods.WaitForSingleObject(thread, 5000);
         process.NtResumeProcess();
         NativeMethods.CloseHandle(thread);
@@ -247,8 +247,8 @@ public static class Kernel32
     public static (IntPtr[] List, uint Length) GetProcessModules(this Process process)
     {
         uint arraySize = 256;
-        IntPtr[] processMods = new IntPtr[arraySize];
-        uint arrayBytesSize = arraySize * (uint)IntPtr.Size;
+        var processMods = new IntPtr[arraySize];
+        var arrayBytesSize = arraySize * (uint)IntPtr.Size;
         uint bytesCopied = 0;
 
         // Loop until all modules are listed
@@ -265,7 +265,6 @@ public static class Kernel32
             arrayBytesSize = arraySize * (uint)IntPtr.Size;
         }
 
-        var len = bytesCopied / IntPtr.Size;
         return (List: processMods, Length: bytesCopied >> 2);
     }
 
@@ -274,7 +273,7 @@ public static class Kernel32
     public static List<MODULEENTRY32W> GetModulesViaSnapshot(this Process process)
     {
         var modules = new List<MODULEENTRY32W>();
-        IntPtr handleToSnapshot = IntPtr.Zero;
+        var handleToSnapshot = IntPtr.Zero;
 
         void CleanupSnapshot()
         {
@@ -287,7 +286,7 @@ public static class Kernel32
         
         try
         {
-            MODULEENTRY32W procEntry = new MODULEENTRY32W();
+            var procEntry = new MODULEENTRY32W();
             procEntry.dwSize = (UInt32)Marshal.SizeOf(typeof(MODULEENTRY32W));
             handleToSnapshot = NativeMethods.CreateToolhelp32Snapshot((uint)SnapshotFlags.Module | (uint)SnapshotFlags.Module32, (uint)process.Id);
             if (NativeMethods.Module32FirstW(handleToSnapshot, ref procEntry))
@@ -355,7 +354,7 @@ public static class Kernel32
             var functionName = process.ReadAsciiString(module.modBaseAddr.ToInt64() + functionNameOffset);
 
             //Ordinal seems to be an index
-            var ordinal = process.ReadMemory<ushort>(ordinalTable + i * sizeof(ushort)).Unwrap();
+            process.ReadMemory<ushort>(ordinalTable + i * sizeof(ushort)).Unwrap();
 
             //Function offset table is an array of 4byte numbers
             var functionOffset = process.ReadMemory<uint>(functionOffsetTable + i * sizeof(uint)).Unwrap();

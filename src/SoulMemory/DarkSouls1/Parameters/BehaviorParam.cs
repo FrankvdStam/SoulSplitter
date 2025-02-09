@@ -26,97 +26,97 @@ public class BehaviorParam(Pointer basePointer, ByteArrayMemory memory, long off
     [ParamField(0x0, ParamType.I32)]
     public int VariationId
     {
-        get => _VariationId;
-        set => WriteParamField(ref _VariationId, value);
+        get => _variationId;
+        set => WriteParamField(ref _variationId, value);
     }
-    private int _VariationId;
+    private int _variationId;
 
     [ParamField(0x4, ParamType.I32)]
     public int BehaviorJudgeId
     {
-        get => _BehaviorJudgeId;
-        set => WriteParamField(ref _BehaviorJudgeId, value);
+        get => _behaviorJudgeId;
+        set => WriteParamField(ref _behaviorJudgeId, value);
     }
-    private int _BehaviorJudgeId;
+    private int _behaviorJudgeId;
 
     [ParamField(0x8, ParamType.U8)]
-    public byte EzStateBehaviorType_old
+    public byte EzStateBehaviorTypeOld
     {
-        get => _EzStateBehaviorType_old;
-        set => WriteParamField(ref _EzStateBehaviorType_old, value);
+        get => _ezStateBehaviorTypeOld;
+        set => WriteParamField(ref _ezStateBehaviorTypeOld, value);
     }
-    private byte _EzStateBehaviorType_old;
+    private byte _ezStateBehaviorTypeOld;
 
     [ParamField(0x9, ParamType.U8)]
     public byte RefType
     {
-        get => _RefType;
-        set => WriteParamField(ref _RefType, value);
+        get => _refType;
+        set => WriteParamField(ref _refType, value);
     }
-    private byte _RefType;
+    private byte _refType;
 
     [ParamField(0xA, ParamType.Dummy8, 2)]
     public byte[] Pad0
     {
-        get => _Pad0;
-        set => WriteParamField(ref _Pad0, value);
+        get => _pad0;
+        set => WriteParamField(ref _pad0, value);
     }
-    private byte[] _Pad0 = null!;
+    private byte[] _pad0 = null!;
 
     [ParamField(0xC, ParamType.I32)]
     public int RefId
     {
-        get => _RefId;
-        set => WriteParamField(ref _RefId, value);
+        get => _refId;
+        set => WriteParamField(ref _refId, value);
     }
-    private int _RefId;
+    private int _refId;
 
     [ParamField(0x10, ParamType.I32)]
     public int SfxVariationId
     {
-        get => _SfxVariationId;
-        set => WriteParamField(ref _SfxVariationId, value);
+        get => _sfxVariationId;
+        set => WriteParamField(ref _sfxVariationId, value);
     }
-    private int _SfxVariationId;
+    private int _sfxVariationId;
 
     [ParamField(0x14, ParamType.I32)]
     public int Stamina
     {
-        get => _Stamina;
-        set => WriteParamField(ref _Stamina, value);
+        get => _stamina;
+        set => WriteParamField(ref _stamina, value);
     }
-    private int _Stamina;
+    private int _stamina;
 
     [ParamField(0x18, ParamType.I32)]
     public int Mp
     {
-        get => _Mp;
-        set => WriteParamField(ref _Mp, value);
+        get => _mp;
+        set => WriteParamField(ref _mp, value);
     }
-    private int _Mp;
+    private int _mp;
 
     [ParamField(0x1C, ParamType.U8)]
     public byte Category
     {
-        get => _Category;
-        set => WriteParamField(ref _Category, value);
+        get => _category;
+        set => WriteParamField(ref _category, value);
     }
-    private byte _Category;
+    private byte _category;
 
     [ParamField(0x1D, ParamType.U8)]
     public byte HeroPoint
     {
-        get => _HeroPoint;
-        set => WriteParamField(ref _HeroPoint, value);
+        get => _heroPoint;
+        set => WriteParamField(ref _heroPoint, value);
     }
-    private byte _HeroPoint;
+    private byte _heroPoint;
 
     [ParamField(0x1E, ParamType.Dummy8, 2)]
     public byte[] Pad1
     {
-        get => _Pad1;
-        set => WriteParamField(ref _Pad1, value);
+        get => _pad1;
+        set => WriteParamField(ref _pad1, value);
     }
-    private byte[] _Pad1 = null!;
+    private byte[] _pad1 = null!;
 
 }

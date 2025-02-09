@@ -69,7 +69,7 @@ public class PointerTreeBuilder
         foreach (var node in Tree)
         {
             long scanResult = 0;
-            bool success = false;
+            var success = false;
             switch (node.PointerNodeType)
             {
                 default:

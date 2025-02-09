@@ -24,67 +24,67 @@ namespace SoulMemory.DarkSouls1.Parameters;
 public class CoolTimeParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
     [ParamField(0x0, ParamType.F32)]
-    public float LimitationTime_0
+    public float LimitationTime0
     {
-        get => _LimitationTime_0;
-        set => WriteParamField(ref _LimitationTime_0, value);
+        get => _limitationTime0;
+        set => WriteParamField(ref _limitationTime0, value);
     }
-    private float _LimitationTime_0;
+    private float _limitationTime0;
 
     [ParamField(0x4, ParamType.F32)]
-    public float ObservationTime_0
+    public float ObservationTime0
     {
-        get => _ObservationTime_0;
-        set => WriteParamField(ref _ObservationTime_0, value);
+        get => _observationTime0;
+        set => WriteParamField(ref _observationTime0, value);
     }
-    private float _ObservationTime_0;
+    private float _observationTime0;
 
     [ParamField(0x8, ParamType.F32)]
-    public float LimitationTime_1
+    public float LimitationTime1
     {
-        get => _LimitationTime_1;
-        set => WriteParamField(ref _LimitationTime_1, value);
+        get => _limitationTime1;
+        set => WriteParamField(ref _limitationTime1, value);
     }
-    private float _LimitationTime_1;
+    private float _limitationTime1;
 
     [ParamField(0xC, ParamType.F32)]
-    public float ObservationTime_1
+    public float ObservationTime1
     {
-        get => _ObservationTime_1;
-        set => WriteParamField(ref _ObservationTime_1, value);
+        get => _observationTime1;
+        set => WriteParamField(ref _observationTime1, value);
     }
-    private float _ObservationTime_1;
+    private float _observationTime1;
 
     [ParamField(0x10, ParamType.F32)]
-    public float LimitationTime_2
+    public float LimitationTime2
     {
-        get => _LimitationTime_2;
-        set => WriteParamField(ref _LimitationTime_2, value);
+        get => _limitationTime2;
+        set => WriteParamField(ref _limitationTime2, value);
     }
-    private float _LimitationTime_2;
+    private float _limitationTime2;
 
     [ParamField(0x14, ParamType.F32)]
-    public float ObservationTime_2
+    public float ObservationTime2
     {
-        get => _ObservationTime_2;
-        set => WriteParamField(ref _ObservationTime_2, value);
+        get => _observationTime2;
+        set => WriteParamField(ref _observationTime2, value);
     }
-    private float _ObservationTime_2;
+    private float _observationTime2;
 
     [ParamField(0x18, ParamType.F32)]
-    public float LimitationTime_3
+    public float LimitationTime3
     {
-        get => _LimitationTime_3;
-        set => WriteParamField(ref _LimitationTime_3, value);
+        get => _limitationTime3;
+        set => WriteParamField(ref _limitationTime3, value);
     }
-    private float _LimitationTime_3;
+    private float _limitationTime3;
 
     [ParamField(0x1C, ParamType.F32)]
-    public float ObservationTime_3
+    public float ObservationTime3
     {
-        get => _ObservationTime_3;
-        set => WriteParamField(ref _ObservationTime_3, value);
+        get => _observationTime3;
+        set => WriteParamField(ref _observationTime3, value);
     }
-    private float _ObservationTime_3;
+    private float _observationTime3;
 
 }

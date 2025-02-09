@@ -74,7 +74,7 @@ public class TextToNumberValidation : ValidationRule
                 return new ValidationResult(true, null);
 
             case NumericType.Uint:
-                if (!uint.TryParse(text, out var u))
+                if (!uint.TryParse(text, out _))
                 {
                     return new ValidationResult(false, "Input is not a valid positive number");
                 }
@@ -82,7 +82,7 @@ public class TextToNumberValidation : ValidationRule
                 return new ValidationResult(true, null);
 
             case NumericType.Float:
-                if (!float.TryParse(text, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out float f))
+                if (!float.TryParse(text, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out var f))
                 {
                     return new ValidationResult(false, "Input is not a valid decimal number");
                 }
@@ -96,7 +96,7 @@ public class TextToNumberValidation : ValidationRule
         }
     }
 
-    public bool IsRequired { get; set; } = false;
+    public bool IsRequired { get; set; }
     public bool AllowNegative { get; set; } = true;
     public NumericType NumericType { get; set; } = NumericType.Int;
 

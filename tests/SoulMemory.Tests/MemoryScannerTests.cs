@@ -44,7 +44,7 @@ public class MemoryScannerTests
         var needle = needleString.ToBytePattern();
 
         var actualCount = haystack.BoyerMooreCount(needle);
-        haystack.TryBoyerMooreSearch(needle, out long actualIndex);
+        haystack.TryBoyerMooreSearch(needle, out var actualIndex);
 
         Assert.AreEqual(actualCount, count);
         Assert.AreEqual(actualIndex, index);

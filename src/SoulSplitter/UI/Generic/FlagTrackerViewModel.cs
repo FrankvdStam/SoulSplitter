@@ -161,7 +161,7 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
         var changedCategories = new List<FlagTrackerCategoryViewModel>();
 
         //Check the next x flags
-        for(int i = 0; i < FlagsPerFrame; i++)
+        for(var i = 0; i < FlagsPerFrame; i++)
         {
             var (category, flag) = _lookup[_currentIndex];
             if (!flag.State)
@@ -349,20 +349,10 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
     private FlagDescription? _selectedFlagDescription;
 
     [XmlIgnore]
-    public RelayCommand CommandAddEventFlag
-    {
-        get => _commandAddEventFlag;
-        set => this.SetField(ref _commandAddEventFlag, value);
-    }
-    private RelayCommand _commandAddEventFlag = null!;
+    public RelayCommand CommandAddEventFlag { get; }
 
     [XmlIgnore]
-    public RelayCommand CommandRemoveEventFlag
-    {
-        get => _commandRemoveEventFlag;
-        set => this.SetField(ref _commandRemoveEventFlag, value);
-    }
-    private RelayCommand _commandRemoveEventFlag = null!;
+    public RelayCommand CommandRemoveEventFlag { get; }
 
     #endregion
 

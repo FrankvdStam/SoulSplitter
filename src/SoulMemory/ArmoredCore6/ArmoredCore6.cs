@@ -114,7 +114,7 @@ public class ArmoredCore6 : IGame
 
     public void WriteEventFlag(uint eventFlagId, bool value)
     {
-        var result = GetEventFlagAddress(eventFlagId, out int mask);
+        var result = GetEventFlagAddress(eventFlagId, out var mask);
         if (result.IsOk)
         {
             var address = result.Unwrap();
@@ -134,7 +134,7 @@ public class ArmoredCore6 : IGame
 
     public bool ReadEventFlag(uint eventFlagId)
     {
-        var result = GetEventFlagAddress(eventFlagId, out int mask);
+        var result = GetEventFlagAddress(eventFlagId, out var mask);
         if (result.IsOk)
         {
             var address = result.Unwrap();

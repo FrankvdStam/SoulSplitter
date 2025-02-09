@@ -26,65 +26,65 @@ public class TalkParam(Pointer basePointer, ByteArrayMemory memory, long offset,
     [ParamField(0x0, ParamType.I32)]
     public int MsgId
     {
-        get => _MsgId;
-        set => WriteParamField(ref _MsgId, value);
+        get => _msgId;
+        set => WriteParamField(ref _msgId, value);
     }
-    private int _MsgId;
+    private int _msgId;
 
     [ParamField(0x4, ParamType.I32)]
     public int VoiceId
     {
-        get => _VoiceId;
-        set => WriteParamField(ref _VoiceId, value);
+        get => _voiceId;
+        set => WriteParamField(ref _voiceId, value);
     }
-    private int _VoiceId;
+    private int _voiceId;
 
     [ParamField(0x8, ParamType.I32)]
     public int MotionId
     {
-        get => _MotionId;
-        set => WriteParamField(ref _MotionId, value);
+        get => _motionId;
+        set => WriteParamField(ref _motionId, value);
     }
-    private int _MotionId;
+    private int _motionId;
 
     [ParamField(0xC, ParamType.I32)]
     public int ReturnPos
     {
-        get => _ReturnPos;
-        set => WriteParamField(ref _ReturnPos, value);
+        get => _returnPos;
+        set => WriteParamField(ref _returnPos, value);
     }
-    private int _ReturnPos;
+    private int _returnPos;
 
     [ParamField(0x10, ParamType.I32)]
     public int ReactionId
     {
-        get => _ReactionId;
-        set => WriteParamField(ref _ReactionId, value);
+        get => _reactionId;
+        set => WriteParamField(ref _reactionId, value);
     }
-    private int _ReactionId;
+    private int _reactionId;
 
     [ParamField(0x14, ParamType.I32)]
     public int EventId
     {
-        get => _EventId;
-        set => WriteParamField(ref _EventId, value);
+        get => _eventId;
+        set => WriteParamField(ref _eventId, value);
     }
-    private int _EventId;
+    private int _eventId;
 
     [ParamField(0x18, ParamType.U8)]
     public byte IsMotionLoop
     {
-        get => _IsMotionLoop;
-        set => WriteParamField(ref _IsMotionLoop, value);
+        get => _isMotionLoop;
+        set => WriteParamField(ref _isMotionLoop, value);
     }
-    private byte _IsMotionLoop;
+    private byte _isMotionLoop;
 
     [ParamField(0x19, ParamType.Dummy8, 7)]
     public byte[] Pad0
     {
-        get => _Pad0;
-        set => WriteParamField(ref _Pad0, value);
+        get => _pad0;
+        set => WriteParamField(ref _pad0, value);
     }
-    private byte[] _Pad0 = null!;
+    private byte[] _pad0 = null!;
 
 }

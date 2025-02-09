@@ -39,11 +39,11 @@ namespace cli
     internal class Program
     {
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             
 
-            //TestUi();
+            TestUi();
             //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });
             //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
             //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
@@ -72,12 +72,12 @@ namespace cli
 
         private static void DropModBkh()
         {
-            DropMod((ds, d) => d.InitBkh(), (ds, d) => { });
+            DropMod((_, d) => d.InitBkh(), (_, _) => { });
         }
 
         private static void DropModAA()
         {
-            DropMod((ds, d) => d.InitAllAchievements(), (ds, d) => d.UpdateAllAchievements());
+            DropMod((_, d) => d.InitAllAchievements(), (_, d) => d.UpdateAllAchievements());
         }
 
         private static void DropMod(Action<DarkSouls1, DropMod> install, Action<DarkSouls1, DropMod> update)
@@ -233,7 +233,7 @@ namespace cli
 
             mainWindow.Dispatcher.Invoke(() =>
             {
-                var result = mainWindow.ShowDialog();
+                mainWindow.ShowDialog();
                 mainWindow.Close();
             });
 
@@ -263,7 +263,7 @@ namespace cli
                 var s = new Stopwatch();
                 s.Start();
 
-                if (!SoulMemory.Memory.MemoryScanner.TryValidatePatterns(tree, files, out List<(string fileName, string patternName, long count)> errors))
+                if (!SoulMemory.Memory.MemoryScanner.TryValidatePatterns(tree, files, out var errors))
                 {
                     foreach (var error in errors)
                     {

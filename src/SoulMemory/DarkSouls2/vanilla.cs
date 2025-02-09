@@ -129,7 +129,7 @@ internal class Vanilla : IDarkSouls2
         //res:10152830
 
 
-        for (int i = 0; i < 100; i++) //Replaced infinite while with for loop, in case some memes occur and the function never returns
+        for (var i = 0; i < 100; i++) //Replaced infinite while with for loop, in case some memes occur and the function never returns
         {
             if (vector.IsNullPtr())
             {

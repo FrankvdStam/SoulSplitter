@@ -160,7 +160,7 @@ public abstract class BaseParam
         
         var bitIndex = 0;
         long result = 0;
-        for (int i = bitfield.paramFieldAttribute.BitsOffset; i < bitfield.paramFieldAttribute.BitsOffset + bitfield.paramFieldAttribute.Bits; i++)
+        for (var i = bitfield.paramFieldAttribute.BitsOffset; i < bitfield.paramFieldAttribute.BitsOffset + bitfield.paramFieldAttribute.Bits; i++)
         {
             if (currentValue.IsBitSet(i))
             {
@@ -180,7 +180,7 @@ public abstract class BaseParam
         var newValue = (long)Convert.ChangeType(value, typeof(long));
 
         var bitIndex = 0;
-        for (int i = bitfield.paramFieldAttribute.BitsOffset; i < bitfield.paramFieldAttribute.BitsOffset + bitfield.paramFieldAttribute.Bits; i++)
+        for (var i = bitfield.paramFieldAttribute.BitsOffset; i < bitfield.paramFieldAttribute.BitsOffset + bitfield.paramFieldAttribute.Bits; i++)
         {
             if (newValue.IsBitSet(bitIndex))
             {

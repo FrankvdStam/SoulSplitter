@@ -169,7 +169,7 @@ namespace SoulSplitter.Tests.Splitters
             //Assert.AreEqual(igt, timerModel.Object.CurrentState.CurrentTime.GameTime.Value.TotalMilliseconds);
        
             Assert.AreEqual(0, splitIndex);
-            for(int i = 0; i < testSplits.Count; i++)
+            for(var i = 0; i < testSplits.Count; i++)
             {
                 var split = testSplits[i];
        

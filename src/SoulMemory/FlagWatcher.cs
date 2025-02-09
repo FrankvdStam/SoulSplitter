@@ -41,7 +41,7 @@ public class FlagWatcher
     public Dictionary<uint, bool> Update()
     {
         var result = new Dictionary<uint, bool>();
-        for (int i = 0; i < _flags.Count; i++)
+        for (var i = 0; i < _flags.Count; i++)
         {
             var flag = _flags.ElementAt(i);
             var value = _game.ReadEventFlag(flag.Key);

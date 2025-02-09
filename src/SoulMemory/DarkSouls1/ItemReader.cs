@@ -68,9 +68,9 @@ internal static class ItemReader
                 }
 
                 //Decode item
-                int id = 0;
-                ItemInfusion infusion = ItemInfusion.Normal;
-                int level = 0;
+                var id = 0;
+                var infusion = ItemInfusion.Normal;
+                var level = 0;
 
                 //if 4 or less digits -> non-upgradable item.
                 if (categories.Contains(ItemCategory.Consumables) && item is >= 200 and <= 215 && !items.Any(j => j.ItemType == ItemType.EstusFlask))
@@ -107,9 +107,9 @@ internal static class ItemReader
                 else
                 {
                     //Separate digits
-                    int one = item % 10;
-                    int ten = (item / 10) % 10;
-                    int hundred = (item / 100) % 10;
+                    var one = item % 10;
+                    var ten = (item / 10) % 10;
+                    var hundred = (item / 100) % 10;
 
                     id = item - (one + (10 * ten) + (100 * hundred));
                     infusion = (ItemInfusion)hundred;

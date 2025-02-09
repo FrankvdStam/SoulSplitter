@@ -26,33 +26,33 @@ public class WhiteCoolTimeParam(Pointer basePointer, ByteArrayMemory memory, lon
     [ParamField(0x0, ParamType.F32)]
     public float TimeLimit0
     {
-        get => _TimeLimit0;
-        set => WriteParamField(ref _TimeLimit0, value);
+        get => _timeLimit0;
+        set => WriteParamField(ref _timeLimit0, value);
     }
-    private float _TimeLimit0;
+    private float _timeLimit0;
 
     [ParamField(0x4, ParamType.F32)]
     public float TimeLimit1
     {
-        get => _TimeLimit1;
-        set => WriteParamField(ref _TimeLimit1, value);
+        get => _timeLimit1;
+        set => WriteParamField(ref _timeLimit1, value);
     }
-    private float _TimeLimit1;
+    private float _timeLimit1;
 
     [ParamField(0x8, ParamType.F32)]
     public float TimeLimit2
     {
-        get => _TimeLimit2;
-        set => WriteParamField(ref _TimeLimit2, value);
+        get => _timeLimit2;
+        set => WriteParamField(ref _timeLimit2, value);
     }
-    private float _TimeLimit2;
+    private float _timeLimit2;
 
     [ParamField(0xC, ParamType.F32)]
     public float TimeLimit3
     {
-        get => _TimeLimit3;
-        set => WriteParamField(ref _TimeLimit3, value);
+        get => _timeLimit3;
+        set => WriteParamField(ref _timeLimit3, value);
     }
-    private float _TimeLimit3;
+    private float _timeLimit3;
 
 }

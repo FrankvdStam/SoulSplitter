@@ -24,179 +24,179 @@ namespace SoulMemory.DarkSouls1.Parameters;
 public class EnemyStandardInfo(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
     [ParamField(0x0, ParamType.I32)]
-    public int EnemyBehaviorID
+    public int EnemyBehaviorId
     {
-        get => _EnemyBehaviorID;
-        set => WriteParamField(ref _EnemyBehaviorID, value);
+        get => _enemyBehaviorId;
+        set => WriteParamField(ref _enemyBehaviorId, value);
     }
-    private int _EnemyBehaviorID;
+    private int _enemyBehaviorId;
 
     [ParamField(0x4, ParamType.U16)]
-    public ushort HP
+    public ushort Hp
     {
-        get => _HP;
-        set => WriteParamField(ref _HP, value);
+        get => _hp;
+        set => WriteParamField(ref _hp, value);
     }
-    private ushort _HP;
+    private ushort _hp;
 
     [ParamField(0x6, ParamType.U16)]
     public ushort AttackPower
     {
-        get => _AttackPower;
-        set => WriteParamField(ref _AttackPower, value);
+        get => _attackPower;
+        set => WriteParamField(ref _attackPower, value);
     }
-    private ushort _AttackPower;
+    private ushort _attackPower;
 
     [ParamField(0x8, ParamType.I32)]
     public int ChrType
     {
-        get => _ChrType;
-        set => WriteParamField(ref _ChrType, value);
+        get => _chrType;
+        set => WriteParamField(ref _chrType, value);
     }
-    private int _ChrType;
+    private int _chrType;
 
     [ParamField(0xC, ParamType.F32)]
     public float HitHeight
     {
-        get => _HitHeight;
-        set => WriteParamField(ref _HitHeight, value);
+        get => _hitHeight;
+        set => WriteParamField(ref _hitHeight, value);
     }
-    private float _HitHeight;
+    private float _hitHeight;
 
     [ParamField(0x10, ParamType.F32)]
     public float HitRadius
     {
-        get => _HitRadius;
-        set => WriteParamField(ref _HitRadius, value);
+        get => _hitRadius;
+        set => WriteParamField(ref _hitRadius, value);
     }
-    private float _HitRadius;
+    private float _hitRadius;
 
     [ParamField(0x14, ParamType.F32)]
     public float Weight
     {
-        get => _Weight;
-        set => WriteParamField(ref _Weight, value);
+        get => _weight;
+        set => WriteParamField(ref _weight, value);
     }
-    private float _Weight;
+    private float _weight;
 
     [ParamField(0x18, ParamType.F32)]
     public float DynamicFriction
     {
-        get => _DynamicFriction;
-        set => WriteParamField(ref _DynamicFriction, value);
+        get => _dynamicFriction;
+        set => WriteParamField(ref _dynamicFriction, value);
     }
-    private float _DynamicFriction;
+    private float _dynamicFriction;
 
     [ParamField(0x1C, ParamType.F32)]
     public float StaticFriction
     {
-        get => _StaticFriction;
-        set => WriteParamField(ref _StaticFriction, value);
+        get => _staticFriction;
+        set => WriteParamField(ref _staticFriction, value);
     }
-    private float _StaticFriction;
+    private float _staticFriction;
 
     [ParamField(0x20, ParamType.I32)]
     public int UpperDefState
     {
-        get => _UpperDefState;
-        set => WriteParamField(ref _UpperDefState, value);
+        get => _upperDefState;
+        set => WriteParamField(ref _upperDefState, value);
     }
-    private int _UpperDefState;
+    private int _upperDefState;
 
     [ParamField(0x24, ParamType.I32)]
     public int ActionDefState
     {
-        get => _ActionDefState;
-        set => WriteParamField(ref _ActionDefState, value);
+        get => _actionDefState;
+        set => WriteParamField(ref _actionDefState, value);
     }
-    private int _ActionDefState;
+    private int _actionDefState;
 
     [ParamField(0x28, ParamType.F32)]
-    public float RotY_per_Second
+    public float RotYPerSecond
     {
-        get => _RotY_per_Second;
-        set => WriteParamField(ref _RotY_per_Second, value);
+        get => _rotYPerSecond;
+        set => WriteParamField(ref _rotYPerSecond, value);
     }
-    private float _RotY_per_Second;
+    private float _rotYPerSecond;
 
     [ParamField(0x2C, ParamType.Dummy8, 20)]
     public byte[] Reserve0
     {
-        get => _Reserve0;
-        set => WriteParamField(ref _Reserve0, value);
+        get => _reserve0;
+        set => WriteParamField(ref _reserve0, value);
     }
-    private byte[] _Reserve0 = null!;
+    private byte[] _reserve0 = null!;
 
     [ParamField(0x40, ParamType.U8)]
-    public byte RotY_per_Second_old
+    public byte RotYPerSecondOld
     {
-        get => _RotY_per_Second_old;
-        set => WriteParamField(ref _RotY_per_Second_old, value);
+        get => _rotYPerSecondOld;
+        set => WriteParamField(ref _rotYPerSecondOld, value);
     }
-    private byte _RotY_per_Second_old;
+    private byte _rotYPerSecondOld;
 
     [ParamField(0x41, ParamType.U8)]
     public byte EnableSideStep
     {
-        get => _EnableSideStep;
-        set => WriteParamField(ref _EnableSideStep, value);
+        get => _enableSideStep;
+        set => WriteParamField(ref _enableSideStep, value);
     }
-    private byte _EnableSideStep;
+    private byte _enableSideStep;
 
     [ParamField(0x42, ParamType.U8)]
     public byte UseRagdollHit
     {
-        get => _UseRagdollHit;
-        set => WriteParamField(ref _UseRagdollHit, value);
+        get => _useRagdollHit;
+        set => WriteParamField(ref _useRagdollHit, value);
     }
-    private byte _UseRagdollHit;
+    private byte _useRagdollHit;
 
     [ParamField(0x43, ParamType.Dummy8, 5)]
-    public byte[] Reserve_last
+    public byte[] ReserveLast
     {
-        get => _Reserve_last;
-        set => WriteParamField(ref _Reserve_last, value);
+        get => _reserveLast;
+        set => WriteParamField(ref _reserveLast, value);
     }
-    private byte[] _Reserve_last = null!;
+    private byte[] _reserveLast = null!;
 
     [ParamField(0x48, ParamType.U16)]
     public ushort Stamina
     {
-        get => _Stamina;
-        set => WriteParamField(ref _Stamina, value);
+        get => _stamina;
+        set => WriteParamField(ref _stamina, value);
     }
-    private ushort _Stamina;
+    private ushort _stamina;
 
     [ParamField(0x4A, ParamType.U16)]
     public ushort StaminaRecover
     {
-        get => _StaminaRecover;
-        set => WriteParamField(ref _StaminaRecover, value);
+        get => _staminaRecover;
+        set => WriteParamField(ref _staminaRecover, value);
     }
-    private ushort _StaminaRecover;
+    private ushort _staminaRecover;
 
     [ParamField(0x4C, ParamType.U16)]
     public ushort StaminaConsumption
     {
-        get => _StaminaConsumption;
-        set => WriteParamField(ref _StaminaConsumption, value);
+        get => _staminaConsumption;
+        set => WriteParamField(ref _staminaConsumption, value);
     }
-    private ushort _StaminaConsumption;
+    private ushort _staminaConsumption;
 
     [ParamField(0x4E, ParamType.U16)]
-    public ushort Deffenct_Phys
+    public ushort DeffenctPhys
     {
-        get => _Deffenct_Phys;
-        set => WriteParamField(ref _Deffenct_Phys, value);
+        get => _deffenctPhys;
+        set => WriteParamField(ref _deffenctPhys, value);
     }
-    private ushort _Deffenct_Phys;
+    private ushort _deffenctPhys;
 
     [ParamField(0x50, ParamType.Dummy8, 48)]
-    public byte[] Reserve_last2
+    public byte[] ReserveLast2
     {
-        get => _Reserve_last2;
-        set => WriteParamField(ref _Reserve_last2, value);
+        get => _reserveLast2;
+        set => WriteParamField(ref _reserveLast2, value);
     }
-    private byte[] _Reserve_last2 = null!;
+    private byte[] _reserveLast2 = null!;
 
 }

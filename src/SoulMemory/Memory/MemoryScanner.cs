@@ -53,7 +53,7 @@ public static class MemoryScanner
         foreach (var node in treeBuilder.Tree)
         {
             long scanResult = 0;
-            bool success = false;
+            var success = false;
             switch (node.NodeType)
             {
                 default:
@@ -103,7 +103,7 @@ public static class MemoryScanner
             files.Add((Path.GetFileName(path), File.ReadAllBytes(path)));
         }
 
-        object errorLock = new object();
+        var errorLock = new object();
         var errorsList = new List<(string fileName, string patternName, long count)>();
 
         //Count every pattern in every file; any count that returns something other than 1 is either missing or not exclusive, and thus erroneaus
@@ -189,7 +189,7 @@ public static class MemoryScanner
     {
         result = 0;
         var pattern = pointerNode.Pattern.ToBytePattern();
-        if (bytes.TryBoyerMooreSearch(pattern, out long scanResult))
+        if (bytes.TryBoyerMooreSearch(pattern, out var scanResult))
         {
             var address = BitConverter.ToInt32(bytes, (int)(scanResult + pointerNode.AddressOffset));
             result = baseAddress + scanResult + address + pointerNode.InstructionSize;
@@ -205,7 +205,7 @@ public static class MemoryScanner
     {
         result = 0;
         var pattern = pointerNode.Pattern.ToBytePattern();
-        if (bytes.TryBoyerMooreSearch(pattern, out long scanResult))
+        if (bytes.TryBoyerMooreSearch(pattern, out var scanResult))
         {
             scanResult += baseAddress;
             if (pointerNode.Offset.HasValue)
@@ -335,7 +335,7 @@ public static class MemoryScanner
     /// </summary>
     public static int BoyerMooreCount(this byte[] haystack, byte?[] needle)
     {
-        int result = 0;
+        var result = 0;
         var lastPatternIndex = needle.Length - 1;
 
         var diff = lastPatternIndex - Math.Max(Array.LastIndexOf(needle, null), 0);

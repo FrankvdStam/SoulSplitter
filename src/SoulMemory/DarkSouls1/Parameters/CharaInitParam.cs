@@ -24,739 +24,739 @@ namespace SoulMemory.DarkSouls1.Parameters;
 public class CharaInitParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
 {
     [ParamField(0x0, ParamType.F32)]
-    public float BaseRec_mp
+    public float BaseRecMp
     {
-        get => _BaseRec_mp;
-        set => WriteParamField(ref _BaseRec_mp, value);
+        get => _baseRecMp;
+        set => WriteParamField(ref _baseRecMp, value);
     }
-    private float _BaseRec_mp;
+    private float _baseRecMp;
 
     [ParamField(0x4, ParamType.F32)]
-    public float BaseRec_sp
+    public float BaseRecSp
     {
-        get => _BaseRec_sp;
-        set => WriteParamField(ref _BaseRec_sp, value);
+        get => _baseRecSp;
+        set => WriteParamField(ref _baseRecSp, value);
     }
-    private float _BaseRec_sp;
+    private float _baseRecSp;
 
     [ParamField(0x8, ParamType.F32)]
-    public float Red_Falldam
+    public float RedFalldam
     {
-        get => _Red_Falldam;
-        set => WriteParamField(ref _Red_Falldam, value);
+        get => _redFalldam;
+        set => WriteParamField(ref _redFalldam, value);
     }
-    private float _Red_Falldam;
+    private float _redFalldam;
 
     [ParamField(0xC, ParamType.I32)]
     public int Soul
     {
-        get => _Soul;
-        set => WriteParamField(ref _Soul, value);
+        get => _soul;
+        set => WriteParamField(ref _soul, value);
     }
-    private int _Soul;
+    private int _soul;
 
     [ParamField(0x10, ParamType.I32)]
-    public int Equip_Wep_Right
+    public int EquipWepRight
     {
-        get => _Equip_Wep_Right;
-        set => WriteParamField(ref _Equip_Wep_Right, value);
+        get => _equipWepRight;
+        set => WriteParamField(ref _equipWepRight, value);
     }
-    private int _Equip_Wep_Right;
+    private int _equipWepRight;
 
     [ParamField(0x14, ParamType.I32)]
-    public int Equip_Subwep_Right
+    public int EquipSubwepRight
     {
-        get => _Equip_Subwep_Right;
-        set => WriteParamField(ref _Equip_Subwep_Right, value);
+        get => _equipSubwepRight;
+        set => WriteParamField(ref _equipSubwepRight, value);
     }
-    private int _Equip_Subwep_Right;
+    private int _equipSubwepRight;
 
     [ParamField(0x18, ParamType.I32)]
-    public int Equip_Wep_Left
+    public int EquipWepLeft
     {
-        get => _Equip_Wep_Left;
-        set => WriteParamField(ref _Equip_Wep_Left, value);
+        get => _equipWepLeft;
+        set => WriteParamField(ref _equipWepLeft, value);
     }
-    private int _Equip_Wep_Left;
+    private int _equipWepLeft;
 
     [ParamField(0x1C, ParamType.I32)]
-    public int Equip_Subwep_Left
+    public int EquipSubwepLeft
     {
-        get => _Equip_Subwep_Left;
-        set => WriteParamField(ref _Equip_Subwep_Left, value);
+        get => _equipSubwepLeft;
+        set => WriteParamField(ref _equipSubwepLeft, value);
     }
-    private int _Equip_Subwep_Left;
+    private int _equipSubwepLeft;
 
     [ParamField(0x20, ParamType.I32)]
-    public int Equip_Helm
+    public int EquipHelm
     {
-        get => _Equip_Helm;
-        set => WriteParamField(ref _Equip_Helm, value);
+        get => _equipHelm;
+        set => WriteParamField(ref _equipHelm, value);
     }
-    private int _Equip_Helm;
+    private int _equipHelm;
 
     [ParamField(0x24, ParamType.I32)]
-    public int Equip_Armer
+    public int EquipArmer
     {
-        get => _Equip_Armer;
-        set => WriteParamField(ref _Equip_Armer, value);
+        get => _equipArmer;
+        set => WriteParamField(ref _equipArmer, value);
     }
-    private int _Equip_Armer;
+    private int _equipArmer;
 
     [ParamField(0x28, ParamType.I32)]
-    public int Equip_Gaunt
+    public int EquipGaunt
     {
-        get => _Equip_Gaunt;
-        set => WriteParamField(ref _Equip_Gaunt, value);
+        get => _equipGaunt;
+        set => WriteParamField(ref _equipGaunt, value);
     }
-    private int _Equip_Gaunt;
+    private int _equipGaunt;
 
     [ParamField(0x2C, ParamType.I32)]
-    public int Equip_Leg
+    public int EquipLeg
     {
-        get => _Equip_Leg;
-        set => WriteParamField(ref _Equip_Leg, value);
+        get => _equipLeg;
+        set => WriteParamField(ref _equipLeg, value);
     }
-    private int _Equip_Leg;
+    private int _equipLeg;
 
     [ParamField(0x30, ParamType.I32)]
-    public int Equip_Arrow
+    public int EquipArrow
     {
-        get => _Equip_Arrow;
-        set => WriteParamField(ref _Equip_Arrow, value);
+        get => _equipArrow;
+        set => WriteParamField(ref _equipArrow, value);
     }
-    private int _Equip_Arrow;
+    private int _equipArrow;
 
     [ParamField(0x34, ParamType.I32)]
-    public int Equip_Bolt
+    public int EquipBolt
     {
-        get => _Equip_Bolt;
-        set => WriteParamField(ref _Equip_Bolt, value);
+        get => _equipBolt;
+        set => WriteParamField(ref _equipBolt, value);
     }
-    private int _Equip_Bolt;
+    private int _equipBolt;
 
     [ParamField(0x38, ParamType.I32)]
-    public int Equip_SubArrow
+    public int EquipSubArrow
     {
-        get => _Equip_SubArrow;
-        set => WriteParamField(ref _Equip_SubArrow, value);
+        get => _equipSubArrow;
+        set => WriteParamField(ref _equipSubArrow, value);
     }
-    private int _Equip_SubArrow;
+    private int _equipSubArrow;
 
     [ParamField(0x3C, ParamType.I32)]
-    public int Equip_SubBolt
+    public int EquipSubBolt
     {
-        get => _Equip_SubBolt;
-        set => WriteParamField(ref _Equip_SubBolt, value);
+        get => _equipSubBolt;
+        set => WriteParamField(ref _equipSubBolt, value);
     }
-    private int _Equip_SubBolt;
+    private int _equipSubBolt;
 
     [ParamField(0x40, ParamType.I32)]
-    public int Equip_Accessory01
+    public int EquipAccessory01
     {
-        get => _Equip_Accessory01;
-        set => WriteParamField(ref _Equip_Accessory01, value);
+        get => _equipAccessory01;
+        set => WriteParamField(ref _equipAccessory01, value);
     }
-    private int _Equip_Accessory01;
+    private int _equipAccessory01;
 
     [ParamField(0x44, ParamType.I32)]
-    public int Equip_Accessory02
+    public int EquipAccessory02
     {
-        get => _Equip_Accessory02;
-        set => WriteParamField(ref _Equip_Accessory02, value);
+        get => _equipAccessory02;
+        set => WriteParamField(ref _equipAccessory02, value);
     }
-    private int _Equip_Accessory02;
+    private int _equipAccessory02;
 
     [ParamField(0x48, ParamType.I32)]
-    public int Equip_Accessory03
+    public int EquipAccessory03
     {
-        get => _Equip_Accessory03;
-        set => WriteParamField(ref _Equip_Accessory03, value);
+        get => _equipAccessory03;
+        set => WriteParamField(ref _equipAccessory03, value);
     }
-    private int _Equip_Accessory03;
+    private int _equipAccessory03;
 
     [ParamField(0x4C, ParamType.I32)]
-    public int Equip_Accessory04
+    public int EquipAccessory04
     {
-        get => _Equip_Accessory04;
-        set => WriteParamField(ref _Equip_Accessory04, value);
+        get => _equipAccessory04;
+        set => WriteParamField(ref _equipAccessory04, value);
     }
-    private int _Equip_Accessory04;
+    private int _equipAccessory04;
 
     [ParamField(0x50, ParamType.I32)]
-    public int Equip_Accessory05
+    public int EquipAccessory05
     {
-        get => _Equip_Accessory05;
-        set => WriteParamField(ref _Equip_Accessory05, value);
+        get => _equipAccessory05;
+        set => WriteParamField(ref _equipAccessory05, value);
     }
-    private int _Equip_Accessory05;
+    private int _equipAccessory05;
 
     [ParamField(0x54, ParamType.I32)]
-    public int Equip_Skill_01
+    public int EquipSkill01
     {
-        get => _Equip_Skill_01;
-        set => WriteParamField(ref _Equip_Skill_01, value);
+        get => _equipSkill01;
+        set => WriteParamField(ref _equipSkill01, value);
     }
-    private int _Equip_Skill_01;
+    private int _equipSkill01;
 
     [ParamField(0x58, ParamType.I32)]
-    public int Equip_Skill_02
+    public int EquipSkill02
     {
-        get => _Equip_Skill_02;
-        set => WriteParamField(ref _Equip_Skill_02, value);
+        get => _equipSkill02;
+        set => WriteParamField(ref _equipSkill02, value);
     }
-    private int _Equip_Skill_02;
+    private int _equipSkill02;
 
     [ParamField(0x5C, ParamType.I32)]
-    public int Equip_Skill_03
+    public int EquipSkill03
     {
-        get => _Equip_Skill_03;
-        set => WriteParamField(ref _Equip_Skill_03, value);
+        get => _equipSkill03;
+        set => WriteParamField(ref _equipSkill03, value);
     }
-    private int _Equip_Skill_03;
+    private int _equipSkill03;
 
     [ParamField(0x60, ParamType.I32)]
-    public int Equip_Spell_01
+    public int EquipSpell01
     {
-        get => _Equip_Spell_01;
-        set => WriteParamField(ref _Equip_Spell_01, value);
+        get => _equipSpell01;
+        set => WriteParamField(ref _equipSpell01, value);
     }
-    private int _Equip_Spell_01;
+    private int _equipSpell01;
 
     [ParamField(0x64, ParamType.I32)]
-    public int Equip_Spell_02
+    public int EquipSpell02
     {
-        get => _Equip_Spell_02;
-        set => WriteParamField(ref _Equip_Spell_02, value);
+        get => _equipSpell02;
+        set => WriteParamField(ref _equipSpell02, value);
     }
-    private int _Equip_Spell_02;
+    private int _equipSpell02;
 
     [ParamField(0x68, ParamType.I32)]
-    public int Equip_Spell_03
+    public int EquipSpell03
     {
-        get => _Equip_Spell_03;
-        set => WriteParamField(ref _Equip_Spell_03, value);
+        get => _equipSpell03;
+        set => WriteParamField(ref _equipSpell03, value);
     }
-    private int _Equip_Spell_03;
+    private int _equipSpell03;
 
     [ParamField(0x6C, ParamType.I32)]
-    public int Equip_Spell_04
+    public int EquipSpell04
     {
-        get => _Equip_Spell_04;
-        set => WriteParamField(ref _Equip_Spell_04, value);
+        get => _equipSpell04;
+        set => WriteParamField(ref _equipSpell04, value);
     }
-    private int _Equip_Spell_04;
+    private int _equipSpell04;
 
     [ParamField(0x70, ParamType.I32)]
-    public int Equip_Spell_05
+    public int EquipSpell05
     {
-        get => _Equip_Spell_05;
-        set => WriteParamField(ref _Equip_Spell_05, value);
+        get => _equipSpell05;
+        set => WriteParamField(ref _equipSpell05, value);
     }
-    private int _Equip_Spell_05;
+    private int _equipSpell05;
 
     [ParamField(0x74, ParamType.I32)]
-    public int Equip_Spell_06
+    public int EquipSpell06
     {
-        get => _Equip_Spell_06;
-        set => WriteParamField(ref _Equip_Spell_06, value);
+        get => _equipSpell06;
+        set => WriteParamField(ref _equipSpell06, value);
     }
-    private int _Equip_Spell_06;
+    private int _equipSpell06;
 
     [ParamField(0x78, ParamType.I32)]
-    public int Equip_Spell_07
+    public int EquipSpell07
     {
-        get => _Equip_Spell_07;
-        set => WriteParamField(ref _Equip_Spell_07, value);
+        get => _equipSpell07;
+        set => WriteParamField(ref _equipSpell07, value);
     }
-    private int _Equip_Spell_07;
+    private int _equipSpell07;
 
     [ParamField(0x7C, ParamType.I32)]
-    public int Item_01
+    public int Item01
     {
-        get => _Item_01;
-        set => WriteParamField(ref _Item_01, value);
+        get => _item01;
+        set => WriteParamField(ref _item01, value);
     }
-    private int _Item_01;
+    private int _item01;
 
     [ParamField(0x80, ParamType.I32)]
-    public int Item_02
+    public int Item02
     {
-        get => _Item_02;
-        set => WriteParamField(ref _Item_02, value);
+        get => _item02;
+        set => WriteParamField(ref _item02, value);
     }
-    private int _Item_02;
+    private int _item02;
 
     [ParamField(0x84, ParamType.I32)]
-    public int Item_03
+    public int Item03
     {
-        get => _Item_03;
-        set => WriteParamField(ref _Item_03, value);
+        get => _item03;
+        set => WriteParamField(ref _item03, value);
     }
-    private int _Item_03;
+    private int _item03;
 
     [ParamField(0x88, ParamType.I32)]
-    public int Item_04
+    public int Item04
     {
-        get => _Item_04;
-        set => WriteParamField(ref _Item_04, value);
+        get => _item04;
+        set => WriteParamField(ref _item04, value);
     }
-    private int _Item_04;
+    private int _item04;
 
     [ParamField(0x8C, ParamType.I32)]
-    public int Item_05
+    public int Item05
     {
-        get => _Item_05;
-        set => WriteParamField(ref _Item_05, value);
+        get => _item05;
+        set => WriteParamField(ref _item05, value);
     }
-    private int _Item_05;
+    private int _item05;
 
     [ParamField(0x90, ParamType.I32)]
-    public int Item_06
+    public int Item06
     {
-        get => _Item_06;
-        set => WriteParamField(ref _Item_06, value);
+        get => _item06;
+        set => WriteParamField(ref _item06, value);
     }
-    private int _Item_06;
+    private int _item06;
 
     [ParamField(0x94, ParamType.I32)]
-    public int Item_07
+    public int Item07
     {
-        get => _Item_07;
-        set => WriteParamField(ref _Item_07, value);
+        get => _item07;
+        set => WriteParamField(ref _item07, value);
     }
-    private int _Item_07;
+    private int _item07;
 
     [ParamField(0x98, ParamType.I32)]
-    public int Item_08
+    public int Item08
     {
-        get => _Item_08;
-        set => WriteParamField(ref _Item_08, value);
+        get => _item08;
+        set => WriteParamField(ref _item08, value);
     }
-    private int _Item_08;
+    private int _item08;
 
     [ParamField(0x9C, ParamType.I32)]
-    public int Item_09
+    public int Item09
     {
-        get => _Item_09;
-        set => WriteParamField(ref _Item_09, value);
+        get => _item09;
+        set => WriteParamField(ref _item09, value);
     }
-    private int _Item_09;
+    private int _item09;
 
     [ParamField(0xA0, ParamType.I32)]
-    public int Item_10
+    public int Item10
     {
-        get => _Item_10;
-        set => WriteParamField(ref _Item_10, value);
+        get => _item10;
+        set => WriteParamField(ref _item10, value);
     }
-    private int _Item_10;
+    private int _item10;
 
     [ParamField(0xA4, ParamType.I32)]
     public int NpcPlayerFaceGenId
     {
-        get => _NpcPlayerFaceGenId;
-        set => WriteParamField(ref _NpcPlayerFaceGenId, value);
+        get => _npcPlayerFaceGenId;
+        set => WriteParamField(ref _npcPlayerFaceGenId, value);
     }
-    private int _NpcPlayerFaceGenId;
+    private int _npcPlayerFaceGenId;
 
     [ParamField(0xA8, ParamType.I32)]
     public int NpcPlayerThinkId
     {
-        get => _NpcPlayerThinkId;
-        set => WriteParamField(ref _NpcPlayerThinkId, value);
+        get => _npcPlayerThinkId;
+        set => WriteParamField(ref _npcPlayerThinkId, value);
     }
-    private int _NpcPlayerThinkId;
+    private int _npcPlayerThinkId;
 
     [ParamField(0xAC, ParamType.U16)]
     public ushort BaseHp
     {
-        get => _BaseHp;
-        set => WriteParamField(ref _BaseHp, value);
+        get => _baseHp;
+        set => WriteParamField(ref _baseHp, value);
     }
-    private ushort _BaseHp;
+    private ushort _baseHp;
 
     [ParamField(0xAE, ParamType.U16)]
     public ushort BaseMp
     {
-        get => _BaseMp;
-        set => WriteParamField(ref _BaseMp, value);
+        get => _baseMp;
+        set => WriteParamField(ref _baseMp, value);
     }
-    private ushort _BaseMp;
+    private ushort _baseMp;
 
     [ParamField(0xB0, ParamType.U16)]
     public ushort BaseSp
     {
-        get => _BaseSp;
-        set => WriteParamField(ref _BaseSp, value);
+        get => _baseSp;
+        set => WriteParamField(ref _baseSp, value);
     }
-    private ushort _BaseSp;
+    private ushort _baseSp;
 
     [ParamField(0xB2, ParamType.U16)]
     public ushort ArrowNum
     {
-        get => _ArrowNum;
-        set => WriteParamField(ref _ArrowNum, value);
+        get => _arrowNum;
+        set => WriteParamField(ref _arrowNum, value);
     }
-    private ushort _ArrowNum;
+    private ushort _arrowNum;
 
     [ParamField(0xB4, ParamType.U16)]
     public ushort BoltNum
     {
-        get => _BoltNum;
-        set => WriteParamField(ref _BoltNum, value);
+        get => _boltNum;
+        set => WriteParamField(ref _boltNum, value);
     }
-    private ushort _BoltNum;
+    private ushort _boltNum;
 
     [ParamField(0xB6, ParamType.U16)]
     public ushort SubArrowNum
     {
-        get => _SubArrowNum;
-        set => WriteParamField(ref _SubArrowNum, value);
+        get => _subArrowNum;
+        set => WriteParamField(ref _subArrowNum, value);
     }
-    private ushort _SubArrowNum;
+    private ushort _subArrowNum;
 
     [ParamField(0xB8, ParamType.U16)]
     public ushort SubBoltNum
     {
-        get => _SubBoltNum;
-        set => WriteParamField(ref _SubBoltNum, value);
+        get => _subBoltNum;
+        set => WriteParamField(ref _subBoltNum, value);
     }
-    private ushort _SubBoltNum;
+    private ushort _subBoltNum;
 
     [ParamField(0xBA, ParamType.I16)]
-    public short QWC_sb
+    public short QwcSb
     {
-        get => _QWC_sb;
-        set => WriteParamField(ref _QWC_sb, value);
+        get => _qwcSb;
+        set => WriteParamField(ref _qwcSb, value);
     }
-    private short _QWC_sb;
+    private short _qwcSb;
 
     [ParamField(0xBC, ParamType.I16)]
-    public short QWC_mw
+    public short QwcMw
     {
-        get => _QWC_mw;
-        set => WriteParamField(ref _QWC_mw, value);
+        get => _qwcMw;
+        set => WriteParamField(ref _qwcMw, value);
     }
-    private short _QWC_mw;
+    private short _qwcMw;
 
     [ParamField(0xBE, ParamType.I16)]
-    public short QWC_cd
+    public short QwcCd
     {
-        get => _QWC_cd;
-        set => WriteParamField(ref _QWC_cd, value);
+        get => _qwcCd;
+        set => WriteParamField(ref _qwcCd, value);
     }
-    private short _QWC_cd;
+    private short _qwcCd;
 
     [ParamField(0xC0, ParamType.I16)]
     public short SoulLv
     {
-        get => _SoulLv;
-        set => WriteParamField(ref _SoulLv, value);
+        get => _soulLv;
+        set => WriteParamField(ref _soulLv, value);
     }
-    private short _SoulLv;
+    private short _soulLv;
 
     [ParamField(0xC2, ParamType.U8)]
     public byte BaseVit
     {
-        get => _BaseVit;
-        set => WriteParamField(ref _BaseVit, value);
+        get => _baseVit;
+        set => WriteParamField(ref _baseVit, value);
     }
-    private byte _BaseVit;
+    private byte _baseVit;
 
     [ParamField(0xC3, ParamType.U8)]
     public byte BaseWil
     {
-        get => _BaseWil;
-        set => WriteParamField(ref _BaseWil, value);
+        get => _baseWil;
+        set => WriteParamField(ref _baseWil, value);
     }
-    private byte _BaseWil;
+    private byte _baseWil;
 
     [ParamField(0xC4, ParamType.U8)]
     public byte BaseEnd
     {
-        get => _BaseEnd;
-        set => WriteParamField(ref _BaseEnd, value);
+        get => _baseEnd;
+        set => WriteParamField(ref _baseEnd, value);
     }
-    private byte _BaseEnd;
+    private byte _baseEnd;
 
     [ParamField(0xC5, ParamType.U8)]
     public byte BaseStr
     {
-        get => _BaseStr;
-        set => WriteParamField(ref _BaseStr, value);
+        get => _baseStr;
+        set => WriteParamField(ref _baseStr, value);
     }
-    private byte _BaseStr;
+    private byte _baseStr;
 
     [ParamField(0xC6, ParamType.U8)]
     public byte BaseDex
     {
-        get => _BaseDex;
-        set => WriteParamField(ref _BaseDex, value);
+        get => _baseDex;
+        set => WriteParamField(ref _baseDex, value);
     }
-    private byte _BaseDex;
+    private byte _baseDex;
 
     [ParamField(0xC7, ParamType.U8)]
     public byte BaseMag
     {
-        get => _BaseMag;
-        set => WriteParamField(ref _BaseMag, value);
+        get => _baseMag;
+        set => WriteParamField(ref _baseMag, value);
     }
-    private byte _BaseMag;
+    private byte _baseMag;
 
     [ParamField(0xC8, ParamType.U8)]
     public byte BaseFai
     {
-        get => _BaseFai;
-        set => WriteParamField(ref _BaseFai, value);
+        get => _baseFai;
+        set => WriteParamField(ref _baseFai, value);
     }
-    private byte _BaseFai;
+    private byte _baseFai;
 
     [ParamField(0xC9, ParamType.U8)]
     public byte BaseLuc
     {
-        get => _BaseLuc;
-        set => WriteParamField(ref _BaseLuc, value);
+        get => _baseLuc;
+        set => WriteParamField(ref _baseLuc, value);
     }
-    private byte _BaseLuc;
+    private byte _baseLuc;
 
     [ParamField(0xCA, ParamType.U8)]
     public byte BaseHeroPoint
     {
-        get => _BaseHeroPoint;
-        set => WriteParamField(ref _BaseHeroPoint, value);
+        get => _baseHeroPoint;
+        set => WriteParamField(ref _baseHeroPoint, value);
     }
-    private byte _BaseHeroPoint;
+    private byte _baseHeroPoint;
 
     [ParamField(0xCB, ParamType.U8)]
     public byte BaseDurability
     {
-        get => _BaseDurability;
-        set => WriteParamField(ref _BaseDurability, value);
+        get => _baseDurability;
+        set => WriteParamField(ref _baseDurability, value);
     }
-    private byte _BaseDurability;
+    private byte _baseDurability;
 
     [ParamField(0xCC, ParamType.U8)]
-    public byte ItemNum_01
+    public byte ItemNum01
     {
-        get => _ItemNum_01;
-        set => WriteParamField(ref _ItemNum_01, value);
+        get => _itemNum01;
+        set => WriteParamField(ref _itemNum01, value);
     }
-    private byte _ItemNum_01;
+    private byte _itemNum01;
 
     [ParamField(0xCD, ParamType.U8)]
-    public byte ItemNum_02
+    public byte ItemNum02
     {
-        get => _ItemNum_02;
-        set => WriteParamField(ref _ItemNum_02, value);
+        get => _itemNum02;
+        set => WriteParamField(ref _itemNum02, value);
     }
-    private byte _ItemNum_02;
+    private byte _itemNum02;
 
     [ParamField(0xCE, ParamType.U8)]
-    public byte ItemNum_03
+    public byte ItemNum03
     {
-        get => _ItemNum_03;
-        set => WriteParamField(ref _ItemNum_03, value);
+        get => _itemNum03;
+        set => WriteParamField(ref _itemNum03, value);
     }
-    private byte _ItemNum_03;
+    private byte _itemNum03;
 
     [ParamField(0xCF, ParamType.U8)]
-    public byte ItemNum_04
+    public byte ItemNum04
     {
-        get => _ItemNum_04;
-        set => WriteParamField(ref _ItemNum_04, value);
+        get => _itemNum04;
+        set => WriteParamField(ref _itemNum04, value);
     }
-    private byte _ItemNum_04;
+    private byte _itemNum04;
 
     [ParamField(0xD0, ParamType.U8)]
-    public byte ItemNum_05
+    public byte ItemNum05
     {
-        get => _ItemNum_05;
-        set => WriteParamField(ref _ItemNum_05, value);
+        get => _itemNum05;
+        set => WriteParamField(ref _itemNum05, value);
     }
-    private byte _ItemNum_05;
+    private byte _itemNum05;
 
     [ParamField(0xD1, ParamType.U8)]
-    public byte ItemNum_06
+    public byte ItemNum06
     {
-        get => _ItemNum_06;
-        set => WriteParamField(ref _ItemNum_06, value);
+        get => _itemNum06;
+        set => WriteParamField(ref _itemNum06, value);
     }
-    private byte _ItemNum_06;
+    private byte _itemNum06;
 
     [ParamField(0xD2, ParamType.U8)]
-    public byte ItemNum_07
+    public byte ItemNum07
     {
-        get => _ItemNum_07;
-        set => WriteParamField(ref _ItemNum_07, value);
+        get => _itemNum07;
+        set => WriteParamField(ref _itemNum07, value);
     }
-    private byte _ItemNum_07;
+    private byte _itemNum07;
 
     [ParamField(0xD3, ParamType.U8)]
-    public byte ItemNum_08
+    public byte ItemNum08
     {
-        get => _ItemNum_08;
-        set => WriteParamField(ref _ItemNum_08, value);
+        get => _itemNum08;
+        set => WriteParamField(ref _itemNum08, value);
     }
-    private byte _ItemNum_08;
+    private byte _itemNum08;
 
     [ParamField(0xD4, ParamType.U8)]
-    public byte ItemNum_09
+    public byte ItemNum09
     {
-        get => _ItemNum_09;
-        set => WriteParamField(ref _ItemNum_09, value);
+        get => _itemNum09;
+        set => WriteParamField(ref _itemNum09, value);
     }
-    private byte _ItemNum_09;
+    private byte _itemNum09;
 
     [ParamField(0xD5, ParamType.U8)]
-    public byte ItemNum_10
+    public byte ItemNum10
     {
-        get => _ItemNum_10;
-        set => WriteParamField(ref _ItemNum_10, value);
+        get => _itemNum10;
+        set => WriteParamField(ref _itemNum10, value);
     }
-    private byte _ItemNum_10;
+    private byte _itemNum10;
 
     [ParamField(0xD6, ParamType.I8)]
     public sbyte BodyScaleHead
     {
-        get => _BodyScaleHead;
-        set => WriteParamField(ref _BodyScaleHead, value);
+        get => _bodyScaleHead;
+        set => WriteParamField(ref _bodyScaleHead, value);
     }
-    private sbyte _BodyScaleHead;
+    private sbyte _bodyScaleHead;
 
     [ParamField(0xD7, ParamType.I8)]
     public sbyte BodyScaleBreast
     {
-        get => _BodyScaleBreast;
-        set => WriteParamField(ref _BodyScaleBreast, value);
+        get => _bodyScaleBreast;
+        set => WriteParamField(ref _bodyScaleBreast, value);
     }
-    private sbyte _BodyScaleBreast;
+    private sbyte _bodyScaleBreast;
 
     [ParamField(0xD8, ParamType.I8)]
     public sbyte BodyScaleAbdomen
     {
-        get => _BodyScaleAbdomen;
-        set => WriteParamField(ref _BodyScaleAbdomen, value);
+        get => _bodyScaleAbdomen;
+        set => WriteParamField(ref _bodyScaleAbdomen, value);
     }
-    private sbyte _BodyScaleAbdomen;
+    private sbyte _bodyScaleAbdomen;
 
     [ParamField(0xD9, ParamType.I8)]
     public sbyte BodyScaleArm
     {
-        get => _BodyScaleArm;
-        set => WriteParamField(ref _BodyScaleArm, value);
+        get => _bodyScaleArm;
+        set => WriteParamField(ref _bodyScaleArm, value);
     }
-    private sbyte _BodyScaleArm;
+    private sbyte _bodyScaleArm;
 
     [ParamField(0xDA, ParamType.I8)]
     public sbyte BodyScaleLeg
     {
-        get => _BodyScaleLeg;
-        set => WriteParamField(ref _BodyScaleLeg, value);
+        get => _bodyScaleLeg;
+        set => WriteParamField(ref _bodyScaleLeg, value);
     }
-    private sbyte _BodyScaleLeg;
+    private sbyte _bodyScaleLeg;
 
     [ParamField(0xDB, ParamType.I8)]
     public sbyte GestureId0
     {
-        get => _GestureId0;
-        set => WriteParamField(ref _GestureId0, value);
+        get => _gestureId0;
+        set => WriteParamField(ref _gestureId0, value);
     }
-    private sbyte _GestureId0;
+    private sbyte _gestureId0;
 
     [ParamField(0xDC, ParamType.I8)]
     public sbyte GestureId1
     {
-        get => _GestureId1;
-        set => WriteParamField(ref _GestureId1, value);
+        get => _gestureId1;
+        set => WriteParamField(ref _gestureId1, value);
     }
-    private sbyte _GestureId1;
+    private sbyte _gestureId1;
 
     [ParamField(0xDD, ParamType.I8)]
     public sbyte GestureId2
     {
-        get => _GestureId2;
-        set => WriteParamField(ref _GestureId2, value);
+        get => _gestureId2;
+        set => WriteParamField(ref _gestureId2, value);
     }
-    private sbyte _GestureId2;
+    private sbyte _gestureId2;
 
     [ParamField(0xDE, ParamType.I8)]
     public sbyte GestureId3
     {
-        get => _GestureId3;
-        set => WriteParamField(ref _GestureId3, value);
+        get => _gestureId3;
+        set => WriteParamField(ref _gestureId3, value);
     }
-    private sbyte _GestureId3;
+    private sbyte _gestureId3;
 
     [ParamField(0xDF, ParamType.I8)]
     public sbyte GestureId4
     {
-        get => _GestureId4;
-        set => WriteParamField(ref _GestureId4, value);
+        get => _gestureId4;
+        set => WriteParamField(ref _gestureId4, value);
     }
-    private sbyte _GestureId4;
+    private sbyte _gestureId4;
 
     [ParamField(0xE0, ParamType.I8)]
     public sbyte GestureId5
     {
-        get => _GestureId5;
-        set => WriteParamField(ref _GestureId5, value);
+        get => _gestureId5;
+        set => WriteParamField(ref _gestureId5, value);
     }
-    private sbyte _GestureId5;
+    private sbyte _gestureId5;
 
     [ParamField(0xE1, ParamType.I8)]
     public sbyte GestureId6
     {
-        get => _GestureId6;
-        set => WriteParamField(ref _GestureId6, value);
+        get => _gestureId6;
+        set => WriteParamField(ref _gestureId6, value);
     }
-    private sbyte _GestureId6;
+    private sbyte _gestureId6;
 
     [ParamField(0xE2, ParamType.U8)]
     public byte NpcPlayerType
     {
-        get => _NpcPlayerType;
-        set => WriteParamField(ref _NpcPlayerType, value);
+        get => _npcPlayerType;
+        set => WriteParamField(ref _npcPlayerType, value);
     }
-    private byte _NpcPlayerType;
+    private byte _npcPlayerType;
 
     [ParamField(0xE3, ParamType.U8)]
     public byte NpcPlayerDrawType
     {
-        get => _NpcPlayerDrawType;
-        set => WriteParamField(ref _NpcPlayerDrawType, value);
+        get => _npcPlayerDrawType;
+        set => WriteParamField(ref _npcPlayerDrawType, value);
     }
-    private byte _NpcPlayerDrawType;
+    private byte _npcPlayerDrawType;
 
     [ParamField(0xE4, ParamType.U8)]
     public byte NpcPlayerSex
     {
-        get => _NpcPlayerSex;
-        set => WriteParamField(ref _NpcPlayerSex, value);
+        get => _npcPlayerSex;
+        set => WriteParamField(ref _npcPlayerSex, value);
     }
-    private byte _NpcPlayerSex;
+    private byte _npcPlayerSex;
 
     #region BitField VowTypeBitfield ==============================================================================
 
     [ParamField(0xE5, ParamType.U8)]
     public byte VowTypeBitfield
     {
-        get => _VowTypeBitfield;
-        set => WriteParamField(ref _VowTypeBitfield, value);
+        get => _vowTypeBitfield;
+        set => WriteParamField(ref _vowTypeBitfield, value);
     }
-    private byte _VowTypeBitfield;
+    private byte _vowTypeBitfield;
 
     [ParamBitField(nameof(VowTypeBitfield), bits: 4, bitsOffset: 0)]
     public byte VowType
     {
-        get => GetbitfieldValue(_VowTypeBitfield);
-        set => SetBitfieldValue(ref _VowTypeBitfield, value);
+        get => GetbitfieldValue(_vowTypeBitfield);
+        set => SetBitfieldValue(ref _vowTypeBitfield, value);
     }
 
     [ParamBitField(nameof(VowTypeBitfield), bits: 4, bitsOffset: 4)]
     public byte Pad
     {
-        get => GetbitfieldValue(_VowTypeBitfield);
-        set => SetBitfieldValue(ref _VowTypeBitfield, value);
+        get => GetbitfieldValue(_vowTypeBitfield);
+        set => SetBitfieldValue(ref _vowTypeBitfield, value);
     }
 
     #endregion BitField VowTypeBitfield
@@ -764,9 +764,9 @@ public class CharaInitParam(Pointer basePointer, ByteArrayMemory memory, long of
     [ParamField(0xE6, ParamType.Dummy8, 10)]
     public byte[] Pad0
     {
-        get => _Pad0;
-        set => WriteParamField(ref _Pad0, value);
+        get => _pad0;
+        set => WriteParamField(ref _pad0, value);
     }
-    private byte[] _Pad0 = null!;
+    private byte[] _pad0 = null!;
 
 }
