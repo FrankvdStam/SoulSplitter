@@ -186,7 +186,7 @@ public class ArmoredCore6 : IGame
             //These if statements can obviously be optimized in C#. 
             //They are written out like this explicitly, to match the game's assembly
 
-            long calculatedPointer = 0;
+            long calculatedPointer;
 
             //jump to calculate ptr if zero
             if (mysteryValue != 0)

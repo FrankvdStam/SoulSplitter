@@ -55,7 +55,7 @@ internal class Program
                 break;
             case 'E':
             case 'e':
-                eldenringTimer();
+                EldenRingTimer();
                 break;
             case 'S':
             case 's':
@@ -279,7 +279,7 @@ internal class Program
         }
     }
 
-    private static void eldenringTimer()
+    private static void EldenRingTimer()
     {
         // Set the cursor invisible, because we don't want to see it over the timer
         Console.CursorVisible = false;
@@ -300,7 +300,7 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(()err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
