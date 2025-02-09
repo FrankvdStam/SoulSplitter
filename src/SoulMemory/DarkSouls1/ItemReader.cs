@@ -22,7 +22,7 @@ namespace SoulMemory.DarkSouls1;
 
 internal static class ItemReader
 {
-    internal static List<Item> GetCurrentInventoryItems(byte[] data, int listCount, int itemCount, int keyCount)
+    internal static List<Item> GetCurrentInventoryItems(byte[] data, int listCount)
     {
         var items = new List<Item>();
         
@@ -68,12 +68,12 @@ internal static class ItemReader
                 }
 
                 //Decode item
-                var id = 0;
+                int id;
                 var infusion = ItemInfusion.Normal;
                 var level = 0;
 
                 //if 4 or less digits -> non-upgradable item.
-                if (categories.Contains(ItemCategory.Consumables) && item is >= 200 and <= 215 && !items.Any(j => j.ItemType == ItemType.EstusFlask))
+                if (categories.Contains(ItemCategory.Consumables) && item is >= 200 and <= 215 && items.All(j => j.ItemType != ItemType.EstusFlask))
                 {
                     var estus = Item.AllItems.First(j => j.ItemType == ItemType.EstusFlask);
                     var instance = new Item(estus.Name, estus.Id, estus.ItemType, estus.Category, estus.StackLimit, estus.Upgrade);

@@ -187,14 +187,14 @@ public class Ptde : IDarkSouls1
 
     public List<Item> GetInventory()
     {
-        var itemCount = _playerGameData.ReadInt32(0x2e0);
-        var keyCount = _playerGameData.ReadInt32(0x2e4);
+        //var itemCount = _playerGameData.ReadInt32(0x2e0);
+        //var keyCount = _playerGameData.ReadInt32(0x2e4);
         
         var listLength = _playerGameData.ReadInt32(0x2c8);
         var listStart = _playerGameData.ReadInt32(0x2cc);
         
         var bytes = _process!.ReadProcessMemory(listStart, listLength * 0x1c).Unwrap();
-        return ItemReader.GetCurrentInventoryItems(bytes, listLength, itemCount, keyCount);
+        return ItemReader.GetCurrentInventoryItems(bytes, listLength);
     }
 
 
