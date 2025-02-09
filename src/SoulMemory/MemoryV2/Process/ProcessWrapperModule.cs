@@ -33,7 +33,7 @@ public class ProcessWrapperModule
             ModuleName = module.ModuleName,
             FileName = module.FileName,
             BaseAddress = module.BaseAddress,
-            ModuleMemorySize = module.ModuleMemorySize,
+            ModuleMemorySize = module.ModuleMemorySize
         };
     }
 }

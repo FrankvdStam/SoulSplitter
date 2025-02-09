@@ -32,7 +32,7 @@ namespace SoulSplitter.Tests.UI
         DarkSouls2,
         DarkSouls3,
         Sekiro,
-        EldenRing,
+        EldenRing
     }
 
     [TestClass]

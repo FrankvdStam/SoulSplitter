@@ -22,5 +22,5 @@ public enum ProcessRefreshResult
     Initialized,
     Exited,
     Error,
-    Refreshed,
+    Refreshed
 }

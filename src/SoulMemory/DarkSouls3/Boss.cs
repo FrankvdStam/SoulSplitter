@@ -96,5 +96,5 @@ public enum Boss : uint
     DarkeaterMidir = 15100850,
     
     [Annotation(Name = "Slave Knight Gael", Description = "The Ringed City")]
-    SlaveKnightGael = 15110800,
+    SlaveKnightGael = 15110800
 }

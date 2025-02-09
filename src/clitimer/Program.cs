@@ -45,13 +45,13 @@ internal class Program
         switch (Convert.ToChar(sel))
         {
             case '1':
-                ds1Timer();
+                Ds1Timer();
                 break;
             case '2':
-                ds2Timer();
+                Ds2Timer();
                 break;
             case '3':
-                ds3Timer();
+                Ds3Timer();
                 break;
             case 'E':
             case 'e':
@@ -59,7 +59,7 @@ internal class Program
                 break;
             case 'S':
             case 's':
-                sekiroTimer();
+                SekiroTimer();
                 break;
         }
 
@@ -67,7 +67,7 @@ internal class Program
         Console.WriteLine("Unknown or unimplemented. Exiting..");
     }
 
-    private static void ds1Timer()
+    private static void Ds1Timer()
     {
         // Set the cursor invisible, because we don't want to see it over the timer
         Console.CursorVisible = false;
@@ -115,7 +115,7 @@ internal class Program
         }
     }
 
-    private static void ds2Timer()
+    private static void Ds2Timer()
     {
         // Set the cursor invisible, because we don't want to see it over the timer
         Console.CursorVisible = false;
@@ -163,7 +163,7 @@ internal class Program
         }
     }
 
-    private static void ds3Timer()
+    private static void Ds3Timer()
     {
         // Set the cursor invisible, because we don't want to see it over the timer
         Console.CursorVisible = false;
@@ -221,7 +221,7 @@ internal class Program
         }
     }
 
-    private static void sekiroTimer()
+    private static void SekiroTimer()
     {
         // Set the cursor invisible, because we don't want to see it over the timer
         Console.CursorVisible = false;

@@ -191,7 +191,7 @@ namespace cli
                         new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
                         new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
                         new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
+                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false}
                     }
                 });
 
@@ -205,7 +205,7 @@ namespace cli
                         new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
                         new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
                         new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
+                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false}
                     }
                 });
 
@@ -248,7 +248,7 @@ namespace cli
                 //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
-                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
+                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           )
                 //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
                 //("Armored Core 6"           , new SoulMemory.ArmoredCore6.ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
             };

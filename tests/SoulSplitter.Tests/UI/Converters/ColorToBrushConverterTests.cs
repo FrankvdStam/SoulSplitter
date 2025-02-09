@@ -33,7 +33,7 @@ namespace SoulSplitter.Tests.UI.Converters
                 A = 1,
                 R = 2,
                 G = 3,
-                B = 4,
+                B = 4
             };
 
             var brush = converter.Convert(color, null!, null, null!);

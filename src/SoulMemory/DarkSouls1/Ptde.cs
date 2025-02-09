@@ -260,7 +260,7 @@ public class Ptde : IDarkSouls1
         {"1", 0x00500},
         {"5", 0x05F00},
         {"6", 0x0B900},
-        {"7", 0x11300},
+        {"7", 0x11300}
     };
 
     private static readonly Dictionary<string, int> EventFlagAreas = new()
@@ -282,7 +282,7 @@ public class Ptde : IDarkSouls1
         {"160", 14},
         {"170", 15},
         {"180", 16},
-        {"181", 17},
+        {"181", 17}
     };
 
     private int GetEventFlagOffset(uint eventFlagId, out uint mask)

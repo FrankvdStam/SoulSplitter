@@ -273,7 +273,7 @@ public class EldenRing : IGame
         V1_15_0,
         V1_16_0,
 
-        Unknown,
+        Unknown
     };
 
     public EldenRingVersion GetVersion(Version v)
@@ -308,7 +308,7 @@ public class EldenRing : IGame
 
             X = _playerIns.ReadFloat(_positionOffset + 0x0),
             Y = _playerIns.ReadFloat(_positionOffset + 0x4),
-            Z = _playerIns.ReadFloat(_positionOffset + 0x8),
+            Z = _playerIns.ReadFloat(_positionOffset + 0x8)
         };
     }
 

@@ -64,5 +64,5 @@ public enum Boss
     DemonOfHatred = 9313,
 
     [Annotation(Name = "Isshin, the Sword Saint")]     
-    IsshinTheSwordSaint = 9312,
+    IsshinTheSwordSaint = 9312
 }

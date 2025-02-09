@@ -201,7 +201,7 @@ internal class Scholar : IDarkSouls2
         { Attribute.Dexterity   , 0x12},
         { Attribute.Adaptability, 0x18},
         { Attribute.Intelligence, 0x14},
-        { Attribute.Faith       , 0x16},
+        { Attribute.Faith       , 0x16}
     };
 
     #endregion

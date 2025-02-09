@@ -48,7 +48,7 @@ internal static class Extensions
         var settings = new XmlWriterSettings()
         {
             OmitXmlDeclaration = true,
-            Indent = true,
+            Indent = true
         };
 
         using var stream = new StringWriter();

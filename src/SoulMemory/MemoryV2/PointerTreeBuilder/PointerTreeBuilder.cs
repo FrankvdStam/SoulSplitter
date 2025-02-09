@@ -36,7 +36,7 @@ public class PointerTreeBuilder
             Name = name,
             Pattern = pattern,
             AddressOffset = addressOffset,
-            InstructionSize = instructionSize,
+            InstructionSize = instructionSize
         };
         Tree.Add(node);
         return new PointerAppender(node);
@@ -49,7 +49,7 @@ public class PointerTreeBuilder
             PointerNodeType = PointerNodeType.AbsoluteScan,
             Name = name,
             Pattern = pattern,
-            Offset = offset,
+            Offset = offset
         };
         Tree.Add(node);
         return new PointerAppender(node);

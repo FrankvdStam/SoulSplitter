@@ -10926,6 +10926,6 @@ public enum ItemPickup : uint
     ShadowKeepFireKnightQueelignFireKnightQueelign = 400690,
 
     [Annotation(Name = "[Scadu Altus - Swordhand of Night Jolán] Swordhand of Night Jolán 400670")]
-    ScaduAltusSwordhandofNightJolanSwordhandofNightJolan = 400670,
+    ScaduAltusSwordhandofNightJolanSwordhandofNightJolan = 400670
 
 }
