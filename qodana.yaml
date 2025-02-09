@@ -31,6 +31,7 @@ exclude:
       - src/SoulMemory/Sekiro/Boss.cs
       - src/SoulMemory/Sekiro/Idol.cs
   - name: SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+  - name: ArrangeRedundantParentheses
 
 dependencyOverrides:
     #this unfortunately does not get detected automatically by qodana
