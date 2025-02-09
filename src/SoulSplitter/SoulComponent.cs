@@ -291,7 +291,7 @@ public class SoulComponent : IComponent
     }
 
     private Button? _customShowSettingsButton;
-    public System.Windows.Forms.Control GetSettingsControl(LayoutMode mode)
+    public Control GetSettingsControl(LayoutMode mode)
     {
         var stackTrace = new StackTrace();
         var caller = stackTrace.GetFrame(1).GetMethod().Name;

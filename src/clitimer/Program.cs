@@ -65,8 +65,6 @@ internal class Program
 
         // Generic error message because why not
         Console.WriteLine("Unknown or unimplemented. Exiting..");
-
-        return;
     }
 
     private static void ds1Timer()
@@ -90,13 +88,13 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling((float)err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
             else if (hadError)
             {
-                Console.Write(new String(' ', Console.BufferWidth));
+                Console.Write(new string(' ', Console.BufferWidth));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
                 hadError = false;
             }
@@ -138,13 +136,13 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling((float)err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
             else if (hadError)
             {
-                Console.Write(new String(' ', Console.BufferWidth));
+                Console.Write(new string(' ', Console.BufferWidth));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
                 hadError = false;
             }
@@ -186,13 +184,13 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling((float)err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
             else if (hadError)
             {
-                Console.Write(new String(' ', Console.BufferWidth));
+                Console.Write(new string(' ', Console.BufferWidth));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
                 hadError = false;
             }
@@ -244,13 +242,13 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling((float)err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
             else if (hadError)
             {
-                Console.Write(new String(' ', Console.BufferWidth));
+                Console.Write(new string(' ', Console.BufferWidth));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
                 hadError = false;
             }
@@ -302,13 +300,13 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling((float)err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(()err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
             else if (hadError)
             {
-                Console.Write(new String(' ', Console.BufferWidth));
+                Console.Write(new string(' ', Console.BufferWidth));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
                 hadError = false;
             }

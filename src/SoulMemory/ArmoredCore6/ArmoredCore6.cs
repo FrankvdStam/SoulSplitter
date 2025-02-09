@@ -31,7 +31,7 @@ public class ArmoredCore6 : IGame
         _armoredCore6 = processHook ?? new ProcessHook("armoredcore6");
 
         _eventFlagMan = new Pointer(_armoredCore6);
-        _noLogo = new Pointer(_armoredCore6);
+        var noLogo = new Pointer(_armoredCore6);
         _fd4Time = new Pointer(_armoredCore6);
         _menuMan = new Pointer(_armoredCore6);
 
@@ -41,7 +41,7 @@ public class ArmoredCore6 : IGame
 
         _armoredCore6.PointerTreeBuilder
             .ScanAbsolute("NoLogo", "33 f6 89 75 97 40 38 75 77 ? ? 48 89 31", 9)
-                .AddPointer(_noLogo);
+                .AddPointer(noLogo);
 
         _armoredCore6.PointerTreeBuilder
             .ScanRelative("FD4Time", "48 8b 0d ? ? ? ? 0f 28 c8 f3 0f 59 0d", 3, 7)
@@ -53,13 +53,12 @@ public class ArmoredCore6 : IGame
 
         _armoredCore6.Hooked += () =>
         {
-            _noLogo.WriteBytes(0x0, [0x90, 0x90]);
+            noLogo.WriteBytes(0x0, [0x90, 0x90]);
             return InjectMods();
         };
     }
 
     private readonly Pointer _eventFlagMan;
-    private readonly Pointer _noLogo;
     private readonly Pointer _fd4Time;
     private readonly Pointer _menuMan;
 
@@ -74,9 +73,9 @@ public class ArmoredCore6 : IGame
 
     public ResultErr<RefreshError> TryRefresh() => _armoredCore6.TryRefresh();
 
-    public SoulMemory.Memory.TreeBuilder GetTreeBuilder()
+    public Memory.TreeBuilder GetTreeBuilder()
     {
-        var builder = new SoulMemory.Memory.TreeBuilder();
+        var builder = new Memory.TreeBuilder();
         foreach (var node in _armoredCore6.PointerTreeBuilder.Tree)
         {
             if (node.PointerNodeType == PointerNodeType.RelativeScan)

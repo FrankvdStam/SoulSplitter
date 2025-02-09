@@ -174,7 +174,7 @@ namespace cli
             {
                 foreach (var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
                 {
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
+                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = TimingType.Immediate;
                     mainWindow.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
                     mainWindow.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
                     mainWindow.MainViewModel.EldenRingViewModel.AddSplit();
@@ -211,7 +211,7 @@ namespace cli
 
                 foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
                 {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
@@ -219,7 +219,7 @@ namespace cli
 
                 foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
                 {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.OnLoading;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.OnLoading;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
@@ -328,7 +328,7 @@ namespace cli
                     Test("ResetInventoryIndices", () => { ds1.ResetInventoryIndices(); });
                     Test("GetInventory", () => { ds1.GetInventory(); });
                     Test("AreCreditsRolling", () => { ds1.AreCreditsRolling(); });
-                    Test("GetBonfireState", () => { ds1.GetBonfireState(SoulMemory.DarkSouls1.Bonfire.UndeadAsylumCourtyard); });
+                    Test("GetBonfireState", () => { ds1.GetBonfireState(Bonfire.UndeadAsylumCourtyard); });
                     Test("GetSaveFileLocation", () => { ds1.GetSaveFileLocation(); });
                     Test("GetSaveFileGameTimeMilliseconds", () => { ds1.GetSaveFileGameTimeMilliseconds(ds1.GetSaveFileLocation() ?? "", ds1.GetCurrentSaveSlot()); });
 

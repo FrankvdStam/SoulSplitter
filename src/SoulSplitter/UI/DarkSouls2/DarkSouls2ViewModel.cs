@@ -179,7 +179,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
 
                 case DarkSouls2SplitType.Attribute:
                     NewSplitAttributeEnabled = true;
-                    NewSplitValue = new Splits.DarkSouls2.Attribute();
+                    NewSplitValue = new Attribute();
                     break;
 
                 case DarkSouls2SplitType.Flag:

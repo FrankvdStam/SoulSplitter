@@ -59,7 +59,7 @@ internal static class Migrator
             foreach (XmlNode typeNode in timingNode.GetChildNodeByName("Children"))
             {
                 //Get original timing type
-                var timingType = UI.Generic.TimingType.Immediate;
+                var timingType = TimingType.Immediate;
                 var timingTypeText = timingNode.GetChildNodeByName("TimingType").InnerText;
                 if (timingTypeText != "Immediate")
                 {
@@ -180,7 +180,7 @@ internal static class Migrator
             foreach (XmlNode typeNode in timingNode.GetChildNodeByName("Children"))
             {
                 //Get original timing type
-                var timingType = UI.Generic.TimingType.Immediate;
+                var timingType = TimingType.Immediate;
                 var timingTypeText = timingNode.GetChildNodeByName("TimingType").InnerText;
                 if (timingTypeText != "Immediate")
                 {
