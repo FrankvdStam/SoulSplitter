@@ -75,7 +75,7 @@ pub fn init_darksouls3()
 
 
         // AoB scan for FPS custom limit patch
-        let fn_fps_custom_limit_address = process.scan_abs("fps custom limit", "e8 ? ? ? ? 84 c0 74 0a c7 83 74 02 00 00 1e 00 00 00", 0, Vec::new()).unwrap().get_base_address();
+        let fn_fps_custom_limit_address = process.scan_abs("fps custom limit", "f3 44 0f 10 2d ? ? ? ? 44 38 a3 58 03 00 00", 0, Vec::new()).unwrap().get_base_address();
         info!("FPS custom limit at 0x{:x}", fn_fps_custom_limit_address);
 
         // Enable FPS custom limit patch
