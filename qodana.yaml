@@ -18,7 +18,6 @@ exclude:
       - Components/MaterialDesignThemes.Wpf.xml
       - src/cli
       - tests
-      #these enums get a lot of "unused member" type of errors
       - src/SoulMemory/DarkSouls1/Bonfire.cs
       - src/SoulMemory/DarkSouls1/Boss.cs
       - src/SoulMemory/DarkSouls1/KnownFlag.cs
