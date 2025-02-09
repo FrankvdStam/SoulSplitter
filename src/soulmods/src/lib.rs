@@ -72,6 +72,7 @@ fn dispatched_dll_main()
     {
         "armoredcore6.exe" => init_armoredcore6(),
         "darksoulsii.exe" => init_scholar(),
+        "darksoulsiii.exe" => init_darksouls3(),
         "eldenring.exe" => init_eldenring(),
         "sekiro.exe" => init_sekiro(),
         _ => info!("no supported process found")
