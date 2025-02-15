@@ -40,7 +40,7 @@ public static class ParamReader
             {
                 ItemLowRange = BitConverter.ToUInt32(tableBytes, offset),
                 DataOffset = BitConverter.ToUInt32(tableBytes, offset + 0x4),
-                ItemHighRange = BitConverter.ToUInt32(tableBytes, offset + 0x8),
+                ItemHighRange = BitConverter.ToUInt32(tableBytes, offset + 0x8)
             };
             data.Add(textTableEntry);
         }
@@ -73,7 +73,7 @@ public static class ParamReader
             {
                 Id = BitConverter.ToInt32(paramTableBytes, offset),
                 DataOffset = BitConverter.ToUInt32(paramTableBytes, offset + 0x4),
-                NameOffset = BitConverter.ToUInt32(paramTableBytes, offset + 0x8),
+                NameOffset = BitConverter.ToUInt32(paramTableBytes, offset + 0x8)
             };
 
             var rowBasePointer = paramBasePointer.Copy();

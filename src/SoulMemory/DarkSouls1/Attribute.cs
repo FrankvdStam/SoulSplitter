@@ -30,5 +30,5 @@ public enum Attribute : long
     Intelligence = 0x60,
     Faith = 0x68,
     Humanity = 0x7C,
-    SoulLevel = 0x88,
+    SoulLevel = 0x88
 }

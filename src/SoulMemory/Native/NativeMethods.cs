@@ -45,13 +45,13 @@ internal static class NativeMethods
     [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
     internal static extern IntPtr GetModuleHandleW(string lpModuleName);
 
-    [DllImport("kernel32", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+    [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Auto)]
     internal static extern IntPtr CreateToolhelp32Snapshot([In] UInt32 dwFlags, [In] UInt32 th32ProcessID);
 
-    [DllImport("kernel32", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+    [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Auto)]
     internal static extern bool Process32First([In] IntPtr hSnapshot, ref PROCESSENTRY32 lppe);
 
-    [DllImport("kernel32", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+    [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Auto)]
     internal static extern bool Process32Next([In] IntPtr hSnapshot, ref PROCESSENTRY32 lppe);
 
     [DllImport("kernel32.dll")]

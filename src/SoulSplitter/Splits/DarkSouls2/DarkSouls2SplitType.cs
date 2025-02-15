@@ -21,5 +21,5 @@ public enum DarkSouls2SplitType
     Position,
     BossKill,
     Attribute,
-    Flag,
+    Flag
 }

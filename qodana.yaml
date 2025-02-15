@@ -33,6 +33,7 @@ exclude:
       - src/SoulMemory/DarkSouls1/Parameters
   - name: SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
   - name: ArrangeRedundantParentheses
+  - name: FunctionNeverReturns
 
 dependencyOverrides:
     #this unfortunately does not get detected automatically by qodana

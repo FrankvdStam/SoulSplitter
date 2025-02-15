@@ -19,5 +19,5 @@ namespace SoulSplitter.UI.Generic;
 public enum EventFlagTrackerDisplayMode
 {
     Percentage,
-    Count,
+    Count
 }

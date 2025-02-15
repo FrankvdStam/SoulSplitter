@@ -652,5 +652,5 @@ public enum Boss : uint
     MidraLordofFrenziedFlameMidrasManse = 28000800,
 
     [Annotation(Name = "Radahn, Consort of Miquella - Enir-Ilim", Description = "Enir-Ilim")]
-    RadahnConsortofMiquellaEnirIlim = 20010800,
+    RadahnConsortofMiquellaEnirIlim = 20010800
 }

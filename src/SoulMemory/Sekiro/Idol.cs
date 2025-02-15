@@ -184,5 +184,5 @@ public enum Idol
     NearPotNoble = 12500008,
 
     [Annotation(Name = "Sanctuary", Description = "Fountainhead Palace")]
-    Sanctuary = 12500005,
+    Sanctuary = 12500005
 }

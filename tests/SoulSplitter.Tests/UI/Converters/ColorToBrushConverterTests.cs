@@ -28,12 +28,12 @@ namespace SoulSplitter.Tests.UI.Converters
         public void Convert_Happy_Flow()
         {
             var converter = new ColorToBrushConverter();
-            var color = new System.Windows.Media.Color
+            var color = new Color
             {
                 A = 1,
                 R = 2,
                 G = 3,
-                B = 4,
+                B = 4
             };
 
             var brush = converter.Convert(color, null!, null, null!);

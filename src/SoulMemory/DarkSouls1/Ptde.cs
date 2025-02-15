@@ -187,14 +187,14 @@ public class Ptde : IDarkSouls1
 
     public List<Item> GetInventory()
     {
-        var itemCount = _playerGameData.ReadInt32(0x2e0);
-        var keyCount = _playerGameData.ReadInt32(0x2e4);
+        //var itemCount = _playerGameData.ReadInt32(0x2e0);
+        //var keyCount = _playerGameData.ReadInt32(0x2e4);
         
         var listLength = _playerGameData.ReadInt32(0x2c8);
         var listStart = _playerGameData.ReadInt32(0x2cc);
         
         var bytes = _process!.ReadProcessMemory(listStart, listLength * 0x1c).Unwrap();
-        return ItemReader.GetCurrentInventoryItems(bytes, listLength, itemCount, keyCount);
+        return ItemReader.GetCurrentInventoryItems(bytes, listLength);
     }
 
 
@@ -260,7 +260,7 @@ public class Ptde : IDarkSouls1
         {"1", 0x00500},
         {"5", 0x05F00},
         {"6", 0x0B900},
-        {"7", 0x11300},
+        {"7", 0x11300}
     };
 
     private static readonly Dictionary<string, int> EventFlagAreas = new()
@@ -282,7 +282,7 @@ public class Ptde : IDarkSouls1
         {"160", 14},
         {"170", 15},
         {"180", 16},
-        {"181", 17},
+        {"181", 17}
     };
 
     private int GetEventFlagOffset(uint eventFlagId, out uint mask)

@@ -134,9 +134,9 @@ public class DropMod(IDarkSouls1 darkSouls)
     private struct SwitchableDrop(ItemType switchItem, int rowId, int itemId1, int itemId2)
     {
         public bool ShouldSwitch = true;
-        public ItemType SwitchItem = switchItem;
-        public int RowId = rowId;
-        public int ItemId1 = itemId1;
-        public int ItemId2 = itemId2;
+        public readonly ItemType SwitchItem = switchItem;
+        public readonly int RowId = rowId;
+        public readonly int ItemId1 = itemId1;
+        public readonly int ItemId2 = itemId2;
     }
 }

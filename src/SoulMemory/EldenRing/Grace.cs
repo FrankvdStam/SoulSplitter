@@ -1346,5 +1346,5 @@ public enum Grace : uint
     Hinterland = 76935,
 
     [Annotation(Name = "Scadutree Base", Description = "Scaduview")]
-    ScadutreeBase = 76960,
+    ScadutreeBase = 76960
 }

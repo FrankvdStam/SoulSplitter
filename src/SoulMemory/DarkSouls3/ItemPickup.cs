@@ -3451,5 +3451,5 @@ public enum ItemPickup : uint
     Deacon1IrithyllDeepRing = 53500970,
 
     [Annotation(Name = "Green Blossom 53400040")]
-    GreenBlossom = 53400040,
+    GreenBlossom = 53400040
 }

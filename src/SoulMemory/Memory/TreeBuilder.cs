@@ -35,7 +35,7 @@ public class TreeBuilder
             Name = name,
             Pattern = pattern,
             AddressOffset = addressOffset,
-            InstructionSize = instructionSize,
+            InstructionSize = instructionSize
         };
         Tree.Add(node);
         return new PointerAppender(node);
@@ -48,7 +48,7 @@ public class TreeBuilder
             NodeType = NodeType.AbsoluteScan,
             Name = name,
             Pattern = pattern,
-            Offset = offset,
+            Offset = offset
         };
         Tree.Add(node);
         return new PointerAppender(node);

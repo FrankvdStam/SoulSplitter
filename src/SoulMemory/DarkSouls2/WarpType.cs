@@ -94,5 +94,5 @@ public enum WarpType
     ExpulsionChamber,
     InnerWall,
     LowerGarrison,
-    GrandCathedral,
+    GrandCathedral
 }

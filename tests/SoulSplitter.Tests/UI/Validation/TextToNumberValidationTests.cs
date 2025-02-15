@@ -37,7 +37,7 @@ namespace SoulSplitter.Tests.UI.Validation
                     new object[] { "123.3", false, true , NumericType.Float, true },
                     new object[] { ""     , true , true , NumericType.Float, false},
                     new object[] { "asd"  , true , true , NumericType.Float, false},
-                    new object[] { null!  , true , true , NumericType.Float, false},
+                    new object[] { null!  , true , true , NumericType.Float, false}
                 };
             }
         }

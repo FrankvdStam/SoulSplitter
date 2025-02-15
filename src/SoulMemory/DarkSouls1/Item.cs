@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
@@ -25,13 +24,13 @@ namespace SoulMemory.DarkSouls1;
 [ExcludeFromCodeCoverage]
 public class Item(string name, int id, ItemType itemType, ItemCategory category, int stackLimit, ItemUpgrade upgrade)
 {
-    public string Name { get; set; } = name;
-    public int Id { get; set; } = id;
-    public ItemType ItemType { get; set; } = itemType;
-    public ItemCategory Category { get; set; } = category;
-    public int StackLimit { get; set; } = stackLimit;
+    public string Name { get; } = name;
+    public int Id { get; } = id;
+    public ItemType ItemType { get; } = itemType;
+    public ItemCategory Category { get; } = category;
+    public int StackLimit { get; } = stackLimit;
     public int Quantity { get; set; }
-    public ItemUpgrade Upgrade { get; set; } = upgrade;
+    public ItemUpgrade Upgrade { get; } = upgrade;
     public ItemInfusion Infusion { get; set; }
     public int UpgradeLevel { get; set; }
 
@@ -41,69 +40,6 @@ public class Item(string name, int id, ItemType itemType, ItemCategory category,
         return $"{Name} {Quantity}";
     }
 
-
-
-    public int GetGameValue()
-    {
-        var id = (int)ItemType;
-        if (Upgrade is ItemUpgrade.PyroFlame or ItemUpgrade.PyroFlameAscended)
-        {
-            id += UpgradeLevel * 100;
-        }
-        else
-        {
-            id += UpgradeLevel;
-        }
-
-        if (Upgrade is ItemUpgrade.Infusable or ItemUpgrade.InfusableRestricted)
-        {
-            id += (int)Upgrade;
-        }
-        return id;
-    }
-
-    public int MaxUpgrade
-    {
-        get
-        {
-            return Infusion switch
-            {
-                ItemInfusion.Normal => 15,
-                ItemInfusion.Chaos => 5,
-                ItemInfusion.Crystal => 5,
-                ItemInfusion.Divine => 10,
-                ItemInfusion.Enchanted => 5,
-                ItemInfusion.Fire => 10,
-                ItemInfusion.Lightning => 5,
-                ItemInfusion.Magic => 10,
-                ItemInfusion.Occult => 5,
-                ItemInfusion.Raw => 5,
-                _ => throw new NotSupportedException($"Unknown infusion type: {Infusion}")
-            };
-        }
-    }
-
-    public bool RestrictUpgrade
-    {
-        get
-        {
-            return Infusion switch
-            {
-                ItemInfusion.Normal => false,
-                ItemInfusion.Chaos => true,
-                ItemInfusion.Crystal => false,
-                ItemInfusion.Divine => false,
-                ItemInfusion.Enchanted => true,
-                ItemInfusion.Fire => false,
-                ItemInfusion.Lightning => false,
-                ItemInfusion.Magic => false,
-                ItemInfusion.Occult => true,
-                ItemInfusion.Raw => true,
-                _ => throw new NotSupportedException($"Unknown infusion type: {Infusion}")
-            };
-        }
-    }
-    
     public static readonly ReadOnlyCollection<Item> AllItems = new((List<Item>)
     [
         new Item("Catarina Helm"                                    ,   10000, ItemType.CatarinaHelm                           , ItemCategory.Armor          ,   1, ItemUpgrade.Unique             ),
@@ -801,7 +737,7 @@ public class Item(string name, int id, ItemType itemType, ItemCategory category,
         new Item("Thank you Carving"                                ,      511, ItemType.ThankyouCarving                       , ItemCategory.UsableItems     ,   1, ItemUpgrade.None               ),
         new Item("Very good! Carving"                               ,      512, ItemType.VerygoodCarving                       , ItemCategory.UsableItems     ,   1, ItemUpgrade.None               ),
         new Item("I'm sorry Carving"                                ,      513, ItemType.ImsorryCarving                        , ItemCategory.UsableItems     ,   1, ItemUpgrade.None               ),
-        new Item("Help me! Carving"                                 ,      514, ItemType.HelpmeCarving                         , ItemCategory.UsableItems     ,   1, ItemUpgrade.None               ),
+        new Item("Help me! Carving"                                 ,      514, ItemType.HelpmeCarving                         , ItemCategory.UsableItems     ,   1, ItemUpgrade.None               )
     ]);
 }
 
@@ -816,7 +752,7 @@ public enum ItemInfusion
     Divine = 6,
     Occult = 7,
     Fire = 8,
-    Chaos = 9,
+    Chaos = 9
 }
 
 public enum ItemUpgrade
@@ -827,7 +763,7 @@ public enum ItemUpgrade
     Infusable = 3,
     InfusableRestricted = 4,
     PyroFlame = 5,
-    PyroFlameAscended = 6,
+    PyroFlameAscended = 6
 }
 
 public enum ItemCategory
@@ -843,7 +779,7 @@ public enum ItemCategory
     Spells,
     SpellTools,
     UpgradeMaterials,
-    UsableItems,
+    UsableItems
 }
 
 [XmlType(Namespace = "SoulMemory.DarkSouls1")]
@@ -1558,5 +1494,5 @@ public enum ItemType
     ThankyouCarving,
     VerygoodCarving,
     ImsorryCarving,
-    HelpmeCarving,
+    HelpmeCarving
 }

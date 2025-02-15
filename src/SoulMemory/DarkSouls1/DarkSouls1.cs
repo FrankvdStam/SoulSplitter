@@ -73,16 +73,14 @@ public class DarkSouls1 : IDarkSouls1
                 Thread.Sleep(4000); //let the game boot
                 return _darkSouls1.TryRefresh();
             }
-            else
+
+            var result = _darkSouls1.TryRefresh();
+            if (result.IsOk)
             {
-                var result = _darkSouls1.TryRefresh();
-                if(result.IsErr)
-                {
-                    _darkSouls1 = null;
-                    return result;
-                }
                 return Result.Ok();
             }
+            _darkSouls1 = null;
+            return result;
         }
         catch (Exception e)
         {

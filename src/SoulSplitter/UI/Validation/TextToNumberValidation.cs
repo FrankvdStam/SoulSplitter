@@ -24,7 +24,7 @@ public enum NumericType
 {
     Int,
     Uint,
-    Float,
+    Float
 }
 
 

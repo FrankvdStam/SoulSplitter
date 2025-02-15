@@ -124,7 +124,7 @@ public class DarkSouls1Splitter : ISplitter
         }
 
         _timerModel.CurrentState.IsGameTimePaused = true;
-        _timerModel.CurrentState.CurrentTimingMethod = LiveSplit.Model.TimingMethod.GameTime;
+        _timerModel.CurrentState.CurrentTimingMethod = TimingMethod.GameTime;
         _timerState = TimerState.Running;
         _inGameTime = _darkSouls1.GetInGameTimeMilliseconds();
     }

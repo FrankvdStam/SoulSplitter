@@ -23,5 +23,5 @@ public enum Game
     DarkSouls3 = 2,
     Sekiro = 3,
     EldenRing = 4,
-    ArmoredCore6 = 5,
+    ArmoredCore6 = 5
 }

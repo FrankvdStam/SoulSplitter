@@ -45,31 +45,29 @@ internal class Program
         switch (Convert.ToChar(sel))
         {
             case '1':
-                ds1Timer();
+                Ds1Timer();
                 break;
             case '2':
-                ds2Timer();
+                Ds2Timer();
                 break;
             case '3':
-                ds3Timer();
+                Ds3Timer();
                 break;
             case 'E':
             case 'e':
-                eldenringTimer();
+                EldenRingTimer();
                 break;
             case 'S':
             case 's':
-                sekiroTimer();
+                SekiroTimer();
                 break;
         }
 
         // Generic error message because why not
         Console.WriteLine("Unknown or unimplemented. Exiting..");
-
-        return;
     }
 
-    private static void ds1Timer()
+    private static void Ds1Timer()
     {
         // Set the cursor invisible, because we don't want to see it over the timer
         Console.CursorVisible = false;
@@ -90,13 +88,13 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling((float)err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
             else if (hadError)
             {
-                Console.Write(new String(' ', Console.BufferWidth));
+                Console.Write(new string(' ', Console.BufferWidth));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
                 hadError = false;
             }
@@ -117,7 +115,7 @@ internal class Program
         }
     }
 
-    private static void ds2Timer()
+    private static void Ds2Timer()
     {
         // Set the cursor invisible, because we don't want to see it over the timer
         Console.CursorVisible = false;
@@ -138,13 +136,13 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling((float)err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
             else if (hadError)
             {
-                Console.Write(new String(' ', Console.BufferWidth));
+                Console.Write(new string(' ', Console.BufferWidth));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
                 hadError = false;
             }
@@ -165,7 +163,7 @@ internal class Program
         }
     }
 
-    private static void ds3Timer()
+    private static void Ds3Timer()
     {
         // Set the cursor invisible, because we don't want to see it over the timer
         Console.CursorVisible = false;
@@ -186,13 +184,13 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling((float)err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
             else if (hadError)
             {
-                Console.Write(new String(' ', Console.BufferWidth));
+                Console.Write(new string(' ', Console.BufferWidth));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
                 hadError = false;
             }
@@ -223,7 +221,7 @@ internal class Program
         }
     }
 
-    private static void sekiroTimer()
+    private static void SekiroTimer()
     {
         // Set the cursor invisible, because we don't want to see it over the timer
         Console.CursorVisible = false;
@@ -244,13 +242,13 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling((float)err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
             else if (hadError)
             {
-                Console.Write(new String(' ', Console.BufferWidth));
+                Console.Write(new string(' ', Console.BufferWidth));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
                 hadError = false;
             }
@@ -281,7 +279,7 @@ internal class Program
         }
     }
 
-    private static void eldenringTimer()
+    private static void EldenRingTimer()
     {
         // Set the cursor invisible, because we don't want to see it over the timer
         Console.CursorVisible = false;
@@ -302,13 +300,13 @@ internal class Program
             {
                 var err = result.GetErr();
                 Console.WriteLine(err.ToString());
-                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling((float)err.ToString().Length / (float)Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
                 hadError = true;
                 continue;
             }
             else if (hadError)
             {
-                Console.Write(new String(' ', Console.BufferWidth));
+                Console.Write(new string(' ', Console.BufferWidth));
                 Console.SetCursorPosition(0, Console.CursorTop - 1);
                 hadError = false;
             }

@@ -2707,6 +2707,6 @@ public class Item
         new Item { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Golden Order Seal", Id = 34060000 },
         new Item { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Erdtree Seal", Id = 34070000 },
         new Item { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Dragon Communion Seal", Id = 34080000 },
-        new Item { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Frenzied Flame Seal", Id = 34090000 },
+        new Item { Category = Category.Weapons,GroupName = "Spell Tools", Name = "Frenzied Flame Seal", Id = 34090000 }
     ]);
 }

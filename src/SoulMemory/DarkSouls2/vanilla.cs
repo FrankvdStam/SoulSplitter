@@ -170,7 +170,7 @@ internal class Vanilla : IDarkSouls2
         { Attribute.Dexterity   , 0xe},
         { Attribute.Adaptability, 0x14},
         { Attribute.Intelligence, 0x10},
-        { Attribute.Faith       , 0x12},
+        { Attribute.Faith       , 0x12}
     };
 
 

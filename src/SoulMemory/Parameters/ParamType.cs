@@ -25,5 +25,5 @@ public enum ParamType
     U32,
     I32,
     F32,
-    Dummy8,
+    Dummy8
 }

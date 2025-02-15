@@ -122,7 +122,7 @@ public class DarkSouls3 : IGame
         Earlier,
         V104,
         V105,
-        Later,
+        Later
     };
 
     public static DarkSouls3Version GetVersion(Version v)

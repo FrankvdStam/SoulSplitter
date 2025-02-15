@@ -158,7 +158,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         var errorViewModel = new ErrorViewModel
         {
             DateTime = DateTime.Now,
-            Error = error.ToString(),
+            Error = error.ToString()
         };
         AddError(errorViewModel);
     }
@@ -168,7 +168,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         var errorViewModel = new ErrorViewModel
         {
             DateTime = DateTime.Now,
-            Error = e.ToString(),
+            Error = e.ToString()
         };
         AddError(errorViewModel);
     }
@@ -368,7 +368,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         var settings = new XmlWriterSettings()
         {
             OmitXmlDeclaration = true,
-            Indent = true,
+            Indent = true
         };
 
         var xml = "";

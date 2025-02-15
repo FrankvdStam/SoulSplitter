@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 
 namespace SoulMemory.Native.Structs.Module;
 
-[StructLayout(LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
 public struct MODULEENTRY32W
 {
     internal uint dwSize;

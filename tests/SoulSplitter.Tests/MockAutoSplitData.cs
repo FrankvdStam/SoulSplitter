@@ -39,8 +39,8 @@ namespace SoulSplitter.Tests
 
                 yield return (GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnWarp,    SplitType.Flag, new FlagDescription { Flag = 248157 });
 
-                yield return (GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnLoading, SplitType.Bonfire, new SoulSplitter.Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AnorLondo, State = SoulMemory.DarkSouls1.BonfireState.Kindled2 });
-                yield return (GameType.DarkSouls1, addDarkSouls1Split, TimingType.Immediate, SplitType.Bonfire, new SoulSplitter.Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AshLakeDragon, State = SoulMemory.DarkSouls1.BonfireState.Unlocked });
+                yield return (GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnLoading, SplitType.Bonfire, new Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AnorLondo, State = SoulMemory.DarkSouls1.BonfireState.Kindled2 });
+                yield return (GameType.DarkSouls1, addDarkSouls1Split, TimingType.Immediate, SplitType.Bonfire, new Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AshLakeDragon, State = SoulMemory.DarkSouls1.BonfireState.Unlocked });
 
                 yield return (GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnLoading, SplitType.Position, new VectorSize() { Position = new SoulMemory.Vector3f(100,200,-300), Size = 10 });
 
@@ -95,7 +95,7 @@ namespace SoulSplitter.Tests
                     break;
 
                 case SplitType.Bonfire:
-                    darkSouls1ViewModel.NewSplitBonfireState = (SoulSplitter.Splits.DarkSouls1.BonfireState)split;
+                    darkSouls1ViewModel.NewSplitBonfireState = (Splits.DarkSouls1.BonfireState)split;
                     break;
 
                 default:

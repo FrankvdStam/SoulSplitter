@@ -31,7 +31,7 @@ public class MemoryScannerTests
                 //haystack, needle, count, firstindex
                 new object[] { "48 8b 05 b1 c6 8B D6 48 8b 50 10 48 89 54 24 60", "8B D6 ?", 1, 5 },
                 new object[] { "48 8D 15 C1 E1 10 49 8B C6 41 0B 8F 14 02 00 00 44 8B C6 42 89 0C B2 41 8B D6 49 8B CF", "C6 41 ?", 1, 8 },
-                new object[] { "48 8B 0D 99 33 C2 45 33 C0 2B C2 8D 50 F6 8B 1D 32 33", "8B ? ? 33", 2, 1 },
+                new object[] { "48 8B 0D 99 33 C2 45 33 C0 2B C2 8D 50 F6 8B 1D 32 33", "8B ? ? 33", 2, 1 }
             };
         }
     }

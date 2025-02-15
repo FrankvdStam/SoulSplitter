@@ -125,6 +125,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
                     break;
 
                 case EldenRingSplitType.Position:
+                    NewSplitPosition = new PositionViewModel();
                     VisiblePositionSplit = true;
                     EnabledAddSplit = true;
                     break;

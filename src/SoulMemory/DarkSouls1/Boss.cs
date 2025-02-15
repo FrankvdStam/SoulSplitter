@@ -97,5 +97,5 @@ public enum Boss : uint
     ManusFatherOfTheAbyss = 11210002,
     
     [Annotation(Name = "Sanctuary Guardian")]
-    SanctuaryGuardian = 11210000,
+    SanctuaryGuardian = 11210000
 }

@@ -45,5 +45,5 @@ public enum SplitType
     ItemPickup,
 
     [Annotation(Name = "Credits")]
-    Credits,
+    Credits
 }

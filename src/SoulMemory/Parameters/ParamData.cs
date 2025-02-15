@@ -30,7 +30,7 @@ public static class ParamData
         { ParamType.I16,    2 },
         { ParamType.U32,    4 },
         { ParamType.I32,    4 },
-        { ParamType.F32,    4 },
+        { ParamType.F32,    4 }
     });
 
     public static readonly ReadOnlyDictionary<ParamType, string> ParamToSharpTypeString = new(new Dictionary<ParamType, string>()
@@ -42,7 +42,7 @@ public static class ParamData
         { ParamType.I16,    "short"  },
         { ParamType.U32,    "uint"   },
         { ParamType.I32,    "int"    },
-        { ParamType.F32,    "float"  },
+        { ParamType.F32,    "float"  }
     });
 
     public static readonly ReadOnlyDictionary<string, ParamType> ParamStrings = new(new Dictionary<string, ParamType>()
@@ -54,6 +54,6 @@ public static class ParamData
         { "s16",    ParamType.I16    },
         { "u32",    ParamType.U32    },
         { "s32",    ParamType.I32    },
-        { "f32",    ParamType.F32    },
+        { "f32",    ParamType.F32    }
     });
 }
