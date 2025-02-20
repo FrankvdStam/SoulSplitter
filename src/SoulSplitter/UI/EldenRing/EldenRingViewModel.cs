@@ -223,7 +223,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
             EnabledAddSplit = _newSplitPosition != null;
         }
     }
-    private PositionViewModel? _newSplitPosition;
+    private PositionViewModel? _newSplitPosition = new();
 
     [XmlIgnore]
     public bool VisiblePositionSplit
