@@ -199,5 +199,5 @@ public enum KnownFlag : uint
     TakesDectusLift = 1038500500,
 
     [Annotation(Name = "Takes Rold Lift 1050542200")]
-    TakeGoldLift = 1050542200,
+    TakeGoldLift = 1050542200
 }

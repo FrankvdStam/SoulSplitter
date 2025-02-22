@@ -32,7 +32,7 @@ namespace SoulSplitter.Tests.UI
         DarkSouls2,
         DarkSouls3,
         Sekiro,
-        EldenRing,
+        EldenRing
     }
 
     [TestClass]
@@ -174,8 +174,8 @@ namespace SoulSplitter.Tests.UI
 
                 yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnWarp    , SplitType.Flag,       new FlagDescription { Flag = 248157 } };
 
-                yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnLoading , SplitType.Bonfire,    new SoulSplitter.Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AnorLondo,  State = SoulMemory.DarkSouls1.BonfireState.Kindled2 } };
-                yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.Immediate , SplitType.Bonfire,    new SoulSplitter.Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AshLakeDragon,  State = SoulMemory.DarkSouls1.BonfireState.Unlocked } };
+                yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnLoading , SplitType.Bonfire,    new Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AnorLondo,  State = SoulMemory.DarkSouls1.BonfireState.Kindled2 } };
+                yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.Immediate , SplitType.Bonfire,    new Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.DarkSouls1.Bonfire.AshLakeDragon,  State = SoulMemory.DarkSouls1.BonfireState.Unlocked } };
 
                 yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnLoading , SplitType.Position,   new VectorSize() { Size = 10 } };
 
@@ -217,7 +217,7 @@ namespace SoulSplitter.Tests.UI
 
         private static void AddDarkSouls1Split(object viewModel, TimingType timingType, SplitType splitType, object split)
         {
-            var darkSouls1ViewModel = (SoulSplitter.UI.DarkSouls1.DarkSouls1ViewModel)viewModel;
+            var darkSouls1ViewModel = (DarkSouls1ViewModel)viewModel;
             darkSouls1ViewModel.NewSplitTimingType = timingType;
             darkSouls1ViewModel.NewSplitType = splitType;
 
@@ -232,7 +232,7 @@ namespace SoulSplitter.Tests.UI
                     break;
 
                 case SplitType.Bonfire:
-                    darkSouls1ViewModel.NewSplitBonfireState = (SoulSplitter.Splits.DarkSouls1.BonfireState)split;
+                    darkSouls1ViewModel.NewSplitBonfireState = (Splits.DarkSouls1.BonfireState)split;
                     break;
 
                 default:

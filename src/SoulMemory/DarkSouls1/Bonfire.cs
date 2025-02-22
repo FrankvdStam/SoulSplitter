@@ -148,7 +148,7 @@ public enum Bonfire
     OolacileTownshipDungeon = 1211964,
 
     [Annotation(Name = "Chasm of the Abyss", Description = "Chasm of the Abyss")]
-    ChasmOfTheAbyss = 1211950,
+    ChasmOfTheAbyss = 1211950
 }
 
 [XmlType(Namespace = "SoulMemory.DarkSouls1")]
@@ -170,5 +170,5 @@ public enum BonfireState
     Kindled2 = 30,
 
     [Annotation(Name = "Kindled 3")]
-    Kindled3 = 40,
+    Kindled3 = 40
 }

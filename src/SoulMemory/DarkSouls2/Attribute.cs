@@ -30,5 +30,5 @@ public enum Attribute
     Dexterity,
     Adaptability,
     Intelligence,
-    Faith,
+    Faith
 }

@@ -30,5 +30,5 @@ public enum TimingType
     OnBlackscreen,
 
     [Annotation(Name = "on warp")]
-    OnWarp,
+    OnWarp
 }

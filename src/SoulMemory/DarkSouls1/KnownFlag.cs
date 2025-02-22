@@ -175,5 +175,5 @@ public enum KnownFlag : uint
     CutsceneSkippedWarpToAnorLondo = 11500210,
 
     [Annotation(Name = "Goughless Kalameeth Death Animation 11210063", Description = "Other")]
-    GoughlessKalameethDeathAnimation = 11210063,
+    GoughlessKalameethDeathAnimation = 11210063
 }

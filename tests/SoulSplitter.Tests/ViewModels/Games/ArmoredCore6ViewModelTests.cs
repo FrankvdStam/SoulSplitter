@@ -37,8 +37,8 @@ namespace SoulSplitter.Tests.ViewModels.Games
                 Split = new FlagDescription()
                 {
                     Flag = 10101,
-                    Description = "test",
-                },
+                    Description = "test"
+                }
             });
 
             Assert.AreEqual(1, vm.SplitsViewModel.TotalSplitsCount);
@@ -61,8 +61,8 @@ namespace SoulSplitter.Tests.ViewModels.Games
                 Split = new FlagDescription()
                 {
                     Flag = 10101,
-                    Description = "test",
-                },
+                    Description = "test"
+                }
             });
 
             vm.SplitsViewModel.SelectedSplit = vm.SplitsViewModel.Splits.First().Children.First().Children.First();

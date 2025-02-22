@@ -20,5 +20,5 @@ public enum NodeType
 {
     RelativeScan,
     AbsoluteScan,
-    Pointer,
+    Pointer
 }

@@ -250,5 +250,5 @@ public enum Bonfire : uint
     FilianoresRest = 15110001,
 
     [Annotation(Name = "Slave Knight Gael", Description="The Ringed City")]
-    SlaveKnightGael = 15110000,
+    SlaveKnightGael = 15110000
 }

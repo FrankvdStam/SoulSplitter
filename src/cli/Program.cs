@@ -22,7 +22,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Windows.Input;
 using SoulSplitter.UI;
 using SoulMemory.DarkSouls1;
 using SoulMemory.EldenRing;
@@ -30,7 +29,6 @@ using SoulMemory;
 using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
-using SoulSplitter.Hotkeys;
 
 #pragma warning disable CS0162
 
@@ -174,7 +172,7 @@ namespace cli
             {
                 foreach (var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
                 {
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
+                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = TimingType.Immediate;
                     mainWindow.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
                     mainWindow.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
                     mainWindow.MainViewModel.EldenRingViewModel.AddSplit();
@@ -191,7 +189,7 @@ namespace cli
                         new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
                         new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
                         new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
+                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false}
                     }
                 });
 
@@ -205,13 +203,13 @@ namespace cli
                         new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
                         new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
                         new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false},
+                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false}
                     }
                 });
 
                 foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
                 {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.Immediate;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
@@ -219,7 +217,7 @@ namespace cli
 
                 foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
                 {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = SoulSplitter.UI.Generic.TimingType.OnLoading;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.OnLoading;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
@@ -248,7 +246,7 @@ namespace cli
                 //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
-                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           ),
+                ("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           )
                 //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
                 //("Armored Core 6"           , new SoulMemory.ArmoredCore6.ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
             };
@@ -328,7 +326,7 @@ namespace cli
                     Test("ResetInventoryIndices", () => { ds1.ResetInventoryIndices(); });
                     Test("GetInventory", () => { ds1.GetInventory(); });
                     Test("AreCreditsRolling", () => { ds1.AreCreditsRolling(); });
-                    Test("GetBonfireState", () => { ds1.GetBonfireState(SoulMemory.DarkSouls1.Bonfire.UndeadAsylumCourtyard); });
+                    Test("GetBonfireState", () => { ds1.GetBonfireState(Bonfire.UndeadAsylumCourtyard); });
                     Test("GetSaveFileLocation", () => { ds1.GetSaveFileLocation(); });
                     Test("GetSaveFileGameTimeMilliseconds", () => { ds1.GetSaveFileGameTimeMilliseconds(ds1.GetSaveFileLocation() ?? "", ds1.GetCurrentSaveSlot()); });
 

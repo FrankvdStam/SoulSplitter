@@ -147,5 +147,5 @@ public enum BossType
     AavaTheKingsPet = 0xd0,
 
     [Annotation(Name = "Lud and Zallen, the King's Pets")]
-    LudAndZallenTheKingsPets = 0x108,
+    LudAndZallenTheKingsPets = 0x108
 }

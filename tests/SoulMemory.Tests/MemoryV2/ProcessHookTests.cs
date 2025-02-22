@@ -99,7 +99,7 @@ public class ProcessHookTests
         _mockProcessWrapper.Setup(i => i.GetMainModule()).Returns(new ProcessWrapperModule
         {
             BaseAddress = (IntPtr)100,
-            ModuleMemorySize = 100,
+            ModuleMemorySize = 100
         });
         _mockProcessWrapper.Setup(i => i.Is64Bit()).Returns(true);
         _mockProcessWrapper.Setup(i => i.ReadBytes(100, 100)).Returns(new byte[100]);
@@ -126,7 +126,7 @@ public class ProcessHookTests
         _mockProcessWrapper.Setup(i => i.GetMainModule()).Returns(new ProcessWrapperModule
         {
             BaseAddress = (IntPtr)100,
-            ModuleMemorySize = 2,
+            ModuleMemorySize = 2
         });
         _mockProcessWrapper.Setup(i => i.Is64Bit()).Returns(true);
         _mockProcessWrapper.Setup(i => i.ReadBytes(100, 2)).Returns(new byte[] { 0x01, 0x01 });

@@ -263,8 +263,8 @@ public class Remastered : IDarkSouls1
         //Path: GameDataMan->hostPlayerGameData->equipGameData.equipInventoryData.equipInventoryDataSub
         const long equipInventoryDataSubOffset = 0x3b0;
 
-        var itemCount = _playerGameData.ReadInt32(equipInventoryDataSubOffset + 48);
-        var keyCount = _playerGameData.ReadInt32(equipInventoryDataSubOffset + 52);
+        //var itemCount = _playerGameData.ReadInt32(equipInventoryDataSubOffset + 48);
+        //var keyCount = _playerGameData.ReadInt32(equipInventoryDataSubOffset + 52);
 
         //Struct has 2 lists, list 1 seems to be a subset of list 2, the lists start at the same address..
         //I think the first list only contains keys. The "master" list contains both.
@@ -272,7 +272,7 @@ public class Remastered : IDarkSouls1
         var itemList2 = _playerGameData.ReadInt32(equipInventoryDataSubOffset + 40);
 
         var bytes = _process!.ReadProcessMemory(itemList2, itemList2Len * 0x1c).Unwrap();
-        var items = ItemReader.GetCurrentInventoryItems(bytes, itemList2Len, itemCount, keyCount);
+        var items = ItemReader.GetCurrentInventoryItems(bytes, itemList2Len);
 
         return items;
     }
@@ -319,7 +319,7 @@ public class Remastered : IDarkSouls1
         {"1", 0x00500},
         {"5", 0x05F00},
         {"6", 0x0B900},
-        {"7", 0x11300},
+        {"7", 0x11300}
     };
     
     private static readonly Dictionary<string, int> EventFlagAreas = new()
@@ -341,7 +341,7 @@ public class Remastered : IDarkSouls1
         {"160", 14},
         {"170", 15},
         {"180", 16},
-        {"181", 17},
+        {"181", 17}
     };
 
     private int GetEventFlagOffset(uint eventFlagId, out uint mask)

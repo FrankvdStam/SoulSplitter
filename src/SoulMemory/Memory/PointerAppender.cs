@@ -32,7 +32,7 @@ public class PointerAppender
             Name = _pointerNode.Name,
             Pattern = _pointerNode.Pattern,
             Offsets = offsets,
-            Pointer = pointer,
+            Pointer = pointer
         };
         _pointerNode.Pointers.Add(node);
         return this;

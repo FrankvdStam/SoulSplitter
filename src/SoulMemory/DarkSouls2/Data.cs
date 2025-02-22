@@ -107,6 +107,6 @@ public static class Data
         new Bonfire(WarpType.ExpulsionChamber       , 841285632, 37675, "Expulsion Chamber"),
         new Bonfire(WarpType.InnerWall              , 841285632, 37685, "Inner Wall"),
         new Bonfire(WarpType.LowerGarrison          , 841285632, 37665, "Lower Garrison"),
-        new Bonfire(WarpType.GrandCathedral         , 841285632, 37670, "Grand Cathedral"),
+        new Bonfire(WarpType.GrandCathedral         , 841285632, 37670, "Grand Cathedral")
     ]);
 }

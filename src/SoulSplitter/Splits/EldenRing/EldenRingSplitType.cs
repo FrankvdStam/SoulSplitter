@@ -24,5 +24,5 @@ public enum EldenRingSplitType
     ItemPickup,
     Item,
     Position,
-    KnownFlag,
+    KnownFlag
 }
