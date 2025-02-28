@@ -117,6 +117,8 @@ Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions
 - Thanks [Uberhalit](https://github.com/uberhalit) for the [Sekiro savefile mod](https://github.com/uberhalit/SimpleSekiroSavegameHelper) from his tool
 - Thanks [ViRazY](https://github.com/Vinjul1704) for the standalone CLI timer
 - Thanks [Ducksual](https://www.twitch.tv/ducksual) for helping with DS1 dropmod
+- Thanks [AinTunez](https://github.com/AinTunez), for DarkScript3, deciphering emevd event scripts: https://github.com/AinTunez/DarkScript3  
+- Thanks [ViRazY](https://github.com/Vinjul1704) for many contributions and techy talks  
 - And thanks to the [soulsmodding](http://soulsmodding.wikidot.com/) community at large, I'm standing on the shoulders of these giants
 
 I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  

@@ -22,6 +22,7 @@ pub mod games;
 mod widgets;
 mod tas;
 mod render_hooks;
+mod darkscript3;
 
 use std::time::Duration;
 use std::ffi::c_void;

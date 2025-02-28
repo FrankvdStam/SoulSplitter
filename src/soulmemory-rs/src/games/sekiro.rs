@@ -24,6 +24,7 @@ use std::sync::{Arc, Mutex};
 use log::info;
 use mem_rs::prelude::*;
 use crate::App;
+use crate::darkscript3::sekiro_emedf::Emedf;
 use crate::games::{ChrDbgFlag, GameExt, GetSetChrDbgFlags};
 use crate::games::dx_version::DxVersion;
 use crate::games::game::Game;
@@ -68,6 +69,7 @@ pub struct Sekiro
     emevd_event_hook: Option<HookPoint>,
 
     menu_man: Pointer,
+    emedf: Emedf,
 }
 
 impl Sekiro
@@ -86,6 +88,7 @@ impl Sekiro
             emevd_event_hook: None,
 
             menu_man: Pointer::default(),
+            emedf: load_emevd(),
         }
     }
 
@@ -195,7 +198,7 @@ impl Game for Sekiro
                 info!("MenuMan        base address: 0x{:x}", self.menu_man.get_base_address());
                 info!("set event flag address     : 0x{:x}", set_event_flag_address);
                 info!("get event flag address     : 0x{:x}", get_event_flag_address);
-                info!("emk events                 : 0x{:x}", emevd_events_address);
+                info!("emevd events               : 0x{:x}", emevd_events_address);
 
                 #[cfg(target_arch = "x86_64")]
                 {
@@ -229,11 +232,34 @@ impl Game for Sekiro
 #[cfg(target_arch = "x86_64")]
 unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:usize)
 {
-    let sprj_emk_event_ins_ptr = (*registers).r8;
-    let event_type_ptr = ptr::read((sprj_emk_event_ins_ptr + 0xb0) as *const u64);
-    let event_group = ptr::read(event_type_ptr as *const u64);
-    let event_type = ptr::read((event_type_ptr + 0x4) as *const u64);
-    info!("event_group: {} event_type: {}", event_group, event_type);
+    let instance = App::get_instance();
+    let app = instance.lock().unwrap();
+
+    if let Some(sekiro) = GameExt::get_game_ref::<Sekiro>(app.game.deref())
+    {
+        let sprj_emk_event_ins_ptr = (*registers).r8;
+        let event_type_ptr = ptr::read((sprj_emk_event_ins_ptr + 0xb0) as *const u64);
+        let event_group = ptr::read(event_type_ptr as *const u64) as u32;
+        let event_type = ptr::read((event_type_ptr + 0x4) as *const u64) as u32;
+
+        let item = sekiro.emedf.main_classes.iter().find(|p| p.index as u32 == event_group);
+        if let Some(class_doc) = item
+        {
+            let item = class_doc.instrs.iter().find(|p| p.index as u32 == event_type);
+            if let Some(inst_doc) = item
+            {
+                info!("EMEVD: {} {}", class_doc.name, inst_doc.name);
+            }
+            else
+            {
+                info!("EMEVD: known group {} but unknown type: {}", class_doc.name, event_type)
+            }
+        }
+        else
+        {
+            info!("EMEVD: unknown group and type: {} {}", event_group, event_type)
+        }
+    }
 }
 
 #[cfg(target_arch = "x86_64")]
@@ -250,4 +276,11 @@ unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usi
         let mut guard = vanilla.event_flags.lock().unwrap();
         guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));
     }
+}
+
+pub fn load_emevd() -> Emedf
+{
+    let json = include_str!("../../../../darkscript3/ds3-common.emedf.json");
+    let deserialized: Emedf = serde_json::from_str(json).unwrap();
+    return deserialized;
 }

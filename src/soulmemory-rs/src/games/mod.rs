@@ -20,7 +20,7 @@ mod dark_souls_remastered;
 mod dark_souls_2_vanilla;
 mod dark_souls_2_scholar_of_the_first_sin;
 mod dark_souls_3;
-mod sekiro;
+pub mod sekiro;
 mod elden_ring;
 mod armored_core_6;
 mod mock_game;
