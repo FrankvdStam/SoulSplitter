@@ -39,7 +39,7 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
-            
+            ValidatePatterns();return;
 
             TestUi();
             //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });

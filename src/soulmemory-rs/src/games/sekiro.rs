@@ -19,7 +19,7 @@
 
 use std::ops::Deref;
 use std::any::Any;
-use std::mem;
+use std::{mem, ptr};
 use std::sync::{Arc, Mutex};
 use log::info;
 use mem_rs::prelude::*;
@@ -65,6 +65,7 @@ pub struct Sekiro
     chr_dbg_flags: Pointer,
     fn_get_event_flag: FnGetEventFlag,
     set_event_flag_hook: Option<HookPoint>,
+    emevd_event_hook: Option<HookPoint>,
 
     menu_man: Pointer,
 }
@@ -82,6 +83,7 @@ impl Sekiro
             chr_dbg_flags: Pointer::default(),
             fn_get_event_flag: |_,_|{0},
             set_event_flag_hook: None,
+            emevd_event_hook: None,
 
             menu_man: Pointer::default(),
         }
@@ -184,14 +186,8 @@ impl Game for Sekiro
 
                 let set_event_flag_address = self.process.scan_abs("set_event_flag", "40 55 41 54 41 55 41 56 48 83 ec 58 80 b9 28 02 00 00 00 45 0f b6 e1 45 0f b6 e8 44 8b f2 48 8b e9", 0, Vec::new())?.get_base_address();
                 let get_event_flag_address = self.process.scan_abs("get_event_flag", "40 53 48 83 ec 20 80 b9 28 02 00 00 00 8b da", 0, Vec::new())?.get_base_address();
+                let emevd_events_address = self.process.scan_abs("emevd_events", "40 53 56 57 48 81 ec 40 01 00 00 48 c7 44 24 20 fe ff ff ff 0f 29 b4 24 30 01 00 00", 0, Vec::new())?.get_base_address();
                 self.fn_get_event_flag = mem::transmute(get_event_flag_address);
-
-                #[cfg(target_arch = "x86_64")]
-                {
-                    let h = Hooker::new(set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
-                    self.set_event_flag_hook = Some(h.hook().unwrap());
-                }
-
 
                 info!("event_flag_man base address: 0x{:x}", self.event_flag_man.get_base_address());
                 info!("WorldChrManImp base address: 0x{:x}", self.position.get_base_address());
@@ -199,6 +195,16 @@ impl Game for Sekiro
                 info!("MenuMan        base address: 0x{:x}", self.menu_man.get_base_address());
                 info!("set event flag address     : 0x{:x}", set_event_flag_address);
                 info!("get event flag address     : 0x{:x}", get_event_flag_address);
+                info!("emk events                 : 0x{:x}", emevd_events_address);
+
+                #[cfg(target_arch = "x86_64")]
+                {
+                    let h = Hooker::new(set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+                    self.set_event_flag_hook = Some(h.hook().unwrap());
+
+                    let h = Hooker::new(emevd_events_address, HookType::JmpBack(emevd_event_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+                    self.emevd_event_hook = Some(h.hook().unwrap());
+                }
             }
         }
         else
@@ -218,6 +224,16 @@ impl Game for Sekiro
         self
     }
     fn as_any_mut(&mut self) -> &mut dyn Any { self }
+}
+
+#[cfg(target_arch = "x86_64")]
+unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:usize)
+{
+    let sprj_emk_event_ins_ptr = (*registers).r8;
+    let event_type_ptr = ptr::read((sprj_emk_event_ins_ptr + 0xb0) as *const u64);
+    let event_group = ptr::read(event_type_ptr as *const u64);
+    let event_type = ptr::read((event_type_ptr + 0x4) as *const u64);
+    info!("event_group: {} event_type: {}", event_group, event_type);
 }
 
 #[cfg(target_arch = "x86_64")]
