@@ -23,21 +23,32 @@ use soulmemory_rs::games::*;
 
 mod support;
 
-fn main() {
+fn main()
+{
     App::init(&String::from("mockgame.exe"), HINSTANCE(std::ptr::null_mut()));
+    let instance = App::get_instance();
+    let mut app = instance.lock().unwrap();
 
-    let system = support::init("test window");
-    system.main_loop(move |run, ui|
-    {
-        let instance = App::get_instance();
-        let mut app = instance.lock().unwrap();
+    let mut system = support::init("test window");
+    app.render_initialize(&mut system.imgui);
 
-        app.refresh().unwrap();
-        app.render(ui);
+    //Have to drop these out of scope to not lock the render loop later on
+    drop(app);
+    drop(instance);
 
-        draw_controls(ui, &mut app);
-        ui.show_demo_window(run);
-    });
+    system.main_loop(render_fun);
+}
+
+fn render_fun(run: &mut bool, ui: &mut Ui)
+{
+    let instance = App::get_instance();
+    let mut app = instance.lock().unwrap();
+
+    app.refresh().unwrap();
+    app.render(ui);
+
+    draw_controls(ui, &mut app);
+    ui.show_demo_window(run);
 }
 
 fn draw_controls(ui: &mut Ui, app: &mut App)
