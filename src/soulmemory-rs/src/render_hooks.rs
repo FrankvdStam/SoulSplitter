@@ -23,6 +23,8 @@ use hudhook::hooks::dx9::ImguiDx9Hooks;
 use imgui::{Context, Ui};
 use crate::App;
 use crate::games::dx_version::DxVersion;
+use copypasta::{ClipboardContext, ClipboardProvider};
+use imgui::ClipboardBackend;
 
 pub struct RenderHooks{}
 
@@ -56,6 +58,7 @@ impl ImguiRenderLoop for RenderHooks
 {
     fn initialize<'a>(&'a mut self, ctx: &mut Context, _render_context: &'a mut dyn RenderContext)
     {
+        ctx.set_clipboard_backend(ClipboardSupport::init().unwrap());
         let instance = App::get_instance();
         let mut app = instance.lock().unwrap();
         app.render_initialize(ctx);
@@ -67,5 +70,26 @@ impl ImguiRenderLoop for RenderHooks
         let instance = App::get_instance();
         let mut app = instance.lock().unwrap();
         app.render(ui);
+    }
+}
+
+
+
+pub struct ClipboardSupport(pub ClipboardContext);
+
+impl ClipboardSupport
+{
+    pub fn init() -> Option<ClipboardSupport> {
+        ClipboardContext::new().ok().map(ClipboardSupport)
+    }
+}
+
+impl ClipboardBackend for ClipboardSupport {
+    fn get(&mut self) -> Option<String> {
+        self.0.get_contents().ok()
+    }
+    fn set(&mut self, text: &str) {
+        // ignore errors?
+        let _ = self.0.set_contents(text.to_owned());
     }
 }

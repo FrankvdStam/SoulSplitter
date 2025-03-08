@@ -14,19 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-use std::sync::{Arc, Mutex};
-use crate::games::mock_game::BufferedEventFlags;
-use crate::games::mock_game::MockGame;
-use crate::games::traits::buffered_event_flags::EventFlag;
+use mem_rs::prelude::ReadWrite;
+use crate::games::Sekiro;
+use crate::games::traits::player_position::PlayerPosition;
+use crate::util::vector3f::Vector3f;
 
-impl BufferedEventFlags for MockGame
+impl PlayerPosition for Sekiro
 {
-    fn access_flag_storage(&self) -> &Arc<Mutex<Vec<EventFlag>>>
+    fn get_position(&self) -> Vector3f
     {
-        return &self.event_flags;
+        if !self.process.is_attached()
+        {
+            return Vector3f::default();
+        }
+
+        let x = self.position.read_f32_rel(Some(0x80));
+        let y = self.position.read_f32_rel(Some(0x84));
+        let z = self.position.read_f32_rel(Some(0x88));
+
+        return Vector3f::new(x, y, z);
     }
-    fn get_event_flag_state(&self, _event_flag: u32) -> bool
+
+    fn set_position(&self, position: &Vector3f)
     {
-        return true;
+        self.position.write_f32_rel(Some(0x80), position.x);
+        self.position.write_f32_rel(Some(0x84), position.y);
+        self.position.write_f32_rel(Some(0x88), position.z);
     }
 }

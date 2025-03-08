@@ -14,6 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-pub mod player_position;
-pub mod buffered_event_flags;
-pub mod buffered_emevd_logger;
+use std::sync::{Arc, Mutex};
+use mem_rs::prelude::ReadWrite;
+use crate::games::Sekiro;
+use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
+
+impl BufferedEventFlags for Sekiro
+{
+    fn access_flag_storage(&self) -> &Arc<Mutex<Vec<EventFlag>>>
+    {
+        return &self.event_flags;
+    }
+
+    fn get_event_flag_state(&self, event_flag: u32) -> bool {
+        let result = (self.fn_get_event_flag)(self.event_flag_man.read_u64_rel(None), event_flag);
+        return result == 1;
+    }
+}
