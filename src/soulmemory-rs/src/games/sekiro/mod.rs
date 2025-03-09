@@ -22,6 +22,7 @@ mod player_position;
 mod chr_dbg_flag;
 mod buffered_emevd_logger;
 mod buffered_event_flags;
+mod emevd;
 
 use std::ops::Deref;
 use std::any::Any;

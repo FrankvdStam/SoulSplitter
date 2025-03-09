@@ -7,19 +7,23 @@ use crate::darkscript3::sekiro_emedf::Emedf;
 pub struct BufferedEmevdCall
 {
     pub time: DateTime<Local>,
+    pub event_id: u32,
     pub group: u32,
     pub type_: u32,
+    pub log: String,
 }
 
 impl BufferedEmevdCall
 {
-    pub fn new(time: DateTime<Local>, group: u32, type_: u32) -> Self
+    pub fn new(time: DateTime<Local>, event_id: u32, group: u32, type_: u32, log: String) -> Self
     {
         BufferedEmevdCall
         {
             time,
+            event_id,
             group,
-            type_
+            type_,
+            log
         }
     }
 }

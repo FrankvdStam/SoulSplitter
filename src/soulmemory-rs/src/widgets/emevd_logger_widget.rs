@@ -30,27 +30,6 @@ pub struct EmevdLoggerWidget
 
 impl EmevdLoggerWidget
 {
-    fn format_event(&self, event: &BufferedEmevdCall, emedf: &Emedf) -> String
-    {
-        let item = emedf.main_classes.iter().find(|p| p.index as u32 == event.group);
-        if let Some(class_doc) = item
-        {
-            let item = class_doc.instrs.iter().find(|p| p.index as u32 == event.type_);
-            if let Some(inst_doc) = item
-            {
-                return format!("{} - group: {} - type: {}", event.time.format("%H:%M:%S"), class_doc.name, inst_doc.name);
-            }
-            else
-            {
-                return format!("{} - known group {} but unknown type: {}", event.time.format("%H:%M:%S"), class_doc.name, event.type_);
-            }
-        }
-        else
-        {
-            return format!("{} - unknown group and type: {} {}", event.time.format("%H:%M:%S"), event.group, event.type_);
-        }
-    }
-
     pub fn handle_buffered_events(&mut self, buffer: &Vec<BufferedEmevdCall>, emedf: &Emedf)
     {
         //process
@@ -64,8 +43,7 @@ impl EmevdLoggerWidget
 
             if show
             {
-                let str = self.format_event(event, emedf);
-                self.log.push_str(str.as_str());
+                self.log.push_str(format!("{} - {}", event.time.format("%H:%M:%S"), event.log).as_str());
                 self.log.push('\n');
             }
         }
@@ -124,6 +102,20 @@ impl Widget for EmevdLoggerWidget
 
                 ui.checkbox("auto-scroll", &mut self.auto_scroll);
 
+                ui.same_line();
+
+                if ui.button("clear")
+                {
+                    self.log = String::new();
+                }
+
+                if ui.button("copy")
+                {
+                    ui.set_clipboard_text(&self.log);
+                }
+
+
+
                 self.handle_buffered_events(&buffer, emedf);
 
                 ui.child_window("emevd_log_scrollable")
@@ -131,9 +123,11 @@ impl Widget for EmevdLoggerWidget
                     .size(ui.content_region_avail())
                     .build(||
                 {
-                    ui.input_text_multiline("", &mut self.log, [400f32, 400f32])
-                        .flags(InputTextFlags::READ_ONLY | InputTextFlags::NO_HORIZONTAL_SCROLL)
-                        .build();
+                    ui.text_wrapped(&mut self.log);
+
+                    //ui.input_text_multiline("log", &mut self.log, [400f32, 400f32])
+                    //    .flags(InputTextFlags::READ_ONLY | InputTextFlags::NO_HORIZONTAL_SCROLL)
+                    //    .build();
 
 
                     if self.auto_scroll
@@ -141,15 +135,6 @@ impl Widget for EmevdLoggerWidget
                         ui.set_scroll_y(ui.scroll_max_y());
                     }
                 });
-
-
-                if self.auto_scroll
-                {
-                    ui.set_scroll_y(ui.scroll_max_y());
-                }
-
-
-
 
 
 

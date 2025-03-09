@@ -17,14 +17,19 @@
 use std::any::Any;
 use std::{mem, ptr};
 use std::ops::Deref;
+use hudhook::tracing::event;
 use ilhook::x64::{CallbackOption, Hooker, HookFlags, HookType, Registers};
 use log::info;
 use crate::App;
+use crate::darkscript3::sekiro_emedf::Emedf;
 use crate::games::{Game, GameExt, Sekiro};
 use crate::games::dx_version::DxVersion;
 use crate::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEmevdLogger};
 use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
 use crate::games::traits::player_position::PlayerPosition;
+
+#[cfg(target_arch = "x86_64")]
+use crate::games::sekiro::emevd::emevd_event_hook_fn;
 
 impl Game for Sekiro
 {
@@ -83,23 +88,29 @@ impl Game for Sekiro
     fn as_any_mut(&mut self) -> &mut dyn Any { self }
 }
 
-#[cfg(target_arch = "x86_64")]
-unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:usize)
+
+fn format_event(group: u32, type_: u32, emedf: &Emedf) -> String
 {
-    let instance = App::get_instance();
-    let app = instance.lock().unwrap();
-
-    if let Some(sekiro) = GameExt::get_game_ref::<Sekiro>(app.game.deref())
+    let item = emedf.main_classes.iter().find(|p| p.index as u32 == group);
+    if let Some(class_doc) = item
     {
-        let sprj_emk_event_ins_ptr = (*registers).r8;
-        let event_type_ptr = ptr::read((sprj_emk_event_ins_ptr + 0xb0) as *const u64);
-        let event_group = ptr::read(event_type_ptr as *const u64) as u32;
-        let event_type = ptr::read((event_type_ptr + 0x4) as *const u64) as u32;
-
-        let mut guard = sekiro.emevd_buffer.lock().unwrap();
-        guard.push(BufferedEmevdCall::new(chrono::offset::Local::now(), event_group, event_type));
+        let item = class_doc.instrs.iter().find(|p| p.index as u32 == type_);
+        if let Some(inst_doc) = item
+        {
+            return format!("group: {} - type: {}", class_doc.name, inst_doc.name);
+        }
+        else
+        {
+            return format!("known group {} but unknown type: {}", class_doc.name, type_);
+        }
+    }
+    else
+    {
+        return format!("unknown group and type: {} {}", group, type_);
     }
 }
+
+
 
 #[cfg(target_arch = "x86_64")]
 unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usize)
