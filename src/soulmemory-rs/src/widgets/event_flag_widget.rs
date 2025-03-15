@@ -64,7 +64,7 @@ impl EventFlagWidget
             }
 
             ui.child_window("log_event_flags_scrollable")
-                .size([ui.content_region_avail()[0], EVENT_FLAG_SCROLL_REGION_HEIGHT])
+                .size(ui.content_region_avail())
                 .build(||
             {
                 if let Some(_table_token) = ui.begin_table_with_flags("event flags", 3, TableFlags::HIDEABLE | TableFlags::RESIZABLE)

@@ -14,6 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-pub mod player_position;
-pub mod buffered_event_flags;
-pub mod buffered_emevd_logger;
+use std::mem;
+use std::sync::{Arc, Mutex};
+use crate::darkscript3::sekiro_emedf::Emedf;
+use crate::games::Sekiro;
+use crate::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEmevdLogger};
+
+impl BufferedEmevdLogger for Sekiro
+{
+    fn get_emevd_buffer(&self) -> &Arc<Mutex<Vec<BufferedEmevdCall>>>{
+        &self.emevd_buffer
+    }
+
+    fn get_game_emevd_definitions(&self) -> &Emedf
+    {
+        return &self.emedf;
+    }
+}
