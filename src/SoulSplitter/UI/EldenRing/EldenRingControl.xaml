@@ -81,11 +81,12 @@
 
                     <system:Int32 x:Key="StartAutomaticallyRow" >0</system:Int32>
                     <system:Int32 x:Key="LockTimerRow"          >1</system:Int32>
-                    <system:Int32 x:Key="SeparatorRow"          >2</system:Int32>
-                    <system:Int32 x:Key="SplitDefinitionRow"    >3</system:Int32>
-                    <system:Int32 x:Key="SplitTypeRow"          >4</system:Int32>
-                    <system:Int32 x:Key="AddRemoveSplitRow"     >5</system:Int32>
-                    <system:Int32 x:Key="SplitsTreeRow"         >6</system:Int32>
+                    <system:Int32 x:Key="RetriggerOnNGRow"      >2</system:Int32>
+                    <system:Int32 x:Key="SeparatorRow"          >3</system:Int32>
+                    <system:Int32 x:Key="SplitDefinitionRow"    >4</system:Int32>
+                    <system:Int32 x:Key="SplitTypeRow"          >5</system:Int32>
+                    <system:Int32 x:Key="AddRemoveSplitRow"     >6</system:Int32>
+                    <system:Int32 x:Key="SplitsTreeRow"         >7</system:Int32>
 
                 </ResourceDictionary>
 
@@ -121,6 +122,12 @@
             Margin="5"
             Content="Lock IGT to 0:00 (for NG+ saves)"
             IsChecked="{Binding LockIgtToZero}"/>
+
+        <CheckBox
+            Grid.Row="{StaticResource RetriggerOnNGRow}"
+            Margin="5"
+            Content="Re-trigger Flags on NG+"
+            IsChecked="{Binding RetriggerFlagsOnNGPlus}"/>
 
         <!-- row ============================================================================================================================================================================================== -->
         <Label 

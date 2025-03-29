@@ -167,6 +167,7 @@ internal class EldenRingSplitter : ISplitter
     {
         _timerState = TimerState.WaitForStart;
         _inGameTime = 0;
+        _wasStarted = false;
     }
 
 
@@ -222,6 +223,7 @@ internal class EldenRingSplitter : ISplitter
     #region Autosplitting
 
     private List<Split> _splits = [];
+    private bool _wasStarted;
 
     public void ResetAutoSplitting()
     {
@@ -243,6 +245,43 @@ internal class EldenRingSplitter : ISplitter
         if (_timerState != TimerState.Running)
         {
             return;
+        }
+
+        if (_eldenRingViewModel.RetriggerFlagsOnNGPlus)
+        {
+            if (_wasStarted) {
+                // Flag 100 is reset on NG+ and triggered after watching the opening cutscene
+                if (!_eldenRing.ReadEventFlag(100))
+                {
+                    foreach (var s in _splits)
+                    {
+                        if (!s.SplitConditionMet) continue;
+                        switch (s.EldenRingSplitType)
+                        {
+                            case EldenRingSplitType.Boss:
+                            case EldenRingSplitType.Grace:
+                            case EldenRingSplitType.ItemPickup:
+                            case EldenRingSplitType.KnownFlag:
+                            case EldenRingSplitType.Flag:
+                                // Clear flag states that are reset by NG
+                                if (!_eldenRing.ReadEventFlag(s.Flag))
+                                {
+                                    s.SplitTriggered = s.SplitConditionMet = false;
+                                }
+                                break;
+                            case EldenRingSplitType.Position:
+                                // Reset positions
+                                s.SplitTriggered = s.SplitConditionMet = false;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            } else {
+                // We set this to true on first trigger of flag 100
+                _wasStarted = _eldenRing.ReadEventFlag(100);
+            }
         }
 
         List<Item>? inventoryItems = null;

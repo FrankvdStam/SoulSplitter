@@ -45,6 +45,13 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     }
     private bool _lockIgtToZero;
 
+    public bool RetriggerFlagsOnNGPlus
+    {
+        get => _retriggerFlagsOnNGPlus;
+        set => this.SetField(ref _retriggerFlagsOnNGPlus, value);
+    }
+    private bool _retriggerFlagsOnNGPlus;
+
     [XmlIgnore]
     public PositionViewModel CurrentPosition
     {

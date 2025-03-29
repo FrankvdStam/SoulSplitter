@@ -88,6 +88,7 @@ namespace SoulSplitter.Tests
   <EldenRingViewModel>
     <StartAutomatically>true</StartAutomatically>
     <LockIgtToZero>false</LockIgtToZero>
+    <RetriggerFlagsOnNGPlus>false</RetriggerFlagsOnNGPlus>
     <EnabledRemoveSplit>false</EnabledRemoveSplit>
     <Splits />
   </EldenRingViewModel>
@@ -121,6 +122,7 @@ namespace SoulSplitter.Tests
   <EldenRingViewModel>
     <StartAutomatically>true</StartAutomatically>
     <LockIgtToZero>false</LockIgtToZero>
+    <RetriggerFlagsOnNGPlus>false</RetriggerFlagsOnNGPlus>
     <EnabledRemoveSplit>false</EnabledRemoveSplit>
     <Splits>
       <HierarchicalTimingTypeViewModel>
@@ -385,6 +387,7 @@ namespace SoulSplitter.Tests
   <EldenRingViewModel>
     <StartAutomatically>true</StartAutomatically>
     <LockIgtToZero>false</LockIgtToZero>
+    <RetriggerFlagsOnNGPlus>false</RetriggerFlagsOnNGPlus>
     <EnabledRemoveSplit>false</EnabledRemoveSplit>
     <Splits />
   </EldenRingViewModel>
@@ -647,6 +650,7 @@ namespace SoulSplitter.Tests
   <EldenRingViewModel>
     <StartAutomatically>true</StartAutomatically>
     <LockIgtToZero>false</LockIgtToZero>
+    <RetriggerFlagsOnNGPlus>false</RetriggerFlagsOnNGPlus>
     <EnabledRemoveSplit>false</EnabledRemoveSplit>
     <Splits />
   </EldenRingViewModel>
