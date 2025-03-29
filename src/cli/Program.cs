@@ -39,6 +39,21 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+
+            GameLoop<EldenRing>(
+                (d) =>
+                {
+                    Console.WriteLine(d.ReadNgLevel());
+                    //var dropmod = new DropMod(d);
+                    //dropmod.InitBkh();
+                    //
+                    //
+                    //
+                    //var igtElapsed = TimeSpan.FromMilliseconds(d.GetInGameTimeMilliseconds());
+                    //Console.WriteLine($"IGT: {igtElapsed}");
+                }
+            );
+
             ValidatePatterns();return;
 
             TestUi();
@@ -52,19 +67,7 @@ namespace cli
 
 
             //TestUi();
-            GameLoop<EldenRing>(
-                (d) =>
-                {
-                    d.WriteInGameTimeMilliseconds(0);
-                    //var dropmod = new DropMod(d);
-                    //dropmod.InitBkh();
-                    //
-                    //
-                    //
-                    //var igtElapsed = TimeSpan.FromMilliseconds(d.GetInGameTimeMilliseconds());
-                    //Console.WriteLine($"IGT: {igtElapsed}");
-                }
-            );
+            
         }
 
 
@@ -244,10 +247,10 @@ namespace cli
             var validatables = new List<(string Name, IGame Game, string Directory)>()
             {
                 //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
-                ("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
+                //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
                 //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
                 //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           )
-                //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
+                ("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
                 //("Armored Core 6"           , new SoulMemory.ArmoredCore6.ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
             };
 
