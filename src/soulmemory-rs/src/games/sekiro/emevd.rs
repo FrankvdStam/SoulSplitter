@@ -65,7 +65,7 @@ pub unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:us
 
 unsafe fn format_args(args: &Vec<ArgDoc>, arg_struct_ptr: u64, str: &mut String)
 {
-    let EMEVDTYPES: HashMap<u64, &str> = HashMap::from([
+    let emevdtypes: HashMap<u64, &str> = HashMap::from([
         (0, "byte"),
         (1, "ushort"),
         (2, "uint"),
@@ -75,7 +75,7 @@ unsafe fn format_args(args: &Vec<ArgDoc>, arg_struct_ptr: u64, str: &mut String)
         (6, "float"),
     ]);
 
-    let EMEVDTYPESIZES: HashMap<u64, u32> = HashMap::from([
+    let emevdtypesizes: HashMap<u64, u32> = HashMap::from([
         (0, 1),
         (1, 2),
         (2, 4),
@@ -90,8 +90,8 @@ unsafe fn format_args(args: &Vec<ArgDoc>, arg_struct_ptr: u64, str: &mut String)
     {
 
         let arg = &args[i];
-        let type_ = EMEVDTYPES[&arg.type_];
-        let size = EMEVDTYPESIZES[&arg.type_];
+        let type_ = emevdtypes[&arg.type_];
+        let size = emevdtypesizes[&arg.type_];
 
         //info!("arg {} arg_struct_ptr {} binary_index {} type_ {} size {}", arg.name, arg_struct_ptr, binary_index, type_, size);
 
@@ -100,7 +100,7 @@ unsafe fn format_args(args: &Vec<ArgDoc>, arg_struct_ptr: u64, str: &mut String)
         //handle binary index increment
         //cursed 1 byte sized storage optimization
         //if current type size is 1 byte and next type size is 1 byte, only increment binary index by 1
-        if size == 1 && i+1 < args.len() && EMEVDTYPESIZES[&args[i+1].type_] == 1
+        if size == 1 && i+1 < args.len() && emevdtypesizes[&args[i+1].type_] == 1
         {
             binary_index += 1;
         }
