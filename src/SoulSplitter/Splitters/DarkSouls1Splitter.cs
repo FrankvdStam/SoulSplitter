@@ -29,7 +29,13 @@ namespace SoulSplitter.Splitters;
 
 public class DarkSouls1Splitter : ISplitter
 {
-    private readonly IDarkSouls1 _darkSouls1;
+    public void SetGameObject(object o)
+    {
+        _darkSouls1 = (IDarkSouls1)o;
+    }
+    public object GetGameObject() => _darkSouls1;
+
+    private IDarkSouls1 _darkSouls1;
     private readonly DropMod _dropMod;
     private MainViewModel _mainViewModel;
 

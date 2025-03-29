@@ -4,6 +4,7 @@ use std::ops::Deref;
 use std::ptr;
 use hudhook::tracing::event;
 use ilhook::x64::Registers;
+use lazy_static::lazy_static;
 use log::info;
 use crate::App;
 use crate::darkscript3::sekiro_emedf::ArgDoc;
@@ -56,16 +57,14 @@ pub unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:us
             s.push_str("unknown group");
         }
 
-        //info!("{}", s);
-
         let mut guard = sekiro.emevd_buffer.lock().unwrap();
         guard.push(BufferedEmevdCall::new(chrono::offset::Local::now(), event_id, event_group, event_type, s));
     }
 }
 
-unsafe fn format_args(args: &Vec<ArgDoc>, arg_struct_ptr: u64, str: &mut String)
+lazy_static!
 {
-    let EMEVDTYPES: HashMap<u64, &str> = HashMap::from([
+    static ref EMEVDTYPES: HashMap<u64, &'static str> = HashMap::from([
         (0, "byte"),
         (1, "ushort"),
         (2, "uint"),
@@ -75,7 +74,7 @@ unsafe fn format_args(args: &Vec<ArgDoc>, arg_struct_ptr: u64, str: &mut String)
         (6, "float"),
     ]);
 
-    let EMEVDTYPESIZES: HashMap<u64, u32> = HashMap::from([
+    static ref EMEVDTYPESIZES: HashMap<u64, u32> = HashMap::from([
         (0, 1),
         (1, 2),
         (2, 4),
@@ -84,6 +83,12 @@ unsafe fn format_args(args: &Vec<ArgDoc>, arg_struct_ptr: u64, str: &mut String)
         (5, 4),
         (6, 4),
     ]);
+}
+
+
+unsafe fn format_args(args: &Vec<ArgDoc>, arg_struct_ptr: u64, str: &mut String)
+{
+
 
     let mut binary_index: u64 = 0;
     for i in 0..args.len()

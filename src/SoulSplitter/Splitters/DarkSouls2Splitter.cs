@@ -19,7 +19,9 @@ using System.Collections.Generic;
 using System.Linq;
 using LiveSplit.Model;
 using SoulMemory;
+using SoulMemory.DarkSouls1;
 using SoulMemory.DarkSouls2;
+using SoulMemory.DarkSouls3;
 using SoulSplitter.Splits.DarkSouls2;
 using SoulSplitter.UI;
 using SoulSplitter.UI.DarkSouls2;
@@ -29,7 +31,13 @@ namespace SoulSplitter.Splitters;
 
 public class DarkSouls2Splitter : ISplitter
 {
-    private readonly DarkSouls2 _darkSouls2;
+    public void SetGameObject(object o)
+    {
+        _darkSouls2 = (DarkSouls2)o;
+    }
+    public object GetGameObject() => _darkSouls2;
+
+    private DarkSouls2 _darkSouls2;
     private DarkSouls2ViewModel _darkSouls2ViewModel = null!;
     private MainViewModel _mainViewModel = null!;
     private readonly LiveSplitState _liveSplitState;

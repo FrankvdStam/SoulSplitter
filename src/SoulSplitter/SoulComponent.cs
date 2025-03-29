@@ -31,7 +31,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using SoulMemory.DarkSouls1;
+using SoulMemory.Sekiro;
 using SoulSplitter.Migrations;
+using Timer = SoulMemory.Timer;
 
 namespace SoulSplitter;
 
@@ -42,6 +45,7 @@ public class SoulComponent : IComponent
 
     private LiveSplitState _liveSplitState;
     private ISplitter? _splitter;
+    private TimerAdapter _timerAdapter;
     private IGame _game = null!;
     private DateTime _lastFailedRefresh = DateTime.MinValue;
     private bool _previousBitBlt;
@@ -56,6 +60,8 @@ public class SoulComponent : IComponent
         MainWindow = new MainWindow();
         _liveSplitState = state;
         SelectGameFromLiveSplitState(_liveSplitState);
+
+        _timerAdapter = new TimerAdapter(state, new Timer(new Sekiro(), new TimerSettings() { AutoStart = true }));
     }
 
         
@@ -189,6 +195,8 @@ public class SoulComponent : IComponent
 
         return _splitter.Update(mainViewModel);
     }
+
+    public ISplitter? GetSplitter() => _splitter;
 
     #region drawing ===================================================================================================================
     public IDictionary<string, Action> ContextMenuControls => new Dictionary<string, Action>();

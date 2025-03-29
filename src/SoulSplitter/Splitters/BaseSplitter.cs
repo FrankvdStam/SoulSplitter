@@ -18,12 +18,20 @@ using LiveSplit.Model;
 using System;
 using SoulMemory;
 using SoulSplitter.UI;
+using SoulMemory.DarkSouls2;
 
 namespace SoulSplitter.Splitters;
 
 public abstract class BaseSplitter : ISplitter
 {
-    protected readonly IGame _game;
+    public void SetGameObject(object o)
+    {
+        _game = (IGame)o;
+    }
+
+    public object GetGameObject() => _game;
+
+    protected IGame _game;
     protected readonly LiveSplitState _liveSplitState;
     protected readonly TimerModel _timerModel;
     protected MainViewModel _mainViewModel = null!;

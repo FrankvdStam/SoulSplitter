@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-use imgui::{InputTextFlags, TreeNodeFlags, Ui};
+use imgui::{TreeNodeFlags, Ui};
 use crate::darkscript3::sekiro_emedf::Emedf;
 use crate::games::*;
 use crate::games::traits::buffered_emevd_logger::BufferedEmevdCall;

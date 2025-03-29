@@ -16,6 +16,7 @@
 
 use std::ops::Deref;
 use imgui::{Condition, TreeNodeFlags, Ui};
+use imgui::sys::igSetNextWindowPos;
 use windows::Win32::Foundation::HINSTANCE;
 use soulmemory_rs::App;
 use soulmemory_rs::games::{GameExt, MockGame};
@@ -53,7 +54,11 @@ fn render_fun(run: &mut bool, ui: &mut Ui)
     app.render(ui);
 
     draw_controls(ui, &mut app);
+
+
+    unsafe{ igSetNextWindowPos([800.0f32, 50.0f32].into(), Condition::Appearing as i32, [1.5f32, 0.5f32].into()) };
     ui.show_demo_window(run);
+
 }
 
 pub struct UiState
@@ -72,7 +77,7 @@ fn draw_controls(ui: &mut Ui, app: &mut App)
 {
     ui.window("Controls")
         .size([500.0,800.0], Condition::Appearing)
-        .position([500.0f32, 50.0f32], Condition::Appearing)
+        .position([600.0f32, 50.0f32], Condition::Appearing)
         .build(||
     {
         if ui.collapsing_header("event flags", TreeNodeFlags::DEFAULT_OPEN)
@@ -145,19 +150,43 @@ fn draw_controls(ui: &mut Ui, app: &mut App)
 
 fn get_random_emevd_event(mock_game: &MockGame) -> BufferedEmevdCall
 {
-    let emevd = mock_game.get_game_emevd_definitions();
+    let mut log =  String::new();
+    let emedf = mock_game.get_game_emevd_definitions();
     let mut rng = rand::rng();
-    let group = rng.random_range(0..emevd.main_classes.len());
-    let type_ = if emevd.main_classes[group].instrs.len() > 0
+    let event_id = rng.random_range(0..15000000);
+    let group = rng.random_range(0..emedf.main_classes.len());
+    let type_ = if emedf.main_classes[group].instrs.len() > 0
     {
-        rng.random_range(0..emevd.main_classes[group].instrs.len())
+        rng.random_range(0..emedf.main_classes[group].instrs.len())
     }
     else
     {
         0
     };
 
-    return BufferedEmevdCall::new(chrono::offset::Local::now(), group as u32, type_ as u32);
+    let item = emedf.main_classes.iter().find(|p| p.index as u32 == group as u32);
+    if let Some(class_doc) = item
+    {
+        log.push_str(class_doc.name.as_str());
+
+        let item = class_doc.instrs.iter().find(|p| p.index as u32 == type_ as u32 );
+        if let Some(inst_doc) = item
+        {
+            log.push(' ');
+            log.push_str(inst_doc.name.as_str());
+        }
+        else
+        {
+            log.push_str("unknown type");
+        }
+    }
+    else
+    {
+        log.push_str("unknown group");
+    }
+
+    log.push_str(format!("{} - {} [{}] ", event_id, group, type_).as_str());
+    return BufferedEmevdCall::new(chrono::offset::Local::now(), event_id as u32, group as u32, type_ as u32, log);
 }
 
 fn init_data()

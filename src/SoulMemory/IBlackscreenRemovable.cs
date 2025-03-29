@@ -14,20 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory;
-using SoulSplitter.UI;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SoulSplitter.Splitters;
+namespace SoulMemory;
 
-public interface ISplitter : IDisposable
+public interface IBlackscreenRemovable
 {
-    ResultErr<RefreshError> Update(MainViewModel mainViewModel);
-    void SetViewModel(MainViewModel mainViewModel);
+    /// <summary>
+    /// Returns true if the blackscreen is active
+    /// </summary>
+    bool IsBlackscreenActive();
+
 
     /// <summary>
-    /// For testing only
+    /// Set the current millis 
     /// </summary>
-    void SetGameObject(object o);
-    object GetGameObject();
+    void WriteInGameTimeMilliseconds(int value);
 }

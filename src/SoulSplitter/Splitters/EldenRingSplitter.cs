@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LiveSplit.Model;
 using SoulMemory;
+using SoulMemory.DarkSouls3;
 using SoulMemory.EldenRing;
 using SoulSplitter.Splits.EldenRing;
 using SoulSplitter.UI;
@@ -29,7 +30,14 @@ namespace SoulSplitter.Splitters;
 
 internal class EldenRingSplitter : ISplitter
 {
-    private readonly EldenRing _eldenRing;
+    public void SetGameObject(object o)
+    {
+        _eldenRing = (EldenRing)o;
+    }
+
+    public object GetGameObject() => _eldenRing;
+
+    private EldenRing _eldenRing;
     private EldenRingViewModel _eldenRingViewModel = null!;
     private readonly LiveSplitState _liveSplitState;
     private MainViewModel _mainViewModel= null!;
@@ -160,7 +168,11 @@ internal class EldenRingSplitter : ISplitter
     {
         _liveSplitState.IsGameTimePaused = true;
         _timerState = TimerState.Running;
-        _eldenRing.EnableHud();
+        try
+        {
+            _eldenRing.EnableHud();
+        }
+        catch{}
     }
 
     private void ResetTimer()

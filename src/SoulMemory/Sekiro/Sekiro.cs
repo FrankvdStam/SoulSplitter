@@ -23,7 +23,15 @@ using SoulMemory.Native;
 
 namespace SoulMemory.Sekiro;
 
-public class Sekiro : IGame
+public interface ISekiro : IGame, IBlackscreenRemovable
+{
+    int GetAttribute(Attribute attribute);
+    bool IsPlayerLoaded();
+    Vector3f GetPlayerPosition();
+    void WriteEventFlag(uint eventFlagId, bool eventFlagValue);
+}
+
+public class Sekiro : ISekiro
 {
     private Process? _process;
     private readonly Pointer _eventFlagMan = new();
