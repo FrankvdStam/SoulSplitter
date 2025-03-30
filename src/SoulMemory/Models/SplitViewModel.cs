@@ -14,16 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using SoulMemory.Enums;
 
-namespace SoulSplitterUIv2.Ui.ViewModels;
+namespace SoulMemory.Models;
 
 public class SplitViewModel
 {
-    public SplitViewModel(){}
+    public SplitViewModel() { }
 
     public SplitViewModel(Game game, int newGamePlusLevel, TimingType timingType, SplitType splitType, object split, string userDescription)
     {
@@ -35,10 +32,10 @@ public class SplitViewModel
         Description = userDescription;
     }
 
-    public string Description { get; set; }
+    public string Description { get; set; } = null!;
     public Game Game { get; set; }
     public int NewGamePlusLevel { get; set; }
     public TimingType TimingType { get; set; }
     public SplitType SplitType { get; set; }
-    public object Split{ get; set; }
+    public object Split { get; set; } = null!;
 }

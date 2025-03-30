@@ -18,7 +18,7 @@ using SoulMemory.Memory;
 using SoulMemory.Parameters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SoulMSoulMemory.Gamesemory.DarkSouls1.Parameters;
+namespace SoulMemory.Games.DarkSouls1.Parameters;
 
 [ExcludeFromCodeCoverage]
 public class ShopLineupParam(Pointer basePointer, ByteArrayMemory memory, long offset, ParamTableEntry paramTableEntry) : BaseParam(basePointer, memory, offset, paramTableEntry)
