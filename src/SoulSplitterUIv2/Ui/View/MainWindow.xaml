@@ -1,0 +1,139 @@
+﻿<Window x:Class="SoulSplitterUIv2.Ui.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        xmlns:eldenRing="clr-namespace:SoulMemory.EldenRing;assembly=SoulMemory"
+        xmlns:enums="clr-namespace:SoulSplitterUIv2.Enums"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:resources="clr-namespace:SoulSplitterUIv2.Resources"
+        xmlns:splitControls="clr-namespace:SoulSplitterUIv2.Ui.View.SplitControls"
+        xmlns:view="clr-namespace:SoulSplitterUIv2.Ui.View"
+        xmlns:viewModels="clr-namespace:SoulSplitterUIv2.Ui.ViewModels"
+        xmlns:converters="clr-namespace:SoulSplitterUIv2.Ui.Converters"
+        Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Width="1200"
+        Height="800"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel, IsDesignTimeCreatable=False}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" SecondaryColor="Indigo" />
+                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Language.xaml" />
+                        <ResourceDictionary>
+                            <converters:SplitTypeVisibilityConverter x:Key="SplitTypeVisibilityConverter"/>
+                        </ResourceDictionary>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+
+    <StackPanel>
+        <Expander
+            materialDesign:ExpanderAssist.ExpanderButtonPosition="Start"
+            DockPanel.Dock="Top"
+            HorizontalAlignment="Stretch"
+            Header="{DynamicResource ExpanderHeaderAddSplit}"
+            IsExpanded="{Binding IsAddSplitPopupOpen}">
+            <Grid
+                Height="400"
+                IsSharedSizeScope="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition MinHeight="60"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Select game -->
+                <splitControls:EnumListControl
+                    Grid.Row="0"
+                    EnumType="enums:Game"
+                    SelectedValue="{Binding SelectedGame}"
+                    Hint="Game"/>
+
+                <!-- Select NG+ level -->
+                <ComboBox
+                    Grid.Row="1"
+                    Margin="5"
+                    materialDesign:HintAssist.HelperText="New game level"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                    SelectedValue="{Binding SelectedNewGamePlusLevel}"
+                    ItemsSource="{Binding NewGamePlusLevels}"/>
+
+                <!-- Select timing type -->
+                <splitControls:EnumListControl
+                    Grid.Row="2"
+                    IsEnabled="{Binding IsGameSelected}"
+                    ItemsSource="{Binding TimingTypes}"
+                    SelectedValue="{Binding SelectedTimingType}"
+                    Hint="Timing"/>
+
+                <!-- Select split type -->
+                <splitControls:EnumListControl
+                    Grid.Row="3"
+                    IsEnabled="{Binding IsGameSelected}"
+                    ItemsSource="{Binding SplitTypes}"
+                    SelectedValue="{Binding SelectedSplitType}"
+                    Hint="Type"/>
+
+                <!-- Event flags -->
+                <splitControls:EventFlagListControl
+                    Grid.Row="4"
+                    LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
+                    EventFlagType="eldenRing:Boss"
+                    SelectedEventFlag="{Binding SelectedBoss, Mode=TwoWay}"
+                    Hint="Boss"/>
+
+                <!-- Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter},ConverterParameter=Boss ConverterParameter={x:Static SplitType.Boss}}"
+                    
+                
+                -->
+
+                <!-- Optional description -->
+                <TextBox
+                    Grid.Row="5"
+                    Margin="5"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    materialDesign:HintAssist.Hint="Description"
+                    Text="{Binding SplitDescription}"/>
+
+                <!-- Add button -->
+                <Button
+                    Grid.Row="6"
+                    Margin="5, 15, 5, 5"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                    ToolTip="{DynamicResource ButtonToolTipAddSplit}"
+                    HorizontalAlignment="Left"
+                    Command="{Binding AddSplitCommand}">
+                    <materialDesign:PackIcon
+                        Kind="Plus"
+                        Height="30"
+                        Width="30" />
+                </Button>
+            </Grid>
+        </Expander>
+
+        <splitControls:SplitsList
+            Splits="{Binding Splits}"/>
+
+    </StackPanel>
+</Window>

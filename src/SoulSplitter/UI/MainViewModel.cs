@@ -42,6 +42,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     public MainViewModel()
     {
         CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage, (_) => true);
+        CommandOpenHomepage = new RelayCommand(ShowHomepage, (_) => true);
         CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger, (_) => true);
         CommandClearErrors = new RelayCommand(ClearErrors, (_) => Errors.Count > 0);
         CommandAddError = new RelayCommand(AddErrorCommand, (_) => true);
@@ -273,11 +274,20 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     [XmlIgnore] 
     public RelayCommand CommandTroubleShooting { get; }
 
-    private const string TroubleshootingUrl = "https://github.com/FrankvdStam/SoulSplitter/wiki/troubleshooting";
+    private const string TroubleshootingUrl = "https://soulsspeedruns.com/livesplit/";
     private void OpenTroubleshootingWebpage()
     {
         Process.Start(TroubleshootingUrl);
     }
+
+    [XmlIgnore]
+    public RelayCommand CommandOpenHomepage { get; }
+    private const string HomepageUrl = "https://github.com/FrankvdStam/SoulSplitter";
+    private void ShowHomepage()
+    {
+        Process.Start(HomepageUrl);
+    }
+
 
     [XmlIgnore]
     public RelayCommand CommandRunEventFlagLogger { get; }
