@@ -36,6 +36,7 @@ public class EldenRing : IGame
     private readonly Pointer _menuManImp = new();
     private readonly Pointer _virtualMemoryFlag = new();
     private readonly Pointer _noLogo = new();
+    private readonly Pointer _ngLevel = new();
 
     private long _screenStateOffset;
     private long _positionOffset;
@@ -74,6 +75,10 @@ public class EldenRing : IGame
         treeBuilder
             .ScanAbsolute("NoLogo", "80 bf b8 00 00 00 00 ? ? 48 8b 05 ? ? ? ? 48 85 c0 75 2e 48 8d 0d", 7)
                 .AddPointer(_noLogo);
+
+        treeBuilder
+            .ScanRelative("GameDataMan", "48 8b 05 ? ? ? ? 48 8d 4d c0 41 b8 10 00 00 00 48 8b 10 48 83 c2 1c", 3, 7)
+                .AddPointer(_ngLevel, 0x0, 0x120);
 
         return treeBuilder;
     }
@@ -201,6 +206,7 @@ public class EldenRing : IGame
         _menuManImp.Clear();
         _virtualMemoryFlag.Clear();
         _noLogo.Clear();
+        _ngLevel.Clear();
     }
 
     #endregion
@@ -288,6 +294,11 @@ public class EldenRing : IGame
     }
 
     #endregion
+
+    public int ReadNgLevel()
+    {
+        return _ngLevel.ReadInt32();
+    }
 
     public void EnableHud()
     {
