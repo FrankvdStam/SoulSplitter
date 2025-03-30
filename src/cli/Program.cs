@@ -22,15 +22,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using SoulSplitter.UI;
 using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Games.EldenRing;
 using SoulMemory;
 using SoulMemory.Enums;
-using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
-using SoulMemory.Games.Sekiro;
-using SoulSplitterUIv2.Ui.ViewModels;
+using SoulSplitter.UI;
+using SoulSplitter.UI.Generic;
 using SplitType = SoulSplitter.UI.Generic.SplitType;
 using TimingType = SoulSplitter.UI.Generic.TimingType;
 
@@ -175,6 +173,9 @@ namespace cli
 
         public static void TestUi(bool withTestData = true)
         {
+            var app = new SoulSplitter.UiV3.App();
+            app.InitializeComponent();
+
             var mainWindow = new MainWindow();
             mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
 

@@ -16,7 +16,6 @@ namespace SoulSplitterUIv2.Ui.View
             DataContext = mainViewModel;
             InitializeComponent();
             Closing += Window_Closing;
-
         }
 
         public bool WindowShouldHide = true;

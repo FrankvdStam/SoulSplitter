@@ -36,6 +36,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\SoulMemory\SoulMemory.csproj" />
+        <ProjectReference Include="..\SoulSplitterUIv2\SoulSplitterUIv2.csproj" />
     </ItemGroup>
 
     <ItemGroup>
