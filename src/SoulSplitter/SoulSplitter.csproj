@@ -30,8 +30,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
-        <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+        <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
+        <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -78,23 +78,23 @@
     </ItemGroup>
 
     <Target Name="Copy release artifacts" AfterTargets="Build" Condition="$(SolutionName) == 'SoulSplitter' And $(Configuration) == 'Release'">
-        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\SoulSplitter.dll" />
-        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\SoulMemory.dll" />
-        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\MaterialDesignColors.dll" />
-        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll"/>
-        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\soulmemory_rs_x64.dll" />
-        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\soulmemory_rs_x86.dll" />
-        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\soulmods_x64.dll" />
-        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\soulmods_x86.dll" />
-        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\launcher_x64.exe" />
-        <Copy DestinationFolder="..\..\Components"  SourceFiles="$(OutputPath)\launcher_x86.exe" />
+        <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\SoulSplitter.dll" />
+        <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\SoulMemory.dll" />
+        <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\MaterialDesignColors.dll" />
+        <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll" />
+        <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\soulmemory_rs_x64.dll" />
+        <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\soulmemory_rs_x86.dll" />
+        <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\soulmods_x64.dll" />
+        <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\soulmods_x86.dll" />
+        <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\launcher_x64.exe" />
+        <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\launcher_x86.exe" />
     </Target>
 
     <Target Name="Copy debug artifacts to livesplit's debug folder" AfterTargets="Build" Condition="$(SolutionName) == 'LiveSplit'">
         <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulSplitter.dll" />
         <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulMemory.dll" />
         <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignColors.dll" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll"  />
+        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll" />
         <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmemory_rs_x64.dll" />
         <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmemory_rs_x86.dll" />
         <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmods_x64.dll" />

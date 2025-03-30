@@ -39,20 +39,19 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
 
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
-                <!-- Material design -->
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.indigo.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
-
                 <ResourceDictionary>
-                    <converters:GameToSelectedIndexConverter x:Key="GameToSelectedIndexConverter"/>
+                    <ResourceDictionary.MergedDictionaries>
+                        <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" SecondaryColor="Indigo" />
+                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                        <ResourceDictionary>
+                            <converters:GameToSelectedIndexConverter x:Key="GameToSelectedIndexConverter"/>
+                        </ResourceDictionary>
+                    </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -81,22 +80,23 @@
             <ToolBar
                 ToolBarTray.IsLocked="True"
                 ClipToBounds="False"
+
                 Foreground="White"
-                Background="{DynamicResource PrimaryHueMidBrush}">
+                Background="{DynamicResource MaterialDesign.Brush.Primary}">
                 <Menu
                     Foreground="White">
                     <MenuItem
                         Header="File"
-                        Background="{DynamicResource PrimaryHueMidBrush}">
+                        Background="{DynamicResource MaterialDesign.Brush.Primary}">
                         <MenuItem 
-                            Background="{DynamicResource PrimaryHueMidBrush}"
+                            Background="{DynamicResource MaterialDesign.Brush.Primary}"
                             Header="Import settings" 
                             Command="{Binding CommandImportSettingsFromFile}"
                             Icon="{materialDesign:PackIcon Kind=FolderOpen}" 
                             ToolTip="Import soulsplitter settings from file"/>
 
                         <MenuItem 
-                            Background="{DynamicResource PrimaryHueMidBrush}"
+                            Background="{DynamicResource MaterialDesign.Brush.Primary}"
                             Header="Export settings"
                             Command="{Binding CommandExportSettingsFromFile}"
                             Icon="{materialDesign:PackIcon Kind=ContentSave}" 
@@ -129,13 +129,22 @@
                         Command="{Binding CommandShowErrors}"/>
                 </materialDesign:Badged>
 
+                <Button
+                    Foreground="White"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    FontWeight="Normal"
+                    FontSize="15"
+                    Content="Homepage" 
+                    Command="{Binding CommandOpenHomepage}"
+                    ToolTip="Open homepage"/>
+
                 <Menu
                     Padding="3,0,0,0"
                     Foreground="White">
                     <MenuItem 
                         
                         Header="Tools"
-                        Background="{DynamicResource PrimaryHueMidBrush}">
+                        Background="{DynamicResource MaterialDesign.Brush.Primary}">
                         <MenuItem 
                             Header="Event flag tracker" 
                             Command="{Binding CommandOpenFlagTrackerWindow}"
