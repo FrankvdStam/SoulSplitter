@@ -31,7 +31,7 @@ namespace SoulSplitterUIv2.Tests.Resources
             };
             
             languageManager.LoadLanguage(Language.English);
-            var boss = languageManager.Get(SoulMemory.EldenRing.Boss.AbductorVirginsVolcanoManor);
+            var boss = languageManager.Get(SoulMemory.Games.EldenRing.Boss.AbductorVirginsVolcanoManor);
             
             Assert.IsInstanceOfType<EventFlag>(boss);
             var eventFlag = (EventFlag)boss;

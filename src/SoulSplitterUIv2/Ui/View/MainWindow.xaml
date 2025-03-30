@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        xmlns:eldenRing="clr-namespace:SoulMemory.EldenRing;assembly=SoulMemory"
+        xmlns:eldenRing="clr-namespace:SoulMemory.Games.EldenRing;assembly=SoulMemory"
         xmlns:enums="clr-namespace:SoulSplitterUIv2.Enums"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:resources="clr-namespace:SoulSplitterUIv2.Resources"

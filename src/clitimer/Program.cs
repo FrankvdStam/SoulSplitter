@@ -16,11 +16,11 @@
 
 using System;
 using System.Threading;
-using SoulMemory.DarkSouls1;
-using SoulMemory.DarkSouls2;
-using SoulMemory.DarkSouls3;
-using SoulMemory.Sekiro;
-using SoulMemory.EldenRing;
+using SoulMemory.Games.DarkSouls1;
+using SoulMemory.Games.DarkSouls2;
+using SoulMemory.Games.DarkSouls3;
+using SoulMemory.Games.Sekiro;
+using SoulMemory.Games.EldenRing;
 
 #pragma warning disable CS0162
 

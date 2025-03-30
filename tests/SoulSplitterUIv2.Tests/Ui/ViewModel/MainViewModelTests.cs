@@ -34,7 +34,7 @@ namespace SoulSplitterUIv2.Tests.Ui.ViewModel
             sut.SelectedGame = Game.DarkSouls1;
             sut.SelectedTimingType = TimingType.OnWarp;
             sut.SelectedSplitType = SplitType.Boss;
-            sut.SelectedEventFlag = SoulMemory.DarkSouls1.Boss.CapraDemon;
+            sut.SelectedEventFlag = SoulMemory.Games.DarkSouls1.Boss.CapraDemon;
 
             sut.SelectedGame = Game.DarkSouls2;
             Assert.IsNull(sut.SelectedTimingType);

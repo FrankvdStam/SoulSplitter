@@ -100,7 +100,7 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
             case SplitType.Attribute:
                 if (Game == Game.DarkSouls1)
                 {
-                    flatSplit.Split = new Splits.DarkSouls1.Attribute(){ AttributeType = (SoulMemory.DarkSouls1.Attribute)SelectedAttribute!, Level = AttributeLevel};
+                    flatSplit.Split = new Splits.DarkSouls1.Attribute(){ AttributeType = (SoulMemory.Games.DarkSouls1.Attribute)SelectedAttribute!, Level = AttributeLevel};
                     break;
                 }
                 break;
@@ -108,7 +108,7 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
             case SplitType.Bonfire:
                 if (Game == Game.DarkSouls1)
                 {
-                    flatSplit.Split = new Splits.DarkSouls1.BonfireState(){ Bonfire = (SoulMemory.DarkSouls1.Bonfire)SelectedBonfire!, State = (SoulMemory.DarkSouls1.BonfireState)SelectedBonfireState! };
+                    flatSplit.Split = new Splits.DarkSouls1.BonfireState(){ Bonfire = (SoulMemory.Games.DarkSouls1.Bonfire)SelectedBonfire!, State = (SoulMemory.Games.DarkSouls1.BonfireState)SelectedBonfireState! };
                     break;
                 }
                 break;

@@ -74,7 +74,7 @@ internal static class Migrator
                         foreach (XmlNode boss in typeNode.GetChildNodeByName("Children"))
                         {
                             var split = boss.GetChildNodeByName("Split");
-                            if (Enum.TryParse(split.InnerText, out SoulMemory.DarkSouls3.Boss b))
+                            if (Enum.TryParse(split.InnerText, out SoulMemory.Games.DarkSouls3.Boss b))
                             {
                                 newDarkSouls3ViewModel.NewSplitTimingType = timingType;
                                 newDarkSouls3ViewModel.NewSplitType = SplitType.Boss;
@@ -88,7 +88,7 @@ internal static class Migrator
                         foreach (XmlNode bonfire in typeNode.GetChildNodeByName("Children"))
                         {
                             var split = bonfire.GetChildNodeByName("Split");
-                            if (Enum.TryParse(split.InnerText, out SoulMemory.DarkSouls3.Bonfire b))
+                            if (Enum.TryParse(split.InnerText, out SoulMemory.Games.DarkSouls3.Bonfire b))
                             {
                                 newDarkSouls3ViewModel.NewSplitTimingType = timingType;
                                 newDarkSouls3ViewModel.NewSplitType = SplitType.Bonfire;
@@ -102,7 +102,7 @@ internal static class Migrator
                         foreach (XmlNode itemPickup in typeNode.GetChildNodeByName("Children"))
                         {
                             var split = itemPickup.GetChildNodeByName("Split");
-                            if (Enum.TryParse(split.InnerText, out SoulMemory.DarkSouls3.ItemPickup i))
+                            if (Enum.TryParse(split.InnerText, out SoulMemory.Games.DarkSouls3.ItemPickup i))
                             {
                                 newDarkSouls3ViewModel.NewSplitTimingType = timingType;
                                 newDarkSouls3ViewModel.NewSplitType = SplitType.ItemPickup;
@@ -120,7 +120,7 @@ internal static class Migrator
                             var attributeLevel = split.GetChildNodeByName("Level");
 
                             if (
-                                Enum.TryParse(attributeType.InnerText, out SoulMemory.DarkSouls3.Attribute attributeTypeParsed) &&
+                                Enum.TryParse(attributeType.InnerText, out SoulMemory.Games.DarkSouls3.Attribute attributeTypeParsed) &&
                                 int.TryParse(attributeLevel.InnerText, out var attributeLevelParsed)
                                 )
                             {
@@ -214,7 +214,7 @@ internal static class Migrator
                         foreach (XmlNode boss in typeNode.GetChildNodeByName("Children"))
                         {
                             var split = boss.GetChildNodeByName("Split");
-                            if (Enum.TryParse(split.InnerText, out SoulMemory.Sekiro.Boss b))
+                            if (Enum.TryParse(split.InnerText, out SoulMemory.Games.Sekiro.Boss b))
                             {
                                 newSekiroViewModel.NewSplitTimingType = timingType;
                                 newSekiroViewModel.NewSplitType = SplitType.Boss;
@@ -228,7 +228,7 @@ internal static class Migrator
                         foreach (XmlNode idol in typeNode.GetChildNodeByName("Children"))
                         {
                             var split = idol.GetChildNodeByName("Split");
-                            if (Enum.TryParse(split.InnerText, out SoulMemory.Sekiro.Idol i))
+                            if (Enum.TryParse(split.InnerText, out SoulMemory.Games.Sekiro.Idol i))
                             {
                                 newSekiroViewModel.NewSplitTimingType = timingType;
                                 newSekiroViewModel.NewSplitType = SplitType.Bonfire;

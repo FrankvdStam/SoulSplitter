@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulMemory.DarkSouls1;
+using SoulMemory.Games.DarkSouls1;
 using SoulSplitterUIv2.Resources;
 using SoulSplitterUIv2.Ui.ViewModels;
 

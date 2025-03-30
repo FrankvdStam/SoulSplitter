@@ -29,8 +29,8 @@ namespace SoulSplitter.Tests.UI.Converters
         public void Convert_Enum()
         {
             var converter = new SplitObjectToDescriptionConverter();
-            Assert.AreEqual("The Bed of Chaos", converter.Convert(SoulMemory.DarkSouls1.Boss.BedOfChaos, null!, null, null!));
-            Assert.AreEqual("Beside the Rampart Gaol", converter.Convert(SoulMemory.EldenRing.Grace.BesideTheRampartGaol, null!, null, null!));
+            Assert.AreEqual("The Bed of Chaos", converter.Convert(SoulMemory.Games.DarkSouls1.Boss.BedOfChaos, null!, null, null!));
+            Assert.AreEqual("Beside the Rampart Gaol", converter.Convert(SoulMemory.Games.EldenRing.Grace.BesideTheRampartGaol, null!, null, null!));
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace SoulSplitter.Tests.UI.Converters
         {
             var converter = new SplitObjectToDescriptionConverter();
             Assert.AreEqual("12345 Test flag", converter.Convert(new FlagDescription(){ Description = "Test flag", Flag = 12345}, null!, null, null!));
-            Assert.AreEqual("Dexterity 10", converter.Convert(new SoulSplitter.Splits.DarkSouls1.Attribute{AttributeType = SoulMemory.DarkSouls1.Attribute.Dexterity, Level = 10}, null!, null, null!));
+            Assert.AreEqual("Dexterity 10", converter.Convert(new SoulSplitter.Splits.DarkSouls1.Attribute{AttributeType = SoulMemory.Games.DarkSouls1.Attribute.Dexterity, Level = 10}, null!, null, null!));
         }
 
         [TestMethod]

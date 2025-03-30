@@ -17,7 +17,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using SoulMemory.Sekiro;
+using SoulMemory.Games.Sekiro;
 using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.UI.Sekiro;

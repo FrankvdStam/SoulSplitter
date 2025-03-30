@@ -5,7 +5,7 @@ using SoulSplitterUIv2.Enums;
 
 namespace SoulSplitterUIv2.Ui.ViewModels
 {
-    public class SplitViewModel
+    public class SplitViewModel : INotifyPropertyChanged
     {
         public SplitViewModel(){}
 

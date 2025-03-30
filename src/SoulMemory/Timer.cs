@@ -43,6 +43,11 @@ namespace SoulMemory
         public event EventHandler? OnRequestSplit;
         public event UpdateTimeEventHandler? OnUpdateTime;
 
+        public void RequestSplit()
+        {
+            OnRequestSplit?.Invoke(this, null);
+        }
+
         /// <summary>
         /// Manually start the timer. Overwrites IGT to 0 if required by settings
         /// </summary>

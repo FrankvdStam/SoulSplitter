@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulMemory.EldenRing;
+using SoulMemory.Games.EldenRing;
 using SoulSplitterUIv2.DependencyInjection;
 using SoulSplitterUIv2.Enums;
 using SoulSplitterUIv2.Resources;

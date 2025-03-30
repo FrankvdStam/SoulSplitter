@@ -16,7 +16,7 @@
 
 using System.ComponentModel;
 using System.Xml.Serialization;
-using SoulMemory.DarkSouls1;
+using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Memory;
 using SoulSplitter.UI.Generic;
 
@@ -32,12 +32,12 @@ public class BonfireState : ICustomNotifyPropertyChanged
     }
     private Bonfire? _bonfire;
 
-    public SoulMemory.DarkSouls1.BonfireState State
+    public SoulMemory.Games.DarkSouls1.BonfireState State
     {
         get => _state;
         set => this.SetField(ref _state, value);
     }
-    private SoulMemory.DarkSouls1.BonfireState _state;
+    private SoulMemory.Games.DarkSouls1.BonfireState _state;
 
     public override string ToString()
     {

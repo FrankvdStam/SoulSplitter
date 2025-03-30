@@ -20,7 +20,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 using SoulMemory;
-using SoulMemory.DarkSouls2;
+using SoulMemory.Games.DarkSouls2;
 using SoulSplitter.Splits.DarkSouls2;
 using SoulSplitter.UI.Generic;
 using Attribute = SoulSplitter.Splits.DarkSouls2.Attribute;

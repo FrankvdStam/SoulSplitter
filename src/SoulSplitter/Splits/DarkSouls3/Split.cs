@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using SoulMemory.DarkSouls3;
+using SoulMemory.Games.DarkSouls3;
 using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splits.DarkSouls3;

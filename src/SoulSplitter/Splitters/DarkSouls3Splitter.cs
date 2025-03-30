@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LiveSplit.Model;
 using SoulMemory;
-using SoulMemory.DarkSouls3;
+using SoulMemory.Games.DarkSouls3;
 using SoulSplitter.Splits.DarkSouls3;
 using SoulSplitter.UI;
 using SoulSplitter.UI.DarkSouls3;

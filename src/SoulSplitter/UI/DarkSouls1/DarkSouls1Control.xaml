@@ -25,7 +25,7 @@
              xmlns:darkSouls1="clr-namespace:SoulSplitter.UI.DarkSouls1"
              xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
              xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
-             xmlns:darkSouls11="clr-namespace:SoulMemory.DarkSouls1;assembly=SoulMemory"
+             xmlns:darkSouls11="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory"
 
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance darkSouls1:DarkSouls1ViewModel, IsDesignTimeCreatable=True}">

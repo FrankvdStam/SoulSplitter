@@ -36,11 +36,6 @@
     <NoWarn>1701;1702;NU5100</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="NewFolder\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
-    <None Remove="NewFolder\**" />
-  </ItemGroup>
-  <ItemGroup>
       <Content Include="soulmods\x64\soulmods_x64.dll">
           <PackagePath>contentFiles\any\any</PackagePath>
           <BuildAction>None</BuildAction>

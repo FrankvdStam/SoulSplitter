@@ -4,11 +4,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using SoulMemory.Sekiro;
 using SoulSplitterUIv2.DependencyInjection;
 using SoulSplitterUIv2.Enums;
 using SoulSplitterUIv2.Resources;
-using Boss = SoulMemory.EldenRing.Boss;
+using Boss = SoulMemory.Games.EldenRing.Boss;
 
 namespace SoulSplitterUIv2.Ui.ViewModels
 {

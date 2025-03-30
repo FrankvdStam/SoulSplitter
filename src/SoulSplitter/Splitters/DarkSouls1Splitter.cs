@@ -20,7 +20,7 @@ using System.Diagnostics;
 using System.Linq;
 using LiveSplit.Model;
 using SoulMemory;
-using SoulMemory.DarkSouls1;
+using SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
