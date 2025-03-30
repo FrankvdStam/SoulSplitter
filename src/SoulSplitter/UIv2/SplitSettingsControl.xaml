@@ -10,6 +10,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:darkSouls1="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory"
              xmlns:validation="clr-namespace:SoulSplitter.UI.Validation"
+             xmlns:enums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -235,7 +236,7 @@
                     <MultiBinding.ConverterParameter>
                         <x:Array Type="{x:Type system:Enum}">
                             <generic:SplitType>Bonfire</generic:SplitType>
-                            <generic:Game>DarkSouls1</generic:Game>
+                            <enums:Game>DarkSouls1</enums:Game>
                         </x:Array>
                     </MultiBinding.ConverterParameter>
                     <Binding Path="SelectedSplitType"   RelativeSource="{RelativeSource AncestorType=UserControl}"/>
@@ -262,7 +263,7 @@
                     <MultiBinding.ConverterParameter>
                         <x:Array Type="{x:Type system:Enum}">
                             <generic:SplitType>Bonfire</generic:SplitType>
-                            <generic:Game>DarkSouls1</generic:Game>
+                            <enums:Game>DarkSouls1</enums:Game>
                         </x:Array>
                     </MultiBinding.ConverterParameter>
                     <Binding Path="SelectedSplitType"   RelativeSource="{RelativeSource AncestorType=UserControl}"/>

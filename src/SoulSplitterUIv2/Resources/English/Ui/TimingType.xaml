@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:clr="clr-namespace:System;assembly=mscorlib"
-                    xmlns:enums="clr-namespace:SoulSplitterUIv2.Enums;assembly=SoulSplitterUIv2">
+                    xmlns:enums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory">
     <clr:String x:Key="{x:Static enums:TimingType.Immediate}">Immediate</clr:String>
     <clr:String x:Key="{x:Static enums:TimingType.OnLoading}">On loading</clr:String>
     <clr:String x:Key="{x:Static enums:TimingType.OnBlackscreen}">On blackscreen</clr:String>

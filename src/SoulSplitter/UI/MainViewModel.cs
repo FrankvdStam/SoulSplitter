@@ -25,6 +25,7 @@ using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
 using SoulMemory;
+using SoulMemory.Enums;
 using SoulSplitter.soulmemory_rs;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;

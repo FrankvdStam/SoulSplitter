@@ -31,6 +31,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using SoulMemory.Enums;
 using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Migrations;

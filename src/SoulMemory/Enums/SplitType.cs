@@ -16,23 +16,26 @@
 
 using System;
 
-namespace SoulSplitterUIv2.Enums
+namespace SoulMemory.Enums;
+
+public enum SplitType
 {
-    public enum TimingType
-    {
-        Immediate,
-        OnLoading,
-        OnBlackscreen,
-        OnWarp,
-    }
-
-    public class TimingTypesAttribute : Attribute
-    {
-        public TimingTypesAttribute(params TimingType[] timingTypes)
-        {
-            TimingTypes = timingTypes;
-        }
-
-        public TimingType[] TimingTypes;
-    }
+    Boss,
+    Flag,
+    KnownFlag,
+    Item,
+    ItemPickup,
+    Position,
+    Bonfire,
+    Attribute,
 }
+
+public class SplitTypesAttribute : Attribute
+{
+    public SplitTypesAttribute(params SplitType[] splitTypes)
+    {
+        SplitTypes = splitTypes;
+    }
+    public SplitType[] SplitTypes;
+}
+

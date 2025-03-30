@@ -14,28 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+namespace SoulMemory.Enums;
 
-namespace SoulSplitterUIv2.Enums
+public enum Language
 {
-    public enum SplitType
-    {
-        Boss,
-        Flag,
-        KnownFlag,
-        Item,
-        ItemPickup,
-        Position,
-        Bonfire,
-        Attribute,
-    }
-
-    public class SplitTypesAttribute : Attribute
-    {
-        public SplitTypesAttribute(params SplitType[] splitTypes)
-        {
-            SplitTypes = splitTypes;
-        }
-        public SplitType[] SplitTypes;
-    }
+    English,
+    Dutch,
 }

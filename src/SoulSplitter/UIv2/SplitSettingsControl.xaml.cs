@@ -22,7 +22,10 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using SoulMemory;
+using SoulMemory.Enums;
 using SoulSplitter.Splits;
+using SplitType = SoulSplitter.UI.Generic.SplitType;
+using TimingType = SoulSplitter.UI.Generic.TimingType;
 
 namespace SoulSplitter.UIv2;
 

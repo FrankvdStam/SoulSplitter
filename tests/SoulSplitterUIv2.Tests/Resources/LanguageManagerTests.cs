@@ -3,7 +3,7 @@ using System;
 using SoulSplitterUIv2.Resources;
 using System.IO.Packaging;
 using System.Windows;
-using SoulSplitterUIv2.Enums;
+using SoulMemory.Enums;
 
 namespace SoulSplitterUIv2.Tests.Resources
 {

@@ -26,10 +26,13 @@ using SoulSplitter.UI;
 using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Games.EldenRing;
 using SoulMemory;
+using SoulMemory.Enums;
 using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Games.Sekiro;
 using SoulSplitterUIv2.Ui.ViewModels;
+using SplitType = SoulSplitter.UI.Generic.SplitType;
+using TimingType = SoulSplitter.UI.Generic.TimingType;
 
 #pragma warning disable CS0162
 
@@ -251,9 +254,9 @@ namespace cli
             app.InitializeComponent();
 
             var mainViewModel = app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
-            mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.Sekiro, 0, SoulSplitterUIv2.Enums.TimingType.Immediate, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.EldenRing, 99, SoulSplitterUIv2.Enums.TimingType.OnLoading, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.DarkSouls3, 12, SoulSplitterUIv2.Enums.TimingType.OnWarp, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));
+            mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 0, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
+            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.EldenRing, 99, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
+            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.DarkSouls3, 12, SoulMemory.Enums.TimingType.OnWarp, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));
 
             app.ShowMainWindow();
         }

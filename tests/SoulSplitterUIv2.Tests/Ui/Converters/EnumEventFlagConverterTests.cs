@@ -2,8 +2,8 @@
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SoulMemory.Enums;
 using SoulMemory.Games.DarkSouls1;
-using SoulSplitterUIv2.Enums;
 using SoulSplitterUIv2.Resources;
 using SoulSplitterUIv2.Ui.Converters;
 
