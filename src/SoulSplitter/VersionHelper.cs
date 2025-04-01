@@ -18,7 +18,7 @@ using System;
 
 namespace SoulSplitter;
 
-internal static class VersionHelper
+public static class VersionHelper
 {
     public static Version Version
     { 
