@@ -63,9 +63,14 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         ArmoredCore6ViewModel = mainViewModel.ArmoredCore6ViewModel;
         FlagTrackerViewModel = mainViewModel.FlagTrackerViewModel;
     }
-
-
-    public string Version { get; } = VersionHelper.Version.ToString();
+    public string Version
+    {
+        get { return VersionHelper.Version.ToString(); }
+        set
+        {
+            //don't do anything - this is just to make the serializer happy
+        }
+    }
 
     public Game SelectedGame
     {
