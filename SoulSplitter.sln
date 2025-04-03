@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", 
 		Components\MaterialDesignColors.dll = Components\MaterialDesignColors.dll
 		Components\MaterialDesignThemes.Wpf.dll = Components\MaterialDesignThemes.Wpf.dll
 		Components\MaterialDesignThemes.Wpf.xml = Components\MaterialDesignThemes.Wpf.xml
+		Components\Microsoft.Xaml.Behaviors.dll = Components\Microsoft.Xaml.Behaviors.dll
 		Components\SoulMemory.dll = Components\SoulMemory.dll
 		Components\soulmemory_rs_x64.dll = Components\soulmemory_rs_x64.dll
 		Components\soulmemory_rs_x86.dll = Components\soulmemory_rs_x86.dll
