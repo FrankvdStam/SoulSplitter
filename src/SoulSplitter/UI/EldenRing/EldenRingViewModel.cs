@@ -88,6 +88,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
             VisibleBossSplit = false;
             VisibleGraceSplit = false;
             VisibleItemPickupSplit = false;
+            VisibleKnownFlagSplit = false;
             VisibleFlagSplit = false;
             VisibleItemSplit = false;
             VisiblePositionSplit = false;

@@ -363,6 +363,7 @@ public class SoulComponent : IComponent
         "SoulMemory.dll",
         "MaterialDesignColors.dll",
         "MaterialDesignThemes.Wpf.dll",
+        "Microsoft.Xaml.Behaviors.dll",
         "soulmods_x64.dll",
         "soulmods_x86.dll",
         "soulmemory_rs_x64.dll",

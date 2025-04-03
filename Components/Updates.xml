@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.8.3">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+            <file path="Components/MaterialDesignThemes.Wpf.dll"    status="changed"/>
+            <file path="Components/MaterialDesignColors.dll"        status="changed"/>
+            <file path="Components/Microsoft.Xaml.Behaviors.dll"    status="changed"/>
+            <file path="Components/soulmods_x86.dll"                status="changed"/>
+            <file path="Components/soulmods_x64.dll"                status="changed"/>
+            <file path="Components/soulmemory_rs_x86.dll"           status="changed"/>
+            <file path="Components/soulmemory_rs_x64.dll"           status="changed"/>
+            <file path="Components/launcher_x86.exe"                status="changed"/>
+            <file path="Components/launcher_x64.exe"                status="changed"/>
+        </files>
+        <changelog>
+            <change>All: Bump UI libraries to latest version</change>
+        </changelog>
+    </update>
+    <update version="1.8.2">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+            <file path="Components/soulmods_x86.dll"                status="changed"/>
+            <file path="Components/soulmods_x64.dll"                status="changed"/>
+            <file path="Components/soulmemory_rs_x86.dll"           status="changed"/>
+            <file path="Components/soulmemory_rs_x64.dll"           status="changed"/>
+            <file path="Components/launcher_x86.exe"                status="changed"/>
+            <file path="Components/launcher_x64.exe"                status="changed"/>
+        </files>
+        <changelog>
+            <change>Sekiro: added EMEVD log</change>
+            <change>Elden Ring: KnowFlag combobox fix (Thanks Soarqin!)</change>
+            <change>All: bugfix version not being saved to splits file</change>
+        </changelog>
+    </update>
     <update version="1.8.1">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed"/>

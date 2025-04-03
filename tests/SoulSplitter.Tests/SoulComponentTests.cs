@@ -53,7 +53,7 @@ namespace SoulSplitter.Tests
             
             var xml = viewModel.Serialize();
             var deserializedViewModel = MainViewModel.Deserialize(xml);
-
+            
             Assert.AreEqual(viewModel.EldenRingViewModel.StartAutomatically, deserializedViewModel.EldenRingViewModel.StartAutomatically);
             
             var vectorSize = deserializedViewModel.SekiroViewModel.SplitsViewModel.Splits.First().Children.First().Children.First().Split;
@@ -63,7 +63,26 @@ namespace SoulSplitter.Tests
             Assert.AreEqual(2.0f, ((VectorSize)vectorSize).Position.Y);
             Assert.AreEqual(3.0f, ((VectorSize)vectorSize).Position.Z);
             Assert.AreEqual(4.0f, ((VectorSize)vectorSize).Size);
-        }                                                 
+            Assert.IsTrue(xml.ToLowerInvariant().Contains("version"));
+        }
+
+        [TestMethodSta]
+        public void VersionFromXml_Should_Not_Deserialize()
+        {
+            var doc = new XmlDocument();
+            doc.LoadXml(XmlData.SekiroMigration1_1_0); //load a doc with version 1.1.0
+
+            var versionFromXml = doc.GetChildNodeByName("MainViewModel").GetChildNodeByName("Version").InnerText;
+
+            var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
+            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
+            component.SetSettings(doc);
+
+            var componentViewModel = component.MainWindow.MainViewModel;
+
+            Assert.AreEqual("1.1.0", versionFromXml);
+            Assert.AreEqual(VersionHelper.Version.ToString(), componentViewModel.Version);
+        }
 
         [TestMethodSta]
         public void SekiroMigration1_1_0Test()
