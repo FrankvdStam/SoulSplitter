@@ -61,6 +61,7 @@ jobs:
             copy src\SoulSplitter\bin\x64\Release\net481\SoulMemory.dll                  artifact
             copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignColors.dll        artifact
             copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignThemes.Wpf.dll    artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\Microsoft.Xaml.Behaviors.dll    artifact
             copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x86.dll                artifact
             copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x64.dll                artifact
             copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x86.dll           artifact
