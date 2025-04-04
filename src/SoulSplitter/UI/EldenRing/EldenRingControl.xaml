@@ -237,7 +237,7 @@
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Height="30" Background="{StaticResource SecondaryHueMidBrush}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
+                            <TextBlock Height="30" Background="{DynamicResource MaterialDesign.Brush.Secondary}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
@@ -264,7 +264,7 @@
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Height="30" Background="{StaticResource SecondaryHueMidBrush}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
+                            <TextBlock Height="30" Background="{DynamicResource MaterialDesign.Brush.Secondary}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
@@ -304,7 +304,7 @@
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Height="30" Width="220" Background="{StaticResource SecondaryHueMidBrush}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
+                            <TextBlock Height="30" Width="220" Background="{DynamicResource MaterialDesign.Brush.Secondary}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
