@@ -76,6 +76,10 @@ public partial class MainViewModel : INotifyPropertyChanged
                 case SplitType.Position:
                     PositionViewModel = new PositionViewModel();
                     break;
+
+                case SplitType.Flag:
+                    Flag = 0;
+                    break;
             }
             
         }
@@ -87,6 +91,8 @@ public partial class MainViewModel : INotifyPropertyChanged
     private void ClearSplit()
     {
         SelectedEventFlag = null;
+        PositionViewModel = null;
+        Flag = null;
     }
 
     #endregion

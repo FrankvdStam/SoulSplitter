@@ -28,8 +28,8 @@
     xmlns:soulMemoryEnums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
     xmlns:ui="clr-namespace:SoulSplitterUIv2.Ui"
     xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:controls="clr-namespace:SoulSplitterUIv2.Ui.View.Controls"
-    xmlns:viewModels="clr-namespace:SoulSplitterUIv2.Ui.ViewModels"
-    Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
+    xmlns:viewModels="clr-namespace:SoulSplitterUIv2.Ui.ViewModels" xmlns:validation="clr-namespace:SoulSplitterUIv2.Ui.Validation"
+        Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextElement.FontWeight="Regular"
     TextElement.FontSize="13"
@@ -83,12 +83,17 @@
                                 </StackPanel>
                             </DataTemplate>
 
+                            <DataTemplate DataType="{x:Type system:Int32}" x:Key="FlagDataTemplate">
+                                <TextBlock Text="{Binding .}"/>
+                            </DataTemplate>
+
                             <ui:SplitTypeDataTemplateSelector
                                 x:Key="SplitTypeDataTemplateSelector"
                                 LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
                                 EventFlagDataTemplate="{StaticResource EventFlagDataTemplate}"
                                 EnumDataTemplate="{StaticResource EnumDataTemplate}"
                                 PositionViewModelDataTemplate="{StaticResource PositionViewModelDataTemplate}"
+                                FlagDataTemplate="{StaticResource FlagDataTemplate}"
                             />
                         </ResourceDictionary>
 
@@ -152,7 +157,7 @@
 
                 <!-- split types ============================================================================================================= -->
 
-                <!-- Event flags -->
+                <!-- Enum based event flags -->
                 <controls:EventFlagListControl
                     Grid.Row="4"
                     Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={StaticResource EventFlagSplitTypes}}"
@@ -160,6 +165,24 @@
                     EventFlagType="{Binding SelectedEventFlagType}"
                     SelectedEventFlag="{Binding SelectedEventFlag, Mode=TwoWay}"
                     Hint="Split"/>
+
+                <!-- Custom event flags -->
+                <TextBox
+                    Grid.Row="4"
+                    MinWidth="120"
+                    Height="35"
+                    Margin="5"
+                    Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Flag}}"
+                    HorizontalAlignment="Left"
+                    materialDesign:HintAssist.Hint="Flag">
+                    <TextBox.Text>
+                        <Binding Path="Flag">
+                            <Binding.ValidationRules>
+                                <validation:TextToNumberValidation NumericType="Uint" IsRequired="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
 
                 <!-- standard vec3 position -->
                 <controls:PositionControl

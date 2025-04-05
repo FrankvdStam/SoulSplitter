@@ -28,11 +28,12 @@ namespace SoulSplitterUIv2.Tests
             mainViewModel.Splits.Add(new SplitViewModel(Game.EldenRing, 99, TimingType.OnLoading, SplitType.Boss, Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
             mainViewModel.Splits.Add(new SplitViewModel(Game.DarkSouls3, 12, TimingType.OnWarp, SplitType.Boss, Boss.TreeSentinelTreeSentinelDuoAltusPlateau, "1234"));
             mainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 1, TimingType.Immediate, SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
+            mainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 3, TimingType.Immediate, SplitType.Flag, 15062400, "Flag description"));
             
             var xml = Serialization.SerializeXml(mainViewModel);
             var obj = Serialization.DeserializeXml(xml);
 
-            Assert.AreEqual(4, obj.Splits.Count);
+            Assert.AreEqual(5, obj.Splits.Count);
         }
     }
 }

@@ -92,6 +92,13 @@ public partial class MainViewModel
     }
     private Enum _selectedEventFlag;
 
+    public int? Flag
+    {
+        get => _flag;
+        set => SetField(ref _flag, value);
+    }
+    private int? _flag = null;
+
     public Type SelectedEventFlagType
     {
         get => _selectedEventFlagType;

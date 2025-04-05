@@ -27,6 +27,7 @@ namespace SoulSplitterUIv2.Ui
         public DataTemplate EventFlagDataTemplate { get; set; }
         public DataTemplate EnumDataTemplate { get; set; }
         public DataTemplate PositionViewModelDataTemplate { get; set; }
+        public DataTemplate FlagDataTemplate { get; set; }
 
         public ILanguageManager LanguageManager { get; set; }
 
@@ -52,6 +53,11 @@ namespace SoulSplitterUIv2.Ui
             if (item is PositionViewModel)
             {
                 return PositionViewModelDataTemplate;
+            }
+
+            if (item is int)
+            {
+                return FlagDataTemplate;
             }
 
             return EnumDataTemplate;

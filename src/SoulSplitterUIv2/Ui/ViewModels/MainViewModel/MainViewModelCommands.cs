@@ -38,14 +38,10 @@ namespace SoulSplitterUIv2.Ui.ViewModels.MainViewModel
                 SplitType.Boss or
                     SplitType.KnownFlag or
                     SplitType.ItemPickup or
-                    SplitType.Bonfire =>
-                    SelectedEventFlag,
-                SplitType.Position =>
-                    PositionViewModel,
+                    SplitType.Bonfire => SelectedEventFlag,
+                SplitType.Position => PositionViewModel,
+                SplitType.Flag => Flag,
 
-
-
-                SplitType.Flag => throw new System.NotImplementedException(),
                 SplitType.Item => throw new System.NotImplementedException(),
                 SplitType.EldenRingPosition => throw new System.NotImplementedException(),
                 SplitType.DarkSouls1Bonfire => throw new System.NotImplementedException(),
@@ -69,7 +65,7 @@ namespace SoulSplitterUIv2.Ui.ViewModels.MainViewModel
                 SelectedGame != null &&
                 SelectedTimingType != null &&
                 SelectedSplitType != null &&
-                (SelectedEventFlag != null || PositionViewModel != null);
+                (SelectedEventFlag != null || PositionViewModel != null || Flag != null);
         }
 
         #endregion
