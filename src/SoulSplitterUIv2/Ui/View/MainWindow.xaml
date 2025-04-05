@@ -26,7 +26,7 @@
     xmlns:view="clr-namespace:SoulSplitterUIv2.Ui.View"
     xmlns:viewModels="clr-namespace:SoulSplitterUIv2.Ui.ViewModels"
     xmlns:converters="clr-namespace:SoulSplitterUIv2.Ui.Converters"
-    xmlns:enums1="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
+    xmlns:SoulMemoryEnums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
     xmlns:ui="clr-namespace:SoulSplitterUIv2.Ui"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
@@ -53,6 +53,15 @@
                         <ResourceDictionary>
                             <converters:EnumLanguageConverter x:Key="EnumLanguageConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
                             <converters:EnumEventFlagConverter x:Key="EnumEventFlagConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
+                            <converters:SplitTypeVisibilityConverter x:Key="SplitTypeVisibilityConverter"/>
+
+                            <x:Array x:Key="EventFlagSplitTypes" Type="{x:Type SoulMemoryEnums:SplitType}">
+                                <x:Static Member="SoulMemoryEnums:SplitType.Boss" />
+                                <x:Static Member="SoulMemoryEnums:SplitType.Bonfire" />
+                                <x:Static Member="SoulMemoryEnums:SplitType.ItemPickup" />
+                                <x:Static Member="SoulMemoryEnums:SplitType.KnownFlag" />
+                            </x:Array>
+
 
                             <DataTemplate DataType="{x:Type system:Enum}" x:Key="EventFlagDataTemplate">
                                 <StackPanel>
@@ -103,7 +112,7 @@
                 <!-- Select game -->
                 <splitControls:EnumListControl
                     Grid.Row="0"
-                    EnumType="enums1:Game"
+                    EnumType="SoulMemoryEnums:Game"
                     SelectedValue="{Binding SelectedGame}"
                     Hint="Game"/>
 
@@ -132,18 +141,20 @@
                     SelectedValue="{Binding SelectedSplitType}"
                     Hint="Type"/>
 
+                <!-- split types ============================================================================================================= -->
+
                 <!-- Event flags -->
                 <splitControls:EventFlagListControl
                     Grid.Row="4"
+                    Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={StaticResource EventFlagSplitTypes}}"
                     LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
                     EventFlagType="{Binding SelectedEventFlagType}"
                     SelectedEventFlag="{Binding SelectedEventFlag, Mode=TwoWay}"
                     Hint="Split"/>
 
-                <!-- Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter},ConverterParameter=Boss ConverterParameter={x:Static SplitType.Boss}}"
-                    
-                
-                -->
+
+                <!-- ============================================================================================================= -->
+
 
                 <!-- Optional description -->
                 <TextBox

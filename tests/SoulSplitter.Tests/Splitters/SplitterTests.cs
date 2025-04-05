@@ -197,7 +197,7 @@ namespace SoulSplitter.Tests.Splitters
        
                     case SplitType.Position:
                         var pos = ((VectorSize)split.Split).Position;
-                        darkSouls1.Setup(d => d.GetPosition()).Returns(new Vector3f(pos.X, pos.Y, pos.Z));
+                        darkSouls1.Setup(d => d.GetPlayerPosition()).Returns(new Vector3f(pos.X, pos.Y, pos.Z));
                         break;
                 }
        
@@ -241,7 +241,7 @@ namespace SoulSplitter.Tests.Splitters
                 //If this asserts starts being funny, just get rid of it.
                 Assert.AreEqual(igt, timerModel.Object.CurrentState.CurrentTime.GameTime!.Value.TotalMilliseconds);
 
-                darkSouls1.Setup(d => d.GetPosition()).Returns(new Vector3f());//reset position
+                darkSouls1.Setup(d => d.GetPlayerPosition()).Returns(new Vector3f());//reset position
             }
         }
     }

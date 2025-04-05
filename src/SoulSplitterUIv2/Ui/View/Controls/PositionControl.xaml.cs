@@ -14,22 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Windows.Controls;
 
-namespace SoulMemory;
+namespace SoulSplitterUIv2.Ui.View.Controls;
 
-public interface IBlackscreenRemovable
+/// <summary>
+/// Interaction logic for PositionControl.xaml
+/// </summary>
+public partial class PositionControl : UserControl
 {
-    /// <summary>
-    /// Returns true if the blackscreen is active
-    /// </summary>
-    bool IsBlackscreenActive();
-
-
-    /// <summary>
-    /// Set the current millis 
-    /// </summary>
-    void WriteInGameTimeMilliseconds(int value);
+    public PositionControl()
+    {
+        InitializeComponent();
+    }
 }

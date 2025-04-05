@@ -14,37 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Diagnostics;
-using SoulMemory.Memory;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SoulMemory;
+namespace SoulMemory.Abstractions;
 
-public interface IGame
+public interface IBlackscreenRemovable
 {
     /// <summary>
-    /// Refresh attachment to a game
+    /// Returns true if the blackscreen is active
     /// </summary>
-    ResultErr<RefreshError> TryRefresh();
+    bool IsBlackscreenActive();
+
 
     /// <summary>
-    /// Returns a structure that defines the memory layout of certain game structs and values
-    /// Can be resolved and used to read memory, or to be scanned against a file to validate correctness of the structure
+    /// Set the current millis 
     /// </summary>
-    TreeBuilder GetTreeBuilder();
-
-    /// <summary>
-    /// Read an event flag from the game and return it's state
-    /// </summary>
-    bool ReadEventFlag(uint eventFlagId);
-
-    /// <summary>
-    /// Get a reference to the game process
-    /// Will only be a valid reference until the next call to TryRefresh
-    /// </summary>
-    Process? GetProcess();
-
-    /// <summary>
-    /// Get the current millis 
-    /// </summary>
-    int GetInGameTimeMilliseconds();
+    void WriteInGameTimeMilliseconds(int value);
 }

@@ -19,6 +19,7 @@ using System;
 using SoulMemory;
 using SoulSplitter.UI;
 using SoulMemory.Games.DarkSouls2;
+using SoulMemory.Abstractions;
 
 namespace SoulSplitter.Splitters;
 

@@ -16,12 +16,13 @@
 
 using System;
 using System.Diagnostics;
+using SoulMemory.Abstractions;
 using SoulMemory.Memory;
 using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.Games.DarkSouls3;
 
-public class DarkSouls3 : IGame
+public class DarkSouls3 : IGame, IPlayerPosition
 {
     private Process? _process;
     private readonly Pointer _gameDataMan = new();
@@ -163,7 +164,7 @@ public class DarkSouls3 : IGame
         return _gameDataMan.ReadInt32(_igtOffset);
     }
 
-    public Vector3f GetPosition()
+    public Vector3f GetPlayerPosition()
     {
         return new Vector3f
         (

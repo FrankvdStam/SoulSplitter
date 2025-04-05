@@ -72,7 +72,7 @@ namespace SoulMemory.Enums
                     (SplitType.Boss, typeof(Games.DarkSouls1.Boss)),
                     (SplitType.Position, null),
                     (SplitType.Attribute, null),
-                    (SplitType.Bonfire, null),
+                    (SplitType.DarkSouls1Bonfire, null),
                     (SplitType.Item, null),
                     (SplitType.KnownFlag, typeof(Games.DarkSouls1.Boss)),
                     (SplitType.Flag, null)
@@ -111,7 +111,7 @@ namespace SoulMemory.Enums
                     (SplitType.Bonfire, typeof(Games.EldenRing.Grace)),
                     (SplitType.ItemPickup, typeof(Games.EldenRing.ItemPickup)),
                     (SplitType.KnownFlag, typeof(Games.EldenRing.KnownFlag)),
-                    (SplitType.Position, null),
+                    (SplitType.EldenRingPosition, null),
                     (SplitType.Flag, null),
                 ]
             },

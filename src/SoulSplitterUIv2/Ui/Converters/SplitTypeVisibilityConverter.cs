@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using SoulMemory.Enums;
@@ -25,16 +26,24 @@ namespace SoulSplitterUIv2.Ui.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var result =
-                value is SplitType splitType &&
-                parameter is string s &&
-                Enum.TryParse(s, out SplitType target) &&
-                splitType == target;
+            //Get binding split type
+            if (value is not SplitType currentSplitType)
+            {
+                return Visibility.Collapsed;
+            }
 
-            if (result)
+            //parameter is single SplitType
+            if (parameter is SplitType splitTypeParameter && currentSplitType == splitTypeParameter)
             {
                 return Visibility.Visible;
             }
+
+            //parameter is array of SplitType
+            if (parameter is SplitType[] array && array.Contains(currentSplitType))
+            {
+                return Visibility.Visible;
+            }
+
             return Visibility.Collapsed;
         }
 

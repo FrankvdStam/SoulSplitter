@@ -19,6 +19,7 @@ using SoulMemory.MemoryV2.Process;
 using System;
 using System.Diagnostics;
 using SoulMemory.MemoryV2.PointerTreeBuilder;
+using SoulMemory.Abstractions;
 
 namespace SoulMemory.Games.ArmoredCore6;
 

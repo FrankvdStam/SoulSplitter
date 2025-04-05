@@ -32,6 +32,7 @@ using SoulSplitter.UI.Generic;
 using SoulSplitterUIv2.Utils;
 using SplitType = SoulSplitter.UI.Generic.SplitType;
 using TimingType = SoulSplitter.UI.Generic.TimingType;
+using SoulMemory.Abstractions;
 
 #pragma warning disable CS0162
 
@@ -352,7 +353,7 @@ namespace cli
                     Test("ReadEventFlag", () => { ds1.ReadEventFlag(16); });
                     Test("IsWarpRequested", () => { ds1.IsWarpRequested(); });
                     Test("IsPlayerLoaded", () => { ds1.IsPlayerLoaded(); });
-                    Test("GetPosition", () => { ds1.GetPosition(); });
+                    Test("GetPlayerPosition", () => { ds1.GetPlayerPosition(); });
                     Test("NgCount", () => { ds1.NgCount(); });
                     Test("GetCurrentSaveSlot", () => { ds1.GetCurrentSaveSlot(); });
                     Test("ResetInventoryIndices", () => { ds1.ResetInventoryIndices(); });

@@ -17,6 +17,7 @@
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.IO;
+using SoulMemory.Abstractions;
 
 namespace SoulMemory.Memory;
 

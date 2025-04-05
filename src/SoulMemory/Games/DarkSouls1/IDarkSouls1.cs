@@ -14,20 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory.Abstractions;
 using SoulMemory.Games.DarkSouls1.Parameters;
 using System;
 using System.Collections.Generic;
 
 namespace SoulMemory.Games.DarkSouls1;
 
-public interface IDarkSouls1 : IGame
+public interface IDarkSouls1 : IGame, IPlayerPosition
 {
     int GetAttribute(Attribute attribute);
     bool IsWarpRequested();
     bool IsPlayerLoaded();
     int NgCount();
     int GetCurrentSaveSlot();
-    Vector3f GetPosition();
     bool AreCreditsRolling();
     void ResetInventoryIndices();
     List<Item> GetInventory();

@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
-namespace SoulMemory.Enums;
-
-public enum TimingType
+namespace SoulMemory.Abstractions
 {
-    Immediate,
-    OnLoading,
-    OnBlackscreen,
-    OnWarp,
+    public interface IPlayerPosition
+    {
+        /// <summary>
+        /// Read current player position
+        /// </summary>
+        Vector3f GetPlayerPosition();
+    }
 }

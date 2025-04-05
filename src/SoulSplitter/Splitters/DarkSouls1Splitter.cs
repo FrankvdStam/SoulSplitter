@@ -70,7 +70,7 @@ public class DarkSouls1Splitter : ISplitter
 
         mainViewModel.TryAndHandleError(() =>
         {
-            mainViewModel.DarkSouls1ViewModel.CurrentPosition = _darkSouls1.GetPosition();
+            mainViewModel.DarkSouls1ViewModel.CurrentPosition = _darkSouls1.GetPlayerPosition();
         });
 
         mainViewModel.TryAndHandleError(UpdateTimer);

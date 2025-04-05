@@ -231,7 +231,7 @@ public class Remastered : IDarkSouls1
 
     public int GetCurrentSaveSlot() => _gameMan.ReadInt32(_currentSaveSlotOffset);
 
-    public Vector3f GetPosition() => new(_playerPos.ReadFloat(0x10), _playerPos.ReadFloat(0x14), _playerPos.ReadFloat(0x18));
+    public Vector3f GetPlayerPosition() => new(_playerPos.ReadFloat(0x10), _playerPos.ReadFloat(0x14), _playerPos.ReadFloat(0x18));
 
     public int GetPlayerHealth() => _playerIns.ReadInt32(0x3e8);
 

@@ -34,6 +34,7 @@ using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Migrations;
 using Timer = SoulMemory.Timer;
+using SoulMemory.Abstractions;
 
 namespace SoulSplitter;
 

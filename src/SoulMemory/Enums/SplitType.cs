@@ -25,16 +25,12 @@ public enum SplitType
     KnownFlag,
     Item,
     ItemPickup,
+    //"Normal" position is always a vec3
     Position,
+    //Elden Ring position is a vec3 but also includes map coordinates
+    EldenRingPosition,
     Bonfire,
+    //DS1 bonfires are some sort of linked list, all other games handle this via event flags.
+    DarkSouls1Bonfire,
     Attribute,
-}
-
-public class SplitTypesAttribute : Attribute
-{
-    public SplitTypesAttribute(params SplitType[] splitTypes)
-    {
-        SplitTypes = splitTypes;
-    }
-    public SplitType[] SplitTypes;
 }

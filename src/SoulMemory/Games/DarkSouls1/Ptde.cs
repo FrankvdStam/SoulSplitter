@@ -167,7 +167,7 @@ public class Ptde : IDarkSouls1
 
     public int GetCurrentSaveSlot() => _gameMan.ReadInt32(0xA70);
 
-    public Vector3f GetPosition() => new(_playerIns.ReadFloat(0xc50), _playerIns.ReadFloat(0xC58), _playerIns.ReadFloat(0xC54));
+    public Vector3f GetPlayerPosition() => new(_playerIns.ReadFloat(0xc50), _playerIns.ReadFloat(0xC58), _playerIns.ReadFloat(0xC54));
 
     public int GetPlayerHealth() => _playerIns.ReadInt32(0x2d4) ;
 

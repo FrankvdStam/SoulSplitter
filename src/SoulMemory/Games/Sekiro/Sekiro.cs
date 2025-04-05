@@ -18,16 +18,16 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using SoulMemory.Abstractions;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 
 namespace SoulMemory.Games.Sekiro;
 
-public interface ISekiro : IGame, IBlackscreenRemovable
+public interface ISekiro : IGame, IBlackscreenRemovable, IPlayerPosition
 {
     int GetAttribute(Attribute attribute);
     bool IsPlayerLoaded();
-    Vector3f GetPlayerPosition();
     void WriteEventFlag(uint eventFlagId, bool eventFlagValue);
 }
 
