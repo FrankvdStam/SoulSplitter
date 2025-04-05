@@ -29,6 +29,7 @@ public enum SplitType
     Position,
     //Elden Ring position is a vec3 but also includes map coordinates
     EldenRingPosition,
+    //"Normal" bonfire/idol/grace is an event flag
     Bonfire,
     //DS1 bonfires are some sort of linked list, all other games handle this via event flags.
     DarkSouls1Bonfire,

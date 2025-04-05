@@ -3,6 +3,7 @@ using Moq;
 using SoulMemory.Enums;
 using SoulSplitterUIv2.Resources;
 using SoulSplitterUIv2.Ui.ViewModels;
+using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitterUIv2.Tests.Ui.ViewModel
 {
@@ -70,7 +71,7 @@ namespace SoulSplitterUIv2.Tests.Ui.ViewModel
             sut.SelectedGame = Game.DarkSouls1;
             CollectionAssert.Contains(sut.SplitTypes, SplitType.Boss);
             CollectionAssert.Contains(sut.SplitTypes, SplitType.Attribute);
-            CollectionAssert.Contains(sut.SplitTypes, SplitType.Bonfire);
+            CollectionAssert.Contains(sut.SplitTypes, SplitType.DarkSouls1Bonfire);
 
             sut.SelectedGame = Game.ArmoredCore6;
             CollectionAssert.DoesNotContain(sut.SplitTypes, SplitType.Bonfire);

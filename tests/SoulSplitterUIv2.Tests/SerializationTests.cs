@@ -5,6 +5,7 @@ using SoulMemory.Games.EldenRing;
 using SoulSplitterUIv2.DependencyInjection;
 using SoulSplitterUIv2.Resources;
 using SoulSplitterUIv2.Ui.ViewModels;
+using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
 using SoulSplitterUIv2.Utils;
 
 namespace SoulSplitterUIv2.Tests

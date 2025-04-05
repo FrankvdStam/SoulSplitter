@@ -4,8 +4,10 @@
                     xmlns:enums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory">
 
     <clr:String x:Key="{x:Static enums:SplitType.Bonfire}">Bonfire/Idol/Grace</clr:String>
+    <clr:String x:Key="{x:Static enums:SplitType.DarkSouls1Bonfire}">Bonfire</clr:String>
     <clr:String x:Key="{x:Static enums:SplitType.Boss}">Boss</clr:String>
     <clr:String x:Key="{x:Static enums:SplitType.Position}">Position</clr:String>
+    <clr:String x:Key="{x:Static enums:SplitType.EldenRingPosition}">Position</clr:String>
     <clr:String x:Key="{x:Static enums:SplitType.Attribute}">Attribute</clr:String>
     <clr:String x:Key="{x:Static enums:SplitType.KnownFlag}">Known flag</clr:String>
     <clr:String x:Key="{x:Static enums:SplitType.Flag}">Flag</clr:String>
