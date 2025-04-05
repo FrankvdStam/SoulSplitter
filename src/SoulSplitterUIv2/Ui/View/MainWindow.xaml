@@ -22,13 +22,12 @@
     mc:Ignorable="d"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:resources="clr-namespace:SoulSplitterUIv2.Resources"
-    xmlns:splitControls="clr-namespace:SoulSplitterUIv2.Ui.View.SplitControls"
     xmlns:view="clr-namespace:SoulSplitterUIv2.Ui.View"
-    xmlns:viewModels="clr-namespace:SoulSplitterUIv2.Ui.ViewModels"
+    xmlns:mainViewModel="clr-namespace:SoulSplitterUIv2.Ui.ViewModels.MainViewModel"
     xmlns:converters="clr-namespace:SoulSplitterUIv2.Ui.Converters"
-    xmlns:SoulMemoryEnums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
+    xmlns:soulMemoryEnums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
     xmlns:ui="clr-namespace:SoulSplitterUIv2.Ui"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:controls="clr-namespace:SoulSplitterUIv2.Ui.View.Controls"
     Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextElement.FontWeight="Regular"
@@ -39,7 +38,7 @@
     Height="800"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
-    d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel, IsDesignTimeCreatable=False}">
+    d:DataContext="{d:DesignInstance Type=mainViewModel:MainViewModel, IsDesignTimeCreatable=False}">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -55,11 +54,11 @@
                             <converters:EnumEventFlagConverter x:Key="EnumEventFlagConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
                             <converters:SplitTypeVisibilityConverter x:Key="SplitTypeVisibilityConverter"/>
 
-                            <x:Array x:Key="EventFlagSplitTypes" Type="{x:Type SoulMemoryEnums:SplitType}">
-                                <x:Static Member="SoulMemoryEnums:SplitType.Boss" />
-                                <x:Static Member="SoulMemoryEnums:SplitType.Bonfire" />
-                                <x:Static Member="SoulMemoryEnums:SplitType.ItemPickup" />
-                                <x:Static Member="SoulMemoryEnums:SplitType.KnownFlag" />
+                            <x:Array x:Key="EventFlagSplitTypes" Type="{x:Type soulMemoryEnums:SplitType}">
+                                <x:Static Member="soulMemoryEnums:SplitType.Boss" />
+                                <x:Static Member="soulMemoryEnums:SplitType.Bonfire" />
+                                <x:Static Member="soulMemoryEnums:SplitType.ItemPickup" />
+                                <x:Static Member="soulMemoryEnums:SplitType.KnownFlag" />
                             </x:Array>
 
 
@@ -110,9 +109,9 @@
                 </Grid.RowDefinitions>
                 
                 <!-- Select game -->
-                <splitControls:EnumListControl
+                <controls:EnumListControl
                     Grid.Row="0"
-                    EnumType="SoulMemoryEnums:Game"
+                    EnumType="soulMemoryEnums:Game"
                     SelectedValue="{Binding SelectedGame}"
                     Hint="Game"/>
 
@@ -126,7 +125,7 @@
                     ItemsSource="{Binding NewGamePlusLevels}"/>
 
                 <!-- Select timing type -->
-                <splitControls:EnumListControl
+                <controls:EnumListControl
                     Grid.Row="2"
                     IsEnabled="{Binding IsGameSelected}"
                     ItemsSource="{Binding TimingTypes}"
@@ -134,7 +133,7 @@
                     Hint="Timing"/>
 
                 <!-- Select split type -->
-                <splitControls:EnumListControl
+                <controls:EnumListControl
                     Grid.Row="3"
                     IsEnabled="{Binding IsGameSelected}"
                     ItemsSource="{Binding SplitTypes}"
@@ -144,13 +143,22 @@
                 <!-- split types ============================================================================================================= -->
 
                 <!-- Event flags -->
-                <splitControls:EventFlagListControl
+                <controls:EventFlagListControl
                     Grid.Row="4"
                     Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={StaticResource EventFlagSplitTypes}}"
                     LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
                     EventFlagType="{Binding SelectedEventFlagType}"
                     SelectedEventFlag="{Binding SelectedEventFlag, Mode=TwoWay}"
                     Hint="Split"/>
+
+                <!-- standard vec3 position -->
+                <controls:PositionControl
+                    Grid.Row="4"
+                    Margin="5"
+                    Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Position}}"
+                    CurrentPosition="{Binding CurrentPosition}"
+                    PositionViewModel="{Binding PositionViewModel, Mode=TwoWay}"
+                    />
 
 
                 <!-- ============================================================================================================= -->

@@ -26,11 +26,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
                 <!-- Material design -->
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" SecondaryColor="Indigo" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -41,9 +39,9 @@
             Height="25"
             Margin="0,0,0,0"
             materialDesign:HintAssist.Hint="X"
-            materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}">
+            materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X, RelativeSource={RelativeSource AncestorType=UserControl}}">
             <TextBox.Text>
-                <Binding Path="Position.Position.X">
+                <Binding Path="PositionViewModel.Position.X" RelativeSource="{RelativeSource AncestorType=UserControl}">
                     <Binding.ValidationRules>
                         <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
                     </Binding.ValidationRules>
@@ -56,9 +54,9 @@
             Height="25"
             Margin="5,0,0,0"
             materialDesign:HintAssist.Hint="Y"
-            materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}">
+            materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y, RelativeSource={RelativeSource AncestorType=UserControl}}">
             <TextBox.Text>
-                <Binding Path="Position.Position.Y">
+                <Binding Path="PositionViewModel.Position.Y" RelativeSource="{RelativeSource AncestorType=UserControl}">
                     <Binding.ValidationRules>
                         <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
                     </Binding.ValidationRules>
@@ -71,9 +69,9 @@
             Height="25"
             Margin="5,0,0,0"
             materialDesign:HintAssist.Hint="Z"
-            materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}">
+            materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z, RelativeSource={RelativeSource AncestorType=UserControl}}">
             <TextBox.Text>
-                <Binding Path="Position.Position.Z">
+                <Binding Path="PositionViewModel.Position.Z" RelativeSource="{RelativeSource AncestorType=UserControl}">
                     <Binding.ValidationRules>
                         <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="True"/>
                     </Binding.ValidationRules>
@@ -87,7 +85,7 @@
             Margin="5,0,0,0"
             materialDesign:HintAssist.HelperText="Size">
             <TextBox.Text>
-                <Binding Path="Position.Size">
+                <Binding Path="PositionViewModel.Size" RelativeSource="{RelativeSource AncestorType=UserControl}">
                     <Binding.ValidationRules>
                         <validation:TextToNumberValidation NumericType="Float" IsRequired="True" AllowNegative="False"/>
                     </Binding.ValidationRules>
@@ -99,8 +97,8 @@
             Margin="15, 0, 0, 0"
             HorizontalAlignment="Left"
             Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-            Command="{Binding CopyGamePositionCommand}"
-            ToolTip="Read current game position">
+            Command="{Binding CopyCurrentPositionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            ToolTip="Copy current player position">
             <materialDesign:PackIcon
                 Kind="CrosshairsGps"
                 Height="30"

@@ -15,12 +15,12 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulSplitterUIv2.Resources;
-using SoulSplitterUIv2.Ui.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using SoulSplitterUIv2.DependencyInjection;
 using SoulMemory.Enums;
 using SoulSplitterUIv2.Ui.View;
+using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitter.UiV3;
 
@@ -34,12 +34,12 @@ public partial class App : Application
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddSingleton<ILanguageManager, LanguageManager>();
-        serviceCollection.AddSingleton<SoulSplitterUIv2.Ui.ViewModels.MainViewModel>();
+        serviceCollection.AddSingleton<MainViewModel>();
         SoulSplitterUIv2.Extensions.ServiceProvider = serviceCollection.Build();
 
         SoulSplitterUIv2.Extensions.ServiceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
         ServiceProviderSource.Resolver = (type) => SoulSplitterUIv2.Extensions.ServiceProvider.GetService(type);
-        MainWindow = new SoulSplitterUIv2.Ui.View.MainWindow(SoulSplitterUIv2.Extensions.ServiceProvider.GetService<SoulSplitterUIv2.Ui.ViewModels.MainViewModel>());
+        MainWindow = new SoulSplitterUIv2.Ui.View.MainWindow(SoulSplitterUIv2.Extensions.ServiceProvider.GetService<MainViewModel>());
     }
 
     public void ShowMainWindow()

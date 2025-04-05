@@ -15,11 +15,11 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulSplitterUIv2.Resources;
-using SoulSplitterUIv2.Ui.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using SoulSplitterUIv2.DependencyInjection;
 using SoulMemory.Enums;
+using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitterUIv2.Ui.View
 {

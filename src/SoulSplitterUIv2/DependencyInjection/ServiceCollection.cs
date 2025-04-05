@@ -69,7 +69,7 @@ namespace SoulSplitterUIv2.DependencyInjection
                     return constructor;
                 }
             }
-            return null;
+            return null!;
         }
     }
 }

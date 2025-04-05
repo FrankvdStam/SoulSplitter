@@ -14,7 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using System.Windows;
 using System.Windows.Controls;
+using SoulMemory;
+using SoulSplitterUIv2.Ui.ViewModels;
 
 namespace SoulSplitterUIv2.Ui.View.Controls;
 
@@ -26,5 +30,38 @@ public partial class PositionControl : UserControl
     public PositionControl()
     {
         InitializeComponent();
+        CopyCurrentPositionCommand = new RelayCommand.RelayCommand((o) => PositionViewModel.Position = CurrentPosition, (o) => true);
     }
+
+    public static readonly DependencyProperty CurrentPositionDependencyProperty =
+        DependencyProperty.Register(
+            nameof(CurrentPosition),
+            typeof(object),
+            typeof(PositionControl),
+            new FrameworkPropertyMetadata(
+                null,
+                FrameworkPropertyMetadataOptions.None));
+
+    public Vector3f CurrentPosition
+    {
+        get => (Vector3f)GetValue(CurrentPositionDependencyProperty);
+        set => SetValue(CurrentPositionDependencyProperty, value);
+    }
+
+    public static readonly DependencyProperty PositionViewModelDependencyProperty =
+        DependencyProperty.Register(
+            nameof(PositionViewModel),
+            typeof(object),
+            typeof(PositionControl),
+            new FrameworkPropertyMetadata(
+                null,
+                FrameworkPropertyMetadataOptions.None));
+
+    public PositionViewModel PositionViewModel
+    {
+        get => (PositionViewModel)GetValue(PositionViewModelDependencyProperty);
+        set => SetValue(PositionViewModelDependencyProperty, value);
+    }
+
+    public RelayCommand.RelayCommand CopyCurrentPositionCommand { get; set; }
 }

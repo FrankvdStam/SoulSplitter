@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Windows;
 using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Games.EldenRing;
 using SoulMemory;
@@ -29,10 +30,10 @@ using SoulMemory.Enums;
 using SoulMemory.Parameters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
-using SoulSplitterUIv2.Utils;
 using SplitType = SoulSplitter.UI.Generic.SplitType;
 using TimingType = SoulSplitter.UI.Generic.TimingType;
 using SoulMemory.Abstractions;
+using SoulSplitter.UiV3;
 
 #pragma warning disable CS0162
 
@@ -247,14 +248,26 @@ namespace cli
             }
 
             mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
-
-            mainWindow.Dispatcher.Invoke(() =>
-            {
-                mainWindow.ShowDialog();
-                mainWindow.Close();
-            });
-
             
+            var mainViewModel = app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel;
+            mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 0, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
+            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.EldenRing, 99, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
+            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.DarkSouls3, 12, SoulMemory.Enums.TimingType.OnWarp, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));
+
+
+            mainWindow.ShowDialog();
+            //mainWindow.Dispatcher.Invoke(() =>
+            //{
+            //    
+            //});
+            var w = (SoulSplitterUIv2.Ui.View.MainWindow)Application.Current.MainWindow!;
+            w.WindowShouldHide = false;
+            w.Close();
+
+
+            mainWindow.WindowShouldHide = false;
+            mainWindow.Close();
+            app.Shutdown();
         }
 
         static void TestUiV2()
@@ -262,7 +275,7 @@ namespace cli
             var app = new SoulSplitterUIv2.Ui.View.App();
             app.InitializeComponent();
 
-            var mainViewModel = app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
+            var mainViewModel = app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel;
             mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 0, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
             mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.EldenRing, 99, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
             mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.DarkSouls3, 12, SoulMemory.Enums.TimingType.OnWarp, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));

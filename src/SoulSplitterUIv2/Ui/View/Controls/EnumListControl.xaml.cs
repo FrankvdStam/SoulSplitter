@@ -25,7 +25,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SoulSplitterUIv2.Ui.View.SplitControls
+namespace SoulSplitterUIv2.Ui.View.Controls
 {
     /// <summary>
     /// Interaction logic for EnumListControl.xaml
