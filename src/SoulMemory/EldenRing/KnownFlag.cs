@@ -117,39 +117,6 @@ public enum KnownFlag : uint
     [Annotation(Name = "Unlocks Function: Demigods' Armor Alterations 60150")]
     UnlocksFunctionDemigodsArmorAlterations = 60150,
 
-    [Annotation(Name = "Unlocks Memory Slot 0 60400")]
-    UnlocksMemorySlot0 = 60400,
-
-    [Annotation(Name = "Unlocks Memory Slot 1 60410")]
-    UnlocksMemorySlot1 = 60410,
-
-    [Annotation(Name = "Unlocks Memory Slot 2 60420")]
-    UnlocksMemorySlot2 = 60420,
-
-    [Annotation(Name = "Unlocks Memory Slot 3 60430")]
-    UnlocksMemorySlot3 = 60430,
-
-    [Annotation(Name = "Unlocks Memory Slot 4 60440")]
-    UnlocksMemorySlot4 = 60440,
-
-    [Annotation(Name = "Unlocks Memory Slot 5 60450")]
-    UnlocksMemorySlot5 = 60450,
-
-    [Annotation(Name = "Unlocks Memory Slot 6 60460")]
-    UnlocksMemorySlot6 = 60460,
-
-    [Annotation(Name = "Unlocks Memory Slot 7 60470")]
-    UnlocksMemorySlot7 = 60470,
-
-    [Annotation(Name = "Unlocks Talisman Slot 0 60500")]
-    UnlocksTalismanSlot0 = 60500,
-
-    [Annotation(Name = "Unlocks Talisman Slot 1 60510")]
-    UnlocksTalismanSlot1 = 60510,
-
-    [Annotation(Name = "Unlocks Talisman Slot 2 60520")]
-    UnlocksTalismanSlot2 = 60520,
-
     [Annotation(Name = "Unlocks Underground Map 62001")]
     UnlocksUndergroundMap = 62001,
 

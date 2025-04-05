@@ -639,7 +639,7 @@ public enum ItemPickup : uint
     [Annotation(Name = "[Teardrop Scarab - Capital Outskirts] Ash of War: Lightning Slash 540318")]
     TeardropScarabCapitalOutskirtsAshOfWarLightningSlash = 540318,
 
-    [Annotation(Name = "[Teardrop Scarab - Capital Outskirts] Somber Smithing Stone [5] 540320")]
+    [Annotation(Name = "[Teardrop Scarab - Altus Plateau] Somber Smithing Stone [5] 540320")]
     TeardropScarabCapitalOutskirtsSomberSmithingStone5 = 540320,
 
     [Annotation(Name = "[Teardrop Scarab - Mt. Gelmir] Ash of War: Barrage 540332")]
@@ -984,15 +984,6 @@ public enum ItemPickup : uint
     [Annotation(Name = "[Melina - Morgott Killed] Rold Medallion 400001")]
     MelinaMorgottKilledRoldMedallion = 400001,
 
-    [Annotation(Name = "[Unknown] 400010")]
-    Unknown = 400010,
-
-    [Annotation(Name = "[Unknown] Neutralizing Boluses 400020")]
-    UnknownNeutralizingBoluses = 400020,
-
-    [Annotation(Name = "[Unknown] 400021")]
-    Unknown_ = 400021,
-
     [Annotation(Name = "[White-Faced Varre - ?] Festering Bloody Finger 400030")]
     WhiteFacedVarreFesteringBloodyFinger = 400030,
 
@@ -1016,15 +1007,6 @@ public enum ItemPickup : uint
 
     [Annotation(Name = "[White-Faced Varre - Invasion] Festering Bloody Finger 400036")]
     WhiteFacedVarreInvasionFesteringBloodyFinger = 400036,
-
-    [Annotation(Name = "[Unknown] 400040")]
-    Unknown__ = 400040,
-
-    [Annotation(Name = "[Unknown] Perfume Bottle 400041")]
-    UnknownPerfumeBottle = 400041,
-
-    [Annotation(Name = "[Unknown] Glowstone 400042")]
-    UnknownGlowstone = 400042,
 
     [Annotation(Name = "[Gatekeeper Gostoc - First Meeting] Grace Mimic 400050")]
     GatekeeperGostocFirstMeetingGraceMimic = 400050,
@@ -1071,9 +1053,6 @@ public enum ItemPickup : uint
     [Annotation(Name = "[Irina] Irina's Letter 400080")]
     IrinaIrinasLetter = 400080,
 
-    [Annotation(Name = "[Rya] Rya's Necklace 400081")]
-    RyaRyasNecklace = 400081,
-
     [Annotation(Name = "[Hyetta] Frenzied Flame Seal 400089")]
     HyettaFrenziedFlameSeal = 400089,
 
@@ -1110,12 +1089,6 @@ public enum ItemPickup : uint
     [Annotation(Name = "[Finger Reader Enia - Godfrey] Talisman Pouch 60500")]
     FingerReaderEniaGodfreyTalismanPouch = 60500,
 
-    [Annotation(Name = "[Unknown] Glowstone 400120")]
-    UnknownGlowstone_ = 400120,
-
-    [Annotation(Name = "[Unknown] Glowstone 400121")]
-    UnknownGlowstone__ = 400121,
-
     [Annotation(Name = "[Albus] Haligtree Secret Medallion (Right) 400130")]
     AlbusHaligtreeSecretMedallionRight = 400130,
 
@@ -1124,9 +1097,6 @@ public enum ItemPickup : uint
 
     [Annotation(Name = "[Seluvis] Magic Scorpion Charm 400141")]
     SeluvisMagicScorpionCharm = 400141,
-
-    [Annotation(Name = "[Seluvis] 400142")]
-    Seluvis = 400142,
 
     [Annotation(Name = "[Seluvis] Seluvis's Introduction 400143")]
     SeluvisSeluvissIntroduction = 400143,
@@ -1155,12 +1125,6 @@ public enum ItemPickup : uint
     [Annotation(Name = "[Blaidd is the Half-Wolf] Discarded Palace Key 400159")]
     BlaiddisTheHalfWolfDiscardedPalaceKey = 400159,
 
-    [Annotation(Name = "[Unknown] White Cipher Ring 60280")]
-    UnknownWhiteCipherRing = 60280,
-
-    [Annotation(Name = "[Unknown] Smithing Stone [5] 400161")]
-    UnknownSmithingStone5 = 400161,
-
     [Annotation(Name = "[Eleonora, Violet Bloody Finger] Purifying Crystal Tear 65270")]
     EleonoraVioletBloodyFingerPurifyingCrystalTear = 65270,
 
@@ -1187,9 +1151,6 @@ public enum ItemPickup : uint
 
     [Annotation(Name = "[Iron Fist Alexander] Shard of Alexander 400174")]
     IronFistAlexanderShardOfAlexander = 400174,
-
-    [Annotation(Name = "[Unknown] 400179")]
-    Unknown___ = 400179,
 
     [Annotation(Name = "[Patches] Letter to Patches 400180")]
     PatchesLettertoPatches = 400180,
@@ -1254,18 +1215,9 @@ public enum ItemPickup : uint
     [Annotation(Name = "[War Counselor Iji] Iji's Mirrorhelm 400241")]
     WarCounselorIjiIjisMirrorhelm = 400241,
 
-    [Annotation(Name = "[Unknown] Glowstone 400260")]
-    UnknownGlowstone___ = 400260,
-
-    [Annotation(Name = "[Unknown] Mushroom 400271")]
-    UnknownMushroom = 400271,
-
     //duplicate of 1051587800
     //[Annotation(Name = "[Castle Sol] Haligtree Secret Medallion (Left) 400280")]
     //CastleSolHaligtreeSecretMedallionLeft = 400280,
-
-    [Annotation(Name = "[Unknown] 400281")]
-    Unknown____ = 400281,
 
     [Annotation(Name = "[Gideon Ofnir - Secret Medallion] Black Flame's Protection 400282")]
     GideonOfnirSecretMedallionBlackFlamesProtection = 400282,
@@ -1456,23 +1408,11 @@ public enum ItemPickup : uint
     [Annotation(Name = "[Corpse - Edgar] Banished Knight's Halberd +8 - Spinning Strikes 400069")]
     CorpseEdgarBanishedKnightsHalberd8SpinningStrikes = 400069,
 
-    [Annotation(Name = "[Corpse - Unknown] Glowstone 400108")]
-    CorpseUnknownGlowstone = 400108,
-
-    [Annotation(Name = "[Corpse - Unknown] Glowstone 400109")]
-    CorpseUnknownGlowstone_ = 400109,
-
     [Annotation(Name = "[Corpse - Iron Fist Alexander] Warrior Jar Shard 400175")]
     CorpseIronFistAlexanderWarriorJarShard = 400175,
 
     [Annotation(Name = "[Corpse - Patches] Patches' Bell Bearing 400189")]
     CorpsePatchesPatchesBellBearing = 400189,
-
-    [Annotation(Name = "[Corpse - Unknown] Glowstone 400209")]
-    CorpseUnknownGlowstone__ = 400209,
-
-    [Annotation(Name = "[Corpse - Unknown] Golden Seed 400220")]
-    CorpseUnknownGoldenSeed = 400220,
 
     [Annotation(Name = "[Corpse - Knight Bernahl] Bernahl's Bell Bearing 400299")]
     CorpseKnightBernahlBernahlsBellBearing = 400299,
@@ -1530,9 +1470,6 @@ public enum ItemPickup : uint
 
     [Annotation(Name = "[Corpse - Merchant] Nomadic Merchant's Bell Bearing [10] 400913")]
     CorpseMerchantNomadicMerchantsBellBearing10 = 400913,
-
-    [Annotation(Name = "[Corpse - Merchant] Nomadic Merchant's Bell Bearing [11] 400914")]
-    CorpseMerchantNomadicMerchantsBellBearing11 = 400914,
 
     [Annotation(Name = "[Corpse - Merchant] Isolated Merchant's Bell Bearing [3] 400915")]
     CorpseMerchantIsolatedMerchantsBellBearing3 = 400915,
@@ -6982,8 +6919,8 @@ public enum ItemPickup : uint
     [Annotation(Name = "[Caelid - West Aeonia Swamp] Traveler's Hat 1048387010")]
     CaelidWestAeoniaSwampTravelersHat = 1048387010,
 
-    [Annotation(Name = "[Caelid - West Aeonia Swamp] Golden Rune [5] 1048387020")]
-    CaelidWestAeoniaSwampGoldenRune5 = 1048387020,
+    [Annotation(Name = "[Caelid - West Aeonia Swamp] Meteorite Staff 1048387020")]
+    CaelidWestAeoniaSwampMeteoriteStaff = 1048387020,
 
     [Annotation(Name = "[Caelid - West Aeonia Swamp] Sacramental Bud 1048387500")]
     CaelidWestAeoniaSwampSacramentalBud = 1048387500,
@@ -7633,9 +7570,6 @@ public enum ItemPickup : uint
     [Annotation(Name = "[Liurnia of the Lakes - Ranni's Rise] Memory Stone 60430")]
     LiurniaOfTheLakesRannisRiseMemoryStone = 60430,
 
-    [Annotation(Name = "[Liurnia of the Lakes - Ranni's Rise] 1034507200")]
-    LiurniaOfTheLakesRannisRise = 1034507200,
-
     [Annotation(Name = "[Liurnia of the Lakes - Renna's Rise] Snow Witch Skirt 1034517900")]
     LiurniaOfTheLakesRennasRiseSnowWitchSkirt = 1034517900,
 
@@ -7989,9 +7923,6 @@ public enum ItemPickup : uint
 
     [Annotation(Name = "[Liurnia of the Lakes - Laskyar Ruins] Sacrificial Twig 1038417010")]
     LiurniaOfTheLakesLaskyarRuinsSacrificialTwig = 1038417010,
-
-    [Annotation(Name = "[Liurnia of the Lakes - Laskyar Ruins] Gravitas 1038417100")]
-    LiurniaOfTheLakesLaskyarRuinsGravitas = 1038417100,
 
     [Annotation(Name = "[Liurnia of the Lakes - Cuckoo's Evergaol] Dragonscale Blade 1033457100")]
     LiurniaOfTheLakesCuckoosEvergaolDragonscaleBlade = 1033457100,
@@ -9923,9 +9854,6 @@ public enum ItemPickup : uint
     [Annotation(Name = "[Gravesite Plain - Dragon Lake] Great Katana with Ash of War: Overhead Stance 2045447010")]
     GravesitePlainDragonLakeGreatKatanawithAshofWarOverheadStance = 2045447010,
 
-    [Annotation(Name = "[Dragon's Pit - Ancient Dragon-Man] Dragon-Hunter's Great Katana 520810")]
-    DragonsPitAncientDragonManDragonHuntersGreatKatana_ = 520810,
-
     [Annotation(Name = "[Gravesite Plain - West Castle Ensis] Milady 2047447800")]
     GravesitePlainWestCastleEnsisMilady = 2047447800,
 
@@ -10926,6 +10854,1799 @@ public enum ItemPickup : uint
     ShadowKeepFireKnightQueelignFireKnightQueelign = 400690,
 
     [Annotation(Name = "[Scadu Altus - Swordhand of Night Jolán] Swordhand of Night Jolán 400670")]
-    ScaduAltusSwordhandofNightJolanSwordhandofNightJolan = 400670
+    ScaduAltusSwordhandofNightJolanSwordhandofNightJolan = 400670,
 
+    [Annotation(Name = "[Drake Duo Area, Foot of the Jagged Peak - Jagged Peak Drake] Dragon Heart & Dragonscale Flesh 530800")]
+    DrakeDuoAreaFootoftheJaggedPeakJaggedPeakDrakeDragonHeart = 530800,
+
+    [Annotation(Name = "[Jagged Peak - Ancient Dragon Senessax] Ancient Dragon Smithing Stone & Somber Ancient Dragon Smithing Stone 530805")]
+    JaggedPeakAncientDragonSenessaxAncientDragonSmithingStone = 530805,
+
+    [Annotation(Name = "[Cerulean Coast - Ghostflame Dragon] Dragon Heart & Somber Ancient Dragon Smithing Stone 530840")]
+    CeruleanCoastGhostflameDragonDragonHeart = 530840,
+
+    [Annotation(Name = "[Foot of the Jagged Peak - Jagged Peak Drake] Dragon Heart & Dragonscale Flesh 530850")]
+    FootoftheJaggedPeakJaggedPeakDrakeDragonHeart = 530850,
+
+    [Annotation(Name = "[Gravesite Plain - Ghostflame Dragon] Dragon Heart & Somber Ancient Dragon Smithing Stone 530860")]
+    GravesitePlainGhostflameDragonDragonHeart = 530860,
+
+    [Annotation(Name = "[South Hinterland, Scaduview - Tree Sentinel] Blessing of Marika 530935")]
+    SouthHinterlandScaduviewTreeSentinelBlessingofMarika = 530935,
+
+    [Annotation(Name = "[Moorth Highway South - Ghostflame Dragon] Dragon Heart & Somber Ancient Dragon Smithing Stone 530945")]
+    MoorthHighwaySouthGhostflameDragonDragonHeart = 530945,
+
+    [Annotation(Name = "[North Hinterland, Scaduview - Tree Sentinel] Blessing of Marika 530950")]
+    NorthHinterlandScaduviewTreeSentinelBlessingofMarika = 530950,
+
+    [Annotation(Name = "[Corpse - Academy of Raya Lucaria] Academy Glintstone Key 14007930")]
+    CorpseAcademyofRayaLucariaAcademyGlintstoneKey = 14007930,
+
+    [Annotation(Name = "[Corpse - Belurat, Tower Settlement] Messmerfire Grease 20007070")]
+    CorpseBeluratTowerSettlementMessmerfireGrease = 20007070,
+
+    [Annotation(Name = "[LD - Belurat, Tower Settlement] Messmerfire Grease 20007200")]
+    LDBeluratTowerSettlementMessmerfireGrease = 20007200,
+
+    [Annotation(Name = "[Corpse - Enir-Ilim] Messmerfire Grease 20017030")]
+    CorpseEnirIlimMessmerfireGrease = 20017030,
+
+    [Annotation(Name = "[LD - Enir-Ilim] Rune Arc 20017130")]
+    LDEnirIlimRuneArc = 20017130,
+
+    [Annotation(Name = "[Corpse - Enir-Ilim] Dragonbolt Grease 20017300")]
+    CorpseEnirIlimDragonboltGrease = 20017300,
+
+    [Annotation(Name = "[Corpse - Enir-Ilim] Drawstring Golden Grease 20017320")]
+    CorpseEnirIlimDrawstringGoldenGrease = 20017320,
+
+    [Annotation(Name = "[Corpse - Enir-Ilim] Somber Ancient Dragon Smithing Stone 20017520")]
+    CorpseEnirIlimSomberAncientDragonSmithingStone = 20017520,
+
+    [Annotation(Name = "[Corpse - Shadow Keep] Festive Grease 21007000")]
+    CorpseShadowKeepFestiveGrease = 21007000,
+
+    [Annotation(Name = "[Corpse - Shadow Keep] Messmerfire Grease 21007120")]
+    CorpseShadowKeepMessmerfireGrease = 21007120,
+
+    [Annotation(Name = "[Corpse - Shadow Keep] Drawstring Golden Grease 21007130")]
+    CorpseShadowKeepDrawstringGoldenGrease = 21007130,
+
+    [Annotation(Name = "[Corpse - Drained Church District] Well-Pickled Turtle Neck 21007560")]
+    CorpseDrainedChurchDistrictWellPickledTurtleNeck = 21007560,
+
+    [Annotation(Name = "[Corpse - Specimen Storehouse, First Floor] Rune Arc 21017010")]
+    CorpseSpecimenStorehouseFirstFloorRuneArc = 21017010,
+
+    [Annotation(Name = "[Corpse - Fog Rift Catacombs] Dragonbolt Grease 2x 40007040")]
+    CorpseFogRiftCatacombsDragonboltGrease2x = 40007040,
+
+    [Annotation(Name = "[Corpse - Belurat Gaol] Lost Ashes of War 41007270")]
+    CorpseBeluratGaolLostAshesofWar = 41007270,
+
+    [Annotation(Name = "[Corpse - Bonny Gaol] Lost Ashes of War 41017210")]
+    CorpseBonnyGaolLostAshesofWar = 41017210,
+
+    [Annotation(Name = "[Corpse - Taylew's Ruined Forge] Ancient Dragon Smithing Stone 42037110")]
+    CorpseTaylewsRuinedForgeAncientDragonSmithingStone = 42037110,
+
+    [Annotation(Name = "[Dragon's Pit - Magma Wyrm] Dragon Heart & Ancient Dragon Smithing Stone 43017900")]
+    DragonsPitMagmaWyrmDragonHeart = 43017900,
+
+    [Annotation(Name = "[Corpse - Southern Nameless Mausoleum] Lost Ashes of War 2046387000")]
+    CorpseSouthernNamelessMausoleumLostAshesofWar = 2046387000,
+
+    [Annotation(Name = "[Corpse - Ellac Greatbridge] Lost Ashes of War 2046437010")]
+    CorpseEllacGreatbridgeLostAshesofWar = 2046437010,
+
+    [Annotation(Name = "[Corpse - West Castle Ensis] Drawstring Royal Magic Grease 3x 2047447200")]
+    CorpseWestCastleEnsisDrawstringRoyalMagicGrease3x = 2047447200,
+
+    [Annotation(Name = "[West Castle Ensis - Troll Knight] Somber Smithing Stone [9] 2047447900")]
+    WestCastleEnsisTrollKnightSomberSmithingStone9 = 2047447900,
+
+    [Annotation(Name = "[West Castle Ensis - Troll Knight] Royal Magic Grease 3x 2047447901")]
+    WestCastleEnsisTrollKnightRoyalMagicGrease3x = 2047447901,
+
+    [Annotation(Name = "[Corpse - North Fog Rift Fort] Messmerfire Grease 2047457040")]
+    CorpseNorthFogRiftFortMessmerfireGrease = 2047457040,
+
+    [Annotation(Name = "[Corpse - Church of the Crusade] Rune Arc 2047467000")]
+    CorpseChurchoftheCrusadeRuneArc = 2047467000,
+
+    [Annotation(Name = "[Corpse - Church of Consolation] Blessing of Marika 2048417010")]
+    CorpseChurchofConsolationBlessingofMarika = 2048417010,
+
+    [Annotation(Name = "[Chest - Dragon's Pit Entrance] Ancient Dragon Smithing Stone 2048417800")]
+    ChestDragonsPitEntranceAncientDragonSmithingStone = 2048417800,
+
+    [Annotation(Name = "[Corpse - Ruined Forge Lava Intake Entrance] Festive Grease 2048427000")]
+    CorpseRuinedForgeLavaIntakeEntranceFestiveGrease = 2048427000,
+
+    [Annotation(Name = "[Chest - East Castle Ensis] Imbued Sword Key 2048447800")]
+    ChestEastCastleEnsisImbuedSwordKey = 2048447800,
+
+    [Annotation(Name = "[Corpse - Scadu Altus, Furnace Golem Area] Drawstring Messmerfire Grease 2048467050")]
+    CorpseScaduAltusFurnaceGolemAreaDrawstringMessmerfireGrease = 2048467050,
+
+    [Annotation(Name = "[LD - Foot of the Jagged Peak, South of Grand Altar] Dragon Communion Harpoon 2049387000")]
+    LDFootoftheJaggedPeakSouthofGrandAltarDragonCommunionHarpoon = 2049387000,
+
+    [Annotation(Name = "[LD - Foot of the Jagged Peak, South of Grand Altar] Dragon Communion Harpoon 2049387010")]
+    LDFootoftheJaggedPeakSouthofGrandAltarDragonCommunionHarpoon_ = 2049387010,
+
+    [Annotation(Name = "[Corpse - Foot of the Jagged Peak, South of Grand Altar] Dragon Communion Grease 2049387020")]
+    CorpseFootoftheJaggedPeakSouthofGrandAltarDragonCommunionGrease = 2049387020,
+
+    [Annotation(Name = "[LD - Foot of the Jagged Peak, South of Grand Altar] Dragon Communion Harpoon 2049387030")]
+    LDFootoftheJaggedPeakSouthofGrandAltarDragonCommunionHarpoon__ = 2049387030,
+
+    [Annotation(Name = "[Corpse - Fort of Reprimand] Rune Arc 2049437200")]
+    CorpseFortofReprimandRuneArc = 2049437200,
+
+    [Annotation(Name = "[Corpse - Fort of Reprimand] Festive Grease 2x 2049437380")]
+    CorpseFortofReprimandFestiveGrease2x = 2049437380,
+
+    [Annotation(Name = "[Corpse - Fort of Reprimand] Blessing of Marika 2049437620")]
+    CorpseFortofReprimandBlessingofMarika = 2049437620,
+
+    [Annotation(Name = "[Corpse - South Ruins of Unte] Lost Ashes of War 2050467020")]
+    CorpseSouthRuinsofUnteLostAshesofWar = 2050467020,
+
+    [Annotation(Name = "[Castle Watering Hole Southeast, South Ruins of Unte] Stone-Sheathed Sword 2050467900")]
+    CastleWateringHoleSoutheastSouthRuinsofUnteStoneSheathedSword = 2050467900,
+
+    [Annotation(Name = "[Corpse - Between Jagged Peak Mountainside and Summit] Somber Ancient Dragon Smithing Stone 2053397010")]
+    CorpseBetweenJaggedPeakMountainsideandSummitSomberAncientDragonSmithingStone = 2053397010,
+
+    [Annotation(Name = "[Corpse - Jagged Peak Summit] Ancient Dragon Smithing Stone 2053397000")]
+    CorpseJaggedPeakSummitAncientDragonSmithingStone = 2053397000,
+
+    [Annotation(Name = "[Subterranean Shunning-Grounds - Omen] Omen Bairn 35007990")]
+    SubterraneanShunningGroundsOmenOmenBairn = 35007990,
+
+    [Annotation(Name = "[Stranded Graveyard - Banished Knight] Dragon Communion Seal 18007700")]
+    StrandedGraveyardBanishedKnightDragonCommunionSeal = 18007700,
+
+    [Annotation(Name = "[Lake of Rot - Ancestral Follower] Immunizing Horn Charm +1 12017992")]
+    LakeofRotAncestralFollowerImmunizingHornCharm1 = 12017992,
+
+    [Annotation(Name = "[Ancestral Woods - Ancestral Follower Shaman] Shining Horned Headband 12027995")]
+    AncestralWoodsAncestralFollowerShamanShiningHornedHeadband = 12027995,
+
+    [Annotation(Name = "[Consecrated Snowfield, Southwest Foggy Area - Grave Warden Duelist] Rotten Battle Hammer & Rotten Duelist Helm 1048547990")]
+    ConsecratedSnowfieldSouthwestFoggyAreaGraveWardenDuelistRottenBattleHammer = 1048547990,
+
+    [Annotation(Name = "[Consecrated Snowfield, Ordina, Liturgical Town - Grave Warden Duelist] Rotten Duelist Greaves & Rotten Greataxe 1048577990")]
+    ConsecratedSnowfieldOrdinaLiturgicalTownGraveWardenDuelistRottenDuelistGreaves = 1048577990,
+
+    [Annotation(Name = "[Academy of Raya Lucaria - Onyx Lord] Gravity Well 14007995")]
+    AcademyofRayaLucariaOnyxLordGravityWell = 14007995,
+
+    [Annotation(Name = "[Yelough Anix Tunnel - Onyx Lord] Alabaster Lord's Sword 32117700")]
+    YeloughAnixTunnelOnyxLordAlabasterLordsSword = 32117700,
+
+    [Annotation(Name = "[Limgrave, Seaside Ruins - Onyx Lord] Ash of War: Gravitas 1043357500")]
+    LimgraveSeasideRuinsOnyxLordAshofWarGravitas = 1043357500,
+
+    [Annotation(Name = "[Lake of Rot - Onyx Lord] Alabaster Lord's Sword 12017999")]
+    LakeofRotOnyxLordAlabasterLordsSword = 12017999,
+
+    [Annotation(Name = "[Gelmir Hero's Grave - Cemetery Shade] Mantis Blade 30097700")]
+    GelmirHerosGraveCemeteryShadeMantisBlade = 30097700,
+
+    [Annotation(Name = "[Altus Plateau - Battlemage] Haima Glintstone Crown & Battlemage Set 1040557700")]
+    AltusPlateauBattlemageHaimaGlintstoneCrown = 1040557700,
+
+    [Annotation(Name = "[Fort Laiedd - Fire Prelate] Prelate's Inferno Crozier 1035547700")]
+    FortLaieddFirePrelatePrelatesInfernoCrozier = 1035547700,
+
+    [Annotation(Name = "[Volcano Manor - Bloodhound Knight] Bloodhound Claws 16007980")]
+    VolcanoManorBloodhoundKnightBloodhoundClaws = 16007980,
+
+    [Annotation(Name = "[Gelmir Hero's Grave - Bloodhound Knight] Bloodhound Knight Set 30097800")]
+    GelmirHerosGraveBloodhoundKnightBloodhoundKnightHelm = 30097800,
+
+    [Annotation(Name = "[Limgrave - Wandering Noble] Glintstone Staff 1044367700")]
+    LimgraveWanderingNobleGlintstoneStaff = 1044367700,
+
+    [Annotation(Name = "[Leyndell, Royal Capital - Leyndell Knight] Gravel Stone Seal 11007989")]
+    LeyndellRoyalCapitalLeyndellKnightGravelStoneSeal = 11007989,
+
+    [Annotation(Name = "[Artist's Shack, Liurnia of the Lakes - Leyndell Knight) npc 43530020]] Dragon Cult Prayerbook 1038447500")]
+    ArtistsShackLiurniaoftheLakesLeyndellKnightnpc43530020DragonCultPrayerbook = 1038447500,
+
+    [Annotation(Name = "[Liurnia of the Lakes - Guilty] Briars of Sin 1038457500")]
+    LiurniaoftheLakesGuiltyBriarsofSin = 1038457500,
+
+    [Annotation(Name = "[Caria Manor - Troll Knight] Troll Knight's Sword 1035507990")]
+    CariaManorTrollKnightTrollKnightsSword = 1035507990,
+
+    [Annotation(Name = "[Deeproot Depths- Runebear] Prince of Death's Cyst 12037990")]
+    DeeprootDepthsRunebearPrinceofDeathsCyst = 12037990,
+
+    [Annotation(Name = "[Leyndell, Royal Capital - Omenkiller] Omensmirk Mask 11007992")]
+    LeyndellRoyalCapitalOmenkillerOmensmirkMask = 11007992,
+
+    [Annotation(Name = "[Perfumer's Ruins - Omenkiller] Omenkiller Set 1036517700")]
+    PerfumersRuinsOmenkillerOmenkillerRobe = 1036517700,
+
+    [Annotation(Name = "[Volcano Manor - Omenkiller] Great Omenkiller Cleaver 16007960")]
+    VolcanoManorOmenkillerGreatOmenkillerCleaver = 16007960,
+
+    [Annotation(Name = "[Volcano Manor - Omenkiller] Great Omenkiller Cleaver 16007970")]
+    VolcanoManorOmenkillerGreatOmenkillerCleaver_ = 16007970,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Festering Bloody Finger")]
+    ShopGatekeeperGostocFesteringBloodyFinger = 100000,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Ruin Fragment")]
+    ShopGatekeeperGostocRuinFragment = 100020,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Buckler")]
+    ShopGatekeeperGostocBuckler = 100040,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Furlcalling Finger Remedy")]
+    ShopGatekeeperGostocFurlcallingFingerRemedy = 100090,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Silver-Pickled Fowl Foot")]
+    ShopGatekeeperGostocSilverPickledFowlFoot = 100100,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Stormhawk Feather")]
+    ShopGatekeeperGostocStormhawkFeather = 100110,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Caestus")]
+    ShopGatekeeperGostocCaestus = 100120,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Great Arrow")]
+    ShopGatekeeperGostocGreatArrow = 100130,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Ballista Bolt")]
+    ShopGatekeeperGostocBallistaBolt = 100140,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Bandit Manchettes")]
+    ShopGatekeeperGostocBanditManchettes = 100150,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Bandit Boots")]
+    ShopGatekeeperGostocBanditBoots = 100160,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Bandit Garb")]
+    ShopGatekeeperGostocBanditGarb = 100170,
+
+    [Annotation(Name = "[Shop - Gatekeeper Gostoc] Ancient Dragon Smithing Stone")]
+    ShopGatekeeperGostocAncientDragonSmithingStone = 100180,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Glintstone Pebble")]
+    ShopSorceressSellenGlintstonePebble = 100500,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Scholar's Armament")]
+    ShopSorceressSellenScholarsArmament = 100510,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Scholar's Shield")]
+    ShopSorceressSellenScholarsShield = 100520,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Crystal Barrage")]
+    ShopSorceressSellenCrystalBarrage = 100530,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Glintstone Arc")]
+    ShopSorceressSellenGlintstoneArc = 100540,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Glintstone Stars")]
+    ShopSorceressSellenGlintstoneStars = 100550,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Shard Spiral")]
+    ShopSorceressSellenShardSpiral = 100560,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Glintstone Cometshard")]
+    ShopSorceressSellenGlintstoneCometshard = 100570,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Star Shower")]
+    ShopSorceressSellenStarShower = 100580,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Great Glintstone Shard")]
+    ShopSorceressSellenGreatGlintstoneShard = 100590,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Swift Glintstone Shard")]
+    ShopSorceressSellenSwiftGlintstoneShard = 100600,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Glintblade Phalanx")]
+    ShopSorceressSellenGlintbladePhalanx = 100610,
+
+    [Annotation(Name = "[Shop - Sorceress Sellen] Carian Slicer")]
+    ShopSorceressSellenCarianSlicer = 100620,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: Impaling Thrust")]
+    ShopKnightBernahlAshofWarImpalingThrust = 100750,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: Spinning Slash")]
+    ShopKnightBernahlAshofWarSpinningSlash = 100760,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: Quickstep")]
+    ShopKnightBernahlAshofWarQuickstep = 100770,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: Stamp (Upward Cut)")]
+    ShopKnightBernahlAshofWarStampUpwardCut = 100780,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: Kick")]
+    ShopKnightBernahlAshofWarKick = 100790,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: War Cry")]
+    ShopKnightBernahlAshofWarWarCry = 100800,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: Endure")]
+    ShopKnightBernahlAshofWarEndure = 100810,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: Parry")]
+    ShopKnightBernahlAshofWarParry = 100820,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: Storm Blade")]
+    ShopKnightBernahlAshofWarStormBlade = 100830,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: Eruption")]
+    ShopKnightBernahlAshofWarEruption = 100840,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: Assassin's Gambit")]
+    ShopKnightBernahlAshofWarAssassinsGambit = 100850,
+
+    [Annotation(Name = "[Shop - Knight Bernahl] Ash of War: No Skill")]
+    ShopKnightBernahlAshofWarNoSkill = 100860,
+
+    [Annotation(Name = "[Shop - Patches] Margit's Shackle")]
+    ShopPatchesMargitsShackle = 110000,
+
+    [Annotation(Name = "[Shop - Patches] Missionary's Cookbook [2]")]
+    ShopPatchesMissionarysCookbook2 = 67600,
+
+    [Annotation(Name = "[Shop - Patches] Stonesword Key")]
+    ShopPatchesStoneswordKey = 110020,
+
+    [Annotation(Name = "[Shop - Patches] Furlcalling Finger Remedy")]
+    ShopPatchesFurlcallingFingerRemedy = 110030,
+
+    [Annotation(Name = "[Shop - Patches] Gold-Pickled Fowl Foot")]
+    ShopPatchesGoldPickledFowlFoot = 110050,
+
+    [Annotation(Name = "[Shop - Patches] Parrying Dagger")]
+    ShopPatchesParryingDagger = 110080,
+
+    [Annotation(Name = "[Shop - Patches] Sacrificial Twig")]
+    ShopPatchesSacrificialTwig = 110110,
+
+    [Annotation(Name = "[Shop - Patches] Festering Bloody Finger")]
+    ShopPatchesFesteringBloodyFinger = 110120,
+
+    [Annotation(Name = "[Shop - Patches] Grace Mimic")]
+    ShopPatchesGraceMimic = 110130,
+
+    [Annotation(Name = "[Shop - Patches] Fan Daggers")]
+    ShopPatchesFanDaggers = 110140,
+
+    [Annotation(Name = "[Shop - Patches] Great Arrow")]
+    ShopPatchesGreatArrow = 110150,
+
+    [Annotation(Name = "[Shop - Patches] Ballista Bolt")]
+    ShopPatchesBallistaBolt = 110160,
+
+    [Annotation(Name = "[Shop - Patches] Festering Bloody Finger 2")]
+    ShopPatchesFesteringBloodyFinger_ = 110170,
+
+    [Annotation(Name = "[Shop - Patches] Estoc")]
+    ShopPatchesEstoc = 110190,
+
+    [Annotation(Name = "[Shop - Patches] Great Arrow 2")]
+    ShopPatchesGreatArrow_ = 110200,
+
+    [Annotation(Name = "[Shop - Patches] Ballista Bolt 2")]
+    ShopPatchesBallistaBolt_ = 110210,
+
+    [Annotation(Name = "[Shop - Patches] Horse Crest Wooden Shield")]
+    ShopPatchesHorseCrestWoodenShield = 110220,
+
+    [Annotation(Name = "[Shop - D, Hunter of the Dead] Litany of Proper Death")]
+    ShopDHunteroftheDeadLitanyofProperDeath = 110260,
+
+    [Annotation(Name = "[Shop - D, Hunter of the Dead] Order's Blade")]
+    ShopDHunteroftheDeadOrdersBlade = 110270,
+
+    [Annotation(Name = "[Shop - Blackguard] Rya's Necklace")]
+    ShopBlackguardRyasNecklace = 400300,
+
+    [Annotation(Name = "[Shop - Sage Gowry] Night Shard")]
+    ShopSageGowryNightShard = 110750,
+
+    [Annotation(Name = "[Shop - Sage Gowry] Night Maiden's Mist")]
+    ShopSageGowryNightMaidensMist = 110760,
+
+    [Annotation(Name = "[Shop - Sage Gowry] Glintstone Stars")]
+    ShopSageGowryGlintstoneStars = 110770,
+
+    [Annotation(Name = "[Shop - Sage Gowry] Pest Threads")]
+    ShopSageGowryPestThreads = 110850,
+
+    [Annotation(Name = "[Shop - Sorcerer Rogier] Ash of War: Spinning Weapon")]
+    ShopSorcererRogierAshofWarSpinningWeapon = 120000,
+
+    [Annotation(Name = "[Shop - Sorcerer Rogier] Ash of War: Glintstone Pebble")]
+    ShopSorcererRogierAshofWarGlintstonePebble = 120010,
+
+    [Annotation(Name = "[Shop - Sorcerer Rogier] Ash of War: Carian Greatsword")]
+    ShopSorcererRogierAshofWarCarianGreatsword = 120020,
+
+    [Annotation(Name = "[Shop - Iji] Somber Smithing Stone [3]")]
+    ShopIjiSomberSmithingStone3 = 120270,
+
+    [Annotation(Name = "[Shop - Iji] Somber Smithing Stone [4]")]
+    ShopIjiSomberSmithingStone4 = 120280,
+
+    [Annotation(Name = "[Shop - Iji] Carian Filigreed Crest")]
+    ShopIjiCarianFiligreedCrest = 120290,
+
+    [Annotation(Name = "[Shop - Sorcerer Thops] Glintstone Pebble")]
+    ShopSorcererThopsGlintstonePebble = 120500,
+
+    [Annotation(Name = "[Shop - Sorcerer Thops] Glintstone Arc")]
+    ShopSorcererThopsGlintstoneArc = 120510,
+
+    [Annotation(Name = "[Shop - Sorcerer Thops] Starlight")]
+    ShopSorcererThopsStarlight = 120520,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Carian Phalanx")]
+    ShopPreceptorSeluvisCarianPhalanx = 120750,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Glintstone Icecrag")]
+    ShopPreceptorSeluvisGlintstoneIcecrag = 120760,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Freezing Mist")]
+    ShopPreceptorSeluvisFreezingMist = 120770,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Carian Retaliation")]
+    ShopPreceptorSeluvisCarianRetaliation = 120780,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Glintstone Cometshard")]
+    ShopPreceptorSeluvisGlintstoneCometshard = 120790,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Star Shower")]
+    ShopPreceptorSeluvisStarShower = 120800,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Great Glintstone Shard")]
+    ShopPreceptorSeluvisGreatGlintstoneShard = 120810,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Swift Glintstone Shard")]
+    ShopPreceptorSeluvisSwiftGlintstoneShard = 120820,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Glintblade Phalanx")]
+    ShopPreceptorSeluvisGlintbladePhalanx = 120830,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Carian Slicer")]
+    ShopPreceptorSeluvisCarianSlicer = 120840,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Finger Maiden Therolina Puppet")]
+    ShopPreceptorSeluvisFingerMaidenTherolinaPuppet = 130000,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Dolores the Sleeping Arrow Puppet")]
+    ShopPreceptorSeluvisDolorestheSleepingArrowPuppet = 130010,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Jarwight Puppet")]
+    ShopPreceptorSeluvisJarwightPuppet = 130020,
+
+    [Annotation(Name = "[Shop - Preceptor Seluvis] Dung Eater Puppet")]
+    ShopPreceptorSeluvisDungEaterPuppet = 130100,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Glintstone Craftsman's Cookbook [7]")]
+    ShopPidiaCarianServantGlintstoneCraftsmansCookbook7 = 67470,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Ritual Pot")]
+    ShopPidiaCarianServantRitualPot = 66450,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Old Fang")]
+    ShopPidiaCarianServantOldFang = 130290,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Slumbering Egg")]
+    ShopPidiaCarianServantSlumberingEgg = 130300,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Ash of War: Carian Retaliation")]
+    ShopPidiaCarianServantAshofWarCarianRetaliation = 130340,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Celestial Dew")]
+    ShopPidiaCarianServantCelestialDew = 130350,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Larval Tear")]
+    ShopPidiaCarianServantLarvalTear = 130360,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Budding Horn")]
+    ShopPidiaCarianServantBuddingHorn = 130370,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Ripple Blade")]
+    ShopPidiaCarianServantRippleBlade = 130380,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Black Leather Shield")]
+    ShopPidiaCarianServantBlackLeatherShield = 130390,
+
+    [Annotation(Name = "[Shop - Pidia, Carian Servant] Weathered Map")]
+    ShopPidiaCarianServantWeatheredMap = 69900,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Rejection")]
+    ShopBrotherCorhynRejection = 130500,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Urgent Heal")]
+    ShopBrotherCorhynUrgentHeal = 130510,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Heal")]
+    ShopBrotherCorhynHeal = 130520,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Cure Poison")]
+    ShopBrotherCorhynCurePoison = 130530,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Flame Fortification")]
+    ShopBrotherCorhynFlameFortification = 130540,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Magic Fortification")]
+    ShopBrotherCorhynMagicFortification = 130550,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Catch Flame")]
+    ShopBrotherCorhynCatchFlame = 130560,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Flame Sling")]
+    ShopBrotherCorhynFlameSling = 130570,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Great Heal")]
+    ShopBrotherCorhynGreatHeal = 130580,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Lightning Fortification")]
+    ShopBrotherCorhynLightningFortification = 130590,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Discus of Light")]
+    ShopBrotherCorhynDiscusofLight = 130600,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Immutable Shield")]
+    ShopBrotherCorhynImmutableShield = 130610,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] O, Flame!")]
+    ShopBrotherCorhynOFlame = 130620,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Surge, O Flame!")]
+    ShopBrotherCorhynSurgeOFlame = 130630,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Giantsflame Take Thee")]
+    ShopBrotherCorhynGiantsflameTakeThee = 130640,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Flame, Fall Upon Them")]
+    ShopBrotherCorhynFlameFallUponThem = 130650,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Black Flame")]
+    ShopBrotherCorhynBlackFlame = 130660,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Black Flame Blade")]
+    ShopBrotherCorhynBlackFlameBlade = 130670,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Lord's Heal")]
+    ShopBrotherCorhynLordsHeal = 130680,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Lord's Aid")]
+    ShopBrotherCorhynLordsAid = 130690,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Assassin's Approach")]
+    ShopBrotherCorhynAssassinsApproach = 130700,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Darkness")]
+    ShopBrotherCorhynDarkness = 130710,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Radagon's Rings of Light")]
+    ShopBrotherCorhynRadagonsRingsofLight = 130720,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Law of Regression")]
+    ShopBrotherCorhynLawofRegression = 130730,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Lightning Spear")]
+    ShopBrotherCorhynLightningSpear = 130740,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Honed Bolt")]
+    ShopBrotherCorhynHonedBolt = 130750,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Electrify Armament")]
+    ShopBrotherCorhynElectrifyArmament = 130760,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Ancient Dragons' Lightning Spear")]
+    ShopBrotherCorhynAncientDragonsLightningSpear = 130770,
+
+    [Annotation(Name = "[Shop - Brother Corhyn] Ancient Dragons' Lightning Strike")]
+    ShopBrotherCorhynAncientDragonsLightningStrike = 130780,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Magic Glintblade")]
+    ShopGiantTurtleMagicGlintblade = 140000,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Carian Greatsword")]
+    ShopGiantTurtleCarianGreatsword = 140010,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Glintstone Cometshard")]
+    ShopGiantTurtleGlintstoneCometshard = 140020,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Star Shower")]
+    ShopGiantTurtleStarShower = 140030,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Great Glintstone Shard")]
+    ShopGiantTurtleGreatGlintstoneShard = 140040,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Swift Glintstone Shard")]
+    ShopGiantTurtleSwiftGlintstoneShard = 140050,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Glintblade Phalanx")]
+    ShopGiantTurtleGlintbladePhalanx = 140060,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Carian Slicer")]
+    ShopGiantTurtleCarianSlicer = 140070,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Blessing's Boon")]
+    ShopGiantTurtleBlessingsBoon = 140250,
+
+    [Annotation(Name = "[Shop - Giant Turtle] O, Flame!")]
+    ShopGiantTurtleOFlame = 140260,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Surge, O Flame!")]
+    ShopGiantTurtleSurgeOFlame = 140280,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Giantsflame Take Thee")]
+    ShopGiantTurtleGiantsflameTakeThee = 140290,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Flame, Fall Upon Them")]
+    ShopGiantTurtleFlameFallUponThem = 140300,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Black Flame")]
+    ShopGiantTurtleBlackFlame = 140310,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Black Flame Blade")]
+    ShopGiantTurtleBlackFlameBlade = 140320,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Lord's Heal")]
+    ShopGiantTurtleLordsHeal = 140330,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Lord's Aid")]
+    ShopGiantTurtleLordsAid = 140340,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Assassin's Approach")]
+    ShopGiantTurtleAssassinsApproach = 140350,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Darkness")]
+    ShopGiantTurtleDarkness = 140360,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Radagon's Rings of Light")]
+    ShopGiantTurtleRadagonsRingsofLight = 140370,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Law of Regression")]
+    ShopGiantTurtleLawofRegression = 140380,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Lightning Spear")]
+    ShopGiantTurtleLightningSpear = 140390,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Honed Bolt")]
+    ShopGiantTurtleHonedBolt = 140400,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Electrify Armament")]
+    ShopGiantTurtleElectrifyArmament = 140410,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Ancient Dragons' Lightning Spear")]
+    ShopGiantTurtleAncientDragonsLightningSpear = 140420,
+
+    [Annotation(Name = "[Shop - Giant Turtle] Ancient Dragons' Lightning Strike")]
+    ShopGiantTurtleAncientDragonsLightningStrike = 140430,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Note: Flask of Wondrous Physick")]
+    ShopMerchantKaléNoteFlaskofWondrousPhysick = 69620,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Crafting Kit")]
+    ShopMerchantKaléCraftingKit = 60120,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Nomadic Warrior's Cookbook [1]")]
+    ShopMerchantKaléNomadicWarriorsCookbook1 = 67000,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Nomadic Warrior's Cookbook [2]")]
+    ShopMerchantKaléNomadicWarriorsCookbook2 = 67110,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Missionary's Cookbook [1]")]
+    ShopMerchantKaléMissionarysCookbook1 = 67610,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Furlcalling Finger Remedy")]
+    ShopMerchantKaléFurlcallingFingerRemedy = 150050,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Cracked Pot")]
+    ShopMerchantKaléCrackedPot = 66030,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Torch")]
+    ShopMerchantKaléTorch = 150100,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Large Leather Shield")]
+    ShopMerchantKaléLargeLeatherShield = 150110,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Telescope")]
+    ShopMerchantKaléTelescope = 150130,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Note: Waypoint Ruins")]
+    ShopMerchantKaléNoteWaypointRuins = 69720,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Chain Coif")]
+    ShopMerchantKaléChainCoif = 150150,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Chain Armor")]
+    ShopMerchantKaléChainArmor = 150160,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Gauntlets")]
+    ShopMerchantKaléGauntlets = 150170,
+
+    [Annotation(Name = "[Shop - Merchant Kalé] Chain Leggings")]
+    ShopMerchantKaléChainLeggings = 150180,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Summonwater Village Outskirts] Nomadic Warrior's Cookbook [3]")]
+    ShopNomadicMerchantSummonwaterVillageOutskirtsNomadicWarriorsCookbook3 = 67010,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Summonwater Village Outskirts] Note: Flame Chariots")]
+    ShopNomadicMerchantSummonwaterVillageOutskirtsNoteFlameChariots = 69670,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Summonwater Village Outskirts] Cracked Pot")]
+    ShopNomadicMerchantSummonwaterVillageOutskirtsCrackedPot = 66060,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Summonwater Village Outskirts] Pickled Turtle Neck")]
+    ShopNomadicMerchantSummonwaterVillageOutskirtsPickledTurtleNeck = 150410,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Summonwater Village Outskirts] Short Sword")]
+    ShopNomadicMerchantSummonwaterVillageOutskirtsShortSword = 150420,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Summonwater Village Outskirts] Halberd")]
+    ShopNomadicMerchantSummonwaterVillageOutskirtsHalberd = 150430,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Summonwater Village Outskirts] Bandit Mask")]
+    ShopNomadicMerchantSummonwaterVillageOutskirtsBanditMask = 150460,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Summonwater Village Outskirts] Smithing Stone [1]")]
+    ShopNomadicMerchantSummonwaterVillageOutskirtsSmithingStone1 = 150470,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Nomadic Warrior's Cookbook [5]")]
+    ShopNomadicMerchantFortHaightWestNomadicWarriorsCookbook5 = 67830,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Armorer's Cookbook [3]")]
+    ShopNomadicMerchantFortHaightWestArmorersCookbook3 = 67280,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Sliver of Meat")]
+    ShopNomadicMerchantFortHaightWestSliverofMeat = 150520,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Beast Liver")]
+    ShopNomadicMerchantFortHaightWestBeastLiver = 150530,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Lump of Flesh")]
+    ShopNomadicMerchantFortHaightWestLumpofFlesh = 150540,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Festering Bloody Finger")]
+    ShopNomadicMerchantFortHaightWestFesteringBloodyFinger = 150610,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Trina's Lily")]
+    ShopNomadicMerchantFortHaightWestTrinasLily = 150620,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Hand Axe")]
+    ShopNomadicMerchantFortHaightWestHandAxe = 150630,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Riveted Wooden Shield")]
+    ShopNomadicMerchantFortHaightWestRivetedWoodenShield = 150640,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Blue-Gold Kite Shield")]
+    ShopNomadicMerchantFortHaightWestBlueGoldKiteShield = 150650,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] St. Trina's Arrow")]
+    ShopNomadicMerchantFortHaightWestStTrinasArrow = 150660,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Fort Haight West] Smithing Stone [1]")]
+    ShopNomadicMerchantFortHaightWestSmithingStone1 = 150670,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Armorer's Cookbook [2]")]
+    ShopNomadicMerchantCoastalCaveEntranceArmorersCookbook2 = 67210,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Note: Stonedigger Trolls")]
+    ShopNomadicMerchantCoastalCaveEntranceNoteStonediggerTrolls = 69630,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Note: Land Squirts")]
+    ShopNomadicMerchantCoastalCaveEntranceNoteLandSquirts = 69690,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Club")]
+    ShopNomadicMerchantCoastalCaveEntranceClub = 150860,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Broadsword")]
+    ShopNomadicMerchantCoastalCaveEntranceBroadsword = 150870,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Iron Roundshield")]
+    ShopNomadicMerchantCoastalCaveEntranceIronRoundshield = 150880,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Shortbow")]
+    ShopNomadicMerchantCoastalCaveEntranceShortbow = 150890,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Neutralizing Boluses")]
+    ShopNomadicMerchantCoastalCaveEntranceNeutralizingBoluses = 150920,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Stanching Boluses")]
+    ShopNomadicMerchantCoastalCaveEntranceStanchingBoluses = 150930,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Stimulating Boluses")]
+    ShopNomadicMerchantCoastalCaveEntranceStimulatingBoluses = 150940,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Coastal Cave Entrance] Smithing Stone [1]")]
+    ShopNomadicMerchantCoastalCaveEntranceSmithingStone1 = 150950,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Stonesword Key")]
+    ShopNomadicMerchantCastleMorneRampartStoneswordKey = 160000,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Red Thorn Roundshield")]
+    ShopNomadicMerchantCastleMorneRampartRedThornRoundshield = 160130,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Round Shield")]
+    ShopNomadicMerchantCastleMorneRampartRoundShield = 160140,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Crimson Amber Medallion")]
+    ShopNomadicMerchantCastleMorneRampartCrimsonAmberMedallion = 160160,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Note: Demi-human Mobs")]
+    ShopNomadicMerchantCastleMorneRampartNoteDemihumanMobs = 69680,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Cracked Pot")]
+    ShopNomadicMerchantCastleMorneRampartCrackedPot = 66070,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Bastard Sword")]
+    ShopNomadicMerchantCastleMorneRampartBastardSword = 160190,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Light Crossbow")]
+    ShopNomadicMerchantCastleMorneRampartLightCrossbow = 160200,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Great Arrow")]
+    ShopNomadicMerchantCastleMorneRampartGreatArrow = 160230,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Ballista Bolt")]
+    ShopNomadicMerchantCastleMorneRampartBallistaBolt = 160240,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Iron Helmet")]
+    ShopNomadicMerchantCastleMorneRampartIronHelmet = 180500,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Scale Armor")]
+    ShopNomadicMerchantCastleMorneRampartScaleArmor = 180510,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Iron Gauntlets")]
+    ShopNomadicMerchantCastleMorneRampartIronGauntlets = 180520,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Leather Trousers")]
+    ShopNomadicMerchantCastleMorneRampartLeatherTrousers = 180530,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Smithing Stone [1]")]
+    ShopNomadicMerchantCastleMorneRampartSmithingStone1 = 180540,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Castle Morne Rampart] Smithing Stone [2]")]
+    ShopNomadicMerchantCastleMorneRampartSmithingStone2 = 180550,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Nomadic Warrior's Cookbook [11]")]
+    ShopNomadicMerchantLaskyarRuinesNomadicWarriorsCookbook11 = 67220,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Estoc")]
+    ShopNomadicMerchantLaskyarRuinesEstoc = 160330,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Kite Shield")]
+    ShopNomadicMerchantLaskyarRuinesKiteShield = 160340,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Astrologer Hood")]
+    ShopNomadicMerchantLaskyarRuinesAstrologerHood = 160410,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Astrologer Robe")]
+    ShopNomadicMerchantLaskyarRuinesAstrologerRobe = 160420,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Astrologer Gloves")]
+    ShopNomadicMerchantLaskyarRuinesAstrologerGloves = 160430,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Astrologer Trousers")]
+    ShopNomadicMerchantLaskyarRuinesAstrologerTrousers = 160440,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Lantern")]
+    ShopNomadicMerchantLaskyarRuinesLantern = 160450,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Astrologer's Staff")]
+    ShopNomadicMerchantLaskyarRuinesAstrologersStaff = 160460,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Smithing Stone [1]")]
+    ShopNomadicMerchantLaskyarRuinesSmithingStone1 = 160490,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Laskyar Ruines] Smithing Stone [2]")]
+    ShopNomadicMerchantLaskyarRuinesSmithingStone2 = 200250,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Note: Wandering Mausoleum")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaNoteWanderingMausoleum = 69640,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Stonesword Key")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaStoneswordKey = 160520,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Arteria Leaf")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaArteriaLeaf = 160540,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Ballista Bolt")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaBallistaBolt = 160560,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Sacrificial Twig")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaSacrificialTwig = 160570,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Lantern")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaLantern = 160580,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Lost Ashes of War")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaLostAshesofWar = 160590,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Zweihander")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaZweihander = 160600,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Great Arrow")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaGreatArrow = 160630,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Festering Bloody Finger")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaFesteringBloodyFinger = 160640,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Weeping Peninsula] Smithing Stone [2]")]
+    ShopIsolatedMerchantIsolatedMerchantsShackWeepingPeninsulaSmithingStone2 = 160650,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Fevor's Cookbook [2]")]
+    ShopIsolatedMerchantSouthRayaLucariaGateFevorsCookbook2 = 68220,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Trina's Lily")]
+    ShopIsolatedMerchantSouthRayaLucariaGateTrinasLily = 160760,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Eye of Yelough")]
+    ShopIsolatedMerchantSouthRayaLucariaGateEyeofYelough = 160780,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Stonesword Key")]
+    ShopIsolatedMerchantSouthRayaLucariaGateStoneswordKey = 160800,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Lost Ashes of War")]
+    ShopIsolatedMerchantSouthRayaLucariaGateLostAshesofWar = 160810,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Sacrificial Twig")]
+    ShopIsolatedMerchantSouthRayaLucariaGateSacrificialTwig = 160820,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Note: Revenants")]
+    ShopIsolatedMerchantSouthRayaLucariaGateNoteRevenants = 69710,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Note: Frenzied Flame Village")]
+    ShopIsolatedMerchantSouthRayaLucariaGateNoteFrenziedFlameVillage = 69750,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Fanged Imp Ashes")]
+    ShopIsolatedMerchantSouthRayaLucariaGateFangedImpAshes = 160880,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] St. Trina's Arrow")]
+    ShopIsolatedMerchantSouthRayaLucariaGateStTrinasArrow = 160890,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Blue Cloth Cowl")]
+    ShopIsolatedMerchantSouthRayaLucariaGateBlueClothCowl = 160910,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Blue Cloth Vest")]
+    ShopIsolatedMerchantSouthRayaLucariaGateBlueClothVest = 160920,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Warrior Gauntlets")]
+    ShopIsolatedMerchantSouthRayaLucariaGateWarriorGauntlets = 160930,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Warrior Greaves")]
+    ShopIsolatedMerchantSouthRayaLucariaGateWarriorGreaves = 160940,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Festering Bloody Finger")]
+    ShopIsolatedMerchantSouthRayaLucariaGateFesteringBloodyFinger = 160950,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, South Raya Lucaria Gate] Note: The Preceptor's Secret")]
+    ShopIsolatedMerchantSouthRayaLucariaGateNoteThePreceptorsSecret = 69910,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Bellum Church] Nomadic Warrior's Cookbook [13]")]
+    ShopNomadicMerchantBellumChurchNomadicWarriorsCookbook13 = 67080,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Bellum Church] Composite Bow")]
+    ShopNomadicMerchantBellumChurchCompositeBow = 170040,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Bellum Church] Rift Shield")]
+    ShopNomadicMerchantBellumChurchRiftShield = 170050,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Bellum Church] Blue Crest Heater Shield")]
+    ShopNomadicMerchantBellumChurchBlueCrestHeaterShield = 170060,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Bellum Church] Rune Arc")]
+    ShopNomadicMerchantBellumChurchRuneArc = 170140,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Bellum Church] Bewitching Branch")]
+    ShopNomadicMerchantBellumChurchBewitchingBranch = 170150,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Bellum Church] Immunizing White Cured Meat")]
+    ShopNomadicMerchantBellumChurchImmunizingWhiteCuredMeat = 170180,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Bellum Church] Invigorating White Cured Meat")]
+    ShopNomadicMerchantBellumChurchInvigoratingWhiteCuredMeat = 170190,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Bellum Church] Clarifying White Cured Meat")]
+    ShopNomadicMerchantBellumChurchClarifyingWhiteCuredMeat = 170200,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Perfume Bottle")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsPerfumeBottle = 66750,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Sentry's Torch")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsSentrysTorch = 170350,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Rune Arc")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsRuneArc = 170360,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Golden Sunflower")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsGoldenSunflower = 170370,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Distinguished Greatshield")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsDistinguishedGreatshield = 170380,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Upper-Class Robe")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsUpperClassRobe = 170450,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Consort's Trousers")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsConsortsTrousers = 170460,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Prophet Blindfold")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsProphetBlindfold = 170470,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Prophet Trousers")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsProphetTrousers = 170480,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Prophet Robe")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsProphetRobe = 170490,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Hermit Merchant's Shack, Capital Outskirts] Note: Below the Capital")]
+    ShopHermitMerchantHermitMerchantsShackCapitalOutskirtsNoteBelowtheCapital = 69770,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Forest-Spanning Greatbridge] Ancient Dragon Apostle's Cookbook [2]")]
+    ShopNomadicMerchantForestSpanningGreatbridgeAncientDragonApostlesCookbook2 = 68010,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Forest-Spanning Greatbridge] Note: Imp Shades")]
+    ShopNomadicMerchantForestSpanningGreatbridgeNoteImpShades = 69610,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Forest-Spanning Greatbridge] Note: Unseen Assassins")]
+    ShopNomadicMerchantForestSpanningGreatbridgeNoteUnseenAssassins = 69650,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Forest-Spanning Greatbridge] Stonesword Key")]
+    ShopNomadicMerchantForestSpanningGreatbridgeStoneswordKey = 170530,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Forest-Spanning Greatbridge] Scorpion Kite Shield")]
+    ShopNomadicMerchantForestSpanningGreatbridgeScorpionKiteShield = 170640,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Forest-Spanning Greatbridge] Gravel Stone")]
+    ShopNomadicMerchantForestSpanningGreatbridgeGravelStone = 170650,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Forest-Spanning Greatbridge] Red Crest Heater Shield")]
+    ShopNomadicMerchantForestSpanningGreatbridgeRedCrestHeaterShield = 170660,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Forest-Spanning Greatbridge] Crossed-Tree Towershield")]
+    ShopNomadicMerchantForestSpanningGreatbridgeCrossedTreeTowershield = 170670,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Forest-Spanning Greatbridge] Tree Surcoat")]
+    ShopNomadicMerchantForestSpanningGreatbridgeTreeSurcoat = 170700,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Forest-Spanning Greatbridge] Festering Bloody Finger")]
+    ShopNomadicMerchantForestSpanningGreatbridgeFesteringBloodyFinger = 170710,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Mt. Gelmir] Nomadic Warrior's Cookbook [20]")]
+    ShopNomadicMerchantMtGelmirNomadicWarriorsCookbook20 = 67230,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Mt. Gelmir] Stonesword Key")]
+    ShopNomadicMerchantMtGelmirStoneswordKey = 170770,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Mt. Gelmir] Confessor Hood")]
+    ShopNomadicMerchantMtGelmirConfessorHood = 170940,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Mt. Gelmir] Confessor Armor")]
+    ShopNomadicMerchantMtGelmirConfessorArmor = 170950,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Mt. Gelmir] Confessor Gloves")]
+    ShopNomadicMerchantMtGelmirConfessorGloves = 170960,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Mt. Gelmir] Confessor Boots")]
+    ShopNomadicMerchantMtGelmirConfessorBoots = 170970,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Mt. Gelmir] Guilty Hood")]
+    ShopNomadicMerchantMtGelmirGuiltyHood = 170980,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, West Aeonia Swamp] Preserving Boluses")]
+    ShopNomadicMerchantWestAeoniaSwampPreservingBoluses = 180130,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, West Aeonia Swamp] Aeonian Butterfly")]
+    ShopNomadicMerchantWestAeoniaSwampAeonianButterfly = 180140,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Southern Aeonia Swamp Bank] Nomadic Warrior's Cookbook [15]")]
+    ShopNomadicMerchantSouthernAeoniaSwampBankNomadicWarriorsCookbook15 = 67900,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Southern Aeonia Swamp Bank] Stonesword Key")]
+    ShopNomadicMerchantSouthernAeoniaSwampBankStoneswordKey = 180260,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Southern Aeonia Swamp Bank] Cracked Pot")]
+    ShopNomadicMerchantSouthernAeoniaSwampBankCrackedPot = 66180,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Southern Aeonia Swamp Bank] Note: Gravity's Advantage")]
+    ShopNomadicMerchantSouthernAeoniaSwampBankNoteGravitysAdvantage = 69700,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Southern Aeonia Swamp Bank] Champion Headband")]
+    ShopNomadicMerchantSouthernAeoniaSwampBankChampionHeadband = 180410,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Southern Aeonia Swamp Bank] Champion Pauldron")]
+    ShopNomadicMerchantSouthernAeoniaSwampBankChampionPauldron = 180420,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Southern Aeonia Swamp Bank] Champion Bracers")]
+    ShopNomadicMerchantSouthernAeoniaSwampBankChampionBracers = 180430,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Southern Aeonia Swamp Bank] Champion Gaiters")]
+    ShopNomadicMerchantSouthernAeoniaSwampBankChampionGaiters = 180440,
+
+    [Annotation(Name = "[Shop - Nomadic Merchant, Southern Aeonia Swamp Bank] Greathelm")]
+    ShopNomadicMerchantSouthernAeoniaSwampBankGreathelm = 180450,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Note: Hidden Cave")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowNoteHiddenCave = 69600,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Ritual Pot")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowRitualPot = 66460,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Lost Ashes of War")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowLostAshesofWar = 180770,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Gravel Stone")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowGravelStone = 180780,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Sacrificial Twig")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowSacrificialTwig = 180800,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Land of Reeds Helm")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowLandofReedsHelm = 180820,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Land of Reeds Armor")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowLandofReedsArmor = 180830,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Land of Reeds Gauntlets")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowLandofReedsGauntlets = 180840,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Land of Reeds Greaves")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowLandofReedsGreaves = 180850,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Note: Gateway")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowNoteGateway = 69730,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Dragonwound Grease")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowDragonwoundGrease = 180870,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Spiked Caestus")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowSpikedCaestus = 180880,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Beast-Repellent Torch")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowBeastRepellentTorch = 180890,
+
+    [Annotation(Name = "[Shop - Isolated Merchant, Isolated Merchant's Shack, Greyoll's Dragonbarrow] Festering Bloody Finger")]
+    ShopIsolatedMerchantIsolatedMerchantsShackGreyollsDragonbarrowFesteringBloodyFinger = 180930,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ancient Snow Valley Ruins] Missionary's Cookbook [7]")]
+    ShopHermitMerchantAncientSnowValleyRuinsMissionarysCookbook7 = 68230,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ancient Snow Valley Ruins] Stonesword Key")]
+    ShopHermitMerchantAncientSnowValleyRuinsStoneswordKey = 190010,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ancient Snow Valley Ruins] Thawfrost Boluses")]
+    ShopHermitMerchantAncientSnowValleyRuinsThawfrostBoluses = 190030,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ancient Snow Valley Ruins] Rune Arc")]
+    ShopHermitMerchantAncientSnowValleyRuinsRuneArc = 190090,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ancient Snow Valley Ruins] Vagabond Knight Helm")]
+    ShopHermitMerchantAncientSnowValleyRuinsVagabondKnightHelm = 190150,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ancient Snow Valley Ruins] Vagabond Knight Armor")]
+    ShopHermitMerchantAncientSnowValleyRuinsVagabondKnightArmor = 190160,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ancient Snow Valley Ruins] Vagabond Knight Gauntlets")]
+    ShopHermitMerchantAncientSnowValleyRuinsVagabondKnightGauntlets = 190170,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ancient Snow Valley Ruins] Vagabond Knight Greaves")]
+    ShopHermitMerchantAncientSnowValleyRuinsVagabondKnightGreaves = 190180,
+
+    [Annotation(Name = "[Shop - Abandoned Merchant, Siofra River] Nomadic Warrior's Cookbook [17]")]
+    ShopAbandonedMerchantSiofraRiverNomadicWarriorsCookbook17 = 67100,
+
+    [Annotation(Name = "[Shop - Abandoned Merchant, Siofra River] Nomadic Warrior's Cookbook [18]")]
+    ShopAbandonedMerchantSiofraRiverNomadicWarriorsCookbook18 = 67270,
+
+    [Annotation(Name = "[Shop - Abandoned Merchant, Siofra River] Stonesword Key")]
+    ShopAbandonedMerchantSiofraRiverStoneswordKey = 190280,
+
+    [Annotation(Name = "[Shop - Abandoned Merchant, Siofra River] Dwelling Arrow")]
+    ShopAbandonedMerchantSiofraRiverDwellingArrow = 190350,
+
+    [Annotation(Name = "[Shop - Abandoned Merchant, Siofra River] Larval Tear")]
+    ShopAbandonedMerchantSiofraRiverLarvalTear = 190360,
+
+    [Annotation(Name = "[Shop - Abandoned Merchant, Siofra River] Shotel")]
+    ShopAbandonedMerchantSiofraRiverShotel = 190370,
+
+    [Annotation(Name = "[Shop - Abandoned Merchant, Siofra River] Soap")]
+    ShopAbandonedMerchantSiofraRiverSoap = 190400,
+
+    [Annotation(Name = "[Shop - Abandoned Merchant, Siofra River] Nascent Butterfly")]
+    ShopAbandonedMerchantSiofraRiverNascentButterfly = 190410,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ainsel River] Nomadic Warrior's Cookbook [16]")]
+    ShopHermitMerchantAinselRiverNomadicWarriorsCookbook16 = 67290,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ainsel River] Perfumer's Cookbook [4]")]
+    ShopHermitMerchantAinselRiverPerfumersCookbook4 = 67920,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ainsel River] Lost Ashes of War")]
+    ShopHermitMerchantAinselRiverLostAshesofWar = 190530,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ainsel River] Celestial Dew")]
+    ShopHermitMerchantAinselRiverCelestialDew = 190620,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ainsel River] Gravity Stone Fan")]
+    ShopHermitMerchantAinselRiverGravityStoneFan = 190630,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ainsel River] Gravity Stone Chunk")]
+    ShopHermitMerchantAinselRiverGravityStoneChunk = 190640,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ainsel River] Prisoner Iron Mask")]
+    ShopHermitMerchantAinselRiverPrisonerIronMask = 190650,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ainsel River] Prisoner Clothing")]
+    ShopHermitMerchantAinselRiverPrisonerClothing = 190660,
+
+    [Annotation(Name = "[Shop - Hermit Merchant, Ainsel River] Prisoner Trousers")]
+    ShopHermitMerchantAinselRiverPrisonerTrousers = 190670,
+
+    [Annotation(Name = "[Shop - Imprisoned Merchant, Mohgwyn Palace] Stonesword Key")]
+    ShopImprisonedMerchantMohgwynPalaceStoneswordKey = 190760,
+
+    [Annotation(Name = "[Shop - Imprisoned Merchant, Mohgwyn Palace] Lost Ashes of War")]
+    ShopImprisonedMerchantMohgwynPalaceLostAshesofWar = 190770,
+
+    [Annotation(Name = "[Shop - Imprisoned Merchant, Mohgwyn Palace] Rune Arc")]
+    ShopImprisonedMerchantMohgwynPalaceRuneArc = 190810,
+
+    [Annotation(Name = "[Shop - Imprisoned Merchant, Mohgwyn Palace] Festering Bloody Finger")]
+    ShopImprisonedMerchantMohgwynPalaceFesteringBloodyFinger = 190820,
+
+    [Annotation(Name = "[Shop - Imprisoned Merchant, Mohgwyn Palace] Stanching Boluses")]
+    ShopImprisonedMerchantMohgwynPalaceStanchingBoluses = 190830,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Elden Lord Crown")]
+    ShopFingerReaderEniaEldenLordCrown = 250030,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Elden Lord Armor")]
+    ShopFingerReaderEniaEldenLordArmor = 250040,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Elden Lord Bracers")]
+    ShopFingerReaderEniaEldenLordBracers = 250050,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Elden Lord Greaves")]
+    ShopFingerReaderEniaEldenLordGreaves = 250060,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Radahn's Redmane Helm")]
+    ShopFingerReaderEniaRadahnsRedmaneHelm = 250070,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Radahn's Lion Armor")]
+    ShopFingerReaderEniaRadahnsLionArmor = 250080,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Radahn's Gauntlets")]
+    ShopFingerReaderEniaRadahnsGauntlets = 250090,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Radahn's Greaves")]
+    ShopFingerReaderEniaRadahnsGreaves = 250100,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Lord of Blood's Robe")]
+    ShopFingerReaderEniaLordofBloodsRobe = 250110,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Queen's Crescent Crown")]
+    ShopFingerReaderEniaQueensCrescentCrown = 250120,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Queen's Robe")]
+    ShopFingerReaderEniaQueensRobe = 250130,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Queen's Bracelets")]
+    ShopFingerReaderEniaQueensBracelets = 250140,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Queen's Leggings")]
+    ShopFingerReaderEniaQueensLeggings = 250150,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Maliketh's Helm")]
+    ShopFingerReaderEniaMalikethsHelm = 250160,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Maliketh's Armor")]
+    ShopFingerReaderEniaMalikethsArmor = 250170,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Maliketh's Gauntlets")]
+    ShopFingerReaderEniaMalikethsGauntlets = 250180,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Maliketh's Greaves")]
+    ShopFingerReaderEniaMalikethsGreaves = 250190,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Malenia's Winged Helm")]
+    ShopFingerReaderEniaMaleniasWingedHelm = 250200,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Malenia's Armor")]
+    ShopFingerReaderEniaMaleniasArmor = 250210,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Malenia's Gauntlet")]
+    ShopFingerReaderEniaMaleniasGauntlet = 250220,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Malenia's Greaves")]
+    ShopFingerReaderEniaMaleniasGreaves = 250230,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Fell Omen Cloak")]
+    ShopFingerReaderEniaFellOmenCloak = 250240,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Royal Knight Helm")]
+    ShopFingerReaderEniaRoyalKnightHelm = 250250,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Royal Knight Armor")]
+    ShopFingerReaderEniaRoyalKnightArmor = 250260,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Royal Knight Gauntlets")]
+    ShopFingerReaderEniaRoyalKnightGauntlets = 250270,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Royal Knight Greaves")]
+    ShopFingerReaderEniaRoyalKnightGreaves = 250280,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Veteran's Helm")]
+    ShopFingerReaderEniaVeteransHelm = 250290,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Veteran's Armor")]
+    ShopFingerReaderEniaVeteransArmor = 250300,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Veteran's Gauntlets")]
+    ShopFingerReaderEniaVeteransGauntlets = 250310,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Veteran's Greaves")]
+    ShopFingerReaderEniaVeteransGreaves = 250320,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Briar Helm")]
+    ShopFingerReaderEniaBriarHelm = 250500,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Briar Armor")]
+    ShopFingerReaderEniaBriarArmor = 250510,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Briar Gauntlets")]
+    ShopFingerReaderEniaBriarGauntlets = 250520,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Briar Greaves")]
+    ShopFingerReaderEniaBriarGreaves = 250530,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Gaius's Helm")]
+    ShopFingerReaderEniaGaiussHelm = 250550,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Gaius's Armor")]
+    ShopFingerReaderEniaGaiussArmor = 250560,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Gaius's Gauntlets")]
+    ShopFingerReaderEniaGaiussGauntlets = 250570,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Messmer's Helm")]
+    ShopFingerReaderEniaMessmersHelm = 250580,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Messmer's Armor")]
+    ShopFingerReaderEniaMessmersArmor = 250590,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Messmer's Gauntlets")]
+    ShopFingerReaderEniaMessmersGauntlets = 250600,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Messmer's Greaves")]
+    ShopFingerReaderEniaMessmersGreaves = 250610,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Rellana's Helm")]
+    ShopFingerReaderEniaRellanasHelm = 250620,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Rellana's Armor")]
+    ShopFingerReaderEniaRellanasArmor = 250630,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Rellana's Gloves")]
+    ShopFingerReaderEniaRellanasGloves = 250640,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Rellana's Greaves")]
+    ShopFingerReaderEniaRellanasGreaves = 250650,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Young Lion's Helm")]
+    ShopFingerReaderEniaYoungLionsHelm = 250660,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Young Lion's Armor")]
+    ShopFingerReaderEniaYoungLionsArmor = 250670,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Young Lion's Gauntlets")]
+    ShopFingerReaderEniaYoungLionsGauntlets = 250680,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Young Lion's Greaves")]
+    ShopFingerReaderEniaYoungLionsGreaves = 250690,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] White Cipher Ring")]
+    ShopTwinMaidenHusksWhiteCipherRing = 60280,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Blue Cipher Ring")]
+    ShopTwinMaidenHusksBlueCipherRing = 60290,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Spirit Calling Bell")]
+    ShopTwinMaidenHusksSpiritCallingBell = 60110,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Lone Wolf Ashes")]
+    ShopTwinMaidenHusksLoneWolfAshes = 280030,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Black Flame's Protection")]
+    ShopTwinMaidenHusksBlackFlamesProtection = 280040,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Lord's Divine Fortification")]
+    ShopTwinMaidenHusksLordsDivineFortification = 280050,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Fevor's Cookbook [3]")]
+    ShopTwinMaidenHusksFevorsCookbook3 = 68210,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Law of Causality")]
+    ShopTwinMaidenHusksLawofCausality = 280070,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Memory Stone")]
+    ShopTwinMaidenHusksMemoryStone = 60470,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Stonesword Key")]
+    ShopTwinMaidenHusksStoneswordKey = 250010,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Rune Arc")]
+    ShopTwinMaidenHusksRuneArc = 250020,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Furled Finger's Trick-Mirror")]
+    ShopTwinMaidenHusksFurledFingersTrickMirror = 250330,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Host's Trick-Mirror")]
+    ShopTwinMaidenHusksHostsTrickMirror = 250340,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Dagger")]
+    ShopTwinMaidenHusksDagger = 250350,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Longsword")]
+    ShopTwinMaidenHusksLongsword = 250360,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Scimitar")]
+    ShopTwinMaidenHusksScimitar = 250370,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Battle Axe")]
+    ShopTwinMaidenHusksBattleAxe = 250380,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Mace")]
+    ShopTwinMaidenHusksMace = 250390,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Short Spear")]
+    ShopTwinMaidenHusksShortSpear = 250400,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Rapier")]
+    ShopTwinMaidenHusksRapier = 250410,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Finger Seal")]
+    ShopTwinMaidenHusksFingerSeal = 250420,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Longbow")]
+    ShopTwinMaidenHusksLongbow = 250430,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Heater Shield")]
+    ShopTwinMaidenHusksHeaterShield = 250440,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Knight Helm")]
+    ShopTwinMaidenHusksKnightHelm = 250450,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Knight Armor")]
+    ShopTwinMaidenHusksKnightArmor = 250460,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Knight Gauntlets")]
+    ShopTwinMaidenHusksKnightGauntlets = 250470,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Knight Greaves")]
+    ShopTwinMaidenHusksKnightGreaves = 250480,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Flask of Wondrous Physick")]
+    ShopTwinMaidenHusksFlaskofWondrousPhysick = 60020,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Crafting Kit")]
+    ShopTwinMaidenHusksCraftingKit = 60120,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Whetstone Knife")]
+    ShopTwinMaidenHusksWhetstoneKnife = 60130,
+
+    [Annotation(Name = "[Shop - Twin Maiden Husks] Talisman Pouch")]
+    ShopTwinMaidenHusksTalismanPouch = 60500,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Enraged Divine Beast")]
+    ShopFingerReaderEniaEnragedDivineBeast = 280980,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Ash of War: Divine Beast Frost Stomp")]
+    ShopFingerReaderEniaAshofWarDivineBeastFrostStomp = 280990,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Axe of Godrick")]
+    ShopFingerReaderEniaAxeofGodrick = 290000,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Grafted Dragon")]
+    ShopFingerReaderEniaGraftedDragon = 290010,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Starscourge Greatsword")]
+    ShopFingerReaderEniaStarscourgeGreatsword = 290020,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Lion Greatbow")]
+    ShopFingerReaderEniaLionGreatbow = 290030,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Morgott's Cursed Sword")]
+    ShopFingerReaderEniaMorgottsCursedSword = 290040,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Regal Omen Bairn")]
+    ShopFingerReaderEniaRegalOmenBairn = 290050,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Blasphemous Blade")]
+    ShopFingerReaderEniaBlasphemousBlade = 290060,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Rykard's Rancor")]
+    ShopFingerReaderEniaRykardsRancor = 290070,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Hand of Malenia")]
+    ShopFingerReaderEniaHandofMalenia = 290080,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Scarlet Aeonia")]
+    ShopFingerReaderEniaScarletAeonia = 290090,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Mohgwyn's Sacred Spear")]
+    ShopFingerReaderEniaMohgwynsSacredSpear = 290100,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Bloodboon")]
+    ShopFingerReaderEniaBloodboon = 290110,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Maliketh's Black Blade")]
+    ShopFingerReaderEniaMalikethsBlackBlade = 290120,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Black Blade")]
+    ShopFingerReaderEniaBlackBlade = 290130,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Axe of Godfrey")]
+    ShopFingerReaderEniaAxeofGodfrey = 290140,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Ash of War: Hoarah Loux's Earthshaker")]
+    ShopFingerReaderEniaAshofWarHoarahLouxsEarthshaker = 290150,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Dragon King's Cragblade")]
+    ShopFingerReaderEniaDragonKingsCragblade = 290160,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Placidusax's Ruin")]
+    ShopFingerReaderEniaPlacidusaxsRuin = 290170,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Carian Regal Scepter")]
+    ShopFingerReaderEniaCarianRegalScepter = 290180,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Rennala's Full Moon")]
+    ShopFingerReaderEniaRennalasFullMoon = 290190,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Fortissax's Lightning Spear")]
+    ShopFingerReaderEniaFortissaxsLightningSpear = 290200,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Death Lightning")]
+    ShopFingerReaderEniaDeathLightning = 290210,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Giant's Red Braid")]
+    ShopFingerReaderEniaGiantsRedBraid = 290220,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Burn, O Flame!")]
+    ShopFingerReaderEniaBurnOFlame = 290230,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Winged Greathorn")]
+    ShopFingerReaderEniaWingedGreathorn = 290240,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Ancestral Spirit's Horn")]
+    ShopFingerReaderEniaAncestralSpiritsHorn = 290250,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Marika's Hammer")]
+    ShopFingerReaderEniaMarikasHammer = 290260,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Sacred Relic Sword")]
+    ShopFingerReaderEniaSacredRelicSword = 290270,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Bastard's Stars")]
+    ShopFingerReaderEniaBastardsStars = 290280,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Ash of War: Waves of Darkness")]
+    ShopFingerReaderEniaAshofWarWavesofDarkness = 290290,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Rellana's Twin Blades")]
+    ShopFingerReaderEniaRellanasTwinBlades = 290300,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Rellana's Twin Moons")]
+    ShopFingerReaderEniaRellanasTwinMoons = 290310,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Sword Lance with Ash of War: Spinning Gravity Thrust")]
+    ShopFingerReaderEniaSwordLancewithAshofWarSpinningGravityThrust = 290320,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Blades of Stone")]
+    ShopFingerReaderEniaBladesofStone = 290330,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Putrescence Cleaver")]
+    ShopFingerReaderEniaPutrescenceCleaver = 290340,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Vortex of Putrescence")]
+    ShopFingerReaderEniaVortexofPutrescence = 290350,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Poleblade of the Bud")]
+    ShopFingerReaderEniaPolebladeoftheBud = 290360,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Rotten Butterflies")]
+    ShopFingerReaderEniaRottenButterflies = 290370,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Greatsword of Damnation")]
+    ShopFingerReaderEniaGreatswordofDamnation = 290380,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Midra's Flame of Frenzy")]
+    ShopFingerReaderEniaMidrasFlameofFrenzy = 290390,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Shadow Sunflower Blossom")]
+    ShopFingerReaderEniaShadowSunflowerBlossom = 290400,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Land of Shadow")]
+    ShopFingerReaderEniaLandofShadow = 290410,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Spear of the Impaler")]
+    ShopFingerReaderEniaSpearoftheImpaler = 290420,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Messmer's Orb")]
+    ShopFingerReaderEniaMessmersOrb = 290430,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Staff of the Great Beyond")]
+    ShopFingerReaderEniaStaffoftheGreatBeyond = 290440,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Gazing Finger")]
+    ShopFingerReaderEniaGazingFinger = 290450,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Greatsword of Radahn (Lord)")]
+    ShopFingerReaderEniaGreatswordofRadahnLord = 290460,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Greatsword of Radahn (Light)")]
+    ShopFingerReaderEniaGreatswordofRadahnLight = 290470,
+
+    [Annotation(Name = "[Shop - Finger Reader Enia] Light of Miquella")]
+    ShopFingerReaderEniaLightofMiquella = 290480,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Dragonfire")]
+    ShopCathedralofDragonCommunionDragonfire = 290500,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Dragonice")]
+    ShopCathedralofDragonCommunionDragonice = 290510,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Glintstone Breath")]
+    ShopCathedralofDragonCommunionGlintstoneBreath = 290520,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Rotten Breath")]
+    ShopCathedralofDragonCommunionRottenBreath = 290530,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Agheel's Flame")]
+    ShopCathedralofDragonCommunionAgheelsFlame = 290540,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Borealis's Mist")]
+    ShopCathedralofDragonCommunionBorealissMist = 290550,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Smarag's Glintstone Breath")]
+    ShopCathedralofDragonCommunionSmaragsGlintstoneBreath = 290560,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Ekzykes's Decay")]
+    ShopCathedralofDragonCommunionEkzykessDecay = 290570,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Dragonclaw")]
+    ShopCathedralofDragonCommunionDragonclaw = 290750,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Dragonmaw")]
+    ShopCathedralofDragonCommunionDragonmaw = 290760,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Magma Breath")]
+    ShopCathedralofDragonCommunionMagmaBreath = 290770,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Theodorix's Magma")]
+    ShopCathedralofDragonCommunionTheodorixsMagma = 290780,
+
+    [Annotation(Name = "[Shop - Cathedral of Dragon Communion] Greyoll's Roar")]
+    ShopCathedralofDragonCommunionGreyollsRoar = 290790,
+
+    [Annotation(Name = "[Shop - Moore] Rune Arc")]
+    ShopMooreRuneArc = 320500,
+
+    [Annotation(Name = "[Shop - Moore] Note: Sealed Spiritsprings")]
+    ShopMooreNoteSealedSpiritsprings = 320550,
+
+    [Annotation(Name = "[Shop - Moore] Rada Fruit")]
+    ShopMooreRadaFruit = 320560,
+
+    [Annotation(Name = "[Shop - Moore] Redflesh Mushroom")]
+    ShopMooreRedfleshMushroom = 320570,
+
+    [Annotation(Name = "[Shop - Moore] Whiteflesh Mushroom")]
+    ShopMooreWhitefleshMushroom = 320580,
+
+    [Annotation(Name = "[Shop - Moore] Knot Resin")]
+    ShopMooreKnotResin = 320590,
+
+    [Annotation(Name = "[Shop - Moore] Spellproof Pickled Liver")]
+    ShopMooreSpellproofPickledLiver = 320600,
+
+    [Annotation(Name = "[Shop - Moore] Fireproof Pickled Liver")]
+    ShopMooreFireproofPickledLiver = 320610,
+
+    [Annotation(Name = "[Shop - Moore] Lightningproof Pickled Liver")]
+    ShopMooreLightningproofPickledLiver = 320620,
+
+    [Annotation(Name = "[Shop - Moore] Holyproof Pickled Liver")]
+    ShopMooreHolyproofPickledLiver = 320630,
+
+    [Annotation(Name = "[Shop - Moore] Well-Pickled Turtle Neck")]
+    ShopMooreWellPickledTurtleNeck = 320640,
+
+    [Annotation(Name = "[Shop - Moore] Black Pyrefly")]
+    ShopMooreBlackPyrefly = 320650,
+
+    [Annotation(Name = "[Shop - Moore] Sanguine Amaryllis")]
+    ShopMooreSanguineAmaryllis = 320660,
+
+    [Annotation(Name = "[Shop - Thiollier] Deadly Poison Perfume Bottle")]
+    ShopThiollierDeadlyPoisonPerfumeBottle = 320700,
+
+    [Annotation(Name = "[Shop - Thiollier] Poison Grease")]
+    ShopThiollierPoisonGrease = 320710,
+
+    [Annotation(Name = "[Shop - Thiollier] Drawstring Poison Grease")]
+    ShopThiollierDrawstringPoisonGrease = 320720,
+
+    [Annotation(Name = "[Shop - Thiollier] Poisonbone Dart")]
+    ShopThiollierPoisonboneDart = 320730,
+
+    [Annotation(Name = "[Shop - Thiollier] Poisoned Stone")]
+    ShopThiollierPoisonedStone = 320740,
+
+    [Annotation(Name = "[Shop - Thiollier] Poisoned Stone Clump")]
+    ShopThiollierPoisonedStoneClump = 320750,
+
+    [Annotation(Name = "[Shop - Thiollier] Altus Bloom")]
+    ShopThiollierAltusBloom = 320760,
+
+    [Annotation(Name = "[Shop - Thiollier] Miranda Powder")]
+    ShopThiollierMirandaPowder = 320770,
+
+    [Annotation(Name = "[Shop - Thiollier] Poisonbloom")]
+    ShopThiollierPoisonbloom = 320780,
+
+    [Annotation(Name = "[Shop - Thiollier] Toxic Mushroom")]
+    ShopThiollierToxicMushroom = 320790,
+
+    [Annotation(Name = "[Shop - Thiollier] Toxic Mossling")]
+    ShopThiollierToxicMossling = 320800,
+
+    [Annotation(Name = "[Shop - Thiollier] Trina's Lily")]
+    ShopThiollierTrinasLily = 320810,
+
+    [Annotation(Name = "[Shop - Count Ymir, High Priest] Miriam's Vanishing")]
+    ShopCountYmirHighPriestMiriamsVanishing = 330000,
+
+    [Annotation(Name = "[Shop - Count Ymir, High Priest] Glintstone Nail")]
+    ShopCountYmirHighPriestGlintstoneNail = 330010,
+
+    [Annotation(Name = "[Shop - Count Ymir, High Priest] Glintstone Nails")]
+    ShopCountYmirHighPriestGlintstoneNails = 330020,
+
+    [Annotation(Name = "[Shop - Count Ymir, High Priest] Fleeting Microcosm")]
+    ShopCountYmirHighPriestFleetingMicrocosm = 330030,
+
+    [Annotation(Name = "[Shop - Count Ymir, High Priest] Glintstone Pebble")]
+    ShopCountYmirHighPriestGlintstonePebble = 330040,
+
+    [Annotation(Name = "[Shop - Count Ymir, High Priest] Great Glintstone Shard")]
+    ShopCountYmirHighPriestGreatGlintstoneShard = 330050,
+
+    [Annotation(Name = "[Shop - Count Ymir, High Priest] Glintblade Phalanx")]
+    ShopCountYmirHighPriestGlintbladePhalanx = 330060,
+
+    [Annotation(Name = "[Shop - Count Ymir, High Priest] Carian Phalanx")]
+    ShopCountYmirHighPriestCarianPhalanx = 330070,
+
+    [Annotation(Name = "[Shop - Count Ymir, High Priest] Carian Retaliation")]
+    ShopCountYmirHighPriestCarianRetaliation = 330080,
+
+    [Annotation(Name = "[Shop - Grand Altar of Dragon Communion] Bayle's Tyranny")]
+    ShopGrandAltarofDragonCommunionBaylesTyranny = 290650,
+
+    [Annotation(Name = "[Shop - Grand Altar of Dragon Communion] Bayle's Flame Lightning")]
+    ShopGrandAltarofDragonCommunionBaylesFlameLightning = 290660,
+
+    [Annotation(Name = "[Shop - Grand Altar of Dragon Communion] Ghostflame Breath")]
+    ShopGrandAltarofDragonCommunionGhostflameBreath = 290670
 }
