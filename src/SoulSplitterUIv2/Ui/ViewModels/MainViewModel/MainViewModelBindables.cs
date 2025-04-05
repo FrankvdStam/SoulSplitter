@@ -99,6 +99,13 @@ public partial class MainViewModel
     }
     private Type _selectedEventFlagType;
 
+    public SplitViewModel SelectedSplit
+    {
+        get => _selectedSplit;
+        set => SetField(ref _selectedSplit, value);
+    }
+    private SplitViewModel _selectedSplit;
+
 
     public ObservableCollection<TimingType> TimingTypes { get; set; } = new ObservableCollection<TimingType>();
     public ObservableCollection<SplitType> SplitTypes { get; set; } = new ObservableCollection<SplitType>();

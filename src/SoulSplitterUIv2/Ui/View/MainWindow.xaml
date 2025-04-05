@@ -115,7 +115,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition MinHeight="60"/>
+                    <RowDefinition MinHeight="70"/>
                 </Grid.RowDefinitions>
                 
                 <!-- Select game -->
@@ -183,19 +183,38 @@
                     materialDesign:HintAssist.Hint="Description"
                     Text="{Binding SplitDescription}"/>
 
-                <!-- Add button -->
-                <Button
+                <StackPanel
+                    Orientation="Horizontal"
                     Grid.Row="6"
-                    Margin="5, 15, 5, 5"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                    ToolTip="{DynamicResource ButtonToolTipAddSplit}"
-                    HorizontalAlignment="Left"
-                    Command="{Binding AddSplitCommand}">
-                    <materialDesign:PackIcon
-                        Kind="Plus"
-                        Height="30"
-                        Width="30" />
-                </Button>
+                    Margin="5, 5, 5, 5">
+                    <!-- Add button -->
+                    <Button
+                        Margin="5"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                        ToolTip="{DynamicResource ButtonToolTipAddSplit}"
+                        HorizontalAlignment="Left"
+                        Command="{Binding AddSplitCommand}">
+                        <materialDesign:PackIcon
+                            Kind="Plus"
+                            Height="30"
+                            Width="30" />
+                    </Button>
+
+                    <!-- Remove button -->
+                    <Button
+                        Margin="5"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                        ToolTip="{DynamicResource ButtonToolTipRemoveSplit}"
+                        HorizontalAlignment="Left"
+                        Command="{Binding RemoveSplitCommand}">
+                        <materialDesign:PackIcon
+                            Kind="Minus"
+                            Height="30"
+                            Width="30" />
+                    </Button>
+                </StackPanel>
+
+                
             </Grid>
         </Expander>
 
@@ -205,6 +224,7 @@
             IsReadOnly="True"
             AutoGenerateColumns="False"
             VerticalScrollBarVisibility="Visible"
+            SelectedItem="{Binding SelectedSplit}"
             ui:DataGridDragAndDropHelper.EnableRowReordering="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Game" Binding="{Binding Game, Converter={StaticResource EnumLanguageConverter}}"/>
@@ -222,13 +242,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
             </DataGrid.Columns>
-
         </DataGrid>
-
-        <!--
-        <splitControls:SplitsList
-            Splits="{Binding Splits}"/>
-        -->
 
     </DockPanel>
 </Window>

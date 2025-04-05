@@ -37,47 +37,7 @@ public partial class MainViewModel : INotifyPropertyChanged
     {
         _languageManager = languageManager;
         AddSplitCommand = new RelayCommand.RelayCommand(AddSplit, CanAddSplit);
-    }
-
-    private void AddSplit(object param)
-    {
-        object split = SelectedSplitType switch
-        {
-            SplitType.Boss or
-            SplitType.KnownFlag or
-            SplitType.ItemPickup or
-            SplitType.Bonfire =>
-                SelectedEventFlag,
-            SplitType.Position =>
-                PositionViewModel,
-
-
-
-            SplitType.Flag => throw new System.NotImplementedException(),
-            SplitType.Item => throw new System.NotImplementedException(),
-            SplitType.EldenRingPosition => throw new System.NotImplementedException(),
-            SplitType.DarkSouls1Bonfire => throw new System.NotImplementedException(),
-            SplitType.Attribute => throw new System.NotImplementedException(),
-            _ => throw new System.NotImplementedException(),
-        };
-        
-        Splits.Add(
-            new SplitViewModel(
-                SelectedGame!.Value, 
-                SelectedNewGamePlusLevel, 
-                SelectedTimingType!.Value, 
-                SelectedSplitType.Value,
-                split,
-                SplitDescription));
-    }
-
-    private bool CanAddSplit(object param)
-    {
-        return
-            SelectedGame != null &&
-            SelectedTimingType != null &&
-            SelectedSplitType != null &&
-            (SelectedEventFlag != null || PositionViewModel != null);
+        RemoveSplitCommand = new RelayCommand.RelayCommand(RemoveSplit, CanRemoveSplit);
     }
 
     #region UI logic
