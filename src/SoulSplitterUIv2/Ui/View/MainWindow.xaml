@@ -114,9 +114,9 @@
                 <splitControls:EventFlagListControl
                     Grid.Row="4"
                     LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
-                    EventFlagType="eldenRing:Boss"
-                    SelectedEventFlag="{Binding SelectedBoss, Mode=TwoWay}"
-                    Hint="Boss"/>
+                    EventFlagType="{Binding SelectedEventFlagType}"
+                    SelectedEventFlag="{Binding SelectedEventFlag, Mode=TwoWay}"
+                    Hint="Split"/>
 
                 <!-- Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter},ConverterParameter=Boss ConverterParameter={x:Static SplitType.Boss}}"
                     

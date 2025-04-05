@@ -23,7 +23,6 @@ using System.Runtime.CompilerServices;
 using SoulSplitterUIv2.DependencyInjection;
 using SoulMemory.Enums;
 using SoulSplitterUIv2.Resources;
-using Boss = SoulMemory.Games.EldenRing.Boss;
 
 namespace SoulSplitterUIv2.Ui.ViewModels
 {
@@ -49,7 +48,7 @@ namespace SoulSplitterUIv2.Ui.ViewModels
         private void AddSplit(object param)
         {
             //IsAddSplitPopupOpen = false;
-            Splits.Add(new SplitViewModel(SelectedGame.Value, SelectedNewGamePlusLevel, SelectedTimingType.Value, SelectedSplitType.Value, SelectedBoss.Value, SplitDescription));
+            Splits.Add(new SplitViewModel(SelectedGame.Value, SelectedNewGamePlusLevel, SelectedTimingType.Value, SelectedSplitType.Value, SelectedEventFlag, SplitDescription));
         }
 
         private bool CanAddSplit(object param)
@@ -58,9 +57,9 @@ namespace SoulSplitterUIv2.Ui.ViewModels
                 SelectedGame != null &&
                 SelectedTimingType != null &&
                 SelectedSplitType != null &&
-                SelectedBoss != null;
+                SelectedEventFlag != null;
         }
-
+        
         #region UI bindable properties
         public string Version { get; set; } = "2";
 
@@ -92,16 +91,21 @@ namespace SoulSplitterUIv2.Ui.ViewModels
         public SplitType? SelectedSplitType
         {
             get => _selectedSplitType;
-            set => SetField(ref _selectedSplitType, value);
+            set
+            {
+                SetField(ref _selectedSplitType, value);
+                OnSelectedSplitTypeChanged();
+            }
         }
+
         private SplitType? _selectedSplitType;
 
-        public Boss? SelectedBoss
-        {
-            get => _selectedBoss;
-            set => SetField(ref _selectedBoss, value);
-        }
-        private Boss? _selectedBoss;
+        //public Boss? SelectedBoss
+        //{
+        //    get => _selectedBoss;
+        //    set => SetField(ref _selectedBoss, value);
+        //}
+        //private Boss? _selectedBoss;
 
         public string SplitDescription
         {
@@ -131,25 +135,22 @@ namespace SoulSplitterUIv2.Ui.ViewModels
         }
         private Enum _selectedEventFlag;
 
-        public RelayCommand.RelayCommand AddSplitCommand
-        { 
-            get => _addSplitCommand;
-            set => _addSplitCommand = value;
-        }
-        private RelayCommand.RelayCommand _addSplitCommand;
-
-        public RelayCommand.RelayCommand SerializeCommand
+        public Type SelectedEventFlagType
         {
-            get => _serializeCommand;
-            set => _serializeCommand = value;
+            get => _selectedEventFlagType;
+            set => SetField(ref _selectedEventFlagType, value);
         }
-        private RelayCommand.RelayCommand _serializeCommand;
+        private Type _selectedEventFlagType;
+
+        public RelayCommand.RelayCommand AddSplitCommand { get; set; }
+
+        public RelayCommand.RelayCommand RemoveSplitCommand { get; set; }
         
+        public RelayCommand.RelayCommand SerializeCommand { get; set; }
+
         public ObservableCollection<TimingType> TimingTypes { get; set; } = new ObservableCollection<TimingType>();
         public ObservableCollection<SplitType> SplitTypes { get; set; } = new ObservableCollection<SplitType>();
-
         public ObservableCollection<SplitViewModel> Splits { get; set; } = new ObservableCollection<SplitViewModel>();
-
         public ObservableCollection<int> NewGamePlusLevels { get; set; } = new ObservableCollection<int>(Enumerable.Range(0, 100));
 
         #endregion
@@ -168,10 +169,29 @@ namespace SoulSplitterUIv2.Ui.ViewModels
 
             if (IsGameSelected)
             {
-                TimingTypes.AddRange(SelectedGame.GetAttribute<TimingTypesAttribute>().TimingTypes);
-                SplitTypes.AddRange(SelectedGame.GetAttribute<SplitTypesAttribute>().SplitTypes);
+                TimingTypes.AddRange(SplitConfiguration.GetSupportedTimingTypes(SelectedGame!.Value));
+                SplitTypes.AddRange(SplitConfiguration.GetSupportedSplitTypes(SelectedGame!.Value));
             }
         }
+
+        private void OnSelectedSplitTypeChanged()
+        {
+            SelectedEventFlag = null;
+            if (SelectedSplitType != null)
+            {
+                SelectedEventFlagType = SplitConfiguration.GetSplitType(SelectedGame!.Value, SelectedSplitType!.Value);
+            }
+        }
+
+        ///Game + SplitType -> event flag enum type lookup table
+        private Dictionary<Game, Dictionary<SplitType, Type>> _eventFlagEnumTypeLookupTable =
+            new Dictionary<Game, Dictionary<SplitType, Type>>()
+            {
+                {
+                    Game.DarkSouls1,
+                    new Dictionary<SplitType, Type> { { SplitType.Boss, typeof(SoulMemory.Games.DarkSouls1.Boss) } }
+                }
+            };
 
         #endregion
 

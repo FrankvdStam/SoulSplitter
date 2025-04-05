@@ -48,25 +48,49 @@ namespace SoulSplitterUIv2.Ui.View.SplitControls
             }
 
             EventFlagList.Clear();
-            EventFlagList.AddRange(Enum.GetValues(_eventFlagType).Cast<Enum>().Select(i => new EventFlagViewModel(i, LanguageManager)));
+
+            if (EventFlagType != null)
+            {
+                EventFlagList.AddRange(Enum.GetValues(EventFlagType).Cast<Enum>().Select(i => new EventFlagViewModel(i, LanguageManager)));
+            }
+        }
+
+        private static void UpdateEventFlagListCallback(DependencyObject d, DependencyPropertyChangedEventArgs a)
+        {
+            if (d is EventFlagListControl control)
+            {
+                control.UpdateEventFlagList();
+            }
         }
 
         #region Bindings
 
         public ILanguageManager LanguageManager { get; set; }
 
+       
+
+        public ObservableCollection<EventFlagViewModel> EventFlagList { get; set; } = new ObservableCollection<EventFlagViewModel>();
+
+
+        public static readonly DependencyProperty EventFlagTypeDependencyProperty =
+            DependencyProperty.Register(
+                nameof(EventFlagType), 
+                typeof(object), 
+                typeof(EventFlagListControl),
+                new FrameworkPropertyMetadata(
+                    null, 
+                    FrameworkPropertyMetadataOptions.None,
+                    new PropertyChangedCallback(UpdateEventFlagListCallback)));
+
         public Type EventFlagType
         {
-            get => _eventFlagType;
+            get => (Type)GetValue(EventFlagTypeDependencyProperty);
             set
             {
-                _eventFlagType = value;
+                SetValue(EventFlagTypeDependencyProperty, value);
                 UpdateEventFlagList();
             }
         }
-        private Type _eventFlagType;
-
-        public ObservableCollection<EventFlagViewModel> EventFlagList { get; set; } = new ObservableCollection<EventFlagViewModel>();
 
 
         public static readonly DependencyProperty SelectedValueDependencyProperty =
