@@ -41,8 +41,34 @@ public partial class MainViewModel : INotifyPropertyChanged
 
     private void AddSplit(object param)
     {
-        //TODO: SelectedEventFlag is hardcoded here
-        Splits.Add(new SplitViewModel(SelectedGame.Value, SelectedNewGamePlusLevel, SelectedTimingType.Value, SelectedSplitType.Value, SelectedEventFlag, SplitDescription));
+        object split = SelectedSplitType switch
+        {
+            SplitType.Boss or
+            SplitType.KnownFlag or
+            SplitType.ItemPickup or
+            SplitType.Bonfire =>
+                SelectedEventFlag,
+            SplitType.Position =>
+                PositionViewModel,
+
+
+
+            SplitType.Flag => throw new System.NotImplementedException(),
+            SplitType.Item => throw new System.NotImplementedException(),
+            SplitType.EldenRingPosition => throw new System.NotImplementedException(),
+            SplitType.DarkSouls1Bonfire => throw new System.NotImplementedException(),
+            SplitType.Attribute => throw new System.NotImplementedException(),
+            _ => throw new System.NotImplementedException(),
+        };
+        
+        Splits.Add(
+            new SplitViewModel(
+                SelectedGame!.Value, 
+                SelectedNewGamePlusLevel, 
+                SelectedTimingType!.Value, 
+                SelectedSplitType.Value,
+                split,
+                SplitDescription));
     }
 
     private bool CanAddSplit(object param)
@@ -51,7 +77,7 @@ public partial class MainViewModel : INotifyPropertyChanged
             SelectedGame != null &&
             SelectedTimingType != null &&
             SelectedSplitType != null &&
-            SelectedEventFlag != null;
+            (SelectedEventFlag != null || PositionViewModel != null);
     }
 
     #region UI logic

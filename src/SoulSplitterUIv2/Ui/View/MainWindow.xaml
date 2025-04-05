@@ -28,6 +28,7 @@
     xmlns:soulMemoryEnums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
     xmlns:ui="clr-namespace:SoulSplitterUIv2.Ui"
     xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:controls="clr-namespace:SoulSplitterUIv2.Ui.View.Controls"
+    xmlns:viewModels="clr-namespace:SoulSplitterUIv2.Ui.ViewModels"
     Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextElement.FontWeight="Regular"
@@ -61,11 +62,10 @@
                                 <x:Static Member="soulMemoryEnums:SplitType.KnownFlag" />
                             </x:Array>
 
-
                             <DataTemplate DataType="{x:Type system:Enum}" x:Key="EventFlagDataTemplate">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.Name}}"/>
-                                    <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.NumericFlag}}"/>
+                                    <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.Name}, StringFormat={}name: {0}}"/>
+                                    <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.NumericFlag}, StringFormat={}Flag: {0}}"/>
                                     <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.Description}}"/>
                                 </StackPanel>
                             </DataTemplate>
@@ -74,11 +74,21 @@
                                 <TextBlock Text="{Binding ., Converter={StaticResource EnumLanguageConverter}}"/>
                             </DataTemplate>
 
+                            <DataTemplate DataType="{x:Type viewModels:PositionViewModel}" x:Key="PositionViewModelDataTemplate">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Position.X, StringFormat={}X: {0}}"/>
+                                    <TextBlock Text="{Binding Position.Y, StringFormat={}Y: {0}}"/>
+                                    <TextBlock Text="{Binding Position.Z, StringFormat={}Z: {0}}"/>
+                                    <TextBlock Text="{Binding Size, StringFormat={}Size: {0}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+
                             <ui:SplitTypeDataTemplateSelector
                                 x:Key="SplitTypeDataTemplateSelector"
                                 LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
                                 EventFlagDataTemplate="{StaticResource EventFlagDataTemplate}"
                                 EnumDataTemplate="{StaticResource EnumDataTemplate}"
+                                PositionViewModelDataTemplate="{StaticResource PositionViewModelDataTemplate}"
                             />
                         </ResourceDictionary>
 

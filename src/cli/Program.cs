@@ -34,6 +34,7 @@ using SplitType = SoulSplitter.UI.Generic.SplitType;
 using TimingType = SoulSplitter.UI.Generic.TimingType;
 using SoulMemory.Abstractions;
 using SoulSplitter.UiV3;
+using SoulSplitterUIv2.Ui.ViewModels;
 
 #pragma warning disable CS0162
 
@@ -253,6 +254,7 @@ namespace cli
             mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 0, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
             mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.EldenRing, 99, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
             mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.DarkSouls3, 12, SoulMemory.Enums.TimingType.OnWarp, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));
+            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 1, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Position, new PositionViewModel(){ Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f}, "kekw"));
 
 
             mainWindow.ShowDialog();

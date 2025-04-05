@@ -18,6 +18,7 @@ using System;
 using System.Windows.Controls;
 using System.Windows;
 using SoulSplitterUIv2.Resources;
+using SoulSplitterUIv2.Ui.ViewModels;
 
 namespace SoulSplitterUIv2.Ui
 {
@@ -25,6 +26,7 @@ namespace SoulSplitterUIv2.Ui
     {
         public DataTemplate EventFlagDataTemplate { get; set; }
         public DataTemplate EnumDataTemplate { get; set; }
+        public DataTemplate PositionViewModelDataTemplate { get; set; }
 
         public ILanguageManager LanguageManager { get; set; }
 
@@ -45,6 +47,11 @@ namespace SoulSplitterUIv2.Ui
                     return EventFlagDataTemplate;
                 }
                 return EnumDataTemplate;
+            }
+
+            if (item is PositionViewModel)
+            {
+                return PositionViewModelDataTemplate;
             }
 
             return EnumDataTemplate;
