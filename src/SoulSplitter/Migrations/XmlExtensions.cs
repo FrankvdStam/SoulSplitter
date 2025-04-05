@@ -33,4 +33,16 @@ internal static class XmlExtensions
         }
         throw new ArgumentException($"{childName} not found");
     }
+
+    public static void ForEachChildNodeByName(this XmlNode node, string childName, Action<XmlNode> action)
+    {
+        var lower = childName.ToLower();
+        foreach (XmlNode child in node.ChildNodes)
+        {
+            if (child.LocalName.ToLower() == lower)
+            {
+                action(child);
+            }
+        }
+    }
 }
