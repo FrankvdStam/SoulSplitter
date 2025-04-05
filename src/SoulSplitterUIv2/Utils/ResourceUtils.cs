@@ -23,7 +23,7 @@ namespace SoulSplitterUIv2.Utils;
 
 public class ResourceUtils
 {
-    private static string GenerateResourceDictionaryForEventFlag(Type eventFlagType)
+    public static string GenerateResourceDictionaryForEventFlag(Type eventFlagType)
     {
         var values = Enum.GetValues(eventFlagType).Cast<Enum>().ToList();
 
@@ -43,6 +43,15 @@ public class ResourceUtils
             //var name = split[0];
             //
             //
+
+            //var split = name.Split().ToList();
+            //if (long.TryParse(split[split.Count - 1], out long res))
+            //{
+            //    split.RemoveAt(split.Count - 1);
+            //}
+            //name = string.Join(" ", split);
+            
+
 
             stringBuilder.AppendLine();
             stringBuilder.AppendLine($"    <r:EventFlag x:Key=\"{{x:Static soulmemory:{eventFlagType.Name}.{value.ToString()}}}\">");

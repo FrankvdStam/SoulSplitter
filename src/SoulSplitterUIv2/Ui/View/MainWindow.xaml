@@ -20,7 +20,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d"
-    xmlns:eldenRing="clr-namespace:SoulMemory.Games.EldenRing;assembly=SoulMemory"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:resources="clr-namespace:SoulSplitterUIv2.Resources"
     xmlns:splitControls="clr-namespace:SoulSplitterUIv2.Ui.View.SplitControls"
@@ -28,6 +27,8 @@
     xmlns:viewModels="clr-namespace:SoulSplitterUIv2.Ui.ViewModels"
     xmlns:converters="clr-namespace:SoulSplitterUIv2.Ui.Converters"
     xmlns:enums1="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
+    xmlns:ui="clr-namespace:SoulSplitterUIv2.Ui"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextElement.FontWeight="Regular"
@@ -48,17 +49,38 @@
                         <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" SecondaryColor="Indigo" />
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Language.xaml" />
+                       
                         <ResourceDictionary>
-                            <converters:SplitTypeVisibilityConverter x:Key="SplitTypeVisibilityConverter"/>
+                            <converters:EnumLanguageConverter x:Key="EnumLanguageConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
+                            <converters:EnumEventFlagConverter x:Key="EnumEventFlagConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
+
+                            <DataTemplate DataType="{x:Type system:Enum}" x:Key="EventFlagDataTemplate">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.Name}}"/>
+                                    <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.NumericFlag}}"/>
+                                    <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.Description}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type system:Enum}" x:Key="EnumDataTemplate">
+                                <TextBlock Text="{Binding ., Converter={StaticResource EnumLanguageConverter}}"/>
+                            </DataTemplate>
+
+                            <ui:SplitTypeDataTemplateSelector
+                                x:Key="SplitTypeDataTemplateSelector"
+                                LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
+                                EventFlagDataTemplate="{StaticResource EventFlagDataTemplate}"
+                                EnumDataTemplate="{StaticResource EnumDataTemplate}"
+                            />
                         </ResourceDictionary>
+
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
-
-    <StackPanel>
+    <DockPanel>
         <Expander
             materialDesign:ExpanderAssist.ExpanderButtonPosition="Start"
             DockPanel.Dock="Top"
@@ -148,8 +170,36 @@
             </Grid>
         </Expander>
 
+        <!-- active splits -->
+        <DataGrid
+            ItemsSource="{Binding Splits}"
+            IsReadOnly="True"
+            AutoGenerateColumns="False"
+            VerticalScrollBarVisibility="Visible"
+            ui:DataGridDragAndDropHelper.EnableRowReordering="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Game" Binding="{Binding Game, Converter={StaticResource EnumLanguageConverter}}"/>
+                <DataGridTextColumn Header="NG+" Binding="{Binding NewGamePlusLevel}"/>
+                <DataGridTextColumn Header="Timing" Binding="{Binding TimingType, Converter={StaticResource EnumLanguageConverter}}"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding SplitType, Converter={StaticResource EnumLanguageConverter}}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ContentControl 
+                                ContentTemplateSelector="{StaticResource SplitTypeDataTemplateSelector}"
+                                Content="{Binding Split}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <!--
         <splitControls:SplitsList
             Splits="{Binding Splits}"/>
+        -->
 
-    </StackPanel>
+    </DockPanel>
 </Window>

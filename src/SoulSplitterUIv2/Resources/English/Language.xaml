@@ -10,7 +10,22 @@
         <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Ui/SplitType.xaml" />
         <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Ui/TimingType.xaml" />
 
-        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Sekiro/Boss.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/DarkSouls1/Boss.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/DarkSouls1/KnownFlag.xaml" />
+
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/DarkSouls2/Boss.xaml" />
+
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/DarkSouls3/Boss.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/DarkSouls3/Bonfire.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/DarkSouls3/ItemPickup.xaml" />
+
         <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/EldenRing/Boss.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/EldenRing/Grace.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/EldenRing/ItemPickup.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/EldenRing/KnownFlag.xaml" />
+
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Sekiro/Boss.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Sekiro/Idol.xaml" />
+
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

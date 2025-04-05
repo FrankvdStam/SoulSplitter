@@ -29,6 +29,7 @@ using SoulMemory.Enums;
 using SoulMemory.Parameters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
+using SoulSplitterUIv2.Utils;
 using SplitType = SoulSplitter.UI.Generic.SplitType;
 using TimingType = SoulSplitter.UI.Generic.TimingType;
 
@@ -41,6 +42,12 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+
+
+
+            //var res = ResourceUtils.GenerateResourceDictionaryForEventFlag(typeof(SoulMemory.Games.EldenRing.ItemPickup));
+
+
             TestUi(true);
             return;
             TestUiV2();
