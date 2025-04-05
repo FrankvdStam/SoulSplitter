@@ -1,8 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulSplitterUIv2.Enums;
+using SoulMemory.Enums;
 using SoulSplitterUIv2.Resources;
 using SoulSplitterUIv2.Ui.ViewModels;
+using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitterUIv2.Tests.Ui.ViewModel
 {
@@ -34,7 +35,7 @@ namespace SoulSplitterUIv2.Tests.Ui.ViewModel
             sut.SelectedGame = Game.DarkSouls1;
             sut.SelectedTimingType = TimingType.OnWarp;
             sut.SelectedSplitType = SplitType.Boss;
-            sut.SelectedEventFlag = SoulMemory.DarkSouls1.Boss.CapraDemon;
+            sut.SelectedEventFlag = SoulMemory.Games.DarkSouls1.Boss.CapraDemon;
 
             sut.SelectedGame = Game.DarkSouls2;
             Assert.IsNull(sut.SelectedTimingType);
@@ -70,7 +71,7 @@ namespace SoulSplitterUIv2.Tests.Ui.ViewModel
             sut.SelectedGame = Game.DarkSouls1;
             CollectionAssert.Contains(sut.SplitTypes, SplitType.Boss);
             CollectionAssert.Contains(sut.SplitTypes, SplitType.Attribute);
-            CollectionAssert.Contains(sut.SplitTypes, SplitType.Bonfire);
+            CollectionAssert.Contains(sut.SplitTypes, SplitType.DarkSouls1Bonfire);
 
             sut.SelectedGame = Game.ArmoredCore6;
             CollectionAssert.DoesNotContain(sut.SplitTypes, SplitType.Bonfire);

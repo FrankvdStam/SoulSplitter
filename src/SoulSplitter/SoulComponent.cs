@@ -24,14 +24,17 @@ using System.Collections.Generic;
 using System.Xml;
 using SoulSplitter.Splitters;
 using SoulSplitter.UI;
-using SoulSplitter.UI.Generic;
 using SoulMemory;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using SoulMemory.Enums;
+using SoulMemory.Games.Sekiro;
 using SoulSplitter.Migrations;
+using Timer = SoulMemory.Timer;
+using SoulMemory.Abstractions;
 
 namespace SoulSplitter;
 
@@ -42,6 +45,7 @@ public class SoulComponent : IComponent
 
     private LiveSplitState _liveSplitState;
     private ISplitter? _splitter;
+    private TimerAdapter _timerAdapter;
     private IGame _game = null!;
     private DateTime _lastFailedRefresh = DateTime.MinValue;
     private bool _previousBitBlt;
@@ -56,6 +60,8 @@ public class SoulComponent : IComponent
         MainWindow = new MainWindow();
         _liveSplitState = state;
         SelectGameFromLiveSplitState(_liveSplitState);
+
+        _timerAdapter = new TimerAdapter(state, new Timer(new Sekiro(), new TimerSettings() { AutoStart = true }));
     }
 
         
@@ -106,7 +112,7 @@ public class SoulComponent : IComponent
 
     private void SetBitBlt()
     {
-        if (_game is SoulMemory.Sekiro.Sekiro sekiro)
+        if (_game is SoulMemory.Games.Sekiro.Sekiro sekiro)
         {
             if (sekiro.BitBlt)
             {
@@ -150,33 +156,33 @@ public class SoulComponent : IComponent
                     throw new InvalidOperationException("Splitter object is null");
 
                 case Game.DarkSouls1:
-                    _game = new SoulMemory.DarkSouls1.DarkSouls1();
-                    _splitter = new DarkSouls1Splitter(new TimerModel { CurrentState = state }, (SoulMemory.DarkSouls1.DarkSouls1)_game, mainViewModel);
+                    _game = new SoulMemory.Games.DarkSouls1.DarkSouls1();
+                    _splitter = new DarkSouls1Splitter(new TimerModel { CurrentState = state }, (SoulMemory.Games.DarkSouls1.DarkSouls1)_game, mainViewModel);
                     break;
 
                 case Game.DarkSouls2:
-                    _game = new SoulMemory.DarkSouls2.DarkSouls2();
-                    _splitter = new DarkSouls2Splitter(state, (SoulMemory.DarkSouls2.DarkSouls2)_game);
+                    _game = new SoulMemory.Games.DarkSouls2.DarkSouls2();
+                    _splitter = new DarkSouls2Splitter(state, (SoulMemory.Games.DarkSouls2.DarkSouls2)_game);
                     break;
 
                 case Game.DarkSouls3:
-                    _game = new SoulMemory.DarkSouls3.DarkSouls3();
-                    _splitter = new DarkSouls3Splitter(state, (SoulMemory.DarkSouls3.DarkSouls3)_game);
+                    _game = new SoulMemory.Games.DarkSouls3.DarkSouls3();
+                    _splitter = new DarkSouls3Splitter(state, (SoulMemory.Games.DarkSouls3.DarkSouls3)_game);
                     break;
 
                 case Game.Sekiro:
-                    _game = new SoulMemory.Sekiro.Sekiro();
-                    _splitter = new SekiroSplitter(state, (SoulMemory.Sekiro.Sekiro)_game);
+                    _game = new SoulMemory.Games.Sekiro.Sekiro();
+                    _splitter = new SekiroSplitter(state, (SoulMemory.Games.Sekiro.Sekiro)_game);
                     break;
 
                 case Game.EldenRing:
-                    _game = new SoulMemory.EldenRing.EldenRing();
-                    _splitter = new EldenRingSplitter(state, (SoulMemory.EldenRing.EldenRing)_game);
+                    _game = new SoulMemory.Games.EldenRing.EldenRing();
+                    _splitter = new EldenRingSplitter(state, (SoulMemory.Games.EldenRing.EldenRing)_game);
                     break;
 
                 case Game.ArmoredCore6:
-                    _game = new SoulMemory.ArmoredCore6.ArmoredCore6();
-                    _splitter = new ArmoredCore6Splitter(state, (SoulMemory.ArmoredCore6.ArmoredCore6)_game);
+                    _game = new SoulMemory.Games.ArmoredCore6.ArmoredCore6();
+                    _splitter = new ArmoredCore6Splitter(state, (SoulMemory.Games.ArmoredCore6.ArmoredCore6)_game);
                     break;
             }
             _splitter.SetViewModel(mainViewModel);
@@ -189,6 +195,8 @@ public class SoulComponent : IComponent
 
         return _splitter.Update(mainViewModel);
     }
+
+    public ISplitter? GetSplitter() => _splitter;
 
     #region drawing ===================================================================================================================
     public IDictionary<string, Action> ContextMenuControls => new Dictionary<string, Action>();

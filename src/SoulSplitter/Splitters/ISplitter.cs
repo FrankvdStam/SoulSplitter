@@ -20,8 +20,14 @@ using System;
 
 namespace SoulSplitter.Splitters;
 
-internal interface ISplitter : IDisposable
+public interface ISplitter : IDisposable
 {
     ResultErr<RefreshError> Update(MainViewModel mainViewModel);
     void SetViewModel(MainViewModel mainViewModel);
+
+    /// <summary>
+    /// For testing only
+    /// </summary>
+    void SetGameObject(object o);
+    object GetGameObject();
 }

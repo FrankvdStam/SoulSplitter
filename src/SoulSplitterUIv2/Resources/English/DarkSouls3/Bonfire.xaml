@@ -1,0 +1,313 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:r="clr-namespace:SoulSplitterUIv2.Resources;assembly="
+                    xmlns:soulmemory="clr-namespace:SoulMemory.Games.DarkSouls3;assembly=SoulMemory">
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.OceirosTheConsumedKing}">
+        <r:EventFlag.Name>Oceiros, the Consumed King</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.VordtOfTheBorealValley}">
+        <r:EventFlag.Name>Vordt of the Boreal Valley</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.DancerOfTheBorealValley}">
+        <r:EventFlag.Name>Dancer of the Boreal Valley</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.TowerOnTheWall}">
+        <r:EventFlag.Name>Tower on the Wall</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.HighWallOfLothric}">
+        <r:EventFlag.Name>High Wall of Lothric</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.LothricCastle}">
+        <r:EventFlag.Name>Lothric Castle</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.DragonslayerArmour}">
+        <r:EventFlag.Name>Dragonslayer Armour</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.DragonBarracks}">
+        <r:EventFlag.Name>Dragon Barracks</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.UndeadSettlement}">
+        <r:EventFlag.Name>Undead Settlement</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.PitOfHollows}">
+        <r:EventFlag.Name>Pit of Hollows</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.CliffUnderside}">
+        <r:EventFlag.Name>Cliff Underside</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.DilapidatedBridge}">
+        <r:EventFlag.Name>Dilapidated Bridge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.FootOfTheHighWall}">
+        <r:EventFlag.Name>Foot of the High Wall</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.ArchdragonPeak}">
+        <r:EventFlag.Name>Archdragon Peak</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.NamelessKing}">
+        <r:EventFlag.Name>Nameless King</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.GreatBelfry}">
+        <r:EventFlag.Name>Great Belfry</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.DragonKinMausoleum}">
+        <r:EventFlag.Name>Dragon-Kin Mausoleum</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.HalfwayFortress}">
+        <r:EventFlag.Name>Halfway Fortress</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.AbyssWatchers}">
+        <r:EventFlag.Name>Abyss Watchers</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.CrystalSage}">
+        <r:EventFlag.Name>Crystal Sage</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.FarronKeep}">
+        <r:EventFlag.Name>Farron Keep</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.KeepRuins}">
+        <r:EventFlag.Name>Keep Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.OldWolfOfFarron}">
+        <r:EventFlag.Name>Old Wolf of Farron</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.RoadOfSacrifices}">
+        <r:EventFlag.Name>Road of Sacrifices</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.CrucifixionWoods}">
+        <r:EventFlag.Name>Crucifixion Woods</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.FarronKeepPerimeter}">
+        <r:EventFlag.Name>Farron Keep Perimeter</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.TwinPrinces}">
+        <r:EventFlag.Name>Twin Princes</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.GrandArchives}">
+        <r:EventFlag.Name>Grand Archives</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.CleansingChapel}">
+        <r:EventFlag.Name>Cleansing Chapel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.DeaconsOfTheDeep}">
+        <r:EventFlag.Name>Deacons of the Deep</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.RosariasBedChamber}">
+        <r:EventFlag.Name>Rosaria's Bed Chamber</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.CathedralOfTheDeep}">
+        <r:EventFlag.Name>Cathedral of the Deep</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.ChurchOfYorshka}">
+        <r:EventFlag.Name>Church of Yorshka</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.PontiffSulyvahn}">
+        <r:EventFlag.Name>Pontiff Sulyvahn</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.AldrichDevourerOfGods}">
+        <r:EventFlag.Name>Aldrich, Devourer of Gods</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.AnorLondo}">
+        <r:EventFlag.Name>Anor Londo</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.CentralIrithyll}">
+        <r:EventFlag.Name>Central Irithyll</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.DistantManor}">
+        <r:EventFlag.Name>Distant Manor</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.WaterReserve}">
+        <r:EventFlag.Name>Water Reserve</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.IrithyllOfTheBorealValley}">
+        <r:EventFlag.Name>Irithyll of the Boreal Valley</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.PrisonTower}">
+        <r:EventFlag.Name>Prison Tower</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.HighLordWolnir}">
+        <r:EventFlag.Name>High Lord Wolnir</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.AbandonedTomb}">
+        <r:EventFlag.Name>Abandoned Tomb</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.OldKingsAntechamber}">
+        <r:EventFlag.Name>Old King's Antechamber</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.DemonRuins}">
+        <r:EventFlag.Name>Demon Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.OldDemonKing}">
+        <r:EventFlag.Name>Old Demon King</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.CatacombsOfCarthus}">
+        <r:EventFlag.Name>Catacombs of Carthus</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.IrithyllDungeon}">
+        <r:EventFlag.Name>Irithyll Dungeon</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.YhormTheGiant}">
+        <r:EventFlag.Name>Yhorm the Giant</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.ProfanedCapital}">
+        <r:EventFlag.Name>Profaned Capital</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.FirelinkShrine}">
+        <r:EventFlag.Name>Firelink Shrine</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.CemeteryOfAsh}">
+        <r:EventFlag.Name>Cemetery of Ash</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.IudexGundyr}">
+        <r:EventFlag.Name>Iudex Gundyr</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.UntendedGraves}">
+        <r:EventFlag.Name>Untended Graves</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.ChampionGundyr}">
+        <r:EventFlag.Name>Champion Gundyr</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.FlamelessShrine}">
+        <r:EventFlag.Name>Flameless Shrine</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.KilnOfTheFirstFlame}">
+        <r:EventFlag.Name>Kiln of the First Flame</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.SisterFriede}">
+        <r:EventFlag.Name>Sister Friede</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.Snowfield}">
+        <r:EventFlag.Name>Snowfield</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.RopeBridgeCave}">
+        <r:EventFlag.Name>Rope Bridge Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.CorvianSettlement}">
+        <r:EventFlag.Name>Corvian Settlement</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.SnowyMountainPass}">
+        <r:EventFlag.Name>Snowy Mountain Pass</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.AriandelChapel}">
+        <r:EventFlag.Name>Ariandel Chapel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.ChampionsGravetender}">
+        <r:EventFlag.Name>Champion's Gravetender</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.DepthsOfThePainting}">
+        <r:EventFlag.Name>Depths of the Painting</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.TheDemonPrince}">
+        <r:EventFlag.Name>The Demon Prince</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.TheDregHeap}">
+        <r:EventFlag.Name>The Dreg Heap</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.EarthenPeakRuins}">
+        <r:EventFlag.Name>Earthen Peak Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.WithinTheEarthenPeakRuins}">
+        <r:EventFlag.Name>Within the Earthen Peak Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.ChurchOfFilianore}">
+        <r:EventFlag.Name>Church of Filianore</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.DarkeaterMidir}">
+        <r:EventFlag.Name>Darkeater Midir</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.MausoleumLookout}">
+        <r:EventFlag.Name>Mausoleum Lookout</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.RingedInnerWall}">
+        <r:EventFlag.Name>Ringed Inner Wall</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.RingedCityStreets}">
+        <r:EventFlag.Name>Ringed City Streets</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.SharedGrave}">
+        <r:EventFlag.Name>Shared Grave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.SlaveKnightGael}">
+        <r:EventFlag.Name>Slave Knight Gael</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Bonfire.FilianoresRest}">
+        <r:EventFlag.Name>Filianore's Rest</r:EventFlag.Name>
+    </r:EventFlag>
+</ResourceDictionary>

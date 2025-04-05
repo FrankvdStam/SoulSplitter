@@ -24,12 +24,12 @@ namespace SoulSplitter.Splits.Sekiro;
 public class Attribute : ICustomNotifyPropertyChanged
 {
     [XmlElement(Namespace = "Sekiro")]
-    public SoulMemory.Sekiro.Attribute AttributeType
+    public SoulMemory.Games.Sekiro.Attribute AttributeType
     {
         get => _attributeType;
         set => this.SetField(ref _attributeType, value);
     }
-    private SoulMemory.Sekiro.Attribute _attributeType;
+    private SoulMemory.Games.Sekiro.Attribute _attributeType;
 
     public int Level
     {

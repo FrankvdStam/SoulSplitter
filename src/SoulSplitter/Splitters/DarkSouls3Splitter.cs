@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LiveSplit.Model;
 using SoulMemory;
-using SoulMemory.DarkSouls3;
+using SoulMemory.Games.DarkSouls3;
 using SoulSplitter.Splits.DarkSouls3;
 using SoulSplitter.UI;
 using SoulSplitter.UI.DarkSouls3;
@@ -29,8 +29,14 @@ namespace SoulSplitter.Splitters;
 
 public class DarkSouls3Splitter : ISplitter
 {
+    public void SetGameObject(object o)
+    {
+        _darkSouls3 = (DarkSouls3)o;
+    }
+    public object GetGameObject() => _darkSouls3;
+
     private readonly LiveSplitState _liveSplitState;
-    private readonly DarkSouls3 _darkSouls3;
+    private DarkSouls3 _darkSouls3;
     private DarkSouls3ViewModel _darkSouls3ViewModel = null!;
     private MainViewModel _mainViewModel = null!;
 
@@ -104,7 +110,7 @@ public class DarkSouls3Splitter : ISplitter
 
         mainViewModel.TryAndHandleError(() =>
         {
-            _darkSouls3ViewModel.CurrentPosition = _darkSouls3.GetPosition();
+            _darkSouls3ViewModel.CurrentPosition = _darkSouls3.GetPlayerPosition();
         });
 
         mainViewModel.TryAndHandleError(() =>

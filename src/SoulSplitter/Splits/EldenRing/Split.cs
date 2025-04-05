@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using SoulMemory.EldenRing;
+using SoulMemory.Games.EldenRing;
 using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splits.EldenRing;

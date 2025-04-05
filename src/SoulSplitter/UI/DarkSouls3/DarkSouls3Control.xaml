@@ -24,7 +24,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:darkSouls3="clr-namespace:SoulSplitter.Splits.DarkSouls3"
-             xmlns:darkSouls3Memory="clr-namespace:SoulMemory.DarkSouls3;assembly=SoulMemory"
+             xmlns:darkSouls3Memory="clr-namespace:SoulMemory.Games.DarkSouls3;assembly=SoulMemory"
              xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
              xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
              mc:Ignorable="d" 

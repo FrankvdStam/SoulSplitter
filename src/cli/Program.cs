@@ -22,13 +22,18 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using SoulSplitter.UI;
-using SoulMemory.DarkSouls1;
-using SoulMemory.EldenRing;
+using System.Windows;
+using SoulMemory.Games.DarkSouls1;
+using SoulMemory.Games.EldenRing;
 using SoulMemory;
-using SoulSplitter.UI.Generic;
+using SoulMemory.Enums;
 using SoulMemory.Parameters;
-using SoulMemory.Sekiro;
+using SoulSplitter.UI;
+using SoulSplitter.UI.Generic;
+using SplitType = SoulSplitter.UI.Generic.SplitType;
+using TimingType = SoulSplitter.UI.Generic.TimingType;
+using SoulMemory.Abstractions;
+using SoulSplitter.UiV3;
 using SoulSplitterUIv2.Ui.ViewModels;
 
 #pragma warning disable CS0162
@@ -40,6 +45,12 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+
+
+
+            //var res = ResourceUtils.GenerateResourceDictionaryForEventFlag(typeof(SoulMemory.Games.EldenRing.ItemPickup));
+
+
             TestUi(true);
             return;
             TestUiV2();
@@ -172,12 +183,15 @@ namespace cli
 
         public static void TestUi(bool withTestData = true)
         {
+            var app = new SoulSplitter.UiV3.App();
+            app.InitializeComponent();
+
             var mainWindow = new MainWindow();
             mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
 
             if (withTestData)
             {
-                foreach (var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
+                foreach (var boss in (SoulMemory.Games.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.Games.EldenRing.Boss)))
                 {
                     mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = TimingType.Immediate;
                     mainWindow.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
@@ -214,7 +228,7 @@ namespace cli
                     }
                 });
 
-                foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
+                foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
                 {
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
@@ -222,7 +236,7 @@ namespace cli
                     mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
                 }
 
-                foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
+                foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
                 {
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.OnLoading;
                     mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
@@ -235,14 +249,27 @@ namespace cli
             }
 
             mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
-
-            mainWindow.Dispatcher.Invoke(() =>
-            {
-                mainWindow.ShowDialog();
-                mainWindow.Close();
-            });
-
             
+            var mainViewModel = app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel;
+            mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 0, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
+            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.EldenRing, 99, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
+            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.DarkSouls3, 12, SoulMemory.Enums.TimingType.OnWarp, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));
+            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 1, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Position, new PositionViewModel(){ Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f}, "kekw"));
+
+
+            mainWindow.ShowDialog();
+            //mainWindow.Dispatcher.Invoke(() =>
+            //{
+            //    
+            //});
+            var w = (SoulSplitterUIv2.Ui.View.MainWindow)Application.Current.MainWindow!;
+            w.WindowShouldHide = false;
+            w.Close();
+
+
+            mainWindow.WindowShouldHide = false;
+            mainWindow.Close();
+            app.Shutdown();
         }
 
         static void TestUiV2()
@@ -250,10 +277,10 @@ namespace cli
             var app = new SoulSplitterUIv2.Ui.View.App();
             app.InitializeComponent();
 
-            var mainViewModel = app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
-            mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.Sekiro, 0, SoulSplitterUIv2.Enums.TimingType.Immediate, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.EldenRing, 99, SoulSplitterUIv2.Enums.TimingType.OnLoading, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.DarkSouls3, 12, SoulSplitterUIv2.Enums.TimingType.OnWarp, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));
+            var mainViewModel = app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel;
+            mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 0, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
+            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.EldenRing, 99, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
+            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.DarkSouls3, 12, SoulMemory.Enums.TimingType.OnWarp, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));
 
             app.ShowMainWindow();
         }
@@ -337,11 +364,11 @@ namespace cli
                         }
                     }
 
-                    Test("GetAttribute", () => { ds1.GetAttribute(SoulMemory.DarkSouls1.Attribute.Strength); });
+                    Test("GetAttribute", () => { ds1.GetAttribute(SoulMemory.Games.DarkSouls1.Attribute.Strength); });
                     Test("ReadEventFlag", () => { ds1.ReadEventFlag(16); });
                     Test("IsWarpRequested", () => { ds1.IsWarpRequested(); });
                     Test("IsPlayerLoaded", () => { ds1.IsPlayerLoaded(); });
-                    Test("GetPosition", () => { ds1.GetPosition(); });
+                    Test("GetPlayerPosition", () => { ds1.GetPlayerPosition(); });
                     Test("NgCount", () => { ds1.NgCount(); });
                     Test("GetCurrentSaveSlot", () => { ds1.GetCurrentSaveSlot(); });
                     Test("ResetInventoryIndices", () => { ds1.ResetInventoryIndices(); });

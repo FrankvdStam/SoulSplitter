@@ -17,7 +17,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 using SoulMemory;
-using SoulMemory.Sekiro;
+using SoulMemory.Games.Sekiro;
 
 namespace SoulSplitter.UI.Generic;
 

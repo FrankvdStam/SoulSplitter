@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using SoulMemory;
+using SoulMemory.Abstractions;
 using SoulMemory.Memory;
 
 namespace SoulSplitter.Tests.Mocks

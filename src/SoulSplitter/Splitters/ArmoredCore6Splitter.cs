@@ -19,9 +19,10 @@ using SoulMemory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SoulMemory.ArmoredCore6;
+using SoulMemory.Games.ArmoredCore6;
 using SoulSplitter.Splits.ArmoredCore6;
 using SoulSplitter.UI.Generic;
+using SoulMemory.Abstractions;
 
 namespace SoulSplitter.Splitters;
 

@@ -24,12 +24,12 @@ namespace SoulSplitter.Splits.DarkSouls3;
 public class Attribute : ICustomNotifyPropertyChanged
 {
     [XmlElement(Namespace = "DarkSouls3")]
-    public SoulMemory.DarkSouls3.Attribute AttributeType
+    public SoulMemory.Games.DarkSouls3.Attribute AttributeType
     {
         get => _attributeType;
         set => this.SetField(ref _attributeType, value);
     }
-    private SoulMemory.DarkSouls3.Attribute _attributeType;
+    private SoulMemory.Games.DarkSouls3.Attribute _attributeType;
 
     public int Level
     {

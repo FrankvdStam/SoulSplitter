@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LiveSplit.Model;
 using SoulMemory;
-using SoulMemory.Sekiro;
+using SoulMemory.Games.Sekiro;
 using SoulSplitter.Splits.Sekiro;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
@@ -29,7 +29,13 @@ namespace SoulSplitter.Splitters;
 
 public class SekiroSplitter : ISplitter
 {
-    private readonly Sekiro _sekiro;
+    public void SetGameObject(object o)
+    {
+        _sekiro = (Sekiro)o;
+    }
+    public object GetGameObject() => _sekiro;
+
+    private Sekiro _sekiro;
     private SekiroViewModel _sekiroViewModel = null!;
     private readonly LiveSplitState _liveSplitState;
     private MainViewModel _mainViewModel = null!;

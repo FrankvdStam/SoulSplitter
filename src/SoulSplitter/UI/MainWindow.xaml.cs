@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using SoulSplitter.Native;
+using SoulSplitterUIv2.Resources;
 using winforms = System.Windows.Forms;
 
 namespace SoulSplitter.UI;
@@ -33,6 +34,8 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         Closing += Window_Closing;
+
+        //UiV2TabItem.Content = Application.Current.MainWindow.Content;
     }
 
     public bool WindowShouldHide = true;

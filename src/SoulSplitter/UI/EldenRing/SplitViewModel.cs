@@ -18,7 +18,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using SoulMemory.EldenRing;
+using SoulMemory.Games.EldenRing;
 using SoulSplitter.Splits.EldenRing;
 using SoulSplitter.UI.Generic;
 

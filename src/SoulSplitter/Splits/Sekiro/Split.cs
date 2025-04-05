@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using SoulMemory.Sekiro;
+using SoulMemory.Games.Sekiro;
 using SoulSplitter.UI.Generic;
 
 namespace SoulSplitter.Splits.Sekiro;

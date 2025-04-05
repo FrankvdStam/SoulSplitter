@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.DarkSouls1;
+using SoulMemory.Games.DarkSouls1;
 using System;
 using System.Globalization;
 using System.Windows.Data;

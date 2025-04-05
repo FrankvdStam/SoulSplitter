@@ -25,7 +25,7 @@
              xmlns:soulSplitter="clr-namespace:SoulSplitter"
              xmlns:darkSouls2="clr-namespace:SoulSplitter.UI.DarkSouls2"
              xmlns:darkSouls21="clr-namespace:SoulSplitter.Splits.DarkSouls2"
-             xmlns:darkSouls22="clr-namespace:SoulMemory.DarkSouls2;assembly=SoulMemory"
+             xmlns:darkSouls22="clr-namespace:SoulMemory.Games.DarkSouls2;assembly=SoulMemory"
              xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
              xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
              mc:Ignorable="d" 

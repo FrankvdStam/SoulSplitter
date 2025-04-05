@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:r="clr-namespace:SoulSplitterUIv2.Resources;assembly="
-                    xmlns:soulmemory="clr-namespace:SoulMemory.Sekiro;assembly=SoulMemory">
+                    xmlns:soulmemory="clr-namespace:SoulMemory.Games.Sekiro;assembly=SoulMemory">
 
     <r:EventFlag x:Key="{x:Static soulmemory:Boss.GyoubuMasatakaOniwa}">
         <r:EventFlag.Name>Gyoubu Masataka Oniwa</r:EventFlag.Name>

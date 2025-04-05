@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SoulSplitterUIv2.Resources;
-using SoulSplitterUIv2.Enums;
 using SoulSplitterUIv2.Ui.Converters;
 using System.Globalization;
 using System;
+using SoulMemory.Enums;
 
 namespace SoulSplitterUIv2.Tests.Ui.Converters
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using SoulSplitterUIv2.Ui.ViewModels;
+using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitterUIv2.Ui.View
 {
@@ -16,7 +16,6 @@ namespace SoulSplitterUIv2.Ui.View
             DataContext = mainViewModel;
             InitializeComponent();
             Closing += Window_Closing;
-
         }
 
         public bool WindowShouldHide = true;

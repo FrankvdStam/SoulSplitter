@@ -27,8 +27,8 @@ namespace SoulSplitter.Tests.UI.Converters
         public void Convert_Enums()
         {
             var converter = new EnumDisplayNameConverter();
-            Assert.AreEqual("Capra Demon", converter.Convert(SoulMemory.DarkSouls1.Boss.CapraDemon, null!, null, null!));
-            Assert.AreEqual("Abandoned Cave", converter.Convert(SoulMemory.EldenRing.Grace.AbandonedCave, null!, null, null!));
+            Assert.AreEqual("Capra Demon", converter.Convert(SoulMemory.Games.DarkSouls1.Boss.CapraDemon, null!, null, null!));
+            Assert.AreEqual("Abandoned Cave", converter.Convert(SoulMemory.Games.EldenRing.Grace.AbandonedCave, null!, null, null!));
         }
 
         [TestMethod]

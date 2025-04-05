@@ -18,10 +18,10 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Serialization;
-using SoulMemory.DarkSouls1;
+using SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.UI.Generic;
-using BonfireState = SoulMemory.DarkSouls1.BonfireState;
+using BonfireState = SoulMemory.Games.DarkSouls1.BonfireState;
 
 namespace SoulSplitter.UI.DarkSouls1;
 
@@ -130,7 +130,7 @@ public class DarkSouls1ViewModel : BaseViewModel
             switch (NewSplitType)
             {
                 case SplitType.Attribute:
-                    NewSplitValue = new Splits.DarkSouls1.Attribute() { AttributeType = SoulMemory.DarkSouls1.Attribute.Vitality, Level = 10 };
+                    NewSplitValue = new Splits.DarkSouls1.Attribute() { AttributeType = SoulMemory.Games.DarkSouls1.Attribute.Vitality, Level = 10 };
                     break;
 
                 case SplitType.Position:
@@ -142,7 +142,7 @@ public class DarkSouls1ViewModel : BaseViewModel
                     break;
 
                 case SplitType.Bonfire:
-                    NewSplitBonfireState = new Splits.DarkSouls1.BonfireState() { State = BonfireState.Unlocked };
+                    NewSplitBonfireState = new Splits.DarkSouls1.BonfireState() { State = SoulMemory.Games.DarkSouls1.BonfireState.Unlocked };
                     break;
 
                 case SplitType.Item:

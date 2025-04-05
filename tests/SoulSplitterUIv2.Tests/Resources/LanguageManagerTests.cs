@@ -3,7 +3,7 @@ using System;
 using SoulSplitterUIv2.Resources;
 using System.IO.Packaging;
 using System.Windows;
-using SoulSplitterUIv2.Enums;
+using SoulMemory.Enums;
 
 namespace SoulSplitterUIv2.Tests.Resources
 {
@@ -31,7 +31,7 @@ namespace SoulSplitterUIv2.Tests.Resources
             };
             
             languageManager.LoadLanguage(Language.English);
-            var boss = languageManager.Get(SoulMemory.EldenRing.Boss.AbductorVirginsVolcanoManor);
+            var boss = languageManager.Get(SoulMemory.Games.EldenRing.Boss.AbductorVirginsVolcanoManor);
             
             Assert.IsInstanceOfType<EventFlag>(boss);
             var eventFlag = (EventFlag)boss;

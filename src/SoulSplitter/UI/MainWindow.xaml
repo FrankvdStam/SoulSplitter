@@ -29,6 +29,7 @@
         xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
         xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
         xmlns:uIv2="clr-namespace:SoulSplitter.UIv2"
+        xmlns:view="clr-namespace:SoulSplitterUIv2.Ui.View;assembly=SoulSplitterUIv2"
         Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
         Icon="../soulsplitter.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -138,6 +139,15 @@
                     Command="{Binding CommandOpenHomepage}"
                     ToolTip="Open homepage"/>
 
+                <Button
+                    Foreground="White"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    FontWeight="Normal"
+                    FontSize="15"
+                    Content="UIv2" 
+                    Command="{Binding CommandOpenUiV2}"
+                    ToolTip="Open homepage"/>
+
                 <Menu
                     Padding="3,0,0,0"
                     Foreground="White">
@@ -180,7 +190,7 @@
             Style="{StaticResource MaterialDesignFilledTabControl}"
             Grid.Row="1"
             SelectedIndex="{Binding SelectedGame, Converter={StaticResource GameToSelectedIndexConverter}}">
-       
+
             <TabItem Header ="Dark Souls 1">
                 
 <!--

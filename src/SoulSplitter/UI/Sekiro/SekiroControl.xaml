@@ -25,7 +25,7 @@
              xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
              xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
              xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
-             xmlns:sekiro2="clr-namespace:SoulMemory.Sekiro;assembly=SoulMemory"
+             xmlns:sekiro2="clr-namespace:SoulMemory.Games.Sekiro;assembly=SoulMemory"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance sekiro:SekiroViewModel, IsDesignTimeCreatable=True}">
 

@@ -17,7 +17,7 @@
 using System;
 using System.Windows.Data;
 using SoulMemory;
-using SoulSplitter.UI.Generic;
+using SoulMemory.Enums;
 
 namespace SoulSplitter.UI.Converters;
 

@@ -18,7 +18,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Serialization;
-using SoulMemory.DarkSouls3;
+using SoulMemory.Games.DarkSouls3;
 using SoulSplitter.UI.Generic;
 using Attribute = SoulSplitter.Splits.DarkSouls3.Attribute;
 
@@ -85,7 +85,7 @@ public class DarkSouls3ViewModel : BaseViewModel
 
             if(NewSplitType == SplitType.Attribute)
             {
-                NewSplitValue = new Attribute() { AttributeType = SoulMemory.DarkSouls3.Attribute.Vigor, Level = 10 };
+                NewSplitValue = new Attribute() { AttributeType = SoulMemory.Games.DarkSouls3.Attribute.Vigor, Level = 10 };
             }
 
             if(NewSplitType == SplitType.Position)

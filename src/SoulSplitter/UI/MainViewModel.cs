@@ -25,6 +25,7 @@ using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
 using SoulMemory;
+using SoulMemory.Enums;
 using SoulSplitter.soulmemory_rs;
 using SoulSplitter.UI.DarkSouls1;
 using SoulSplitter.UI.DarkSouls2;
@@ -41,6 +42,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
 {
     public MainViewModel()
     {
+        CommandOpenUiV2 = new RelayCommand(ShowUiV2, (_) => true);
         CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage, (_) => true);
         CommandOpenHomepage = new RelayCommand(ShowHomepage, (_) => true);
         CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger, (_) => true);
@@ -292,6 +294,14 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     {
         Process.Start(HomepageUrl);
     }
+
+    [XmlIgnore]
+    public RelayCommand CommandOpenUiV2 { get; }
+    private void ShowUiV2()
+    {
+        Application.Current.MainWindow.Show();
+    }
+
 
 
     [XmlIgnore]

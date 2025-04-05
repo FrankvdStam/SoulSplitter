@@ -20,7 +20,7 @@ using System.Diagnostics;
 using System.Linq;
 using LiveSplit.Model;
 using SoulMemory;
-using SoulMemory.DarkSouls1;
+using SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
@@ -29,7 +29,13 @@ namespace SoulSplitter.Splitters;
 
 public class DarkSouls1Splitter : ISplitter
 {
-    private readonly IDarkSouls1 _darkSouls1;
+    public void SetGameObject(object o)
+    {
+        _darkSouls1 = (IDarkSouls1)o;
+    }
+    public object GetGameObject() => _darkSouls1;
+
+    private IDarkSouls1 _darkSouls1;
     private readonly DropMod _dropMod;
     private MainViewModel _mainViewModel;
 
@@ -64,7 +70,7 @@ public class DarkSouls1Splitter : ISplitter
 
         mainViewModel.TryAndHandleError(() =>
         {
-            mainViewModel.DarkSouls1ViewModel.CurrentPosition = _darkSouls1.GetPosition();
+            mainViewModel.DarkSouls1ViewModel.CurrentPosition = _darkSouls1.GetPlayerPosition();
         });
 
         mainViewModel.TryAndHandleError(UpdateTimer);
