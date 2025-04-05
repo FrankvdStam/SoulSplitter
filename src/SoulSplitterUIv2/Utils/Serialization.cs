@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using SoulSplitterUIv2.Ui.ViewModels;
 using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitterUIv2.Utils
@@ -47,6 +48,7 @@ namespace SoulSplitterUIv2.Utils
         {
             nameof(MainViewModel.Splits),
             nameof(MainViewModel.Language),
+            nameof(PositionViewModel),
         };
 
         private static XmlSerializer CreateXmlSerializer()
