@@ -115,6 +115,15 @@ namespace SoulSplitter
         }
 
 
+        private int ResolveNewGameLevel()
+        {
+            if (_game is IReadNewGameLevel readNewGameLevel)
+            {
+                return readNewGameLevel.ReadNewGameLevel();
+            }
+            return 0;
+        }
+
         private void ResolveSplitCondition(SplitViewModel split)
         {
             switch (split.SplitType)
@@ -221,6 +230,13 @@ namespace SoulSplitter
             {
                 //Skip splits that are already triggered
                 if (split.SplitTriggered)
+                {
+                    continue;
+                }
+
+                //ignore splits that don't match the current ng+ level
+                var newGameLevel = ResolveNewGameLevel();
+                if (split.NewGamePlusLevel != newGameLevel)
                 {
                     continue;
                 }

@@ -57,7 +57,7 @@ namespace cli
             GameLoop<EldenRing>(
                 (d) =>
                 {
-                    Console.WriteLine(d.ReadNgLevel());
+                    Console.WriteLine(d.ReadNewGameLevel());
                     //var dropmod = new DropMod(d);
                     //dropmod.InitBkh();
                     //

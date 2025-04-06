@@ -25,7 +25,7 @@ using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.Games.EldenRing;
 
-public class EldenRing : IGame, IBlackscreenRemovable
+public class EldenRing : IGame, IBlackscreenRemovable, IReadNewGameLevel
 {
     private Process? _process;
 
@@ -296,7 +296,7 @@ public class EldenRing : IGame, IBlackscreenRemovable
 
     #endregion
 
-    public int ReadNgLevel()
+    public int ReadNewGameLevel()
     {
         return _ngLevel.ReadInt32();
     }
