@@ -17,7 +17,6 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 using SoulMemory;
-using SoulMemory.Games.Sekiro;
 
 namespace SoulSplitter.UI.Generic;
 
@@ -53,10 +52,6 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
 
                 case SplitType.Flag:
                     FlagDescription = new FlagDescription();
-                    break;
-
-                case SplitType.Attribute:
-                    NewSplitValue = new Splits.Sekiro.Attribute() { AttributeType = Attribute.Vitality, Level = 10 };
                     break;
             }
         }
