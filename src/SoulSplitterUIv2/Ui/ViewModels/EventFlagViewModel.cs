@@ -28,12 +28,12 @@ namespace SoulSplitterUIv2.Ui.ViewModels
     /// </summary>
     public class EventFlagViewModel : INotifyPropertyChanged, IFilterableItem
     {
-        public EventFlagViewModel(Enum eventFlag, ILanguageManager languageManager)
+        public EventFlagViewModel(Enum eventFlag, ILanguageManager? languageManager)
         {
             EventFlag = eventFlag;
             Flag = Convert.ToUInt32(eventFlag);
 
-            if (languageManager.Get(eventFlag) is EventFlag eventFlagLanguage)
+            if (languageManager?.Get(eventFlag) is EventFlag eventFlagLanguage)
             {
                 Name = eventFlagLanguage.Name;
                 Description = eventFlagLanguage.Description;

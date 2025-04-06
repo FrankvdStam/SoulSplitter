@@ -118,7 +118,7 @@ public partial class MainViewModel
         get => _startAutomatically;
         set => SetField(ref _startAutomatically, value);
     }
-    private bool _startAutomatically;
+    private bool _startAutomatically = true;
 
     public bool OverwriteIgtOnStart
     {
