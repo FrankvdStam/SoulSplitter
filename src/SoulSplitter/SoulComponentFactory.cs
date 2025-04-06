@@ -17,11 +17,13 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
 using SoulSplitter;
 
 
+[assembly: InternalsVisibleTo("SoulSplitter.Tests")]
 [assembly: ComponentFactory(typeof(SoulComponentFactory))]
 
 namespace SoulSplitter;

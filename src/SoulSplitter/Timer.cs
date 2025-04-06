@@ -19,6 +19,7 @@ using System;
 using SoulMemory;
 using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
+using SoulSplitter.Abstractions;
 using SoulSplitterUIv2;
 using SoulSplitterUIv2.Ui.ViewModels;
 using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
@@ -27,7 +28,7 @@ namespace SoulSplitter
 {
     public delegate void UpdateTimeEventHandler(object? sender, int milliseconds);
 
-    public class Timer
+    public class Timer : ITimer
     {
         public Timer(IGame game, MainViewModel mainViewModel)
         {
@@ -44,7 +45,7 @@ namespace SoulSplitter
         public event EventHandler? OnRequestSplit;
         public event UpdateTimeEventHandler? OnUpdateTime;
 
-        public void RequestSplit()
+        private void RequestSplit()
         {
             OnRequestSplit?.Invoke(this, null);
         }
@@ -114,8 +115,9 @@ namespace SoulSplitter
                     igt > _previousIgt &&                                   //Igt has increased since previous frame
                     igt < _previousIgt + 1000)                              //Igt has not increased by more than 1 second
                 {
-                    //During blackscreen, overwrite the incremented timer value with the last known good IGT value. Don't invoke UpdateTime event.
+                    //During blackscreen, overwrite the incremented timer value with the last known good IGT value.
                     _game.WriteInGameTimeMilliseconds(_previousIgt);
+                    return; //Don't invoke UpdateTime event during black screen
                 }
 
                 //don't update IGT when it's 0 during a quitout

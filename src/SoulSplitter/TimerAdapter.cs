@@ -16,7 +16,9 @@
 
 using LiveSplit.Model;
 using SoulMemory;
+using SoulSplitter.Abstractions;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace SoulSplitter;
 
@@ -29,49 +31,49 @@ public interface ITimerAdapter
 /// </summary>
 public class TimerAdapter : ITimerAdapter, IDisposable
 {
-    public TimerAdapter(LiveSplitState liveSplitState, Timer timer)
+    public TimerAdapter(LiveSplitState liveSplitState, ITimer timer)
     {
         _liveSplitState = liveSplitState;
 
-        _timerModel = new TimerModel();
-        _timerModel.CurrentState = _liveSplitState;
-
-
+        TimerModel = new TimerModel();
+        TimerModel.CurrentState = _liveSplitState;
+        
         _liveSplitState.OnStart += OnStart;
         _liveSplitState.OnReset += OnReset;
 
         _timer = timer;
+        _timer.OnAutoStart += OnStart;
         _timer.OnUpdateTime += OnUpdateTime;
         _timer.OnRequestSplit += OnRequestSplit;
 
         _liveSplitState.IsGameTimePaused = true;
     }
 
+    internal readonly TimerModel TimerModel;
     private readonly LiveSplitState _liveSplitState;
-    private readonly TimerModel _timerModel;
-    private readonly Timer _timer;
+    private readonly ITimer _timer;
 
     private void OnStart(object sender, EventArgs e)
     {
         _liveSplitState.IsGameTimePaused = true; //Live split resets this value - have to make sure its paused on every start.
         _timer.Start();
-        _timerModel.Start();
+        TimerModel.Start();
     }
 
     private void OnReset(object sender, TimerPhase timerPhase)
     {
         _timer.Reset();
-        _timerModel.Reset();
+        TimerModel.Reset();
     }
 
     private void OnUpdateTime(object? sender, int milliseconds)
     {
-        _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(milliseconds));
+        TimerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(milliseconds));
     }
 
     private void OnRequestSplit(object sender, EventArgs e)
     {
-        _timerModel.Split();
+        TimerModel.Split();
     }
 
     public ResultErr<RefreshError> Update()

@@ -176,9 +176,6 @@ public class SplitTypeViewModel : ICustomNotifyPropertyChanged
     XmlInclude(typeof(SoulMemory.Games.DarkSouls3.Bonfire)),
     XmlInclude(typeof(SoulMemory.Games.DarkSouls3.ItemPickup)),
     XmlInclude(typeof(Splits.DarkSouls3.Attribute)),
-
-    XmlInclude(typeof(SoulMemory.Games.Sekiro.Boss)),
-    XmlInclude(typeof(SoulMemory.Games.Sekiro.Idol))
 ]
 public class SplitViewModel : ICustomNotifyPropertyChanged
 {
