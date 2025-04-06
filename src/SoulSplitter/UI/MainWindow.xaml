@@ -26,7 +26,6 @@
         xmlns:eldenRing="clr-namespace:SoulSplitter.UI.EldenRing"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:darkSouls3="clr-namespace:SoulSplitter.UI.DarkSouls3"
-        xmlns:sekiro="clr-namespace:SoulSplitter.UI.Sekiro"
         xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
         xmlns:uIv2="clr-namespace:SoulSplitter.UIv2"
         xmlns:view="clr-namespace:SoulSplitterUIv2.Ui.View;assembly=SoulSplitterUIv2"
@@ -223,7 +222,7 @@
             </TabItem>
 
             <TabItem Header="Sekiro">
-                <sekiro:SekiroControl DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.SekiroViewModel}"/>
+                <TextBlock Text="Keep this tab selected to activate sekiro. Use the UIv2 button to configure the autosplitter."/>
             </TabItem>
 
             <TabItem Header="Elden Ring">

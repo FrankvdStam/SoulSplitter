@@ -22,7 +22,6 @@ using System.Xml;
 using SoulMemory;
 using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.Generic;
-using SoulSplitter.UI.Sekiro;
 
 namespace SoulSplitter.Migrations;
 
@@ -33,12 +32,7 @@ internal static class Migrator
         var version = new Version(settings.GetChildNodeByName("MainViewModel").GetChildNodeByName("Version").InnerText);
 
         MigrateEr(version, settings);
-
-        if (version <= Version.Parse("1.1.0"))
-        {
-            MigrateSekiro_1_1_0(settings);
-        }
-
+        
         if (version <= Version.Parse("1.1.9"))
         {
             MigrateDs3_1_1_9(settings);
@@ -287,113 +281,5 @@ internal static class Migrator
         var newText = doc.GetChildNodeByName("DarkSouls3ViewModel").InnerXml;
         darkSouls3ViewModel.InnerXml = newText;
     }
-    #endregion
-
-    #region MigrateSekiro_1_1_0 ============================================================================================================================================================
-    private static void MigrateSekiro_1_1_0(XmlNode settings)
-    {
-        var mainViewModel = settings.GetChildNodeByName("MainViewModel");
-        var sekiroViewModel = mainViewModel.GetChildNodeByName("SekiroViewModel");
-        var newSekiroViewModel = new SekiroViewModel();
-
-        if (bool.TryParse(sekiroViewModel.GetChildNodeByName("StartAutomatically").InnerText, out var startAutomatically))
-        {
-            newSekiroViewModel.StartAutomatically = startAutomatically;
-        }
-
-        if (bool.TryParse(sekiroViewModel.GetChildNodeByName("OverwriteIgtOnStart").InnerText, out var overwriteIgtOnStart))
-        {
-            newSekiroViewModel.OverwriteIgtOnStart = overwriteIgtOnStart;
-        }
-
-        var sekiroSplits = sekiroViewModel.GetChildNodeByName("Splits");
-        foreach (XmlNode timingNode in sekiroSplits.ChildNodes)
-        {
-            foreach (XmlNode typeNode in timingNode.GetChildNodeByName("Children"))
-            {
-                //Get original timing type
-                var timingType = TimingType.Immediate;
-                var timingTypeText = timingNode.GetChildNodeByName("TimingType").InnerText;
-                if (timingTypeText != "Immediate")
-                {
-                    timingType = TimingType.OnLoading;
-                }
-
-                //Get original type
-                var type = typeNode.GetChildNodeByName("SplitType");
-
-                switch (type.InnerText)
-                {
-                    case "Position":
-
-                        foreach (XmlNode position in typeNode.GetChildNodeByName("Children"))
-                        {
-                            var split = position.GetChildNodeByName("Split");
-
-                            var x = float.Parse(split.GetChildNodeByName("X").InnerText, CultureInfo.CurrentCulture);
-                            var y = float.Parse(split.GetChildNodeByName("Y").InnerText, CultureInfo.CurrentCulture);
-                            var z = float.Parse(split.GetChildNodeByName("Z").InnerText, CultureInfo.CurrentCulture);
-
-                            newSekiroViewModel.NewSplitTimingType = timingType;
-                            newSekiroViewModel.NewSplitType = SplitType.Position;
-                            newSekiroViewModel.Position = new VectorSize() { Position = new Vector3f(x, y, z), Size = 5 };
-                            newSekiroViewModel.AddSplitCommand.Execute(null);
-                        }
-
-                        break;
-
-                    case "Boss":
-                        foreach (XmlNode boss in typeNode.GetChildNodeByName("Children"))
-                        {
-                            var split = boss.GetChildNodeByName("Split");
-                            if (Enum.TryParse(split.InnerText, out SoulMemory.Games.Sekiro.Boss b))
-                            {
-                                newSekiroViewModel.NewSplitTimingType = timingType;
-                                newSekiroViewModel.NewSplitType = SplitType.Boss;
-                                newSekiroViewModel.NewSplitValue = b;
-                                newSekiroViewModel.AddSplitCommand.Execute(null);
-                            }
-                        }
-                        break;
-
-                    case "Idol":
-                        foreach (XmlNode idol in typeNode.GetChildNodeByName("Children"))
-                        {
-                            var split = idol.GetChildNodeByName("Split");
-                            if (Enum.TryParse(split.InnerText, out SoulMemory.Games.Sekiro.Idol i))
-                            {
-                                newSekiroViewModel.NewSplitTimingType = timingType;
-                                newSekiroViewModel.NewSplitType = SplitType.Bonfire;
-                                newSekiroViewModel.NewSplitValue = i;
-                                newSekiroViewModel.AddSplitCommand.Execute(null);
-                            }
-                        }
-                        break;
-
-                    case "Flag":
-                        foreach (XmlNode flag in typeNode.GetChildNodeByName("Children"))
-                        {
-                            var split = flag.GetChildNodeByName("Split");
-                            if (uint.TryParse(split.InnerText, out var u))
-                            {
-                                newSekiroViewModel.NewSplitTimingType = timingType;
-                                newSekiroViewModel.NewSplitType = SplitType.Flag;
-                                newSekiroViewModel.FlagDescription = new FlagDescription() { Description = "", Flag = u };
-                                newSekiroViewModel.AddSplitCommand.Execute(null);
-                            }
-
-                        }
-                        break;
-                }
-            }
-        }
-
-        var xml = newSekiroViewModel.SerializeXml();
-        var doc = new XmlDocument();
-        doc.LoadXml(xml);
-        var newText = doc.GetChildNodeByName("SekiroViewModel").InnerXml;
-        sekiroViewModel.InnerXml = newText;
-    }
-
     #endregion
 }

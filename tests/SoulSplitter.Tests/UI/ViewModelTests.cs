@@ -20,7 +20,6 @@ using SoulSplitter.UI.Generic;
 using System.Collections.Generic;
 using System.Linq;
 using SoulSplitter.UI.DarkSouls1;
-using SoulSplitter.UI.Sekiro;
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -46,7 +45,7 @@ namespace SoulSplitter.Tests.UI
             {
                 GameType.DarkSouls1 => new DarkSouls1ViewModel(),
                 GameType.DarkSouls3 => new DarkSouls3ViewModel(),
-                GameType.Sekiro => new SekiroViewModel(),
+                //GameType.Sekiro => new SekiroViewModel(),
                 _ => throw new Exception($"unsupported GameType {gameType}")
             };
 
@@ -91,7 +90,7 @@ namespace SoulSplitter.Tests.UI
                 {
                     GameType.DarkSouls1 => new DarkSouls1ViewModel(),
                     GameType.DarkSouls3 => new DarkSouls3ViewModel(),
-                    GameType.Sekiro => new SekiroViewModel(),
+                    //GameType.Sekiro => new SekiroViewModel(),
                     _ => throw new Exception($"unsupported GameType {gameType}")
                 };
 
@@ -165,7 +164,7 @@ namespace SoulSplitter.Tests.UI
             {
                 AddSplit addDarkSouls1Split = AddDarkSouls1Split;
                 AddSplit addDarkSouls3Split = AddDarkSouls3Split;
-                AddSplit addSekiroSplit     = AddSekiroSplit;
+                //AddSplit addSekiroSplit     = AddSekiroSplit;
 
                 //Dark Souls 1 ====================================================================================================================================================================================
                 yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.Immediate,  SplitType.Boss,       SoulMemory.Games.DarkSouls1.Boss.AsylumDemon };
@@ -198,15 +197,15 @@ namespace SoulSplitter.Tests.UI
                 yield return new object[] { GameType.DarkSouls3,  addDarkSouls3Split, TimingType.Immediate, SplitType.ItemPickup,  SoulMemory.Games.DarkSouls3.ItemPickup.BlackHandKamuiOnikiriandUbadachi };
 
                 //Sekiro ====================================================================================================================================================================================
-                yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Boss,        SoulMemory.Games.Sekiro.Boss.EmmaTheGentleBlade };
-                yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.OnLoading, SplitType.Boss,        SoulMemory.Games.Sekiro.Boss.LadyButterfly };
-
-                yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Bonfire,     SoulMemory.Games.Sekiro.Idol.AshinaCastleFortress };
-                yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.OnLoading, SplitType.Bonfire,     SoulMemory.Games.Sekiro.Idol.AshinaOutskirts };
-
-                yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.OnLoading, SplitType.Position,    new VectorSize() { Size = 10 } };
-
-                yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Flag,        new FlagDescription { Flag = 248157 } };
+             //   yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Boss,        SoulMemory.Games.Sekiro.Boss.EmmaTheGentleBlade };
+             //   yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.OnLoading, SplitType.Boss,        SoulMemory.Games.Sekiro.Boss.LadyButterfly };
+             //
+             //   yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Bonfire,     SoulMemory.Games.Sekiro.Idol.AshinaCastleFortress };
+             //   yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.OnLoading, SplitType.Bonfire,     SoulMemory.Games.Sekiro.Idol.AshinaOutskirts };
+             //
+             //   yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.OnLoading, SplitType.Position,    new VectorSize() { Size = 10 } };
+             //
+             //   yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Flag,        new FlagDescription { Flag = 248157 } };
             }
         }
 
@@ -267,30 +266,30 @@ namespace SoulSplitter.Tests.UI
             darkSouls3ViewModel.AddSplitCommand.Execute(null);
         }
 
-        private static void AddSekiroSplit(object viewModel, TimingType timingType, SplitType splitType, object split)
-        {
-            var sekiroViewModel = (SekiroViewModel)viewModel;
-            sekiroViewModel.NewSplitTimingType = timingType;
-            sekiroViewModel.NewSplitType = splitType;
-
-            switch(splitType)
-            {
-                default:
-                    sekiroViewModel.NewSplitValue = split;
-                    break;
-
-                case SplitType.Position:
-                    sekiroViewModel.Position = (VectorSize)split;
-                    break;
-
-                case SplitType.Flag:
-                    sekiroViewModel.FlagDescription = (FlagDescription)split;
-                    break;
-            }
-
-            sekiroViewModel.AddSplitCommand.Execute(null);
-        }
-
+        //private static void AddSekiroSplit(object viewModel, TimingType timingType, SplitType splitType, object split)
+        //{
+        //    var sekiroViewModel = (SekiroViewModel)viewModel;
+        //    sekiroViewModel.NewSplitTimingType = timingType;
+        //    sekiroViewModel.NewSplitType = splitType;
+        //
+        //    switch(splitType)
+        //    {
+        //        default:
+        //            sekiroViewModel.NewSplitValue = split;
+        //            break;
+        //
+        //        case SplitType.Position:
+        //            sekiroViewModel.Position = (VectorSize)split;
+        //            break;
+        //
+        //        case SplitType.Flag:
+        //            sekiroViewModel.FlagDescription = (FlagDescription)split;
+        //            break;
+        //    }
+        //
+        //    sekiroViewModel.AddSplitCommand.Execute(null);
+        //}
+        //
         #endregion
 
     }

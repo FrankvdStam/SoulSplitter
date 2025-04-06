@@ -32,7 +32,6 @@ using SoulSplitter.UI.DarkSouls2;
 using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.EldenRing;
 using SoulSplitter.UI.Generic;
-using SoulSplitter.UI.Sekiro;
 using SoulSplitter.UiV3;
 using SoulSplitter.ViewModels.Games;
 using Brush = System.Windows.Media.Brush;
@@ -68,7 +67,6 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         DarkSouls1ViewModel = mainViewModel.DarkSouls1ViewModel;
         DarkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
         DarkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
-        SekiroViewModel = mainViewModel.SekiroViewModel;
         EldenRingViewModel = mainViewModel.EldenRingViewModel;
         ArmoredCore6ViewModel = mainViewModel.ArmoredCore6ViewModel;
         FlagTrackerViewModel = mainViewModel.FlagTrackerViewModel;
@@ -111,13 +109,6 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         set => this.SetField(ref _darkSouls3ViewModel, value);
     }
     private DarkSouls3ViewModel _darkSouls3ViewModel = new();
-
-    public SekiroViewModel SekiroViewModel
-    {
-        get => _sekiroViewModel;
-        set => this.SetField(ref _sekiroViewModel, value);
-    }
-    private SekiroViewModel _sekiroViewModel = new();
 
     public EldenRingViewModel EldenRingViewModel
     {
@@ -419,7 +410,6 @@ public class MainViewModel : ICustomNotifyPropertyChanged
         vm.DarkSouls1ViewModel.SplitsViewModel.RestoreHierarchy();
         vm.DarkSouls2ViewModel.RestoreHierarchy();
         vm.DarkSouls3ViewModel.SplitsViewModel.RestoreHierarchy();
-        vm.SekiroViewModel.SplitsViewModel.RestoreHierarchy();
         vm.EldenRingViewModel.RestoreHierarchy();
         return vm;
     }
