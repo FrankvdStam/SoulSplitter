@@ -25,6 +25,7 @@
         <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/EldenRing/KnownFlag.xaml" />
 
         <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Sekiro/Boss.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Sekiro/Attribute.xaml" />
         <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Sekiro/Idol.xaml" />
 
     </ResourceDictionary.MergedDictionaries>

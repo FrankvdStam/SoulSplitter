@@ -71,7 +71,7 @@ namespace SoulMemory.Enums
                 Game.DarkSouls1, [
                     (SplitType.Boss, typeof(Games.DarkSouls1.Boss)),
                     (SplitType.Position, null),
-                    (SplitType.Attribute, null),
+                    (SplitType.Attribute, typeof(Games.DarkSouls1.Attribute)),
                     (SplitType.DarkSouls1Bonfire, null),
                     (SplitType.Item, null),
                     (SplitType.KnownFlag, typeof(Games.DarkSouls1.Boss)),
@@ -82,7 +82,7 @@ namespace SoulMemory.Enums
                 Game.DarkSouls2, [
                     (SplitType.Boss, typeof(Games.DarkSouls2.BossType)),
                     (SplitType.Position, null),
-                    (SplitType.Attribute, null),
+                    (SplitType.Attribute, typeof(Games.DarkSouls2.Attribute)),
                     (SplitType.Flag, null),
                 ]
             },
@@ -91,7 +91,7 @@ namespace SoulMemory.Enums
                     (SplitType.Boss, typeof(Games.DarkSouls3.Boss)),
                     (SplitType.Bonfire, typeof(Games.DarkSouls3.Bonfire)),
                     (SplitType.ItemPickup, typeof(Games.DarkSouls3.ItemPickup)),
-                    (SplitType.Attribute, null),
+                    (SplitType.Attribute, typeof(Games.DarkSouls3.Attribute)),
                     (SplitType.Position, null),
                     (SplitType.Flag, null),
                 ]
@@ -100,7 +100,7 @@ namespace SoulMemory.Enums
                 Game.Sekiro, [
                     (SplitType.Boss, typeof(Games.Sekiro.Boss)),
                     (SplitType.Bonfire, typeof(Games.Sekiro.Idol)),
-                    (SplitType.Attribute, null),
+                    (SplitType.Attribute, typeof(Games.Sekiro.Attribute)),
                     (SplitType.Position, null),
                     (SplitType.Flag, null),
                 ]

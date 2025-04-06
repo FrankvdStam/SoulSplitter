@@ -14,31 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using SoulMemory.Enums;
+using System;
+using SoulMemory;
 
-namespace SoulSplitterUIv2.Ui.ViewModels;
+namespace SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
 
-public class SplitViewModel
+/// <summary>
+/// This part of MainViewModel contains all the bindable properties required for all the different split types
+/// </summary>
+public partial class MainViewModel
 {
-    public SplitViewModel(){}
 
-    public SplitViewModel(Game game, int newGamePlusLevel, TimingType timingType, SplitType splitType, object split, string description)
+    public Type AttributeType
     {
-        Game = game;
-        NewGamePlusLevel = newGamePlusLevel;
-        TimingType = timingType;
-        SplitType = splitType;
-        Split = split;
-        Description = description;
+        get => _attributeType;
+        set => SetField(ref _attributeType, value);
     }
+    private Type _attributeType;
 
-    public string Description { get; set; }
-    public Game Game { get; set; }
-    public int NewGamePlusLevel { get; set; }
-    public TimingType TimingType { get; set; }
-    public SplitType SplitType { get; set; }
-    public object Split{ get; set; }
+    public AttributeViewModel AttributeViewModel
+    {
+        get => _attributeViewModel;
+        set => SetField(ref _attributeViewModel, value);
+    }
+    private AttributeViewModel _attributeViewModel;
 }

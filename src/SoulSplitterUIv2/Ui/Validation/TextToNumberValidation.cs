@@ -71,12 +71,32 @@ public class TextToNumberValidation : ValidationRule
                     return new ValidationResult(false, "Input can not be negative");
                 }
 
+                if (MinValue is int min && i < min)
+                {
+                    return new ValidationResult(false, $"Input can not be less than {min}");
+                }
+
+                if (MaxValue is int max && i > max)
+                {
+                    return new ValidationResult(false, $"Input can not be less than {max}");
+                }
+
                 return new ValidationResult(true, null);
 
             case NumericType.Uint:
-                if (!uint.TryParse(text, out _))
+                if (!uint.TryParse(text, out var u))
                 {
                     return new ValidationResult(false, "Input is not a valid positive number");
+                }
+
+                if (MinValue is uint umin && u < umin)
+                {
+                    return new ValidationResult(false, $"Input can not be less than {umin}");
+                }
+
+                if (MaxValue is uint umax && u > umax)
+                {
+                    return new ValidationResult(false, $"Input can not be less than {umax}");
                 }
 
                 return new ValidationResult(true, null);
@@ -92,6 +112,16 @@ public class TextToNumberValidation : ValidationRule
                     return new ValidationResult(false, "Input can not be negative");
                 }
 
+                if (MinValue is float fmin && f < fmin)
+                {
+                    return new ValidationResult(false, $"Input can not be less than {fmin}");
+                }
+
+                if (MaxValue is float fmax && f > fmax)
+                {
+                    return new ValidationResult(false, $"Input can not be less than {fmax}");
+                }
+
                 return new ValidationResult(true, null);
         }
     }
@@ -99,5 +129,6 @@ public class TextToNumberValidation : ValidationRule
     public bool IsRequired { get; set; }
     public bool AllowNegative { get; set; } = true;
     public NumericType NumericType { get; set; } = NumericType.Int;
-
+    public object MinValue { get; set; }
+    public object MaxValue { get; set; }
 }

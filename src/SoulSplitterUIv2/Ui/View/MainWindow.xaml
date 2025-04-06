@@ -29,7 +29,7 @@
     xmlns:ui="clr-namespace:SoulSplitterUIv2.Ui"
     xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:controls="clr-namespace:SoulSplitterUIv2.Ui.View.Controls"
     xmlns:viewModels="clr-namespace:SoulSplitterUIv2.Ui.ViewModels" xmlns:validation="clr-namespace:SoulSplitterUIv2.Ui.Validation"
-        Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
+    Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextElement.FontWeight="Regular"
     TextElement.FontSize="13"
@@ -87,6 +87,13 @@
                                 <TextBlock Text="{Binding .}"/>
                             </DataTemplate>
 
+                            <DataTemplate DataType="{x:Type viewModels:AttributeViewModel}" x:Key="AttributeViewModelDataTemplate">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Attribute, Converter={StaticResource EnumLanguageConverter}, StringFormat={}Attribute: {0}}"/>
+                                    <TextBlock Text="{Binding Level, StringFormat={}Level: {0}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+
                             <ui:SplitTypeDataTemplateSelector
                                 x:Key="SplitTypeDataTemplateSelector"
                                 LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
@@ -94,6 +101,7 @@
                                 EnumDataTemplate="{StaticResource EnumDataTemplate}"
                                 PositionViewModelDataTemplate="{StaticResource PositionViewModelDataTemplate}"
                                 FlagDataTemplate="{StaticResource FlagDataTemplate}"
+                                AttributeViewModelDataTemplate="{StaticResource AttributeViewModelDataTemplate}"
                             />
                         </ResourceDictionary>
 
@@ -162,7 +170,7 @@
                     Grid.Row="4"
                     Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={StaticResource EventFlagSplitTypes}}"
                     LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
-                    EventFlagType="{Binding SelectedEventFlagType}"
+                    EventFlagType="{Binding EventFlagType}"
                     SelectedEventFlag="{Binding SelectedEventFlag, Mode=TwoWay}"
                     Hint="Split"/>
 
@@ -193,6 +201,15 @@
                     PositionViewModel="{Binding PositionViewModel, Mode=TwoWay}"
                     />
 
+                <!-- Attribute -->
+                <controls:AttributeControl
+                    HorizontalAlignment="Left"
+                    Grid.Row="4"
+                    Margin="5"
+                    Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Attribute}}"
+                    AttributeType="{Binding AttributeType}"
+                    AttributeViewModel="{Binding AttributeViewModel}"
+                    />
 
                 <!-- ============================================================================================================= -->
 
@@ -210,6 +227,7 @@
                     Orientation="Horizontal"
                     Grid.Row="6"
                     Margin="5, 5, 5, 5">
+
                     <!-- Add button -->
                     <Button
                         Margin="5"
@@ -236,8 +254,6 @@
                             Width="30" />
                     </Button>
                 </StackPanel>
-
-                
             </Grid>
         </Expander>
 

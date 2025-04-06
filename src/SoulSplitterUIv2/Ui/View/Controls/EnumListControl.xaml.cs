@@ -14,12 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulSplitterUIv2.Resources;
+using SoulSplitterUIv2.Ui.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -40,19 +43,36 @@ namespace SoulSplitterUIv2.Ui.View.Controls
 
         private void UpdateEnumList()
         {
-            ItemsSource = new ObservableCollection<Enum>(Enum.GetValues(_enumType).Cast<Enum>().ToList());
+            ItemsSource = new ObservableCollection<Enum>(Enum.GetValues(EnumType).Cast<Enum>().ToList());
         }
+        
+        private static void UpdateEnumList(DependencyObject d, DependencyPropertyChangedEventArgs a)
+        {
+            if (d is EnumListControl control)
+            {
+                control.UpdateEnumList();
+            }
+        }
+        
+        public static readonly DependencyProperty EnumTypeDependencyProperty =
+            DependencyProperty.Register(
+                nameof(EnumType),
+                typeof(object),
+                typeof(EnumListControl),
+                new FrameworkPropertyMetadata(
+                    null,
+                    FrameworkPropertyMetadataOptions.None,
+                    new PropertyChangedCallback(UpdateEnumList)));
 
         public Type EnumType
         {
-            get => _enumType;
+            get => (Type)GetValue(EnumTypeDependencyProperty);
             set
             {
-                _enumType = value;
+                SetValue(EnumTypeDependencyProperty, value);
                 UpdateEnumList();
             }
         }
-        private Type _enumType;
 
         public static readonly DependencyProperty ItemsSourceDependencyProperty =
             DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(EnumListControl),

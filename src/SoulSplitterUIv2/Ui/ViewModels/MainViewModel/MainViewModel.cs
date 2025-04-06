@@ -70,7 +70,7 @@ public partial class MainViewModel : INotifyPropertyChanged
                 case SplitType.KnownFlag:
                 case SplitType.ItemPickup:
                 case SplitType.Bonfire:
-                    SelectedEventFlagType = SplitConfiguration.GetSplitType(SelectedGame!.Value, SelectedSplitType!.Value)!;
+                    EventFlagType = SplitConfiguration.GetSplitType(SelectedGame!.Value, SelectedSplitType!.Value)!;
                     break;
 
                 case SplitType.Position:
@@ -80,8 +80,12 @@ public partial class MainViewModel : INotifyPropertyChanged
                 case SplitType.Flag:
                     Flag = 0;
                     break;
+
+                case SplitType.Attribute:
+                    AttributeType = SplitConfiguration.GetSplitType(SelectedGame!.Value, SelectedSplitType!.Value)!;
+                    AttributeViewModel = new AttributeViewModel();
+                    break;
             }
-            
         }
     }
 
@@ -93,6 +97,7 @@ public partial class MainViewModel : INotifyPropertyChanged
         SelectedEventFlag = null;
         PositionViewModel = null;
         Flag = null;
+        AttributeViewModel = null;
     }
 
     #endregion

@@ -14,58 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
-using SoulSplitterUIv2.Ui.ViewModels;
-using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitterUIv2.Utils
 {
     public static class Serialization
     {
-        public static string SerializeXml(MainViewModel mainViewModel)
+        public static string SerializeXml<T>(T t)
         {
-            using (var writer = new StringWriter())
-            {
-                var serializer = CreateXmlSerializer();
-                serializer.Serialize(writer, mainViewModel);
-                return writer.ToString();
-            }
+            using var writer = new StringWriter();
+            var serializer = new XmlSerializer(t.GetType());
+            serializer.Serialize(writer, t);
+            return writer.ToString();
         }
 
-        public static MainViewModel DeserializeXml(string s)
+        public static T DeserializeXml<T>(string s)
         {
-            using (var reader = new StringReader(s))
-            {
-                var serializer = CreateXmlSerializer();
-                return serializer.Deserialize(reader) as MainViewModel;
-            }
-        }
-
-        private static readonly List<string> SerializedFields = new List<string>()
-        {
-            nameof(MainViewModel.Splits),
-            nameof(MainViewModel.Language),
-            nameof(PositionViewModel),
-        };
-
-        private static XmlSerializer CreateXmlSerializer()
-        {
-            //Get names of fields and properties via reflection to ignore everything by default
-            var properties = typeof(MainViewModel).GetProperties();
-            var fields = typeof(MainViewModel).GetFields();
-            var names = properties.Select(i => i.Name).ToList();
-            names.AddRange(fields.Select(i => i.Name));
-
-            //Remove only the fields we want serialized
-            SerializedFields.ForEach(i => names.Remove(i));
-
-            var attributeOverrides = new XmlAttributeOverrides();
-            names.ForEach(name => attributeOverrides.Add(typeof(MainViewModel), name, new XmlAttributes() { XmlIgnore = true }));
-
-            return new XmlSerializer(typeof(MainViewModel), attributeOverrides);
+            using var reader = new StringReader(s);
+            var serializer = new XmlSerializer(typeof(T));
+            return (T)serializer.Deserialize(reader);
         }
     }
 }

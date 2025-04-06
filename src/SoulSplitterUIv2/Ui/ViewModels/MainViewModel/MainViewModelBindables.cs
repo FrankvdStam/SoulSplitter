@@ -99,13 +99,13 @@ public partial class MainViewModel
     }
     private int? _flag = null;
 
-    public Type SelectedEventFlagType
+    public Type EventFlagType
     {
-        get => _selectedEventFlagType;
-        set => SetField(ref _selectedEventFlagType, value);
+        get => _eventFlagType;
+        set => SetField(ref _eventFlagType, value);
     }
-    private Type _selectedEventFlagType;
-
+    private Type _eventFlagType;
+    
     public SplitViewModel SelectedSplit
     {
         get => _selectedSplit;
