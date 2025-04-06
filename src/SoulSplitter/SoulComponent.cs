@@ -60,6 +60,7 @@ public class SoulComponent : IComponent
         _liveSplitState = state;
         SelectGameFromLiveSplitState(_liveSplitState);
 
+        App a = new App();
         _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(new Sekiro(),(SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext));
     }
 
@@ -145,7 +146,7 @@ public class SoulComponent : IComponent
 
                 case Game.Sekiro:
                     _game = new SoulMemory.Games.Sekiro.Sekiro();
-                    _splitter = new SekiroSplitter(state, (SoulMemory.Games.Sekiro.Sekiro)_game);
+                    //_splitter = new SekiroSplitter(state, (SoulMemory.Games.Sekiro.Sekiro)_game);
                     break;
 
                 case Game.EldenRing:
@@ -158,15 +159,15 @@ public class SoulComponent : IComponent
                     _splitter = new ArmoredCore6Splitter(state, (SoulMemory.Games.ArmoredCore6.ArmoredCore6)_game);
                     break;
             }
-            _splitter.SetViewModel(mainViewModel);
+            _splitter?.SetViewModel(mainViewModel);
         }
 
-        if(_splitter == null)
+        if (mainViewModel.SelectedGame == Game.Sekiro)
         {
-            throw new InvalidOperationException("Splitter object is null");
+            return _timerAdapter.Update();
         }
 
-        return _splitter.Update(mainViewModel);
+        return _splitter!.Update(mainViewModel);
     }
 
     public ISplitter? GetSplitter() => _splitter;

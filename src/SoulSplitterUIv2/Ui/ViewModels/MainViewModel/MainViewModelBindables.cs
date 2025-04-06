@@ -97,7 +97,7 @@ public partial class MainViewModel
         get => _flag;
         set => SetField(ref _flag, value);
     }
-    private int? _flag = null;
+    private int? _flag;
 
     public Type EventFlagType
     {

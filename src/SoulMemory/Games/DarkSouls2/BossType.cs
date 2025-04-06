@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace SoulMemory.Games.DarkSouls2;
 
 [XmlType(Namespace = "SoulMemory.DarkSouls2")]
-public enum BossType
+public enum BossType : uint
 {
     //Base game ==========================================================================================
     [Annotation(Name = "The Last Giant")]

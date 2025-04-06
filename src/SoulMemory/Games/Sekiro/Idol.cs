@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace SoulMemory.Games.Sekiro;
 
 [XmlType(Namespace = "Sekiro")]
-public enum Idol
+public enum Idol : uint
 {
     [Annotation(Name = "Dilapidated Temple", Description = "Ashina Outskirts")]
     DilapidatedTemple = 11100000,

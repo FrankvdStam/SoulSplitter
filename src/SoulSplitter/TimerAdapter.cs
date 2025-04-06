@@ -18,10 +18,11 @@ using LiveSplit.Model;
 using SoulMemory;
 using System;
 
-namespace SoulSplitter.Splitters
+namespace SoulSplitter
 {
     public interface ITimerAdapter
     {
+        ResultErr<RefreshError> Update();
     }
     /// <summary>
     /// Adapter to connect the soulmemory timer with livesplit's interface
@@ -70,6 +71,11 @@ namespace SoulSplitter.Splitters
         private void OnRequestSplit(object sender, EventArgs e)
         {
             _timerModel.Split();
+        }
+
+        public ResultErr<RefreshError> Update()
+        {
+            return _timer.Update();
         }
 
         public void Dispose()

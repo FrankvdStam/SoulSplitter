@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace SoulMemory.Games.Sekiro;
 
 [XmlType(Namespace = "Sekiro")]
-public enum Boss
+public enum Boss : uint
 {
     [Annotation(Name = "Gyoubu Masataka Oniwa")]
     GyoubuMasatakaOniwa = 9301,

@@ -21,7 +21,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SoulMemory;
 using SoulSplitter.Net6.Tests;
-using SoulSplitter.Splitters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
 

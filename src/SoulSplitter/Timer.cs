@@ -16,12 +16,12 @@
 
 using SoulMemory.Abstractions;
 using System;
+using SoulMemory;
 using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
 using SoulSplitterUIv2;
 using SoulSplitterUIv2.Ui.ViewModels;
 using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
-using SoulSplitter.UI.Sekiro;
 
 namespace SoulSplitter
 {
@@ -77,10 +77,16 @@ namespace SoulSplitter
         /// Update the timer, should be called every frame
         /// Handles auto start and blackscreen removal
         /// </summary>
-        public void Update()
+        public ResultErr<RefreshError> Update()
         {
+            var result = _game.TryRefresh();
+            if (result.IsErr)
+            {
+                return result;
+            }
             UpdateTimer();
             UpdateAutoSplitter();
+            return Result.Ok();
         }
 
         private void UpdateTimer()
@@ -109,11 +115,14 @@ namespace SoulSplitter
                     _game.WriteInGameTimeMilliseconds(_previousIgt);
                 }
 
-                _previousIgt = igt;
-                OnUpdateTime?.Invoke(this, igt);
+                //don't update IGT when it's 0 during a quitout
+                if (igt != 0)
+                {
+                    _previousIgt = igt;
+                    OnUpdateTime?.Invoke(this, igt);
+                }
             }
         }
-
 
         private int ResolveNewGameLevel()
         {
@@ -137,8 +146,8 @@ namespace SoulSplitter
                 case SplitType.Bonfire:
                 case SplitType.ItemPickup:
                 case SplitType.KnownFlag:
-                    var eventFlagViewModel = (EventFlagViewModel)split.Split;
-                    split.SplitConditionMet = _game.ReadEventFlag(eventFlagViewModel.Flag);
+                    var eventFlag = (uint)split.Split;
+                    split.SplitConditionMet = _game.ReadEventFlag(eventFlag);
                     break;
 
                 case SplitType.Flag:
