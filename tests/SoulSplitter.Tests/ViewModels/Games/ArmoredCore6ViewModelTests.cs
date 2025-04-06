@@ -18,7 +18,7 @@ using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SoulSplitter.Splits;
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld.Generic;
 using SoulSplitter.ViewModels.Games;
 
 namespace SoulSplitter.Tests.ViewModels.Games

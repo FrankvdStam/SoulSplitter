@@ -17,7 +17,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SoulSplitter.Tests.Mocks;
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.Tests.ViewModels
 {

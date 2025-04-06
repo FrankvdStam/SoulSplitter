@@ -21,9 +21,9 @@ using LiveSplit.Model;
 using SoulMemory;
 using SoulMemory.Games.EldenRing;
 using SoulSplitter.Splits.EldenRing;
-using SoulSplitter.UI;
-using SoulSplitter.UI.EldenRing;
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld;
+using SoulSplitter.UiOld.EldenRing;
+using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.Splitters;
 

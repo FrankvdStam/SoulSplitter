@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory;
-using SoulSplitter.UI;
+using SoulSplitter.UiOld;
 using System;
 
 namespace SoulSplitter.Splitters;

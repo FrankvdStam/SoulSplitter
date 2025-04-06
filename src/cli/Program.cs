@@ -28,10 +28,10 @@ using SoulMemory.Games.EldenRing;
 using SoulMemory;
 using SoulMemory.Enums;
 using SoulMemory.Parameters;
-using SoulSplitter.UI;
-using SoulSplitter.UI.Generic;
-using SplitType = SoulSplitter.UI.Generic.SplitType;
-using TimingType = SoulSplitter.UI.Generic.TimingType;
+using SoulSplitter.UiOld;
+using SoulSplitter.UiOld.Generic;
+using SplitType = SoulSplitter.UiOld.Generic.SplitType;
+using TimingType = SoulSplitter.UiOld.Generic.TimingType;
 using SoulMemory.Abstractions;
 using SoulSplitter.UiV3;
 using SoulSplitterUIv2.Ui.ViewModels;
@@ -51,8 +51,6 @@ namespace cli
         private static void Main(string[] args)
         {
             TestUi(true);
-            return;
-            TestUiV2();
             return;
             GameLoop<EldenRing>(
                 (d) =>
@@ -270,21 +268,7 @@ namespace cli
             mainWindow.Close();
             app.Shutdown();
         }
-
-        static void TestUiV2()
-        {
-            var app = new SoulSplitterUIv2.Ui.View.App();
-            app.InitializeComponent();
-
-            var mainViewModel = app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel;
-            mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 0, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.EldenRing, 99, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.DarkSouls3, 12, SoulMemory.Enums.TimingType.OnWarp, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));
-
-            app.ShowMainWindow();
-        }
-
-
+        
         #region Validate patterns 
         public static void ValidatePatterns()
         {

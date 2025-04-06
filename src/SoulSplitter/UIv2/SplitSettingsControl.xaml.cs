@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld.Generic;
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -24,8 +24,8 @@ using System.Windows.Controls;
 using SoulMemory;
 using SoulMemory.Enums;
 using SoulSplitter.Splits;
-using SplitType = SoulSplitter.UI.Generic.SplitType;
-using TimingType = SoulSplitter.UI.Generic.TimingType;
+using SplitType = SoulSplitter.UiOld.Generic.SplitType;
+using TimingType = SoulSplitter.UiOld.Generic.TimingType;
 
 namespace SoulSplitter.UIv2;
 

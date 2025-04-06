@@ -15,8 +15,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulSplitter.Tests.UI;
-using SoulSplitter.UI.DarkSouls3;
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld.DarkSouls3;
+using SoulSplitter.UiOld.Generic;
 using System.Collections.Generic;
 
 namespace SoulSplitter.Tests
@@ -79,7 +79,7 @@ namespace SoulSplitter.Tests
 
         private static void AddDarkSouls1Split(object viewModel, TimingType timingType, SplitType splitType, object split)
         {
-            var darkSouls1ViewModel = (SoulSplitter.UI.DarkSouls1.DarkSouls1ViewModel)viewModel;
+            var darkSouls1ViewModel = (SoulSplitter.UiOld.DarkSouls1.DarkSouls1ViewModel)viewModel;
             darkSouls1ViewModel.NewSplitTimingType = timingType;
             darkSouls1ViewModel.NewSplitType = splitType;
 

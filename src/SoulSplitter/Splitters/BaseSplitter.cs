@@ -17,7 +17,7 @@
 using LiveSplit.Model;
 using System;
 using SoulMemory;
-using SoulSplitter.UI;
+using SoulSplitter.UiOld;
 using SoulMemory.Games.DarkSouls2;
 using SoulMemory.Abstractions;
 

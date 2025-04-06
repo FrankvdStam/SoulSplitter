@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulSplitter.UI.Validation;
+using SoulSplitter.UiOld.Validation;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

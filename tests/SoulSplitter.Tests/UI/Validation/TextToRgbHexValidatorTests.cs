@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulSplitter.UI.Validation;
+using SoulSplitter.UiOld.Validation;
 
 namespace SoulSplitter.Tests.UI.Validation
 {

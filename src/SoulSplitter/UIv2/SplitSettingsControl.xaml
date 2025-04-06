@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SoulSplitter.UIv2"
-             xmlns:generic="clr-namespace:SoulSplitter.UI.Generic"
+             xmlns:generic="clr-namespace:SoulSplitter.UiOld.Generic"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:converters="clr-namespace:SoulSplitter.UI.Converters"
+             xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:darkSouls1="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory"
-             xmlns:validation="clr-namespace:SoulSplitter.UI.Validation"
+             xmlns:validation="clr-namespace:SoulSplitter.UiOld.Validation"
              xmlns:enums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
              mc:Ignorable="d">
 

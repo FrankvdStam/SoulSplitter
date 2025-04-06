@@ -16,7 +16,7 @@
 
 using System.ComponentModel;
 using System.Xml.Serialization;
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.Splits.DarkSouls1;
 

@@ -16,7 +16,7 @@
 
 using System.Collections.ObjectModel;
 using SoulSplitter.Splits;
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.ViewModels.Games;
 

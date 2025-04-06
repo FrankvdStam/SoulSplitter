@@ -24,6 +24,12 @@
         <PackageIcon>../../Resources/soulsplitter.png</PackageIcon>
         <Platforms>x64</Platforms>
     </PropertyGroup>
+    <ItemGroup>
+      <Compile Remove="UiOld\Sekiro\**" />
+      <EmbeddedResource Remove="UiOld\Sekiro\**" />
+      <None Remove="UiOld\Sekiro\**" />
+      <Page Remove="UiOld\Sekiro\**" />
+    </ItemGroup>
     
     <ItemGroup>
       <Resource Include="soulsplitter.ico" />
@@ -74,10 +80,6 @@
             <TargetPath>soulmemory_rs_x86.dll</TargetPath>
         </ContentWithTargetPath>
         <EmbeddedResource Include="soulsplitter.ico" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="UI\Sekiro\" />
     </ItemGroup>
 
     <Target Name="Copy release artifacts" AfterTargets="Build" Condition="$(SolutionName) == 'SoulSplitter' And $(Configuration) == 'Release'">

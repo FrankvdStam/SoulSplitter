@@ -15,11 +15,11 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-using SoulSplitter.UI.DarkSouls3;
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld.DarkSouls3;
+using SoulSplitter.UiOld.Generic;
 using System.Collections.Generic;
 using System.Linq;
-using SoulSplitter.UI.DarkSouls1;
+using SoulSplitter.UiOld.DarkSouls1;
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using SoulSplitter.Splitters;
-using SoulSplitter.UI;
+using SoulSplitter.UiOld;
 using SoulMemory;
 using System.Diagnostics;
 using System.IO;

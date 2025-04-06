@@ -20,8 +20,8 @@ using System.Globalization;
 using System.Linq;
 using System.Xml;
 using SoulMemory;
-using SoulSplitter.UI.DarkSouls3;
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld.DarkSouls3;
+using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.Migrations;
 

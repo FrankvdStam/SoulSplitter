@@ -21,9 +21,9 @@ using LiveSplit.Model;
 using SoulMemory;
 using SoulMemory.Games.DarkSouls2;
 using SoulSplitter.Splits.DarkSouls2;
-using SoulSplitter.UI;
-using SoulSplitter.UI.DarkSouls2;
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld;
+using SoulSplitter.UiOld.DarkSouls2;
+using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.Splitters;
 

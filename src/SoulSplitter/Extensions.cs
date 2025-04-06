@@ -19,7 +19,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
-using SoulSplitter.UI.Generic;
+using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter;
 
