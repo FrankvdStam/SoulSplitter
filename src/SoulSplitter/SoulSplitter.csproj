@@ -52,9 +52,6 @@
             <HintPath>..\..\packages\UpdateManager.dll</HintPath>
         </Reference>
         <Reference Include="System.Windows.Forms" />
-        <Reference Include="System.Drawing">
-            <Aliases>SystemDrawing</Aliases>
-        </Reference>
         <Reference Include="WindowsBase" />
         <Reference Include="WindowsFormsIntegration" />
     </ItemGroup>

@@ -27,6 +27,12 @@ namespace SoulMemory.Native;
 [ExcludeFromCodeCoverage]
 internal static class NativeMethods
 {
+    [DllImport("user32.dll")]
+    internal static extern bool RegisterHotKey(IntPtr handle, int id, uint modifiers, uint virtualKeyCode);
+
+    [DllImport("user32.dll")]
+    internal static extern bool UnregisterHotKey(IntPtr handle, int id);
+
     [DllImport("kernel32.dll", SetLastError = true)]
     internal static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
 

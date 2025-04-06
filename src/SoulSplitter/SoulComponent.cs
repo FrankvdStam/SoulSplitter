@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-extern alias SystemDrawing;
-using SystemDrawing::System.Drawing;
+using System.Drawing;
+using System.Windows.Forms;
 using LiveSplit.Model;
 using LiveSplit.UI;
 using LiveSplit.UI.Components;
@@ -29,7 +29,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
 using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Migrations;
@@ -48,7 +47,6 @@ public class SoulComponent : IComponent
     private ITimerAdapter _timerAdapter;
     private IGame _game = null!;
     private DateTime _lastFailedRefresh = DateTime.MinValue;
-    private bool _previousBitBlt;
     public readonly MainWindow MainWindow;
 
     public SoulComponent(LiveSplitState state, bool shouldThrowOnInvalidInstallation = true, ITimerAdapter? timerAdapter = null)
@@ -110,33 +108,7 @@ public class SoulComponent : IComponent
             }
         });
     }
-
-    private void SetBitBlt()
-    {
-        if (_game is SoulMemory.Games.Sekiro.Sekiro sekiro)
-        {
-            if (sekiro.BitBlt)
-            {
-                MainWindow.BitBlt();
-            }
-
-            if (_previousBitBlt && !sekiro.BitBlt)
-            {
-                MainWindow.ResetBitBlt();
-            }
-            _previousBitBlt = sekiro.BitBlt;
-        }
-        else
-        {
-            if (_previousBitBlt)
-            {
-                _previousBitBlt = false;
-                MainWindow.ResetBitBlt();
-            }
-        }
-    }
-
-
+    
     private Game? _selectedGame;
     private ResultErr<RefreshError> UpdateSplitter(MainViewModel mainViewModel, LiveSplitState state)
     {

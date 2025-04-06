@@ -18,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Xml.Serialization;
 
 namespace SoulSplitterUIv2.Ui.ViewModels
 {
@@ -27,14 +26,14 @@ namespace SoulSplitterUIv2.Ui.ViewModels
         public Enum Attribute
         {
             get => _attribute;
-            set => this.SetField(ref _attribute, value);
+            set => SetField(ref _attribute, value);
         }
         private Enum _attribute;
         
         public int Level
         {
             get => _level;
-            set => this.SetField(ref _level, value);
+            set => SetField(ref _level, value);
         }
         private int _level;
         
