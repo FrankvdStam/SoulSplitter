@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.ComponentModel;
 using SoulSplitterUIv2.DependencyInjection;
 using SoulMemory.Enums;
 using SoulSplitterUIv2.Resources;
 
 namespace SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
 
-public partial class MainViewModel : INotifyPropertyChanged
+public partial class MainViewModel
 {
     private readonly ILanguageManager _languageManager;
 
