@@ -113,7 +113,20 @@ public partial class MainViewModel
     }
     private SplitViewModel _selectedSplit;
 
+    public bool StartAutomatically
+    {
+        get => _startAutomatically;
+        set => SetField(ref _startAutomatically, value);
+    }
+    private bool _startAutomatically;
 
+    public bool OverwriteIgtOnStart
+    {
+        get => _overwriteIgtOnStart;
+        set => SetField(ref _overwriteIgtOnStart, value);
+    }
+    private bool _overwriteIgtOnStart;
+    
     public ObservableCollection<TimingType> TimingTypes { get; set; } = new ObservableCollection<TimingType>();
     public ObservableCollection<SplitType> SplitTypes { get; set; } = new ObservableCollection<SplitType>();
     public ObservableCollection<SplitViewModel> Splits { get; set; } = new ObservableCollection<SplitViewModel>();

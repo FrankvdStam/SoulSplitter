@@ -84,10 +84,14 @@ public partial class MainViewModel : IXmlSerializable
         xmlDocument.Load(reader);
 
         var mainViewModel = xmlDocument.GetChildNodeByName(nameof(MainViewModel));
-        var version = mainViewModel.GetChildNodeByName(nameof(Version)).FirstChild.Value;
-        var language = mainViewModel.GetChildNodeByName(nameof(Language)).FirstChild.Value;
+        var version = mainViewModel.GetChildNodeByName(nameof(MainViewModel.Version)).FirstChild.Value;
+        var language = mainViewModel.GetChildNodeByName(nameof(MainViewModel.Language)).FirstChild.Value;
+        var startAutomatically = mainViewModel.GetChildNodeByName(nameof(MainViewModel.StartAutomatically)).FirstChild.Value;
+        var overwriteIgtOnStart = mainViewModel.GetChildNodeByName(nameof(MainViewModel.OverwriteIgtOnStart)).FirstChild.Value;
 
         Language = (Language)Enum.Parse(typeof(Language), language);
+        StartAutomatically = bool.Parse(startAutomatically);
+        OverwriteIgtOnStart = bool.Parse(overwriteIgtOnStart);
 
         var splits = mainViewModel.GetChildNodeByName(nameof(MainViewModel.Splits));
         foreach (XmlNode splitNode in splits.ChildNodes)
@@ -170,6 +174,8 @@ public partial class MainViewModel : IXmlSerializable
     {
         writer.WriteElementString(nameof(Version), Version);
         writer.WriteElementString(nameof(Language), Language.ToString());
+        writer.WriteElementString(nameof(StartAutomatically), StartAutomatically.ToString());
+        writer.WriteElementString(nameof(OverwriteIgtOnStart), OverwriteIgtOnStart.ToString());
         writer.WriteStartElement(nameof(Splits));
 
         foreach (var split in Splits)

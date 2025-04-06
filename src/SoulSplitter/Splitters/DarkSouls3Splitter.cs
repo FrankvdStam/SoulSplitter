@@ -139,7 +139,7 @@ public class DarkSouls3Splitter : ISplitter
             case TimerState.WaitForStart:
                 if (_darkSouls3ViewModel.StartAutomatically)
                 {
-                    var igt = _darkSouls3.GetInGameTimeMilliseconds();
+                    var igt = _darkSouls3.ReadInGameTimeMilliseconds();
                     if (igt is > 0 and < 150)
                     {
                         StartTimer();
@@ -149,9 +149,9 @@ public class DarkSouls3Splitter : ISplitter
                 break;
 
             case TimerState.Running:
-                var currentIgt = _darkSouls3.GetInGameTimeMilliseconds();
+                var currentIgt = _darkSouls3.ReadInGameTimeMilliseconds();
                 var isLoading = _darkSouls3.IsLoading();
-                var blackscreenActive = _darkSouls3.BlackscreenActive();
+                var blackscreenActive = _darkSouls3.IsBlackscreenActive();
 
                 //Blackscreens/meme loading screens - timer is running, but game is actually loading
                 if (currentIgt != 0 && currentIgt > _inGameTime && currentIgt < _inGameTime + 1000 && (isLoading || blackscreenActive))
@@ -173,7 +173,7 @@ public class DarkSouls3Splitter : ISplitter
     private void StartTimer()
     {
         _timerState = TimerState.Running;
-        _inGameTime = _darkSouls3.GetInGameTimeMilliseconds();
+        _inGameTime = _darkSouls3.ReadInGameTimeMilliseconds();
         _liveSplitState.IsGameTimePaused = true;
         _timerModel.Start();
     }

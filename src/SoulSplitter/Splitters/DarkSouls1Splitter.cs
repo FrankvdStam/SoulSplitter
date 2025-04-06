@@ -132,7 +132,7 @@ public class DarkSouls1Splitter : ISplitter
         _timerModel.CurrentState.IsGameTimePaused = true;
         _timerModel.CurrentState.CurrentTimingMethod = TimingMethod.GameTime;
         _timerState = TimerState.Running;
-        _inGameTime = _darkSouls1.GetInGameTimeMilliseconds();
+        _inGameTime = _darkSouls1.ReadInGameTimeMilliseconds();
     }
 
     private void ResetTimer()
@@ -153,7 +153,7 @@ public class DarkSouls1Splitter : ISplitter
             case TimerState.WaitForStart:
                 if (_mainViewModel.DarkSouls1ViewModel.StartAutomatically)
                 {
-                    var igt = _darkSouls1.GetInGameTimeMilliseconds();
+                    var igt = _darkSouls1.ReadInGameTimeMilliseconds();
                     if (igt is > 0 and < 150)
                     {
                         _timerModel.Start();
@@ -162,7 +162,7 @@ public class DarkSouls1Splitter : ISplitter
                 break;
 
             case TimerState.Running:
-                var currentIgt = _darkSouls1.GetInGameTimeMilliseconds();
+                var currentIgt = _darkSouls1.ReadInGameTimeMilliseconds();
                 if (currentIgt != 0)
                 {
                     //Only latch in these values if IGT is not 0, which means where actually on a save.

@@ -197,7 +197,7 @@ internal class Program
 
             // Get ingame time and blackscreen state
             var currentIgt = ds3.GetInGameTimeMilliseconds();
-            var blackscreenActive = ds3.BlackscreenActive();
+            var blackscreenActive = ds3.IsBlackscreenActive();
 
             // Blackscreens / meme loading screens - timer is running, but game is actually loading
             if (currentIgt != 0 && currentIgt > inGameTime && currentIgt < inGameTime + 1000 && blackscreenActive)

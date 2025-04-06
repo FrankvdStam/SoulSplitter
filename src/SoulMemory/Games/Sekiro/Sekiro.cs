@@ -189,7 +189,7 @@ public class Sekiro : ISekiro
 
     #endregion
 
-    public int GetInGameTimeMilliseconds()
+    public int ReadInGameTimeMilliseconds()
     {
         return _igt.ReadInt32();
     }

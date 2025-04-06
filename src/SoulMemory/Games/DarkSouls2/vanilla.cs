@@ -34,7 +34,11 @@ internal class Vanilla : IDarkSouls2
     public Process? GetProcess() => _process;
 
     public ResultErr<RefreshError> TryRefresh() => MemoryScanner.TryRefresh(ref _process, "darksoulsii", InitPointers, ResetPointers);
-    public int GetInGameTimeMilliseconds() => 0;
+    public int ReadInGameTimeMilliseconds() => 0;
+
+    public void WriteInGameTimeMilliseconds(int milliseconds)
+    {
+    }
     private void ResetPointers()
     {
         _eventFlagManager.Clear();

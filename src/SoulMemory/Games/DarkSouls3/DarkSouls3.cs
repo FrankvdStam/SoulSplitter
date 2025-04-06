@@ -22,7 +22,7 @@ using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.Games.DarkSouls3;
 
-public class DarkSouls3 : IGame, IPlayerPosition
+public class DarkSouls3 : IGame, IPlayerPosition, IBlackscreenRemovable
 {
     private Process? _process;
     private readonly Pointer _gameDataMan = new();
@@ -142,7 +142,7 @@ public class DarkSouls3 : IGame, IPlayerPosition
         return _loading.ReadInt32(-0x1) != 0;
     }
 
-    public bool BlackscreenActive()
+    public bool IsBlackscreenActive()
     {
         return _blackscreen.ReadInt32() != 0;
     }
@@ -159,7 +159,7 @@ public class DarkSouls3 : IGame, IPlayerPosition
         _gameDataMan.WriteInt32(_igtOffset, millis);
     }
 
-    public int GetInGameTimeMilliseconds()
+    public int ReadInGameTimeMilliseconds()
     {
         return _gameDataMan.ReadInt32(_igtOffset);
     }

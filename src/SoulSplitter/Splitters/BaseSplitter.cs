@@ -72,7 +72,7 @@ public abstract class BaseSplitter : ISplitter
     {
         _liveSplitState.IsGameTimePaused = true;
         _timerState = TimerState.Running;
-        _inGameTime = _game.GetInGameTimeMilliseconds();
+        _inGameTime = _game.ReadInGameTimeMilliseconds();
         _mainViewModel.FlagTrackerViewModel.Start();
         _timerModel.Start();
         OnStart();

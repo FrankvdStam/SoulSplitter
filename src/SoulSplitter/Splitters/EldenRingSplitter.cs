@@ -194,7 +194,7 @@ internal class EldenRingSplitter : ISplitter
             case TimerState.WaitForStart:
                 if (_startAutomatically)
                 {
-                    var igt = _eldenRing.GetInGameTimeMilliseconds();
+                    var igt = _eldenRing.ReadInGameTimeMilliseconds();
                     if (igt is > 0 and < 150)
                     {
                         _eldenRing.WriteInGameTimeMilliseconds(0);
@@ -207,7 +207,7 @@ internal class EldenRingSplitter : ISplitter
 
             case TimerState.Running:
 
-                var currentIgt = _eldenRing.GetInGameTimeMilliseconds();
+                var currentIgt = _eldenRing.ReadInGameTimeMilliseconds();
                 var blackscreenActive = _eldenRing.IsBlackscreenActive();
 
 

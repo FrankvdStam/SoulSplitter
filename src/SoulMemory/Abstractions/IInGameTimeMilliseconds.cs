@@ -14,37 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Diagnostics;
-using SoulMemory.Memory;
-
 namespace SoulMemory.Abstractions;
 
-public interface IGame
+public interface IInGameTimeMilliseconds
 {
     /// <summary>
-    /// Refresh attachment to a game
-    /// </summary>
-    ResultErr<RefreshError> TryRefresh();
-
-    /// <summary>
-    /// Returns a structure that defines the memory layout of certain game structs and values
-    /// Can be resolved and used to read memory, or to be scanned against a file to validate correctness of the structure
-    /// </summary>
-    TreeBuilder GetTreeBuilder();
-
-    /// <summary>
-    /// Read an event flag from the game and return it's state
-    /// </summary>
-    bool ReadEventFlag(uint eventFlagId);
-
-    /// <summary>
-    /// Get a reference to the game process
-    /// Will only be a valid reference until the next call to TryRefresh
-    /// </summary>
-    Process? GetProcess();
-
-    /// <summary>
-    /// Get the current millis 
+    /// Set the current millis 
     /// </summary>
     int ReadInGameTimeMilliseconds();
 
@@ -54,3 +29,4 @@ public interface IGame
     /// </summary>
     void WriteInGameTimeMilliseconds(int value);
 }
+

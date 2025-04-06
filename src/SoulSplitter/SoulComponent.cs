@@ -33,8 +33,8 @@ using System.Windows.Forms;
 using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Migrations;
-using Timer = SoulMemory.Timer;
 using SoulMemory.Abstractions;
+using SoulSplitter.UiV3;
 
 namespace SoulSplitter;
 
@@ -61,7 +61,7 @@ public class SoulComponent : IComponent
         _liveSplitState = state;
         SelectGameFromLiveSplitState(_liveSplitState);
 
-        _timerAdapter = new TimerAdapter(state, new Timer(new Sekiro(), new TimerSettings() { AutoStart = true }));
+        _timerAdapter = new TimerAdapter(state, new Timer(new Sekiro(),(SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext));
     }
 
         

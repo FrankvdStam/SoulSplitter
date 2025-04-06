@@ -63,7 +63,7 @@ public class ArmoredCore6 : IGame
     private readonly Pointer _fd4Time;
     private readonly Pointer _menuMan;
 
-    public int GetInGameTimeMilliseconds() => _fd4Time.ReadInt32(0x114);
+    public int ReadInGameTimeMilliseconds() => _fd4Time.ReadInt32(0x114);
     public void WriteInGameTimeMilliseconds(int milliseconds) => _fd4Time.WriteInt32(0x114, milliseconds);
 
     public bool IsLoadingScreenVisible()

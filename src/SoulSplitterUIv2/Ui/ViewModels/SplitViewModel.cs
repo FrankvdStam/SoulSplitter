@@ -41,4 +41,8 @@ public class SplitViewModel
     public TimingType TimingType { get; set; }
     public SplitType SplitType { get; set; }
     public object Split{ get; set; }
+
+   
+    public bool SplitTriggered;
+    public bool SplitConditionMet;
 }

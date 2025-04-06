@@ -25,7 +25,7 @@ using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.Games.EldenRing;
 
-public class EldenRing : IGame
+public class EldenRing : IGame, IBlackscreenRemovable
 {
     private Process? _process;
 
@@ -613,8 +613,7 @@ public class EldenRing : IGame
 
     #endregion
 
-    #region Timeable
-    public int GetInGameTimeMilliseconds()
+    public int ReadInGameTimeMilliseconds()
     {
         return _igt.ReadInt32();
     }
@@ -623,7 +622,6 @@ public class EldenRing : IGame
         _igt.WriteInt32(milliseconds);
     }
 
-    #endregion
 
     #region soulmods
     public bool FpsPatchGet()

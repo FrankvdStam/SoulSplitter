@@ -141,7 +141,7 @@ public class SekiroSplitter : ISplitter
 
         _liveSplitState.IsGameTimePaused = true;
         _timerState = TimerState.Running;
-        _inGameTime = _sekiro.GetInGameTimeMilliseconds();
+        _inGameTime = _sekiro.ReadInGameTimeMilliseconds();
         _timerModel.Start();
     }
 
@@ -159,7 +159,7 @@ public class SekiroSplitter : ISplitter
             case TimerState.WaitForStart:
                 if (_sekiroViewModel.StartAutomatically)
                 {
-                    var igt = _sekiro.GetInGameTimeMilliseconds();
+                    var igt = _sekiro.ReadInGameTimeMilliseconds();
                     if (igt is > 0 and < 150)
                     {
                         StartTimer();
@@ -170,7 +170,7 @@ public class SekiroSplitter : ISplitter
                 break;
 
             case TimerState.Running:
-                var currentIgt = _sekiro.GetInGameTimeMilliseconds();
+                var currentIgt = _sekiro.ReadInGameTimeMilliseconds();
                 var blackscreenActive = _sekiro.IsBlackscreenActive();
 
 

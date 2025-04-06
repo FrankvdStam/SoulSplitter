@@ -24,7 +24,12 @@ namespace SoulMemory.Games.DarkSouls2;
 
 public class DarkSouls2 : IDarkSouls2
 {
-    public int GetInGameTimeMilliseconds() => 0;
+    public int ReadInGameTimeMilliseconds() => 0;
+
+    public void WriteInGameTimeMilliseconds(int milliseconds)
+    {
+    }
+
     private IDarkSouls2? _darkSouls2;
     public Process? GetProcess() => _darkSouls2?.GetProcess();
     public Vector3f GetPosition() => _darkSouls2?.GetPosition() ?? new Vector3f();

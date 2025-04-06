@@ -225,7 +225,9 @@ public class Remastered : IDarkSouls1
     
     public int GetAttribute(Attribute attribute) => _playerGameData.ReadInt32(0x8 + (long)attribute);
 
-    public int GetInGameTimeMilliseconds() => _gameDataMan.ReadInt32(0xa4);
+    public int ReadInGameTimeMilliseconds() => _gameDataMan.ReadInt32(0xa4);
+
+    public void WriteInGameTimeMilliseconds(int milliseconds) => _gameDataMan.WriteInt32(0xa4, milliseconds);
 
     public int NgCount() => _gameDataMan.ReadInt32(0x78);
 

@@ -33,7 +33,8 @@ public class DarkSouls1 : IDarkSouls1
     public bool IsWarpRequested() => _darkSouls1?.IsWarpRequested() ?? false;
     public bool IsPlayerLoaded() => _darkSouls1?.IsPlayerLoaded() ?? false;
     public Vector3f GetPlayerPosition() => _darkSouls1?.GetPlayerPosition() ?? new Vector3f(0,0,0);
-    public int GetInGameTimeMilliseconds() => _darkSouls1?.GetInGameTimeMilliseconds() ?? 0;
+    public int ReadInGameTimeMilliseconds() => _darkSouls1?.ReadInGameTimeMilliseconds() ?? 0;
+    public void WriteInGameTimeMilliseconds(int milliseconds) => _darkSouls1?.WriteInGameTimeMilliseconds(milliseconds);
     public int NgCount() => _darkSouls1?.NgCount() ?? 0;
     public int GetCurrentSaveSlot() => _darkSouls1?.GetCurrentSaveSlot() ?? -1;
     public void ResetInventoryIndices() => _darkSouls1?.ResetInventoryIndices();

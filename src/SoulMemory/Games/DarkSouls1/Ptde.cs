@@ -161,7 +161,8 @@ public class Ptde : IDarkSouls1
     
     public int GetAttribute(Attribute attribute) => _playerGameData.ReadInt32((long)attribute);
 
-    public int GetInGameTimeMilliseconds() => _gameDataMan.ReadInt32(0x68);
+    public int ReadInGameTimeMilliseconds() => _gameDataMan.ReadInt32(0x68);
+    public void WriteInGameTimeMilliseconds(int milliseconds) => _gameDataMan.WriteInt32(0x68, milliseconds);
 
     public int NgCount() => _gameDataMan.ReadInt32(0x3C);
 

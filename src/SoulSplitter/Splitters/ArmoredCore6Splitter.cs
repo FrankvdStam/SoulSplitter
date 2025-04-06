@@ -48,7 +48,7 @@ public class ArmoredCore6Splitter(LiveSplitState state, IGame game) : BaseSplitt
             case TimerState.Running:
                 _mainViewModel.TryAndHandleError(UpdateAutoSplitter);
 
-                var currentIgt = _armoredCore6.GetInGameTimeMilliseconds();
+                var currentIgt = _armoredCore6.ReadInGameTimeMilliseconds();
                 //Detect game crash or quit out
                 if (currentIgt < 1000 && _inGameTime > 1000)
                 {
