@@ -93,7 +93,7 @@ public class DarkSouls2Splitter : ISplitter
 
         _darkSouls2.TryRefresh();
         
-        _darkSouls2ViewModel.CurrentPosition = _darkSouls2.GetPosition();
+        _darkSouls2ViewModel.CurrentPosition = _darkSouls2.GetPlayerPosition();
         
         UpdateTimer();
 
@@ -140,7 +140,7 @@ public class DarkSouls2Splitter : ISplitter
                     var loading = _darkSouls2.IsLoading();
                     if (!loading)
                     {
-                        var position = _darkSouls2.GetPosition();
+                        var position = _darkSouls2.GetPlayerPosition();
                         if(
                             position.Y is < -322.0f and > -323.0f &&
                             position.X is < -213.0f and > -214.0f)

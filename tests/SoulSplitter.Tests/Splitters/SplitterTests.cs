@@ -72,7 +72,7 @@ namespace SoulSplitter.Tests.Splitters
             //mainViewModel.DarkSouls1ViewModel.BooleanFlags[1].Value = shouldResetInventoryIndices;
             //Setup mocks
             darkSouls1
-                .SetupSequence(i => i.GetInGameTimeMilliseconds())
+                .SetupSequence(i => i.ReadInGameTimeMilliseconds())
                 .Returns(0)
                 .Returns(200)
                 .Returns(50);
@@ -115,7 +115,7 @@ namespace SoulSplitter.Tests.Splitters
             var (timerModel, mainViewModel, darkSouls1, ds1Splitter) = CreateMock();
             mainViewModel.DarkSouls1ViewModel.StartAutomatically = true;
 
-            darkSouls1.Setup(i => i.GetInGameTimeMilliseconds()).Returns(50);
+            darkSouls1.Setup(i => i.ReadInGameTimeMilliseconds()).Returns(50);
 
             //Timer should begin stopped.
             timerModel.Verify(i => i.Start(), Times.Never);
@@ -150,7 +150,7 @@ namespace SoulSplitter.Tests.Splitters
        
             //Setup mocks
             var igt = 0;
-            darkSouls1.Setup(i => i.GetInGameTimeMilliseconds()).Returns(50);
+            darkSouls1.Setup(i => i.ReadInGameTimeMilliseconds()).Returns(50);
        
             var splitIndex = 0;
             timerModel.Setup(i => i.Split()).Callback(() =>
@@ -232,7 +232,7 @@ namespace SoulSplitter.Tests.Splitters
        
                 //Final assertion: split should have been called once more time
                 igt += 1000;
-                darkSouls1.Setup(d => d.GetInGameTimeMilliseconds()).Returns(igt);
+                darkSouls1.Setup(d => d.ReadInGameTimeMilliseconds()).Returns(igt);
                 ds1Splitter.Update(mainViewModel);
                 Assert.AreEqual(i + 1, splitIndex, $"Unexpected index value on split {split.TimingType} {split.SplitType} {split.Split}");
        

@@ -14,13 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SoulMemory.Games.DarkSouls2;
-
-public interface IDarkSouls2 : IGame, IPlayerPosition
+namespace SoulMemory.Abstractions
 {
-    int GetBossKillCount(BossType bossType);
-    int GetAttribute(Attribute attribute);
-    bool IsLoading();
+    public interface IReadAttribute
+    {
+        int ReadAttribute(Enum attribute);
+    }
 }

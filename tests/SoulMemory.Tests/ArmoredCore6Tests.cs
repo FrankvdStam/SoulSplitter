@@ -68,10 +68,10 @@ public class ArmoredCore6Tests
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         mock.WriteInt32(0x7FF46F5C04B0 + 0x114, 504123);
-        Assert.AreEqual(504123, ac6.GetInGameTimeMilliseconds());
+        Assert.AreEqual(504123, ac6.ReadInGameTimeMilliseconds());
 
         mock.WriteInt32(0x7FF46F5C04B0 + 0x114, 31535);
-        Assert.AreEqual(31535, ac6.GetInGameTimeMilliseconds());
+        Assert.AreEqual(31535, ac6.ReadInGameTimeMilliseconds());
     }
 
     [TestMethod]
@@ -84,10 +84,10 @@ public class ArmoredCore6Tests
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         ac6.WriteInGameTimeMilliseconds(40);
-        Assert.AreEqual(40, ac6.GetInGameTimeMilliseconds());
+        Assert.AreEqual(40, ac6.ReadInGameTimeMilliseconds());
 
         ac6.WriteInGameTimeMilliseconds(70);
-        Assert.AreEqual(70, ac6.GetInGameTimeMilliseconds());
+        Assert.AreEqual(70, ac6.ReadInGameTimeMilliseconds());
     }
 
     [TestMethod]

@@ -253,7 +253,7 @@ public class SekiroSplitter : ISplitter
                             break;
 
                         case SplitType.Attribute:
-                            var level = _sekiro.GetAttribute(s.Attribute.AttributeType);
+                            var level = _sekiro.ReadAttribute(s.Attribute.AttributeType);
                             s.SplitConditionMet = level >= s.Attribute.Level;
                             break;
                     }

@@ -23,7 +23,8 @@ public enum SplitType
     Boss,
     Flag,
     KnownFlag,
-    Item,
+    //Inventory item, specific to ds1
+    DarkSouls1Item,
     ItemPickup,
     //"Normal" position is always a vec3
     Position,

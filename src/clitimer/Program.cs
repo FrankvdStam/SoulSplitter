@@ -100,7 +100,7 @@ internal class Program
             }
 
             // Get ingame time
-            var currentIgt = ds1.GetInGameTimeMilliseconds();
+            var currentIgt = ds1.ReadInGameTimeMilliseconds();
             if (currentIgt != 0)
             {
                 inGameTime = currentIgt;
@@ -148,7 +148,7 @@ internal class Program
             }
 
             // Get ingame time
-            var currentIgt = ds2.GetInGameTimeMilliseconds();
+            var currentIgt = ds2.ReadInGameTimeMilliseconds();
             if (currentIgt != 0)
             {
                 inGameTime = currentIgt;
@@ -196,7 +196,7 @@ internal class Program
             }
 
             // Get ingame time and blackscreen state
-            var currentIgt = ds3.GetInGameTimeMilliseconds();
+            var currentIgt = ds3.ReadInGameTimeMilliseconds();
             var blackscreenActive = ds3.IsBlackscreenActive();
 
             // Blackscreens / meme loading screens - timer is running, but game is actually loading
@@ -254,7 +254,7 @@ internal class Program
             }
 
             // Get ingame time and blackscreen state
-            var currentIgt = sekiro.GetInGameTimeMilliseconds();
+            var currentIgt = sekiro.ReadInGameTimeMilliseconds();
             var blackscreenActive = sekiro.IsBlackscreenActive();
 
             // Blackscreens / meme loading screens - timer is running, but game is actually loading
@@ -312,7 +312,7 @@ internal class Program
             }
 
             // Get ingame time and blackscreen state
-            var currentIgt = er.GetInGameTimeMilliseconds();
+            var currentIgt = er.ReadInGameTimeMilliseconds();
             var blackscreenActive = er.IsBlackscreenActive();
 
             // Blackscreens / meme loading screens - timer is running, but game is actually loading

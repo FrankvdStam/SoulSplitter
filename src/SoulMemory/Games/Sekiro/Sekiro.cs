@@ -24,9 +24,8 @@ using SoulMemory.Native;
 
 namespace SoulMemory.Games.Sekiro;
 
-public interface ISekiro : IGame, IBlackscreenRemovable, IPlayerPosition
+public interface ISekiro : IGame, IBlackscreenRemovable, IPlayerPosition, IReadAttribute
 {
-    int GetAttribute(Attribute attribute);
     bool IsPlayerLoaded();
     void WriteEventFlag(uint eventFlagId, bool eventFlagValue);
 }
@@ -199,7 +198,7 @@ public class Sekiro : ISekiro
         _igt.WriteInt32(value);
     }
 
-    public int GetAttribute(Attribute attribute)
+    public int ReadAttribute(Enum attribute)
     {
         return attribute switch
         {

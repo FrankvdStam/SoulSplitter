@@ -56,8 +56,8 @@ namespace SoulMemory.Enums
         {
             { Game.DarkSouls1,   new List<TimingType> { TimingType.Immediate, TimingType.OnLoading, TimingType.OnWarp } },
             { Game.DarkSouls2,   new List<TimingType> { TimingType.Immediate, TimingType.OnLoading } },
-            { Game.DarkSouls3,   new List<TimingType> { TimingType.Immediate, TimingType.OnLoading } },
-            { Game.Sekiro,       new List<TimingType> { TimingType.Immediate, TimingType.OnLoading } },
+            { Game.DarkSouls3,   new List<TimingType> { TimingType.Immediate, TimingType.OnLoading, TimingType.OnBlackscreen } },
+            { Game.Sekiro,       new List<TimingType> { TimingType.Immediate, TimingType.OnLoading, TimingType.OnBlackscreen } },
             { Game.EldenRing,    new List<TimingType> { TimingType.Immediate, TimingType.OnLoading, TimingType.OnBlackscreen } },
             { Game.ArmoredCore6, new List<TimingType> { TimingType.Immediate, TimingType.OnLoading } },
         };
@@ -73,7 +73,7 @@ namespace SoulMemory.Enums
                     (SplitType.Position, null),
                     (SplitType.Attribute, typeof(Games.DarkSouls1.Attribute)),
                     (SplitType.DarkSouls1Bonfire, null),
-                    (SplitType.Item, null),
+                    (SplitType.DarkSouls1Item, null),
                     (SplitType.KnownFlag, typeof(Games.DarkSouls1.Boss)),
                     (SplitType.Flag, null)
                 ]

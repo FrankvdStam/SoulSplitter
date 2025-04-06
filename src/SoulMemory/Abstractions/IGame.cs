@@ -52,5 +52,5 @@ public interface IGame
     /// <summary>
     /// Set the current millis 
     /// </summary>
-    void WriteInGameTimeMilliseconds(int value);
+    void WriteInGameTimeMilliseconds(int milliseconds);
 }

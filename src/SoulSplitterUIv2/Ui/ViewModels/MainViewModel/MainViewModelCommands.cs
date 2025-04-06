@@ -43,7 +43,7 @@ namespace SoulSplitterUIv2.Ui.ViewModels.MainViewModel
                 SplitType.Flag => Flag,
                 SplitType.Attribute => AttributeViewModel,
 
-                SplitType.Item => throw new System.NotImplementedException(),
+                SplitType.DarkSouls1Item => throw new System.NotImplementedException(),
                 SplitType.EldenRingPosition => throw new System.NotImplementedException(),
                 SplitType.DarkSouls1Bonfire => throw new System.NotImplementedException(),
                 _ => throw new System.NotImplementedException(),

@@ -130,7 +130,7 @@ public partial class MainViewModel : IXmlSerializable
 
             case SplitType.Flag:
                 var flag = splitNode.FirstChild.Value;
-                return int.Parse(flag);
+                return uint.Parse(flag);
 
             case SplitType.Position:
                 var positionViewModel = new PositionViewModel();
@@ -161,7 +161,7 @@ public partial class MainViewModel : IXmlSerializable
                 attributeViewModel.Level = int.Parse(level);
                 return attributeViewModel;
 
-            case SplitType.Item:
+            case SplitType.DarkSouls1Item:
             case SplitType.EldenRingPosition:
             case SplitType.DarkSouls1Bonfire:
                 throw new NotImplementedException();
@@ -233,7 +233,7 @@ public partial class MainViewModel : IXmlSerializable
                 writer.WriteEndElement();
                 break;
 
-            case SplitType.Item:
+            case SplitType.DarkSouls1Item:
             case SplitType.EldenRingPosition:
             case SplitType.DarkSouls1Bonfire:
                 throw new NotImplementedException();

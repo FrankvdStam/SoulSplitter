@@ -17,8 +17,11 @@
 using SoulMemory.Abstractions;
 using System;
 using SoulMemory.Enums;
+using SoulMemory.Games.Sekiro;
 using SoulSplitterUIv2;
+using SoulSplitterUIv2.Ui.ViewModels;
 using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
+using SoulSplitter.UI.Sekiro;
 
 namespace SoulSplitter
 {
@@ -111,6 +114,102 @@ namespace SoulSplitter
             }
         }
 
+
+        private void ResolveSplitCondition(SplitViewModel split)
+        {
+            switch (split.SplitType)
+            {
+                case SplitType.DarkSouls1Item:
+                case SplitType.EldenRingPosition:
+                case SplitType.DarkSouls1Bonfire:
+                    throw new ArgumentException($"Unsupported split type {split.SplitType}.");
+
+                case SplitType.Boss:
+                case SplitType.Bonfire:
+                case SplitType.ItemPickup:
+                case SplitType.KnownFlag:
+                    var eventFlagViewModel = (EventFlagViewModel)split.Split;
+                    split.SplitConditionMet = _game.ReadEventFlag(eventFlagViewModel.Flag);
+                    break;
+
+                case SplitType.Flag:
+                    uint flag = (uint)split.Split;
+                    split.SplitConditionMet = _game.ReadEventFlag(flag);
+                    break;
+
+                case SplitType.Attribute:
+                    if (_game is not IReadAttribute readAttribute)
+                    {
+                        throw new ArgumentException($"Unsupported split type {split.SplitType}. {_game} does not implement {nameof(IReadAttribute)}");
+                    }
+
+                    var attributeViewModel = (AttributeViewModel)split.Split;
+                    split.SplitConditionMet = readAttribute.ReadAttribute(attributeViewModel.Attribute) == attributeViewModel.Level; 
+                    break;
+
+                case SplitType.Position:
+                    if (_game is not IPlayerPosition playerPosition)
+                    {
+                        throw new ArgumentException($"Unsupported split type {split.SplitType}. {_game} does not implement {nameof(IPlayerPosition)}");
+                    }
+
+                    var positionViewModel = (PositionViewModel)split.Split;
+                    var position = playerPosition.GetPlayerPosition();
+                    if (positionViewModel.Position.X + positionViewModel.Size > position.X &&
+                        positionViewModel.Position.X - positionViewModel.Size < position.X &&
+
+                        positionViewModel.Position.Y + positionViewModel.Size > position.Y &&
+                        positionViewModel.Position.Y - positionViewModel.Size < position.Y &&
+
+                        positionViewModel.Position.Z + positionViewModel.Size > position.Z &&
+                        positionViewModel.Position.Z - positionViewModel.Size < position.Z)
+                    {
+                        split.SplitConditionMet = true;
+                    }
+                    break;
+            }
+        }
+
+        private void ResolveSplitTiming(SplitViewModel split)
+        {
+            switch (split.TimingType)
+            {
+                case TimingType.Immediate:
+                    split.SplitTriggered = true;
+                    RequestSplit();
+                    break;
+
+                case TimingType.OnLoading:
+                    if (_game is ISekiro sekiro)
+                    {
+                        if (!sekiro.IsPlayerLoaded())
+                        {
+                            RequestSplit();
+                            split.SplitTriggered = true;
+                        }
+                        break;
+                    }
+                    throw new ArgumentException($"Unsupported timing type {split.TimingType}. {_game} does not implement {nameof(ISekiro)}");
+
+
+                case TimingType.OnBlackscreen:
+                    if (_game is IBlackscreenRemovable blackscreenRemovable)
+                    {
+                        if (blackscreenRemovable.IsBlackscreenActive())
+                        {
+                            split.SplitConditionMet = true;
+                            RequestSplit();
+                        }
+                        break;
+                    }
+                    throw new ArgumentException($"Unsupported timing type {split.TimingType}. {_game} does not implement {nameof(IBlackscreenRemovable)}");
+                     
+                case TimingType.OnWarp:
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
         private void UpdateAutoSplitter()
         {
             if (!_isRunning)
@@ -128,25 +227,12 @@ namespace SoulSplitter
 
                 if (!split.SplitConditionMet)
                 {
-                    //TODO: IGame based check on split condition
+                    ResolveSplitCondition(split);
                 }
 
                 if (split.SplitConditionMet)
                 {
-                    switch (split.TimingType)
-                    {
-                        case TimingType.Immediate:
-                            split.SplitTriggered = true;
-                            RequestSplit();
-                            break;
-
-                        //case TimingType.OnLoading:
-                        //    if(_game.)
-                        //    split.SplitTriggered = true;
-                        //    RequestSplit();
-                        //    break;
-                    }
-                    //TODO: IGame based check on timing type?
+                    ResolveSplitTiming(split);
                 }
             }
         }

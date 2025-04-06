@@ -45,71 +45,11 @@ using System.Xml;
 
 namespace cli
 {
-    [XmlType(Namespace = "SoulMemory")]
-    public enum Attribute
-    {
-        Vitality = 0,
-        Strength = 1,
-    }
-
-    [XmlInclude(typeof(Attribute))]
-    [XmlInclude(typeof(Enum))]
-    public class ViewModel // : IXmlSerializable
-    {
-        [XmlIgnore]
-        public Enum Attribute { get; set; }
-
-        [XmlElement]
-        public object AttributeSerialized
-        {
-            get => Attribute;
-            set => Attribute = (Enum)value;
-        }
-
-        //public XmlSchema GetSchema()
-        //{
-        //    throw new NotImplementedException();
-        //}
-        //
-        //public void ReadXml(XmlReader reader)
-        //{
-        //    throw new NotImplementedException();
-        //}
-        //
-        //public void WriteXml(XmlWriter writer)
-        //{
-        //    writer.WriteStartElement("Attribute");
-        //    writer.WriteValue(Attribute.ToString());
-        //    writer.WriteEndElement();
-        //}
-    }
-
     internal class Program
     {
         [STAThread]
         private static void Main(string[] args)
         {
-            var viewModel = new ViewModel()
-            {
-                Attribute = Attribute.Strength
-            };
-
-            using var writer = new StringWriter();
-            var serializer = new XmlSerializer(typeof(ViewModel), new Type[]{ typeof(Enum), typeof(Attribute), typeof(ViewModel) });
-            serializer.Serialize(writer, viewModel);
-            var str = writer.ToString();
-
-
-            /*
-             *<?xml version="1.0" encoding="utf-16"?>
-               <ViewModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                 <Attribute>Strength</Attribute>
-               </ViewModel>
-             */
-
-            //var res = ResourceUtils.GenerateResourceDictionaryForEventFlag(typeof(SoulMemory.Games.Sekiro.Attribute));
-
-
             TestUi(true);
             return;
             TestUiV2();
@@ -393,7 +333,7 @@ namespace cli
             var ds1 = new DarkSouls1();
             while (true)
             {
-                Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
+                Console.WriteLine($"{ds1.ReadInGameTimeMilliseconds()}");
 
                 var result = ds1.TryRefresh();
                 if (result.IsErr)

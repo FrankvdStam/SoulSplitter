@@ -45,12 +45,13 @@ public class SoulComponent : IComponent
 
     private LiveSplitState _liveSplitState;
     private ISplitter? _splitter;
-    private TimerAdapter _timerAdapter;
+    private ITimerAdapter _timerAdapter;
     private IGame _game = null!;
     private DateTime _lastFailedRefresh = DateTime.MinValue;
     private bool _previousBitBlt;
     public readonly MainWindow MainWindow;
-    public SoulComponent(LiveSplitState state, bool shouldThrowOnInvalidInstallation = true)
+
+    public SoulComponent(LiveSplitState state, bool shouldThrowOnInvalidInstallation = true, ITimerAdapter? timerAdapter = null)
     {
         if (shouldThrowOnInvalidInstallation)
         {
@@ -61,7 +62,7 @@ public class SoulComponent : IComponent
         _liveSplitState = state;
         SelectGameFromLiveSplitState(_liveSplitState);
 
-        _timerAdapter = new TimerAdapter(state, new Timer(new Sekiro(),(SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext));
+        _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(new Sekiro(),(SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext));
     }
 
         

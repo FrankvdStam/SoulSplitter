@@ -28,7 +28,12 @@ namespace SoulSplitter.Tests.Mocks
         public Dictionary<uint, bool> EventFlags = new Dictionary<uint, bool>();
 
 
-        public int GetInGameTimeMilliseconds()
+        public int ReadInGameTimeMilliseconds()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteInGameTimeMilliseconds(int milliseconds)
         {
             throw new NotImplementedException();
         }

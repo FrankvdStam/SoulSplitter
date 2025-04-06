@@ -79,7 +79,7 @@ internal class Vanilla : IDarkSouls2
 
     #endregion
     
-    public Vector3f GetPosition()
+    public Vector3f GetPlayerPosition()
     {
         return new Vector3f(
             _position.ReadFloat(0x88),

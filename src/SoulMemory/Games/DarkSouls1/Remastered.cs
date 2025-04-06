@@ -43,6 +43,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using SoulMemory.Parameters;
 using Pointer = SoulMemory.Memory.Pointer;
+using SoulMemory.Abstractions;
 
 namespace SoulMemory.Games.DarkSouls1;
 

@@ -20,10 +20,13 @@ using System;
 
 namespace SoulSplitter.Splitters
 {
+    public interface ITimerAdapter
+    {
+    }
     /// <summary>
     /// Adapter to connect the soulmemory timer with livesplit's interface
     /// </summary>
-    public class TimerAdapter : IDisposable
+    public class TimerAdapter : ITimerAdapter, IDisposable
     {
         public TimerAdapter(LiveSplitState liveSplitState, Timer timer)
         {

@@ -21,6 +21,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SoulMemory;
 using SoulSplitter.Net6.Tests;
+using SoulSplitter.Splitters;
 using SoulSplitter.UI;
 using SoulSplitter.UI.Generic;
 
@@ -34,7 +35,8 @@ namespace SoulSplitter.Tests
         public void GetSettingsTest()
         {
             var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
-            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
+            var timerAdapterMock = new Mock<ITimerAdapter>();
+            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false, timerAdapter: timerAdapterMock.Object);
             var doc = new XmlDocument();
             var settings = component.GetSettings(doc);
             Assert.IsNotNull(settings.OuterXml);
@@ -75,7 +77,8 @@ namespace SoulSplitter.Tests
             var versionFromXml = doc.GetChildNodeByName("MainViewModel").GetChildNodeByName("Version").InnerText;
 
             var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
-            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
+            var timerAdapterMock = new Mock<ITimerAdapter>();
+            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false, timerAdapter: timerAdapterMock.Object);
             component.SetSettings(doc);
 
             var componentViewModel = component.MainWindow.MainViewModel;
@@ -90,8 +93,9 @@ namespace SoulSplitter.Tests
             var doc = new XmlDocument();
             doc.LoadXml(XmlData.SekiroMigration1_1_0);
 
-            var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
-            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
+            var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]); 
+            var timerAdapterMock = new Mock<ITimerAdapter>();
+            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false, timerAdapter: timerAdapterMock.Object);
             component.SetSettings(doc);
 
             var componentViewModel = component.MainWindow.MainViewModel;
@@ -106,7 +110,8 @@ namespace SoulSplitter.Tests
             doc.LoadXml(XmlData.DarkSouls3Migration_1_9_0);
 
             var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
-            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false);
+            var timerAdapterMock = new Mock<ITimerAdapter>();
+            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false, timerAdapter: timerAdapterMock.Object);
             component.SetSettings(doc);
 
             var componentViewModel = component.MainWindow.MainViewModel;
