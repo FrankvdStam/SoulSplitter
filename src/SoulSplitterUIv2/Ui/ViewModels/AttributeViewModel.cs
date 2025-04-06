@@ -28,17 +28,17 @@ namespace SoulSplitterUIv2.Ui.ViewModels
             get => _attribute;
             set => SetField(ref _attribute, value);
         }
-        private Enum _attribute;
+        private Enum _attribute = null!;
         
         public int Level
         {
             get => _level;
             set => SetField(ref _level, value);
         }
-        private int _level;
+        private int _level = 10;
         
         #region INotifyPropertyChanged
-        private bool SetField<TField>(ref TField field, TField value, [CallerMemberName] string propertyName = null)
+        private bool SetField<TField>(ref TField field, TField value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<TField>.Default.Equals(field, value)) return false;
             field = value;
@@ -46,9 +46,9 @@ namespace SoulSplitterUIv2.Ui.ViewModels
             return true;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
         }

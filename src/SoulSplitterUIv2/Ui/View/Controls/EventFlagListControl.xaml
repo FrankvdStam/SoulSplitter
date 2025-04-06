@@ -24,6 +24,7 @@
     xmlns:converters="clr-namespace:SoulSplitterUIv2.Ui.Converters"
     xmlns:resources="clr-namespace:SoulSplitterUIv2.Resources"
     xmlns:view="clr-namespace:SoulSplitterUIv2.Ui.View"
+    xmlns:controls="clr-namespace:SoulSplitterUIv2.Ui.View.Controls"
     mc:Ignorable="d"
     Margin="5"
     HorizontalAlignment="Stretch"
@@ -38,13 +39,12 @@
                 <ResourceDictionary Source="pack://application:,,,/SoulSplitterUIv2;component/Resources/English/Language.xaml" />
                 <ResourceDictionary>
                     <converters:GridLengthDivisorConverter x:Key="GridLengthDivisorConverter" />
-                    <converters:EnumEventFlagConverter x:Key="EnumEventFlagConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <view:FilteredComboBox
+    <controls:FilteredComboBox
         x:Name="SplitsCombobox"
         DisplayMemberPath="Name"
         SelectedValuePath="EventFlag"
@@ -55,7 +55,7 @@
         IsEditable="True"
         IsTextSearchEnabled="False"
         StaysOpenOnEdit="True">
-        <view:FilteredComboBox.ItemContainerStyle>
+        <controls:FilteredComboBox.ItemContainerStyle>
             <Style TargetType="{x:Type ComboBoxItem}">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -120,6 +120,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-        </view:FilteredComboBox.ItemContainerStyle>
-    </view:FilteredComboBox>
+        </controls:FilteredComboBox.ItemContainerStyle>
+    </controls:FilteredComboBox>
 </UserControl>

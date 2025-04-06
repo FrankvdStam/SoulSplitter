@@ -22,13 +22,13 @@ namespace SoulSplitterUIv2.Resources
 {
     public class LanguageManager : ILanguageManager
     {
-        private ResourceDictionary _languageDictionary;
+        private ResourceDictionary _languageDictionary = null!;
 
         /// <inheritdoc />
         public Language CurrentLanguage { get; set; }
 
         /// <inheritdoc />
-        public event CurrentLanguageChangedEventHandler OnLanguageChanged;
+        public event CurrentLanguageChangedEventHandler? OnLanguageChanged;
 
         /// <inheritdoc />
         public void LoadLanguage(Language language)

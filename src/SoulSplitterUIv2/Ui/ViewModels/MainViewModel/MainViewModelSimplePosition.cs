@@ -34,10 +34,10 @@ public partial class MainViewModel
     }
     private Vector3f _currentPosition = new Vector3f(1.1f, 2.2f, 3.3f);
     
-    public PositionViewModel PositionViewModel
+    public PositionViewModel? PositionViewModel
     {
         get => _positionViewModel;
         set => SetField(ref _positionViewModel, value);
     }
-    private PositionViewModel _positionViewModel;
+    private PositionViewModel? _positionViewModel;
 }

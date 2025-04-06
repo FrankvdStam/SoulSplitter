@@ -26,7 +26,7 @@ namespace SoulSplitterUIv2.DependencyInjection
         public Type ImplementationType { get; set; } = null!;
         public Lifetime Lifetime { get; set; }
         public ConstructorInfo Constructor { get; set; } = null!;
-        public Func<IServiceProvider, object> CustomConstructor { get; set; }
+        public Func<IServiceProvider, object>? CustomConstructor { get; set; }
 
         public object Activate(IServiceProvider serviceProvider)
         {

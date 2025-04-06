@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace SoulSplitterUIv2.Ui.View
+namespace SoulSplitterUIv2.Ui.View.Controls
 {
     //https://stackoverflow.com/questions/2001842/dynamic-filter-of-wpf-combobox-based-on-text-input/41986141#41986141
     public class FilteredComboBox : ComboBox
@@ -14,9 +14,9 @@ namespace SoulSplitterUIv2.Ui.View
 
         private string _currentFilter = string.Empty;
 
-        protected TextBox EditableTextBox => GetTemplateChild("PART_EditableTextBox") as TextBox;
+        protected TextBox EditableTextBox => (TextBox)GetTemplateChild("PART_EditableTextBox")!;
 
-        protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
+        protected override void OnItemsSourceChanged(IEnumerable? oldValue, IEnumerable? newValue)
         {
             if (newValue != null)
             {
@@ -35,7 +35,6 @@ namespace SoulSplitterUIv2.Ui.View
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
-            //Debug.WriteLine($"OnSelectionChanged {SelectedIndex}");
             if (SelectedIndex != -1)
             {
                 Text = string.Empty;
@@ -59,7 +58,6 @@ namespace SoulSplitterUIv2.Ui.View
                     break;
                 default:
                     if (e.Key == Key.Down) IsDropDownOpen = true;
-
                     base.OnPreviewKeyDown(e);
                     break;
             }
@@ -130,7 +128,6 @@ namespace SoulSplitterUIv2.Ui.View
 
         private bool FilterItem(object value)
         {
-            if (value == null) return false;
             if (Text.Length == 0) return true;
 
             var filterTex = value is IFilterableItem filterableItem ? filterableItem.GetFilterValue() : value.ToString();

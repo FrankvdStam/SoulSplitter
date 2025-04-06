@@ -35,14 +35,14 @@ public class SplitViewModel
         Description = description;
     }
 
-    public string Description { get; set; }
+    public string Description { get; set; } = null!;
     public Game Game { get; set; }
     public int NewGamePlusLevel { get; set; }
     public TimingType TimingType { get; set; }
     public SplitType SplitType { get; set; }
-    public object Split{ get; set; }
+    public object Split{ get; set; } = null!;
 
-   
+
     public bool SplitTriggered;
     public bool SplitConditionMet;
 }

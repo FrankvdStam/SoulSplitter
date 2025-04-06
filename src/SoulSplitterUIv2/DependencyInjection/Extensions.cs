@@ -38,16 +38,16 @@ namespace SoulSplitterUIv2.DependencyInjection
 
         public static void AddScoped<TService, TImplementation>(this IServiceCollection serviceCollection, Func<IServiceProvider, TService> customConstructor)
             where TImplementation : class, TService
-            => serviceCollection.AddService<TService, TImplementation>(Lifetime.Scoped, (serviceProvider) => customConstructor(serviceProvider));
+            => serviceCollection.AddService<TService, TImplementation>(Lifetime.Scoped, (serviceProvider) => customConstructor(serviceProvider)!);
 
         //Custom constructor for "lowest" base type without injected service provider
         public static void AddScoped<TImplementation>(this IServiceCollection serviceCollection, Func<TImplementation> customConstructor)
             where TImplementation : class
-            => serviceCollection.AddService<TImplementation, TImplementation>(Lifetime.Scoped, (serviceProvider) => customConstructor());
+            => serviceCollection.AddService<TImplementation, TImplementation>(Lifetime.Scoped, (serviceProvider) => customConstructor()!);
 
         public static void AddScoped<TService, TImplementation>(this IServiceCollection serviceCollection, Func<TService> customConstructor)
             where TImplementation : class, TService
-            => serviceCollection.AddService<TService, TImplementation>(Lifetime.Scoped, (serviceProvider) => customConstructor());
+            => serviceCollection.AddService<TService, TImplementation>(Lifetime.Scoped, (serviceProvider) => customConstructor()!);
 
         #endregion
 
@@ -69,16 +69,16 @@ namespace SoulSplitterUIv2.DependencyInjection
 
         public static void AddSingleton<TService, TImplementation>(this IServiceCollection serviceCollection, Func<IServiceProvider, TService> customConstructor)
             where TImplementation : class, TService
-            => serviceCollection.AddService<TService, TImplementation>(Lifetime.Singleton, (serviceProvider) => customConstructor(serviceProvider));
+            => serviceCollection.AddService<TService, TImplementation>(Lifetime.Singleton, (serviceProvider) => customConstructor(serviceProvider)!);
 
         //Custom constructor for "lowest" base type without injected service provider
         public static void AddSingleton<TImplementation>(this IServiceCollection serviceCollection, Func<TImplementation> customConstructor)
             where TImplementation : class
-            => serviceCollection.AddService<TImplementation, TImplementation>(Lifetime.Singleton, (serviceProvider) => customConstructor());
+            => serviceCollection.AddService<TImplementation, TImplementation>(Lifetime.Singleton, (serviceProvider) => customConstructor()!);
 
         public static void AddSingleton<TService, TImplementation>(this IServiceCollection serviceCollection, Func<TService> customConstructor)
             where TImplementation : class, TService
-            => serviceCollection.AddService<TService, TImplementation>(Lifetime.Singleton, (serviceProvider) => customConstructor());
+            => serviceCollection.AddService<TService, TImplementation>(Lifetime.Singleton, (serviceProvider) => customConstructor()!);
 
         #endregion
         

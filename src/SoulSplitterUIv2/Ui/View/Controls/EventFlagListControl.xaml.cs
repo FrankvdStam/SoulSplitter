@@ -65,9 +65,9 @@ namespace SoulSplitterUIv2.Ui.View.Controls
 
         #region Bindings
 
-        public ILanguageManager LanguageManager { get; set; }
+        public ILanguageManager LanguageManager { get; set; } = null!;
 
-       
+
 
         public ObservableCollection<EventFlagViewModel> EventFlagList { get; set; } = new ObservableCollection<EventFlagViewModel>();
 
@@ -108,12 +108,12 @@ namespace SoulSplitterUIv2.Ui.View.Controls
             get => _hint;
             set => SetField(ref _hint, value);
         }
-        private string _hint;
-        
+        private string _hint = null!;
+
         #endregion
 
         #region INotifyPropertyChanged
-        private bool SetField<U>(ref U field, U value, [CallerMemberName] string propertyName = null)
+        private bool SetField<U>(ref U field, U value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<U>.Default.Equals(field, value)) return false;
             field = value;
@@ -121,9 +121,9 @@ namespace SoulSplitterUIv2.Ui.View.Controls
             return true;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
         }

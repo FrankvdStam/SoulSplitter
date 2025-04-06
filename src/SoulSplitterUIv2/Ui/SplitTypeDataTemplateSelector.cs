@@ -24,49 +24,38 @@ namespace SoulSplitterUIv2.Ui
 {
     public class SplitTypeDataTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate EventFlagDataTemplate { get; set; }
-        public DataTemplate EnumDataTemplate { get; set; }
-        public DataTemplate PositionViewModelDataTemplate { get; set; }
-        public DataTemplate FlagDataTemplate { get; set; }
-        public DataTemplate AttributeViewModelDataTemplate { get; set; }
+        public ILanguageManager LanguageManager { get; set; } = null!;
+        public DataTemplate EventFlagDataTemplate { get; set; } = null!;
+        public DataTemplate EnumDataTemplate { get; set; } = null!;
+        public DataTemplate PositionViewModelDataTemplate { get; set; } = null!;
+        public DataTemplate FlagDataTemplate { get; set; } = null!;
+        public DataTemplate AttributeViewModelDataTemplate { get; set; } = null!;
+        public DataTemplate DefaultDataTemplate { get; set; } = new DataTemplate();
 
-        public ILanguageManager LanguageManager { get; set; }
-
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        public override DataTemplate SelectTemplate(object? item, DependencyObject container)
         {
-            if (item == null)
+            switch (item)
             {
-                return null;
-            }
-
-            if (item is Enum e)
-            {
-                var languageItem = LanguageManager.Get(e);
-                var enumType = languageItem.GetType();
-
-                if (enumType == typeof(EventFlag))
+                case Enum e:
                 {
-                    return EventFlagDataTemplate;
+                    var languageItem = LanguageManager.Get(e);
+                    var enumType = languageItem.GetType();
+
+                    if (enumType == typeof(EventFlag))
+                    {
+                        return EventFlagDataTemplate;
+                    }
+                    return EnumDataTemplate;
                 }
-                return EnumDataTemplate;
+                case PositionViewModel:
+                    return PositionViewModelDataTemplate;
+                case int:
+                    return FlagDataTemplate;
+                case AttributeViewModel:
+                    return AttributeViewModelDataTemplate;
+                default:
+                    return DefaultDataTemplate;
             }
-
-            if (item is PositionViewModel)
-            {
-                return PositionViewModelDataTemplate;
-            }
-
-            if (item is int)
-            {
-                return FlagDataTemplate;
-            }
-
-            if(item is AttributeViewModel)
-            {
-                return AttributeViewModelDataTemplate;
-            }
-
-            return EnumDataTemplate;
         }
     }
 }

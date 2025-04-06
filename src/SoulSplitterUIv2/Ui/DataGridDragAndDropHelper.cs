@@ -71,7 +71,7 @@ namespace SoulSplitterUIv2.Ui
             return (object)obj.GetValue(DraggedItemProperty);
         }
 
-        private static void SetDraggedItem(DependencyObject obj, object value)
+        private static void SetDraggedItem(DependencyObject obj, object? value)
         {
             obj.SetValue(DraggedItemProperty, value);
         }
@@ -82,17 +82,17 @@ namespace SoulSplitterUIv2.Ui
 
         private static void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var point = e.GetPosition(sender as DataGrid);
+            var point = e.GetPosition((DataGrid)sender);
             var row = FindUiElementFromPoint<DataGridRow>((UIElement)sender, point);
             if (row != null)
             {
-                SetDraggedItem(sender as DataGrid, row.Item);
+                SetDraggedItem((DataGrid)sender, row.Item);
             }
         }
 
         private static void OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var draggedItem = GetDraggedItem(sender as DependencyObject);
+            var draggedItem = GetDraggedItem((DependencyObject)sender);
             if (draggedItem != null && sender is DataGrid dataGrid)
             {
                 MoveItems(dataGrid, dataGrid.SelectedItem);
@@ -103,7 +103,7 @@ namespace SoulSplitterUIv2.Ui
 
         private static void OnPreviewMouseMove(object sender, MouseEventArgs e)
         {
-            var draggedItem = GetDraggedItem(sender as DependencyObject);
+            var draggedItem = GetDraggedItem((DependencyObject)sender);
             if (draggedItem != null)
             {
                 var row = FindUiElementFromPoint<DataGridRow>((UIElement)sender, e.GetPosition((sender as DataGrid)));
@@ -119,7 +119,7 @@ namespace SoulSplitterUIv2.Ui
 
         private static void MoveItems(object sender, object targetItem)
         {
-            var draggedItem = GetDraggedItem(sender as DependencyObject);
+            var draggedItem = GetDraggedItem((DependencyObject)sender);
             if (
                 draggedItem != null &&
                 targetItem != null && 
@@ -155,7 +155,7 @@ namespace SoulSplitterUIv2.Ui
                 }
             }
 
-            return null;
+            return null!;
         }
     }
 }

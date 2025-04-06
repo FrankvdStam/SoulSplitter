@@ -24,7 +24,7 @@ namespace SoulSplitterUIv2
 {
     public static class Extensions
     {
-        public static SoulSplitterUIv2.DependencyInjection.IServiceProvider ServiceProvider { get; set; }
+        public static SoulSplitterUIv2.DependencyInjection.IServiceProvider ServiceProvider { get; set; } = null!;
 
         public static TAttribute GetAttribute<TAttribute>(this Enum enumValue) where TAttribute : Attribute
         {
@@ -32,7 +32,7 @@ namespace SoulSplitterUIv2
                 .GetType()
                 .GetMember(enumValue.ToString())
                 .FirstOrDefault()?
-                .GetCustomAttribute<TAttribute>();
+                .GetCustomAttribute<TAttribute>()!;
         }
 
 

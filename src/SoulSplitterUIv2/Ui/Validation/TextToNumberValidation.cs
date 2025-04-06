@@ -129,6 +129,6 @@ public class TextToNumberValidation : ValidationRule
     public bool IsRequired { get; set; }
     public bool AllowNegative { get; set; } = true;
     public NumericType NumericType { get; set; } = NumericType.Int;
-    public object MinValue { get; set; }
-    public object MaxValue { get; set; }
+    public object MinValue { get; set; } = null!;
+    public object MaxValue { get; set; } = null!;
 }

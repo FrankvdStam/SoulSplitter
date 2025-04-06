@@ -24,7 +24,7 @@ namespace SoulSplitterUIv2.Utils
         public static string SerializeXml<T>(T t)
         {
             using var writer = new StringWriter();
-            var serializer = new XmlSerializer(t.GetType());
+            var serializer = new XmlSerializer(t!.GetType());
             serializer.Serialize(writer, t);
             return writer.ToString();
         }

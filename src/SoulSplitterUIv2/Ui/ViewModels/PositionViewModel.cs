@@ -42,7 +42,7 @@ namespace SoulSplitterUIv2.Ui.ViewModels
         private float _size = 5.0f;
 
         #region INotifyPropertyChanged
-        private bool SetField<TField>(ref TField field, TField value, [CallerMemberName] string propertyName = null)
+        private bool SetField<TField>(ref TField field, TField value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<TField>.Default.Equals(field, value)) return false;
             field = value;
@@ -50,9 +50,9 @@ namespace SoulSplitterUIv2.Ui.ViewModels
             return true;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
         }

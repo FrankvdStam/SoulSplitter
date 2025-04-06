@@ -33,7 +33,7 @@ namespace SoulSplitterUIv2.Ui.ViewModels
             EventFlag = eventFlag;
             Flag = Convert.ToUInt32(eventFlag);
 
-            if (languageManager != null && languageManager.Get(eventFlag) is EventFlag eventFlagLanguage)
+            if (languageManager.Get(eventFlag) is EventFlag eventFlagLanguage)
             {
                 Name = eventFlagLanguage.Name;
                 Description = eventFlagLanguage.Description;
@@ -44,7 +44,7 @@ namespace SoulSplitterUIv2.Ui.ViewModels
 
         #region IFilterableItem
 
-        private readonly string _filterValueCache;
+        private readonly string _filterValueCache = null!;
         public string GetFilterValue() => _filterValueCache;
 
         #endregion
@@ -54,28 +54,28 @@ namespace SoulSplitterUIv2.Ui.ViewModels
             get => _flag;
             set => SetField(ref _flag, value);
         }
-        private uint _flag;
+        private uint _flag = 0;
 
         public string Name
         {
             get => _name;
             set => SetField(ref _name, value);
         }
-        private string _name;
+        private string _name = null!;
 
         public string Description
         {
             get => _description;
             set => SetField(ref _description, value);
         }
-        private string _description;
+        private string _description = null!;
 
         public string Location
         {
             get => _location;
             set => SetField(ref _location, value);
         }
-        private string _location;
+        private string _location = null!;
 
 
         public Enum EventFlag
@@ -83,10 +83,10 @@ namespace SoulSplitterUIv2.Ui.ViewModels
             get => _eventFlag;
             set => SetField(ref _eventFlag, value);
         }
-        private Enum _eventFlag;
+        private Enum _eventFlag = null!;
 
         #region INotifyPropertyChanged
-        private bool SetField<TField>(ref TField field, TField value, [CallerMemberName] string propertyName = null)
+        private bool SetField<TField>(ref TField field, TField value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<TField>.Default.Equals(field, value)) return false;
             field = value;
@@ -94,9 +94,9 @@ namespace SoulSplitterUIv2.Ui.ViewModels
             return true;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
         }

@@ -26,22 +26,22 @@ namespace SoulSplitterUIv2.Ui.ViewModels.MainViewModel
     public partial class MainViewModel
     {
 
-        public RelayCommand.RelayCommand SerializeCommand { get; set; }
+        public RelayCommand.RelayCommand SerializeCommand { get; set; } = null!;
 
         #region Add split ========================================================================================
         public RelayCommand.RelayCommand AddSplitCommand { get; set; }
 
         private void AddSplit(object param)
         {
-            object split = SelectedSplitType switch
+            object split = SelectedSplitType!.Value switch
             {
                 SplitType.Boss or
                 SplitType.KnownFlag or
                 SplitType.ItemPickup or
-                SplitType.Bonfire => SelectedEventFlag,
-                SplitType.Position => PositionViewModel,
-                SplitType.Flag => Flag,
-                SplitType.Attribute => AttributeViewModel,
+                SplitType.Bonfire => SelectedEventFlag!,
+                SplitType.Position => PositionViewModel!,
+                SplitType.Flag => Flag!,
+                SplitType.Attribute => AttributeViewModel!,
 
                 SplitType.DarkSouls1Item => throw new System.NotImplementedException(),
                 SplitType.EldenRingPosition => throw new System.NotImplementedException(),
@@ -65,7 +65,12 @@ namespace SoulSplitterUIv2.Ui.ViewModels.MainViewModel
                 SelectedGame != null &&
                 SelectedTimingType != null &&
                 SelectedSplitType != null &&
-                (SelectedEventFlag != null || PositionViewModel != null || Flag != null || AttributeViewModel != null);
+                (
+                    SelectedEventFlag != null || 
+                    PositionViewModel != null || 
+                    Flag != null || 
+                    AttributeViewModel != null
+                );
         }
 
         #endregion

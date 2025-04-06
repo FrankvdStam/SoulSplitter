@@ -30,12 +30,12 @@ public partial class MainViewModel
         get => _attributeType;
         set => SetField(ref _attributeType, value);
     }
-    private Type _attributeType;
+    private Type _attributeType = null!;
 
-    public AttributeViewModel AttributeViewModel
+    public AttributeViewModel? AttributeViewModel
     {
         get => _attributeViewModel;
         set => SetField(ref _attributeViewModel, value);
     }
-    private AttributeViewModel _attributeViewModel;
+    private AttributeViewModel? _attributeViewModel;
 }

@@ -69,7 +69,7 @@ public partial class MainViewModel
         get => _splitDescription;
         set => SetField(ref _splitDescription, value);
     }
-    private string _splitDescription;
+    private string _splitDescription = null!;
 
     public bool IsAddSplitPopupOpen
     {
@@ -85,12 +85,12 @@ public partial class MainViewModel
     }
     private int _selectedNewGamePlusLevel = 0;
 
-    public Enum SelectedEventFlag
+    public Enum? SelectedEventFlag
     {
         get => _selectedEventFlag;
         set => SetField(ref _selectedEventFlag, value);
     }
-    private Enum _selectedEventFlag;
+    private Enum? _selectedEventFlag;
 
     public int? Flag
     {
@@ -104,14 +104,14 @@ public partial class MainViewModel
         get => _eventFlagType;
         set => SetField(ref _eventFlagType, value);
     }
-    private Type _eventFlagType;
+    private Type _eventFlagType = null!;
     
-    public SplitViewModel SelectedSplit
+    public SplitViewModel? SelectedSplit
     {
         get => _selectedSplit;
         set => SetField(ref _selectedSplit, value);
     }
-    private SplitViewModel _selectedSplit;
+    private SplitViewModel? _selectedSplit;
 
     public bool StartAutomatically
     {

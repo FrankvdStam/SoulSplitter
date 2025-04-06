@@ -32,7 +32,7 @@ namespace SoulSplitterUIv2.DependencyInjection
         /// <typeparam name="TImplementation"></typeparam>
         /// <param name="lifetime"></param>
         /// <param name="customConstructor"></param>
-        public void AddService<TService, TImplementation>(Lifetime lifetime, Func<IServiceProvider, object> customConstructor)
+        public void AddService<TService, TImplementation>(Lifetime lifetime, Func<IServiceProvider, object>? customConstructor)
         {
             
             var descriptor = new ServiceDescriptor()

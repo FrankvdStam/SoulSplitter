@@ -55,7 +55,7 @@ internal static class XmlExtensions
                 }
             }
         }
-        return null;
+        throw new ArgumentException($"{name} not found");
     }
 
     public static void ForEachChildNodeByName(this XmlNode node, string childName, Action<XmlNode> action)
@@ -75,7 +75,7 @@ public partial class MainViewModel : IXmlSerializable
 {
     public XmlSchema GetSchema()
     {
-        return null;
+        return null!;
     }
 
     public void ReadXml(XmlReader reader)
@@ -118,7 +118,7 @@ public partial class MainViewModel : IXmlSerializable
     private object DeserializeSplitObject(XmlNode splitNode, SplitType splitType)
     {
         var typeAttribute = splitNode.GetAttributeByName("type").Value;
-        Type type = Type.GetType(typeAttribute + ", SoulMemory");
+        Type type = Type.GetType(typeAttribute + ", SoulMemory")!;
 
         switch (splitType)
         {
@@ -152,7 +152,7 @@ public partial class MainViewModel : IXmlSerializable
 
                 var attributeNode = splitNode.FirstChild.GetChildNodeByName(nameof(AttributeViewModel.Attribute));
                 var attributeNodeType = attributeNode.GetAttributeByName("type").Value;
-                Type attributeType = Type.GetType(attributeNodeType + ", SoulMemory");
+                Type attributeType = Type.GetType(attributeNodeType + ", SoulMemory")!;
                 
                 var attribute = splitNode.FirstChild.GetChildNodeByName(nameof(AttributeViewModel.Attribute)).FirstChild.Value;
                 var level =  splitNode.FirstChild.GetChildNodeByName(nameof(AttributeViewModel.Level)).FirstChild.Value;
@@ -164,10 +164,9 @@ public partial class MainViewModel : IXmlSerializable
             case SplitType.DarkSouls1Item:
             case SplitType.EldenRingPosition:
             case SplitType.DarkSouls1Bonfire:
+            default:
                 throw new NotImplementedException();
         }
-
-        return null;
     }
 
     public void WriteXml(XmlWriter writer)

@@ -34,9 +34,9 @@ namespace SoulSplitterUIv2.Ui.Converters
     /// </summary>
     public class EnumEventFlagConverter : IValueConverter
     {
-        public ILanguageManager LanguageManager { get; set; }
+        public ILanguageManager LanguageManager { get; set; } = null!;
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is Enum key && parameter is EnumEventFlagConverterTarget target)
             {
@@ -60,7 +60,7 @@ namespace SoulSplitterUIv2.Ui.Converters
             throw new NotImplementedException();
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
