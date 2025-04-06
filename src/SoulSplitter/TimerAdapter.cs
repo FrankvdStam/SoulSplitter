@@ -18,72 +18,72 @@ using LiveSplit.Model;
 using SoulMemory;
 using System;
 
-namespace SoulSplitter
+namespace SoulSplitter;
+
+public interface ITimerAdapter
 {
-    public interface ITimerAdapter
+    ResultErr<RefreshError> Update();
+}
+/// <summary>
+/// Adapter to connect the soulmemory timer with livesplit's interface
+/// </summary>
+public class TimerAdapter : ITimerAdapter, IDisposable
+{
+    public TimerAdapter(LiveSplitState liveSplitState, Timer timer)
     {
-        ResultErr<RefreshError> Update();
+        _liveSplitState = liveSplitState;
+
+        _timerModel = new TimerModel();
+        _timerModel.CurrentState = _liveSplitState;
+
+
+        _liveSplitState.OnStart += OnStart;
+        _liveSplitState.OnReset += OnReset;
+
+        _timer = timer;
+        _timer.OnUpdateTime += OnUpdateTime;
+        _timer.OnRequestSplit += OnRequestSplit;
+
+        _liveSplitState.IsGameTimePaused = true;
     }
-    /// <summary>
-    /// Adapter to connect the soulmemory timer with livesplit's interface
-    /// </summary>
-    public class TimerAdapter : ITimerAdapter, IDisposable
+
+    private readonly LiveSplitState _liveSplitState;
+    private readonly TimerModel _timerModel;
+    private readonly Timer _timer;
+
+    private void OnStart(object sender, EventArgs e)
     {
-        public TimerAdapter(LiveSplitState liveSplitState, Timer timer)
-        {
-            _liveSplitState = liveSplitState;
+        _liveSplitState.IsGameTimePaused = true; //Live split resets this value - have to make sure its paused on every start.
+        _timer.Start();
+        _timerModel.Start();
+    }
 
-            _timerModel = new TimerModel();
-            _timerModel.CurrentState = _liveSplitState;
+    private void OnReset(object sender, TimerPhase timerPhase)
+    {
+        _timer.Reset();
+        _timerModel.Reset();
+    }
 
+    private void OnUpdateTime(object? sender, int milliseconds)
+    {
+        _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(milliseconds));
+    }
 
-            _liveSplitState.OnStart += OnStart;
-            _liveSplitState.OnReset += OnReset;
+    private void OnRequestSplit(object sender, EventArgs e)
+    {
+        _timerModel.Split();
+    }
 
-            _timer = timer;
-            _timer.OnUpdateTime += OnUpdateTime;
-            _timer.OnRequestSplit += OnRequestSplit;
+    public ResultErr<RefreshError> Update()
+    {
+        return _timer.Update();
+    }
 
-            _liveSplitState.IsGameTimePaused = true;
-        }
-
-        private readonly LiveSplitState _liveSplitState;
-        private readonly TimerModel _timerModel;
-        private readonly Timer _timer;
-
-        private void OnStart(object sender, EventArgs e)
-        {
-            _timer.Start();
-            _timerModel.Start();
-        }
-
-        private void OnReset(object sender, TimerPhase timerPhase)
-        {
-            _timer.Reset();
-            _timerModel.Reset();
-        }
-
-        private void OnUpdateTime(object? sender, int milliseconds)
-        {
-            _timerModel.CurrentState.SetGameTime(TimeSpan.FromMilliseconds(milliseconds));
-        }
-
-        private void OnRequestSplit(object sender, EventArgs e)
-        {
-            _timerModel.Split();
-        }
-
-        public ResultErr<RefreshError> Update()
-        {
-            return _timer.Update();
-        }
-
-        public void Dispose()
-        {
-            _liveSplitState.OnStart -= OnStart;
-            _liveSplitState.OnReset -= OnReset;
-            _timer.OnUpdateTime -= OnUpdateTime;
-            _timer.OnRequestSplit -= OnRequestSplit;
-        }
+    public void Dispose()
+    {
+        _liveSplitState.OnStart -= OnStart;
+        _liveSplitState.OnReset -= OnReset;
+        _timer.OnUpdateTime -= OnUpdateTime;
+        _timer.OnRequestSplit -= OnRequestSplit;
     }
 }

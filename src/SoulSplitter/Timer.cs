@@ -68,9 +68,12 @@ namespace SoulSplitter
         /// </summary>
         public void Reset()
         {
-            _isRunning = false;
-            _previousIgt = 0;
-            OnUpdateTime?.Invoke(this, 0);
+            if (!_isRunning)
+            {
+                _isRunning = false;
+                _previousIgt = 0;
+                OnUpdateTime?.Invoke(this, 0);
+            }
         }
 
         /// <summary>

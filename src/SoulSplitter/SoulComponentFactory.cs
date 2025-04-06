@@ -15,6 +15,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics;
+using System.Linq;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
 using SoulSplitter;
@@ -42,6 +44,10 @@ public class SoulComponentFactory : IComponentFactory
 
     public IComponent Create(LiveSplitState state)
     {
+        
+        //StackTrace s = new StackTrace();
+        ////state.Layout.Components.Contains();
+        //var str = s.ToString();
         return new SoulComponent(state);
     }
 }

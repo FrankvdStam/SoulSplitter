@@ -33,6 +33,7 @@ using SoulSplitter.UI.DarkSouls3;
 using SoulSplitter.UI.EldenRing;
 using SoulSplitter.UI.Generic;
 using SoulSplitter.UI.Sekiro;
+using SoulSplitter.UiV3;
 using SoulSplitter.ViewModels.Games;
 using Brush = System.Windows.Media.Brush;
 
@@ -40,6 +41,13 @@ namespace SoulSplitter.UI;
 
 public class MainViewModel : ICustomNotifyPropertyChanged
 {
+    //public SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel UiV2ViewModel
+    //{
+    //    get => (SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext;
+    //    set => App.Current.MainWindow.DataContext = value;
+    //}
+
+
     public MainViewModel()
     {
         CommandOpenUiV2 = new RelayCommand(ShowUiV2, (_) => true);

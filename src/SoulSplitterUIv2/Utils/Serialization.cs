@@ -15,18 +15,26 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace SoulSplitterUIv2.Utils
 {
     public static class Serialization
     {
-        public static string SerializeXml<T>(T t)
+        public static string SerializeXml<T>(T t, XmlWriterSettings? xmlWriterSettings = null)
         {
-            using var writer = new StringWriter();
+            xmlWriterSettings ??= new XmlWriterSettings
+            {
+                Indent = true,
+                OmitXmlDeclaration = true
+            };
+
+            using var stringWriter = new StringWriter();
+            using var writer = XmlWriter.Create(stringWriter, xmlWriterSettings);
             var serializer = new XmlSerializer(t!.GetType());
             serializer.Serialize(writer, t);
-            return writer.ToString();
+            return stringWriter.ToString();
         }
 
         public static T DeserializeXml<T>(string s)

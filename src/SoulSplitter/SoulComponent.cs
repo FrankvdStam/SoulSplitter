@@ -34,6 +34,8 @@ using SoulMemory.Games.Sekiro;
 using SoulSplitter.Migrations;
 using SoulMemory.Abstractions;
 using SoulSplitter.UiV3;
+using SoulSplitterUIv2.Utils;
+using static System.Windows.Forms.AxHost;
 
 namespace SoulSplitter;
 
@@ -44,12 +46,13 @@ public class SoulComponent : IComponent
 
     private LiveSplitState _liveSplitState;
     private ISplitter? _splitter;
-    private ITimerAdapter _timerAdapter;
+    private ITimerAdapter? _timerAdapter;
     private IGame _game = null!;
     private DateTime _lastFailedRefresh = DateTime.MinValue;
     public readonly MainWindow MainWindow;
 
-    public SoulComponent(LiveSplitState state, bool shouldThrowOnInvalidInstallation = true, ITimerAdapter? timerAdapter = null)
+    public SoulComponent(LiveSplitState state, bool shouldThrowOnInvalidInstallation = true,
+        ITimerAdapter? timerAdapter = null)
     {
         if (shouldThrowOnInvalidInstallation)
         {
@@ -60,11 +63,18 @@ public class SoulComponent : IComponent
         _liveSplitState = state;
         SelectGameFromLiveSplitState(_liveSplitState);
 
-        App a = new App();
-        _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(new Sekiro(),(SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext));
+        if (App.Current == null)
+        {
+            App a = new App();
+        }
+
+        InitTimerAdapter(state, timerAdapter);
     }
 
-        
+    private void InitTimerAdapter(LiveSplitState state, ITimerAdapter? timerAdapter = null)
+    {
+        _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(new Sekiro(), (SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)App.Current!.MainWindow.DataContext));
+    }
 
     /// <summary>
     /// Called by livesplit every frame
@@ -164,7 +174,7 @@ public class SoulComponent : IComponent
 
         if (mainViewModel.SelectedGame == Game.Sekiro)
         {
-            return _timerAdapter.Update();
+            return _timerAdapter!.Update();
         }
 
         return _splitter!.Update(mainViewModel);
@@ -228,19 +238,36 @@ public class SoulComponent : IComponent
         }
     }
 
+    /// <summary>
+    /// Called when saving the compone
+    /// </summary>
     public XmlNode GetSettings(XmlDocument document)
     {
         var root = document.CreateElement("Settings");
         MainWindow.Dispatcher.Invoke(() =>
         {
-            var xml = MainWindow.MainViewModel.Serialize();
-            var fragment = document.CreateDocumentFragment();
-            fragment.InnerXml = xml;
-            root.AppendChild(fragment);
+            {
+                var xml = MainWindow.MainViewModel.Serialize();
+                var fragment = document.CreateDocumentFragment();
+                fragment.InnerXml = xml;
+                root.AppendChild(fragment);
+            }
+
+            {
+                var xml = Serialization.SerializeXml((SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext);
+                var element = document.CreateElement("Uiv2");
+                var uiv2fragment = document.CreateDocumentFragment();
+                uiv2fragment.InnerXml = xml;
+                element.AppendChild(uiv2fragment);
+                root.AppendChild(element);
+            }
         });
         return root;
     }
 
+    /// <summary>
+    /// Called when loading the settings from livesplit into the component
+    /// </summary>
     public void SetSettings(XmlNode settings)
     {
         MainWindow.Dispatcher.Invoke(() =>
@@ -257,9 +284,16 @@ public class SoulComponent : IComponent
                     MainWindow.MainViewModel.AddException(migrationException);
                 }
 
-                var vm = MainViewModel.Deserialize(settings.InnerXml);
+                var mainViewModelXmlNode = SoulMemory.Extensions.GetChildNodeByName(settings, "MainViewModel");
+                var vm = MainViewModel.Deserialize(mainViewModelXmlNode.OuterXml);
                 MainWindow.MainViewModel = vm;
                 _splitter?.SetViewModel(MainWindow.MainViewModel);
+
+                var uiv2 = SoulMemory.Extensions.GetChildNodeByName(settings, "Uiv2");
+
+                var vmui2 = Serialization.DeserializeXml<SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel>(uiv2.InnerXml);
+                App.Current.MainWindow.DataContext = vmui2;
+                InitTimerAdapter(_liveSplitState); //Reinitialize the timer adapter to make sure it has the correct view model
             }
             catch (Exception e)
             {
