@@ -16,6 +16,7 @@
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls2/Boss.xaml" />
 
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls3/Boss.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls3/Attribute.xaml" />
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls3/Bonfire.xaml" />
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls3/ItemPickup.xaml" />
 

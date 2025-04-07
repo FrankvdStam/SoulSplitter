@@ -46,7 +46,6 @@ public class EldenRing : IGame, IEldenRing, IBlackscreenRemovable, IReadNewGameL
     private long _playerInsOffset;
 
     private Dictionary<string, long> _soulmodsExports = new();
-    
 
     #region Refresh/init/reset ================================================================================================
     public Process? GetProcess() => _process;
@@ -373,8 +372,7 @@ public class EldenRing : IGame, IEldenRing, IBlackscreenRemovable, IReadNewGameL
         _noLogo.WriteBytes(null, [0x90, 0x90]);
         _process!.NtResumeProcess();
     }
-
-
+    
     #region Read inventory
     //Got some help from Nordgaren to read the inventory. Cheers!
     //https://github.com/Nordgaren/Erd-Tools

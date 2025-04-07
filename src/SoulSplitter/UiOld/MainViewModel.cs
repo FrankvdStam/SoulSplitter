@@ -31,7 +31,6 @@ using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.DarkSouls1;
 using SoulSplitter.UiOld.DarkSouls2;
-using SoulSplitter.UiOld.DarkSouls3;
 using SoulSplitter.UiOld.Generic;
 using SoulSplitter.Utils;
 using Brush = System.Windows.Media.Brush;
@@ -59,7 +58,6 @@ public class MainViewModel : NotifyPropertyChanged
         SelectedGame = mainViewModel.SelectedGame;
         DarkSouls1ViewModel = mainViewModel.DarkSouls1ViewModel;
         DarkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
-        DarkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
         FlagTrackerViewModel = mainViewModel.FlagTrackerViewModel;
     }
     public string Version
@@ -93,13 +91,6 @@ public class MainViewModel : NotifyPropertyChanged
         set => SetField(ref _darkSouls2ViewModel, value);
     }
     private DarkSouls2ViewModel _darkSouls2ViewModel = new();
-
-    public DarkSouls3ViewModel DarkSouls3ViewModel
-    {
-        get => _darkSouls3ViewModel;
-        set => SetField(ref _darkSouls3ViewModel, value);
-    }
-    private DarkSouls3ViewModel _darkSouls3ViewModel = new();
 
     public FlagTrackerViewModel FlagTrackerViewModel
     {
@@ -386,7 +377,6 @@ public class MainViewModel : NotifyPropertyChanged
         var vm = xml.DeserializeXml<MainViewModel>();
         vm.DarkSouls1ViewModel.SplitsViewModel.RestoreHierarchy();
         vm.DarkSouls2ViewModel.RestoreHierarchy();
-        vm.DarkSouls3ViewModel.SplitsViewModel.RestoreHierarchy();
         return vm;
     }
 

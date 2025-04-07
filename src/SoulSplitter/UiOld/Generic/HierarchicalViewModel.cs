@@ -143,7 +143,6 @@ public class SplitTypeViewModel : NotifyPropertyChanged
     XmlInclude(typeof(SoulMemory.Games.DarkSouls3.Boss)),
     XmlInclude(typeof(SoulMemory.Games.DarkSouls3.Bonfire)),
     XmlInclude(typeof(SoulMemory.Games.DarkSouls3.ItemPickup)),
-    XmlInclude(typeof(Splits.DarkSouls3.Attribute)),
 ]
 public class SplitViewModel : NotifyPropertyChanged
 {

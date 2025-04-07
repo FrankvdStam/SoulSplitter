@@ -149,7 +149,6 @@ public class SoulComponent : IComponent
 
                 case Game.DarkSouls3:
                     _game = new SoulMemory.Games.DarkSouls3.DarkSouls3();
-                    _splitter = new DarkSouls3Splitter(state, (SoulMemory.Games.DarkSouls3.DarkSouls3)_game);
                     break;
 
                 case Game.Sekiro:
@@ -165,7 +164,7 @@ public class SoulComponent : IComponent
                     break;
             }
             _splitter?.SetViewModel(mainViewModel);
-            if (mainViewModel.SelectedGame is Game.Sekiro or Game.ArmoredCore6 or Game.EldenRing)
+            if (mainViewModel.SelectedGame is Game.DarkSouls3 or Game.Sekiro or Game.ArmoredCore6 or Game.EldenRing)
             {
                 InitTimerAdapter(state, _game);
             }

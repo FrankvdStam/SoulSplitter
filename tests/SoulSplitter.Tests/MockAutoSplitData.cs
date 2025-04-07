@@ -16,7 +16,6 @@
 
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.Tests.UI;
-using SoulSplitter.UiOld.DarkSouls3;
 using SoulSplitter.UiOld.Generic;
 using System.Collections.Generic;
 
@@ -29,7 +28,7 @@ namespace SoulSplitter.Tests
             get
             {
                 AddSplit addDarkSouls1Split = AddDarkSouls1Split;
-                AddSplit addDarkSouls3Split = AddDarkSouls3Split;
+                //AddSplit addDarkSouls3Split = AddDarkSouls3Split;
                 //AddSplit addSekiroSplit = AddSekiroSplit;
 
                 //Dark Souls 1 ====================================================================================================================================================================================
@@ -46,21 +45,21 @@ namespace SoulSplitter.Tests
 
                 yield return (GameType.DarkSouls1, addDarkSouls1Split, TimingType.OnWarp,    SplitType.Attribute, new Splits.DarkSouls1.Attribute { AttributeType = SoulMemory.Games.DarkSouls1.Attribute.Dexterity, Level = 10 });
 
-                //Dark Souls 3 ====================================================================================================================================================================================
-                yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Boss, SoulMemory.Games.DarkSouls3.Boss.AbyssWatchers);
-                yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Boss, SoulMemory.Games.DarkSouls3.Boss.IudexGundyr);
-                yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Boss, SoulMemory.Games.DarkSouls3.Boss.SlaveKnightGael);
-
-                yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Flag, new FlagDescription { Flag = 248157 });
-
-                yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Bonfire, SoulMemory.Games.DarkSouls3.Bonfire.DarkeaterMidir);
-                yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Bonfire, SoulMemory.Games.DarkSouls3.Bonfire.FarronKeep);
-
-                yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Position, new VectorSize() { Position = new SoulMemory.Vector3f(100, 200, -300), Size = 10 });
-
-                yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Attribute, new Splits.DarkSouls3.Attribute { AttributeType = SoulMemory.Games.DarkSouls3.Attribute.Dexterity, Level = 10 });
-
-                yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.ItemPickup, SoulMemory.Games.DarkSouls3.ItemPickup.BlackHandKamuiOnikiriandUbadachi);
+                ////Dark Souls 3 ====================================================================================================================================================================================
+                //yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Boss, SoulMemory.Games.DarkSouls3.Boss.AbyssWatchers);
+                //yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Boss, SoulMemory.Games.DarkSouls3.Boss.IudexGundyr);
+                //yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Boss, SoulMemory.Games.DarkSouls3.Boss.SlaveKnightGael);
+                //
+                //yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Flag, new FlagDescription { Flag = 248157 });
+                //
+                //yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Bonfire, SoulMemory.Games.DarkSouls3.Bonfire.DarkeaterMidir);
+                //yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Bonfire, SoulMemory.Games.DarkSouls3.Bonfire.FarronKeep);
+                //
+                //yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.OnLoading, SplitType.Position, new VectorSize() { Position = new SoulMemory.Vector3f(100, 200, -300), Size = 10 });
+                //
+                //yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.Attribute, new Splits.DarkSouls3.Attribute { AttributeType = SoulMemory.Games.DarkSouls3.Attribute.Dexterity, Level = 10 });
+                //
+                //yield return (GameType.DarkSouls3, addDarkSouls3Split, TimingType.Immediate, SplitType.ItemPickup, SoulMemory.Games.DarkSouls3.ItemPickup.BlackHandKamuiOnikiriandUbadachi);
 
                // //Sekiro ====================================================================================================================================================================================
                // yield return (GameType.Sekiro,     addSekiroSplit,     TimingType.Immediate, SplitType.Boss, SoulMemory.Games.Sekiro.Boss.EmmaTheGentleBlade);
@@ -106,29 +105,29 @@ namespace SoulSplitter.Tests
             darkSouls1ViewModel.AddSplitCommand.Execute(null);
         }
 
-        private static void AddDarkSouls3Split(object viewModel, TimingType timingType, SplitType splitType, object split)
-        {
-            var darkSouls3ViewModel = (DarkSouls3ViewModel)viewModel;
-            darkSouls3ViewModel.NewSplitTimingType = timingType;
-            darkSouls3ViewModel.NewSplitType = splitType;
-
-            switch (splitType)
-            {
-                case SplitType.Position:
-                    darkSouls3ViewModel.Position = (VectorSize)split;
-                    break;
-
-                case SplitType.Flag:
-                    darkSouls3ViewModel.FlagDescription = (FlagDescription)split;
-                    break;
-
-                default:
-                    darkSouls3ViewModel.NewSplitValue = split;
-                    break;
-            }
-
-            darkSouls3ViewModel.AddSplitCommand.Execute(null);
-        }
+        //private static void AddDarkSouls3Split(object viewModel, TimingType timingType, SplitType splitType, object split)
+        //{
+        //    var darkSouls3ViewModel = (DarkSouls3ViewModel)viewModel;
+        //    darkSouls3ViewModel.NewSplitTimingType = timingType;
+        //    darkSouls3ViewModel.NewSplitType = splitType;
+        //
+        //    switch (splitType)
+        //    {
+        //        case SplitType.Position:
+        //            darkSouls3ViewModel.Position = (VectorSize)split;
+        //            break;
+        //
+        //        case SplitType.Flag:
+        //            darkSouls3ViewModel.FlagDescription = (FlagDescription)split;
+        //            break;
+        //
+        //        default:
+        //            darkSouls3ViewModel.NewSplitValue = split;
+        //            break;
+        //    }
+        //
+        //    darkSouls3ViewModel.AddSplitCommand.Execute(null);
+        //}
 
         //private static void AddSekiroSplit(object viewModel, TimingType timingType, SplitType splitType, object split)
         //{

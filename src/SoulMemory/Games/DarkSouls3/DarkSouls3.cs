@@ -22,7 +22,7 @@ using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.Games.DarkSouls3;
 
-public class DarkSouls3 : IGame, IPlayerPosition, IBlackscreenRemovable
+public class DarkSouls3 : IGame, IPlayerPosition, IBlackscreenRemovable, IReadAttribute
 {
     private Process? _process;
     private readonly Pointer _gameDataMan = new();
@@ -176,16 +176,16 @@ public class DarkSouls3 : IGame, IPlayerPosition, IBlackscreenRemovable
 
     #region Read attributes
 
-    public int ReadAttribute(Attribute attribute)
+    public int ReadAttribute(Enum attribute)
     {
+        var ds3Attribute = (Attribute)attribute;
         if (IsPlayerLoaded() && _newMenuSystem.ReadInt32(0x88) != 3)
         {
-            return _playerGameData.ReadInt32((long)attribute);
+            return _playerGameData.ReadInt32((long)ds3Attribute);
         }
 
         return -1;
     }
-
 
     #endregion
 

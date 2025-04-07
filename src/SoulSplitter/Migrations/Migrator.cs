@@ -20,7 +20,6 @@ using System.Globalization;
 using System.Linq;
 using System.Xml;
 using SoulMemory;
-using SoulSplitter.UiOld.DarkSouls3;
 using SoulSplitter.UiOld.Generic;
 using SoulSplitter.Utils;
 
@@ -34,10 +33,6 @@ internal static class Migrator
 
         MigrateEr(version, settings);
         
-        if (version <= Version.Parse("1.1.9"))
-        {
-            MigrateDs3_1_1_9(settings);
-        }
     }
 
     /// <summary>
@@ -168,119 +163,4 @@ internal static class Migrator
 
     #endregion
 
-    #region MigrateDs3_1_1_9 ============================================================================================================================================================
-    private static void MigrateDs3_1_1_9(XmlNode settings)
-    {
-        var mainViewModel = settings.GetChildNodeByName("MainViewModel");
-        var darkSouls3ViewModel = mainViewModel.GetChildNodeByName("DarkSouls3ViewModel");
-        var newDarkSouls3ViewModel = new DarkSouls3ViewModel();
-
-        if (bool.TryParse(darkSouls3ViewModel.GetChildNodeByName("StartAutomatically").InnerText, out var startAutomatically))
-        {
-            newDarkSouls3ViewModel.StartAutomatically = startAutomatically;
-        }
-
-        var splits = darkSouls3ViewModel.GetChildNodeByName("Splits");
-        foreach (XmlNode timingNode in splits.ChildNodes)
-        {
-            foreach (XmlNode typeNode in timingNode.GetChildNodeByName("Children"))
-            {
-                //Get original timing type
-                var timingType = TimingType.Immediate;
-                var timingTypeText = timingNode.GetChildNodeByName("TimingType").InnerText;
-                if (timingTypeText != "Immediate")
-                {
-                    timingType = TimingType.OnLoading;
-                }
-
-                var type = typeNode.GetChildNodeByName("SplitType");
-
-                switch (type.InnerText)
-                {
-                    case "Boss":
-                        foreach (XmlNode boss in typeNode.GetChildNodeByName("Children"))
-                        {
-                            var split = boss.GetChildNodeByName("Split");
-                            if (Enum.TryParse(split.InnerText, out SoulMemory.Games.DarkSouls3.Boss b))
-                            {
-                                newDarkSouls3ViewModel.NewSplitTimingType = timingType;
-                                newDarkSouls3ViewModel.NewSplitType = SplitType.Boss;
-                                newDarkSouls3ViewModel.NewSplitValue = b;
-                                newDarkSouls3ViewModel.AddSplitCommand.Execute(null);
-                            }
-                        }
-                        break;
-
-                    case "Bonfire":
-                        foreach (XmlNode bonfire in typeNode.GetChildNodeByName("Children"))
-                        {
-                            var split = bonfire.GetChildNodeByName("Split");
-                            if (Enum.TryParse(split.InnerText, out SoulMemory.Games.DarkSouls3.Bonfire b))
-                            {
-                                newDarkSouls3ViewModel.NewSplitTimingType = timingType;
-                                newDarkSouls3ViewModel.NewSplitType = SplitType.Bonfire;
-                                newDarkSouls3ViewModel.NewSplitValue = b;
-                                newDarkSouls3ViewModel.AddSplitCommand.Execute(null);
-                            }
-                        }
-                        break;
-
-                    case "ItemPickup":
-                        foreach (XmlNode itemPickup in typeNode.GetChildNodeByName("Children"))
-                        {
-                            var split = itemPickup.GetChildNodeByName("Split");
-                            if (Enum.TryParse(split.InnerText, out SoulMemory.Games.DarkSouls3.ItemPickup i))
-                            {
-                                newDarkSouls3ViewModel.NewSplitTimingType = timingType;
-                                newDarkSouls3ViewModel.NewSplitType = SplitType.ItemPickup;
-                                newDarkSouls3ViewModel.NewSplitValue = i;
-                                newDarkSouls3ViewModel.AddSplitCommand.Execute(null);
-                            }
-                        }
-                        break;
-
-                    case "Attribute":
-                        foreach (XmlNode attribute in typeNode.GetChildNodeByName("Children"))
-                        {
-                            var split = attribute.GetChildNodeByName("Split");
-                            var attributeType = split.GetChildNodeByName("AttributeType");
-                            var attributeLevel = split.GetChildNodeByName("Level");
-
-                            if (
-                                Enum.TryParse(attributeType.InnerText, out SoulMemory.Games.DarkSouls3.Attribute attributeTypeParsed) &&
-                                int.TryParse(attributeLevel.InnerText, out var attributeLevelParsed)
-                                )
-                            {
-                                newDarkSouls3ViewModel.NewSplitTimingType = timingType;
-                                newDarkSouls3ViewModel.NewSplitType = SplitType.Attribute;
-                                newDarkSouls3ViewModel.NewSplitValue = new Splits.DarkSouls3.Attribute { AttributeType = attributeTypeParsed, Level = attributeLevelParsed };
-                                newDarkSouls3ViewModel.AddSplitCommand.Execute(null);
-                            }
-                        }
-                        break;
-
-                    case "Flag":
-                        foreach (XmlNode flag in typeNode.GetChildNodeByName("Children"))
-                        {
-                            var split = flag.GetChildNodeByName("Split");
-                            if (uint.TryParse(split.InnerText, out var u))
-                            {
-                                newDarkSouls3ViewModel.NewSplitTimingType = timingType;
-                                newDarkSouls3ViewModel.NewSplitType = SplitType.Flag;
-                                newDarkSouls3ViewModel.FlagDescription = new FlagDescription() { Description = "", Flag = u };
-                                newDarkSouls3ViewModel.AddSplitCommand.Execute(null);
-                            }
-                        }
-                        break;
-                }
-            }
-        }
-
-        var xml = newDarkSouls3ViewModel.SerializeXml();
-        var doc = new XmlDocument();
-        doc.LoadXml(xml);
-        var newText = doc.GetChildNodeByName("DarkSouls3ViewModel").InnerXml;
-        darkSouls3ViewModel.InnerXml = newText;
-    }
-    #endregion
 }

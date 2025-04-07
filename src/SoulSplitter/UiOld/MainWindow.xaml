@@ -24,7 +24,6 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:darkSouls1="clr-namespace:SoulSplitter.UiOld.DarkSouls1"
         xmlns:darkSouls2="clr-namespace:SoulSplitter.UiOld.DarkSouls2"
-        xmlns:darkSouls3="clr-namespace:SoulSplitter.UiOld.DarkSouls3"
         xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
         Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
         Icon="../soulsplitter.ico"
@@ -200,7 +199,7 @@
             </TabItem>
 
             <TabItem Header ="Dark Souls 3" >
-                <darkSouls3:DarkSouls3Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls3ViewModel}"/>
+                <TextBlock Text="Keep this tab selected to activate ds3. Use the UIv2 button to configure the autosplitter."/>
             </TabItem>
 
             <TabItem Header="Sekiro">

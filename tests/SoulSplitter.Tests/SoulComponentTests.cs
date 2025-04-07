@@ -44,46 +44,46 @@ namespace SoulSplitter.Tests
         //    Assert.AreNotSame("", settings.OuterXml);
         //}
 
-        [TestMethod]
-        public void SetSettingsTest()
-        {
-            var viewModel = new MainViewModel();
-            viewModel.DarkSouls3ViewModel.NewSplitTimingType = TimingType.Immediate;
-            viewModel.DarkSouls3ViewModel.NewSplitType = SplitType.Position;
-            viewModel.DarkSouls3ViewModel.Position = new VectorSize(){Position = new Vector3f(1.0f, 2.0f, 3.0f), Size = 4};
-            viewModel.DarkSouls3ViewModel.AddSplitCommand.Execute(null);
-            
-            var xml = viewModel.Serialize();
-            var deserializedViewModel = MainViewModel.Deserialize(xml);
-            
-            var vectorSize = deserializedViewModel.DarkSouls3ViewModel.SplitsViewModel.Splits.First().Children.First().Children.First().Split;
-        
-            Assert.AreEqual(typeof(VectorSize), vectorSize.GetType());
-            Assert.AreEqual(1.0f, ((VectorSize)vectorSize).Position.X);
-            Assert.AreEqual(2.0f, ((VectorSize)vectorSize).Position.Y);
-            Assert.AreEqual(3.0f, ((VectorSize)vectorSize).Position.Z);
-            Assert.AreEqual(4.0f, ((VectorSize)vectorSize).Size);
-            Assert.IsTrue(xml.ToLowerInvariant().Contains("version"));
-        }
-
-        [TestMethodSta]
-        public void VersionFromXml_Should_Not_Deserialize()
-        {
-            var doc = new XmlDocument();
-            doc.LoadXml(XmlData.SekiroMigration1_1_0); //load a doc with version 1.1.0
-
-            var versionFromXml = doc.GetChildNodeByName("MainViewModel").GetChildNodeByName("Version").InnerText;
-
-            var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
-            var timerAdapterMock = new Mock<ITimerAdapter>();
-            var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false, timerAdapter: timerAdapterMock.Object);
-            component.SetSettings(doc);
-
-            var componentViewModel = component.MainWindow.MainViewModel;
-
-            Assert.AreEqual("1.1.0", versionFromXml);
-            Assert.AreEqual(VersionHelper.Version.ToString(), componentViewModel.Version);
-        }
+        //[TestMethod]
+        //public void SetSettingsTest()
+        //{
+        //    var viewModel = new MainViewModel();
+        //    viewModel.DarkSouls3ViewModel.NewSplitTimingType = TimingType.Immediate;
+        //    viewModel.DarkSouls3ViewModel.NewSplitType = SplitType.Position;
+        //    viewModel.DarkSouls3ViewModel.Position = new VectorSize(){Position = new Vector3f(1.0f, 2.0f, 3.0f), Size = 4};
+        //    viewModel.DarkSouls3ViewModel.AddSplitCommand.Execute(null);
+        //    
+        //    var xml = viewModel.Serialize();
+        //    var deserializedViewModel = MainViewModel.Deserialize(xml);
+        //    
+        //    var vectorSize = deserializedViewModel.DarkSouls3ViewModel.SplitsViewModel.Splits.First().Children.First().Children.First().Split;
+        //
+        //    Assert.AreEqual(typeof(VectorSize), vectorSize.GetType());
+        //    Assert.AreEqual(1.0f, ((VectorSize)vectorSize).Position.X);
+        //    Assert.AreEqual(2.0f, ((VectorSize)vectorSize).Position.Y);
+        //    Assert.AreEqual(3.0f, ((VectorSize)vectorSize).Position.Z);
+        //    Assert.AreEqual(4.0f, ((VectorSize)vectorSize).Size);
+        //    Assert.IsTrue(xml.ToLowerInvariant().Contains("version"));
+        //}
+        //
+        //[TestMethodSta]
+        //public void VersionFromXml_Should_Not_Deserialize()
+        //{
+        //    var doc = new XmlDocument();
+        //    doc.LoadXml(XmlData.SekiroMigration1_1_0); //load a doc with version 1.1.0
+        //
+        //    var versionFromXml = doc.GetChildNodeByName("MainViewModel").GetChildNodeByName("Version").InnerText;
+        //
+        //    var liveSplitStateMock = new Mock<LiveSplitState>(args: [null!, null!, null!, null!, null!]);
+        //    var timerAdapterMock = new Mock<ITimerAdapter>();
+        //    var component = new SoulComponent(liveSplitStateMock.Object, shouldThrowOnInvalidInstallation: false, timerAdapter: timerAdapterMock.Object);
+        //    component.SetSettings(doc);
+        //
+        //    var componentViewModel = component.MainWindow.MainViewModel;
+        //
+        //    Assert.AreEqual("1.1.0", versionFromXml);
+        //    Assert.AreEqual(VersionHelper.Version.ToString(), componentViewModel.Version);
+        //}
 
         //[TestMethodSta]
         //public void Ds3Migration_1_9_0_Test()
