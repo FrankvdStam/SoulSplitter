@@ -88,7 +88,31 @@
                         Text="{Binding CategoryName}"/>
 
                     <!-- Flag -->
-                    <generic:FlagControl Grid.Column="0" Grid.Row="{StaticResource InputFlag}"/>
+                    <StackPanel 
+                        Grid.Column="0" Grid.Row="{StaticResource InputFlag}"
+                        Orientation="Horizontal">
+                        <TextBox 
+                            Width="120"
+                            Margin="5"
+                            HorizontalAlignment="Left"
+                            materialDesign:HintAssist.Hint="Flag">
+                            <TextBox.Text>
+                                <Binding Path="FlagDescription.Flag">
+                                    <Binding.ValidationRules>
+                                        <validation:TextToNumberValidation NumericType="Uint" IsRequired="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBox 
+                            Width="285"
+                            Margin="5"
+                            HorizontalAlignment="Left"
+                            ToolTip="Optional, helps you remember what a flag is for"
+                            materialDesign:HintAssist.Hint="Description"
+                            Text="{Binding FlagDescription.Description}"/>
+                    </StackPanel>
 
                     <!-- Add/Remove Buttons -->
                     <StackPanel 

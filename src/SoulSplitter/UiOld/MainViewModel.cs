@@ -29,7 +29,6 @@ using SoulSplitter.soulmemory_rs;
 using SoulSplitter.Ui.RelayCommand;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels;
-using SoulSplitter.UiOld.DarkSouls1;
 using SoulSplitter.UiOld.Generic;
 using SoulSplitter.Utils;
 using Brush = System.Windows.Media.Brush;
@@ -55,7 +54,6 @@ public class MainViewModel : NotifyPropertyChanged
     public void Update(MainViewModel mainViewModel)
     {
         SelectedGame = mainViewModel.SelectedGame;
-        DarkSouls1ViewModel = mainViewModel.DarkSouls1ViewModel;
         FlagTrackerViewModel = mainViewModel.FlagTrackerViewModel;
     }
     public string Version
@@ -76,13 +74,6 @@ public class MainViewModel : NotifyPropertyChanged
 
     #region Game View models
 
-    public DarkSouls1ViewModel DarkSouls1ViewModel
-    {
-        get => _darkSouls1ViewModel;
-        set => SetField(ref _darkSouls1ViewModel, value);
-    }
-    private DarkSouls1ViewModel _darkSouls1ViewModel = new();
-    
     public FlagTrackerViewModel FlagTrackerViewModel
     {
         get => _flagTrackerViewModel;
@@ -366,7 +357,6 @@ public class MainViewModel : NotifyPropertyChanged
     public static MainViewModel Deserialize(string xml)
     {
         var vm = xml.DeserializeXml<MainViewModel>();
-        vm.DarkSouls1ViewModel.SplitsViewModel.RestoreHierarchy();
         return vm;
     }
 

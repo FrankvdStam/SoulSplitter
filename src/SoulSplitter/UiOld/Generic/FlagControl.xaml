@@ -22,8 +22,7 @@
              xmlns:local="clr-namespace:SoulSplitter.UiOld.Generic"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:validation="clr-namespace:SoulSplitter.Ui.Validation"
-             mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance local:BaseViewModel, IsDesignTimeCreatable=True}">
+             mc:Ignorable="d">
 
     <UserControl.Resources>
         <ResourceDictionary>

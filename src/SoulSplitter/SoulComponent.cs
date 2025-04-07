@@ -22,7 +22,6 @@ using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using SoulSplitter.Splitters;
 using SoulSplitter.UiOld;
 using SoulMemory;
 using System.Diagnostics;
@@ -45,7 +44,6 @@ public class SoulComponent : IComponent
 
 
     private LiveSplitState _liveSplitState;
-    private ISplitter? _splitter;
     private ITimerAdapter? _timerAdapter;
     private IGame _game = null!;
     private DateTime _lastFailedRefresh = DateTime.MinValue;
@@ -124,13 +122,6 @@ public class SoulComponent : IComponent
         //Detect game change, initialize the correct splitter
         if (!_selectedGame.HasValue || _selectedGame != mainViewModel.SelectedGame)
         {
-            //the splitter listens to livesplit events. Need to dispose to properly clean up and to make sure no elden ring events trigger in dark souls 3
-            if (_splitter != null)
-            {
-                _splitter.Dispose();
-                _splitter = null;
-            }
-
             _selectedGame = mainViewModel.SelectedGame;
             switch (mainViewModel.SelectedGame)
             {
@@ -139,7 +130,7 @@ public class SoulComponent : IComponent
 
                 case Game.DarkSouls1:
                     _game = new SoulMemory.Games.DarkSouls1.DarkSouls1();
-                    _splitter = new DarkSouls1Splitter(new TimerModel { CurrentState = state }, (SoulMemory.Games.DarkSouls1.DarkSouls1)_game, mainViewModel);
+                    //_splitter = new DarkSouls1Splitter(new TimerModel { CurrentState = state }, (SoulMemory.Games.DarkSouls1.DarkSouls1)_game, mainViewModel);
                     break;
 
                 case Game.DarkSouls2:
@@ -162,22 +153,12 @@ public class SoulComponent : IComponent
                     _game = new SoulMemory.Games.ArmoredCore6.ArmoredCore6();
                     break;
             }
-            _splitter?.SetViewModel(mainViewModel);
-            if (mainViewModel.SelectedGame is Game.DarkSouls2 or Game.DarkSouls3 or Game.Sekiro or Game.ArmoredCore6 or Game.EldenRing)
-            {
-                InitTimerAdapter(state, _game);
-            }
+            InitTimerAdapter(state, _game);
         }
 
-        if (mainViewModel.SelectedGame == Game.Sekiro)
-        {
-            return _timerAdapter!.Update();
-        }
-
-        return _splitter!.Update(mainViewModel);
+        return _timerAdapter!.Update();
     }
 
-    public ISplitter? GetSplitter() => _splitter;
 
     #region drawing ===================================================================================================================
     public IDictionary<string, Action> ContextMenuControls => new Dictionary<string, Action>();
@@ -207,10 +188,7 @@ public class SoulComponent : IComponent
     }
     protected virtual void Dispose(bool disposing)
     {
-        if (_splitter != null)
-        {
-            _splitter.Dispose();
-        }
+        _timerAdapter?.Dispose();
     }
     #endregion
 
@@ -284,7 +262,6 @@ public class SoulComponent : IComponent
                 var mainViewModelXmlNode = SoulMemory.Extensions.GetChildNodeByName(settings, "MainViewModel");
                 var vm = MainViewModel.Deserialize(mainViewModelXmlNode.OuterXml);
                 MainWindow.MainViewModel = vm;
-                _splitter?.SetViewModel(MainWindow.MainViewModel);
 
                 var uiv2 = SoulMemory.Extensions.GetChildNodeByName(settings, "Uiv2");
 

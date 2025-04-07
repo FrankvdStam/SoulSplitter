@@ -24,7 +24,7 @@ namespace SoulSplitter;
 /// <summary>
 /// Adapter to connect the soulmemory timer with livesplit's interface
 /// </summary>
-public class TimerAdapter : ITimerAdapter, IDisposable
+public class TimerAdapter : ITimerAdapter
 {
     public TimerAdapter(LiveSplitState liveSplitState, ITimer timer)
     {

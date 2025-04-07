@@ -22,8 +22,8 @@
         xmlns:ui="clr-namespace:SoulSplitter.UiOld"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:darkSouls1="clr-namespace:SoulSplitter.UiOld.DarkSouls1"
         xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
+        xmlns:converters1="clr-namespace:SoulSplitter.Ui.Converters"
         Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
         Icon="../soulsplitter.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -43,7 +43,7 @@
                         <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" SecondaryColor="Indigo" />
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                         <ResourceDictionary>
-                            <converters:GameToSelectedIndexConverter x:Key="GameToSelectedIndexConverter"/>
+                            <converters1:GameToSelectedIndexConverter x:Key="GameToSelectedIndexConverter"/>
                         </ResourceDictionary>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
@@ -176,7 +176,7 @@
             SelectedIndex="{Binding SelectedGame, Converter={StaticResource GameToSelectedIndexConverter}}" Grid.ColumnSpan="2">
 
             <TabItem Header ="Dark Souls 1">
-                <darkSouls1:DarkSouls1Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls1ViewModel}"/>
+                <TextBlock Text="Keep this tab selected to activate ds1. Use the UIv2 button to configure the autosplitter."/>
             </TabItem>
 
             <TabItem Header ="Dark Souls 2">

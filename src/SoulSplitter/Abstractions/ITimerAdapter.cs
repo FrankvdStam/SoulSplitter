@@ -15,10 +15,11 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory;
+using System;
 
 namespace SoulSplitter.Abstractions;
 
-public interface ITimerAdapter
+public interface ITimerAdapter : IDisposable
 {
     ResultErr<RefreshError> Update();
 }

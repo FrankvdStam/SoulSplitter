@@ -14,29 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.ComponentModel;
-using SoulSplitter.Ui.ViewModels;
+using System;
+using System.Windows.Data;
+using SoulMemory;
+using SoulMemory.Enums;
 
-namespace SoulSplitter.UiOld.Generic;
+namespace SoulSplitter.Ui.Converters;
 
-public class BoolDescriptionViewModel : NotifyPropertyChanged
+public class GameToSelectedIndexConverter : IValueConverter
 {
-    public string Description
+    public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
-        get => _description;
-        set => SetField(ref _description, value);
+        if (value is Game g)
+        {
+            return (int)g;
+        }
+        throw new NotSupportedException();
     }
-    private string _description = "";
 
-    public bool Value
+    public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
-        get => _value;
-        set => SetField(ref _value, value);
-    }
-    private bool _value;
-
-    public override string ToString()
-    {
-        return $"{Value} {Description}";
+        if (value is int num && num.TryParseEnum(out Game g))
+        {
+            return g;
+        }
+        throw new NotSupportedException();
     }
 }

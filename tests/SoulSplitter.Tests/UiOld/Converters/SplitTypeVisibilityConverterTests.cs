@@ -17,10 +17,10 @@
 using System;
 using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulSplitter.UiOld.Converters;
-using SoulSplitter.UiOld.Generic;
+using SoulMemory.Enums;
+using SoulSplitter.Ui.Converters;
 
-namespace SoulSplitter.Tests.UI.Converters
+namespace SoulSplitter.Tests.Ui.Converters
 {
     [TestClass]
     public class SplitTypeVisibilityConverterTests

@@ -30,8 +30,6 @@ using SoulMemory.Enums;
 using SoulMemory.Parameters;
 using SoulSplitter.UiOld;
 using SoulSplitter.UiOld.Generic;
-using SplitType = SoulSplitter.UiOld.Generic.SplitType;
-using TimingType = SoulSplitter.UiOld.Generic.TimingType;
 using SoulMemory.Abstractions;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Utils;
@@ -188,13 +186,13 @@ namespace cli
 
             if (withTestData)
             {
-                foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
-                {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType =  SplitType.Boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = new FlagDescription(){Flag = (uint)boss};
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplit(null);
-                }
+                //foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
+                //{
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType =  SplitType.Boss;
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = new FlagDescription(){Flag = (uint)boss};
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplit(null);
+                //}
 
                 var flagTrackerViewModel = mainWindow.MainViewModel.FlagTrackerViewModel;
                 flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
@@ -225,23 +223,23 @@ namespace cli
                     }
                 });
 
-                foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
-                {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
-                }
-
-                foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
-                {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.OnLoading;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
-                }
-
-                mainWindow.MainViewModel.DarkSouls1ViewModel.CurrentPosition = new Vector3f(0.14f, 4.14f, 1523.4f);
+                //foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
+                //{
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
+                //}
+                //
+                //foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
+                //{
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.OnLoading;
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
+                //}
+                //
+                //mainWindow.MainViewModel.DarkSouls1ViewModel.CurrentPosition = new Vector3f(0.14f, 4.14f, 1523.4f);
                 
             }
 
