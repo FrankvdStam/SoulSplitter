@@ -26,7 +26,7 @@ using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.Games.EldenRing;
 
-public class EldenRing : IGame, IEldenRing, IBlackscreenRemovable, IReadNewGameLevel
+public class EldenRing : IGame, IEldenRing, IBlackscreenRemovable, IReadNewGameLevel, ILoading
 {
     private Process? _process;
 
@@ -330,7 +330,9 @@ public class EldenRing : IGame, IEldenRing, IBlackscreenRemovable, IReadNewGameL
         var player = _playerIns.ReadInt64();
         return player != 0;
     }
-    
+
+    public bool IsLoading() => GetScreenState() == ScreenState.Loading;
+
     public ScreenState GetScreenState()
     {
         var screenState = _menuManImp.ReadInt32(_screenStateOffset);
