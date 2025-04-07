@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Xml;
 using SoulMemory.Memory;
 
@@ -81,6 +82,17 @@ public static class Extensions
     public static long ClearBit(this long l, int index)
     {
         return l & ~((long)0x1 << index);
+    }
+
+    public static T GetEnumAttribute<T>(this Enum value) where T : Attribute
+    {
+        var attribute = value
+            .GetType()
+            .GetMember(value.ToString())
+            .First()
+            .GetCustomAttribute<T>();
+
+        return attribute;
     }
 
     public static T ResolveVersion<T>(this FileVersionInfo fileVersionInfo) where T : Enum

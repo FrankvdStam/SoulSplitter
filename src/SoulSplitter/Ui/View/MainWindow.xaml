@@ -443,7 +443,7 @@
                             <DataGridTextColumn Header="NG+" Binding="{Binding NewGamePlusLevel}"/>
                             <DataGridTextColumn Header="Timing" Binding="{Binding TimingType, Converter={StaticResource EnumLanguageConverter}}"/>
                             <DataGridTextColumn Header="Type" Binding="{Binding SplitType, Converter={StaticResource EnumLanguageConverter}}"/>
-                            <DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Split">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <ContentControl 

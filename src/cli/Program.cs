@@ -34,6 +34,7 @@ using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Utils;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Ui.View;
+using KnownFlag = SoulMemory.Games.EldenRing.KnownFlag;
 using MainViewModel = SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel;
 
 #pragma warning disable CS0162
@@ -45,7 +46,7 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
-            var a = ResourceUtils.GenerateResourceDictionaryForEventFlag(typeof(Bonfire));
+            //var a = ResourceUtils.GenerateResourceDictionaryForEventFlag(typeof(KnownFlag));
             TestUi(true);
             return;
             GameLoop<EldenRing>(
@@ -180,6 +181,11 @@ namespace cli
             app.InitializeComponent();
             var mainWindow = (MainWindow)app.MainWindow;
             mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 0, TimingType.Immediate, SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 1, TimingType.OnLoading, SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 2, TimingType.OnLoading, SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 3, TimingType.Immediate, SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 4, TimingType.Immediate, SplitType.Flag, 15062400, "mystery flag"));
             mainWindow.ShowDialog();
             return;
 
