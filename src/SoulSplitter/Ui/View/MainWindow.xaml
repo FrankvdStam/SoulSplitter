@@ -139,262 +139,367 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <TabControl>
-        <TabItem Header ="Splits">
-            <DockPanel>
-                <Expander
-                    materialDesign:ExpanderAssist.ExpanderButtonPosition="Start"
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Stretch"
-                    Header="{DynamicResource ExpanderHeaderAddSplit}"
-                    IsExpanded="{Binding IsAddSplitPopupOpen}">
-                    <Grid
-                        Height="400"
-                        IsSharedSizeScope="True">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition MinHeight="70"/>
-                        </Grid.RowDefinitions>
-                        
-                        <!-- Select game -->
-                        <controls:EnumListControl
-                            Grid.Row="0"
-                            EnumType="soulMemoryEnums:Game"
-                            SelectedValue="{Binding SelectedGame}"
-                            Hint="Game"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                        <!-- Select NG+ level -->
-                        <ComboBox
-                            Grid.Row="1"
-                            Margin="5"
-                            materialDesign:HintAssist.HelperText="New game level"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                            SelectedValue="{Binding SelectedNewGamePlusLevel}"
-                            ItemsSource="{Binding NewGamePlusLevels}"/>
+        <materialDesign:ColorZone
+            Mode="PrimaryMid"
+            materialDesign:ElevationAssist.Elevation="Dp4" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <ToolBar
+                ToolBarTray.IsLocked="True"
+                ClipToBounds="False"
 
-                        <!-- Select timing type -->
-                        <controls:EnumListControl
-                            Grid.Row="2"
-                            IsEnabled="{Binding IsGameSelected}"
-                            ItemsSource="{Binding TimingTypes}"
-                            SelectedValue="{Binding SelectedTimingType}"
-                            Hint="Timing"/>
+                Foreground="White"
+                Background="{DynamicResource MaterialDesign.Brush.Primary}">
+                <Menu
+                    Foreground="White">
+                    <MenuItem
+                        Header="File"
+                        Background="{DynamicResource MaterialDesign.Brush.Primary}">
+                        <MenuItem 
+                            Background="{DynamicResource MaterialDesign.Brush.Primary}"
+                            Header="Import settings" 
+                            Command="{Binding CommandImportSettingsFromFile}"
+                            Icon="{materialDesign:PackIcon Kind=FolderOpen}" 
+                            ToolTip="Import soulsplitter settings from file"/>
 
-                        <!-- Select split type -->
-                        <controls:EnumListControl
-                            Grid.Row="3"
-                            IsEnabled="{Binding IsGameSelected}"
-                            ItemsSource="{Binding SplitTypes}"
-                            SelectedValue="{Binding SelectedSplitType}"
-                            Hint="Type"/>
+                        <MenuItem 
+                            Background="{DynamicResource MaterialDesign.Brush.Primary}"
+                            Header="Export settings"
+                            Command="{Binding CommandExportSettingsFromFile}"
+                            Icon="{materialDesign:PackIcon Kind=ContentSave}" 
+                            ToolTip="Export soulsplitter settings to file"/>
+                    </MenuItem>
+                </Menu>
 
-                        <!-- split types ============================================================================================================= -->
+                <Button
+                    Foreground="White"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    FontWeight="Normal"
+                    FontSize="15"
+                    Content="Help" 
+                    Command="{Binding CommandTroubleShooting}"
+                    ToolTip="Open help page"/>
 
-                        <!-- Enum based event flags -->
-                        <controls:EventFlagListControl
-                            Grid.Row="4"
-                            Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={StaticResource EventFlagSplitTypes}}"
-                            LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
-                            EventFlagType="{Binding EventFlagType}"
-                            SelectedEventFlag="{Binding SelectedEventFlag, Mode=TwoWay}"
-                            Hint="Split"/>
+                <materialDesign:Badged
+                    BadgePlacementMode="Right"
+                    BadgeBackground="{Binding BadgeBackgroundBrush}"
+                    BadgeForeground="{Binding BadgeForegroundBrush}"
+                    Badge="{Binding ErrorCount}"
+                    ToolBar.OverflowMode="Never">
+                    <Button
+                        Foreground="White"
+                        Content="Errors"
+                        FontWeight="Normal"
+                        FontSize="15"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        ToolTip="Show error window" 
+                        Command="{Binding CommandShowErrors}"/>
+                </materialDesign:Badged>
 
-                        <!-- Custom event flags -->
-                        <TextBox
-                            Grid.Row="4"
-                            MinWidth="120"
-                            Height="35"
-                            Margin="5"
-                            Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Flag}}"
-                            HorizontalAlignment="Left"
-                            materialDesign:HintAssist.Hint="Flag">
-                            <TextBox.Text>
-                                <Binding Path="Flag">
-                                    <Binding.ValidationRules>
-                                        <validation:TextToNumberValidation NumericType="Uint" IsRequired="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                <Button
+                    Foreground="White"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    FontWeight="Normal"
+                    FontSize="15"
+                    Content="Homepage" 
+                    Command="{Binding CommandOpenHomepage}"
+                    ToolTip="Open homepage"/>
 
-                        <!-- Dark souls 1 bonfire -->
-                        <controls:DarkSouls1BonfireControl
-                            HorizontalAlignment="Left"
-                            Grid.Row="4"
-                            Margin="5"
-                            Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.DarkSouls1Bonfire}}"
-                            DarkSouls1BonfireViewModel="{Binding DarkSouls1BonfireViewModel}"
-                        />
+                <Button
+                    Foreground="White"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    FontWeight="Normal"
+                    FontSize="15"
+                    Content="UIv2" 
+                    Command="{Binding CommandOpenUiV2}"
+                    ToolTip="Open homepage"/>
 
-                        <!-- standard vec3 position -->
-                        <controls:PositionControl
-                            Grid.Row="4"
-                            Margin="5"
-                            Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Position}}"
-                            CurrentPosition="{Binding CurrentPosition}"
-                            PositionViewModel="{Binding PositionViewModel, Mode=TwoWay}"
+                <Menu
+                    Padding="3,0,0,0"
+                    Foreground="White">
+                    <MenuItem
+                        Header="Tools"
+                        Background="{DynamicResource MaterialDesign.Brush.Primary}">
+                        <MenuItem 
+                            Header="Event flag tracker" 
+                            Command="{Binding CommandOpenFlagTrackerWindow}"
+                            Icon="{materialDesign:PackIcon Kind=OrderBoolAscendingVariant}"
+                            ToolTip="Track event flag completion and translate it to a percentage. Stream friendly"/>
+                        <MenuItem
+                            Header="Event flag logger" 
+                            Command="{Binding CommandRunEventFlagLogger}"
+                            Icon="{materialDesign:PackIcon Kind=Console}"
+                            ToolTip="Open the event flag logger"/>
+                    </MenuItem>
+                </Menu>
+            </ToolBar>
+        </materialDesign:ColorZone>
+
+
+        <TabControl
+            Grid.Row="1"
+            materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+            Style="{StaticResource MaterialDesignFilledTabControl}">
+            <TabItem Header ="Splits">
+                <DockPanel>
+                    <Expander
+                        materialDesign:ExpanderAssist.ExpanderButtonPosition="Start"
+                        DockPanel.Dock="Top"
+                        HorizontalAlignment="Stretch"
+                        Header="{DynamicResource ExpanderHeaderAddSplit}"
+                        IsExpanded="{Binding IsAddSplitPopupOpen}">
+                        <Grid
+                            Height="400"
+                            IsSharedSizeScope="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition MinHeight="70"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- Select game -->
+                            <controls:EnumListControl
+                                Grid.Row="0"
+                                EnumType="soulMemoryEnums:Game"
+                                SelectedValue="{Binding SelectedGame}"
+                                Hint="Game"/>
+
+                            <!-- Select NG+ level -->
+                            <ComboBox
+                                Grid.Row="1"
+                                Margin="5"
+                                materialDesign:HintAssist.HelperText="New game level"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                SelectedValue="{Binding SelectedNewGamePlusLevel}"
+                                ItemsSource="{Binding NewGamePlusLevels}"/>
+
+                            <!-- Select timing type -->
+                            <controls:EnumListControl
+                                Grid.Row="2"
+                                IsEnabled="{Binding IsGameSelected}"
+                                ItemsSource="{Binding TimingTypes}"
+                                SelectedValue="{Binding SelectedTimingType}"
+                                Hint="Timing"/>
+
+                            <!-- Select split type -->
+                            <controls:EnumListControl
+                                Grid.Row="3"
+                                IsEnabled="{Binding IsGameSelected}"
+                                ItemsSource="{Binding SplitTypes}"
+                                SelectedValue="{Binding SelectedSplitType}"
+                                Hint="Type"/>
+
+                            <!-- split types ============================================================================================================= -->
+
+                            <!-- Enum based event flags -->
+                            <controls:EventFlagListControl
+                                Grid.Row="4"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={StaticResource EventFlagSplitTypes}}"
+                                LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
+                                EventFlagType="{Binding EventFlagType}"
+                                SelectedEventFlag="{Binding SelectedEventFlag, Mode=TwoWay}"
+                                Hint="Split"/>
+
+                            <!-- Custom event flags -->
+                            <TextBox
+                                Grid.Row="4"
+                                MinWidth="120"
+                                Height="35"
+                                Margin="5"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Flag}}"
+                                HorizontalAlignment="Left"
+                                materialDesign:HintAssist.Hint="Flag">
+                                <TextBox.Text>
+                                    <Binding Path="Flag">
+                                        <Binding.ValidationRules>
+                                            <validation:TextToNumberValidation NumericType="Uint" IsRequired="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <!-- Dark souls 1 bonfire -->
+                            <controls:DarkSouls1BonfireControl
+                                HorizontalAlignment="Left"
+                                Grid.Row="4"
+                                Margin="5"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.DarkSouls1Bonfire}}"
+                                DarkSouls1BonfireViewModel="{Binding DarkSouls1BonfireViewModel}"
                             />
 
-                        <!-- ER position, including map information -->
-                        <controls:EldenRingPositionControl
-                            Grid.Row="4"
-                            Margin="5"
-                            Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.EldenRingPosition}}"
-                            
-                            
-                            CurrentEldenRingPosition="{Binding CurrentEldenRingPosition}"
-                            EldenRingPositionViewModel="{Binding EldenRingPositionViewModel, Mode=TwoWay}"
-                        />
+                            <!-- standard vec3 position -->
+                            <controls:PositionControl
+                                Grid.Row="4"
+                                Margin="5"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Position}}"
+                                CurrentPosition="{Binding CurrentPosition}"
+                                PositionViewModel="{Binding PositionViewModel, Mode=TwoWay}"
+                                />
 
-                        <!-- Attribute -->
-                        <controls:AttributeControl
-                            HorizontalAlignment="Left"
-                            Grid.Row="4"
-                            Margin="5"
-                            Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Attribute}}"
-                            AttributeType="{Binding AttributeType}"
-                            AttributeViewModel="{Binding AttributeViewModel}"
+                            <!-- ER position, including map information -->
+                            <controls:EldenRingPositionControl
+                                Grid.Row="4"
+                                Margin="5"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.EldenRingPosition}}"
+                                
+                                
+                                CurrentEldenRingPosition="{Binding CurrentEldenRingPosition}"
+                                EldenRingPositionViewModel="{Binding EldenRingPositionViewModel, Mode=TwoWay}"
                             />
 
-                        <!-- Dark souls 1 item -->
-                        <controls:FilteredComboBox
-                            Width="415"
-                            Margin="5"
-                            HorizontalAlignment="Left"
-                            Grid.Row="4"
-                            Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.DarkSouls1Item}}"
-                            ItemsSource="{Binding Source={StaticResource DarkSouls1ItemsCollectionViewSource}}" 
-                            DisplayMemberPath="Name"
-                            SelectedValuePath="ItemType"
-                            SelectedValue="{Binding SelectedDarkSouls1Item}"
-                            materialDesign:HintAssist.HelperText="which"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                            IsEditable="True" 
-                            IsTextSearchEnabled="False" 
-                            StaysOpenOnEdit="True">
-                            <ComboBox.GroupStyle>
-                                <GroupStyle>
-                                    <GroupStyle.HeaderTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Height="30" Background="{DynamicResource MaterialDesign.Brush.Secondary}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Path=Name}"/>
-                                        </DataTemplate>
-                                    </GroupStyle.HeaderTemplate>
-                                </GroupStyle>
-                            </ComboBox.GroupStyle>
-                        </controls:FilteredComboBox>
-
-                        <!-- ============================================================================================================= -->
-
-
-                        <!-- Optional description -->
-                        <TextBox
-                            Grid.Row="5"
-                            Margin="5"
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            materialDesign:HintAssist.Hint="Description"
-                            Text="{Binding SplitDescription}"/>
-
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Grid.Row="6"
-                            Margin="5, 5, 5, 5">
-
-                            <!-- Add button -->
-                            <Button
-                                Margin="5"
-                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                                ToolTip="{DynamicResource ButtonToolTipAddSplit}"
+                            <!-- Attribute -->
+                            <controls:AttributeControl
                                 HorizontalAlignment="Left"
-                                Command="{Binding AddSplitCommand}">
-                                <materialDesign:PackIcon
-                                    Kind="Plus"
-                                    Height="30"
-                                    Width="30" />
-                            </Button>
-
-                            <!-- Remove button -->
-                            <Button
+                                Grid.Row="4"
                                 Margin="5"
-                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                                ToolTip="{DynamicResource ButtonToolTipRemoveSplit}"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Attribute}}"
+                                AttributeType="{Binding AttributeType}"
+                                AttributeViewModel="{Binding AttributeViewModel}"
+                                />
+
+                            <!-- Dark souls 1 item -->
+                            <controls:FilteredComboBox
+                                Width="415"
+                                Margin="5"
                                 HorizontalAlignment="Left"
-                                Command="{Binding RemoveSplitCommand}">
-                                <materialDesign:PackIcon
-                                    Kind="Minus"
-                                    Height="30"
-                                    Width="30" />
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-                </Expander>
+                                Grid.Row="4"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.DarkSouls1Item}}"
+                                ItemsSource="{Binding Source={StaticResource DarkSouls1ItemsCollectionViewSource}}" 
+                                DisplayMemberPath="Name"
+                                SelectedValuePath="ItemType"
+                                SelectedValue="{Binding SelectedDarkSouls1Item}"
+                                materialDesign:HintAssist.HelperText="which"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                IsEditable="True" 
+                                IsTextSearchEnabled="False" 
+                                StaysOpenOnEdit="True">
+                                <ComboBox.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Height="30" Background="{DynamicResource MaterialDesign.Brush.Secondary}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Path=Name}"/>
+                                            </DataTemplate>
+                                        </GroupStyle.HeaderTemplate>
+                                    </GroupStyle>
+                                </ComboBox.GroupStyle>
+                            </controls:FilteredComboBox>
 
-                <!-- active splits -->
-                <DataGrid
-                    ItemsSource="{Binding Splits}"
-                    IsReadOnly="True"
-                    AutoGenerateColumns="False"
-                    VerticalScrollBarVisibility="Visible"
-                    SelectedItem="{Binding SelectedSplit}"
-                    ui:DataGridDragAndDropHelper.EnableRowReordering="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Game" Binding="{Binding Game, Converter={StaticResource EnumLanguageConverter}}"/>
-                        <DataGridTextColumn Header="NG+" Binding="{Binding NewGamePlusLevel}"/>
-                        <DataGridTextColumn Header="Timing" Binding="{Binding TimingType, Converter={StaticResource EnumLanguageConverter}}"/>
-                        <DataGridTextColumn Header="Type" Binding="{Binding SplitType, Converter={StaticResource EnumLanguageConverter}}"/>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl 
-                                        ContentTemplateSelector="{StaticResource SplitTypeDataTemplateSelector}"
-                                        Content="{Binding Split}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </DockPanel>
-        </TabItem>
+                            <!-- ============================================================================================================= -->
 
-        <TabItem Header ="Settings">
-            <StackPanel>
-                <CheckBox 
-                    Margin="5" 
-                    Content="Start automatically" 
-                    IsChecked="{Binding StartAutomatically}"/>
 
-                <CheckBox
-                    Margin="5"
-                    Content="Overwrite IGT with 0:00 when the timer starts (for NG+ saves/mortal journey)"
-                    IsChecked="{Binding OverwriteIgtOnStart}"/>
+                            <!-- Optional description -->
+                            <TextBox
+                                Grid.Row="5"
+                                Margin="5"
+                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                materialDesign:HintAssist.Hint="Description"
+                                Text="{Binding SplitDescription}"/>
 
-                <Separator/>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="6"
+                                Margin="5, 5, 5, 5">
 
-                <Label Content="Dropmod settings"/>
+                                <!-- Add button -->
+                                <Button
+                                    Margin="5"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                    ToolTip="{DynamicResource ButtonToolTipAddSplit}"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding AddSplitCommand}">
+                                    <materialDesign:PackIcon
+                                        Kind="Plus"
+                                        Height="30"
+                                        Width="30" />
+                                </Button>
 
-                <RadioButton 
-                    Margin="5"                
-                    IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.None}}"
-                    GroupName="DropModRadioButtonGroup">None</RadioButton>
+                                <!-- Remove button -->
+                                <Button
+                                    Margin="5"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                    ToolTip="{DynamicResource ButtonToolTipRemoveSplit}"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding RemoveSplitCommand}">
+                                    <materialDesign:PackIcon
+                                        Kind="Minus"
+                                        Height="30"
+                                        Width="30" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Expander>
 
-                <RadioButton 
-                    Margin="5"
-                    IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.AnyPercent}}"
-                    ToolTip="Sets the droprate of the BKH to 100%"
-                    GroupName="DropModRadioButtonGroup">Any%</RadioButton>
+                    <!-- active splits -->
+                    <DataGrid
+                        ItemsSource="{Binding Splits}"
+                        IsReadOnly="True"
+                        AutoGenerateColumns="False"
+                        VerticalScrollBarVisibility="Visible"
+                        SelectedItem="{Binding SelectedSplit}"
+                        ui:DataGridDragAndDropHelper.EnableRowReordering="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Game" Binding="{Binding Game, Converter={StaticResource EnumLanguageConverter}}"/>
+                            <DataGridTextColumn Header="NG+" Binding="{Binding NewGamePlusLevel}"/>
+                            <DataGridTextColumn Header="Timing" Binding="{Binding TimingType, Converter={StaticResource EnumLanguageConverter}}"/>
+                            <DataGridTextColumn Header="Type" Binding="{Binding SplitType, Converter={StaticResource EnumLanguageConverter}}"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ContentControl 
+                                            ContentTemplateSelector="{StaticResource SplitTypeDataTemplateSelector}"
+                                            Content="{Binding Split}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
 
-                <RadioButton 
-                    Margin="5" 
-                    IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.AllAchievements}}"
-                    ToolTip="Dynamically changes droprates based on what you still need in the run"
-                    GroupName="DropModRadioButtonGroup">All achievements</RadioButton>
-            </StackPanel>
-        </TabItem>
-    </TabControl>
+            <TabItem Header ="Settings">
+                <StackPanel>
+                    <CheckBox 
+                        Margin="5" 
+                        Content="Start automatically" 
+                        IsChecked="{Binding StartAutomatically}"/>
+
+                    <CheckBox
+                        Margin="5"
+                        Content="Overwrite IGT with 0:00 when the timer starts (for NG+ saves/mortal journey)"
+                        IsChecked="{Binding OverwriteIgtOnStart}"/>
+
+                    <Separator/>
+
+                    <Label Content="Dropmod settings"/>
+
+                    <RadioButton 
+                        Margin="5"                
+                        IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.None}}"
+                        GroupName="DropModRadioButtonGroup">None</RadioButton>
+
+                    <RadioButton 
+                        Margin="5"
+                        IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.AnyPercent}}"
+                        ToolTip="Sets the droprate of the BKH to 100%"
+                        GroupName="DropModRadioButtonGroup">Any%</RadioButton>
+
+                    <RadioButton 
+                        Margin="5" 
+                        IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.AllAchievements}}"
+                        ToolTip="Dynamically changes droprates based on what you still need in the run"
+                        GroupName="DropModRadioButtonGroup">All achievements</RadioButton>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>

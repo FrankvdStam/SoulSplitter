@@ -97,7 +97,7 @@
                             HorizontalAlignment="Left"
                             materialDesign:HintAssist.Hint="Flag">
                             <TextBox.Text>
-                                <Binding Path="FlagDescription.Flag">
+                                <Binding Path="FlagDescriptionViewModel.Flag">
                                     <Binding.ValidationRules>
                                         <validation:TextToNumberValidation NumericType="Uint" IsRequired="True"/>
                                     </Binding.ValidationRules>
@@ -111,7 +111,7 @@
                             HorizontalAlignment="Left"
                             ToolTip="Optional, helps you remember what a flag is for"
                             materialDesign:HintAssist.Hint="Description"
-                            Text="{Binding FlagDescription.Description}"/>
+                            Text="{Binding FlagDescriptionViewModel.Description}"/>
                     </StackPanel>
 
                     <!-- Add/Remove Buttons -->

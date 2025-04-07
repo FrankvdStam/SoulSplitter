@@ -38,6 +38,16 @@ public partial class MainViewModel
         _languageManager = languageManager;
         AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
         RemoveSplitCommand = new RelayCommand(RemoveSplit, CanRemoveSplit);
+
+        CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage, (_) => true);
+        CommandOpenHomepage = new RelayCommand(ShowHomepage, (_) => true);
+        CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger, (_) => true);
+        CommandClearErrors = new RelayCommand(ClearErrors, (_) => Errors.Count > 0);
+        CommandAddError = new RelayCommand(AddErrorCommand, (_) => true);
+        CommandShowErrors = new RelayCommand(ShowErrorWindow, (_) => true);
+        CommandOpenFlagTrackerWindow = new RelayCommand(OpenFlagTrackerWindow, (_) => true);
+        CommandImportSettingsFromFile = new RelayCommand(ImportSettings, (_) => true);
+        CommandExportSettingsFromFile = new RelayCommand(ExportSettings, (_) => true);
     }
 
     #region UI logic
