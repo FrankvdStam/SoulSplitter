@@ -27,7 +27,6 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:darkSouls3="clr-namespace:SoulSplitter.UiOld.DarkSouls3"
         xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
-        xmlns:uIv2="clr-namespace:SoulSplitter.UIv2"
         Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
         Icon="../soulsplitter.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -190,26 +189,7 @@
             SelectedIndex="{Binding SelectedGame, Converter={StaticResource GameToSelectedIndexConverter}}">
 
             <TabItem Header ="Dark Souls 1">
-                
-<!--
-                    <uIv2:SplitSettingsControl
-                        Game="DarkSouls1"
-                        BooleanFlags="{Binding DarkSouls1ViewModel.BooleanFlags}"
-                        TimingTypes="{Binding DarkSouls1ViewModel.TimingTypes}"
-                        SplitTypes="{Binding DarkSouls1ViewModel.SplitTypes}"
-                        Bosses="{Binding DarkSouls1ViewModel.Bosses}"
-                        Attributes="{Binding DarkSouls1ViewModel.Attributes}"
-                        Bonfires="{Binding DarkSouls1ViewModel.Bonfires}"
-                        Items="{Binding DarkSouls1ViewModel.Items}"
-                        GamePosition="{Binding DarkSouls1ViewModel.CurrentPosition}"
-                        SplitsViewModel="{Binding DarkSouls1ViewModel.SplitsViewModel}"
-                        AddSplit="{Binding DarkSouls1ViewModel.AddSplitCommand}"
-                        >
-                    </uIv2:SplitSettingsControl>
--->
-                    <darkSouls1:DarkSouls1Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls1ViewModel}"/>
-
-                
+                <darkSouls1:DarkSouls1Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls1ViewModel}"/>
             </TabItem>
 
             <TabItem Header ="Dark Souls 2">
@@ -229,21 +209,8 @@
             </TabItem>
 
             <TabItem Header="Armored Core">
-                <uIv2:SplitSettingsControl
-                    Game="ArmoredCore6"
-                    TimingTypes="{Binding ArmoredCore6ViewModel.TimingTypes}"
-                    SplitTypes="{Binding ArmoredCore6ViewModel.SplitTypes}"
-                    AddSplit="{Binding ArmoredCore6ViewModel.AddSplitCommand}"
-                    RemoveSplit="{Binding ArmoredCore6ViewModel.RemoveSplitCommand}"
-                    SplitsViewModel="{Binding ArmoredCore6ViewModel.SplitsViewModel}"
-                    />
+                <TextBlock Text="Keep this tab selected to activate AC6. Use the UIv2 button to configure the autosplitter."/>
             </TabItem>
-
-            <!--
-            <TabItem Header="Event flags">
-                <eventFlags:EventFlagControl/>
-            </TabItem>
-            -->
         </TabControl>
     </Grid>
 </Window>

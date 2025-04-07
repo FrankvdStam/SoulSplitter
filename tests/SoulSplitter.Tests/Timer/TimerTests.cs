@@ -41,10 +41,10 @@ namespace SoulSplitter.Tests.Timer
             _sut = new SoulSplitter.Timer(_gameMock.Object, _mainViewModel);
         }
 
-        private Mock<IGame> _gameMock;
-        private Mock<ILanguageManager> _languageManagerMock;
-        private MainViewModel _mainViewModel;
-        private SoulSplitter.Timer _sut;
+        private Mock<IGame> _gameMock = null!;
+        private Mock<ILanguageManager> _languageManagerMock = null!;
+        private MainViewModel _mainViewModel = null!;
+        private SoulSplitter.Timer _sut = null!;
         private int _inGameTimeMilliseconds = 0;
 
         [TestMethod]

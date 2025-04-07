@@ -33,6 +33,7 @@ using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Migrations;
 using SoulMemory.Abstractions;
+using SoulSplitter.Abstractions;
 using SoulSplitter.Ui;
 using SoulSplitter.Utils;
 
@@ -66,13 +67,11 @@ public class SoulComponent : IComponent
         {
             var _ = new App();
         }
-
-        InitTimerAdapter(state, timerAdapter);
     }
 
-    private void InitTimerAdapter(LiveSplitState state, ITimerAdapter? timerAdapter = null)
+    private void InitTimerAdapter(LiveSplitState state, IGame game, ITimerAdapter? timerAdapter = null)
     {
-        _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(new Sekiro(), (SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel)App.Current!.MainWindow.DataContext));
+        _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(game, (SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel)App.Current!.MainWindow.DataContext));
     }
 
     /// <summary>
@@ -155,7 +154,6 @@ public class SoulComponent : IComponent
 
                 case Game.Sekiro:
                     _game = new SoulMemory.Games.Sekiro.Sekiro();
-                    //_splitter = new SekiroSplitter(state, (SoulMemory.Games.Sekiro.Sekiro)_game);
                     break;
 
                 case Game.EldenRing:
@@ -165,10 +163,13 @@ public class SoulComponent : IComponent
 
                 case Game.ArmoredCore6:
                     _game = new SoulMemory.Games.ArmoredCore6.ArmoredCore6();
-                    _splitter = new ArmoredCore6Splitter(state, (SoulMemory.Games.ArmoredCore6.ArmoredCore6)_game);
                     break;
             }
             _splitter?.SetViewModel(mainViewModel);
+            if (mainViewModel.SelectedGame == Game.Sekiro)
+            {
+                InitTimerAdapter(state, _game);
+            }
         }
 
         if (mainViewModel.SelectedGame == Game.Sekiro)
@@ -292,7 +293,7 @@ public class SoulComponent : IComponent
 
                 var vmui2 = Serialization.DeserializeXml<SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel>(uiv2.InnerXml);
                 App.Current.MainWindow.DataContext = vmui2;
-                InitTimerAdapter(_liveSplitState); //Reinitialize the timer adapter to make sure it has the correct view model
+                InitTimerAdapter(_liveSplitState, _game); //Reinitialize the timer adapter to make sure it has the correct view model
             }
             catch (Exception e)
             {

@@ -14,13 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using LiveSplit.Updates;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SoulMemory;
-using SoulMemory.Abstractions;
-using SoulMemory.Games.Sekiro;
+using SoulMemory.Abstractions.Games;
 using SoulSplitter.Resources;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 

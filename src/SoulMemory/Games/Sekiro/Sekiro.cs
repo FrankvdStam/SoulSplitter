@@ -18,17 +18,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-using SoulMemory.Abstractions;
+using SoulMemory.Abstractions.Games;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 
 namespace SoulMemory.Games.Sekiro;
-
-public interface ISekiro : IGame, IBlackscreenRemovable, IPlayerPosition, IReadAttribute
-{
-    bool IsPlayerLoaded();
-    void WriteEventFlag(uint eventFlagId, bool eventFlagValue);
-}
 
 public class Sekiro : ISekiro
 {
@@ -212,6 +206,8 @@ public class Sekiro : ISekiro
     {
         return _worldChrManImp.ReadInt64(0x88) != 0;
     }
+
+    public bool IsLoading() => !IsPlayerLoaded();
 
     public Vector3f GetPlayerPosition()
     {

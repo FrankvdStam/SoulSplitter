@@ -203,16 +203,16 @@ namespace SoulSplitter
                     break;
 
                 case TimingType.OnLoading:
-                    if (_game is ISekiro sekiro)
+                    if (_game is ILoading loading)
                     {
-                        if (!sekiro.IsPlayerLoaded())
+                        if (loading.IsLoading())
                         {
                             RequestSplit();
                             split.SplitTriggered = true;
                         }
                         break;
                     }
-                    throw new ArgumentException($"Unsupported timing type {split.TimingType}. {_game} does not implement {nameof(ISekiro)}");
+                    throw new ArgumentException($"Unsupported timing type {split.TimingType}. {_game} does not implement {nameof(ILoading)}");
 
 
                 case TimingType.OnBlackscreen:

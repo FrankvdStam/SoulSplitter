@@ -23,7 +23,7 @@ using SoulMemory.Abstractions;
 
 namespace SoulMemory.Games.ArmoredCore6;
 
-public class ArmoredCore6 : IGame
+public class ArmoredCore6 : IGame, ILoading
 {
     private readonly IProcessHook _armoredCore6;
     
@@ -71,6 +71,8 @@ public class ArmoredCore6 : IGame
         var value = _menuMan.ReadInt32(0x8e4);
         return value != 0;
     }
+
+    public bool IsLoading() => IsLoadingScreenVisible();
 
     public ResultErr<RefreshError> TryRefresh() => _armoredCore6.TryRefresh();
 

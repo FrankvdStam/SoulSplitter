@@ -36,7 +36,6 @@ using SoulSplitter.UiOld.DarkSouls3;
 using SoulSplitter.UiOld.EldenRing;
 using SoulSplitter.UiOld.Generic;
 using SoulSplitter.Utils;
-using SoulSplitter.ViewModels.Games;
 using Brush = System.Windows.Media.Brush;
 
 namespace SoulSplitter.UiOld;
@@ -64,7 +63,6 @@ public class MainViewModel : NotifyPropertyChanged
         DarkSouls2ViewModel = mainViewModel.DarkSouls2ViewModel;
         DarkSouls3ViewModel = mainViewModel.DarkSouls3ViewModel;
         EldenRingViewModel = mainViewModel.EldenRingViewModel;
-        ArmoredCore6ViewModel = mainViewModel.ArmoredCore6ViewModel;
         FlagTrackerViewModel = mainViewModel.FlagTrackerViewModel;
     }
     public string Version
@@ -112,13 +110,6 @@ public class MainViewModel : NotifyPropertyChanged
         set => SetField(ref _eldenRingViewModel, value);
     }
     private EldenRingViewModel _eldenRingViewModel = new();
-
-    public ArmoredCore6ViewModel ArmoredCore6ViewModel
-    {
-        get => _armoredCore6ViewModel;
-        set => SetField(ref _armoredCore6ViewModel, value);
-    }
-    private ArmoredCore6ViewModel _armoredCore6ViewModel = new();
 
     public FlagTrackerViewModel FlagTrackerViewModel
     {

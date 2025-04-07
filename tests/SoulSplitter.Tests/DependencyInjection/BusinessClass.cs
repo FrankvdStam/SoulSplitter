@@ -17,7 +17,7 @@ namespace SoulSplitter.Tests.DependencyInjection
         }
 
 
-        public Action DisposeCallback { get; set; }
+        public Action DisposeCallback { get; set; } = null!;
         public void Dispose()
         {
             DisposeCallback?.Invoke();

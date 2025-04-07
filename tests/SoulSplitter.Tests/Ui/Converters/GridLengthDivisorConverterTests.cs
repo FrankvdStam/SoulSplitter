@@ -27,7 +27,7 @@ namespace SoulSplitter.Tests.Ui.Converters
         public void Converter_ConvertBack_Should_Throw()
         {
             var converter = new GridLengthDivisorConverter();
-            Assert.ThrowsException<NotImplementedException>(() => converter.ConvertBack(null, null, null, null));
+            Assert.ThrowsException<NotImplementedException>(() => converter.ConvertBack(null, null!, null, null!));
         }
     }
 }

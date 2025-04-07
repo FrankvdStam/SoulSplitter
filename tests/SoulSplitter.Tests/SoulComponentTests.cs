@@ -20,6 +20,7 @@ using LiveSplit.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SoulMemory;
+using SoulSplitter.Abstractions;
 using SoulSplitter.Net6.Tests;
 using SoulSplitter.UiOld;
 using SoulSplitter.UiOld.Generic;

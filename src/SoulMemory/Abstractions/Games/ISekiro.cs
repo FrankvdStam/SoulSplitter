@@ -14,18 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+namespace SoulMemory.Abstractions.Games;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace SoulSplitter.Tests.Splitters
+public interface ISekiro : IGame, IBlackscreenRemovable, IPlayerPosition, IReadAttribute, ILoading
 {
-    [TestClass]
-    public class ArmoredCore6SplitterTests
-    {
-        [TestMethod]
-        public void Testy()
-        {
-            //var ac6splitter = new ArmoredCore6Splitter();
-        }
-    }
+    bool IsPlayerLoaded();
+    void WriteEventFlag(uint eventFlagId, bool eventFlagValue);
 }
+
