@@ -18,7 +18,6 @@ using System.Xml.Serialization;
 
 namespace SoulMemory.Games.Sekiro;
 
-[XmlType(Namespace = "SoulMemory.Sekiro")]
 public enum Attribute
 {
     Vitality,

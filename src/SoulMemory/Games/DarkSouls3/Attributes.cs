@@ -18,7 +18,6 @@ using System.Xml.Serialization;
 
 namespace SoulMemory.Games.DarkSouls3;
 
-[XmlType(Namespace = "SoulMemory.DarkSouls3")]
 public enum Attribute
 {
     Vigor = 0x44,

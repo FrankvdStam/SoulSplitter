@@ -14,88 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Xml.Serialization;
-
 namespace SoulMemory.Games.DarkSouls1;
 
-[XmlType(Namespace = "SoulMemory.DarkSouls1")]
 public enum Boss : uint
 {
-    [Annotation(Name = "Asylum Demon")]
     AsylumDemon = 16,
-
-    [Annotation(Name = "Bell Gargoyle")]
     BellGargoyles = 3,
-
-    [Annotation(Name = "Capra Demon")]
     CapraDemon = 11010902,
-
-    [Annotation(Name = "Ceaseless Discharge")]
     CeaselessDischarge = 11410900,
-
-    [Annotation(Name = "Centipede Demon")]
     CentipedeDemon = 11410901,
-
-    [Annotation(Name = "Chaos Witch Quelaag")]
     ChaosWitchQuelaag = 9,
-
-    [Annotation(Name = "Crossbreed Priscilla")]
     CrossbreedPriscilla = 4,
-
-    [Annotation(Name = "Dark Sun Gwyndolin")]
     DarkSunGwyndolindolin = 11510900,
-
-    [Annotation(Name = "Demon Firesage")]
     DemonFiresage = 11410410,
-
-    [Annotation(Name = "Four Kings")]
     FourKings = 13,
-
-    [Annotation(Name = "Gaping Dragon")]
     GapingDragon = 2,
-
-    [Annotation(Name = "Great Grey Wolf Sif")]
     GreatGreyWolfSif = 5,
-
-    [Annotation(Name = "Gwyn Lord of Cinder")]
     GwynLordOfCinder = 15,
-
-    [Annotation(Name = "Iron Golem")]
     IronGolem = 11,
-
-    [Annotation(Name = "Moonlight Butterfly")]
     MoonlightButterfly = 11200900,
-
-    [Annotation(Name = "Nito")]
     Nito = 7,
-
-    [Annotation(Name = "Ornstein And Smough")]
     OrnsteinAndSmough = 12,
-
-    [Annotation(Name = "Pinwheel")]
     Pinwheel = 6,
-
-    [Annotation(Name = "Seath the Scaleless")]
     SeathTheScaleless = 14,
-
-    [Annotation(Name = "Stray Demon")]
     StrayDemon = 11810900,
-
-    [Annotation(Name = "Taurus Demon")]
     TaurusDemon = 11010901,
-
-    [Annotation(Name = "The Bed of Chaos")]
     BedOfChaos = 10,
-    
-    [Annotation(Name = "Artorias the Abysswalker")]
     ArtoriasTheAbysswalker = 11210001,
-    
-    [Annotation(Name = "Black Dragon Kalameet")]
     BlackDragonKalameet = 11210004,
-
-    [Annotation(Name = "Manus, Father of the Abyss")]
     ManusFatherOfTheAbyss = 11210002,
-    
-    [Annotation(Name = "Sanctuary Guardian")]
     SanctuaryGuardian = 11210000
 }

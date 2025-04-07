@@ -15,11 +15,9 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Xml.Serialization;
 
 namespace SoulMemory;
 
-[XmlType(Namespace = "SoulMemory")]
 public class Vector3f : ICloneable
 {
     public Vector3f(){ }

@@ -782,7 +782,6 @@ public enum ItemCategory
     UsableItems
 }
 
-[XmlType(Namespace = "SoulMemory.DarkSouls1")]
 public enum ItemType
 {
     //Armor

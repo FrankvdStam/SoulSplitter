@@ -18,7 +18,6 @@ using System.Xml.Serialization;
 
 namespace SoulMemory.Games.DarkSouls1;
 
-[XmlType(Namespace = "SoulMemory.DarkSouls1")]
 public enum Attribute : long
 {
     Vitality = 0x38,
