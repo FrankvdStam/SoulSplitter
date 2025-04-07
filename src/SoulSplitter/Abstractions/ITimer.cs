@@ -15,12 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory;
-using SoulSplitter;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoulSplitter.Abstractions;
 

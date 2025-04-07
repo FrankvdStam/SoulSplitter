@@ -28,14 +28,10 @@ using SoulMemory.Games.EldenRing;
 using SoulMemory;
 using SoulMemory.Enums;
 using SoulMemory.Parameters;
-using SoulSplitter.UiOld;
 using SoulMemory.Abstractions;
 using SoulSplitter.Ui.ViewModels;
-using SoulSplitter.Utils;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Ui.View;
-using KnownFlag = SoulMemory.Games.EldenRing.KnownFlag;
-using MainViewModel = SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel;
 
 #pragma warning disable CS0162
 

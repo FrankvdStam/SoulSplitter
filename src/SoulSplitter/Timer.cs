@@ -19,7 +19,6 @@ using System;
 using SoulMemory;
 using SoulMemory.Abstractions.Games;
 using SoulMemory.Enums;
-using SoulMemory.Games.Sekiro;
 using SoulSplitter.Abstractions;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Ui.ViewModels.MainViewModel;

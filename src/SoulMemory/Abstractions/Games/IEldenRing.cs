@@ -15,9 +15,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory.Games.EldenRing;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SoulMemory.Abstractions.Games
 {

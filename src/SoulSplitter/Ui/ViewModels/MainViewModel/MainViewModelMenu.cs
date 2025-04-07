@@ -18,8 +18,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms.Integration;
-using System.Xml.Serialization;
-using SoulMemory;
 using SoulSplitter.soulmemory_rs;
 using SoulSplitter.Ui.View;
 

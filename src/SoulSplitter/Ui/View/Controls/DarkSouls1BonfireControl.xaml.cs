@@ -14,14 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Ui.ViewModels;
 
 namespace SoulSplitter.Ui.View.Controls

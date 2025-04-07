@@ -14,8 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Xml.Serialization;
-
 namespace SoulMemory.Games.DarkSouls3;
 
 public enum Attribute

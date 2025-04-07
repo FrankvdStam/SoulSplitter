@@ -15,12 +15,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Xml.Serialization;
-using SoulSplitter.DependencyInjection;
 using SoulMemory.Enums;
-using SoulSplitter.Resources;
 using System.Xml.Schema;
 using System.Xml;
 using SoulMemory;

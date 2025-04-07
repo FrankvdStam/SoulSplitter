@@ -15,8 +15,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;

@@ -18,7 +18,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Windows;
-using System.Xml.Serialization;
 using SoulMemory;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Utils;

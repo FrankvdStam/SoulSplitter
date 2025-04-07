@@ -2,7 +2,6 @@
 using Moq;
 using SoulMemory.Enums;
 using SoulSplitter.Resources;
-using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitter.Tests.Ui.ViewModel

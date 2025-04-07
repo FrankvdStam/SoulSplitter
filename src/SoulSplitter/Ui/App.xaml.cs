@@ -21,8 +21,6 @@ using SoulSplitter.DependencyInjection;
 using SoulMemory.Enums;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
-using SoulSplitter.Utils;
-using Extensions = SoulSplitter.Utils.Extensions;
 
 namespace SoulSplitter.Ui;
 

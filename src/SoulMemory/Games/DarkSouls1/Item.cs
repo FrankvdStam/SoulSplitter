@@ -17,7 +17,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Xml.Serialization;
 
 namespace SoulMemory.Games.DarkSouls1;
 
