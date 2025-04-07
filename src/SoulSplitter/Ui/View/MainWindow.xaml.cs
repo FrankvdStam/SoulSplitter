@@ -18,6 +18,9 @@ namespace SoulSplitter.Ui.View
             Closing += Window_Closing;
         }
 
+        public MainViewModel MainViewModel => (MainViewModel)DataContext;
+
+
         public bool WindowShouldHide = true;
         private void Window_Closing(object sender, CancelEventArgs e)
         {

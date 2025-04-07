@@ -38,6 +38,7 @@
     TextOptions.TextRenderingMode="Auto"
     Width="1200"
     Height="800"
+    Icon="../../soulsplitter.ico"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     d:DataContext="{d:DesignInstance Type=mainViewModel:MainViewModel, IsDesignTimeCreatable=False}">
@@ -207,15 +208,6 @@
                     FontSize="15"
                     Content="Homepage" 
                     Command="{Binding CommandOpenHomepage}"
-                    ToolTip="Open homepage"/>
-
-                <Button
-                    Foreground="White"
-                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                    FontWeight="Normal"
-                    FontSize="15"
-                    Content="UIv2" 
-                    Command="{Binding CommandOpenUiV2}"
                     ToolTip="Open homepage"/>
 
                 <Menu

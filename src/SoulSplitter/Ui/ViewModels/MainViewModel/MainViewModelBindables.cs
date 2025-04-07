@@ -19,11 +19,12 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SoulMemory.Games.DarkSouls1;
+using SoulSplitter.Utils;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel;
 public partial class MainViewModel
 {
-    public string Version { get; set; } = "2";
+    public string Version { get; } = VersionHelper.Version.ToString();
 
     public Game? SelectedGame
     {

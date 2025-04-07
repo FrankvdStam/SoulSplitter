@@ -22,18 +22,18 @@ using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using SoulSplitter.UiOld;
 using SoulMemory;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using SoulMemory.Enums;
-using SoulMemory.Games.Sekiro;
 using SoulSplitter.Migrations;
 using SoulMemory.Abstractions;
 using SoulSplitter.Abstractions;
 using SoulSplitter.Ui;
+using SoulSplitter.Ui.View;
+using SoulSplitter.Ui.ViewModels.MainViewModel;
 using SoulSplitter.Utils;
 
 namespace SoulSplitter;
@@ -57,14 +57,15 @@ public class SoulComponent : IComponent
             ThrowIfInstallationInvalid();
         }
 
-        MainWindow = new MainWindow();
         _liveSplitState = state;
         SelectGameFromLiveSplitState(_liveSplitState);
 
+        //TODO: fix this initialization of app and mainwindow.
         if (App.Current == null)
         {
             var _ = new App();
         }
+        MainWindow = App.Current!.MainWindow as MainWindow ?? throw new InvalidOperationException("Main window is null");
     }
 
     private void InitTimerAdapter(LiveSplitState state, IGame game, ITimerAdapter? timerAdapter = null)
@@ -221,12 +222,12 @@ public class SoulComponent : IComponent
         var root = document.CreateElement("Settings");
         MainWindow.Dispatcher.Invoke(() =>
         {
-            {
-                var xml = MainWindow.MainViewModel.Serialize();
-                var fragment = document.CreateDocumentFragment();
-                fragment.InnerXml = xml;
-                root.AppendChild(fragment);
-            }
+            //{
+            //    var xml = MainWindow.MainViewModel.Serialize();
+            //    var fragment = document.CreateDocumentFragment();
+            //    fragment.InnerXml = xml;
+            //    root.AppendChild(fragment);
+            //}
 
             {
                 var xml = Serialization.SerializeXml((SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext);
@@ -259,9 +260,9 @@ public class SoulComponent : IComponent
                     MainWindow.MainViewModel.AddException(migrationException);
                 }
 
-                var mainViewModelXmlNode = SoulMemory.Extensions.GetChildNodeByName(settings, "MainViewModel");
-                var vm = MainViewModel.Deserialize(mainViewModelXmlNode.OuterXml);
-                MainWindow.MainViewModel = vm;
+               // var mainViewModelXmlNode = SoulMemory.Extensions.GetChildNodeByName(settings, "MainViewModel");
+               // var vm = MainViewModel.Deserialize(mainViewModelXmlNode.OuterXml);
+               // MainWindow.MainViewModel = vm;
 
                 var uiv2 = SoulMemory.Extensions.GetChildNodeByName(settings, "Uiv2");
 
@@ -271,7 +272,7 @@ public class SoulComponent : IComponent
             }
             catch (Exception e)
             {
-                MainWindow.MainViewModel = new MainViewModel();
+                //MainWindow.MainViewModel = new MainViewModel();
                 SelectGameFromLiveSplitState(_liveSplitState);
 
                 Logger.Log(e);

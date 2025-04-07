@@ -33,6 +33,8 @@ using SoulMemory.Abstractions;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Utils;
 using SoulMemory.Games.Sekiro;
+using SoulSplitter.Ui.View;
+using MainViewModel = SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel;
 
 #pragma warning disable CS0162
 
@@ -176,9 +178,11 @@ namespace cli
         {
             var app = new SoulSplitter.Ui.App();
             app.InitializeComponent();
-
-            var mainWindow = new MainWindow();
+            var mainWindow = (MainWindow)app.MainWindow;
             mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
+            mainWindow.ShowDialog();
+            return;
+
 
             if (withTestData)
             {
