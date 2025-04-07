@@ -36,8 +36,8 @@ public partial class MainViewModel
     public MainViewModel(ILanguageManager languageManager)
     {
         _languageManager = languageManager;
-        AddSplitCommand = new RelayCommand.RelayCommand(AddSplit, CanAddSplit);
-        RemoveSplitCommand = new RelayCommand.RelayCommand(RemoveSplit, CanRemoveSplit);
+        AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
+        RemoveSplitCommand = new RelayCommand(RemoveSplit, CanRemoveSplit);
     }
 
     #region UI logic

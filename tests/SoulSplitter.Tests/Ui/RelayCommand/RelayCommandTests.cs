@@ -8,7 +8,7 @@ namespace SoulSplitter.Tests.Ui.RelayCommand
         [TestMethod]
         public void RelayCommand_Can_Execute_Null_Should_Be_True()
         {
-            var relayCommand = new SoulSplitter.Ui.RelayCommand.RelayCommand((p) => { });
+            var relayCommand = new SoulSplitter.Ui.RelayCommand((p) => { });
             Assert.IsTrue(relayCommand.CanExecute(null));
             Assert.IsTrue(relayCommand.CanExecute(new object()));
         }
@@ -18,7 +18,7 @@ namespace SoulSplitter.Tests.Ui.RelayCommand
         {
             var parameter = new object();
             var canExecuteCalled = false;
-            var relayCommand = new SoulSplitter.Ui.RelayCommand.RelayCommand((p) => { }, (p) =>
+            var relayCommand = new SoulSplitter.Ui.RelayCommand((p) => { }, (p) =>
             {
                 canExecuteCalled = true;
                 Assert.AreEqual(parameter, p);
@@ -33,7 +33,7 @@ namespace SoulSplitter.Tests.Ui.RelayCommand
         {
             var parameter = new object();
             var executeCalled = false;
-            var relayCommand = new SoulSplitter.Ui.RelayCommand.RelayCommand(
+            var relayCommand = new SoulSplitter.Ui.RelayCommand(
                 (p) =>
                 {
                     executeCalled = true;

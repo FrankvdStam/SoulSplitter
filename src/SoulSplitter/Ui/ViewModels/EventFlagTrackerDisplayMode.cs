@@ -14,17 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Windows.Controls;
+namespace SoulSplitter.Ui.ViewModels;
 
-namespace SoulSplitter.UiOld.Generic;
-
-/// <summary>
-/// Interaction logic for FlagControl.xaml
-/// </summary>
-public partial class FlagControl : UserControl
+public enum EventFlagTrackerDisplayMode
 {
-    public FlagControl()
-    {
-        InitializeComponent();
-    }
+    Percentage,
+    Count
 }

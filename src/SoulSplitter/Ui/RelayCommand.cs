@@ -17,7 +17,7 @@
 using System;
 using System.Windows.Input;
 
-namespace SoulSplitter.Ui.RelayCommand;
+namespace SoulSplitter.Ui;
 
 public class RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute) : ICommand
 {

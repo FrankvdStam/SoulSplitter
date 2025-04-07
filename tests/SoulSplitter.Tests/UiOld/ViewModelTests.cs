@@ -170,7 +170,7 @@
 //                yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnLoading , SplitType.Boss,       SoulMemory.Games.DarkSouls1.Boss.FourKings };
 //                yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnWarp    , SplitType.Boss,       SoulMemory.Games.DarkSouls1.Boss.GreatGreyWolfSif };
 
-//                yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnWarp    , SplitType.Flag,       new FlagDescription { Flag = 248157 } };
+//                yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnWarp    , SplitType.Flag,       new FlagDescriptionViewModel { Flag = 248157 } };
 
 //                yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.OnLoading , SplitType.Bonfire,    new Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.Games.DarkSouls1.Bonfire.AnorLondo,  State = SoulMemory.Games.DarkSouls1.BonfireState.Kindled2 } };
 //                yield return new object[] { GameType.DarkSouls1,  addDarkSouls1Split, TimingType.Immediate , SplitType.Bonfire,    new Splits.DarkSouls1.BonfireState { Bonfire = SoulMemory.Games.DarkSouls1.Bonfire.AshLakeDragon,  State = SoulMemory.Games.DarkSouls1.BonfireState.Unlocked } };
@@ -184,7 +184,7 @@
 //                //yield return new object[] { GameType.DarkSouls3,  addDarkSouls3Split, TimingType.OnLoading, SplitType.Boss,        SoulMemory.Games.DarkSouls3.Boss.IudexGundyr };
 //                //yield return new object[] { GameType.DarkSouls3,  addDarkSouls3Split, TimingType.OnLoading, SplitType.Boss,        SoulMemory.Games.DarkSouls3.Boss.SlaveKnightGael };
 //                //
-//                //yield return new object[] { GameType.DarkSouls3,  addDarkSouls3Split, TimingType.Immediate, SplitType.Flag,        new FlagDescription { Flag = 248157 } };
+//                //yield return new object[] { GameType.DarkSouls3,  addDarkSouls3Split, TimingType.Immediate, SplitType.Flag,        new FlagDescriptionViewModel { Flag = 248157 } };
 //                //
 //                //yield return new object[] { GameType.DarkSouls3,  addDarkSouls3Split, TimingType.OnLoading, SplitType.Bonfire,     SoulMemory.Games.DarkSouls3.Bonfire.DarkeaterMidir };
 //                //yield return new object[] { GameType.DarkSouls3,  addDarkSouls3Split, TimingType.Immediate, SplitType.Bonfire,     SoulMemory.Games.DarkSouls3.Bonfire.FarronKeep };
@@ -204,7 +204,7 @@
 //             //
 //             //   yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.OnLoading, SplitType.Position,    new VectorSize() { Size = 10 } };
 //             //
-//             //   yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Flag,        new FlagDescription { Flag = 248157 } };
+//             //   yield return new object[] { GameType.Sekiro,      addSekiroSplit,     TimingType.Immediate, SplitType.Flag,        new FlagDescriptionViewModel { Flag = 248157 } };
 //            }
 //        }
 
@@ -226,7 +226,7 @@
 //                    break;
 
 //                case SplitType.Flag:
-//                    darkSouls1ViewModel.FlagDescription = (FlagDescription)split;
+//                    darkSouls1ViewModel.FlagDescriptionViewModel = (FlagDescriptionViewModel)split;
 //                    break;
 
 //                case SplitType.Bonfire:
@@ -254,7 +254,7 @@
 //        //            break;
 //        //
 //        //        case SplitType.Flag:
-//        //            darkSouls3ViewModel.FlagDescription = (FlagDescription)split;
+//        //            darkSouls3ViewModel.FlagDescriptionViewModel = (FlagDescriptionViewModel)split;
 //        //            break;
 //        //
 //        //        default:
@@ -282,7 +282,7 @@
 //        //            break;
 //        //
 //        //        case SplitType.Flag:
-//        //            sekiroViewModel.FlagDescription = (FlagDescription)split;
+//        //            sekiroViewModel.FlagDescriptionViewModel = (FlagDescriptionViewModel)split;
 //        //            break;
 //        //    }
 //        //

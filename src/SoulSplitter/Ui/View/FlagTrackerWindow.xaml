@@ -5,17 +5,17 @@
         xmlns:ui="clr-namespace:SoulSplitter.Ui"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:generic="clr-namespace:SoulSplitter.UiOld.Generic" 
         xmlns:converters="clr-namespace:SoulSplitter.Ui.Converters"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:validation="clr-namespace:SoulSplitter.Ui.Validation"
         xmlns:view="clr-namespace:SoulSplitter.Ui.View"
+        xmlns:viewModels="clr-namespace:SoulSplitter.Ui.ViewModels"
         mc:Ignorable="d"
         Title="Event Flag Tracker"
-        Icon="/soulsplitter.ico"
+        Icon="../../soulsplitter.ico"
         Width="{Binding WindowWidth, Mode=TwoWay}"
         Height="{Binding WindowHeight, Mode=TwoWay}"
-        d:DataContext="{d:DesignInstance generic:FlagTrackerViewModel, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance viewModels:FlagTrackerViewModel, IsDesignTimeCreatable=True}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -153,7 +153,7 @@
                         <TreeView.Resources>
 
 
-                            <HierarchicalDataTemplate DataType="{x:Type generic:FlagTrackerCategoryViewModel}" ItemsSource="{Binding EventFlags}">
+                            <HierarchicalDataTemplate DataType="{x:Type viewModels:FlagTrackerCategoryViewModel}" ItemsSource="{Binding EventFlags}">
 
                                 <!-- Category names -->
                                 <TextBlock Text="{Binding CategoryName}"/>
@@ -297,11 +297,11 @@
                     <RadioButton 
                         GroupName="ProgressDisplayModeGroup"
                         Content="Display percentage"
-                        IsChecked="{Binding DisplayMode, Converter={StaticResource EnumBindingEqualsEnumParameterConverter}, ConverterParameter={x:Static generic:EventFlagTrackerDisplayMode.Percentage}}"/>
+                        IsChecked="{Binding DisplayMode, Converter={StaticResource EnumBindingEqualsEnumParameterConverter}, ConverterParameter={x:Static viewModels:EventFlagTrackerDisplayMode.Percentage}}"/>
                     <RadioButton
                         GroupName="ProgressDisplayModeGroup"
                         Content="Display count"
-                        IsChecked="{Binding DisplayMode, Converter={StaticResource EnumBindingEqualsEnumParameterConverter}, ConverterParameter={x:Static generic:EventFlagTrackerDisplayMode.Count}}"/>
+                        IsChecked="{Binding DisplayMode, Converter={StaticResource EnumBindingEqualsEnumParameterConverter}, ConverterParameter={x:Static viewModels:EventFlagTrackerDisplayMode.Count}}"/>
                     </StackPanel>
                 </Grid>
             </TabItem>

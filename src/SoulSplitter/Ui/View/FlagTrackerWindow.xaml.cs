@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Windows;
-using SoulSplitter.UiOld.Generic;
+using SoulSplitter.Ui.ViewModels;
 
 namespace SoulSplitter.Ui.View;
 
@@ -30,7 +30,7 @@ public partial class FlagTrackerWindow : Window
     {
         if (DataContext is FlagTrackerViewModel flagTrackerViewModel)
         {
-            if (e.NewValue is FlagDescription flagDescription)
+            if (e.NewValue is FlagDescriptionViewModel flagDescription)
             {
                 flagTrackerViewModel.SelectedFlagDescription = flagDescription;
             }

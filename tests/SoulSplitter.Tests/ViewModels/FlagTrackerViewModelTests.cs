@@ -17,7 +17,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SoulSplitter.Tests.Mocks;
-using SoulSplitter.UiOld.Generic;
+using SoulSplitter.Ui.ViewModels;
 
 namespace SoulSplitter.Tests.ViewModels
 {
@@ -36,7 +36,7 @@ namespace SoulSplitter.Tests.ViewModels
         {
             var flagTracker = new FlagTrackerViewModel();
             flagTracker.CategoryName = "Test";
-            flagTracker.FlagDescription.Flag = 101;
+            flagTracker.FlagDescriptionViewModel.Flag = 101;
             Assert.IsTrue(flagTracker.CommandAddEventFlag.CanExecute(null));
         }
 
@@ -45,7 +45,7 @@ namespace SoulSplitter.Tests.ViewModels
         {
             var flagTracker = new FlagTrackerViewModel();
             flagTracker.CategoryName = "Test";
-            flagTracker.FlagDescription.Flag = 101;
+            flagTracker.FlagDescriptionViewModel.Flag = 101;
             flagTracker.CommandAddEventFlag.Execute(null);
             Assert.AreEqual(1, flagTracker.EventFlagCategories.Count);
         }
@@ -58,13 +58,13 @@ namespace SoulSplitter.Tests.ViewModels
 
             //Add 4 flags
             flagTracker.CategoryName = "Test";
-            flagTracker.FlagDescription.Flag = 1;
+            flagTracker.FlagDescriptionViewModel.Flag = 1;
             flagTracker.CommandAddEventFlag.Execute(null);
-            flagTracker.FlagDescription.Flag = 2;
+            flagTracker.FlagDescriptionViewModel.Flag = 2;
             flagTracker.CommandAddEventFlag.Execute(null);
-            flagTracker.FlagDescription.Flag = 3;
+            flagTracker.FlagDescriptionViewModel.Flag = 3;
             flagTracker.CommandAddEventFlag.Execute(null);
-            flagTracker.FlagDescription.Flag = 4;
+            flagTracker.FlagDescriptionViewModel.Flag = 4;
             flagTracker.CommandAddEventFlag.Execute(null);
 
             var category = flagTracker.EventFlagCategories.First();

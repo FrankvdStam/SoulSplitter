@@ -30,7 +30,7 @@ public partial class EldenRingPositionControl : UserControl
     public EldenRingPositionControl()
     {
         InitializeComponent();
-        CopyCurrentPositionCommand = new RelayCommand.RelayCommand((o) => EldenRingPositionViewModel.Position = CurrentEldenRingPosition, (o) => true);
+        CopyCurrentPositionCommand = new RelayCommand((o) => EldenRingPositionViewModel.Position = CurrentEldenRingPosition, (o) => true);
     }
 
     public static readonly DependencyProperty CurrentPositionDependencyProperty =
@@ -63,5 +63,5 @@ public partial class EldenRingPositionControl : UserControl
         set => SetValue(EldenRingPositionViewModelDependencyProperty, value);
     }
 
-    public RelayCommand.RelayCommand CopyCurrentPositionCommand { get; set; }
+    public RelayCommand CopyCurrentPositionCommand { get; set; }
 }

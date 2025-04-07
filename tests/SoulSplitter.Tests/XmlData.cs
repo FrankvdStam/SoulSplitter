@@ -406,7 +406,7 @@ namespace SoulSplitter.Tests
               <SplitType>Flag</SplitType>
               <Children>
                 <SplitViewModel>
-                  <Split xsi:type=""FlagDescription"">
+                  <Split xsi:type=""FlagDescriptionViewModel"">
                     <Flag>11000530</Flag>
                     <Description>Laurentius</Description>
                     <State>false</State>
@@ -661,7 +661,7 @@ namespace SoulSplitter.Tests
               <SplitType>Flag</SplitType>
               <Children>
                 <SplitViewModel>
-                  <Split xsi:type=""FlagDescription"">
+                  <Split xsi:type=""FlagDescriptionViewModel"">
                     <Flag>123</Flag>
                     <Description>First boss</Description>
                     <State>false</State>
@@ -678,7 +678,7 @@ namespace SoulSplitter.Tests
               <SplitType>Flag</SplitType>
               <Children>
                 <SplitViewModel>
-                  <Split xsi:type=""FlagDescription"">
+                  <Split xsi:type=""FlagDescriptionViewModel"">
                     <Flag>5421</Flag>
                     <Description>End mission</Description>
                     <State>false</State>
@@ -696,56 +696,56 @@ namespace SoulSplitter.Tests
       <FlagTrackerCategoryViewModel>
         <CategoryName>Asylum</CategoryName>
         <EventFlags>
-          <FlagDescription>
+          <FlagDescriptionViewModel>
             <Flag>51810000</Flag>
             <Description>Dungeon cell key</Description>
             <State>false</State>
-          </FlagDescription>
-          <FlagDescription>
+          </FlagDescriptionViewModel>
+          <FlagDescriptionViewModel>
             <Flag>51810270</Flag>
             <Description>Cracked round shield</Description>
             <State>false</State>
-          </FlagDescription>
-          <FlagDescription>
+          </FlagDescriptionViewModel>
+          <FlagDescriptionViewModel>
             <Flag>51810260</Flag>
             <Description>Hand axe</Description>
             <State>false</State>
-          </FlagDescription>
-          <FlagDescription>
+          </FlagDescriptionViewModel>
+          <FlagDescriptionViewModel>
             <Flag>11810450</Flag>
             <Description>Estus Flask</Description>
             <State>false</State>
-          </FlagDescription>
-          <FlagDescription>
+          </FlagDescriptionViewModel>
+          <FlagDescriptionViewModel>
             <Flag>11810591</Flag>
             <Description>Undead asylum F2 east key</Description>
             <State>false</State>
-          </FlagDescription>
-          <FlagDescription>
+          </FlagDescriptionViewModel>
+          <FlagDescriptionViewModel>
             <Flag>51810280</Flag>
             <Description>Pyromancy flame</Description>
             <State>false</State>
-          </FlagDescription>
-          <FlagDescription>
+          </FlagDescriptionViewModel>
+          <FlagDescriptionViewModel>
             <Flag>16</Flag>
             <Description>Asylum Demon</Description>
             <State>false</State>
-          </FlagDescription>
+          </FlagDescriptionViewModel>
         </EventFlags>
       </FlagTrackerCategoryViewModel>
       <FlagTrackerCategoryViewModel>
         <CategoryName>Firelink</CategoryName>
         <EventFlags>
-          <FlagDescription>
+          <FlagDescriptionViewModel>
             <Flag>51020000</Flag>
             <Description>Humanity</Description>
             <State>false</State>
-          </FlagDescription>
-          <FlagDescription>
+          </FlagDescriptionViewModel>
+          <FlagDescriptionViewModel>
             <Flag>51020110</Flag>
             <Description>Firebomb</Description>
             <State>false</State>
-          </FlagDescription>
+          </FlagDescriptionViewModel>
         </EventFlags>
       </FlagTrackerCategoryViewModel>
     </EventFlagCategories>

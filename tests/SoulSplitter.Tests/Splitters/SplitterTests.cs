@@ -183,7 +183,7 @@
 //                    break;
    
 //                case SplitType.Flag:
-//                    darkSouls1.Setup(d => d.ReadEventFlag(((FlagDescription)split.Split).Flag)).Returns(true);
+//                    darkSouls1.Setup(d => d.ReadEventFlag(((FlagDescriptionViewModel)split.Split).Flag)).Returns(true);
 //                    break;
    
 //                case SplitType.Attribute:

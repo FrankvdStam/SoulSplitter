@@ -20,10 +20,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media;
 using System.Xml.Serialization;
-using SoulSplitter.Ui.RelayCommand;
-using SoulSplitter.Ui.ViewModels;
 
-namespace SoulSplitter.UiOld.Generic;
+namespace SoulSplitter.Ui.ViewModels;
 
 public class FlagTrackerCategoryViewModel : NotifyPropertyChanged
 {
@@ -33,7 +31,7 @@ public class FlagTrackerCategoryViewModel : NotifyPropertyChanged
         set => SetField(ref _categoryName, value);
     }
     private string _categoryName = null!;
-    
+
     [XmlIgnore]
     public string Progress
     {
@@ -42,24 +40,24 @@ public class FlagTrackerCategoryViewModel : NotifyPropertyChanged
     }
     private string _progress = null!;
 
-    public ObservableCollection<FlagDescription> EventFlags { get; set; } = [];
+    public ObservableCollection<FlagDescriptionViewModel> EventFlags { get; set; } = [];
 }
 
 public class FlagTrackerViewModel : NotifyPropertyChanged
 {
     public FlagTrackerViewModel()
     {
-        CommandAddEventFlag = new RelayCommand(AddEventFlag, _ => !string.IsNullOrWhiteSpace(CategoryName) && FlagDescription.Flag != 0);
+        CommandAddEventFlag = new RelayCommand(AddEventFlag, _ => !string.IsNullOrWhiteSpace(CategoryName) && FlagDescriptionViewModel.Flag != 0);
         CommandRemoveEventFlag = new RelayCommand(RemoveEventFlag, _ => SelectedFlagDescription != null);
     }
 
-    
+
     #region Add/remove
     private void AddEventFlag()
     {
         //Resolve category
         var category = EventFlagCategories.FirstOrDefault(i => i.CategoryName == CategoryName);
-        if(category == null)
+        if (category == null)
         {
             category = new FlagTrackerCategoryViewModel();
             category.CategoryName = CategoryName;
@@ -67,39 +65,39 @@ public class FlagTrackerViewModel : NotifyPropertyChanged
         }
 
         //Resolve flag
-        var flag = category.EventFlags.FirstOrDefault(i => i.Flag == FlagDescription.Flag);
-        
+        var flag = category.EventFlags.FirstOrDefault(i => i.Flag == FlagDescriptionViewModel.Flag);
+
         //Update flag description but don't duplicate
         if (flag != null)
         {
-            flag.Description = FlagDescription.Description;
-        }   
+            flag.Description = FlagDescriptionViewModel.Description;
+        }
         else
         {
             //deep clone
-            var clone = new FlagDescription { Flag = FlagDescription.Flag, Description = FlagDescription.Description };
+            var clone = new FlagDescriptionViewModel { Flag = FlagDescriptionViewModel.Flag, Description = FlagDescriptionViewModel.Description };
             category.EventFlags.Add(clone);
         }
 
         //Reset
-        FlagDescription.Flag = 0;
-        FlagDescription.Description = "";
+        FlagDescriptionViewModel.Flag = 0;
+        FlagDescriptionViewModel.Description = "";
     }
 
     private void RemoveEventFlag()
     {
-        if(SelectedFlagDescription == null)
+        if (SelectedFlagDescription == null)
         {
             return;
         }
 
-        for(var i = 0; i < EventFlagCategories.Count; i++)
+        for (var i = 0; i < EventFlagCategories.Count; i++)
         {
             var category = EventFlagCategories[i];
-            if(category.EventFlags.Contains(SelectedFlagDescription))
+            if (category.EventFlags.Contains(SelectedFlagDescription))
             {
                 category.EventFlags.Remove(SelectedFlagDescription);
-                if(!category.EventFlags.Any())
+                if (!category.EventFlags.Any())
                 {
                     EventFlagCategories.Remove(category);
                     return;
@@ -110,7 +108,7 @@ public class FlagTrackerViewModel : NotifyPropertyChanged
     #endregion
 
     #region update/reset
-    private List<(FlagTrackerCategoryViewModel category, FlagDescription eventFlag)>? _lookup;
+    private List<(FlagTrackerCategoryViewModel category, FlagDescriptionViewModel eventFlag)>? _lookup;
     private int _currentIndex;
 
     public void Start()
@@ -142,7 +140,7 @@ public class FlagTrackerViewModel : NotifyPropertyChanged
 
     public void Update(IGame game)
     {
-        if(!EventFlagCategories.Any() || _lookup == null)
+        if (!EventFlagCategories.Any() || _lookup == null)
         {
             return;
         }
@@ -151,15 +149,15 @@ public class FlagTrackerViewModel : NotifyPropertyChanged
         var changedCategories = new List<FlagTrackerCategoryViewModel>();
 
         //Check the next x flags
-        for(var i = 0; i < FlagsPerFrame; i++)
+        for (var i = 0; i < FlagsPerFrame; i++)
         {
             var (category, flag) = _lookup[_currentIndex];
             if (!flag.State)
             {
                 flag.State = game.ReadEventFlag(flag.Flag);
-                
+
                 //If flag state has changed, recalculate category percentage later
-                if(flag.State)
+                if (flag.State)
                 {
                     changedCategories.Add(category);
                 }
@@ -167,20 +165,20 @@ public class FlagTrackerViewModel : NotifyPropertyChanged
 
             //Calc next index
             _currentIndex++;
-            if(_currentIndex >= _lookup.Count)
+            if (_currentIndex >= _lookup.Count)
             {
                 _currentIndex = 0;
             }
         }
 
-        switch(DisplayMode) 
+        switch (DisplayMode)
         {
             case EventFlagTrackerDisplayMode.Percentage:
                 //Recalculate total percentage of categories that changed
                 foreach (var category in changedCategories)
                 {
                     var done = category.EventFlags.Count(i => i.State);
-                    var percentage = (done / (float)category.EventFlags.Count) * 100.0f;
+                    var percentage = done / (float)category.EventFlags.Count * 100.0f;
                     category.Progress = $"{percentage:0.00}%";
                 }
 
@@ -188,7 +186,7 @@ public class FlagTrackerViewModel : NotifyPropertyChanged
                 if (changedCategories.Any())
                 {
                     var done = _lookup.Count(i => i.eventFlag.State);
-                    var percentageDone = (done / (float)_lookup.Count) * 100.0f;
+                    var percentageDone = done / (float)_lookup.Count * 100.0f;
                     Progress = $"{percentageDone:0.00}%";
                 }
                 break;
@@ -218,7 +216,7 @@ public class FlagTrackerViewModel : NotifyPropertyChanged
         foreach (var category in EventFlagCategories)
         {
             category.Progress = "";
-            foreach(var eventFlag in category.EventFlags)
+            foreach (var eventFlag in category.EventFlags)
             {
                 eventFlag.State = false;
             }
@@ -246,7 +244,7 @@ public class FlagTrackerViewModel : NotifyPropertyChanged
         set => SetField(ref _progress, value);
     }
     private string _progress = null!;
-    
+
     public double WindowWidth
     {
         get => _windowWidth;
@@ -323,20 +321,20 @@ public class FlagTrackerViewModel : NotifyPropertyChanged
     private string _categoryName = null!;
 
     [XmlIgnore]
-    public FlagDescription FlagDescription
+    public FlagDescriptionViewModel FlagDescriptionViewModel
     {
-        get => _flagDescription;
-        set => SetField(ref _flagDescription, value);
+        get => _FlagDescriptionViewModel;
+        set => SetField(ref _FlagDescriptionViewModel, value);
     }
-    private FlagDescription _flagDescription = new();
+    private FlagDescriptionViewModel _FlagDescriptionViewModel = new();
 
     [XmlIgnore]
-    public FlagDescription? SelectedFlagDescription
+    public FlagDescriptionViewModel? SelectedFlagDescription
     {
         get => _selectedFlagDescription;
         set => SetField(ref _selectedFlagDescription, value);
     }
-    private FlagDescription? _selectedFlagDescription;
+    private FlagDescriptionViewModel? _selectedFlagDescription;
 
     [XmlIgnore]
     public RelayCommand CommandAddEventFlag { get; }

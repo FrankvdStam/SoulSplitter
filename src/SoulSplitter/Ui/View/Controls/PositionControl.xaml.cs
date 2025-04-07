@@ -30,7 +30,7 @@ public partial class PositionControl : UserControl
     public PositionControl()
     {
         InitializeComponent();
-        CopyCurrentPositionCommand = new RelayCommand.RelayCommand((o) => PositionViewModel.Position = CurrentPosition, (o) => true);
+        CopyCurrentPositionCommand = new RelayCommand((o) => PositionViewModel.Position = CurrentPosition, (o) => true);
     }
 
     public static readonly DependencyProperty CurrentPositionDependencyProperty =
@@ -63,5 +63,5 @@ public partial class PositionControl : UserControl
         set => SetValue(PositionViewModelDependencyProperty, value);
     }
 
-    public RelayCommand.RelayCommand CopyCurrentPositionCommand { get; set; }
+    public RelayCommand CopyCurrentPositionCommand { get; set; }
 }

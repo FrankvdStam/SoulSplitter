@@ -29,14 +29,10 @@ using SoulMemory;
 using SoulMemory.Enums;
 using SoulMemory.Parameters;
 using SoulSplitter.UiOld;
-using SoulSplitter.UiOld.Generic;
 using SoulMemory.Abstractions;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Utils;
 using SoulMemory.Games.Sekiro;
-using System.Xml.Serialization;
-using System.Xml.Schema;
-using System.Xml;
 
 #pragma warning disable CS0162
 
@@ -190,7 +186,7 @@ namespace cli
                 //{
                 //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
                 //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType =  SplitType.Boss;
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = new FlagDescription(){Flag = (uint)boss};
+                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = new FlagDescriptionViewModel(){Flag = (uint)boss};
                 //    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplit(null);
                 //}
 
@@ -198,28 +194,28 @@ namespace cli
                 flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
                 {
                     CategoryName = "Undead burg",
-                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
+                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescriptionViewModel>()
                     {
-                        new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
-                        new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false}
+                        new FlagDescriptionViewModel{ Flag = 162,  Description = "stuff",      State = true},
+                        new FlagDescriptionViewModel{ Flag = 3213, Description = "more stuff", State = true},
+                        new FlagDescriptionViewModel{ Flag = 31,   Description = "more stuff", State = true},
+                        new FlagDescriptionViewModel{ Flag = 5231, Description = "more stuff", State = false},
+                        new FlagDescriptionViewModel{ Flag = 124,  Description = "more stuff", State = false},
+                        new FlagDescriptionViewModel{ Flag = 415,  Description = "more stuff", State = false}
                     }
                 });
 
                 flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
                 {
                     CategoryName = "Firelink shrine",
-                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
+                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescriptionViewModel>()
                     {
-                        new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
-                        new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false}
+                        new FlagDescriptionViewModel{ Flag = 162,  Description = "stuff",      State = true},
+                        new FlagDescriptionViewModel{ Flag = 3213, Description = "more stuff", State = true},
+                        new FlagDescriptionViewModel{ Flag = 31,   Description = "more stuff", State = true},
+                        new FlagDescriptionViewModel{ Flag = 5231, Description = "more stuff", State = false},
+                        new FlagDescriptionViewModel{ Flag = 124,  Description = "more stuff", State = false},
+                        new FlagDescriptionViewModel{ Flag = 415,  Description = "more stuff", State = false}
                     }
                 });
 

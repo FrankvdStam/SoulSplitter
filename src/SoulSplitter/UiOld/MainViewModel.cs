@@ -26,10 +26,9 @@ using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.Enums;
 using SoulSplitter.soulmemory_rs;
-using SoulSplitter.Ui.RelayCommand;
+using SoulSplitter.Ui;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels;
-using SoulSplitter.UiOld.Generic;
 using SoulSplitter.Utils;
 using Brush = System.Windows.Media.Brush;
 

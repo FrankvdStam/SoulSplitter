@@ -281,7 +281,7 @@
                                 <GroupStyle>
                                     <GroupStyle.HeaderTemplate>
                                         <DataTemplate>
-                                            <TextBlock Height="30" Background="{DynamicResource MaterialDesign.Brush.Secondary}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Name}"/>
+                                            <TextBlock Height="30" Background="{DynamicResource MaterialDesign.Brush.Secondary}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Path=Name}"/>
                                         </DataTemplate>
                                     </GroupStyle.HeaderTemplate>
                                 </GroupStyle>

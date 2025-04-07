@@ -14,23 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SoulMemory.Enums;
-using SoulSplitter.Utils;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel
 {
     public partial class MainViewModel
     {
 
-        public RelayCommand.RelayCommand SerializeCommand { get; set; } = null!;
+        public RelayCommand SerializeCommand { get; set; } = null!;
 
         #region Add split ========================================================================================
-        public RelayCommand.RelayCommand AddSplitCommand { get; set; }
+        public RelayCommand AddSplitCommand { get; set; }
 
         private void AddSplit(object? param)
         {
@@ -81,7 +75,7 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
 
         #region remove split ========================================================================================
 
-        public RelayCommand.RelayCommand RemoveSplitCommand { get; set; }
+        public RelayCommand RemoveSplitCommand { get; set; }
 
         public void RemoveSplit(object? param)
         {

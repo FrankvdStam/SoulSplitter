@@ -16,12 +16,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Xml;
-using SoulMemory;
-using SoulSplitter.UiOld.Generic;
-using SoulSplitter.Utils;
 
 namespace SoulSplitter.Migrations;
 
