@@ -158,7 +158,6 @@ public class SoulComponent : IComponent
 
                 case Game.EldenRing:
                     _game = new SoulMemory.Games.EldenRing.EldenRing();
-                    _splitter = new EldenRingSplitter(state, (SoulMemory.Games.EldenRing.EldenRing)_game);
                     break;
 
                 case Game.ArmoredCore6:
@@ -166,7 +165,7 @@ public class SoulComponent : IComponent
                     break;
             }
             _splitter?.SetViewModel(mainViewModel);
-            if (mainViewModel.SelectedGame == Game.Sekiro)
+            if (mainViewModel.SelectedGame is Game.Sekiro or Game.ArmoredCore6 or Game.EldenRing)
             {
                 InitTimerAdapter(state, _game);
             }

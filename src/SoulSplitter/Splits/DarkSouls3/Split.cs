@@ -63,7 +63,7 @@ internal class Split
 
     public readonly TimingType TimingType;
     public readonly SplitType SplitType;
-    
+
     public readonly Boss Boss;
     public readonly Bonfire Bonfire;
     public readonly ItemPickup ItemPickup;
@@ -75,7 +75,7 @@ internal class Split
     /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
     /// </summary>
     public bool SplitConditionMet = false;
-    
+
     /// <summary>
     /// True after this split object cause a split. No longer need to check split conditions
     /// </summary>

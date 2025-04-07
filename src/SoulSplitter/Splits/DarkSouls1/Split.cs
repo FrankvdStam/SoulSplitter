@@ -45,7 +45,7 @@ internal class Split
                 Position = (VectorSize)split;
                 break;
 
-             case SplitType.KnownFlag:
+            case SplitType.KnownFlag:
                 KnownFlag = (KnownFlag)split;
                 Flag = (uint)KnownFlag;
                 break;

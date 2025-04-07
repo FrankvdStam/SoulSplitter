@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.Tests.UI;
 using SoulSplitter.UiOld.DarkSouls3;
 using SoulSplitter.UiOld.Generic;
@@ -94,7 +95,7 @@ namespace SoulSplitter.Tests
                     break;
 
                 case SplitType.Bonfire:
-                    darkSouls1ViewModel.NewSplitBonfireState = (Splits.DarkSouls1.BonfireState)split;
+                    darkSouls1ViewModel.NewSplitBonfireState = (BonfireState)split;
                     break;
 
                 default:

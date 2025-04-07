@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
+using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.Ui.ViewModels;
 
 namespace SoulSplitter.UiOld.Generic;
@@ -132,12 +133,12 @@ public class SplitTypeViewModel : NotifyPropertyChanged
     XmlInclude(typeof(VectorSize)),
     XmlInclude(typeof(FlagDescription)),
     
-    XmlInclude(typeof(Splits.DarkSouls1.BonfireState)),
+    XmlInclude(typeof(BonfireState)),
     XmlInclude(typeof(Splits.DarkSouls1.Attribute)),
     XmlInclude(typeof(SoulMemory.Games.DarkSouls1.Boss)),
     XmlInclude(typeof(SoulMemory.Games.DarkSouls1.KnownFlag)),
     XmlInclude(typeof(SoulMemory.Games.DarkSouls1.ItemType)),
-    XmlInclude(typeof(Splits.DarkSouls1.ItemState)),
+    XmlInclude(typeof(ItemState)),
 
     XmlInclude(typeof(SoulMemory.Games.DarkSouls3.Boss)),
     XmlInclude(typeof(SoulMemory.Games.DarkSouls3.Bonfire)),

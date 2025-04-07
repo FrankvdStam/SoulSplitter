@@ -22,6 +22,7 @@ using System.Linq;
 using SoulSplitter.UiOld.DarkSouls1;
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SoulSplitter.Splits.DarkSouls1;
 
 namespace SoulSplitter.Tests.UI
 {
@@ -231,7 +232,7 @@ namespace SoulSplitter.Tests.UI
                     break;
 
                 case SplitType.Bonfire:
-                    darkSouls1ViewModel.NewSplitBonfireState = (Splits.DarkSouls1.BonfireState)split;
+                    darkSouls1ViewModel.NewSplitBonfireState = (BonfireState)split;
                     break;
 
                 default:

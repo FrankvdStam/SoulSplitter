@@ -21,10 +21,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:ui="clr-namespace:SoulSplitter.UiOld"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:darkSouls1="clr-namespace:SoulSplitter.UiOld.DarkSouls1"
         xmlns:darkSouls2="clr-namespace:SoulSplitter.UiOld.DarkSouls2"
-        xmlns:eldenRing="clr-namespace:SoulSplitter.UiOld.EldenRing"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:darkSouls3="clr-namespace:SoulSplitter.UiOld.DarkSouls3"
         xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
         Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
@@ -61,7 +60,11 @@
     <Grid 
         Background="White" 
           >
-<!-- 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250*"/>
+            <ColumnDefinition Width="467*"/>
+        </Grid.ColumnDefinitions>
+        <!-- 
         
         Height="{Binding ElementName=Window, Path=ActualHeight}"
         Width="{Binding ElementName=Window, Path=ActualWidth}"  
@@ -74,7 +77,7 @@
 
         <materialDesign:ColorZone
             Mode="PrimaryMid"
-            materialDesign:ElevationAssist.Elevation="Dp4">
+            materialDesign:ElevationAssist.Elevation="Dp4" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <ToolBar
                 ToolBarTray.IsLocked="True"
                 ClipToBounds="False"
@@ -164,7 +167,7 @@
                             ToolTip="Open the event flag logger"/>
                     </MenuItem>
                 </Menu>
-                
+
                 <!--
                 <Button
                     DockPanel.Dock="Right"
@@ -186,7 +189,7 @@
             materialDesign:ColorZoneAssist.Mode="PrimaryLight"
             Style="{StaticResource MaterialDesignFilledTabControl}"
             Grid.Row="1"
-            SelectedIndex="{Binding SelectedGame, Converter={StaticResource GameToSelectedIndexConverter}}">
+            SelectedIndex="{Binding SelectedGame, Converter={StaticResource GameToSelectedIndexConverter}}" Grid.ColumnSpan="2">
 
             <TabItem Header ="Dark Souls 1">
                 <darkSouls1:DarkSouls1Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls1ViewModel}"/>
@@ -205,7 +208,7 @@
             </TabItem>
 
             <TabItem Header="Elden Ring">
-                <eldenRing:EldenRingControl DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.EldenRingViewModel}"/>
+                <TextBlock Text="Keep this tab selected to activate Elden Ring. Use the UIv2 button to configure the autosplitter."/>
             </TabItem>
 
             <TabItem Header="Armored Core">

@@ -187,12 +187,12 @@ namespace cli
 
             if (withTestData)
             {
-                foreach (var boss in (SoulMemory.Games.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.Games.EldenRing.Boss)))
+                foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
                 {
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = TimingType.Immediate;
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
-                    mainWindow.MainViewModel.EldenRingViewModel.AddSplit();
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType =  SplitType.Boss;
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = new FlagDescription(){Flag = (uint)boss};
+                    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplit(null);
                 }
 
                 var flagTrackerViewModel = mainWindow.MainViewModel.FlagTrackerViewModel;

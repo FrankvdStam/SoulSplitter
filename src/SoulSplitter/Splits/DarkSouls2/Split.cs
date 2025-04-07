@@ -52,7 +52,7 @@ internal class Split
 
     public readonly TimingType TimingType;
     public readonly DarkSouls2SplitType SplitType;
-    
+
     public readonly uint Flag;
     public readonly Vector3f Position = null!;
     public readonly BossKill BossKill = null!;
@@ -62,7 +62,7 @@ internal class Split
     /// Set to true when split conditions are met. Does not trigger a split until timing conditions are met
     /// </summary>
     public bool SplitConditionMet = false;
-    
+
     /// <summary>
     /// True after this split object cause a split. No longer need to check split conditions
     /// </summary>

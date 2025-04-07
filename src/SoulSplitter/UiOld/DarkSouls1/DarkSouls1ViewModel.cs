@@ -96,7 +96,7 @@ public class DarkSouls1ViewModel : BaseViewModel
         };
     }
 
-    private void AddSplit(object? param)
+    public void AddSplit(object? param)
     {
         var split = NewSplitType switch
         {
