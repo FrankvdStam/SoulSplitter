@@ -17,6 +17,7 @@
 using System;
 using System.Windows.Controls;
 using System.Windows;
+using SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Resources;
 using SoulSplitter.Ui.ViewModels;
 
@@ -32,6 +33,7 @@ namespace SoulSplitter.Ui
         public DataTemplate AttributeViewModelDataTemplate { get; set; } = null!;
         public DataTemplate EldenRingPositionViewModelDataTemplate { get; set; } = null!;
         public DataTemplate DarkSouls1BonfireViewModelDataTemplate { get; set; } = null!;
+        public DataTemplate DarkSouls1ItemTypeDataTemplate { get; set; } = null!;
         public DataTemplate DefaultDataTemplate { get; set; } = new DataTemplate();
 
         public override DataTemplate SelectTemplate(object? item, DependencyObject container)
@@ -40,6 +42,11 @@ namespace SoulSplitter.Ui
             {
                 case Enum e:
                 {
+                    if (e is ItemType)
+                    {
+                        return DarkSouls1ItemTypeDataTemplate;
+                    }
+
                     var languageItem = LanguageManager.Get(e);
                     var enumType = languageItem.GetType();
 

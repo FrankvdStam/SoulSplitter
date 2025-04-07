@@ -139,9 +139,6 @@ public partial class MainViewModel
     }
     private DarkSouls1BonfireViewModel? _darkSouls1BonfireViewModel;
 
-    //Dark souls 1 items
-    public static ObservableCollection<Item> DarkSouls1Items { get; set; } = new(Item.AllItems);
-
     public ObservableCollection<TimingType> TimingTypes { get; set; } = new ObservableCollection<TimingType>();
     public ObservableCollection<SplitType> SplitTypes { get; set; } = new ObservableCollection<SplitType>();
     public ObservableCollection<SplitViewModel> Splits { get; set; } = new ObservableCollection<SplitViewModel>();

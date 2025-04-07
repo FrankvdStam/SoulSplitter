@@ -80,7 +80,7 @@ public partial class MainViewModel
                 case SplitType.DarkSouls1Bonfire:
                     DarkSouls1BonfireViewModel = new DarkSouls1BonfireViewModel();
                     break;
-
+                    
                 case SplitType.Position:
                     PositionViewModel = new PositionViewModel();
                     break;
@@ -108,6 +108,8 @@ public partial class MainViewModel
         Flag = null;
         AttributeViewModel = null;
         EldenRingPositionViewModel = null;
+        DarkSouls1BonfireViewModel = null;
+        SelectedDarkSouls1Item = null;
     }
 
     #endregion

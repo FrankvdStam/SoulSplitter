@@ -45,8 +45,8 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
                 SplitType.Attribute => AttributeViewModel!.Clone(),
                 SplitType.EldenRingPosition => EldenRingPositionViewModel!.Clone(),
                 SplitType.DarkSouls1Bonfire => DarkSouls1BonfireViewModel!.Clone(),
+                SplitType.DarkSouls1Item => SelectedDarkSouls1Item!,
 
-                SplitType.DarkSouls1Item => throw new System.NotImplementedException(),
                 _ => throw new System.NotImplementedException(),
             };
 
@@ -72,7 +72,8 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
                     Flag != null || 
                     AttributeViewModel != null ||
                     EldenRingPositionViewModel != null ||
-                    DarkSouls1BonfireViewModel != null
+                    DarkSouls1BonfireViewModel != null ||
+                    SelectedDarkSouls1Item != null
                 );
         }
 
