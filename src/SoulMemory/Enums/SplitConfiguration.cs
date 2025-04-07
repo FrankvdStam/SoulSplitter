@@ -78,7 +78,7 @@ namespace SoulMemory.Enums
             },
             {
                 Game.DarkSouls2, [
-                    (SplitType.Boss, typeof(Games.DarkSouls2.BossType)),
+                    (SplitType.Boss, typeof(Games.DarkSouls2.Boss)),
                     (SplitType.Position, null),
                     (SplitType.Attribute, typeof(Games.DarkSouls2.Attribute)),
                     (SplitType.Flag, null),

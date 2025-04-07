@@ -29,6 +29,7 @@
     xmlns:ui="clr-namespace:SoulSplitter.Ui"
     xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:controls="clr-namespace:SoulSplitter.Ui.View.Controls"
     xmlns:viewModels="clr-namespace:SoulSplitter.Ui.ViewModels" xmlns:validation="clr-namespace:SoulSplitter.Ui.Validation"
+    xmlns:darkSouls1="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory"
     Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextElement.FontWeight="Regular"
@@ -51,9 +52,10 @@
                         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/Language.xaml" />
                        
                         <ResourceDictionary>
-                            <converters:EnumLanguageConverter x:Key="EnumLanguageConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
-                            <converters:EnumEventFlagConverter x:Key="EnumEventFlagConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
-                            <converters:SplitTypeVisibilityConverter x:Key="SplitTypeVisibilityConverter"/>
+                            <converters:EnumLanguageConverter            x:Key="EnumLanguageConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
+                            <converters:EnumEventFlagConverter           x:Key="EnumEventFlagConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
+                            <converters:SplitTypeVisibilityConverter     x:Key="SplitTypeVisibilityConverter"/>
+                            <converters:DropModTypeConverter             x:Key="DropModTypeConverter"/>
 
                             <x:Array x:Key="EventFlagSplitTypes" Type="{x:Type soulMemoryEnums:SplitType}">
                                 <x:Static Member="soulMemoryEnums:SplitType.Boss" />
@@ -314,6 +316,27 @@
                     Margin="5"
                     Content="Overwrite IGT with 0:00 when the timer starts (for NG+ saves/mortal journey)"
                     IsChecked="{Binding OverwriteIgtOnStart}"/>
+
+                <Separator/>
+
+                <Label Content="Dropmod settings"/>
+
+                <RadioButton 
+                    Margin="5"                
+                    IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.None}}"
+                    GroupName="DropModRadioButtonGroup">None</RadioButton>
+
+                <RadioButton 
+                    Margin="5"
+                    IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.AnyPercent}}"
+                    ToolTip="Sets the droprate of the BKH to 100%"
+                    GroupName="DropModRadioButtonGroup">Any%</RadioButton>
+
+                <RadioButton 
+                    Margin="5" 
+                    IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.AllAchievements}}"
+                    ToolTip="Dynamically changes droprates based on what you still need in the run"
+                    GroupName="DropModRadioButtonGroup">All achievements</RadioButton>
             </StackPanel>
         </TabItem>
     </TabControl>

@@ -93,7 +93,7 @@ internal class Scholar : IDarkSouls2
         );
     }
 
-    public int GetBossKillCount(BossType bossType)
+    public int GetBossKillCount(Boss bossType)
     {
         return _bossCounters.ReadInt32((long)bossType);
     }
@@ -103,10 +103,12 @@ internal class Scholar : IDarkSouls2
         return _loadState.ReadInt32(0x11c) == 1;
     }
 
-    public int GetAttribute(Attribute attribute)
+
+    public int ReadAttribute(Enum attribute)
     {
-        var offset = _attributeOffsets[attribute];
-        if (attribute == Attribute.SoulLevel)
+        var ds2Attribute = (Attribute)attribute;
+        var offset = _attributeOffsets[ds2Attribute];
+        if (ds2Attribute == Attribute.SoulLevel)
         {
             return _attributes.ReadInt32(offset);
         }

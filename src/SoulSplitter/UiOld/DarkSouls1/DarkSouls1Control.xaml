@@ -24,6 +24,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:darkSouls1="clr-namespace:SoulSplitter.UiOld.DarkSouls1"
              xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
+             xmlns:converters1="clr-namespace:SoulSplitter.Ui.Converters"
              xmlns:generic="clr-namespace:SoulSplitter.UiOld.Generic"
              xmlns:darkSouls11="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory"
 
@@ -40,7 +41,7 @@
 
                 <ResourceDictionary>
                     <converters:SplitTypeVisibilityConverter      x:Key="SplitTypeVisibilityConverter"/>
-                    <converters:DropModTypeConverter              x:Key="DropModTypeConverter"/>
+                    <converters1:DropModTypeConverter             x:Key="DropModTypeConverter"/>
 
                     <!-- Grid row definitions -->
                     <system:Int32 x:Key="StartAutomaticallyRow" >0</system:Int32>

@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory.Enums;
+using SoulMemory.Games.DarkSouls1;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -126,7 +127,14 @@ public partial class MainViewModel
         set => SetField(ref _overwriteIgtOnStart, value);
     }
     private bool _overwriteIgtOnStart;
-    
+
+    public DropModType DropModType
+    {
+        get => _dropModType;
+        set => SetField(ref _dropModType, value);
+    }
+    private DropModType _dropModType = DropModType.None;
+
     public ObservableCollection<TimingType> TimingTypes { get; set; } = new ObservableCollection<TimingType>();
     public ObservableCollection<SplitType> SplitTypes { get; set; } = new ObservableCollection<SplitType>();
     public ObservableCollection<SplitViewModel> Splits { get; set; } = new ObservableCollection<SplitViewModel>();

@@ -14,7 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -135,26 +137,33 @@ namespace SoulSplitter.Ui
 
         public static T FindUiElementFromPoint<T>(UIElement reference, Point point) where T : DependencyObject
         {
-            var element = reference.InputHitTest(point);
-
-            if (element is T result)
+            try
             {
-                return result;
-            }
+                var element = reference.InputHitTest(point);
 
-            if (element is DependencyObject d)
-            {
-                var parentObject = VisualTreeHelper.GetParent(d);
-                for (var i = 0; i < 100 && parentObject != null; i++)
+                if (element is T result)
                 {
-                    if (parentObject is T target)
+                    return result;
+                }
+
+                if (element is DependencyObject d)
+                {
+                    var parentObject = VisualTreeHelper.GetParent(d);
+                    for (var i = 0; i < 100 && parentObject != null; i++)
                     {
-                        return target;
+                        if (parentObject is T target)
+                        {
+                            return target;
+                        }
+
+                        parentObject = VisualTreeHelper.GetParent(parentObject);
                     }
-                    parentObject = VisualTreeHelper.GetParent(parentObject);
                 }
             }
-
+            catch (Exception e)
+            {
+                Debug.WriteLine($"exception in {nameof(FindUiElementFromPoint)}: " + e.ToString());
+            }
             return null!;
         }
     }

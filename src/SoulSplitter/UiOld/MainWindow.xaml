@@ -23,7 +23,6 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:darkSouls1="clr-namespace:SoulSplitter.UiOld.DarkSouls1"
-        xmlns:darkSouls2="clr-namespace:SoulSplitter.UiOld.DarkSouls2"
         xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
         Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
         Icon="../soulsplitter.ico"
@@ -166,25 +165,11 @@
                             ToolTip="Open the event flag logger"/>
                     </MenuItem>
                 </Menu>
-
-                <!--
-                <Button
-                    DockPanel.Dock="Right"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Margin="1"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                    ToolTip="Add bogus error for testing"
-                    Width="25"
-                    Height="25"
-                    Command="{Binding CommandAddError}">
-                    <materialDesign:PackIcon Kind="Plus"/>
-                </Button>
-                -->
             </ToolBar>
         </materialDesign:ColorZone>
 
         <TabControl 
+            Grid.Column="0"
             materialDesign:ColorZoneAssist.Mode="PrimaryLight"
             Style="{StaticResource MaterialDesignFilledTabControl}"
             Grid.Row="1"
@@ -195,7 +180,7 @@
             </TabItem>
 
             <TabItem Header ="Dark Souls 2">
-                <darkSouls2:DarkSouls2Control DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.DarkSouls2ViewModel}"/>
+                <TextBlock Text="Keep this tab selected to activate ds2. Use the UIv2 button to configure the autosplitter."/>
             </TabItem>
 
             <TabItem Header ="Dark Souls 3" >

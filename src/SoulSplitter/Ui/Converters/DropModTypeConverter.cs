@@ -14,34 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.ComponentModel;
-using System.Xml.Serialization;
-using SoulMemory.Games.DarkSouls2;
-using SoulSplitter.Ui.ViewModels;
-using SoulSplitter.UiOld.Generic;
+using SoulMemory.Games.DarkSouls1;
+using System;
+using System.Globalization;
+using System.Windows.Data;
 
-namespace SoulSplitter.Splits.DarkSouls2;
+namespace SoulSplitter.Ui.Converters;
 
-[XmlType(Namespace = "DarkSouls2")]
-public class BossKill : NotifyPropertyChanged
+public class DropModTypeConverter : IValueConverter
 {
-    [XmlElement(Namespace = "DarkSouls2")]
-    public BossType BossType
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        get => _bossType;
-        set => SetField(ref _bossType, value);
+        if (value is DropModType valueDropModType && parameter is DropModType parameterDropModType)
+        {
+            return valueDropModType == parameterDropModType;
+        }
+        return false;
     }
-    private BossType _bossType;
 
-    public int Count
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        get => _count;
-        set => SetField(ref _count, value);
-    }
-    private int _count = 1;
-
-    public override string ToString()
-    {
-        return $"{BossType} {Count}";
+        return (DropModType)parameter!;
     }
 }

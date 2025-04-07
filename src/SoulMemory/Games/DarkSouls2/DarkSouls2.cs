@@ -35,8 +35,8 @@ public class DarkSouls2 : IDarkSouls2
     public Vector3f GetPlayerPosition() => _darkSouls2?.GetPlayerPosition() ?? new Vector3f();
     public bool IsLoading() => _darkSouls2?.IsLoading() ?? false;
     public bool ReadEventFlag(uint eventFlagId) => _darkSouls2?.ReadEventFlag(eventFlagId) ?? false;
-    public int GetBossKillCount(BossType bossType) => _darkSouls2?.GetBossKillCount(bossType) ?? 0;
-    public int GetAttribute(Attribute attribute) => _darkSouls2?.GetAttribute(attribute) ?? 0;
+    public int GetBossKillCount(Boss bossType) => _darkSouls2?.GetBossKillCount(bossType) ?? 0;
+    public int ReadAttribute(Enum attribute) => _darkSouls2?.ReadAttribute(attribute) ?? 0;
     public TreeBuilder GetTreeBuilder() => _darkSouls2?.GetTreeBuilder() ?? null!;
 
     public ResultErr<RefreshError> TryRefresh()

@@ -18,9 +18,7 @@ using SoulMemory.Abstractions;
 
 namespace SoulMemory.Games.DarkSouls2;
 
-public interface IDarkSouls2 : IGame, IPlayerPosition
+public interface IDarkSouls2 : IGame, IPlayerPosition, ILoading, IReadAttribute
 {
-    int GetBossKillCount(BossType bossType);
-    int GetAttribute(Attribute attribute);
-    bool IsLoading();
+    int GetBossKillCount(Boss bossType);
 }
