@@ -19,8 +19,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SoulMemory;
 using SoulMemory.Abstractions;
-using SoulSplitterUIv2.Resources;
-using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
+using SoulSplitter.Resources;
+using SoulSplitter.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitter.Tests.Timer
 {

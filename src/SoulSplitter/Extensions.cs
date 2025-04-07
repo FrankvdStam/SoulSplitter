@@ -14,7 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Xml;
@@ -69,4 +71,16 @@ internal static class Extensions
         viewModel.InvokePropertyChanged(propertyName!);
         return true;
     }
+
+    public static SoulSplitter.DependencyInjection.IServiceProvider ServiceProvider { get; set; } = null!;
+
+    public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+    {
+        foreach (var item in enumerable)
+        {
+            action(item);
+        }
+    }
+
+    public static void AddRange<T>(this ObservableCollection<T> collection, IEnumerable<T> range) => range.ForEach(collection.Add);
 }

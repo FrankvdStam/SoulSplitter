@@ -21,8 +21,8 @@ using Moq;
 using SoulMemory;
 using SoulMemory.Abstractions;
 using SoulMemory.Games.Sekiro;
-using SoulSplitterUIv2.Resources;
-using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
+using SoulSplitter.Resources;
+using SoulSplitter.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitter.Tests.Timer
 {

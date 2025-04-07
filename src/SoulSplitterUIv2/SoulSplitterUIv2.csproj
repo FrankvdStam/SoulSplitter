@@ -37,11 +37,5 @@
     <ItemGroup>
       <ProjectReference Include="..\SoulMemory\SoulMemory.csproj" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <Page Update="Resources\English\Sekiro\Idol.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-    </ItemGroup>
 
 </Project>

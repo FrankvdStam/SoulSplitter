@@ -9,7 +9,7 @@
              xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:darkSouls1="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory"
-             xmlns:validation="clr-namespace:SoulSplitter.UiOld.Validation"
+             xmlns:validation="clr-namespace:SoulSplitter.Ui.Validation"
              xmlns:enums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
              mc:Ignorable="d">
 

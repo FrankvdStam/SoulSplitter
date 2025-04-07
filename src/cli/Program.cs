@@ -34,8 +34,8 @@ using SplitType = SoulSplitter.UiOld.Generic.SplitType;
 using TimingType = SoulSplitter.UiOld.Generic.TimingType;
 using SoulMemory.Abstractions;
 using SoulSplitter.UiV3;
-using SoulSplitterUIv2.Ui.ViewModels;
-using SoulSplitterUIv2.Utils;
+using SoulSplitter.Ui.ViewModels;
+using SoulSplitter.Utils;
 using SoulMemory.Games.Sekiro;
 using System.Xml.Serialization;
 using System.Xml.Schema;
@@ -247,19 +247,19 @@ namespace cli
 
             mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
             
-            var mainViewModel = (app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)!;
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 0, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 1, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 2, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 3, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(Game.Sekiro, 4, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Flag, 15062400, "mystery flag"));
+            var mainViewModel = (app.MainWindow!.DataContext as SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel)!;
+            mainViewModel.Splits.Add(new SoulSplitter.Ui.ViewModels.SplitViewModel(Game.Sekiro, 0, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
+            mainViewModel.Splits.Add(new SoulSplitter.Ui.ViewModels.SplitViewModel(Game.Sekiro, 1, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
+            mainViewModel.Splits.Add(new SoulSplitter.Ui.ViewModels.SplitViewModel(Game.Sekiro, 2, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
+            mainViewModel.Splits.Add(new SoulSplitter.Ui.ViewModels.SplitViewModel(Game.Sekiro, 3, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
+            mainViewModel.Splits.Add(new SoulSplitter.Ui.ViewModels.SplitViewModel(Game.Sekiro, 4, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Flag, 15062400, "mystery flag"));
 
             mainWindow.ShowDialog();
             //mainWindow.Dispatcher.Invoke(() =>
             //{
             //    
             //});
-            var w = (SoulSplitterUIv2.Ui.View.MainWindow)Application.Current.MainWindow!;
+            var w = (SoulSplitter.Ui.View.MainWindow)Application.Current.MainWindow!;
             w.WindowShouldHide = false;
             w.Close();
 

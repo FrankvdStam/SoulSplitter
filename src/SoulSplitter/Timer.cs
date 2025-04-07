@@ -20,9 +20,8 @@ using SoulMemory;
 using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Abstractions;
-using SoulSplitterUIv2;
-using SoulSplitterUIv2.Ui.ViewModels;
-using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
+using SoulSplitter.Ui.ViewModels;
+using SoulSplitter.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitter
 {

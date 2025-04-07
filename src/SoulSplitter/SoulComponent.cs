@@ -34,8 +34,7 @@ using SoulMemory.Games.Sekiro;
 using SoulSplitter.Migrations;
 using SoulMemory.Abstractions;
 using SoulSplitter.UiV3;
-using SoulSplitterUIv2.Utils;
-using static System.Windows.Forms.AxHost;
+using SoulSplitter.Utils;
 
 namespace SoulSplitter;
 
@@ -73,7 +72,7 @@ public class SoulComponent : IComponent
 
     private void InitTimerAdapter(LiveSplitState state, ITimerAdapter? timerAdapter = null)
     {
-        _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(new Sekiro(), (SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)App.Current!.MainWindow.DataContext));
+        _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(new Sekiro(), (SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel)App.Current!.MainWindow.DataContext));
     }
 
     /// <summary>
@@ -254,7 +253,7 @@ public class SoulComponent : IComponent
             }
 
             {
-                var xml = Serialization.SerializeXml((SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext);
+                var xml = Serialization.SerializeXml((SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext);
                 var element = document.CreateElement("Uiv2");
                 var uiv2fragment = document.CreateDocumentFragment();
                 uiv2fragment.InnerXml = xml;
@@ -291,7 +290,7 @@ public class SoulComponent : IComponent
 
                 var uiv2 = SoulMemory.Extensions.GetChildNodeByName(settings, "Uiv2");
 
-                var vmui2 = Serialization.DeserializeXml<SoulSplitterUIv2.Ui.ViewModels.MainViewModel.MainViewModel>(uiv2.InnerXml);
+                var vmui2 = Serialization.DeserializeXml<SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel>(uiv2.InnerXml);
                 App.Current.MainWindow.DataContext = vmui2;
                 InitTimerAdapter(_liveSplitState); //Reinitialize the timer adapter to make sure it has the correct view model
             }

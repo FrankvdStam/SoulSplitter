@@ -26,16 +26,6 @@ namespace SoulSplitterUIv2
     {
         public static SoulSplitterUIv2.DependencyInjection.IServiceProvider ServiceProvider { get; set; } = null!;
 
-        public static TAttribute GetAttribute<TAttribute>(this Enum enumValue) where TAttribute : Attribute
-        {
-            return enumValue
-                .GetType()
-                .GetMember(enumValue.ToString())
-                .FirstOrDefault()?
-                .GetCustomAttribute<TAttribute>()!;
-        }
-
-
 
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {

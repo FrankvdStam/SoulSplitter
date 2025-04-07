@@ -28,7 +28,6 @@
         xmlns:darkSouls3="clr-namespace:SoulSplitter.UiOld.DarkSouls3"
         xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
         xmlns:uIv2="clr-namespace:SoulSplitter.UIv2"
-        xmlns:view="clr-namespace:SoulSplitterUIv2.Ui.View;assembly=SoulSplitterUIv2"
         Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
         Icon="../soulsplitter.ico"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"

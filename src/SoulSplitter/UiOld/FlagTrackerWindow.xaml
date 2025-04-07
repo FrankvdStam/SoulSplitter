@@ -8,7 +8,7 @@
         xmlns:generic="clr-namespace:SoulSplitter.UiOld.Generic" 
         xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        xmlns:validation="clr-namespace:SoulSplitter.UiOld.Validation"
+        xmlns:validation="clr-namespace:SoulSplitter.Ui.Validation"
         mc:Ignorable="d"
         Title="Event Flag Tracker"
         Icon="../soulsplitter.ico"

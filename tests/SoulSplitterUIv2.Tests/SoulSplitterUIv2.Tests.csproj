@@ -28,8 +28,4 @@
     <PackageReference Include="MSTest.TestFramework" Version="3.8.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\SoulSplitterUIv2\SoulSplitterUIv2.csproj" />
-  </ItemGroup>
-
 </Project>

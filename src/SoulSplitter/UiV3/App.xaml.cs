@@ -14,13 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulSplitterUIv2.Resources;
+using SoulSplitter.Resources;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using SoulSplitterUIv2.DependencyInjection;
+using SoulSplitter.DependencyInjection;
 using SoulMemory.Enums;
-using SoulSplitterUIv2.Ui.View;
-using SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
+using SoulSplitter.Ui.View;
+using SoulSplitter.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitter.UiV3;
 
@@ -35,11 +35,11 @@ public partial class App : Application
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddSingleton<ILanguageManager, LanguageManager>();
         serviceCollection.AddSingleton<MainViewModel>();
-        SoulSplitterUIv2.Extensions.ServiceProvider = serviceCollection.Build();
+        Extensions.ServiceProvider = serviceCollection.Build();
 
-        SoulSplitterUIv2.Extensions.ServiceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
-        ServiceProviderSource.Resolver = (type) => SoulSplitterUIv2.Extensions.ServiceProvider.GetService(type);
-        MainWindow = new SoulSplitterUIv2.Ui.View.MainWindow(SoulSplitterUIv2.Extensions.ServiceProvider.GetService<MainViewModel>());
+        Extensions.ServiceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
+        ServiceProviderSource.Resolver = (type) => Extensions.ServiceProvider.GetService(type);
+        MainWindow = new SoulSplitter.Ui.View.MainWindow(Extensions.ServiceProvider.GetService<MainViewModel>());
     }
 
     public void ShowMainWindow()

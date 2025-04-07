@@ -123,7 +123,7 @@ namespace SoulSplitter.Tests
 
             var triggered = false;
             timerModel.OnStart += (s, a) => triggered = true; 
-            timerMock.Raise(i => i.OnAutoStart += null, EventArgs.Empty);
+            timerMock.Raise(i => i.OnAutoStart += null, null!, EventArgs.Empty);
             Assert.IsTrue(triggered);
         }
 
@@ -139,7 +139,7 @@ namespace SoulSplitter.Tests
 
             var triggered = false;
             timerModel.OnSplit += (s, a) => triggered = true;
-            timerMock.Raise(i => i.OnRequestSplit += null, EventArgs.Empty);
+            timerMock.Raise(i => i.OnRequestSplit += null, null!, EventArgs.Empty);
             Assert.IsTrue(triggered);
         }
 
@@ -153,7 +153,7 @@ namespace SoulSplitter.Tests
             var timerModel = sut.TimerModel;
             timerModel.Start();
 
-            timerMock.Raise(i => i.OnUpdateTime += null, null, 1234);
+            timerMock.Raise(i => i.OnUpdateTime += null, null!, 1234);
             var time = timerModel.CurrentState.CurrentTime;
             Assert.AreEqual(time.GameTime, TimeSpan.FromMilliseconds(1234));
         }
