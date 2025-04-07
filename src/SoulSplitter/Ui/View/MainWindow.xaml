@@ -94,6 +94,10 @@
                                 </StackPanel>
                             </DataTemplate>
 
+                            <DataTemplate DataType="{x:Type viewModels:EldenRingPositionViewModel}" x:Key="EldenRingPositionViewModelDataTemplate">
+                                <TextBlock Text="{Binding .}"/>
+                            </DataTemplate>
+
                             <ui:SplitTypeDataTemplateSelector
                                 x:Key="SplitTypeDataTemplateSelector"
                                 LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
@@ -102,6 +106,7 @@
                                 PositionViewModelDataTemplate="{StaticResource PositionViewModelDataTemplate}"
                                 FlagDataTemplate="{StaticResource FlagDataTemplate}"
                                 AttributeViewModelDataTemplate="{StaticResource AttributeViewModelDataTemplate}"
+                                EldenRingPositionViewModelDataTemplate="{StaticResource EldenRingPositionViewModelDataTemplate}"
                             />
                         </ResourceDictionary>
 
@@ -202,6 +207,17 @@
                             CurrentPosition="{Binding CurrentPosition}"
                             PositionViewModel="{Binding PositionViewModel, Mode=TwoWay}"
                             />
+
+                        <!-- ER position, including map information -->
+                        <controls:EldenRingPositionControl
+                            Grid.Row="4"
+                            Margin="5"
+                            Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.EldenRingPosition}}"
+                            
+                            
+                            CurrentEldenRingPosition="{Binding CurrentEldenRingPosition}"
+                            EldenRingPositionViewModel="{Binding EldenRingPositionViewModel, Mode=TwoWay}"
+                        />
 
                         <!-- Attribute -->
                         <controls:AttributeControl

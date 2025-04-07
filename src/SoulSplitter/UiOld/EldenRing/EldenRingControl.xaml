@@ -395,7 +395,7 @@
                 Margin="0,0,0,0"
                 Text="{Binding NewSplitPosition.Area}"
                 materialDesign:HintAssist.Hint="Area"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Area}"
+                materialDesign:HintAssist.HelperText="{Binding CurrentEldenRingPosition.Area}"
                 PreviewTextInput="OnPreviewTextInput_Byte"/>
 
             <TextBox 
@@ -404,7 +404,7 @@
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.Block}"
                 materialDesign:HintAssist.Hint="Block"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Block}"
+                materialDesign:HintAssist.HelperText="{Binding CurrentEldenRingPosition.Block}"
                 PreviewTextInput="OnPreviewTextInput_Byte"/>
 
             <TextBox 
@@ -413,7 +413,7 @@
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.Region}"
                 materialDesign:HintAssist.Hint="Region"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Region}"
+                materialDesign:HintAssist.HelperText="{Binding CurrentEldenRingPosition.Region}"
                 PreviewTextInput="OnPreviewTextInput_Byte"/>
 
             <TextBox 
@@ -422,7 +422,7 @@
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.Size}"
                 materialDesign:HintAssist.Hint="Size"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Size}"
+                materialDesign:HintAssist.HelperText="{Binding CurrentEldenRingPosition.Size}"
                 PreviewTextInput="OnPreviewTextInput_Byte"/>
 
 
@@ -433,7 +433,7 @@
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.X}"
                 materialDesign:HintAssist.Hint="x"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.X}"
+                materialDesign:HintAssist.HelperText="{Binding CurrentEldenRingPosition.X}"
                 PreviewTextInput="OnPreviewTextInput_Float"/>
 
             <TextBox 
@@ -442,7 +442,7 @@
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.Y}"
                 materialDesign:HintAssist.Hint="y"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Y}"
+                materialDesign:HintAssist.HelperText="{Binding CurrentEldenRingPosition.Y}"
                 PreviewTextInput="OnPreviewTextInput_Float"/>
 
 
@@ -452,7 +452,7 @@
                 Margin="5,0,0,0"
                 Text="{Binding NewSplitPosition.Z}"
                 materialDesign:HintAssist.Hint="z"
-                materialDesign:HintAssist.HelperText="{Binding CurrentPosition.Z}"
+                materialDesign:HintAssist.HelperText="{Binding CurrentEldenRingPosition.Z}"
                 PreviewTextInput="OnPreviewTextInput_Float"/>
         </StackPanel>
 

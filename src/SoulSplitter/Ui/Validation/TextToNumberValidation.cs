@@ -22,6 +22,7 @@ namespace SoulSplitter.Ui.Validation;
 
 public enum NumericType
 {
+    Byte,
     Int,
     Uint,
     Float
@@ -59,6 +60,24 @@ public class TextToNumberValidation : ValidationRule
         {
             default:
                 throw new ArgumentException($"Unsupported type {NumericType}");
+
+            case NumericType.Byte:
+                if (!byte.TryParse(text, out var b))
+                {
+                    return new ValidationResult(false, "Input is not a valid byte");
+                }
+
+                if (MinValue is byte bmin && b < bmin)
+                {
+                    return new ValidationResult(false, $"Input can not be less than {bmin}");
+                }
+
+                if (MaxValue is byte bmax && b > bmax)
+                {
+                    return new ValidationResult(false, $"Input can not be less than {bmax}");
+                }
+
+                return new ValidationResult(true, null);
 
             case NumericType.Int:
                 if (!int.TryParse(text, out var i))

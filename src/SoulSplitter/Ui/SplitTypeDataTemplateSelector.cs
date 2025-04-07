@@ -30,6 +30,7 @@ namespace SoulSplitter.Ui
         public DataTemplate PositionViewModelDataTemplate { get; set; } = null!;
         public DataTemplate FlagDataTemplate { get; set; } = null!;
         public DataTemplate AttributeViewModelDataTemplate { get; set; } = null!;
+        public DataTemplate EldenRingPositionViewModelDataTemplate { get; set; } = null!;
         public DataTemplate DefaultDataTemplate { get; set; } = new DataTemplate();
 
         public override DataTemplate SelectTemplate(object? item, DependencyObject container)
@@ -53,6 +54,8 @@ namespace SoulSplitter.Ui
                     return FlagDataTemplate;
                 case AttributeViewModel:
                     return AttributeViewModelDataTemplate;
+                case EldenRingPositionViewModel:
+                    return EldenRingPositionViewModelDataTemplate;
                 default:
                     return DefaultDataTemplate;
             }

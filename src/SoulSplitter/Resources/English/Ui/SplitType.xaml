@@ -11,7 +11,7 @@
     <clr:String x:Key="{x:Static enums:SplitType.Attribute}">Attribute</clr:String>
     <clr:String x:Key="{x:Static enums:SplitType.KnownFlag}">Known flag</clr:String>
     <clr:String x:Key="{x:Static enums:SplitType.Flag}">Flag</clr:String>
-    <clr:String x:Key="{x:Static enums:SplitType.DarkSouls1Item}">DarkSouls1Item</clr:String>
-    <clr:String x:Key="{x:Static enums:SplitType.ItemPickup}">DarkSouls1Item pickup</clr:String>
+    <clr:String x:Key="{x:Static enums:SplitType.DarkSouls1Item}">Item</clr:String>
+    <clr:String x:Key="{x:Static enums:SplitType.ItemPickup}">Item pickup</clr:String>
 
 </ResourceDictionary>

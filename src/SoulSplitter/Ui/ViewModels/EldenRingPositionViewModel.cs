@@ -14,30 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using SoulMemory;
+using SoulMemory.Games.EldenRing;
 
-namespace SoulSplitter.Ui.ViewModels.MainViewModel;
+namespace SoulSplitter.Ui.ViewModels;
 
-/// <summary>
-/// This part of MainViewModel contains all the bindable properties required for all the different split types
-/// </summary>
-public partial class MainViewModel
+public class EldenRingPositionViewModel : NotifyPropertyChanged
 {
-    /// <summary>
-    /// If available, holds the current player position
-    /// </summary>
-    public Vector3f CurrentPosition
+    public Position Position
     {
-        get => _currentPosition;
-        set => SetField(ref _currentPosition, value);
+        get => _position;
+        set => SetField(ref _position, value);
     }
-    private Vector3f _currentPosition = new Vector3f(1.1f, 2.2f, 3.3f);
+    private Position _position = new Position();
     
-    public PositionViewModel? PositionViewModel
+    public float Size
     {
-        get => _positionViewModel;
-        set => SetField(ref _positionViewModel, value);
+        get => _size;
+        set => SetField(ref _size, value);
     }
-    private PositionViewModel? _positionViewModel;
+    private float _size = 5.0f;
+
+    public override string ToString()
+    {
+        return Position.ToString() + $" {Size}";
+    }
 }

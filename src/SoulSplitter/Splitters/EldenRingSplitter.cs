@@ -129,13 +129,13 @@ internal class EldenRingSplitter : ISplitter
     private void UpdatePosition()
     {
         var position = _eldenRing.GetPosition();
-        _eldenRingViewModel.CurrentPosition.Area   = position.Area  ;
-        _eldenRingViewModel.CurrentPosition.Block  = position.Block ;
-        _eldenRingViewModel.CurrentPosition.Region = position.Region;
-        _eldenRingViewModel.CurrentPosition.Size   = position.Size  ;
-        _eldenRingViewModel.CurrentPosition.X      = position.X     ;
-        _eldenRingViewModel.CurrentPosition.Y      = position.Y     ;
-        _eldenRingViewModel.CurrentPosition.Z      = position.Z     ;
+        _eldenRingViewModel.CurrentEldenRingPosition.Position.Area   = position.Area  ;
+        _eldenRingViewModel.CurrentEldenRingPosition.Position.Block  = position.Block ;
+        _eldenRingViewModel.CurrentEldenRingPosition.Position.Region = position.Region;
+        _eldenRingViewModel.CurrentEldenRingPosition.Position.Size   = position.Size  ;
+        _eldenRingViewModel.CurrentEldenRingPosition.Position.X      = position.X     ;
+        _eldenRingViewModel.CurrentEldenRingPosition.Position.Y      = position.Y     ;
+        _eldenRingViewModel.CurrentEldenRingPosition.Position.Z      = position.Z     ;
     }
 
     //Starting the timer by calling Start(); on a TimerModel object will trigger more than just SoulSplitter's start event.
@@ -285,19 +285,19 @@ internal class EldenRingSplitter : ISplitter
 
                         case EldenRingSplitType.Position:
                             if (
-                                _eldenRingViewModel.CurrentPosition.Area    == s.Position.Area &&
-                                _eldenRingViewModel.CurrentPosition.Block   == s.Position.Block &&
-                                _eldenRingViewModel.CurrentPosition.Region  == s.Position.Region &&
-                                _eldenRingViewModel.CurrentPosition.Size    == s.Position.Size &&
+                                _eldenRingViewModel.CurrentEldenRingPosition.Position.Area    == s.Position.Area &&
+                                _eldenRingViewModel.CurrentEldenRingPosition.Position.Block   == s.Position.Block &&
+                                _eldenRingViewModel.CurrentEldenRingPosition.Position.Region  == s.Position.Region &&
+                                _eldenRingViewModel.CurrentEldenRingPosition.Position.Size    == s.Position.Size &&
 
-                                s.Position.X + 5.0f > _eldenRingViewModel.CurrentPosition.X &&
-                                s.Position.X - 5.0f < _eldenRingViewModel.CurrentPosition.X &&
+                                s.Position.X + _eldenRingViewModel.CurrentEldenRingPosition.Size > _eldenRingViewModel.CurrentEldenRingPosition.Position.X &&
+                                s.Position.X - _eldenRingViewModel.CurrentEldenRingPosition.Size < _eldenRingViewModel.CurrentEldenRingPosition.Position.X &&
 
-                                s.Position.Y + 5.0f > _eldenRingViewModel.CurrentPosition.Y &&
-                                s.Position.Y - 5.0f < _eldenRingViewModel.CurrentPosition.Y &&
+                                s.Position.Y + _eldenRingViewModel.CurrentEldenRingPosition.Size > _eldenRingViewModel.CurrentEldenRingPosition.Position.Y &&
+                                s.Position.Y - _eldenRingViewModel.CurrentEldenRingPosition.Size < _eldenRingViewModel.CurrentEldenRingPosition.Position.Y &&
 
-                                s.Position.Z + 5.0f > _eldenRingViewModel.CurrentPosition.Z &&
-                                s.Position.Z - 5.0f < _eldenRingViewModel.CurrentPosition.Z)
+                                s.Position.Z + _eldenRingViewModel.CurrentEldenRingPosition.Size > _eldenRingViewModel.CurrentEldenRingPosition.Position.Z &&
+                                s.Position.Z - _eldenRingViewModel.CurrentEldenRingPosition.Size < _eldenRingViewModel.CurrentEldenRingPosition.Position.Z)
                             {
                                 s.SplitConditionMet = true;
                             }

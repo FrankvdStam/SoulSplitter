@@ -77,6 +77,10 @@ public partial class MainViewModel
                     PositionViewModel = new PositionViewModel();
                     break;
 
+                case SplitType.EldenRingPosition:
+                    EldenRingPositionViewModel = new EldenRingPositionViewModel();
+                    break;
+
                 case SplitType.Flag:
                     Flag = 0;
                     break;
@@ -98,6 +102,7 @@ public partial class MainViewModel
         PositionViewModel = null;
         Flag = null;
         AttributeViewModel = null;
+        EldenRingPositionViewModel = null;
     }
 
     #endregion

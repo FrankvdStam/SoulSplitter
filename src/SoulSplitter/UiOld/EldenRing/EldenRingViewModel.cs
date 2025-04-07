@@ -47,12 +47,12 @@ public class EldenRingViewModel : NotifyPropertyChanged
     private bool _lockIgtToZero;
 
     [XmlIgnore]
-    public PositionViewModel CurrentPosition
+    public EldenRingPositionViewModel CurrentEldenRingPosition
     {
-        get => _currentPosition;
-        set => SetField(ref _currentPosition, value);
+        get => _currentEldenRingPosition;
+        set => SetField(ref _currentEldenRingPosition, value);
     }
-    private PositionViewModel _currentPosition = new();
+    private EldenRingPositionViewModel _currentEldenRingPosition = new();
 
 
     #region Adding new splits ================================================================================================================
@@ -127,7 +127,7 @@ public class EldenRingViewModel : NotifyPropertyChanged
                     break;
 
                 case EldenRingSplitType.Position:
-                    NewSplitPosition = new PositionViewModel();
+                    NewSplitPosition = new EldenRingPositionViewModel();
                     VisiblePositionSplit = true;
                     EnabledAddSplit = true;
                     break;
@@ -217,7 +217,7 @@ public class EldenRingViewModel : NotifyPropertyChanged
     private bool _visibleItemSplit;
 
     [XmlIgnore]
-    public PositionViewModel? NewSplitPosition
+    public EldenRingPositionViewModel? NewSplitPosition
     {
         get => _newSplitPosition;
         set
@@ -226,7 +226,7 @@ public class EldenRingViewModel : NotifyPropertyChanged
             EnabledAddSplit = _newSplitPosition != null;
         }
     }
-    private PositionViewModel? _newSplitPosition;
+    private EldenRingPositionViewModel? _newSplitPosition;
 
     [XmlIgnore]
     public bool VisiblePositionSplit
@@ -369,7 +369,7 @@ public class EldenRingViewModel : NotifyPropertyChanged
         NewSplitFlag = null;
         NewSplitItem = null;
         NewSplitItemPickup = null;
-        NewSplitPosition = new PositionViewModel();
+        NewSplitPosition = new EldenRingPositionViewModel();
 
         NewSplitTimingType = null;
         NewSplitType = null;

@@ -93,12 +93,12 @@ public partial class EldenRingControl : UserControl
     private void CopyPosition_OnClick(object sender, RoutedEventArgs e)
     {
         var vm = GetEldenRingViewModel();
-        vm.NewSplitPosition!.Area  = vm.CurrentPosition.Area  ;
-        vm.NewSplitPosition.Block  = vm.CurrentPosition.Block ;
-        vm.NewSplitPosition.Region = vm.CurrentPosition.Region;
-        vm.NewSplitPosition.Size   = vm.CurrentPosition.Size  ;
-        vm.NewSplitPosition.X      = vm.CurrentPosition.X     ;
-        vm.NewSplitPosition.Y      = vm.CurrentPosition.Y     ;
-        vm.NewSplitPosition.Z      = vm.CurrentPosition.Z     ;
+        vm.NewSplitPosition!.Position.Area  = vm.CurrentEldenRingPosition.Position.Area  ;
+        vm.NewSplitPosition.Position.Block  = vm.CurrentEldenRingPosition.Position.Block ;
+        vm.NewSplitPosition.Position.Region = vm.CurrentEldenRingPosition.Position.Region;
+        vm.NewSplitPosition.Position.Size   = vm.CurrentEldenRingPosition.Position.Size  ;
+        vm.NewSplitPosition.Position.X      = vm.CurrentEldenRingPosition.Position.X     ;
+        vm.NewSplitPosition.Position.Y      = vm.CurrentEldenRingPosition.Position.Y     ;
+        vm.NewSplitPosition.Position.Z      = vm.CurrentEldenRingPosition.Position.Z     ;
     }
 }

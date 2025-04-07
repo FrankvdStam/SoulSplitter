@@ -18,14 +18,13 @@ namespace SoulMemory.Games.EldenRing;
 
 public class Position
 {
-    public byte Area;
-    public byte Block;
-    public byte Region;
-    public byte Size;
-
-    public float X;
-    public float Y;
-    public float Z;
+    public byte Area { get; set; }
+    public byte Block { get; set; }
+    public byte Region { get; set; }
+    public byte Size { get; set; }
+    public float X { get; set; }
+    public float Y { get; set; }
+    public float Z { get; set; }
 
     public override string ToString()
     {
