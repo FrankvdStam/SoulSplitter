@@ -31,7 +31,7 @@ namespace SoulSplitter.Ui.Converters
             {
                 return Visibility.Collapsed;
             }
-
+            
             //parameter is single SplitType
             if (parameter is SplitType splitTypeParameter && currentSplitType == splitTypeParameter)
             {

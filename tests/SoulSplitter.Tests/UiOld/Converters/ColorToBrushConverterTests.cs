@@ -52,7 +52,7 @@ namespace SoulSplitter.Tests.Ui.Converters
         public void ConvertBack_Exception()
         {
             var converter = new ColorToBrushConverter();
-            Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new SolidColorBrush(), null!, null, null!));
+            Assert.ThrowsException<NotImplementedException>(() => converter.ConvertBack(new SolidColorBrush(), null!, null, null!));
         }
     }
 }

@@ -29,15 +29,15 @@ namespace SoulSplitter.Tests.Ui.Converters
         public void Convert()
         {
             var converter = new SplitTypeVisibilityConverter();
-            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Attribute, null!, "Attribute", null!));
-            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Boss, null!, "Boss", null!));
-            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Bonfire, null!, "Bonfire", null!));
+            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Attribute, null!, SplitType.Attribute, null!));
+            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Boss, null!, SplitType.Boss, null!));
+            Assert.AreEqual(Visibility.Visible, converter.Convert(SplitType.Bonfire, null!, SplitType.Bonfire, null!));
 
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Attribute, null!, "Boss", null!));
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Boss, null!, "Bonfire", null!));
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Bonfire, null!, "Attribute", null!));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Attribute, null!, SplitType.Boss, null!));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Boss, null!, SplitType.Bonfire, null!));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Bonfire, null!, SplitType.Attribute, null!));
 
-            Assert.AreEqual(Visibility.Collapsed, converter.Convert("test", null!, "Attribute", null!));
+            Assert.AreEqual(Visibility.Collapsed, converter.Convert("test", null!, SplitType.Attribute, null!));
             Assert.AreEqual(Visibility.Collapsed, converter.Convert(SplitType.Bonfire, null!, new object(), null!));
         }
 
