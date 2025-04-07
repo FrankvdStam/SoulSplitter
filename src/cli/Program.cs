@@ -49,6 +49,7 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+            var a = ResourceUtils.GenerateResourceDictionaryForEventFlag(typeof(Bonfire));
             TestUi(true);
             return;
             GameLoop<EldenRing>(

@@ -15,11 +15,21 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory.Games.EldenRing;
+using System;
 
 namespace SoulSplitter.Ui.ViewModels;
 
-public class EldenRingPositionViewModel : NotifyPropertyChanged
+public class EldenRingPositionViewModel : NotifyPropertyChanged, ICloneable
 {
+    public object Clone()
+    {
+        return new EldenRingPositionViewModel
+        {
+            Position = (Position)Position.Clone(),
+            Size = Size
+        };
+    }
+
     public Position Position
     {
         get => _position;

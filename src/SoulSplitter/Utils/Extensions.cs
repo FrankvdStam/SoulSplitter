@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -57,7 +58,7 @@ internal static class Extensions
         serializer.Serialize(writer, obj);
         return stream.ToString();
     }
-    
+
     public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
     {
         foreach (var item in enumerable)

@@ -24,6 +24,7 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel;
 /// </summary>
 public partial class MainViewModel
 {
+    
 
     public Type AttributeType
     {

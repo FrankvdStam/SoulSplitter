@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Xml.Serialization;
 
 namespace SoulMemory;
 
 [XmlType(Namespace = "SoulMemory")]
-public class Vector3f
+public class Vector3f : ICloneable
 {
     public Vector3f(){ }
     public Vector3f(float x, float y, float z)
@@ -35,7 +36,7 @@ public class Vector3f
     
     public float Z { get; set; }
 
-    public Vector3f Clone()
+    public object Clone()
     {
         return new Vector3f(X, Y, Z);
     }

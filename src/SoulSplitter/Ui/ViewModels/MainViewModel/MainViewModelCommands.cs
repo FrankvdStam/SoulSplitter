@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SoulMemory.Enums;
+using SoulSplitter.Utils;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel
 {
@@ -39,13 +40,13 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
                 SplitType.KnownFlag or
                 SplitType.ItemPickup or
                 SplitType.Bonfire => SelectedEventFlag!,
-                SplitType.Position => PositionViewModel!,
+                SplitType.Position => PositionViewModel!.Clone(),
                 SplitType.Flag => Flag!,
-                SplitType.Attribute => AttributeViewModel!,
-                SplitType.EldenRingPosition => EldenRingPositionViewModel!,
+                SplitType.Attribute => AttributeViewModel!.Clone(),
+                SplitType.EldenRingPosition => EldenRingPositionViewModel!.Clone(),
+                SplitType.DarkSouls1Bonfire => DarkSouls1BonfireViewModel!.Clone(),
 
                 SplitType.DarkSouls1Item => throw new System.NotImplementedException(),
-                SplitType.DarkSouls1Bonfire => throw new System.NotImplementedException(),
                 _ => throw new System.NotImplementedException(),
             };
 
@@ -55,7 +56,7 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
                     SelectedNewGamePlusLevel,
                     SelectedTimingType!.Value,
                     SelectedSplitType.Value,
-                    split,
+                    split,//Deep clone so that the splits collection does not get duplicate objects
                     SplitDescription));
         }
 
@@ -70,7 +71,8 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
                     PositionViewModel != null || 
                     Flag != null || 
                     AttributeViewModel != null ||
-                    EldenRingPositionViewModel != null
+                    EldenRingPositionViewModel != null ||
+                    DarkSouls1BonfireViewModel != null
                 );
         }
 

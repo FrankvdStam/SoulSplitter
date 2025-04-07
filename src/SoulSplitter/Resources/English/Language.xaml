@@ -11,6 +11,9 @@
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/Ui/TimingType.xaml" />
 
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls1/Boss.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls1/Attribute.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls1/Bonfire.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls1/BonfireState.xaml" />
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls1/KnownFlag.xaml" />
 
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/DarkSouls2/Boss.xaml" />

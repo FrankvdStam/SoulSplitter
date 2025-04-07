@@ -14,10 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+
 namespace SoulMemory.Games.EldenRing;
 
-public class Position
+public class Position : ICloneable
 {
+    public object Clone()
+    {
+        return new Position
+        {
+            Area = Area,
+            Block = Block,
+            Region = Region,
+            Size = Size,
+            X = X,
+            Y = Y,
+            Z = Z
+        };
+    }
+
     public byte Area { get; set; }
     public byte Block { get; set; }
     public byte Region { get; set; }

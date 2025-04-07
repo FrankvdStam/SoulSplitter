@@ -73,6 +73,14 @@ public partial class MainViewModel
                     EventFlagType = SplitConfiguration.GetSplitType(SelectedGame!.Value, SelectedSplitType!.Value)!;
                     break;
 
+                case SplitType.Flag:
+                    Flag = 0;
+                    break;
+
+                case SplitType.DarkSouls1Bonfire:
+                    DarkSouls1BonfireViewModel = new DarkSouls1BonfireViewModel();
+                    break;
+
                 case SplitType.Position:
                     PositionViewModel = new PositionViewModel();
                     break;
@@ -81,10 +89,7 @@ public partial class MainViewModel
                     EldenRingPositionViewModel = new EldenRingPositionViewModel();
                     break;
 
-                case SplitType.Flag:
-                    Flag = 0;
-                    break;
-
+                
                 case SplitType.Attribute:
                     AttributeType = SplitConfiguration.GetSplitType(SelectedGame!.Value, SelectedSplitType!.Value)!;
                     AttributeViewModel = new AttributeViewModel();

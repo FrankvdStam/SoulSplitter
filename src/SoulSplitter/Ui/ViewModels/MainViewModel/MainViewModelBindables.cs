@@ -15,13 +15,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory.Enums;
-using SoulMemory.Games.DarkSouls1;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SoulMemory.Games.DarkSouls1;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel;
 public partial class MainViewModel
@@ -134,6 +131,16 @@ public partial class MainViewModel
         set => SetField(ref _dropModType, value);
     }
     private DropModType _dropModType = DropModType.None;
+
+    public DarkSouls1BonfireViewModel? DarkSouls1BonfireViewModel
+    {
+        get => _darkSouls1BonfireViewModel;
+        set => SetField(ref _darkSouls1BonfireViewModel, value);
+    }
+    private DarkSouls1BonfireViewModel? _darkSouls1BonfireViewModel;
+
+    //Dark souls 1 items
+    public static ObservableCollection<Item> DarkSouls1Items { get; set; } = new(Item.AllItems);
 
     public ObservableCollection<TimingType> TimingTypes { get; set; } = new ObservableCollection<TimingType>();
     public ObservableCollection<SplitType> SplitTypes { get; set; } = new ObservableCollection<SplitType>();

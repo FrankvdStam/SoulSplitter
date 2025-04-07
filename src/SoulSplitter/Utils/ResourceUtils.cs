@@ -58,16 +58,16 @@ public class ResourceUtils
             
 
 
-            stringBuilder.AppendLine();
-            stringBuilder.AppendLine($"    <r:EventFlag x:Key=\"{{x:Static soulmemory:{eventFlagType.Name}.{value.ToString()}}}\">");
-            stringBuilder.AppendLine($"        <r:EventFlag.Name>{name}</r:EventFlag.Name>");
+            //stringBuilder.AppendLine();
+            stringBuilder.AppendLine($"    <clr:String x:Key=\"{{x:Static soulmemory:{eventFlagType.Name}.{value.ToString()}}}\">{attrib.Name}</clr:String>");
+            //stringBuilder.AppendLine($"        <r:EventFlag.Name>{name}</r:EventFlag.Name>");
             //stringBuilder.AppendLine($"        <r:EventFlag.Description>{attrib.Description}</r:EventFlag.Description>");
             //stringBuilder.AppendLine($"        <r:EventFlag.Location>{location}</r:EventFlag.Location>");
             //if (split.Length == 2)
             //{
             //    stringBuilder.AppendLine($"        <r:EventFlag.Location>{split[1]}</r:EventFlag.Location>");
             //}
-            stringBuilder.AppendLine("    </r:EventFlag>");
+            //stringBuilder.AppendLine("    </r:EventFlag>");
         }
 
         stringBuilder.AppendLine("</ResourceDictionary>");

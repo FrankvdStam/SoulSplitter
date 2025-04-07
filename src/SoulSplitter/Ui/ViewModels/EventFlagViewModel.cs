@@ -15,9 +15,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using SoulSplitter.Resources;
 using SoulSplitter.Ui.View;
 
@@ -26,20 +23,28 @@ namespace SoulSplitter.Ui.ViewModels
     /// <summary>
     /// Internally used to represent an even flag with language strings resolved and cached for searching
     /// </summary>
-    public class EventFlagViewModel : NotifyPropertyChanged, IFilterableItem
+    public class EventFlagViewModel : NotifyPropertyChanged, IFilterableItem, ICloneable
     {
+        private readonly ILanguageManager? _languageManager = null!;
+
         public EventFlagViewModel(Enum eventFlag, ILanguageManager? languageManager)
         {
             EventFlag = eventFlag;
             Flag = Convert.ToUInt32(eventFlag);
+            _languageManager = languageManager;
 
-            if (languageManager?.Get(eventFlag) is EventFlag eventFlagLanguage)
+            if (_languageManager?.Get(eventFlag) is EventFlag eventFlagLanguage)
             {
                 Name = eventFlagLanguage.Name;
                 Description = eventFlagLanguage.Description;
                 Location = eventFlagLanguage.Location;
                 _filterValueCache = $"{Flag} {Name} {Description} {Location}";
             }
+        }
+
+        public object Clone()
+        {
+            return new EventFlagViewModel(EventFlag, _languageManager);
         }
 
         #region IFilterableItem

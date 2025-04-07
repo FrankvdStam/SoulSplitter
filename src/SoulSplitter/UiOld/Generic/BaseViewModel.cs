@@ -48,7 +48,7 @@ public class BaseViewModel : NotifyPropertyChanged
             switch (NewSplitType)
             {
                 case SplitType.Position:
-                    Position = new VectorSize() { Position = CurrentPosition.Clone() };
+                    Position = new VectorSize() { Position = (Vector3f)CurrentPosition.Clone() };
                     break;
 
                 case SplitType.Flag:
@@ -110,7 +110,7 @@ public class BaseViewModel : NotifyPropertyChanged
     {
         if (Position != null)
         {
-            Position.Position = CurrentPosition.Clone();
+            Position.Position = (Vector3f)CurrentPosition.Clone();
         }
     }
 

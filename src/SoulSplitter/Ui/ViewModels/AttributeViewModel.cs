@@ -21,8 +21,17 @@ using System.Runtime.CompilerServices;
 
 namespace SoulSplitter.Ui.ViewModels
 {
-    public class AttributeViewModel : NotifyPropertyChanged
+    public class AttributeViewModel : NotifyPropertyChanged, ICloneable
     {
+        public object Clone()
+        {
+            return new AttributeViewModel
+            {
+                Attribute = Attribute,
+                Level = Level
+            };
+        }
+
         public Enum Attribute
         {
             get => _attribute;

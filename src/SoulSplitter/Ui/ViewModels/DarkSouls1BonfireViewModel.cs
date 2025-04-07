@@ -14,34 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory;
 using System;
+using SoulMemory.Games.DarkSouls1;
 
 namespace SoulSplitter.Ui.ViewModels
 {
-    public class PositionViewModel : NotifyPropertyChanged, ICloneable
+    public class DarkSouls1BonfireViewModel : NotifyPropertyChanged, ICloneable
     {
         public object Clone()
         {
-            return new PositionViewModel
+            return new DarkSouls1BonfireViewModel
             {
-                Position = (Vector3f)Position.Clone(),
-                Size = Size
+                Bonfire = Bonfire,
+                BonfireState = BonfireState
             };
         }
-
-        public Vector3f Position
+        
+        public Bonfire Bonfire
         {
-            get => _position;
-            set => SetField(ref _position, value);
+            get => _bonfire;
+            set => SetField(ref _bonfire, value);
         }
-        private Vector3f _position = new(0, 0, 0);
+        private Bonfire _bonfire;
 
-        public float Size
+        public BonfireState BonfireState
         {
-            get => _size;
-            set => SetField(ref _size, value);
+            get => _bonfireState;
+            set => SetField(ref _bonfireState, value);
         }
-        private float _size = 5.0f;
+        private BonfireState _bonfireState;
     }
 }

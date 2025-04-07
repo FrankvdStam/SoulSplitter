@@ -18,6 +18,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Serialization;
+using SoulMemory;
 using SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
 using SoulSplitter.Ui.RelayCommand;
@@ -135,7 +136,7 @@ public class DarkSouls1ViewModel : BaseViewModel
                     break;
 
                 case SplitType.Position:
-                    Position = new VectorSize() { Position = CurrentPosition.Clone() };
+                    Position = new VectorSize() { Position = (Vector3f)CurrentPosition.Clone() };
                     break;
 
                 case SplitType.Flag:
