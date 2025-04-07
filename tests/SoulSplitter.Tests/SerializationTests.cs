@@ -5,6 +5,7 @@ using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.DependencyInjection;
 using SoulSplitter.Resources;
+using SoulSplitter.Ui;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 using SoulSplitter.Utils;
@@ -21,7 +22,7 @@ namespace SoulSplitter.Tests
 
             var serviceCollect = new ServiceCollection();
             serviceCollect.AddSingleton<ILanguageManager>(i => languageManagerMock.Object);
-            Extensions.ServiceProvider = serviceCollect.Build();
+            App.ServiceProvider = serviceCollect.Build();
 
             var mainViewModel = new MainViewModel();
             mainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 0, TimingType.Immediate, SplitType.Boss, Boss.HeadlessApe, "big boss"));

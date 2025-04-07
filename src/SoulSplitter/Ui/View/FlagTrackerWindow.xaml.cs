@@ -15,16 +15,29 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Windows;
+using SoulSplitter.UiOld.Generic;
 
-namespace SoulSplitter.UiOld;
+namespace SoulSplitter.Ui.View;
 
-/// <summary>
-/// Interaction logic for UserControl1.xaml
-/// </summary>
-public partial class ErrorWindow : Window
+public partial class FlagTrackerWindow : Window
 {
-    public ErrorWindow()
+    public FlagTrackerWindow()
     {
         InitializeComponent();
+    }
+
+    private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+        if (DataContext is FlagTrackerViewModel flagTrackerViewModel)
+        {
+            if (e.NewValue is FlagDescription flagDescription)
+            {
+                flagTrackerViewModel.SelectedFlagDescription = flagDescription;
+            }
+            else
+            {
+                flagTrackerViewModel.SelectedFlagDescription = null;
+            }
+        }
     }
 }

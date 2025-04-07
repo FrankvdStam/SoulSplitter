@@ -18,7 +18,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace SoulSplitter;
+namespace SoulSplitter.Utils;
 
 internal static class Logger
 {
@@ -32,7 +32,7 @@ internal static class Logger
 
     public static void Log(string message)
     {
-        if(!LoggingEnabled)
+        if (!LoggingEnabled)
         {
             return;
         }

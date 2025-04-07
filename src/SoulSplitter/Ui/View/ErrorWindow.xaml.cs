@@ -14,18 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using System.Windows;
 
-namespace SoulSplitter;
+namespace SoulSplitter.Ui.View;
 
-public static class VersionHelper
+/// <summary>
+/// Interaction logic for UserControl1.xaml
+/// </summary>
+public partial class ErrorWindow : Window
 {
-    public static Version Version
-    { 
-        get
-        {
-            var version = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            return new Version(version.FileMajorPart, version.FileMinorPart, version.FileBuildPart);
-        } 
+    public ErrorWindow()
+    {
+        InitializeComponent();
     }
 }

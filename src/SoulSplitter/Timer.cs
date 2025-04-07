@@ -22,6 +22,7 @@ using SoulMemory.Games.Sekiro;
 using SoulSplitter.Abstractions;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
+using SoulSplitter.Utils;
 
 namespace SoulSplitter
 {

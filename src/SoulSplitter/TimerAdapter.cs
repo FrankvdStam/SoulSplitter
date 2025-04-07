@@ -18,14 +18,9 @@ using LiveSplit.Model;
 using SoulMemory;
 using SoulSplitter.Abstractions;
 using System;
-using System.Runtime.CompilerServices;
 
 namespace SoulSplitter;
 
-public interface ITimerAdapter
-{
-    ResultErr<RefreshError> Update();
-}
 /// <summary>
 /// Adapter to connect the soulmemory timer with livesplit's interface
 /// </summary>

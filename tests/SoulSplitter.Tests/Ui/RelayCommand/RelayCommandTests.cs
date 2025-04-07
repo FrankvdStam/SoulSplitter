@@ -1,6 +1,4 @@
-﻿using System;
-using SoulSplitter.Ui.RelayCommand;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SoulSplitter.Tests.Ui.RelayCommand
 {

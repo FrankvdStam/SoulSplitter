@@ -18,12 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
-using SoulSplitter.UiOld.Generic;
 
-namespace SoulSplitter;
+namespace SoulSplitter.Utils;
 
 internal static class Extensions
 {
@@ -31,14 +29,14 @@ internal static class Extensions
     {
         if (string.IsNullOrWhiteSpace(xml))
         {
-            return default(T)!;
+            return default!;
         }
 
         var serializer = new XmlSerializer(typeof(T));
         using var reader = new StringReader(xml);
         return (T)serializer.Deserialize(reader);
     }
-    
+
 
     public static string SerializeXml(this object? obj)
     {
@@ -60,8 +58,6 @@ internal static class Extensions
         return stream.ToString();
     }
     
-    public static SoulSplitter.DependencyInjection.IServiceProvider ServiceProvider { get; set; } = null!;
-
     public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
     {
         foreach (var item in enumerable)

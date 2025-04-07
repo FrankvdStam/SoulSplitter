@@ -17,6 +17,7 @@
 using SoulSplitter.DependencyInjection;
 using SoulMemory.Enums;
 using SoulSplitter.Resources;
+using SoulSplitter.Utils;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel;
 
@@ -27,7 +28,7 @@ public partial class MainViewModel
     /// <summary>
     /// Parameterless constructor for serializing
     /// </summary>
-    public MainViewModel() : this(Extensions.ServiceProvider.GetService<ILanguageManager>())
+    public MainViewModel() : this(App.ServiceProvider.GetService<ILanguageManager>())
     {
 
     }

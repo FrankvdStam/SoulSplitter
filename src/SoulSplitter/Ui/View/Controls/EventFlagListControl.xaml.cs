@@ -25,6 +25,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SoulSplitter.Resources;
 using SoulSplitter.Ui.ViewModels;
+using SoulSplitter.Utils;
 
 namespace SoulSplitter.Ui.View.Controls
 {

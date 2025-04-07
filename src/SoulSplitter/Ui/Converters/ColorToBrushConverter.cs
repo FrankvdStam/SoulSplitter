@@ -14,33 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
+using System;
+using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Media;
 
-namespace SoulSplitter.Utils;
+namespace SoulSplitter.Ui.Converters;
 
-public static class Serialization
+public class ColorToBrushConverter : IValueConverter
 {
-    public static string SerializeXml<T>(T t, XmlWriterSettings? xmlWriterSettings = null)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        xmlWriterSettings ??= new XmlWriterSettings
+        if (value is Color color)
         {
-            Indent = true,
-            OmitXmlDeclaration = true
-        };
+            return new SolidColorBrush(color);
+        }
 
-        using var stringWriter = new StringWriter();
-        using var writer = XmlWriter.Create(stringWriter, xmlWriterSettings);
-        var serializer = new XmlSerializer(t!.GetType());
-        serializer.Serialize(writer, t);
-        return stringWriter.ToString();
+        throw new NotSupportedException($"Type not supported {targetType}");
     }
 
-    public static T DeserializeXml<T>(string s)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        using var reader = new StringReader(s);
-        var serializer = new XmlSerializer(typeof(T));
-        return (T)serializer.Deserialize(reader);
+        throw new NotImplementedException();
     }
 }

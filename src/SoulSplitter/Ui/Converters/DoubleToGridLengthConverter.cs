@@ -17,17 +17,16 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using System.Windows.Media;
 
-namespace SoulSplitter.UiOld.Converters;
+namespace SoulSplitter.Ui.Converters;
 
-public class ColorToBrushConverter : IValueConverter
+public class DoubleToGridLengthConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is Color color)
+        if (value is double d)
         {
-            return new SolidColorBrush(color);
+            return new System.Windows.GridLength(d);
         }
 
         throw new NotSupportedException($"Type not supported {targetType}");
@@ -35,6 +34,11 @@ public class ColorToBrushConverter : IValueConverter
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        throw new NotImplementedException();
+        if (value is System.Windows.GridLength g)
+        {
+            return g.Value;
+        }
+
+        throw new NotSupportedException($"Type not supported {targetType}");
     }
 }

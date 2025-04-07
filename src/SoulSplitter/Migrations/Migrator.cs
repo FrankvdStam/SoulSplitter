@@ -22,6 +22,7 @@ using System.Xml;
 using SoulMemory;
 using SoulSplitter.UiOld.DarkSouls3;
 using SoulSplitter.UiOld.Generic;
+using SoulSplitter.Utils;
 
 namespace SoulSplitter.Migrations;
 

@@ -14,7 +14,7 @@
      You should have received a copy of the GNU General Public License
      along with this program. If not, see<http://www.gnu.org/licenses/> .  -->
 
-<Application x:Class="SoulSplitter.UiV3.App"
+<Application x:Class="SoulSplitter.Ui.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">

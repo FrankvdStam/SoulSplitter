@@ -33,7 +33,6 @@ using SoulSplitter.UiOld.Generic;
 using SplitType = SoulSplitter.UiOld.Generic.SplitType;
 using TimingType = SoulSplitter.UiOld.Generic.TimingType;
 using SoulMemory.Abstractions;
-using SoulSplitter.UiV3;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Utils;
 using SoulMemory.Games.Sekiro;
@@ -180,7 +179,7 @@ namespace cli
 
         public static void TestUi(bool withTestData = true)
         {
-            var app = new SoulSplitter.UiV3.App();
+            var app = new SoulSplitter.Ui.App();
             app.InitializeComponent();
 
             var mainWindow = new MainWindow();

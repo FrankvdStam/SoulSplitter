@@ -17,16 +17,17 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Media;
 
-namespace SoulSplitter.UiOld.Converters;
+namespace SoulSplitter.Ui.Converters;
 
-public class DoubleToGridLengthConverter : IValueConverter
+public class ColorToHexTextConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if(value is double d)
+        if (value is Color color)
         {
-            return new System.Windows.GridLength(d);
+            return "#" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
         }
 
         throw new NotSupportedException($"Type not supported {targetType}");
@@ -34,9 +35,20 @@ public class DoubleToGridLengthConverter : IValueConverter
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is System.Windows.GridLength g)
+        if (value is string hex)
         {
-            return g.Value;
+            try
+            {
+                var rgb = System.Convert.ToInt32(hex.Remove(0, 1), 16);
+                var r = (byte)((rgb & 0xff0000) >> 16);
+                var g = (byte)((rgb & 0xff00) >> 8);
+                var b = (byte)(rgb & 0xff);
+                return Color.FromRgb(r, g, b);
+            }
+            catch
+            {
+                throw new ArgumentException($"{hex} is not a valid RGB hex");
+            }
         }
 
         throw new NotSupportedException($"Type not supported {targetType}");

@@ -14,26 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Globalization;
-using System.Windows.Data;
+using SoulMemory;
 
-namespace SoulSplitter.UiOld.Converters;
+namespace SoulSplitter.Abstractions;
 
-public class EnumValueEnumParameterConverter : IValueConverter
+public interface ITimerAdapter
 {
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        if (value is Enum valueEnum && parameter is Enum valueParameter && valueEnum.GetType() == valueParameter.GetType())
-        {
-            return valueEnum.Equals(valueParameter);
-        }
-
-        return false;
-    }
-
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        return parameter!;
-    }
+    ResultErr<RefreshError> Update();
 }

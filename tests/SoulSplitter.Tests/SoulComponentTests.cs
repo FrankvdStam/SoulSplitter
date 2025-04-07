@@ -23,6 +23,7 @@ using SoulMemory;
 using SoulSplitter.Net6.Tests;
 using SoulSplitter.UiOld;
 using SoulSplitter.UiOld.Generic;
+using SoulSplitter.Utils;
 
 namespace SoulSplitter.Tests
 {

@@ -33,7 +33,7 @@ using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Migrations;
 using SoulMemory.Abstractions;
-using SoulSplitter.UiV3;
+using SoulSplitter.Ui;
 using SoulSplitter.Utils;
 
 namespace SoulSplitter;
@@ -64,7 +64,7 @@ public class SoulComponent : IComponent
 
         if (App.Current == null)
         {
-            App a = new App();
+            var _ = new App();
         }
 
         InitTimerAdapter(state, timerAdapter);

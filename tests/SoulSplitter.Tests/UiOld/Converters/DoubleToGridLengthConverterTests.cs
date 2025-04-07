@@ -17,7 +17,7 @@
 using System;
 using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulSplitter.UiOld.Converters;
+using SoulSplitter.Ui.Converters;
 
 namespace SoulSplitter.Tests.UI.Converters
 {

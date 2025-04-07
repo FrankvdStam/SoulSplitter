@@ -17,6 +17,7 @@
 using System;
 using System.Windows.Media;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SoulSplitter.Ui.Converters;
 using SoulSplitter.UiOld.Converters;
 
 namespace SoulSplitter.Tests.UI.Converters

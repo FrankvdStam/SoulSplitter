@@ -21,8 +21,10 @@ using SoulSplitter.DependencyInjection;
 using SoulMemory.Enums;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
+using SoulSplitter.Utils;
+using Extensions = SoulSplitter.Utils.Extensions;
 
-namespace SoulSplitter.UiV3;
+namespace SoulSplitter.Ui;
 
 /// <summary>
 /// Interaction logic for App.xaml
@@ -30,16 +32,18 @@ namespace SoulSplitter.UiV3;
 [ExcludeFromCodeCoverage]
 public partial class App : Application
 {
+    public static DependencyInjection.IServiceProvider ServiceProvider { get; set; } = null!;
+
     public App()
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddSingleton<ILanguageManager, LanguageManager>();
         serviceCollection.AddSingleton<MainViewModel>();
-        Extensions.ServiceProvider = serviceCollection.Build();
+        ServiceProvider = serviceCollection.Build();
 
-        Extensions.ServiceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
-        ServiceProviderSource.Resolver = (type) => Extensions.ServiceProvider.GetService(type);
-        MainWindow = new SoulSplitter.Ui.View.MainWindow(Extensions.ServiceProvider.GetService<MainViewModel>());
+        ServiceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
+        ServiceProviderSource.Resolver = (type) => ServiceProvider.GetService(type);
+        MainWindow = new SoulSplitter.Ui.View.MainWindow(ServiceProvider.GetService<MainViewModel>());
     }
 
     public void ShowMainWindow()

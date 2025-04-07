@@ -28,13 +28,14 @@ using SoulMemory;
 using SoulMemory.Enums;
 using SoulSplitter.soulmemory_rs;
 using SoulSplitter.Ui.RelayCommand;
+using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.DarkSouls1;
 using SoulSplitter.UiOld.DarkSouls2;
 using SoulSplitter.UiOld.DarkSouls3;
 using SoulSplitter.UiOld.EldenRing;
 using SoulSplitter.UiOld.Generic;
-using SoulSplitter.UiV3;
+using SoulSplitter.Utils;
 using SoulSplitter.ViewModels.Games;
 using Brush = System.Windows.Media.Brush;
 

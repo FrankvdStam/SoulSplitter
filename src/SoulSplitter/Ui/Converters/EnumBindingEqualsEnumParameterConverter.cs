@@ -17,40 +17,23 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using System.Windows.Media;
 
-namespace SoulSplitter.UiOld.Converters;
+namespace SoulSplitter.Ui.Converters;
 
-public class ColorToHexTextConverter : IValueConverter
+public class EnumBindingEqualsEnumParameterConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is Color color)
+        if (value is Enum valueEnum && parameter is Enum valueParameter && valueEnum.GetType() == valueParameter.GetType())
         {
-            return "#" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
+            return valueEnum.Equals(valueParameter);
         }
 
-        throw new NotSupportedException($"Type not supported {targetType}");
+        return false;
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is string hex)
-        {
-            try
-            {
-                var rgb = System.Convert.ToInt32(hex.Remove(0, 1), 16);
-                var r = (byte)((rgb & 0xff0000) >> 16);
-                var g = (byte)((rgb & 0xff00) >> 8);
-                var b = (byte)(rgb & 0xff);
-                return Color.FromRgb(r, g, b);
-            }
-            catch
-            {
-                throw new ArgumentException($"{hex} is not a valid RGB hex");
-            }
-        }
-
-        throw new NotSupportedException($"Type not supported {targetType}");
+        return parameter!;
     }
 }

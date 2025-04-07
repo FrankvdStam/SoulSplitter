@@ -14,30 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Windows;
-using SoulSplitter.UiOld.Generic;
+using System;
 
-namespace SoulSplitter.UiOld;
+namespace SoulSplitter.Utils;
 
-public partial class FlagTrackerWindow : Window
+public static class VersionHelper
 {
-    public FlagTrackerWindow()
+    public static Version Version
     {
-        InitializeComponent();
-    }
-
-    private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-    {
-        if (DataContext is FlagTrackerViewModel flagTrackerViewModel)
+        get
         {
-            if (e.NewValue is FlagDescription flagDescription)
-            {
-                flagTrackerViewModel.SelectedFlagDescription = flagDescription;
-            }
-            else
-            {
-                flagTrackerViewModel.SelectedFlagDescription = null;
-            }
+            var version = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            return new Version(version.FileMajorPart, version.FileMinorPart, version.FileBuildPart);
         }
     }
 }

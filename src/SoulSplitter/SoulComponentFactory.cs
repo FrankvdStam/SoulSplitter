@@ -21,6 +21,7 @@ using System.Runtime.CompilerServices;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
 using SoulSplitter;
+using SoulSplitter.Utils;
 
 
 [assembly: InternalsVisibleTo("SoulSplitter.Tests")]
