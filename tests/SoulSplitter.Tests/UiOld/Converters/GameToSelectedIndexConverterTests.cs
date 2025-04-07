@@ -18,7 +18,6 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SoulMemory.Enums;
 using SoulSplitter.Ui.Converters;
-using SoulSplitter.UiOld.Converters;
 
 namespace SoulSplitter.Tests.UI.Converters
 {

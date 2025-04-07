@@ -22,7 +22,6 @@
         xmlns:ui="clr-namespace:SoulSplitter.UiOld"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:converters="clr-namespace:SoulSplitter.UiOld.Converters"
         xmlns:converters1="clr-namespace:SoulSplitter.Ui.Converters"
         Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
         Icon="../soulsplitter.ico"

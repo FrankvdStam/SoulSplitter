@@ -16,11 +16,10 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulSplitter.UiOld.Converters;
 using System.Windows.Media;
 using SoulSplitter.Ui.Converters;
 
-namespace SoulSplitter.Tests.UI.Converters
+namespace SoulSplitter.Tests.Ui.Converters
 {
     [TestClass]
     public class ColorToBrushConverterTests
@@ -52,7 +51,7 @@ namespace SoulSplitter.Tests.UI.Converters
         [TestMethod]
         public void ConvertBack_Exception()
         {
-            var converter = new BoolToVisibilityConverter();
+            var converter = new ColorToBrushConverter();
             Assert.ThrowsException<NotSupportedException>(() => converter.ConvertBack(new SolidColorBrush(), null!, null, null!));
         }
     }
