@@ -17,6 +17,7 @@
 using SoulMemory.Abstractions;
 using System;
 using SoulMemory;
+using SoulMemory.Abstractions.Games;
 using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Abstractions;
@@ -143,7 +144,6 @@ namespace SoulSplitter
             switch (split.SplitType)
             {
                 case SplitType.DarkSouls1Item:
-                case SplitType.EldenRingPosition:
                 case SplitType.DarkSouls1Bonfire:
                     throw new ArgumentException($"Unsupported split type {split.SplitType}.");
 
@@ -186,6 +186,33 @@ namespace SoulSplitter
 
                         positionViewModel.Position.Z + positionViewModel.Size > position.Z &&
                         positionViewModel.Position.Z - positionViewModel.Size < position.Z)
+                    {
+                        split.SplitConditionMet = true;
+                    }
+                    break;
+
+                case SplitType.EldenRingPosition:
+                    if (_game is not IEldenRing eldenRing)
+                    {
+                        throw new ArgumentException($"Unsupported split type {split.SplitType}. {_game} does not implement {nameof(IEldenRing)}");
+                    }
+
+                    var vm = (EldenRingPositionViewModel)split.Split;
+                    var currentPosition = eldenRing.GetPosition();
+                    if (
+                        vm.Position.Area == currentPosition.Area &&
+                        vm.Position.Block == currentPosition.Block &&
+                        vm.Position.Region == currentPosition.Region &&
+                        vm.Position.Size == currentPosition.Size &&
+
+                        currentPosition.X + vm.Size > vm.Position.X &&
+                        currentPosition.X - vm.Size < vm.Position.X &&
+
+                        currentPosition.Y + vm.Size > vm.Position.Y &&
+                        currentPosition.Y - vm.Size < vm.Position.Y &&
+
+                        currentPosition.Z + vm.Size > vm.Position.Z &&
+                        currentPosition.Z - vm.Size < vm.Position.Z)
                     {
                         split.SplitConditionMet = true;
                     }

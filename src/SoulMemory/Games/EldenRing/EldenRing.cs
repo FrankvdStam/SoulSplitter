@@ -19,13 +19,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using SoulMemory.Abstractions;
+using SoulMemory.Abstractions.Games;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.Games.EldenRing;
 
-public class EldenRing : IGame, IBlackscreenRemovable, IReadNewGameLevel
+public class EldenRing : IGame, IEldenRing, IBlackscreenRemovable, IReadNewGameLevel
 {
     private Process? _process;
 
