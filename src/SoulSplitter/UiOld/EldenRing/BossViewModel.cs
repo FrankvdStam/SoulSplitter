@@ -17,11 +17,12 @@
 using System.ComponentModel;
 using SoulMemory.Games.EldenRing;
 using SoulMemory.Memory;
+using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.UiOld.EldenRing;
 
-public class BossViewModel : ICustomNotifyPropertyChanged
+public class BossViewModel : NotifyPropertyChanged
 {
     public BossViewModel(Boss b)
     {
@@ -39,39 +40,28 @@ public class BossViewModel : ICustomNotifyPropertyChanged
     public Boss Boss
     {
         get => _boss;
-        set => this.SetField(ref _boss, value);
+        set => SetField(ref _boss, value);
     }
     private Boss _boss;
 
     public string Area
     {
         get => _area;
-        set => this.SetField(ref _area, value);
+        set => SetField(ref _area, value);
     }
     private string _area = null!;
 
     public string Name
     {
         get => _name;
-        set => this.SetField(ref _name, value);
+        set => SetField(ref _name, value);
     }
     private string _name = null!;
 
     public uint Flag
     {
         get => _flag;
-        set => this.SetField(ref _flag, value);
+        set => SetField(ref _flag, value);
     }
     private uint _flag;
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

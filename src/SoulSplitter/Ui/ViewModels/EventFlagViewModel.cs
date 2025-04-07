@@ -26,7 +26,7 @@ namespace SoulSplitter.Ui.ViewModels
     /// <summary>
     /// Internally used to represent an even flag with language strings resolved and cached for searching
     /// </summary>
-    public class EventFlagViewModel : INotifyPropertyChanged, IFilterableItem
+    public class EventFlagViewModel : NotifyPropertyChanged, IFilterableItem
     {
         public EventFlagViewModel(Enum eventFlag, ILanguageManager? languageManager)
         {
@@ -84,23 +84,5 @@ namespace SoulSplitter.Ui.ViewModels
             set => SetField(ref _eventFlag, value);
         }
         private Enum _eventFlag = null!;
-
-        #region INotifyPropertyChanged
-        private bool SetField<TField>(ref TField field, TField value, [CallerMemberName] string? propertyName = null)
-        {
-            if (EqualityComparer<TField>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
-        #endregion
     }
 }

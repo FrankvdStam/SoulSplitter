@@ -17,25 +17,26 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 using SoulMemory.Games.DarkSouls2;
+using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.Splits.DarkSouls2;
 
 [XmlType(Namespace = "DarkSouls2")]
-public class BossKill : ICustomNotifyPropertyChanged
+public class BossKill : NotifyPropertyChanged
 {
     [XmlElement(Namespace = "DarkSouls2")]
     public BossType BossType
     {
         get => _bossType;
-        set => this.SetField(ref _bossType, value);
+        set => SetField(ref _bossType, value);
     }
     private BossType _bossType;
 
     public int Count
     {
         get => _count;
-        set => this.SetField(ref _count, value);
+        set => SetField(ref _count, value);
     }
     private int _count = 1;
 
@@ -43,15 +44,4 @@ public class BossKill : ICustomNotifyPropertyChanged
     {
         return $"{BossType} {Count}";
     }
-    
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

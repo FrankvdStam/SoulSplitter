@@ -21,11 +21,12 @@ using System.Linq;
 using System.Xml.Serialization;
 using SoulMemory.Games.EldenRing;
 using SoulSplitter.Splits.EldenRing;
+using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.UiOld.EldenRing;
 
-public class EldenRingViewModel : ICustomNotifyPropertyChanged
+public class EldenRingViewModel : NotifyPropertyChanged
 {
     public EldenRingViewModel()
     {
@@ -34,14 +35,14 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool StartAutomatically
     {
         get => _startAutomatically;
-        set => this.SetField(ref _startAutomatically, value);
+        set => SetField(ref _startAutomatically, value);
     }
     private bool _startAutomatically = true;
 
     public bool LockIgtToZero
     {
         get => _lockIgtToZero;
-        set => this.SetField(ref _lockIgtToZero, value);
+        set => SetField(ref _lockIgtToZero, value);
     }
     private bool _lockIgtToZero;
 
@@ -49,7 +50,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public PositionViewModel CurrentPosition
     {
         get => _currentPosition;
-        set => this.SetField(ref _currentPosition, value);
+        set => SetField(ref _currentPosition, value);
     }
     private PositionViewModel _currentPosition = new();
 
@@ -62,7 +63,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _newSplitTimingType;
         set
         {
-            this.SetField(ref _newSplitTimingType, value);
+            SetField(ref _newSplitTimingType, value);
             EnabledSplitType = NewSplitTimingType.HasValue;
         }
     }
@@ -72,7 +73,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool EnabledSplitType
     {
         get => _enabledSplitType;
-        set => this.SetField(ref _enabledSplitType, value);
+        set => SetField(ref _enabledSplitType, value);
     }
     private bool _enabledSplitType;
 
@@ -82,7 +83,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _newSplitType;
         set
         {
-            this.SetField(ref _newSplitType, value);
+            SetField(ref _newSplitType, value);
 
             EnabledAddSplit = false;
             VisibleBossSplit = false;
@@ -141,7 +142,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _newSplitBoss;
         set
         {
-            this.SetField(ref _newSplitBoss, value);
+            SetField(ref _newSplitBoss, value);
             EnabledAddSplit = NewSplitBoss.HasValue;
         }
     }
@@ -151,7 +152,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool VisibleBossSplit
     {
         get => _visibleBossSplit;
-        set => this.SetField(ref _visibleBossSplit, value);
+        set => SetField(ref _visibleBossSplit, value);
     }
     private bool _visibleBossSplit;
 
@@ -161,7 +162,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _newSplitGrace;
         set
         {
-            this.SetField(ref _newSplitGrace, value);
+            SetField(ref _newSplitGrace, value);
             EnabledAddSplit = NewSplitGrace.HasValue;
         }
     }
@@ -171,7 +172,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool VisibleGraceSplit
     {
         get => _visibleGraceSplit;
-        set => this.SetField(ref _visibleGraceSplit, value);
+        set => SetField(ref _visibleGraceSplit, value);
     }
     private bool _visibleGraceSplit;
 
@@ -181,7 +182,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _newSplitFlag;
         set
         {
-            this.SetField(ref _newSplitFlag, value);
+            SetField(ref _newSplitFlag, value);
             EnabledAddSplit = NewSplitFlag.HasValue;
         }
     }
@@ -191,7 +192,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool VisibleFlagSplit
     {
         get => _visibleFlagSplit;
-        set => this.SetField(ref _visibleFlagSplit, value);
+        set => SetField(ref _visibleFlagSplit, value);
     }
     private bool _visibleFlagSplit;
 
@@ -201,7 +202,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _newSplitItem;
         set
         {
-            this.SetField(ref _newSplitItem, value);
+            SetField(ref _newSplitItem, value);
             EnabledAddSplit = NewSplitItem != null;
         }
     }
@@ -211,7 +212,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool VisibleItemSplit
     {
         get => _visibleItemSplit;
-        set => this.SetField(ref _visibleItemSplit, value);
+        set => SetField(ref _visibleItemSplit, value);
     }
     private bool _visibleItemSplit;
 
@@ -221,7 +222,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _newSplitPosition;
         set
         {
-            this.SetField(ref _newSplitPosition, value);
+            SetField(ref _newSplitPosition, value);
             EnabledAddSplit = _newSplitPosition != null;
         }
     }
@@ -231,7 +232,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool VisiblePositionSplit
     {
         get => _visiblePositionSplit;
-        set => this.SetField(ref _visiblePositionSplit, value);
+        set => SetField(ref _visiblePositionSplit, value);
     }
     private bool _visiblePositionSplit;
 
@@ -239,7 +240,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool VisibleItemPickupSplit
     {
         get => _visibleItemPickupSplit;
-        set => this.SetField(ref _visibleItemPickupSplit, value);
+        set => SetField(ref _visibleItemPickupSplit, value);
     }
     private bool _visibleItemPickupSplit;
 
@@ -249,7 +250,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _newSplitItemPickup;
         set
         {
-            this.SetField(ref _newSplitItemPickup, value);
+            SetField(ref _newSplitItemPickup, value);
             EnabledAddSplit = NewSplitItemPickup.HasValue;
         }
     }
@@ -259,7 +260,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool VisibleKnownFlagSplit
     {
         get => _visibleKnownFlagSplit;
-        set => this.SetField(ref _visibleKnownFlagSplit, value);
+        set => SetField(ref _visibleKnownFlagSplit, value);
     }
     private bool _visibleKnownFlagSplit;
 
@@ -269,7 +270,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _newSplitKnownFlag;
         set
         {
-            this.SetField(ref _newSplitKnownFlag, value);
+            SetField(ref _newSplitKnownFlag, value);
             EnabledAddSplit = NewSplitKnownFlag.HasValue;
         }
     }
@@ -280,7 +281,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool EnabledAddSplit
     {
         get => _enabledAddSplit;
-        set => this.SetField(ref _enabledAddSplit, value);
+        set => SetField(ref _enabledAddSplit, value);
     }
     private bool _enabledAddSplit;
 
@@ -382,7 +383,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public bool EnabledRemoveSplit
     {
         get => _enabledRemoveSplit;
-        set => this.SetField(ref _enabledRemoveSplit, value);
+        set => SetField(ref _enabledRemoveSplit, value);
     }
     private bool _enabledRemoveSplit;
 
@@ -391,7 +392,7 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
         get => _selectedSplit;
         set
         {
-            this.SetField(ref _selectedSplit, value);
+            SetField(ref _selectedSplit, value);
             EnabledRemoveSplit = SelectedSplit != null;
         }
     }
@@ -448,21 +449,9 @@ public class EldenRingViewModel : ICustomNotifyPropertyChanged
     public static ObservableCollection<GraceViewModel> Graces { get; } = new(Enum.GetValues(typeof(Grace)).Cast<Grace>().Select(i => new GraceViewModel(i)));
     public static ObservableCollection<ItemPickupViewModel> ItemPickups { get; } = new(Enum.GetValues(typeof(ItemPickup)).Cast<ItemPickup>().Select(i => new ItemPickupViewModel(i)));
     public static ObservableCollection<KnownFlagViewModel> KnownFlags { get; } = new(Enum.GetValues(typeof(KnownFlag)).Cast<KnownFlag>().Select(i => new KnownFlagViewModel(i)));
-
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }
 
-public class ItemViewModel : ICustomNotifyPropertyChanged
+public class ItemViewModel : NotifyPropertyChanged
 {
     public override string ToString()
     {
@@ -481,21 +470,21 @@ public class ItemViewModel : ICustomNotifyPropertyChanged
     public Item Item
     {
         get => _item;
-        set => this.SetField(ref _item, value);
+        set => SetField(ref _item, value);
     }
     private Item _item = null!;
 
     public Category Category
     {
         get => _category;
-        set => this.SetField(ref _category, value);
+        set => SetField(ref _category, value);
     }
     private Category _category;
 
     public string GroupName
     {
         get => _groupName;
-        set => this.SetField(ref _groupName, value);
+        set => SetField(ref _groupName, value);
     }
     private string _groupName = null!;
 
@@ -503,28 +492,14 @@ public class ItemViewModel : ICustomNotifyPropertyChanged
     public string Name
     {
         get => _name;
-        set => this.SetField(ref _name, value);
+        set => SetField(ref _name, value);
     }
     private string _name = null!;
 
     public uint Id
     {
         get => _id;
-        set => this.SetField(ref _id, value);
+        set => SetField(ref _id, value);
     }
     private uint _id;
-
-
-
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

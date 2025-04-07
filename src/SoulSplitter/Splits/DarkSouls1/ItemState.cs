@@ -18,17 +18,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 using SoulMemory.Games.DarkSouls1;
+using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.Splits.DarkSouls1;
 
 [XmlType(Namespace = "DarkSouls1")]
-public class ItemState : ICustomNotifyPropertyChanged
+public class ItemState : NotifyPropertyChanged
 {
     public ItemType? ItemType
     {
         get => _itemType;
-        set => this.SetField(ref _itemType, value);
+        set => SetField(ref _itemType, value);
     }
     private ItemType? _itemType;
 
@@ -38,15 +39,4 @@ public class ItemState : ICustomNotifyPropertyChanged
     {
         return $"{ItemString}";
     }
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

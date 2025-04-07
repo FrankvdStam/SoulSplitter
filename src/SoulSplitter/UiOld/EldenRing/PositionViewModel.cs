@@ -16,11 +16,12 @@
 
 using System.ComponentModel;
 using SoulMemory.Games.EldenRing;
+using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.UiOld.EldenRing;
 
-public class PositionViewModel : ICustomNotifyPropertyChanged
+public class PositionViewModel : NotifyPropertyChanged
 {
     
     public readonly Position Position = new();
@@ -29,44 +30,44 @@ public class PositionViewModel : ICustomNotifyPropertyChanged
     public byte Area
     {
         get => Position.Area;
-        set => this.SetField(ref Position.Area, value);
+        set => SetField(ref Position.Area, value);
     }
 
     public byte Block
     {
         get => Position.Block;
-        set => this.SetField(ref Position.Block, value);
+        set => SetField(ref Position.Block, value);
     }
 
     public byte Region
     {
         get => Position.Region;
-        set => this.SetField(ref Position.Region, value);
+        set => SetField(ref Position.Region, value);
     }
 
     public byte Size
     {
         get => Position.Size;
-        set => this.SetField(ref Position.Size, value);
+        set => SetField(ref Position.Size, value);
     }
 
 
     public float X
     {
         get => Position.X;
-        set => this.SetField(ref Position.X, value);
+        set => SetField(ref Position.X, value);
     }
 
     public float Y
     {
         get => Position.Y;
-        set => this.SetField(ref Position.Y, value);
+        set => SetField(ref Position.Y, value);
     }
 
     public float Z
     {
         get => Position.Z;
-        set => this.SetField(ref Position.Z, value);
+        set => SetField(ref Position.Z, value);
     }
 
     
@@ -74,16 +75,4 @@ public class PositionViewModel : ICustomNotifyPropertyChanged
     {
         return Position.ToString();
     }
-
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

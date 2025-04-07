@@ -19,10 +19,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using SoulMemory.Memory;
+using SoulSplitter.Ui.ViewModels;
 
 namespace SoulSplitter.UiOld.Generic;
 
-public class EnumFlagViewModel<T> : ICustomNotifyPropertyChanged where T : Enum
+public class EnumFlagViewModel<T> : NotifyPropertyChanged where T : Enum
 {
     public EnumFlagViewModel(T tEnum)
     {
@@ -35,28 +36,28 @@ public class EnumFlagViewModel<T> : ICustomNotifyPropertyChanged where T : Enum
     public T Value
     {
         get => _value;
-        set => this.SetField(ref _value, value);
+        set => SetField(ref _value, value);
     }
     private T _value = default!;
 
     public string Area
     {
         get => _area;
-        set => this.SetField(ref _area, value);
+        set => SetField(ref _area, value);
     }
     private string _area = null!;
 
     public string Name
     {
         get => _name;
-        set => this.SetField(ref _name, value);
+        set => SetField(ref _name, value);
     }
     private string _name = null!;
 
     public uint Flag
     {
         get => _flag;
-        set => this.SetField(ref _flag, value);
+        set => SetField(ref _flag, value);
     }
     private uint _flag;
 
@@ -67,17 +68,6 @@ public class EnumFlagViewModel<T> : ICustomNotifyPropertyChanged where T : Enum
     {
         return Name;
     }
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 
     public static ObservableCollection<EnumFlagViewModel<T>> GetEnumViewModels()
     {

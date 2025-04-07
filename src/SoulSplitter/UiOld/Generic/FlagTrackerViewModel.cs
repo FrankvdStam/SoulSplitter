@@ -17,19 +17,20 @@
 using SoulMemory.Abstractions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
 using System.Xml.Serialization;
+using SoulSplitter.Ui.RelayCommand;
+using SoulSplitter.Ui.ViewModels;
 
 namespace SoulSplitter.UiOld.Generic;
 
-public class FlagTrackerCategoryViewModel : ICustomNotifyPropertyChanged
+public class FlagTrackerCategoryViewModel : NotifyPropertyChanged
 {
     public string CategoryName
     {
         get => _categoryName;
-        set => this.SetField(ref _categoryName, value);
+        set => SetField(ref _categoryName, value);
     }
     private string _categoryName = null!;
     
@@ -37,25 +38,14 @@ public class FlagTrackerCategoryViewModel : ICustomNotifyPropertyChanged
     public string Progress
     {
         get => _progress;
-        set => this.SetField(ref _progress, value);
+        set => SetField(ref _progress, value);
     }
     private string _progress = null!;
 
     public ObservableCollection<FlagDescription> EventFlags { get; set; } = [];
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }
 
-public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
+public class FlagTrackerViewModel : NotifyPropertyChanged
 {
     public FlagTrackerViewModel()
     {
@@ -243,7 +233,7 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
     public EventFlagTrackerDisplayMode DisplayMode
     {
         get => _displayMode;
-        set => this.SetField(ref _displayMode, value);
+        set => SetField(ref _displayMode, value);
     }
     private EventFlagTrackerDisplayMode _displayMode = EventFlagTrackerDisplayMode.Percentage;
 
@@ -253,70 +243,70 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
     public string Progress
     {
         get => _progress;
-        set => this.SetField(ref _progress, value);
+        set => SetField(ref _progress, value);
     }
     private string _progress = null!;
     
     public double WindowWidth
     {
         get => _windowWidth;
-        set => this.SetField(ref _windowWidth, value);
+        set => SetField(ref _windowWidth, value);
     }
     private double _windowWidth = 800;
 
     public double WindowHeight
     {
         get => _windowHeight;
-        set => this.SetField(ref _windowHeight, value);
+        set => SetField(ref _windowHeight, value);
     }
     private double _windowHeight = 600;
 
     public double InputColumnWidth
     {
         get => _inputColumnWidth;
-        set => this.SetField(ref _inputColumnWidth, value);
+        set => SetField(ref _inputColumnWidth, value);
     }
     private double _inputColumnWidth = 400;
 
     public double CategoryPercentagesRowHeight
     {
         get => _categoryPercentagesRowHeight;
-        set => this.SetField(ref _categoryPercentagesRowHeight, value);
+        set => SetField(ref _categoryPercentagesRowHeight, value);
     }
     private double _categoryPercentagesRowHeight = 300;
 
     public double CategoryPercentageFontSize
     {
         get => _categoryPercentageFontSize;
-        set => this.SetField(ref _categoryPercentageFontSize, value);
+        set => SetField(ref _categoryPercentageFontSize, value);
     }
     private double _categoryPercentageFontSize = 30.0;
 
     public int TotalPercentageFontSize
     {
         get => _totalPercentageFontSize;
-        set => this.SetField(ref _totalPercentageFontSize, value);
+        set => SetField(ref _totalPercentageFontSize, value);
     }
     private int _totalPercentageFontSize = 60;
 
     public Color BackgroundColor
     {
         get => _backgroundColor;
-        set => this.SetField(ref _backgroundColor, value);
+        set => SetField(ref _backgroundColor, value);
     }
     private Color _backgroundColor = Colors.White;
 
     public Color TextColor
     {
         get => _textColor;
-        set => this.SetField(ref _textColor, value);
+        set => SetField(ref _textColor, value);
     }
     private Color _textColor = Colors.Black;
 
     public int FlagsPerFrame
     {
         get => _flagsPerFrame;
-        set => this.SetField(ref _flagsPerFrame, value);
+        set => SetField(ref _flagsPerFrame, value);
     }
     private int _flagsPerFrame = 10;
 
@@ -328,7 +318,7 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
     public string CategoryName
     {
         get => _categoryName;
-        set => this.SetField(ref _categoryName, value);
+        set => SetField(ref _categoryName, value);
     }
     private string _categoryName = null!;
 
@@ -336,7 +326,7 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
     public FlagDescription FlagDescription
     {
         get => _flagDescription;
-        set => this.SetField(ref _flagDescription, value);
+        set => SetField(ref _flagDescription, value);
     }
     private FlagDescription _flagDescription = new();
 
@@ -344,7 +334,7 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
     public FlagDescription? SelectedFlagDescription
     {
         get => _selectedFlagDescription;
-        set => this.SetField(ref _selectedFlagDescription, value);
+        set => SetField(ref _selectedFlagDescription, value);
     }
     private FlagDescription? _selectedFlagDescription;
 
@@ -355,18 +345,6 @@ public class FlagTrackerViewModel : ICustomNotifyPropertyChanged
     public RelayCommand CommandRemoveEventFlag { get; }
 
     #endregion
-
-    #endregion
-
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 
     #endregion
 }

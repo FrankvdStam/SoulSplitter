@@ -20,37 +20,27 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using SoulMemory;
 using SoulSplitter.Splits.DarkSouls2;
+using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.Generic;
 using Attribute = SoulSplitter.Splits.DarkSouls2.Attribute;
 
 namespace SoulSplitter.UiOld.DarkSouls2;
 
 [XmlType(Namespace = "DarkSouls2")]
-public class HierarchicalTimingTypeViewModel : ICustomNotifyPropertyChanged
+public class HierarchicalTimingTypeViewModel : NotifyPropertyChanged
 {
     public TimingType TimingType
     {
         get => _timingType;
-        set => this.SetField(ref _timingType, value);
+        set => SetField(ref _timingType, value);
     }
     private TimingType _timingType;
     
     public ObservableCollection<HierarchicalSplitTypeViewModel> Children { get; set; } = [];
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }
 
 [XmlType(Namespace = "DarkSouls2")]
-public class HierarchicalSplitTypeViewModel : ICustomNotifyPropertyChanged
+public class HierarchicalSplitTypeViewModel : NotifyPropertyChanged
 {
     [XmlIgnore]
     [NonSerialized]
@@ -59,23 +49,12 @@ public class HierarchicalSplitTypeViewModel : ICustomNotifyPropertyChanged
     public DarkSouls2SplitType SplitType
     {
         get => _splitType;
-        set => this.SetField(ref _splitType, value);
+        set => SetField(ref _splitType, value);
     }
     private DarkSouls2SplitType _splitType;
 
 
     public ObservableCollection<HierarchicalSplitViewModel> Children { get; set; } = [];
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }
 
 
@@ -84,7 +63,7 @@ public class HierarchicalSplitTypeViewModel : ICustomNotifyPropertyChanged
  XmlInclude(typeof(BossKill)), 
  XmlInclude(typeof(Attribute)), 
  XmlInclude(typeof(uint))]
-public class HierarchicalSplitViewModel : ICustomNotifyPropertyChanged
+public class HierarchicalSplitViewModel : NotifyPropertyChanged
 {
     [XmlIgnore]
     [NonSerialized]
@@ -94,18 +73,7 @@ public class HierarchicalSplitViewModel : ICustomNotifyPropertyChanged
     public object Split
     {
         get => _split;
-        set => this.SetField(ref _split, value);
+        set => SetField(ref _split, value);
     }
     private object _split = null!;
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

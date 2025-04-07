@@ -17,33 +17,29 @@
 using System;
 using System.Windows.Input;
 
-namespace SoulSplitter.Ui.RelayCommand
+namespace SoulSplitter.Ui.RelayCommand;
+
+public class RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute) : ICommand
 {
-    public class RelayCommand : ICommand
+    public RelayCommand(Action execute) : this(_ => execute(), (Func<object?, bool>?)null) { }
+    public RelayCommand(Action execute, Func<bool> canExecute) : this(_ => execute(), _ => canExecute()) { }
+    public RelayCommand(Action execute, Func<object?, bool> canExecute) : this(_ => execute(), canExecute) { }
+    public RelayCommand(Action<object?> execute) : this(execute, (Func<object?, bool>?)null) { }
+    public RelayCommand(Action<object?> execute, Func<bool> canExecute) : this(execute, _ => canExecute()) { }
+
+    public event EventHandler CanExecuteChanged
     {
-        public RelayCommand(Action<object> execute, Func<object, bool>? canExecute = null)
-        {
-            _execute = execute ?? throw new ArgumentException(nameof(execute));
-            _canExecute = canExecute;
-        }
+        add => CommandManager.RequerySuggested += value;
+        remove => CommandManager.RequerySuggested -= value;
+    }
 
-        private readonly Action<object> _execute;
-        private readonly Func<object, bool>? _canExecute;
+    public bool CanExecute(object? parameter)
+    {
+        return canExecute == null || canExecute(parameter);
+    }
 
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute == null || _canExecute(parameter);
-        }
-
-        public void Execute(object parameter)
-        {
-            _execute(parameter);
-        }
+    public void Execute(object? parameter)
+    {
+        execute(parameter);
     }
 }

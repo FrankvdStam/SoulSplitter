@@ -59,19 +59,7 @@ internal static class Extensions
         serializer.Serialize(writer, obj);
         return stream.ToString();
     }
-
-    public static bool SetField<TField>(this ICustomNotifyPropertyChanged viewModel, ref TField field, TField value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<TField>.Default.Equals(field, value))
-        {
-            return false;
-        }
-
-        field = value;
-        viewModel.InvokePropertyChanged(propertyName!);
-        return true;
-    }
-
+    
     public static SoulSplitter.DependencyInjection.IServiceProvider ServiceProvider { get; set; } = null!;
 
     public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)

@@ -24,15 +24,18 @@ using System.Windows.Controls;
 using SoulMemory;
 using SoulMemory.Enums;
 using SoulSplitter.Splits;
+using SoulSplitter.Ui.RelayCommand;
 using SplitType = SoulSplitter.UiOld.Generic.SplitType;
 using TimingType = SoulSplitter.UiOld.Generic.TimingType;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace SoulSplitter.UIv2;
 
 /// <summary>
 /// Interaction logic for SplitSettingsControl.xaml
 /// </summary>
-public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyChanged
+public partial class SplitSettingsControl : UserControl, INotifyPropertyChanged
 {
     public SplitSettingsControl()
     {
@@ -293,35 +296,35 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
     public TimingType SelectedTimingType
     {
         get => _selectedTimingType;
-        set => this.SetField(ref _selectedTimingType, value);
+        set => SetField(ref _selectedTimingType, value);
     }
     private TimingType _selectedTimingType = TimingType.Immediate;
 
     public SplitType SelectedSplitType
     {
         get => _selectedSplitType;
-        set => this.SetField(ref _selectedSplitType, value);
+        set => SetField(ref _selectedSplitType, value);
     }
     private SplitType _selectedSplitType = SplitType.Boss;
 
     public Enum? SelectedBoss
     {
         get => _selectedBoss;
-        set => this.SetField(ref _selectedBoss, value);
+        set => SetField(ref _selectedBoss, value);
     }
     private Enum? _selectedBoss;
 
     public Enum? SelectedKnownFlag
     {
         get => _selectedKnownFlag;
-        set => this.SetField(ref _selectedKnownFlag, value);
+        set => SetField(ref _selectedKnownFlag, value);
     }
     private Enum? _selectedKnownFlag;
 
     public Enum? SelectedBonfire
     {
         get => _selectedBonfire;
-        set => this.SetField(ref _selectedBonfire, value);
+        set => SetField(ref _selectedBonfire, value);
     }
     private Enum? _selectedBonfire;
 
@@ -329,42 +332,42 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
     public Enum? SelectedBonfireState
     {
         get => _selectedBonfireState;
-        set => this.SetField(ref _selectedBonfireState, value);
+        set => SetField(ref _selectedBonfireState, value);
     }
     private Enum? _selectedBonfireState;
 
     public Enum? SelectedAttribute
     {
         get => _selectedAttribute;
-        set => this.SetField(ref _selectedAttribute, value);
+        set => SetField(ref _selectedAttribute, value);
     }
     private Enum? _selectedAttribute;
 
     public int AttributeLevel
     {
         get => _attributeLevel;
-        set => this.SetField(ref _attributeLevel, value);
+        set => SetField(ref _attributeLevel, value);
     }
     private int _attributeLevel = 10;
 
     public Enum? SelectedItem
     {
         get => _selectedItem;
-        set => this.SetField(ref _selectedItem, value);
+        set => SetField(ref _selectedItem, value);
     }
     private Enum? _selectedItem;
 
     public VectorSize? Position
     {
         get => _position;
-        set => this.SetField(ref _position, value);
+        set => SetField(ref _position, value);
     }
     private VectorSize? _position;
 
     public FlagDescription? FlagDescription
     {
         get => _flagDescription;
-        set => this.SetField(ref _flagDescription, value);
+        set => SetField(ref _flagDescription, value);
     }
     private FlagDescription? _flagDescription;
     #endregion
@@ -384,16 +387,23 @@ public partial class SplitSettingsControl : UserControl, ICustomNotifyPropertyCh
             }
         }
     }
+    
+    #region INotifyPropertyChanged
 
-    #region ICustomNotifyPropertyChanged
+    public bool SetField<TField>(ref TField field, TField value, [CallerMemberName] string? propertyName = null)
+    {
+        if (EqualityComparer<TField>.Default.Equals(field, value)) return false;
+        field = value;
+        OnPropertyChanged(propertyName ?? "");
+        return true;
+    }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public void InvokePropertyChanged(string propertyName)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
     }
 
     #endregion
-
 }

@@ -27,6 +27,8 @@ using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.Enums;
 using SoulSplitter.soulmemory_rs;
+using SoulSplitter.Ui.RelayCommand;
+using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.DarkSouls1;
 using SoulSplitter.UiOld.DarkSouls2;
 using SoulSplitter.UiOld.DarkSouls3;
@@ -38,7 +40,7 @@ using Brush = System.Windows.Media.Brush;
 
 namespace SoulSplitter.UiOld;
 
-public class MainViewModel : ICustomNotifyPropertyChanged
+public class MainViewModel : NotifyPropertyChanged
 {
     public MainViewModel()
     {
@@ -76,7 +78,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     public Game SelectedGame
     {
         get => _selectedGame;
-        set => this.SetField(ref _selectedGame, value);
+        set => SetField(ref _selectedGame, value);
     }
     private Game _selectedGame = Game.EldenRing;
 
@@ -85,42 +87,42 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     public DarkSouls1ViewModel DarkSouls1ViewModel
     {
         get => _darkSouls1ViewModel;
-        set => this.SetField(ref _darkSouls1ViewModel, value);
+        set => SetField(ref _darkSouls1ViewModel, value);
     }
     private DarkSouls1ViewModel _darkSouls1ViewModel = new();
 
     public DarkSouls2ViewModel DarkSouls2ViewModel
     {
         get => _darkSouls2ViewModel;
-        set => this.SetField(ref _darkSouls2ViewModel, value);
+        set => SetField(ref _darkSouls2ViewModel, value);
     }
     private DarkSouls2ViewModel _darkSouls2ViewModel = new();
 
     public DarkSouls3ViewModel DarkSouls3ViewModel
     {
         get => _darkSouls3ViewModel;
-        set => this.SetField(ref _darkSouls3ViewModel, value);
+        set => SetField(ref _darkSouls3ViewModel, value);
     }
     private DarkSouls3ViewModel _darkSouls3ViewModel = new();
 
     public EldenRingViewModel EldenRingViewModel
     {
         get => _eldenRingViewModel;
-        set => this.SetField(ref _eldenRingViewModel, value);
+        set => SetField(ref _eldenRingViewModel, value);
     }
     private EldenRingViewModel _eldenRingViewModel = new();
 
     public ArmoredCore6ViewModel ArmoredCore6ViewModel
     {
         get => _armoredCore6ViewModel;
-        set => this.SetField(ref _armoredCore6ViewModel, value);
+        set => SetField(ref _armoredCore6ViewModel, value);
     }
     private ArmoredCore6ViewModel _armoredCore6ViewModel = new();
 
     public FlagTrackerViewModel FlagTrackerViewModel
     {
         get => _flagTrackerViewModel;
-        set => this.SetField(ref _flagTrackerViewModel, value);
+        set => SetField(ref _flagTrackerViewModel, value);
     }
     private FlagTrackerViewModel _flagTrackerViewModel = new();
 
@@ -131,7 +133,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     public bool IgnoreProcessNotRunningErrors
     {
         get => _ignoreProcessNotRunningErrors;
-        set => this.SetField(ref _ignoreProcessNotRunningErrors, value);
+        set => SetField(ref _ignoreProcessNotRunningErrors, value);
     }
     private bool _ignoreProcessNotRunningErrors = true;
 
@@ -235,7 +237,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     public string ErrorCount
     {
         get => _errorCount;
-        set => this.SetField(ref _errorCount, value);
+        set => SetField(ref _errorCount, value);
     }
     private string _errorCount = null!;
 
@@ -243,7 +245,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     public Brush BadgeBackgroundBrush
     {
         get => _badgeBackgroundBrush;
-        set => this.SetField(ref _badgeBackgroundBrush, value);
+        set => SetField(ref _badgeBackgroundBrush, value);
     }
     private Brush _badgeBackgroundBrush = new SolidColorBrush(Colors.Transparent);
 
@@ -251,7 +253,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     public Brush BadgeForegroundBrush
     {
         get => _badgeForegroundBrush;
-        set => this.SetField(ref _badgeForegroundBrush, value);
+        set => SetField(ref _badgeForegroundBrush, value);
     }
     private Brush _badgeForegroundBrush = new SolidColorBrush(Colors.Transparent);
 
@@ -259,7 +261,7 @@ public class MainViewModel : ICustomNotifyPropertyChanged
     public Visibility BadgeVisibilityInverse
     {
         get => _badgeVisibilityInverse;
-        set => this.SetField(ref _badgeVisibilityInverse, value);
+        set => SetField(ref _badgeVisibilityInverse, value);
     }
     private Visibility _badgeVisibilityInverse = Visibility.Visible;
 
@@ -411,16 +413,5 @@ public class MainViewModel : ICustomNotifyPropertyChanged
 
     private ImageSource iconHelper = null!;
 
-    public ImageSource IconHelper { get => iconHelper; set => this.SetField(ref iconHelper, value); }
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
+    public ImageSource IconHelper { get => iconHelper; set => SetField(ref iconHelper, value); }
 }

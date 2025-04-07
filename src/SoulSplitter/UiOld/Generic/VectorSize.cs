@@ -16,29 +16,30 @@
 
 using System.ComponentModel;
 using SoulMemory;
+using SoulSplitter.Ui.ViewModels;
 
 namespace SoulSplitter.UiOld.Generic;
 
-public class VectorSize : ICustomNotifyPropertyChanged
+public class VectorSize : NotifyPropertyChanged
 {
     public Vector3f Position
     {
         get => _position;
-        set => this.SetField(ref _position, value);
+        set => SetField(ref _position, value);
     }
     private Vector3f _position = new(0,0,0);
 
     public float Size
     {
         get => _size;
-        set => this.SetField(ref _size, value);
+        set => SetField(ref _size, value);
     }
     private float _size = 5.0f;
 
     public string Description
     {
         get => _description;
-        set => this.SetField(ref _description, value);
+        set => SetField(ref _description, value);
     }
     private string _description = "";
 
@@ -46,15 +47,4 @@ public class VectorSize : ICustomNotifyPropertyChanged
     {
         return $"{Position}, size {Size}, {Description}";
     }
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

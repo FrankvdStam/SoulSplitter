@@ -16,25 +16,26 @@
 
 using System.ComponentModel;
 using System.Xml.Serialization;
+using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.Splits.DarkSouls3;
 
 [XmlType(Namespace = "DarkSouls3")]
-public class Attribute : ICustomNotifyPropertyChanged
+public class Attribute : NotifyPropertyChanged
 {
     [XmlElement(Namespace = "DarkSouls3")]
     public SoulMemory.Games.DarkSouls3.Attribute AttributeType
     {
         get => _attributeType;
-        set => this.SetField(ref _attributeType, value);
+        set => SetField(ref _attributeType, value);
     }
     private SoulMemory.Games.DarkSouls3.Attribute _attributeType;
 
     public int Level
     {
         get => _level;
-        set => this.SetField(ref _level, value);
+        set => SetField(ref _level, value);
     }
     private int _level;
 
@@ -42,15 +43,4 @@ public class Attribute : ICustomNotifyPropertyChanged
     {
         return $"{AttributeType} {Level}";
     }
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

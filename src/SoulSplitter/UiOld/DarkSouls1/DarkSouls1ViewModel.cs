@@ -20,6 +20,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Splits.DarkSouls1;
+using SoulSplitter.Ui.RelayCommand;
 using SoulSplitter.UiOld.Generic;
 using BonfireState = SoulMemory.Games.DarkSouls1.BonfireState;
 
@@ -35,7 +36,7 @@ public class DarkSouls1ViewModel : BaseViewModel
     public bool ResetInventoryIndices
     {
         get => _resetInventoryIndices;
-        set => this.SetField(ref _resetInventoryIndices, value);
+        set => SetField(ref _resetInventoryIndices, value);
     }
     private bool _resetInventoryIndices = true;
 
@@ -46,7 +47,7 @@ public class DarkSouls1ViewModel : BaseViewModel
         set
         {
             var oldValue = _dropModType;
-            this.SetField(ref _dropModType, value);
+            SetField(ref _dropModType, value);
             OnDropModSettingsChanged(oldValue, value);
         }
     }
@@ -125,7 +126,7 @@ public class DarkSouls1ViewModel : BaseViewModel
         get => _newSplitType;
         set
         {
-            this.SetField(ref _newSplitType, value);
+            SetField(ref _newSplitType, value);
 
             switch (NewSplitType)
             {
@@ -157,7 +158,7 @@ public class DarkSouls1ViewModel : BaseViewModel
     public Splits.DarkSouls1.BonfireState NewSplitBonfireState
     {
         get => _newSplitBonfireState;
-        set => this.SetField(ref _newSplitBonfireState, value);
+        set => SetField(ref _newSplitBonfireState, value);
     }
     private Splits.DarkSouls1.BonfireState _newSplitBonfireState = null!;
 
@@ -165,7 +166,7 @@ public class DarkSouls1ViewModel : BaseViewModel
     public ItemState NewSplitItemState
     {
         get => _newSplitItemState;
-        set => this.SetField(ref _newSplitItemState, value);
+        set => SetField(ref _newSplitItemState, value);
     }
     private ItemState _newSplitItemState = null!;
 

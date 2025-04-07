@@ -22,17 +22,18 @@ using System.Xml.Serialization;
 using SoulMemory;
 using SoulMemory.Games.DarkSouls2;
 using SoulSplitter.Splits.DarkSouls2;
+using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.Generic;
 using Attribute = SoulSplitter.Splits.DarkSouls2.Attribute;
 
 namespace SoulSplitter.UiOld.DarkSouls2;
 
-public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
+public class DarkSouls2ViewModel : NotifyPropertyChanged
 {
     public bool StartAutomatically
     {
         get => _startAutomatically;
-        set => this.SetField(ref _startAutomatically, value);
+        set => SetField(ref _startAutomatically, value);
     }
     private bool _startAutomatically = true;
 
@@ -40,7 +41,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
     public Vector3f CurrentPosition
     {
         get => _currentPosition;
-        set => this.SetField(ref _currentPosition, value);
+        set => SetField(ref _currentPosition, value);
     }
     private Vector3f _currentPosition = new(0f,0f,0f);
 
@@ -144,7 +145,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _newSplitTimingType;
         set
         {
-            this.SetField(ref _newSplitTimingType, value);
+            SetField(ref _newSplitTimingType, value);
             NewSplitTypeEnabled = true;
         }
     }
@@ -161,7 +162,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
             NewSplitAttributeEnabled = false;
             NewSplitFlagEnabled = false;
 
-            this.SetField(ref _newSplitType, value);
+            SetField(ref _newSplitType, value);
             switch (NewSplitType)
             {
                 case null:
@@ -199,7 +200,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _newSplitValue;
         set
         {
-            this.SetField(ref _newSplitValue, value);
+            SetField(ref _newSplitValue, value);
             NewSplitAddEnabled = NewSplitValue != null;
         }
     }
@@ -209,7 +210,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
     public bool NewSplitTypeEnabled
     {
         get => _newSplitTypeEnabled;
-        set => this.SetField(ref _newSplitTypeEnabled, value);
+        set => SetField(ref _newSplitTypeEnabled, value);
     }
     private bool _newSplitTypeEnabled;
 
@@ -217,7 +218,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
     public bool NewSplitPositionEnabled
     {
         get => _newSplitPositionEnabled;
-        set => this.SetField(ref _newSplitPositionEnabled, value);
+        set => SetField(ref _newSplitPositionEnabled, value);
     }
     private bool _newSplitPositionEnabled;
 
@@ -225,7 +226,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
     public bool NewSplitBossKillEnabled
     {
         get => _newSplitBossKillEnabled;
-        set => this.SetField(ref _newSplitBossKillEnabled, value);
+        set => SetField(ref _newSplitBossKillEnabled, value);
     }
     private bool _newSplitBossKillEnabled;
 
@@ -233,7 +234,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
     public bool NewSplitAttributeEnabled
     {
         get => _newSplitAttributeEnabled;
-        set => this.SetField(ref _newSplitAttributeEnabled, value);
+        set => SetField(ref _newSplitAttributeEnabled, value);
     }
     private bool _newSplitAttributeEnabled;
 
@@ -241,7 +242,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
     public bool NewSplitFlagEnabled
     {
         get => _newSplitFlagEnabled;
-        set => this.SetField(ref _newSplitFlagEnabled, value);
+        set => SetField(ref _newSplitFlagEnabled, value);
     }
     private bool _newSplitFlagEnabled;
 
@@ -249,7 +250,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
     public bool NewSplitAddEnabled
     {
         get => _newSplitAddEnabled;
-        set => this.SetField(ref _newSplitAddEnabled, value);
+        set => SetField(ref _newSplitAddEnabled, value);
     }
     private bool _newSplitAddEnabled;
 
@@ -257,7 +258,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
     public bool RemoveSplitEnabled
     {
         get => _removeSplitEnabled;
-        set => this.SetField(ref _removeSplitEnabled, value);
+        set => SetField(ref _removeSplitEnabled, value);
     }
     private bool _removeSplitEnabled;
 
@@ -267,7 +268,7 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
         get => _selectedSplit;
         set
         {
-            this.SetField(ref _selectedSplit, value);
+            SetField(ref _selectedSplit, value);
             RemoveSplitEnabled = SelectedSplit != null;
         }
     }
@@ -300,17 +301,6 @@ public class DarkSouls2ViewModel : ICustomNotifyPropertyChanged
 
     public static ObservableCollection<EnumFlagViewModel<BossType>> Bosses { get; set; } = new(Enum.GetValues(typeof(BossType)).Cast<BossType>().Select(i => new EnumFlagViewModel<BossType>(i)));
 
-
-    #endregion
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 
     #endregion
 }

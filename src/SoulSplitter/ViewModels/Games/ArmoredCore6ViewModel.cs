@@ -16,6 +16,7 @@
 
 using System.Collections.ObjectModel;
 using SoulSplitter.Splits;
+using SoulSplitter.Ui.RelayCommand;
 using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.ViewModels.Games;

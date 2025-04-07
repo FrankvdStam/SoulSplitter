@@ -24,7 +24,7 @@ namespace SoulSplitter.Ui.Converters
 {
     public class SplitTypeVisibilityConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
         {
             //Get binding split type
             if (value is not SplitType currentSplitType)
@@ -47,7 +47,7 @@ namespace SoulSplitter.Ui.Converters
             return Visibility.Collapsed;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotSupportedException();
         }

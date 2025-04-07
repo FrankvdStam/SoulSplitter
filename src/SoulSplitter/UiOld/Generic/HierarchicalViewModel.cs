@@ -19,10 +19,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
+using SoulSplitter.Ui.ViewModels;
 
 namespace SoulSplitter.UiOld.Generic;
 
-public class SplitsViewModel : ICustomNotifyPropertyChanged
+public class SplitsViewModel : NotifyPropertyChanged
 {
     public int TotalSplitsCount => Splits.Sum(timing => timing.Children.Sum(type => type.Children.Count));
         
@@ -90,50 +91,27 @@ public class SplitsViewModel : ICustomNotifyPropertyChanged
     public SplitViewModel? SelectedSplit
     {
         get => _selectedSplit;
-        set => this.SetField(ref _selectedSplit, value);
+        set => SetField(ref _selectedSplit, value);
     }
     private SplitViewModel? _selectedSplit;
 
 
     public ObservableCollection<SplitTimingViewModel> Splits { get; set; } = [];
-
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }
 
-public class SplitTimingViewModel : ICustomNotifyPropertyChanged
+public class SplitTimingViewModel : NotifyPropertyChanged
 {
     public TimingType TimingType
     {
         get => _timingType;
-        set => this.SetField(ref _timingType, value);
+        set => SetField(ref _timingType, value);
     }
     private TimingType _timingType;
     
     public ObservableCollection<SplitTypeViewModel> Children { get; set; } = [];
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }
 
-public class SplitTypeViewModel : ICustomNotifyPropertyChanged
+public class SplitTypeViewModel : NotifyPropertyChanged
 {
     [XmlIgnore]
     [NonSerialized]
@@ -142,23 +120,12 @@ public class SplitTypeViewModel : ICustomNotifyPropertyChanged
     public SplitType SplitType
     {
         get => _splitType;
-        set => this.SetField(ref _splitType, value);
+        set => SetField(ref _splitType, value);
     }
     private SplitType _splitType;
 
 
     public ObservableCollection<SplitViewModel> Children { get; set; } = [];
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }
 
 [
@@ -177,7 +144,7 @@ public class SplitTypeViewModel : ICustomNotifyPropertyChanged
     XmlInclude(typeof(SoulMemory.Games.DarkSouls3.ItemPickup)),
     XmlInclude(typeof(Splits.DarkSouls3.Attribute)),
 ]
-public class SplitViewModel : ICustomNotifyPropertyChanged
+public class SplitViewModel : NotifyPropertyChanged
 {
     [XmlIgnore]
     [NonSerialized]
@@ -186,18 +153,7 @@ public class SplitViewModel : ICustomNotifyPropertyChanged
     public object Split
     {
         get => _split;
-        set => this.SetField(ref _split, value);
+        set => SetField(ref _split, value);
     }
     private object _split = null!;
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-    
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

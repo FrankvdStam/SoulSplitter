@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Serialization;
 using SoulMemory.Games.DarkSouls3;
+using SoulSplitter.Ui.RelayCommand;
 using SoulSplitter.UiOld.Generic;
 using Attribute = SoulSplitter.Splits.DarkSouls3.Attribute;
 
@@ -71,7 +72,7 @@ public class DarkSouls3ViewModel : BaseViewModel
     public bool LockIgtToZero
     {
         get => _lockIgtToZero;
-        set => this.SetField(ref _lockIgtToZero, value);
+        set => SetField(ref _lockIgtToZero, value);
     }
     private bool _lockIgtToZero;
 
@@ -81,7 +82,7 @@ public class DarkSouls3ViewModel : BaseViewModel
         get => _newSplitType;
         set
         {
-            this.SetField(ref _newSplitType, value);
+            SetField(ref _newSplitType, value);
 
             if(NewSplitType == SplitType.Attribute)
             {

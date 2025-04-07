@@ -31,7 +31,7 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
         #region Add split ========================================================================================
         public RelayCommand.RelayCommand AddSplitCommand { get; set; }
 
-        private void AddSplit(object param)
+        private void AddSplit(object? param)
         {
             object split = SelectedSplitType!.Value switch
             {
@@ -59,7 +59,7 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
                     SplitDescription));
         }
 
-        private bool CanAddSplit(object param)
+        private bool CanAddSplit(object? param)
         {
             return
                 SelectedGame != null &&
@@ -79,7 +79,7 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
 
         public RelayCommand.RelayCommand RemoveSplitCommand { get; set; }
 
-        public void RemoveSplit(object param)
+        public void RemoveSplit(object? param)
         {
             if (SelectedSplit != null)
             {
@@ -88,7 +88,7 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
             }
         }
 
-        private bool CanRemoveSplit(object param)
+        private bool CanRemoveSplit(object? param)
         {
             return SelectedSplit != null;
         }

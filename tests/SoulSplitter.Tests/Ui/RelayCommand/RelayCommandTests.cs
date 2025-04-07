@@ -1,4 +1,5 @@
 ﻿using System;
+using SoulSplitter.Ui.RelayCommand;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SoulSplitter.Tests.Ui.RelayCommand
@@ -7,16 +8,9 @@ namespace SoulSplitter.Tests.Ui.RelayCommand
     public class RelayCommandTests
     {
         [TestMethod]
-        public void RelayCommand_Ctor_Without_Execute_should_Throw()
-        {
-            Assert.ThrowsException<ArgumentException>(() =>
-                new SoulSplitter.Ui.RelayCommand.RelayCommand(null, null));
-        }
-
-        [TestMethod]
         public void RelayCommand_Can_Execute_Null_Should_Be_True()
         {
-            var relayCommand = new SoulSplitter.Ui.RelayCommand.RelayCommand((p) => { }, null);
+            var relayCommand = new SoulSplitter.Ui.RelayCommand.RelayCommand((p) => { });
             Assert.IsTrue(relayCommand.CanExecute(null));
             Assert.IsTrue(relayCommand.CanExecute(new object()));
         }
@@ -46,7 +40,7 @@ namespace SoulSplitter.Tests.Ui.RelayCommand
                 {
                     executeCalled = true;
                     Assert.AreEqual(parameter, p);
-                }, null
+                }
             );
             relayCommand.Execute(parameter);
             Assert.IsTrue(executeCalled);

@@ -18,24 +18,25 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Memory;
+using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.UiOld.Generic;
 
 namespace SoulSplitter.Splits.DarkSouls1;
 
 [XmlType(Namespace = "DarkSouls1")]
-public class BonfireState : ICustomNotifyPropertyChanged
+public class BonfireState : NotifyPropertyChanged
 {
     public Bonfire? Bonfire
     {
         get => _bonfire;
-        set => this.SetField(ref _bonfire, value);
+        set => SetField(ref _bonfire, value);
     }
     private Bonfire? _bonfire;
 
     public SoulMemory.Games.DarkSouls1.BonfireState State
     {
         get => _state;
-        set => this.SetField(ref _state, value);
+        set => SetField(ref _state, value);
     }
     private SoulMemory.Games.DarkSouls1.BonfireState _state;
 
@@ -43,15 +44,4 @@ public class BonfireState : ICustomNotifyPropertyChanged
     {
         return $"{Bonfire?.GetDisplayName()} {State.GetDisplayName()}";
     }
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

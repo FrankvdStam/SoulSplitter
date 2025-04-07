@@ -15,22 +15,23 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.ComponentModel;
+using SoulSplitter.Ui.ViewModels;
 
 namespace SoulSplitter.UiOld.Generic;
 
-public class BoolDescriptionViewModel : ICustomNotifyPropertyChanged
+public class BoolDescriptionViewModel : NotifyPropertyChanged
 {
     public string Description
     {
         get => _description;
-        set => this.SetField(ref _description, value);
+        set => SetField(ref _description, value);
     }
     private string _description = "";
 
     public bool Value
     {
         get => _value;
-        set => this.SetField(ref _value, value);
+        set => SetField(ref _value, value);
     }
     private bool _value;
 
@@ -38,15 +39,4 @@ public class BoolDescriptionViewModel : ICustomNotifyPropertyChanged
     {
         return $"{Value} {Description}";
     }
-
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

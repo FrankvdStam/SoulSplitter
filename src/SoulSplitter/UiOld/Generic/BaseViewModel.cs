@@ -14,9 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.ComponentModel;
-using System.Xml.Serialization;
 using SoulMemory;
+using SoulSplitter.Ui.RelayCommand;
+using SoulSplitter.Ui.ViewModels;
+using System.Xml.Serialization;
 
 namespace SoulSplitter.UiOld.Generic;
 
@@ -24,7 +25,7 @@ namespace SoulSplitter.UiOld.Generic;
 /// This object attempts to provide most of the general stuff that all souls games have
 /// Where needed, custom game implementations can be made
 /// </summary>
-public class BaseViewModel : ICustomNotifyPropertyChanged
+public class BaseViewModel : NotifyPropertyChanged
 {
     public BaseViewModel()
     {
@@ -42,7 +43,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
         get => _newSplitType;
         set
         {
-            this.SetField(ref _newSplitType, value);
+            SetField(ref _newSplitType, value);
 
             switch (NewSplitType)
             {
@@ -64,7 +65,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
         get => _newSplitTimingType;
         set
         {
-            this.SetField(ref _newSplitTimingType, value);
+            SetField(ref _newSplitTimingType, value);
             NewSplitEnabledSplitType = true;
             NewSplitValue = null;
         }
@@ -75,7 +76,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
     public object? NewSplitValue
     {
         get => _newSplitValue;
-        set => this.SetField(ref _newSplitValue, value);
+        set => SetField(ref _newSplitValue, value);
     }
     private object? _newSplitValue;
     #endregion
@@ -84,7 +85,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
     public bool NewSplitEnabledSplitType
     {
         get => _newSplitEnabledSplitType;
-        set => this.SetField(ref _newSplitEnabledSplitType, value);
+        set => SetField(ref _newSplitEnabledSplitType, value);
     }
     private bool _newSplitEnabledSplitType;
 
@@ -125,14 +126,14 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
     public bool StartAutomatically
     {
         get => _startAutomatically;
-        set => this.SetField(ref _startAutomatically, value);
+        set => SetField(ref _startAutomatically, value);
     }
     private bool _startAutomatically = true;
 
     public SplitsViewModel SplitsViewModel
     {
         get => _splitsViewModel;
-        set => this.SetField(ref _splitsViewModel, value);
+        set => SetField(ref _splitsViewModel, value);
     }
     private SplitsViewModel _splitsViewModel =  new();
     
@@ -140,7 +141,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
     public VectorSize? Position
     {
         get => _position;
-        set => this.SetField(ref _position, value);
+        set => SetField(ref _position, value);
     }
     private VectorSize? _position;
 
@@ -148,7 +149,7 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
     public Vector3f CurrentPosition
     {
         get => _currentPosition;
-        set => this.SetField(ref _currentPosition, value);
+        set => SetField(ref _currentPosition, value);
     }
     private Vector3f _currentPosition = new(0f, 0f, 0f);
 
@@ -156,20 +157,10 @@ public class BaseViewModel : ICustomNotifyPropertyChanged
     public FlagDescription? FlagDescription
     {
         get => _flagDescription;
-        set => this.SetField(ref _flagDescription, value);
+        set => SetField(ref _flagDescription, value);
     }
     private FlagDescription? _flagDescription;
 
     #endregion
 
-    #region ICustomNotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public void InvokePropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
 }

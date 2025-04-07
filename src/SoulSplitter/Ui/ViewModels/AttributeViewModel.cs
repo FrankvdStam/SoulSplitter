@@ -21,7 +21,7 @@ using System.Runtime.CompilerServices;
 
 namespace SoulSplitter.Ui.ViewModels
 {
-    public class AttributeViewModel : INotifyPropertyChanged
+    public class AttributeViewModel : NotifyPropertyChanged
     {
         public Enum Attribute
         {
@@ -36,23 +36,5 @@ namespace SoulSplitter.Ui.ViewModels
             set => SetField(ref _level, value);
         }
         private int _level = 10;
-        
-        #region INotifyPropertyChanged
-        private bool SetField<TField>(ref TField field, TField value, [CallerMemberName] string? propertyName = null)
-        {
-            if (EqualityComparer<TField>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName ?? "");
-            return true;
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
-        }
-
-        #endregion
     }
 }
