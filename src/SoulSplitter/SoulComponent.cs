@@ -39,18 +39,29 @@ using SoulSplitter.Utils;
 
 namespace SoulSplitter;
 
+public enum ComponentMode
+{
+    AutoSplitter,
+    Layout,
+}
+
 public class SoulComponent : IComponent
 {
     public const string Name = "SoulSplitter";
 
 
     private LiveSplitState _liveSplitState;
+    private ComponentMode _componentMode;
     private ITimerAdapter? _timerAdapter;
+
     private IGame _game = null!;
     private DateTime _lastFailedRefresh = DateTime.MinValue;
     public readonly MainWindow MainWindow;
 
-    public SoulComponent(LiveSplitState state, bool shouldThrowOnInvalidInstallation = true,
+    public SoulComponent(
+        LiveSplitState liveSplitState,
+        ComponentMode mode,
+        bool shouldThrowOnInvalidInstallation = true,
         ITimerAdapter? timerAdapter = null)
     {
         if (shouldThrowOnInvalidInstallation)
@@ -58,22 +69,96 @@ public class SoulComponent : IComponent
             ThrowIfInstallationInvalid();
         }
 
-        _liveSplitState = state;
+        _liveSplitState = liveSplitState;
+        _componentMode = mode;
 
-        //TODO: fix this initialization of app and mainwindow.
+        //App needs to be initialized before parsing settings - languagemanager needs to be available
         if (App.Current == null)
         {
             var _ = new App();
         }
-        MainWindow = App.Current!.MainWindow as MainWindow ?? throw new InvalidOperationException("Main window is null");
-        _game = new Sekiro();
-        InitTimerAdapter(_liveSplitState, _game);
-        //SelectGameFromLiveSplitState(_liveSplitState);
+
+        var xml = _liveSplitState.Run.AutoSplitterSettings;
+        var mainViewModel = GetMainViewModelFromSettings(xml);
+        MainWindow = new MainWindow(mainViewModel);
+        App.Current!.MainWindow = MainWindow;
+        //true initialization delayed to SetSettings
     }
 
-    private void InitTimerAdapter(LiveSplitState state, IGame game, ITimerAdapter? timerAdapter = null)
+    private MainViewModel GetMainViewModelFromSettings(XmlNode settings)
     {
-        _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(game, (MainViewModel)App.Current!.MainWindow.DataContext));
+        MainViewModel? mainViewModel = null;
+
+        //Since we're still in the process of initialization, potentially we can't use TryAndHandleError yet
+        //TODO: if no settings, skip trying migration/deserialization
+
+        //try to migrate; if it fails we can still try to deserialize
+        Exception? migrationException = null;
+        try
+        {
+            Migrator.Migrate(settings);
+        }
+        catch (Exception me)
+        {
+            migrationException = me;
+        }
+
+        //try to deserialize; if it fails we can initialize a new instance
+        Exception? deserializationException = null;
+        try
+        {
+            //var settingsNode = SoulMemory.Extensions.GetChildNodeByName(settings, "Uiv2");
+            mainViewModel = Serialization.DeserializeXml<MainViewModel>(settings.InnerXml);
+        }
+        catch (Exception de)
+        {
+            deserializationException = de;
+        }
+
+        mainViewModel ??= new MainViewModel();
+        if(migrationException != null) { mainViewModel.AddException(migrationException); }
+        if(deserializationException != null) { mainViewModel.AddException(deserializationException); }
+
+        return mainViewModel;
+    }
+
+
+    /// <summary>
+    /// Called when loading the settings from livesplit into the component
+    /// </summary>
+    public void SetSettings(XmlNode settings)
+    {
+        return; //we load the settings sneakily in the constructor.
+
+        MainWindow?.Dispatcher.Invoke(() =>
+        {
+            //attempt to migrate settings
+            MainWindow.MainViewModel.TryAndHandleError(() => Migrator.Migrate(settings));
+
+            //attempt to read and deserialize settings
+            MainViewModel? mainViewModel = null;
+            MainWindow.MainViewModel.TryAndHandleError(() =>
+            {
+                var settingsNode = SoulMemory.Extensions.GetChildNodeByName(settings, "Uiv2");
+                mainViewModel = Serialization.DeserializeXml<MainViewModel>(settingsNode.InnerXml);
+            });
+
+            //delayed initialization
+            MainWindow.MainViewModel.TryAndHandleError(() =>
+            {
+                App.Current.MainWindow.DataContext = mainViewModel;
+
+                //TODO: fix this initialization of app and mainwindow.
+                if (App.Current == null)
+                {
+                    var _ = new App();
+                }
+
+                //MainWindow = App.Current!.MainWindow as MainWindow ?? throw new InvalidOperationException("Main window is null");
+                _game = new Sekiro();
+                _timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_game, (MainViewModel)App.Current!.MainWindow!.DataContext!));
+            });
+        });
     }
 
     /// <summary>
@@ -81,7 +166,7 @@ public class SoulComponent : IComponent
     /// </summary>
     public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
     {
-        MainWindow.Dispatcher.Invoke(() =>
+        MainWindow!.Dispatcher.Invoke(() =>
         {
             try
             {
@@ -102,16 +187,11 @@ public class SoulComponent : IComponent
 
                 var result = _timerAdapter!.Update();
                 //var result = UpdateSplitter(MainWindow.MainViewModel, state);
-                if(result.IsErr)
+
+                //For these error cases it is pointless to try again right away; it will only eat host CPU, hence the timeout.
+                if (result.IsErr && result.GetErr().Reason is RefreshErrorReason.ProcessNotRunning or RefreshErrorReason.ProcessExited or RefreshErrorReason.ScansFailed or RefreshErrorReason.AccessDenied)
                 {
-                    var err = result.GetErr();
-                    if(
-                        //For these error cases it is pointless to try again right away; it will only eat host CPU.
-                        //Hence the timeout.
-                        err.Reason is RefreshErrorReason.ProcessNotRunning or RefreshErrorReason.ProcessExited or RefreshErrorReason.ScansFailed or RefreshErrorReason.AccessDenied)
-                    {
-                        _lastFailedRefresh = DateTime.Now;
-                    }
+                    _lastFailedRefresh = DateTime.Now;
                 }
             }
             catch (Exception e)
@@ -122,52 +202,6 @@ public class SoulComponent : IComponent
         });
     }
     
-    private Game? _selectedGame;
-    private ResultErr<RefreshError> UpdateSplitter(MainViewModel mainViewModel, LiveSplitState state)
-    {
-        var game = Game.Sekiro;
-
-        //Detect game change, initialize the correct splitter
-        if (!_selectedGame.HasValue || _selectedGame != game)
-        {
-            _selectedGame = game;
-            switch (mainViewModel.SelectedGame)
-            {
-                default:
-                    throw new InvalidOperationException("Splitter object is null");
-
-                case Game.DarkSouls1:
-                    _game = new SoulMemory.Games.DarkSouls1.DarkSouls1();
-                    //_splitter = new DarkSouls1Splitter(new TimerModel { CurrentState = state }, (SoulMemory.Games.DarkSouls1.DarkSouls1)_game, mainViewModel);
-                    break;
-
-                case Game.DarkSouls2:
-                    _game = new SoulMemory.Games.DarkSouls2.DarkSouls2();
-                    break;
-
-                case Game.DarkSouls3:
-                    _game = new SoulMemory.Games.DarkSouls3.DarkSouls3();
-                    break;
-
-                case Game.Sekiro:
-                    _game = new SoulMemory.Games.Sekiro.Sekiro();
-                    break;
-
-                case Game.EldenRing:
-                    _game = new SoulMemory.Games.EldenRing.EldenRing();
-                    break;
-
-                case Game.ArmoredCore6:
-                    _game = new SoulMemory.Games.ArmoredCore6.ArmoredCore6();
-                    break;
-            }
-            InitTimerAdapter(state, _game);
-        }
-
-        return _timerAdapter!.Update();
-    }
-
-
     #region drawing ===================================================================================================================
     public IDictionary<string, Action> ContextMenuControls => new Dictionary<string, Action>();
     public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
@@ -206,7 +240,7 @@ public class SoulComponent : IComponent
     {
         try
         {
-            var xml = MainWindow.MainViewModel.ImportXml;
+            var xml = MainWindow!.MainViewModel.ImportXml;
             MainWindow.MainViewModel.ImportXml = null; //Don't get stuck in an import loop
 
             var xmlDocument = new XmlDocument();
@@ -217,17 +251,17 @@ public class SoulComponent : IComponent
         catch (Exception e)
         {
             Logger.Log(e);
-            MainWindow.MainViewModel.AddException(e);
+            MainWindow!.MainViewModel.AddException(e);
         }
     }
 
     /// <summary>
-    /// Called when saving the compone
+    /// Called when saving the component
     /// </summary>
     public XmlNode GetSettings(XmlDocument document)
     {
         var root = document.CreateElement("Settings");
-        MainWindow.Dispatcher.Invoke(() =>
+        MainWindow!.Dispatcher.Invoke(() =>
         {
             //{
             //    var xml = MainWindow.MainViewModel.Serialize();
@@ -237,7 +271,7 @@ public class SoulComponent : IComponent
             //}
 
             {
-                var xml = Serialization.SerializeXml((SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel)App.Current.MainWindow.DataContext);
+                var xml = Serialization.SerializeXml((MainViewModel)App.Current.MainWindow.DataContext);
                 var element = document.CreateElement("Uiv2");
                 var uiv2fragment = document.CreateDocumentFragment();
                 uiv2fragment.InnerXml = xml;
@@ -248,45 +282,7 @@ public class SoulComponent : IComponent
         return root;
     }
 
-    /// <summary>
-    /// Called when loading the settings from livesplit into the component
-    /// </summary>
-    public void SetSettings(XmlNode settings)
-    {
-        MainWindow.Dispatcher.Invoke(() =>
-        {
-            try
-            {
-                try
-                {
-                    Migrator.Migrate(settings);
-                }
-                catch (Exception migrationException)
-                {
-                    Logger.Log(migrationException);
-                    MainWindow.MainViewModel.AddException(migrationException);
-                }
-
-               // var mainViewModelXmlNode = SoulMemory.Extensions.GetChildNodeByName(settings, "MainViewModel");
-               // var vm = MainViewModel.Deserialize(mainViewModelXmlNode.OuterXml);
-               // MainWindow.MainViewModel = vm;
-
-                var uiv2 = SoulMemory.Extensions.GetChildNodeByName(settings, "Uiv2");
-
-                var vmui2 = Serialization.DeserializeXml<SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel>(uiv2.InnerXml);
-                App.Current.MainWindow.DataContext = vmui2;
-                InitTimerAdapter(_liveSplitState, _game); //Reinitialize the timer adapter to make sure it has the correct view model
-            }
-            catch (Exception e)
-            {
-                //MainWindow.MainViewModel = new MainViewModel();
-                SelectGameFromLiveSplitState(_liveSplitState);
-
-                Logger.Log(e);
-                MainWindow.MainViewModel.AddException(e);
-            }
-        });
-    }
+    
 
     private Button? _customShowSettingsButton;
     public Control GetSettingsControl(LayoutMode mode)
@@ -295,14 +291,14 @@ public class SoulComponent : IComponent
         var caller = stackTrace.GetFrame(1).GetMethod().Name;
         if (caller == "AddComponent")
         {
-            MainWindow.ShowDialog();
+            MainWindow!.ShowDialog();
         }
 
         if (_customShowSettingsButton == null)
         {
             _customShowSettingsButton = new Button();
             _customShowSettingsButton.Text = "SoulSplitter settings";
-            _customShowSettingsButton.Click += (_, _) => MainWindow.Dispatcher.Invoke(() => MainWindow.ShowDialog());
+            _customShowSettingsButton.Click += (_, _) => MainWindow!.Dispatcher.Invoke(() => MainWindow.ShowDialog());
             _customShowSettingsButton.Paint += (_, _) =>
             {
                 try
@@ -325,7 +321,7 @@ public class SoulComponent : IComponent
     /// </summary>
     private void SelectGameFromLiveSplitState(LiveSplitState? s)
     {
-        MainWindow.Dispatcher.Invoke(() =>
+        MainWindow!.Dispatcher.Invoke(() =>
         {
             if (!string.IsNullOrWhiteSpace(s?.Run?.GameName))
             {

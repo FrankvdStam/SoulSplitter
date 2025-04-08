@@ -21,15 +21,12 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:converters="clr-namespace:SoulSplitter.Ui.Converters"
-    xmlns:resources="clr-namespace:SoulSplitter.Resources"
-    xmlns:view="clr-namespace:SoulSplitter.Ui.View"
     xmlns:controls="clr-namespace:SoulSplitter.Ui.View.Controls"
+    xmlns:converters="clr-namespace:SoulSplitter.Ui.Converters"
     mc:Ignorable="d"
     Margin="5"
     HorizontalAlignment="Stretch"
-    VerticalAlignment="Stretch"
-    >
+    VerticalAlignment="Stretch">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -45,7 +42,6 @@
     </UserControl.Resources>
 
     <controls:FilteredComboBox
-        x:Name="SplitsCombobox"
         DisplayMemberPath="Name"
         SelectedValuePath="EventFlag"
         ItemsSource="{Binding EventFlagList, RelativeSource={RelativeSource AncestorType=UserControl}}"
@@ -96,25 +92,15 @@
 
                             </Grid>
                             <ControlTemplate.Triggers>
-                                <!-- For some reason {DynamicResource MaterialDesign.Brush.Dark} doesn't work on these. -->
                                 <Trigger Property="ComboBoxItem.IsSelected" Value="True">
                                     <Setter TargetName="SplitsGrid" Property="Background" Value="#FF320B86"/>
                                     <Setter TargetName="SplitsGrid" Property="TextElement.Foreground" Value="#FFFFFFFF"/>
                                 </Trigger>
 
-                                <!-- secondary dark #FF0026CA -->
-                                <!-- primary light #FF9A67EA -->
                                 <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
                                     <Setter TargetName="SplitsGrid" Property="Background" Value="#FF9A67EA"/>
                                     <Setter TargetName="SplitsGrid" Property="TextElement.Foreground" Value="#FFFFFFFF"/>
                                 </Trigger>
-
-                                <!-- 
-                            <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
-                                <Setter TargetName="SplitsGrid" Property="Background" Value="{DynamicResource MaterialDesign.Brush.Dark}"/>
-                                <Setter TargetName="SplitsGrid" Property="TextElement.Foreground" Value="{DynamicResource MaterialDesign.Brush.Dark.Foreground}"/>
-                            </Trigger>
-                            -->
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>

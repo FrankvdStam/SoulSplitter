@@ -30,26 +30,17 @@ namespace SoulSplitter.Ui;
 [ExcludeFromCodeCoverage]
 public partial class App : Application
 {
-    public static DependencyInjection.IServiceProvider ServiceProvider { get; set; } = null!;
+    public static IServiceProvider ServiceProvider { get; set; } = null!;
 
     public App()
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddSingleton<ILanguageManager, LanguageManager>();
-        serviceCollection.AddSingleton<MainViewModel>();
+        //serviceCollection.AddSingleton<MainViewModel>();
         ServiceProvider = serviceCollection.Build();
 
         ServiceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
         ServiceProviderSource.Resolver = (type) => ServiceProvider.GetService(type);
-        MainWindow = new SoulSplitter.Ui.View.MainWindow(ServiceProvider.GetService<MainViewModel>());
-    }
-
-    public void ShowMainWindow()
-    {
-        Dispatcher.Invoke(() =>
-        {
-            var result = MainWindow.ShowDialog();
-            MainWindow.Close();
-        });
+        //MainWindow = new MainWindow(ServiceProvider.GetService<MainViewModel>());
     }
 }

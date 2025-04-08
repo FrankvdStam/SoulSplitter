@@ -15,10 +15,12 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
 using SoulSplitter;
+using SoulSplitter.Ui.View;
 using SoulSplitter.Utils;
 
 
@@ -45,10 +47,10 @@ public class SoulComponentFactory : IComponentFactory
 
     public IComponent Create(LiveSplitState state)
     {
-        
-        //StackTrace s = new StackTrace();
-        ////state.Layout.Components.Contains();
-        //var str = s.ToString();
-        return new SoulComponent(state);
+        //This is high quality code to detect layout/splitter mode. There is absolutely nothing wrong with this code.
+        var stackTrace = new StackTrace();
+        var caller = stackTrace.GetFrame(1).GetMethod().Name;
+        var componentMode = caller == "AddComponent" ? ComponentMode.Layout : ComponentMode.AutoSplitter;
+        return new SoulComponent(state, componentMode);
     }
 }
