@@ -30,6 +30,7 @@ using System.Reflection;
 using SoulMemory.Enums;
 using SoulSplitter.Migrations;
 using SoulMemory.Abstractions;
+using SoulMemory.Games.Sekiro;
 using SoulSplitter.Abstractions;
 using SoulSplitter.Ui;
 using SoulSplitter.Ui.View;
@@ -58,7 +59,6 @@ public class SoulComponent : IComponent
         }
 
         _liveSplitState = state;
-        SelectGameFromLiveSplitState(_liveSplitState);
 
         //TODO: fix this initialization of app and mainwindow.
         if (App.Current == null)
@@ -66,11 +66,14 @@ public class SoulComponent : IComponent
             var _ = new App();
         }
         MainWindow = App.Current!.MainWindow as MainWindow ?? throw new InvalidOperationException("Main window is null");
+        _game = new Sekiro();
+        InitTimerAdapter(_liveSplitState, _game);
+        //SelectGameFromLiveSplitState(_liveSplitState);
     }
 
     private void InitTimerAdapter(LiveSplitState state, IGame game, ITimerAdapter? timerAdapter = null)
     {
-        _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(game, (SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel)App.Current!.MainWindow.DataContext));
+        _timerAdapter = timerAdapter ?? new TimerAdapter(state, new Timer(game, (MainViewModel)App.Current!.MainWindow.DataContext));
     }
 
     /// <summary>
@@ -96,7 +99,9 @@ public class SoulComponent : IComponent
                 }
 
                 //Result will internally be added to the error list already.
-                var result = UpdateSplitter(MainWindow.MainViewModel, state);
+
+                var result = _timerAdapter!.Update();
+                //var result = UpdateSplitter(MainWindow.MainViewModel, state);
                 if(result.IsErr)
                 {
                     var err = result.GetErr();
@@ -120,10 +125,12 @@ public class SoulComponent : IComponent
     private Game? _selectedGame;
     private ResultErr<RefreshError> UpdateSplitter(MainViewModel mainViewModel, LiveSplitState state)
     {
+        var game = Game.Sekiro;
+
         //Detect game change, initialize the correct splitter
-        if (!_selectedGame.HasValue || _selectedGame != mainViewModel.SelectedGame)
+        if (!_selectedGame.HasValue || _selectedGame != game)
         {
-            _selectedGame = mainViewModel.SelectedGame;
+            _selectedGame = game;
             switch (mainViewModel.SelectedGame)
             {
                 default:
@@ -334,6 +341,7 @@ public class SoulComponent : IComponent
                     _ => MainWindow.MainViewModel.SelectedGame
                 };
             }
+            MainWindow.MainViewModel.SelectedGame = Game.Sekiro;
         });
     }
 
