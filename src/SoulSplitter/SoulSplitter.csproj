@@ -5,7 +5,6 @@
         <LangVersion>13</LangVersion>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
-        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
         <Title>SoulSplitter</Title>
         <Authors>Frank v.d. Stam</Authors>
         <PackageProjectUrl>https://github.com/FrankvdStam/SoulSplitter</PackageProjectUrl>

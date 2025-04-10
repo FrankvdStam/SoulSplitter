@@ -82,16 +82,20 @@ public class SoulComponent : IComponent
         var mainViewModel = GetMainViewModelFromSettings(xml);
         MainWindow = new MainWindow(mainViewModel);
         App.Current!.MainWindow = MainWindow;
-        //true initialization delayed to SetSettings
+        _timerAdapter = new TimerAdapter(_liveSplitState, new Timer(new Sekiro(), mainViewModel));
     }
 
     private MainViewModel GetMainViewModelFromSettings(XmlNode settings)
     {
+        if (settings == null)
+        {
+            return new MainViewModel();
+        }
+
         MainViewModel? mainViewModel = null;
 
         //Since we're still in the process of initialization, potentially we can't use TryAndHandleError yet
-        //TODO: if no settings, skip trying migration/deserialization
-
+        
         //try to migrate; if it fails we can still try to deserialize
         Exception? migrationException = null;
         try
@@ -128,37 +132,8 @@ public class SoulComponent : IComponent
     /// </summary>
     public void SetSettings(XmlNode settings)
     {
-        return; //we load the settings sneakily in the constructor.
-
-        MainWindow?.Dispatcher.Invoke(() =>
-        {
-            //attempt to migrate settings
-            MainWindow.MainViewModel.TryAndHandleError(() => Migrator.Migrate(settings));
-
-            //attempt to read and deserialize settings
-            MainViewModel? mainViewModel = null;
-            MainWindow.MainViewModel.TryAndHandleError(() =>
-            {
-                var settingsNode = SoulMemory.Extensions.GetChildNodeByName(settings, "Uiv2");
-                mainViewModel = Serialization.DeserializeXml<MainViewModel>(settingsNode.InnerXml);
-            });
-
-            //delayed initialization
-            MainWindow.MainViewModel.TryAndHandleError(() =>
-            {
-                App.Current.MainWindow.DataContext = mainViewModel;
-
-                //TODO: fix this initialization of app and mainwindow.
-                if (App.Current == null)
-                {
-                    var _ = new App();
-                }
-
-                //MainWindow = App.Current!.MainWindow as MainWindow ?? throw new InvalidOperationException("Main window is null");
-                _game = new Sekiro();
-                _timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_game, (MainViewModel)App.Current!.MainWindow!.DataContext!));
-            });
-        });
+        //SetSettings is ignored - settings are obtained in the constructor from livesplit's state object.
+        return;
     }
 
     /// <summary>
@@ -263,21 +238,10 @@ public class SoulComponent : IComponent
         var root = document.CreateElement("Settings");
         MainWindow!.Dispatcher.Invoke(() =>
         {
-            //{
-            //    var xml = MainWindow.MainViewModel.Serialize();
-            //    var fragment = document.CreateDocumentFragment();
-            //    fragment.InnerXml = xml;
-            //    root.AppendChild(fragment);
-            //}
-
-            {
-                var xml = Serialization.SerializeXml((MainViewModel)App.Current.MainWindow.DataContext);
-                var element = document.CreateElement("Uiv2");
-                var uiv2fragment = document.CreateDocumentFragment();
-                uiv2fragment.InnerXml = xml;
-                element.AppendChild(uiv2fragment);
-                root.AppendChild(element);
-            }
+            var xml = Serialization.SerializeXml((MainViewModel)App.Current.MainWindow.DataContext);
+            var fragment = document.CreateDocumentFragment();
+            fragment.InnerXml = xml;
+            root.AppendChild(fragment);
         });
         return root;
     }
