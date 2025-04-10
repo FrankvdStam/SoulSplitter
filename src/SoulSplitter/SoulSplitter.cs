@@ -23,17 +23,17 @@ using SoulSplitter.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitter
 {
-    public class SoulSplitter
-    {
-        private ITimerAdapter? _timerAdapter;
-        public readonly MainViewModel _mainViewModel;
-        private DateTime _lastFailedRefresh = DateTime.MinValue;
-
-
-        public SoulSplitter(MainViewModel mainViewModel, ITimerAdapter timerAdapter)
-        {
-            _mainViewModel = mainViewModel;
-            _timerAdapter = timerAdapter;
-        }
-    }
+    //public class SoulSplitter
+    //{
+    //    private ITimerAdapter? _timerAdapter;
+    //    public readonly MainViewModel _mainViewModel;
+    //    private DateTime _lastFailedRefresh = DateTime.MinValue;
+    //
+    //
+    //    public SoulSplitter(MainViewModel mainViewModel, ITimerAdapter timerAdapter)
+    //    {
+    //        _mainViewModel = mainViewModel;
+    //        _timerAdapter = timerAdapter;
+    //    }
+    //}
 }

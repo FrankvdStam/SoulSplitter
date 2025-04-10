@@ -16,6 +16,7 @@
 
 using SoulMemory.Abstractions;
 using System;
+using System.Diagnostics;
 using SoulMemory;
 using SoulMemory.Abstractions.Games;
 using SoulMemory.Enums;
@@ -56,6 +57,7 @@ namespace SoulSplitter
         public void Start()
         {
             _isRunning = true;
+            Debug.WriteLine($"Set is running true: {_isRunning}");
             if (_mainViewModel.OverwriteIgtOnStart)
             {
                 _game.WriteInGameTimeMilliseconds(0);
@@ -69,9 +71,10 @@ namespace SoulSplitter
         /// </summary>
         public void Reset()
         {
-            if (!_isRunning)
+            if (_isRunning)
             {
                 _isRunning = false;
+                Debug.WriteLine($"Set is running false: {_isRunning}");
                 _previousIgt = 0;
                 OnUpdateTime?.Invoke(this, 0);
             }
@@ -95,6 +98,7 @@ namespace SoulSplitter
 
         private void UpdateTimer()
         {
+            //Debug.WriteLine($"Timer: {_isRunning}");
             var igt = _game.ReadInGameTimeMilliseconds();
             if (!_isRunning &&
                 _mainViewModel.StartAutomatically &&

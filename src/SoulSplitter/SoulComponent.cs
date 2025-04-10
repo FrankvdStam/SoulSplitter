@@ -82,7 +82,8 @@ public class SoulComponent : IComponent
         var mainViewModel = GetMainViewModelFromSettings(xml);
         MainWindow = new MainWindow(mainViewModel);
         App.Current!.MainWindow = MainWindow;
-        _timerAdapter = new TimerAdapter(_liveSplitState, new Timer(new Sekiro(), mainViewModel));
+        _game = new Sekiro();
+        _timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_game, mainViewModel));
     }
 
     private MainViewModel GetMainViewModelFromSettings(XmlNode settings)
@@ -145,8 +146,6 @@ public class SoulComponent : IComponent
         {
             try
             {
-                _liveSplitState = state;
-
                 //Timeout for 5 sec after a refresh fails
                 if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
                 {
@@ -168,6 +167,15 @@ public class SoulComponent : IComponent
                 {
                     _lastFailedRefresh = DateTime.Now;
                 }
+
+                MainWindow.MainViewModel.TryAndHandleError(() =>
+                {
+                    if (MainWindow.MainViewModel.SelectedSplitType == SplitType.Position && _game is IPlayerPosition playerPosition)
+                    {
+                        MainWindow.MainViewModel.CurrentPosition = playerPosition.GetPlayerPosition();
+                    }
+                });
+                
             }
             catch (Exception e)
             {
