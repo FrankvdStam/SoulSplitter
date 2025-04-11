@@ -47,6 +47,7 @@ public static class Extensions
         return false;
     }
 
+
     public static XmlNode GetChildNodeByName(this XmlNode node, string childName)
     {
         var lower = childName.ToLower();
@@ -59,6 +60,36 @@ public static class Extensions
         }
         throw new ArgumentException($"{childName} not found");
     }
+
+    public static XmlAttribute GetAttributeByName(this XmlNode node, string name)
+    {
+        var lower = name.ToLower();
+        if (node.Attributes != null)
+        {
+            foreach (XmlAttribute attribute in node.Attributes)
+            {
+                if (attribute.LocalName.ToLower() == lower)
+                {
+                    return attribute;
+                }
+            }
+        }
+        throw new ArgumentException($"{name} not found");
+    }
+
+    public static void ForEachChildNodeByName(this XmlNode node, string childName, Action<XmlNode> action)
+    {
+        var lower = childName.ToLower();
+        foreach (XmlNode child in node.ChildNodes)
+        {
+            if (child.LocalName.ToLower() == lower)
+            {
+                action(child);
+            }
+        }
+    }
+    
+
 
     public static IEnumerable<XmlNode> Enumerate(this XmlNodeList list)
     {

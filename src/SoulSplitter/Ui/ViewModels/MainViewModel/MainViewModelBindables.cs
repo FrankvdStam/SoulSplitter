@@ -24,7 +24,7 @@ using SoulSplitter.Utils;
 namespace SoulSplitter.Ui.ViewModels.MainViewModel;
 public partial class MainViewModel
 {
-    public string Version { get; } = VersionHelper.Version.ToString();
+    public string Version { get => VersionHelper.Version.ToString(); set { } }
 
     public Game? SelectedGame
     {

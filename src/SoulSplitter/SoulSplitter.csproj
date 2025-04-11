@@ -23,12 +23,6 @@
         <PackageIcon>../../Resources/soulsplitter.png</PackageIcon>
         <Platforms>x64</Platforms>
     </PropertyGroup>
-    <ItemGroup>
-      <Compile Remove="UiOld\Sekiro\**" />
-      <EmbeddedResource Remove="UiOld\Sekiro\**" />
-      <None Remove="UiOld\Sekiro\**" />
-      <Page Remove="UiOld\Sekiro\**" />
-    </ItemGroup>
     
     <ItemGroup>
       <Resource Include="soulsplitter.ico" />
