@@ -58,7 +58,7 @@ public class SplitViewModel : IXmlSerializable
 
     public void ReadXml(XmlReader reader)
     {
-        var xml = reader.ReadInnerXml();
+        var xml = reader.ReadOuterXml();
         XmlDocument xmlDocument = new XmlDocument();
         xmlDocument.LoadXml(xml);
         var node = xmlDocument.GetChildNodeByName(nameof(SplitViewModel));
@@ -68,14 +68,13 @@ public class SplitViewModel : IXmlSerializable
         var newGamePlusLevel = node.GetChildNodeByName(nameof(SplitViewModel.NewGamePlusLevel)).FirstChild.Value;
         var timingType = node.GetChildNodeByName(nameof(SplitViewModel.TimingType)).FirstChild.Value;
         var splitType = node.GetChildNodeByName(nameof(SplitViewModel.SplitType)).FirstChild.Value;
-        
+
         Description = description;
         Game = (Game)Enum.Parse(typeof(Game), game);
         NewGamePlusLevel = int.Parse(newGamePlusLevel);
         TimingType = (TimingType)Enum.Parse(typeof(TimingType), timingType);
         SplitType = (SplitType)Enum.Parse(typeof(SplitType), splitType);
         Split = DeserializeSplitObject(node.GetChildNodeByName(nameof(SplitViewModel.Split)), SplitType);
-
     }
 
     private object DeserializeSplitObject(XmlNode splitNode, SplitType splitType)
@@ -134,14 +133,12 @@ public class SplitViewModel : IXmlSerializable
 
     public void WriteXml(XmlWriter writer)
     {
-        writer.WriteStartElement(nameof(SplitViewModel));
         writer.WriteElementString(nameof(SplitViewModel.Description), Description);
         writer.WriteElementString(nameof(SplitViewModel.Game), Game.ToString());
         writer.WriteElementString(nameof(SplitViewModel.NewGamePlusLevel), NewGamePlusLevel.ToString());
         writer.WriteElementString(nameof(SplitViewModel.TimingType), TimingType.ToString());
         writer.WriteElementString(nameof(SplitViewModel.SplitType), SplitType.ToString());
         SerializeSplitObject(writer, SplitType, Split);
-        writer.WriteEndElement();
     }
 
     private void SerializeSplitObject(XmlWriter writer, SplitType splitType, object split)

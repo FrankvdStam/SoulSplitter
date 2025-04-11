@@ -58,7 +58,7 @@ namespace SoulSplitter.Ui
                 }
                 case PositionViewModel:
                     return PositionViewModelDataTemplate;
-                case int:
+                case uint:
                     return FlagDataTemplate;
                 case AttributeViewModel:
                     return AttributeViewModelDataTemplate;

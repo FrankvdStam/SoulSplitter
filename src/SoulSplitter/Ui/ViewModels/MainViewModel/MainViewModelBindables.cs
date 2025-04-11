@@ -91,12 +91,12 @@ public partial class MainViewModel
     }
     private Enum? _selectedEventFlag;
 
-    public int? Flag
+    public uint? Flag
     {
         get => _flag;
         set => SetField(ref _flag, value);
     }
-    private int? _flag;
+    private uint? _flag;
 
     public Type EventFlagType
     {

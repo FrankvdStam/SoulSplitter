@@ -184,7 +184,7 @@ namespace cli
             mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 1, TimingType.OnLoading, SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
             mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 2, TimingType.OnLoading, SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
             mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 3, TimingType.Immediate, SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 4, TimingType.Immediate, SplitType.Flag, 15062400, "mystery flag"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 4, TimingType.Immediate, SplitType.Flag, 15062400u, "mystery flag"));
             mainWindow.ShowDialog();
 
             mainWindow.WindowShouldHide = false;
