@@ -18,6 +18,9 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
+using LiveSplit.Options;
+using System.Xaml;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel;
 
@@ -25,21 +28,32 @@ public partial class MainViewModel
 {
     public string SerializeXml()
     {
-        using (var writer = new StringWriter())
+        var xmlWriterSettings = new XmlWriterSettings
         {
-            var serializer = CreateXmlSerializer();
-            serializer.Serialize(writer, this);
-            return writer.ToString();
-        }
+            Indent = true,
+            OmitXmlDeclaration = true
+        };
+
+        using var stringWriter = new StringWriter();
+        using var writer = XmlWriter.Create(stringWriter, xmlWriterSettings);
+        var serializer = CreateXmlSerializer();
+        serializer.Serialize(writer, this);
+        return stringWriter.ToString();
+
+
+
+        //using var stream = new StringWriter();
+        //using var writer = XmlWriter.Create(stream, new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true });
+        //var serializer = CreateXmlSerializer();
+        //serializer.Serialize(writer, this);
+        //return writer.ToString();
     }
 
     public static MainViewModel DeserializeXml(string s)
     {
-        using (var reader = new StringReader(s))
-        {
-            var serializer = CreateXmlSerializer();
-            return (MainViewModel)serializer.Deserialize(reader);
-        }
+        using var reader = new StringReader(s);
+        var serializer = CreateXmlSerializer();
+        return (MainViewModel)serializer.Deserialize(reader);
     }
 
     private static readonly List<string> SerializedFields = new List<string>()
@@ -64,7 +78,7 @@ public partial class MainViewModel
         var attributeOverrides = new XmlAttributeOverrides();
         names.ForEach(name => attributeOverrides.Add(typeof(MainViewModel), name, new XmlAttributes() { XmlIgnore = true }));
 
-        return new XmlSerializer(typeof(MainViewModel),attributeOverrides);
+        return new XmlSerializer(typeof(MainViewModel), attributeOverrides);
     }
 }
 

@@ -108,7 +108,7 @@ public class SoulComponent : IComponent
         try
         {
             //var settingsNode = SoulMemory.Extensions.GetChildNodeByName(settings, "Uiv2");
-            mainViewModel = Serialization.DeserializeXml<MainViewModel>(settings.InnerXml);
+            mainViewModel = MainViewModel.DeserializeXml(settings.InnerXml); // Serialization.DeserializeXml<MainViewModel>(settings.InnerXml);
         }
         catch (Exception de)
         {
@@ -219,7 +219,7 @@ public class SoulComponent : IComponent
         var root = document.CreateElement("Settings");
         MainWindow!.Dispatcher.Invoke(() =>
         {
-            var xml = Serialization.SerializeXml((MainViewModel)App.Current.MainWindow.DataContext);
+            var xml = MainWindow.MainViewModel.SerializeXml();
             var fragment = document.CreateDocumentFragment();
             fragment.InnerXml = xml;
             root.AppendChild(fragment);
