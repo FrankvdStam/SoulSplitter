@@ -32,6 +32,7 @@ using SoulMemory.Abstractions;
 using SoulSplitter.Ui.ViewModels;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Ui.View;
+using SoulSplitter.Ui.ViewModels.MainViewModel;
 
 #pragma warning disable CS0162
 
@@ -175,7 +176,9 @@ namespace cli
         {
             var app = new SoulSplitter.Ui.App();
             app.InitializeComponent();
-            var mainWindow = (MainWindow)app.MainWindow;
+            var mainViewModel = new MainViewModel();
+            var mainWindow = new MainWindow(mainViewModel);
+            app.MainWindow = mainWindow;
             mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
             mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 0, TimingType.Immediate, SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
             mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 1, TimingType.OnLoading, SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
@@ -183,86 +186,6 @@ namespace cli
             mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 3, TimingType.Immediate, SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
             mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 4, TimingType.Immediate, SplitType.Flag, 15062400, "mystery flag"));
             mainWindow.ShowDialog();
-            return;
-
-
-            if (withTestData)
-            {
-                //foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
-                //{
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType =  SplitType.Boss;
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = new FlagDescriptionViewModel(){Flag = (uint)boss};
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplit(null);
-                //}
-
-                var flagTrackerViewModel = mainWindow.MainViewModel.FlagTrackerViewModel;
-                flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
-                {
-                    CategoryName = "Undead burg",
-                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescriptionViewModel>()
-                    {
-                        new FlagDescriptionViewModel{ Flag = 162,  Description = "stuff",      State = true},
-                        new FlagDescriptionViewModel{ Flag = 3213, Description = "more stuff", State = true},
-                        new FlagDescriptionViewModel{ Flag = 31,   Description = "more stuff", State = true},
-                        new FlagDescriptionViewModel{ Flag = 5231, Description = "more stuff", State = false},
-                        new FlagDescriptionViewModel{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescriptionViewModel{ Flag = 415,  Description = "more stuff", State = false}
-                    }
-                });
-
-                flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
-                {
-                    CategoryName = "Firelink shrine",
-                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescriptionViewModel>()
-                    {
-                        new FlagDescriptionViewModel{ Flag = 162,  Description = "stuff",      State = true},
-                        new FlagDescriptionViewModel{ Flag = 3213, Description = "more stuff", State = true},
-                        new FlagDescriptionViewModel{ Flag = 31,   Description = "more stuff", State = true},
-                        new FlagDescriptionViewModel{ Flag = 5231, Description = "more stuff", State = false},
-                        new FlagDescriptionViewModel{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescriptionViewModel{ Flag = 415,  Description = "more stuff", State = false}
-                    }
-                });
-
-                //foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
-                //{
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
-                //}
-                //
-                //foreach (var boss in (SoulMemory.Games.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.Games.DarkSouls1.Boss)))
-                //{
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.OnLoading;
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
-                //    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
-                //}
-                //
-                //mainWindow.MainViewModel.DarkSouls1ViewModel.CurrentPosition = new Vector3f(0.14f, 4.14f, 1523.4f);
-                
-            }
-
-            mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
-            
-            var mainViewModel = (app.MainWindow!.DataContext as SoulSplitter.Ui.ViewModels.MainViewModel.MainViewModel)!;
-            mainViewModel.Splits.Add(new SoulSplitter.Ui.ViewModels.SplitViewModel(Game.Sekiro, 0, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
-            mainViewModel.Splits.Add(new SoulSplitter.Ui.ViewModels.SplitViewModel(Game.Sekiro, 1, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
-            mainViewModel.Splits.Add(new SoulSplitter.Ui.ViewModels.SplitViewModel(Game.Sekiro, 2, SoulMemory.Enums.TimingType.OnLoading, SoulMemory.Enums.SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
-            mainViewModel.Splits.Add(new SoulSplitter.Ui.ViewModels.SplitViewModel(Game.Sekiro, 3, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
-            mainViewModel.Splits.Add(new SoulSplitter.Ui.ViewModels.SplitViewModel(Game.Sekiro, 4, SoulMemory.Enums.TimingType.Immediate, SoulMemory.Enums.SplitType.Flag, 15062400, "mystery flag"));
-
-            mainWindow.ShowDialog();
-            //mainWindow.Dispatcher.Invoke(() =>
-            //{
-            //    
-            //});
-            var w = (SoulSplitter.Ui.View.MainWindow)Application.Current.MainWindow!;
-            w.WindowShouldHide = false;
-            w.Close();
-
 
             mainWindow.WindowShouldHide = false;
             mainWindow.Close();

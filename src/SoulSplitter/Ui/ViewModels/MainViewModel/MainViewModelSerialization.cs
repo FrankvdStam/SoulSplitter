@@ -69,10 +69,7 @@ public partial class MainViewModel
         var attributeOverrides = new XmlAttributeOverrides();
         names.ForEach(name => attributeOverrides.Add(typeof(MainViewModel), name, new XmlAttributes() { XmlIgnore = true }));
 
-        return new XmlSerializer(
-            typeof(MainViewModel),
-            attributeOverrides
-            );
+        return new XmlSerializer(typeof(MainViewModel),attributeOverrides);
     }
 }
 
