@@ -109,11 +109,8 @@ public partial class MainViewModel
                 return;
             }
 
-            ImportXml = File.ReadAllText(openFileDialog.FileName);
         });
     }
-
-     public string? ImportXml;
 
     
     public RelayCommand CommandExportSettingsFromFile { get; }

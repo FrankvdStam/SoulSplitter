@@ -137,21 +137,19 @@ public class SoulComponent : IComponent
                     return;
                 }
 
-                if (MainWindow.MainViewModel.ImportXml != null)
-                {
-                    ImportXml();
-                }
-
                 var result = _timerAdapter!.Update();
-
-                //For these error cases it is pointless to try again right away; it will only eat host CPU, hence the timeout.
-                if (result.IsErr && result.GetErr().Reason is RefreshErrorReason.ProcessNotRunning or RefreshErrorReason.ProcessExited or RefreshErrorReason.ScansFailed or RefreshErrorReason.AccessDenied)
-                {
-                    _lastFailedRefresh = DateTime.Now;
-                }
-
                 if (result.IsErr)
-                { 
+                {
+                    //For these error cases it is pointless to try again right away; it will only eat host CPU, hence the timeout.
+                    if (result.GetErr().Reason is 
+                        RefreshErrorReason.ProcessNotRunning or 
+                        RefreshErrorReason.ProcessExited or 
+                        RefreshErrorReason.ScansFailed or 
+                        RefreshErrorReason.AccessDenied)
+                    {
+                        _lastFailedRefresh = DateTime.Now;
+                    }
+
                     MainWindow.MainViewModel.AddRefreshError(result.GetErr());
                 }
 
@@ -211,25 +209,6 @@ public class SoulComponent : IComponent
     {
         //SetSettings is ignored - settings are obtained in the constructor from livesplit's state object.
         return;
-    }
-
-    private void ImportXml()
-    {
-        try
-        {
-            var xml = MainWindow!.MainViewModel.ImportXml;
-            MainWindow.MainViewModel.ImportXml = null; //Don't get stuck in an import loop
-
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(xml!);
-
-            SetSettings(xmlDocument);
-        }
-        catch (Exception e)
-        {
-            Logger.Log(e);
-            MainWindow!.MainViewModel.AddException(e);
-        }
     }
 
     /// <summary>
