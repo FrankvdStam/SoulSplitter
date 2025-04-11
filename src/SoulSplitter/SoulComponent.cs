@@ -71,14 +71,18 @@ public class SoulComponent : IComponent
         if (App.Current == null)
         {
             var _ = new App();
+            var xml = _liveSplitState.Run.AutoSplitterSettings;
+            var mainViewModel = GetMainViewModelFromSettings(xml);
+            MainWindow = new MainWindow(mainViewModel);
+            App.Current!.MainWindow = MainWindow;
+        }
+        else
+        {
+            MainWindow = (MainWindow)App.Current.MainWindow;
         }
 
-        var xml = _liveSplitState.Run.AutoSplitterSettings;
-        var mainViewModel = GetMainViewModelFromSettings(xml);
-        MainWindow = new MainWindow(mainViewModel);
-        App.Current!.MainWindow = MainWindow;
         _game = new Sekiro();
-        _timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_game, mainViewModel));
+        _timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_game, MainWindow.MainViewModel));
     }
 
     private MainViewModel GetMainViewModelFromSettings(XmlNode settings)
@@ -179,6 +183,23 @@ public class SoulComponent : IComponent
     public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion)
     {
         //Soulsplitter doesn't draw to livesplit's window, but must implement the full interface.
+
+
+        //if (_componentMode == ComponentMode.Layout)
+        //{
+        //    string drawString = "";
+        //    MainWindow.Dispatcher.Invoke(() =>
+        //    {
+        //        drawString = MainWindow.MainViewModel.Flag.ToString();
+        //    });
+        //    System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 16);
+        //    System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Red);
+        //    System.Drawing.StringFormat drawFormat = new System.Drawing.StringFormat();
+        //    g.DrawString(drawString, drawFont, drawBrush, 0, 0, drawFormat);
+        //    var size = g.MeasureString(drawString, drawFont, new SizeF(0, 0), drawFormat);
+        //    HorizontalWidth = size.Width;
+        //    VerticalHeight = size.Height;
+        //}
     }
 
     public string ComponentName => Name;

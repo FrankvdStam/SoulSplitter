@@ -19,8 +19,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using LiveSplit.Options;
-using System.Xaml;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel;
 
