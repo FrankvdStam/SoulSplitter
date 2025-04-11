@@ -60,14 +60,9 @@ public class SoulComponent : IComponent
 
     public SoulComponent(
         LiveSplitState liveSplitState,
-        ComponentMode mode,
-        bool shouldThrowOnInvalidInstallation = true,
-        ITimerAdapter? timerAdapter = null)
+        ComponentMode mode)
     {
-        if (shouldThrowOnInvalidInstallation)
-        {
-            ThrowIfInstallationInvalid();
-        }
+        ThrowIfInstallationInvalid();
 
         _liveSplitState = liveSplitState;
         _componentMode = mode;
@@ -125,16 +120,6 @@ public class SoulComponent : IComponent
         if(deserializationException != null) { mainViewModel.AddException(deserializationException); }
 
         return mainViewModel;
-    }
-
-
-    /// <summary>
-    /// Called when loading the settings from livesplit into the component
-    /// </summary>
-    public void SetSettings(XmlNode settings)
-    {
-        //SetSettings is ignored - settings are obtained in the constructor from livesplit's state object.
-        return;
     }
 
     /// <summary>
@@ -218,6 +203,14 @@ public class SoulComponent : IComponent
     #endregion
 
     #region Xml settings ==============================================================================================================
+    /// <summary>
+    /// Called when loading the settings from livesplit into the component
+    /// </summary>
+    public void SetSettings(XmlNode settings)
+    {
+        //SetSettings is ignored - settings are obtained in the constructor from livesplit's state object.
+        return;
+    }
 
     private void ImportXml()
     {
@@ -288,16 +281,17 @@ public class SoulComponent : IComponent
 
         return _customShowSettingsButton;
     }
+
     /// <summary>
     /// Reads the game name from livesplit and tries to write the appropriate game to the view model
     /// </summary>
-    private void SelectGameFromLiveSplitState(LiveSplitState? s)
+    private void SelectGameFromLiveSplitState(LiveSplitState s)
     {
         MainWindow!.Dispatcher.Invoke(() =>
         {
-            if (!string.IsNullOrWhiteSpace(s?.Run?.GameName))
+            if (!string.IsNullOrWhiteSpace(s.Run?.GameName))
             {
-                var name = s!.Run!.GameName.ToLower().Replace(" ", "");
+                var name = s.Run!.GameName.ToLower().Replace(" ", "");
                 MainWindow.MainViewModel.SelectedGame = name switch
                 {
                     "darksouls" or "darksoulsremastered" => Game.DarkSouls1,
@@ -309,7 +303,6 @@ public class SoulComponent : IComponent
                     _ => MainWindow.MainViewModel.SelectedGame
                 };
             }
-            MainWindow.MainViewModel.SelectedGame = Game.Sekiro;
         });
     }
 
