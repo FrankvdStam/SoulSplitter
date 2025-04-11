@@ -18,13 +18,18 @@ using SoulSplitter.DependencyInjection;
 using SoulMemory.Enums;
 using SoulSplitter.Resources;
 using SoulSplitter.Utils;
+using SoulSplitter.Ui.View;
+using SoulSplitter.Abstractions;
+using SoulMemory.Abstractions;
+using SoulMemory.Games.Sekiro;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel;
 
 public partial class MainViewModel
 {
     private readonly ILanguageManager _languageManager;
-
+    private IGame _game = new Sekiro();
+    private ITimerAdapter _timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_game, MainWindow.MainViewModel));
     /// <summary>
     /// Parameterless constructor for serializing
     /// </summary>
