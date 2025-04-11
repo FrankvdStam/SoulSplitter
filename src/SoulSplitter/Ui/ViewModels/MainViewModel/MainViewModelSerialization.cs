@@ -53,6 +53,7 @@ public partial class MainViewModel
         nameof(MainViewModel.Version),
         nameof(MainViewModel.Language),
         nameof(MainViewModel.Splits),
+        nameof(MainViewModel.FlagTrackerViewModel),
     };
 
     private static XmlSerializer CreateXmlSerializer()

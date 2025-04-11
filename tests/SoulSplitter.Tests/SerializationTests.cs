@@ -1,8 +1,6 @@
-﻿using System.Windows.Forms.VisualStyles;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SoulMemory;
-using SoulMemory.Abstractions;
 using SoulMemory.Enums;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.DependencyInjection;
@@ -11,7 +9,6 @@ using SoulSplitter.Ui;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 using SoulSplitter.Utils;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SoulSplitter.Tests
 {
@@ -124,6 +121,37 @@ namespace SoulSplitter.Tests
       </SplitViewModel>
     </SplitViewModel>
   </Splits>
+  <FlagTrackerViewModel>
+    <EventFlagCategories />
+    <DisplayMode>Percentage</DisplayMode>
+    <WindowWidth>800</WindowWidth>
+    <WindowHeight>600</WindowHeight>
+    <InputColumnWidth>400</InputColumnWidth>
+    <CategoryPercentagesRowHeight>300</CategoryPercentagesRowHeight>
+    <CategoryPercentageFontSize>30</CategoryPercentageFontSize>
+    <TotalPercentageFontSize>60</TotalPercentageFontSize>
+    <BackgroundColor>
+      <A>255</A>
+      <R>255</R>
+      <G>255</G>
+      <B>255</B>
+      <ScA>1</ScA>
+      <ScR>1</ScR>
+      <ScG>1</ScG>
+      <ScB>1</ScB>
+    </BackgroundColor>
+    <TextColor>
+      <A>255</A>
+      <R>0</R>
+      <G>0</G>
+      <B>0</B>
+      <ScA>1</ScA>
+      <ScR>0</ScR>
+      <ScG>0</ScG>
+      <ScB>0</ScB>
+    </TextColor>
+    <FlagsPerFrame>10</FlagsPerFrame>
+  </FlagTrackerViewModel>
 </MainViewModel>";
 
 

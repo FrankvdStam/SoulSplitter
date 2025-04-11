@@ -142,15 +142,17 @@ public class SoulComponent : IComponent
                     ImportXml();
                 }
 
-                //Result will internally be added to the error list already.
-
                 var result = _timerAdapter!.Update();
-                //var result = UpdateSplitter(MainWindow.MainViewModel, state);
 
                 //For these error cases it is pointless to try again right away; it will only eat host CPU, hence the timeout.
                 if (result.IsErr && result.GetErr().Reason is RefreshErrorReason.ProcessNotRunning or RefreshErrorReason.ProcessExited or RefreshErrorReason.ScansFailed or RefreshErrorReason.AccessDenied)
                 {
                     _lastFailedRefresh = DateTime.Now;
+                }
+
+                if (result.IsErr)
+                { 
+                    MainWindow.MainViewModel.AddRefreshError(result.GetErr());
                 }
 
                 MainWindow.MainViewModel.TryAndHandleError(() =>
@@ -160,7 +162,6 @@ public class SoulComponent : IComponent
                         MainWindow.MainViewModel.CurrentPosition = playerPosition.GetPlayerPosition();
                     }
                 });
-                
             }
             catch (Exception e)
             {
