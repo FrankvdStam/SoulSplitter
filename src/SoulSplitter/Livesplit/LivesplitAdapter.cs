@@ -29,6 +29,7 @@ using System.Reflection;
 using SoulMemory.Enums;
 using SoulSplitter.Migrations;
 using SoulMemory.Games.Sekiro;
+using SoulSplitter.Abstractions;
 using SoulSplitter.Ui;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;

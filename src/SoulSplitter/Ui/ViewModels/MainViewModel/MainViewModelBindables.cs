@@ -18,13 +18,26 @@ using SoulMemory.Enums;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Utils;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel;
+
 public partial class MainViewModel
 {
     public string Version { get => VersionHelper.Version.ToString(); set { } }
+
+    public Language Language
+    {
+        get => _language;
+        set
+        {
+            SetField(ref _language, value);
+            _languageManager.LoadLanguage(_language);
+        }
+    }
+    private Language _language = Language.English;
 
     public Game? SelectedGame
     {
@@ -108,8 +121,13 @@ public partial class MainViewModel
     public SplitViewModel? SelectedSplit
     {
         get => _selectedSplit;
-        set => SetField(ref _selectedSplit, value);
+        set
+        {
+            SetField(ref _selectedSplit, value);
+            OnSelectedSplitChanged();
+        }
     }
+
     private SplitViewModel? _selectedSplit;
 
     public bool StartAutomatically

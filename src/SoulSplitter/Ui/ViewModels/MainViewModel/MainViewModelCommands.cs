@@ -20,15 +20,9 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
 {
     public partial class MainViewModel
     {
-
-        public RelayCommand SerializeCommand { get; set; } = null!;
-
-        #region Add split ========================================================================================
-        public RelayCommand AddSplitCommand { get; set; }
-
-        private void AddSplit(object? param)
+        private object GetSplitObject()
         {
-            object split = SelectedSplitType!.Value switch
+            return SelectedSplitType!.Value switch
             {
                 SplitType.Boss or
                 SplitType.KnownFlag or
@@ -43,16 +37,29 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
 
                 _ => throw new System.NotImplementedException(),
             };
+        }
+
+
+        public RelayCommand SerializeCommand { get; set; } = null!;
+
+        #region Add split ========================================================================================
+        public RelayCommand AddSplitCommand { get; set; }
+
+        private void AddSplit(object? param)
+        {
+            object split = GetSplitObject();
 
             Splits.Add(
                 new SplitViewModel(
                     SelectedGame!.Value,
                     SelectedNewGamePlusLevel,
                     SelectedTimingType!.Value,
-                    SelectedSplitType.Value,
+                    SelectedSplitType!.Value,
                     split,//Deep clone so that the splits collection does not get duplicate objects
                     SplitDescription));
         }
+
+        
 
         private bool CanAddSplit(object? param)
         {
@@ -69,6 +76,27 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
                     DarkSouls1BonfireViewModel != null ||
                     SelectedDarkSouls1Item != null
                 );
+        }
+
+        #endregion
+
+        #region Save existing split ========================================================================================
+
+        public RelayCommand SaveExistingSplitCommand { get; set; }
+
+        private void SaveExistingSplit(object? param)
+        {
+            SelectedSplit!.Game = SelectedGame!.Value;
+            SelectedSplit.NewGamePlusLevel = SelectedNewGamePlusLevel;
+            SelectedSplit.TimingType = SelectedTimingType!.Value;
+            SelectedSplit.SplitType = SelectedSplitType!.Value;
+            SelectedSplit.Description = SplitDescription;
+            SelectedSplit.Split = GetSplitObject();
+        }
+
+        private bool CanSaveExistingSplit(object? param)
+        {
+            return SelectedSplit != null && CanAddSplit(null);
         }
 
         #endregion
@@ -92,6 +120,5 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
         }
 
         #endregion
-
     }
 }

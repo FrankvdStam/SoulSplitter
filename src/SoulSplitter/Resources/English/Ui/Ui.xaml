@@ -4,5 +4,6 @@
 
     <clr:String x:Key="ExpanderHeaderAddSplit">Add split</clr:String>
     <clr:String x:Key="ButtonToolTipAddSplit">Add split</clr:String>
+    <clr:String x:Key="ButtonToolTipSaveExistingSplit">Save selected split</clr:String>
 
 </ResourceDictionary>

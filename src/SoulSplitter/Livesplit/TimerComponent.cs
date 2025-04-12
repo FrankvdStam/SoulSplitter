@@ -16,7 +16,6 @@
 
 using SoulMemory.Abstractions;
 using SoulSplitter.Abstractions;
-using SoulSplitter.Ui.View;
 using System;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 using SoulMemory.Enums;
@@ -24,13 +23,6 @@ using SoulMemory;
 using SoulSplitter.Utils;
 
 namespace SoulSplitter.Livesplit;
-
-public interface ISoulSplitterComponent
-{
-    void Update();
-}
-
-
 
 public class TimerComponent : ISoulSplitterComponent
 {

@@ -15,17 +15,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Drawing;
-using SoulSplitter.Ui.View;
+using SoulSplitter.Abstractions;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitter.Livesplit;
-
-public interface ISoulSplitterLayoutComponent : ISoulSplitterComponent
-{
-    void Draw(Graphics graphics, float? width, float? height, Region clipRegion);
-    float Width { get; }
-    float Height { get; }
-}
 
 public class LayoutComponent : ISoulSplitterLayoutComponent
 {

@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.ComponentModel;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -23,7 +24,7 @@ using SoulMemory.Enums;
 
 namespace SoulSplitter.Ui.ViewModels;
 
-public class SplitViewModel : IXmlSerializable
+public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
 {
     public SplitViewModel(){}
 
@@ -37,12 +38,47 @@ public class SplitViewModel : IXmlSerializable
         Description = description;
     }
 
-    public string Description { get; set; } = null!;
-    public Game Game { get; set; }
-    public int NewGamePlusLevel { get; set; }
-    public TimingType TimingType { get; set; }
-    public SplitType SplitType { get; set; }
-    public object Split{ get; set; } = null!;
+    public string Description
+    { 
+        get => _description;
+        set => SetField(ref _description, value);
+    }
+    private string _description = null!;
+
+    public Game Game
+    {
+        get => _game;
+        set => SetField(ref _game, value);
+    }
+    private Game _game;
+
+    public int NewGamePlusLevel
+    {
+        get => _newGamePlusLevel;
+        set => SetField(ref _newGamePlusLevel, value);
+    }
+    private int _newGamePlusLevel;
+
+    public TimingType TimingType
+    {
+        get => _timingType;
+        set => SetField(ref _timingType, value);
+    }
+    private TimingType _timingType;
+
+    public SplitType SplitType
+    {
+        get => _splitType;
+        set => SetField(ref _splitType, value);
+    }
+    private SplitType _splitType;
+
+    public object Split
+    {
+        get => _split;
+        set => SetField(ref _split, value);
+    }
+    private object _split = null!;
 
 
     public bool SplitTriggered;

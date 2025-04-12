@@ -53,11 +53,11 @@
                         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/Language.xaml" />
                        
                         <ResourceDictionary>
-                            <converters:EnumLanguageConverter             x:Key="EnumLanguageConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
-                            <converters:EnumEventFlagConverter            x:Key="EnumEventFlagConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
-                            <converters:SplitTypeVisibilityConverter      x:Key="SplitTypeVisibilityConverter"/>
-                            <converters:DropModTypeConverter              x:Key="DropModTypeConverter"/>
-                            <converters:DarkSouls1ItemTypeToNameConverter x:Key="DarkSouls1ItemTypeToNameConverter"/>
+                            <converters:EnumLanguageConverter                   x:Key="EnumLanguageConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
+                            <converters:EnumEventFlagConverter                  x:Key="EnumEventFlagConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
+                            <converters:SplitTypeVisibilityConverter            x:Key="SplitTypeVisibilityConverter"/>
+                            <converters:DropModTypeConverter                    x:Key="DropModTypeConverter"/>
+                            <converters:DarkSouls1ItemTypeToNameConverter       x:Key="DarkSouls1ItemTypeToNameConverter"/>
 
                             <CollectionViewSource Source="{Binding DarkSouls1Items}" x:Key="DarkSouls1ItemsCollectionViewSource">
                                 <CollectionViewSource.GroupDescriptions>
@@ -414,6 +414,19 @@
                                         Width="30" />
                                 </Button>
 
+                                <!-- save existing button -->
+                                <Button
+                                    Margin="5"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                    ToolTip="{DynamicResource ButtonToolTipSaveExistingSplit}"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding SaveExistingSplitCommand}">
+                                    <materialDesign:PackIcon
+                                        Kind="Floppy"
+                                        Height="30"
+                                        Width="30" />
+                                </Button>
+
                                 <!-- Remove button -->
                                 <Button
                                     Margin="5"
@@ -437,6 +450,8 @@
                         AutoGenerateColumns="False"
                         VerticalScrollBarVisibility="Visible"
                         SelectedItem="{Binding SelectedSplit}"
+                        SelectionUnit="FullRow"
+                        SelectionMode="Single"
                         ui:DataGridDragAndDropHelper.EnableRowReordering="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Game" Binding="{Binding Game, Converter={StaticResource EnumLanguageConverter}}"/>

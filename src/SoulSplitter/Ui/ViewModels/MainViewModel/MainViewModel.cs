@@ -14,14 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using SoulSplitter.DependencyInjection;
 using SoulMemory.Enums;
 using SoulSplitter.Resources;
 using SoulSplitter.Utils;
-using SoulSplitter.Ui.View;
-using SoulSplitter.Abstractions;
-using SoulMemory.Abstractions;
-using SoulMemory.Games.Sekiro;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel;
 
@@ -42,16 +39,17 @@ public partial class MainViewModel
         _languageManager = languageManager;
         AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
         RemoveSplitCommand = new RelayCommand(RemoveSplit, CanRemoveSplit);
+        SaveExistingSplitCommand = new RelayCommand(SaveExistingSplit, CanSaveExistingSplit);
 
-        CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage, (_) => true);
-        CommandOpenHomepage = new RelayCommand(ShowHomepage, (_) => true);
-        CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger, (_) => true);
+        CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage);
+        CommandOpenHomepage = new RelayCommand(ShowHomepage);
+        CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger);
         CommandClearErrors = new RelayCommand(ClearErrors, (_) => Errors.Count > 0);
-        CommandAddError = new RelayCommand(AddErrorCommand, (_) => true);
-        CommandShowErrors = new RelayCommand(ShowErrorWindow, (_) => true);
-        CommandOpenFlagTrackerWindow = new RelayCommand(OpenFlagTrackerWindow, (_) => true);
-        CommandImportSettingsFromFile = new RelayCommand(ImportSettings, (_) => true);
-        CommandExportSettingsFromFile = new RelayCommand(ExportSettings, (_) => true);
+        CommandAddError = new RelayCommand(AddErrorCommand);
+        CommandShowErrors = new RelayCommand(ShowErrorWindow);
+        CommandOpenFlagTrackerWindow = new RelayCommand(OpenFlagTrackerWindow);
+        CommandImportSettingsFromFile = new RelayCommand(ImportSettings);
+        CommandExportSettingsFromFile = new RelayCommand(ExportSettings);
     }
 
     #region UI logic
@@ -112,6 +110,45 @@ public partial class MainViewModel
         }
     }
 
+    private void OnSelectedSplitChanged()
+    {
+        if (SelectedSplit != null)
+        {
+            SelectedGame = SelectedSplit.Game;
+            SelectedNewGamePlusLevel = SelectedSplit.NewGamePlusLevel;
+            SelectedTimingType = SelectedSplit.TimingType;
+            SelectedSplitType = SelectedSplit.SplitType;
+            SplitDescription = SelectedSplit.Description;
+
+            switch (SelectedSplit.Split)
+            {
+                case Enum e:
+                    SelectedEventFlag = e;
+                    break;
+
+                case uint u:
+                    Flag = u;
+                    break;
+                    
+                case DarkSouls1BonfireViewModel darkSouls1BonfireViewModel:
+                    DarkSouls1BonfireViewModel = (DarkSouls1BonfireViewModel)darkSouls1BonfireViewModel.Clone();
+                    break;
+
+                case PositionViewModel positionViewModel:
+                    PositionViewModel = (PositionViewModel)positionViewModel.Clone();
+                    break;
+
+                case EldenRingPositionViewModel eldenRingPositionViewModel:
+                    EldenRingPositionViewModel = (EldenRingPositionViewModel)eldenRingPositionViewModel.Clone();
+                    break;
+
+                case AttributeViewModel attributeViewModel:
+                    AttributeViewModel = (AttributeViewModel)attributeViewModel.Clone();
+                    break;
+            }
+        }
+    }
+
     /// <summary>
     /// Clears only the split object - event flag, boss position, etc.
     /// </summary>
@@ -127,21 +164,4 @@ public partial class MainViewModel
     }
 
     #endregion
-
-    #region Language
-
-    public Language Language
-    {
-        get => _language;
-        set
-        {
-            SetField(ref _language, value);
-            _languageManager.LoadLanguage(_language);
-        }
-    }
-    private Language _language = Language.English;
-
-    #endregion
-
 }
-
