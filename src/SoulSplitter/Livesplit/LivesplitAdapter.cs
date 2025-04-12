@@ -22,67 +22,58 @@ using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using SoulMemory;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using SoulMemory.Enums;
 using SoulSplitter.Migrations;
-using SoulMemory.Abstractions;
 using SoulMemory.Games.Sekiro;
-using SoulSplitter.Abstractions;
 using SoulSplitter.Ui;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 using SoulSplitter.Utils;
 
-namespace SoulSplitter;
+namespace SoulSplitter.Livesplit;
 
-public enum ComponentMode
-{
-    AutoSplitter,
-    Layout,
-}
-
-public class SoulComponent : IComponent
+public class LivesplitAdapter : IComponent
 {
     public const string Name = "SoulSplitter";
+    private readonly ComponentMode _componentMode;
 
-
-    private LiveSplitState _liveSplitState;
-    private ComponentMode _componentMode;
-    private ITimerAdapter? _timerAdapter;
-
-    private IGame _game = null!;
     private DateTime _lastFailedRefresh = DateTime.MinValue;
     public readonly MainWindow MainWindow;
 
-    public SoulComponent(
-        LiveSplitState liveSplitState,
-        ComponentMode mode)
+    private readonly ISoulSplitterComponent _component;
+
+    public LivesplitAdapter(LiveSplitState liveSplitState, ComponentMode mode)
     {
         ThrowIfInstallationInvalid();
-
-        _liveSplitState = liveSplitState;
         _componentMode = mode;
 
-        //App needs to be initialized before parsing settings - languagemanager needs to be available
-        if (App.Current == null)
+        if (System.Windows.Application.Current == null)
         {
             var _ = new App();
-            var xml = _liveSplitState.Run.AutoSplitterSettings;
+            var xml = liveSplitState.Run.AutoSplitterSettings;
             var mainViewModel = GetMainViewModelFromSettings(xml);
             MainWindow = new MainWindow(mainViewModel);
-            App.Current!.MainWindow = MainWindow;
+            System.Windows.Application.Current!.MainWindow = MainWindow;
+        }
+        else //if app is already initialized, reuse the references.
+        {
+            MainWindow = (MainWindow)System.Windows.Application.Current.MainWindow;
+        }
+
+        if (_componentMode == ComponentMode.AutoSplitter)
+        {
+            var game = new Sekiro();
+            var timerAdapter = new TimerAdapter(liveSplitState, new Timer(game, MainWindow.MainViewModel));
+            _component = new TimerComponent(timerAdapter, game, MainWindow.MainViewModel);
         }
         else
         {
-            MainWindow = (MainWindow)App.Current.MainWindow;
+            _component = new LayoutComponent(MainWindow.MainViewModel);
         }
-
-        _game = new Sekiro();
-        _timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_game, MainWindow.MainViewModel));
     }
 
     private MainViewModel GetMainViewModelFromSettings(XmlNode settings)
@@ -95,7 +86,7 @@ public class SoulComponent : IComponent
         MainViewModel? mainViewModel = null;
 
         //Since we're still in the process of initialization, potentially we can't use TryAndHandleError yet
-        
+
         //try to migrate; if it fails we can still try to deserialize
         Exception? migrationException = null;
         try
@@ -120,8 +111,8 @@ public class SoulComponent : IComponent
         }
 
         mainViewModel ??= new MainViewModel();
-        if(migrationException != null) { mainViewModel.AddException(migrationException); }
-        if(deserializationException != null) { mainViewModel.AddException(deserializationException); }
+        if (migrationException != null) { mainViewModel.AddException(migrationException); }
+        if (deserializationException != null) { mainViewModel.AddException(deserializationException); }
 
         return mainViewModel;
     }
@@ -131,75 +122,35 @@ public class SoulComponent : IComponent
     /// </summary>
     public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
     {
-        MainWindow!.Dispatcher.Invoke(() =>
-        {
-            try
-            {
-                //Timeout for 5 sec after a refresh fails
-                if (DateTime.Now < _lastFailedRefresh.AddSeconds(5))
-                {
-                    return;
-                }
-
-                var result = _timerAdapter!.Update();
-                if (result.IsErr)
-                {
-                    //For these error cases it is pointless to try again right away; it will only eat host CPU, hence the timeout.
-                    if (result.GetErr().Reason is 
-                        RefreshErrorReason.ProcessNotRunning or 
-                        RefreshErrorReason.ProcessExited or 
-                        RefreshErrorReason.ScansFailed or 
-                        RefreshErrorReason.AccessDenied)
-                    {
-                        _lastFailedRefresh = DateTime.Now;
-                    }
-
-                    MainWindow.MainViewModel.AddRefreshError(result.GetErr());
-                }
-
-                MainWindow.MainViewModel.TryAndHandleError(() =>
-                {
-                    if (MainWindow.MainViewModel.SelectedSplitType == SplitType.Position && _game is IPlayerPosition playerPosition)
-                    {
-                        MainWindow.MainViewModel.CurrentPosition = playerPosition.GetPlayerPosition();
-                    }
-                });
-            }
-            catch (Exception e)
-            {
-                Logger.Log(e);
-                MainWindow.MainViewModel.AddException(e);
-            }
-        });
+        MainWindow.Dispatcher.Invoke(_component.Update);
     }
-    
+
     #region drawing ===================================================================================================================
     public IDictionary<string, Action> ContextMenuControls => new Dictionary<string, Action>();
     public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
     {
-        //Soulsplitter doesn't draw to livesplit's window, but must implement the full interface.
+        if (_componentMode == ComponentMode.Layout && _component is ISoulSplitterLayoutComponent layoutComponent)
+        {
+            MainWindow.Dispatcher.Invoke(() =>
+            {
+                layoutComponent.Draw(g, null, height, clipRegion);
+                HorizontalWidth = layoutComponent.Width;
+                VerticalHeight = layoutComponent.Height;
+            });
+        }
     }
 
     public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion)
     {
-        //Soulsplitter doesn't draw to livesplit's window, but must implement the full interface.
-
-
-        //if (_componentMode == ComponentMode.Layout)
-        //{
-        //    string drawString = "";
-        //    MainWindow.Dispatcher.Invoke(() =>
-        //    {
-        //        drawString = MainWindow.MainViewModel.Flag.ToString();
-        //    });
-        //    System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 16);
-        //    System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Red);
-        //    System.Drawing.StringFormat drawFormat = new System.Drawing.StringFormat();
-        //    g.DrawString(drawString, drawFont, drawBrush, 0, 0, drawFormat);
-        //    var size = g.MeasureString(drawString, drawFont, new SizeF(0, 0), drawFormat);
-        //    HorizontalWidth = size.Width;
-        //    VerticalHeight = size.Height;
-        //}
+        if (_componentMode == ComponentMode.Layout && _component is ISoulSplitterLayoutComponent layoutComponent)
+        {
+            MainWindow.Dispatcher.Invoke(() =>
+            {
+                layoutComponent.Draw(g, width, null, clipRegion);
+                HorizontalWidth = layoutComponent.Width;
+                VerticalHeight = layoutComponent.Height;
+            });
+        }
     }
 
     public string ComponentName => Name;
@@ -213,16 +164,12 @@ public class SoulComponent : IComponent
     public float PaddingRight => 0;
     public void Dispose()
     {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-    protected virtual void Dispose(bool disposing)
-    {
-        _timerAdapter?.Dispose();
+        //GC.SuppressFinalize(this);
     }
     #endregion
 
     #region Xml settings ==============================================================================================================
+    
     /// <summary>
     /// Called when loading the settings from livesplit into the component
     /// </summary>
@@ -247,9 +194,7 @@ public class SoulComponent : IComponent
         });
         return root;
     }
-
     
-
     private Button? _customShowSettingsButton;
     public Control GetSettingsControl(LayoutMode mode)
     {
@@ -328,7 +273,7 @@ public class SoulComponent : IComponent
 
     private void ThrowIfInstallationInvalid()
     {
-        var assemblyPath = Assembly.GetAssembly(typeof(SoulComponent)).Location;
+        var assemblyPath = Assembly.GetAssembly(typeof(LivesplitAdapter)).Location;
         var directory = Path.GetDirectoryName(assemblyPath)!;
 
         var files = Directory.EnumerateFiles(directory).Select(i => Path.GetFileName(i)!).ToList();

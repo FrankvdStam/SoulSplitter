@@ -19,26 +19,26 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
-using SoulSplitter;
+using SoulSplitter.Livesplit;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Utils;
 
 
 [assembly: InternalsVisibleTo("SoulSplitter.Tests")]
-[assembly: ComponentFactory(typeof(SoulComponentFactory))]
+[assembly: ComponentFactory(typeof(LivesplitAdapterFactory))]
 
-namespace SoulSplitter;
+namespace SoulSplitter.Livesplit;
 
-public class SoulComponentFactory : IComponentFactory
+public class LivesplitAdapterFactory : IComponentFactory
 {
-    public string ComponentName => SoulComponent.Name;
+    public string ComponentName => LivesplitAdapter.Name;
 
     public string Description => "Souls games plugin for IGT/RTA with load removal";
 
     public ComponentCategory Category => ComponentCategory.Control;
 
-    public string UpdateName => SoulComponent.Name;
-    
+    public string UpdateName => LivesplitAdapter.Name;
+
     public string XMLURL => $"{UpdateURL}/Components/Updates.xml";
 
     public string UpdateURL => "https://raw.githubusercontent.com/FrankvdStam/SoulSplitter/main/";
@@ -51,6 +51,6 @@ public class SoulComponentFactory : IComponentFactory
         var stackTrace = new StackTrace();
         var caller = stackTrace.GetFrame(1).GetMethod().Name;
         var componentMode = caller == "AddComponent" ? ComponentMode.Layout : ComponentMode.AutoSplitter;
-        return new SoulComponent(state, componentMode);
+        return new LivesplitAdapter(state, componentMode);
     }
 }

@@ -40,8 +40,6 @@ public class TimerAdapter : ITimerAdapter
         _timer.OnAutoStart += OnStart;
         _timer.OnUpdateTime += OnUpdateTime;
         _timer.OnRequestSplit += OnRequestSplit;
-
-        _liveSplitState.IsGameTimePaused = true;
     }
 
     internal readonly TimerModel TimerModel;
