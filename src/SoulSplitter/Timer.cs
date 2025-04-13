@@ -250,7 +250,7 @@ namespace SoulSplitter
                     {
                         if (blackscreenRemovable.IsBlackscreenActive())
                         {
-                            split.SplitConditionMet = true;
+                            split.SplitTriggered = true;
                             RequestSplit();
                         }
                         break;
