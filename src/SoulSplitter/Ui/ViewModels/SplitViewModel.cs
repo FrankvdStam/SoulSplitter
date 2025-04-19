@@ -16,6 +16,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -128,7 +129,7 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
     
             case SplitType.Flag:
                 var flag = splitNode.FirstChild.Value;
-                return uint.Parse(flag);
+                return uint.Parse(flag, CultureInfo.InvariantCulture);
     
             case SplitType.Position:
                 var positionViewModel = new PositionViewModel();
@@ -138,10 +139,10 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
                 var z = position.GetChildNodeByName(nameof(Vector3f.Z)).FirstChild.Value;
                 var size = splitNode.FirstChild.GetChildNodeByName(nameof(PositionViewModel.Size)).FirstChild.Value;
     
-                positionViewModel.Position.X = float.Parse(x);
-                positionViewModel.Position.Y = float.Parse(y);
-                positionViewModel.Position.Z = float.Parse(z);
-                positionViewModel.Size = float.Parse(size);
+                positionViewModel.Position.X = float.Parse(x, CultureInfo.InvariantCulture);
+                positionViewModel.Position.Y = float.Parse(y, CultureInfo.InvariantCulture);
+                positionViewModel.Position.Z = float.Parse(z, CultureInfo.InvariantCulture);
+                positionViewModel.Size = float.Parse(size, CultureInfo.InvariantCulture);
     
                 return positionViewModel;
     
@@ -156,7 +157,7 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
                 var level = splitNode.FirstChild.GetChildNodeByName(nameof(AttributeViewModel.Level)).FirstChild.Value;
     
                 attributeViewModel.Attribute = (Enum)Enum.Parse(attributeType!, attribute);
-                attributeViewModel.Level = int.Parse(level);
+                attributeViewModel.Level = int.Parse(level, CultureInfo.InvariantCulture);
                 return attributeViewModel;
     
             case SplitType.DarkSouls1Item:
@@ -171,7 +172,7 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
     {
         writer.WriteElementString(nameof(SplitViewModel.Description), Description);
         writer.WriteElementString(nameof(SplitViewModel.Game), Game.ToString());
-        writer.WriteElementString(nameof(SplitViewModel.NewGamePlusLevel), NewGamePlusLevel.ToString());
+        writer.WriteElementString(nameof(SplitViewModel.NewGamePlusLevel), NewGamePlusLevel.ToString(CultureInfo.InvariantCulture));
         writer.WriteElementString(nameof(SplitViewModel.TimingType), TimingType.ToString());
         writer.WriteElementString(nameof(SplitViewModel.SplitType), SplitType.ToString());
         SerializeSplitObject(writer, SplitType, Split);
@@ -196,11 +197,11 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
                 var position = (PositionViewModel)split;
                 writer.WriteStartElement(nameof(PositionViewModel));
                 writer.WriteStartElement(nameof(PositionViewModel.Position));
-                writer.WriteElementString(nameof(Vector3f.X), position.Position.X.ToString());
-                writer.WriteElementString(nameof(Vector3f.Y), position.Position.Y.ToString());
-                writer.WriteElementString(nameof(Vector3f.Z), position.Position.Z.ToString());
+                writer.WriteElementString(nameof(Vector3f.X), position.Position.X.ToString(CultureInfo.InvariantCulture));
+                writer.WriteElementString(nameof(Vector3f.Y), position.Position.Y.ToString(CultureInfo.InvariantCulture));
+                writer.WriteElementString(nameof(Vector3f.Z), position.Position.Z.ToString(CultureInfo.InvariantCulture));
                 writer.WriteEndElement();
-                writer.WriteElementString(nameof(PositionViewModel.Size), position.Size.ToString());
+                writer.WriteElementString(nameof(PositionViewModel.Size), position.Size.ToString(CultureInfo.InvariantCulture));
                 writer.WriteEndElement();
                 break;
 
@@ -213,7 +214,7 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
                 writer.WriteString(attributeViewModel.Attribute.ToString());
                 writer.WriteEndElement();
 
-                writer.WriteElementString(nameof(AttributeViewModel.Level), attributeViewModel.Level.ToString());
+                writer.WriteElementString(nameof(AttributeViewModel.Level), attributeViewModel.Level.ToString(CultureInfo.InvariantCulture));
                 writer.WriteEndElement();
                 break;
 

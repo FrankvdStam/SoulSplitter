@@ -55,24 +55,21 @@ public class LivesplitAdapter : IComponent
         if (System.Windows.Application.Current == null)
         {
             var _ = new App();
-            var xml = liveSplitState.Run.AutoSplitterSettings;
-            var mainViewModel = GetMainViewModelFromSettings(xml);
-            MainWindow = new MainWindow(mainViewModel);
-            System.Windows.Application.Current!.MainWindow = MainWindow;
-        }
-        else //if app is already initialized, reuse the references.
-        {
-            MainWindow = (MainWindow)System.Windows.Application.Current.MainWindow;
         }
 
         if (_componentMode == ComponentMode.AutoSplitter)
         {
+            var xml = liveSplitState.Run.AutoSplitterSettings;
+            var mainViewModel = GetMainViewModelFromSettings(xml);
+            MainWindow = new MainWindow(mainViewModel);
+            System.Windows.Application.Current!.MainWindow = MainWindow;
             var game = new Sekiro();
             var timerAdapter = new TimerAdapter(liveSplitState, new Timer(game, MainWindow.MainViewModel));
             _component = new TimerComponent(timerAdapter, game, MainWindow.MainViewModel);
         }
-        else
+        else //when in layout mode, assume timer is already running and initialized
         {
+            MainWindow = (MainWindow)System.Windows.Application.Current.MainWindow;
             _component = new LayoutComponent(MainWindow.MainViewModel);
         }
     }

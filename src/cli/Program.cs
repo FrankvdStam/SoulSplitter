@@ -43,6 +43,13 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+            var num = -174.4948f;
+            var str = num.ToString(CultureInfo.InvariantCulture);
+            var res = float.Parse(str, CultureInfo.InvariantCulture);
+
+
+
+
             //var a = ResourceUtils.GenerateResourceDictionaryForEventFlag(typeof(KnownFlag));
             TestUi(true);
             return;
