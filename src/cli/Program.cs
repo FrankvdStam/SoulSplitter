@@ -29,6 +29,7 @@ using SoulMemory;
 using SoulMemory.Enums;
 using SoulMemory.Parameters;
 using SoulMemory.Abstractions;
+using SoulMemory.Games.Bloodborne;
 using SoulSplitter.Ui.ViewModels;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Ui.View;
@@ -43,6 +44,14 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+            GameLoop<Bloodborne>(e =>
+            {
+                var timespan = TimeSpan.FromMilliseconds(e.ReadInGameTimeMilliseconds());
+                Console.WriteLine(timespan);
+            });
+
+
+
             var num = -174.4948f;
             var str = num.ToString(CultureInfo.InvariantCulture);
             var res = float.Parse(str, CultureInfo.InvariantCulture);
