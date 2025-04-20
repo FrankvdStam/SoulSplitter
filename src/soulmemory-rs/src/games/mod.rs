@@ -27,6 +27,7 @@ mod mock_game;
 pub mod dx_version;
 mod game;
 mod game_ext;
+mod bloodborne;
 
 
 #[cfg(target_arch = "x86")]
@@ -55,6 +56,7 @@ pub use dark_souls_3::DarkSouls3;
 pub use sekiro::Sekiro;
 pub use elden_ring::EldenRing;
 pub use armored_core_6::ArmoredCore6;
+pub use bloodborne::Bloodborne;
 pub use mock_game::MockGame;
 
 pub type ChrDbgFlag = (u32, String, bool);

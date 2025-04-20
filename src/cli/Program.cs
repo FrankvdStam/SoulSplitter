@@ -32,6 +32,7 @@ using SoulMemory.Abstractions;
 using SoulMemory.Games.Bloodborne;
 using SoulSplitter.Ui.ViewModels;
 using SoulMemory.Games.Sekiro;
+using SoulSplitter.soulmemory_rs;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 
@@ -44,13 +45,25 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
-            GameLoop<Bloodborne>(e =>
-            {
-                var timespan = TimeSpan.FromMilliseconds(e.ReadInGameTimeMilliseconds());
-                Console.WriteLine(timespan);
-            });
+            GameLoop<Bloodborne>(
+                (d) =>
+                {
+                    //Console.WriteLine(d.ReadInGameTimeMilliseconds());
+                    //var dropmod = new DropMod(d);
+                    //dropmod.InitBkh();
+                    //
+                    //
+                    //
+                    var igtElapsed = TimeSpan.FromMilliseconds(d.ReadInGameTimeMilliseconds());
+                    Console.WriteLine($"IGT: {igtElapsed}");
+                    Console.WriteLine($"Flag 1: {d.ReadEventFlag(6999)}");
+                    Console.WriteLine($"Flag 2: {d.ReadEventFlag(6899)}");
+                }
+            );
 
+            SoulMemoryRs.Launch();
 
+            return;
 
             var num = -174.4948f;
             var str = num.ToString(CultureInfo.InvariantCulture);
