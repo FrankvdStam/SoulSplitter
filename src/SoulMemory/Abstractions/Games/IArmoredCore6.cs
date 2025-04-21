@@ -14,20 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulSplitter.Resources;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using SoulSplitter.DependencyInjection;
-using SoulMemory.Enums;
-using SoulSplitter.Ui.View;
-using SoulSplitter.Ui.ViewModels.MainViewModel;
+namespace SoulMemory.Abstractions.Games;
 
-namespace SoulSplitter.Ui;
-
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
-[ExcludeFromCodeCoverage]
-public partial class App : Application
+public interface IArmoredCore6 : IGame, ILoading
 {
+
 }

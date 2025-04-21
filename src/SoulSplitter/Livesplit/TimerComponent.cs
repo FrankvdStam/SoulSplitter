@@ -18,7 +18,6 @@ using SoulMemory.Abstractions;
 using SoulSplitter.Abstractions;
 using System;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
-using SoulMemory.Enums;
 using SoulMemory;
 using SoulSplitter.Utils;
 
@@ -28,13 +27,11 @@ public class TimerComponent : ISoulSplitterComponent
 {
     private DateTime _lastFailedRefresh = DateTime.MinValue;
     private readonly MainViewModel _mainViewModel;
-    private readonly IGame _game = null!;
     private readonly ITimerAdapter? _timerAdapter;
 
-    public TimerComponent(ITimerAdapter timerAdapter, IGame game, MainViewModel mainViewModel)
+    public TimerComponent(ITimerAdapter timerAdapter, MainViewModel mainViewModel)
     {
         _mainViewModel = mainViewModel;
-        _game = game;
         _timerAdapter = timerAdapter;
     }
 
@@ -63,14 +60,6 @@ public class TimerComponent : ISoulSplitterComponent
 
                 _mainViewModel.AddRefreshError(result.GetErr());
             }
-
-            _mainViewModel.TryAndHandleError(() =>
-            {
-                if (_mainViewModel.SelectedSplitType == SplitType.Position && _game is IPlayerPosition playerPosition)
-                {
-                    _mainViewModel.CurrentPosition = playerPosition.GetPlayerPosition();
-                }
-            });
         }
         catch (Exception e)
         {

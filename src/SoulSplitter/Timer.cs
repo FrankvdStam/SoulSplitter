@@ -14,16 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Abstractions;
 using System;
+using SoulMemory.Abstractions;
 using System.Diagnostics;
+using System.Linq;
 using SoulMemory;
 using SoulMemory.Abstractions.Games;
 using SoulMemory.Enums;
 using SoulSplitter.Abstractions;
+using SoulSplitter.DependencyInjection;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 using SoulSplitter.Utils;
+using IServiceProvider = SoulSplitter.DependencyInjection.IServiceProvider;
 
 namespace SoulSplitter
 {
@@ -31,14 +34,20 @@ namespace SoulSplitter
 
     public class Timer : ITimer
     {
-        public Timer(IGame game, MainViewModel mainViewModel)
+        public Timer(IServiceProvider serviceProvider, MainViewModel mainViewModel)
         {
-            _game = game;
+            _serviceProvider = serviceProvider;
+            _game = serviceProvider.GetService<ISekiro>();
             _mainViewModel = mainViewModel;
+            mainViewModel.Splits.CollectionChanged += (o, e) => SplitsChanged();
         }
 
-        private readonly IGame _game;
+        private readonly IServiceProvider _serviceProvider;
         private readonly MainViewModel _mainViewModel;
+
+        private int _currentSplitIndex = 0;
+        private Game? _previousGame;
+        private IGame _game;
         private bool _isRunning;
         private int _previousIgt;
 
@@ -49,6 +58,7 @@ namespace SoulSplitter
         private void RequestSplit()
         {
             OnRequestSplit?.Invoke(this, null);
+            _currentSplitIndex++;
         }
 
         /// <summary>
@@ -76,6 +86,7 @@ namespace SoulSplitter
                 _isRunning = false;
                 Debug.WriteLine($"Set is running false: {_isRunning}");
                 _previousIgt = 0;
+                _currentSplitIndex = 0;
                 OnUpdateTime?.Invoke(this, 0);
             }
         }
@@ -91,9 +102,94 @@ namespace SoulSplitter
             {
                 return result;
             }
+
+            _mainViewModel.TryAndHandleError(() =>
+            {
+                //if the timer is not running and the selected split is position, populate the UI with
+                //a position read from the game. This can't be read from _game since that will be the first split's game
+                //instead fetch it from the selected split's game.
+                if (!_isRunning && _mainViewModel.SelectedSplitType == SplitType.Position)
+                {
+                    //_game is bound to the first split or the current active split.
+                    var game = GetGame(_mainViewModel.SelectedGame!.Value);
+                    //only update if required
+                    if (game != _game)
+                    {
+                        if (game.TryRefresh().IsErr)
+                        {
+                            return;
+                        }
+                    }
+
+                    if (game is IPlayerPosition playerPosition)
+                    {
+                        _mainViewModel.CurrentPosition = playerPosition.GetPlayerPosition();
+                    }
+
+                    if (game is IEldenRing eldenRing)
+                    {
+                        _mainViewModel.CurrentEldenRingPosition = eldenRing.GetPosition();
+                    }
+                }
+            });
+
+            UpdateActiveGame();
             UpdateTimer();
             UpdateAutoSplitter();
             return Result.Ok();
+        }
+
+
+        private SplitViewModel? GetCurrentSplit()
+        {
+            if (_currentSplitIndex < 0 || _currentSplitIndex >= _mainViewModel.Splits.Count)
+            {
+                _mainViewModel.AddException(new ArgumentException($"CurrentSplitIndex out of bounds. _currentSplitIndex: {_currentSplitIndex} Splits.Count: {_mainViewModel.Splits.Count}"));
+                return null;
+            }
+            return _mainViewModel.Splits[_currentSplitIndex];
+        }
+
+
+        private void SplitsChanged()
+        {
+            //trigger re-initialization of the game by setting this to null.
+            //The idea being that we want the game to be equal to the game of the first split
+            //this is important for autostart to work
+            _previousGame = null;
+        }
+
+        private void UpdateActiveGame()
+        {
+            if (_previousGame == null)
+            {
+                //Can't select game if there are no splits
+                if (!_mainViewModel.Splits.Any())
+                {
+                    return;
+                }
+                //Has to be first split for autostart to work
+                _previousGame = _mainViewModel.Splits.First().Game;
+                _game = GetGame(_previousGame.Value);
+                return;
+            }
+
+            //Check if game switch is warranted but only when the timer is running
+            if (_isRunning)
+            {
+                var split = GetCurrentSplit();
+                if (split == null)
+                {
+                    return;
+                }
+
+                if (_previousGame != split.Game)
+                {
+                    _game = GetGame(split.Game);
+                    _game.TryRefresh();
+                    _previousGame = split.Game;
+                }
+            }
         }
 
         private void UpdateTimer()
@@ -133,19 +229,41 @@ namespace SoulSplitter
             }
         }
 
-        private int ResolveNewGameLevel()
+
+        private void UpdateAutoSplitter()
         {
-            if (_game is IReadNewGameLevel readNewGameLevel)
+            if (!_isRunning)
             {
-                return readNewGameLevel.ReadNewGameLevel();
+                return;
             }
-            return 0;
+
+            var split = GetCurrentSplit();
+            if (split == null)
+            {
+                return;
+            }
+
+            if (!split.SplitConditionMet)
+            {
+                split.SplitConditionMet = IsSplitConditionMet(split);
+            }
+
+            if (split.SplitConditionMet)
+            {
+                if (IsSplitTimingMet(split))
+                {
+                    OnRequestSplit?.Invoke(this, null);
+                    _currentSplitIndex++;
+                    split.SplitConditionMet = true;
+                }
+            }
         }
 
-        private void ResolveSplitCondition(SplitViewModel split)
+        private bool IsSplitConditionMet(SplitViewModel split)
         {
             switch (split.SplitType)
             {
+                default:
                 case SplitType.DarkSouls1Item:
                 case SplitType.DarkSouls1Bonfire:
                     throw new ArgumentException($"Unsupported split type {split.SplitType}.");
@@ -155,13 +273,11 @@ namespace SoulSplitter
                 case SplitType.ItemPickup:
                 case SplitType.KnownFlag:
                     var eventFlag = (uint)split.Split;
-                    split.SplitConditionMet = _game.ReadEventFlag(eventFlag);
-                    break;
+                    return _game.ReadEventFlag(eventFlag);
 
                 case SplitType.Flag:
                     uint flag = (uint)split.Split;
-                    split.SplitConditionMet = _game.ReadEventFlag(flag);
-                    break;
+                    return _game.ReadEventFlag(flag);
 
                 case SplitType.Attribute:
                     if (_game is not IReadAttribute readAttribute)
@@ -170,8 +286,7 @@ namespace SoulSplitter
                     }
 
                     var attributeViewModel = (AttributeViewModel)split.Split;
-                    split.SplitConditionMet = readAttribute.ReadAttribute(attributeViewModel.Attribute) == attributeViewModel.Level; 
-                    break;
+                    return readAttribute.ReadAttribute(attributeViewModel.Attribute) == attributeViewModel.Level;
 
                 case SplitType.Position:
                     if (_game is not IPlayerPosition playerPosition)
@@ -190,9 +305,9 @@ namespace SoulSplitter
                         positionViewModel.Position.Z + positionViewModel.Size > position.Z &&
                         positionViewModel.Position.Z - positionViewModel.Size < position.Z)
                     {
-                        split.SplitConditionMet = true;
+                        return true;
                     }
-                    break;
+                    return false;
 
                 case SplitType.EldenRingPosition:
                     if (_game is not IEldenRing eldenRing)
@@ -217,30 +332,23 @@ namespace SoulSplitter
                         currentPosition.Z + vm.Size > vm.Position.Z &&
                         currentPosition.Z - vm.Size < vm.Position.Z)
                     {
-                        split.SplitConditionMet = true;
+                        return true;
                     }
-                    break;
+                    return false;
             }
         }
 
-        private void ResolveSplitTiming(SplitViewModel split)
+        private bool IsSplitTimingMet(SplitViewModel split)
         {
             switch (split.TimingType)
             {
                 case TimingType.Immediate:
-                    split.SplitTriggered = true;
-                    RequestSplit();
-                    break;
+                    return true;
 
                 case TimingType.OnLoading:
                     if (_game is ILoading loading)
                     {
-                        if (loading.IsLoading())
-                        {
-                            RequestSplit();
-                            split.SplitTriggered = true;
-                        }
-                        break;
+                        return loading.IsLoading();
                     }
                     throw new ArgumentException($"Unsupported timing type {split.TimingType}. {_game} does not implement {nameof(ILoading)}");
 
@@ -248,12 +356,7 @@ namespace SoulSplitter
                 case TimingType.OnBlackscreen:
                     if (_game is IBlackscreenRemovable blackscreenRemovable)
                     {
-                        if (blackscreenRemovable.IsBlackscreenActive())
-                        {
-                            split.SplitTriggered = true;
-                            RequestSplit();
-                        }
-                        break;
+                        return blackscreenRemovable.IsBlackscreenActive();
                     }
                     throw new ArgumentException($"Unsupported timing type {split.TimingType}. {_game} does not implement {nameof(IBlackscreenRemovable)}");
                      
@@ -263,38 +366,18 @@ namespace SoulSplitter
             }
         }
 
-        private void UpdateAutoSplitter()
+        private IGame GetGame(Game game)
         {
-            if (!_isRunning)
+            return game switch
             {
-                return;
-            }
-
-            foreach (var split in _mainViewModel.Splits)
-            {
-                //Skip splits that are already triggered
-                if (split.SplitTriggered)
-                {
-                    continue;
-                }
-
-                //ignore splits that don't match the current ng+ level
-                var newGameLevel = ResolveNewGameLevel();
-                if (split.NewGamePlusLevel != newGameLevel)
-                {
-                    continue;
-                }
-
-                if (!split.SplitConditionMet)
-                {
-                    ResolveSplitCondition(split);
-                }
-
-                if (split.SplitConditionMet)
-                {
-                    ResolveSplitTiming(split);
-                }
-            }
+                Game.DarkSouls1 => _serviceProvider.GetService<IDarkSouls1>(),
+                Game.DarkSouls2 => _serviceProvider.GetService<IDarkSouls2>(),
+                Game.DarkSouls3 => _serviceProvider.GetService<IDarkSouls3>(),
+                Game.Sekiro => _serviceProvider.GetService<ISekiro>(),
+                Game.EldenRing => _serviceProvider.GetService<IEldenRing>(),
+                Game.ArmoredCore6 => _serviceProvider.GetService<IArmoredCore6>(),
+                _ => throw new Exception($"{game} not supported")
+            };
         }
     }
 }

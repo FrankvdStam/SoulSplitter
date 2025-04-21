@@ -17,6 +17,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using SoulMemory.Abstractions.Games;
 using SoulMemory.Memory;
 using SoulMemory.Native;
 

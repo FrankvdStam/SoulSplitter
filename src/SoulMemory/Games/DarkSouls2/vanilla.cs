@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using SoulMemory.Abstractions.Games;
 using SoulMemory.Memory;
 
 namespace SoulMemory.Games.DarkSouls2;

@@ -55,8 +55,7 @@
             Width="50"
             Height="25"
             Margin="5,7,0,0"
-            materialDesign:HintAssist.Hint="Y"
-            materialDesign:HintAssist.HelperText="{Binding CurrentEldenRingPosition.Y, RelativeSource={RelativeSource AncestorType=UserControl}}">
+            materialDesign:HintAssist.Hint="Level">
             <TextBox.Text>
                 <Binding Path="AttributeViewModel.Level" RelativeSource="{RelativeSource AncestorType=UserControl}">
                     <Binding.ValidationRules>

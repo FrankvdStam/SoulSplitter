@@ -37,6 +37,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using SoulMemory.Abstractions.Games;
 using SoulMemory.Games.DarkSouls1.Parameters;
 using SoulMemory.Memory;
 using SoulMemory.Native;

@@ -14,12 +14,54 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory.Abstractions;
+using SoulMemory.Abstractions.Games;
+using SoulMemory.Enums;
+using SoulMemory.Games.ArmoredCore6;
+using SoulMemory.Games.DarkSouls1;
+using SoulMemory.Games.DarkSouls2;
+using SoulMemory.Games.DarkSouls3;
+using SoulMemory.Games.EldenRing;
+using SoulMemory.Games.Sekiro;
+using SoulSplitter.Resources;
+using SoulSplitter.Ui.View;
+
 namespace SoulSplitter.DependencyInjection
 {
     public static class GlobalServiceProvider
     {
-        public static IServiceProvider Instance { get; set; } = null!;
+        private static readonly object WriteLock = new object();
+        internal static IServiceProvider? _instance;
 
+        public static IServiceProvider Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (WriteLock)
+                    {
+                        var serviceCollection = new ServiceCollection();
+                        serviceCollection.AddSingleton<ILanguageManager, LanguageManager>();
+                        serviceCollection.AddSingleton<IDarkSouls1, DarkSouls1>();
+                        serviceCollection.AddSingleton<IDarkSouls2, DarkSouls2>();
+                        serviceCollection.AddSingleton<IDarkSouls3, DarkSouls3>();
+                        serviceCollection.AddSingleton<ISekiro, Sekiro>();
+                        serviceCollection.AddSingleton<IEldenRing, EldenRing>();
+                        serviceCollection.AddSingleton<IArmoredCore6, ArmoredCore6>();
 
+                        _instance = serviceCollection.Build();
+
+                        ServiceProviderSource.Resolver = (type) => _instance.GetService(type);
+                    }
+                }
+                return _instance;
+            }
+            //Allow overwriting for unit tests
+            set
+            {
+                _instance = value;
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.Games.EldenRing;
 
-public class EldenRing : IGame, IEldenRing, IBlackscreenRemovable, IReadNewGameLevel, ILoading
+public class EldenRing : IEldenRing
 {
     private Process? _process;
 

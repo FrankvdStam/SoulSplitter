@@ -18,7 +18,7 @@ using SoulMemory.Games.EldenRing;
 
 namespace SoulMemory.Abstractions.Games
 {
-    public interface IEldenRing
+    public interface IEldenRing : IGame, IBlackscreenRemovable, IReadNewGameLevel, ILoading
     {
         Position GetPosition();
     }

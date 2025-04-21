@@ -14,16 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Abstractions;
+using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Games.DarkSouls1.Parameters;
 using System;
 using System.Collections.Generic;
 
-namespace SoulMemory.Games.DarkSouls1;
+namespace SoulMemory.Abstractions.Games;
 
 public interface IDarkSouls1 : IGame, IPlayerPosition
 {
-    int GetAttribute(Attribute attribute);
+    int GetAttribute(SoulMemory.Games.DarkSouls1.Attribute attribute);
     bool IsWarpRequested();
     bool IsPlayerLoaded();
     int NgCount();

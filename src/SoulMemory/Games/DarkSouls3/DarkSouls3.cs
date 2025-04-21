@@ -16,13 +16,13 @@
 
 using System;
 using System.Diagnostics;
-using SoulMemory.Abstractions;
+using SoulMemory.Abstractions.Games;
 using SoulMemory.Memory;
 using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.Games.DarkSouls3;
 
-public class DarkSouls3 : IGame, IPlayerPosition, IBlackscreenRemovable, IReadAttribute
+public class DarkSouls3 : IDarkSouls3
 {
     private Process? _process;
     private readonly Pointer _gameDataMan = new();

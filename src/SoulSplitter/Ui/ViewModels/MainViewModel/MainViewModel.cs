@@ -29,7 +29,7 @@ public partial class MainViewModel
     /// <summary>
     /// Parameterless constructor for serializing
     /// </summary>
-    public MainViewModel() : this(App.ServiceProvider.GetService<ILanguageManager>())
+    public MainViewModel() : this(GlobalServiceProvider.Instance.GetService<ILanguageManager>())
     {
 
     }

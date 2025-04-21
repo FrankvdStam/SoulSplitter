@@ -14,11 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Abstractions;
+namespace SoulMemory.Abstractions.Games;
 
-namespace SoulMemory.Games.DarkSouls2;
-
-public interface IDarkSouls2 : IGame, IPlayerPosition, ILoading, IReadAttribute
+public interface IDarkSouls3 : IGame, IPlayerPosition, IBlackscreenRemovable, IReadAttribute
 {
-    int GetBossKillCount(Boss bossType);
+
 }

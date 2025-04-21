@@ -22,7 +22,7 @@ namespace SoulSplitter.Tests
 
             var serviceCollect = new ServiceCollection();
             serviceCollect.AddSingleton<ILanguageManager>(i => languageManagerMock.Object);
-            App.ServiceProvider = serviceCollect.Build();
+            GlobalServiceProvider.Instance = serviceCollect.Build();
 
             var mainViewModel = new MainViewModel();
             mainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 0, TimingType.Immediate, SplitType.Boss, Boss.HeadlessApe, "big boss"));
@@ -53,7 +53,7 @@ namespace SoulSplitter.Tests
 
         private const string ExpectedXml = @"<MainViewModel xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <Language>English</Language>
-  <Version>2.0.2</Version>
+  <Version>2.0.8</Version>
   <Splits>
     <SplitViewModel>
       <Description>big boss</Description>
@@ -93,9 +93,9 @@ namespace SoulSplitter.Tests
       <Split type=""SoulSplitter.Ui.ViewModels.PositionViewModel"">
         <PositionViewModel>
           <Position>
-            <X>12,4</X>
-            <Y>502,12</Y>
-            <Z>245,04</Z>
+            <X>12.4</X>
+            <Y>502.12</Y>
+            <Z>245.04</Z>
           </Position>
           <Size>5</Size>
         </PositionViewModel>
@@ -151,7 +151,7 @@ namespace SoulSplitter.Tests
 
             var serviceCollect = new ServiceCollection();
             serviceCollect.AddSingleton<ILanguageManager>(i => languageManagerMock.Object);
-            App.ServiceProvider = serviceCollect.Build();
+            GlobalServiceProvider.Instance = serviceCollect.Build();
 
 
             var deserialized = MainViewModel.DeserializeXml(ExpectedXml2);
@@ -418,7 +418,7 @@ namespace SoulSplitter.Tests
 
             var serviceCollect = new ServiceCollection();
             serviceCollect.AddSingleton<ILanguageManager>(i => languageManagerMock.Object);
-            App.ServiceProvider = serviceCollect.Build();
+            GlobalServiceProvider.Instance = serviceCollect.Build();
 
             var mainViewModel = new MainViewModel();
             mainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 0, TimingType.Immediate, SplitType.Boss, Boss.HeadlessApe, "big boss"));

@@ -26,10 +26,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using SoulMemory.Abstractions.Games;
 using SoulMemory.Enums;
 using SoulSplitter.Migrations;
 using SoulMemory.Games.Sekiro;
 using SoulSplitter.Abstractions;
+using SoulSplitter.DependencyInjection;
 using SoulSplitter.Ui;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
@@ -49,8 +51,11 @@ public class LivesplitAdapter : IComponent
 
     public LivesplitAdapter(LiveSplitState liveSplitState, ComponentMode mode)
     {
+        var serviceProvider = GlobalServiceProvider.Instance;
+
         ThrowIfInstallationInvalid();
         _componentMode = mode;
+
 
         if (System.Windows.Application.Current == null)
         {
@@ -63,13 +68,12 @@ public class LivesplitAdapter : IComponent
             var mainViewModel = GetMainViewModelFromSettings(xml);
             MainWindow = new MainWindow(mainViewModel);
             System.Windows.Application.Current!.MainWindow = MainWindow;
-            var game = new Sekiro();
-            var timerAdapter = new TimerAdapter(liveSplitState, new Timer(game, MainWindow.MainViewModel));
-            _component = new TimerComponent(timerAdapter, game, MainWindow.MainViewModel);
+            var timerAdapter = new TimerAdapter(liveSplitState, new Timer(serviceProvider, MainWindow.MainViewModel));
+            _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
         }
         else //when in layout mode, assume timer is already running and initialized
         {
-            MainWindow = (MainWindow)System.Windows.Application.Current.MainWindow;
+            MainWindow = (MainWindow)System.Windows.Application.Current!.MainWindow!;
             _component = new LayoutComponent(MainWindow.MainViewModel);
         }
     }
