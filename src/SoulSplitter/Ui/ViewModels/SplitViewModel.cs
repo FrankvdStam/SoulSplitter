@@ -67,5 +67,6 @@ public class SplitViewModel : NotifyPropertyChanged
     }
     private object _split = null!;
 
-    public bool SplitConditionMet;
+    public bool IsSplitConditionMet = false;
+    public bool IsDisabled = false;
 }

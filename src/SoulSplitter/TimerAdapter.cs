@@ -41,11 +41,14 @@ public class TimerAdapter : ITimerAdapter
         _timer.OnAutoStart += OnStart;
         _timer.OnUpdateTime += OnUpdateTime;
         _timer.OnRequestSplit += OnRequestSplit;
+
+        _currentSplitIndex = _liveSplitState.CurrentSplitIndex;
     }
 
     internal readonly TimerModel TimerModel;
     private readonly LiveSplitState _liveSplitState;
     private readonly ITimer _timer;
+    private int _currentSplitIndex = 0;
 
     private void OnStart(object sender, EventArgs e)
     {
@@ -72,7 +75,13 @@ public class TimerAdapter : ITimerAdapter
 
     public ResultErr<RefreshError> Update()
     {
-        return _timer.Update(_liveSplitState.CurrentSplitIndex);
+        if (_currentSplitIndex != _liveSplitState.CurrentSplitIndex)
+        {
+            _currentSplitIndex = _liveSplitState.CurrentSplitIndex;
+            _timer.SplitIndexChanged(_currentSplitIndex);
+        }
+
+        return _timer.Update();
     }
 
     public void Dispose()

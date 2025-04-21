@@ -100,7 +100,8 @@ public partial class MainViewModel
         var attributeOverrides = new XmlAttributeOverrides();
         names.ForEach(name => attributeOverrides.Add(typeof(MainViewModel), name, new XmlAttributes() { XmlIgnore = true }));
 
-        attributeOverrides.Add(typeof(SplitViewModel), nameof(SplitViewModel.SplitConditionMet), new XmlAttributes() { XmlIgnore = true });
+        attributeOverrides.Add(typeof(SplitViewModel), nameof(SplitViewModel.IsSplitConditionMet), new XmlAttributes() { XmlIgnore = true });
+        attributeOverrides.Add(typeof(SplitViewModel), nameof(SplitViewModel.IsDisabled), new XmlAttributes() { XmlIgnore = true });
         
         foreach (var type in ExtraTypesWithNamespace)
         {

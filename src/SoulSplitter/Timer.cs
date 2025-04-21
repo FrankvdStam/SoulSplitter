@@ -62,12 +62,15 @@ namespace SoulSplitter
         public void Start()
         {
             _isRunning = true;
-            Debug.WriteLine($"Set is running true: {_isRunning}");
             if (_mainViewModel.OverwriteIgtOnStart)
             {
                 _game.WriteInGameTimeMilliseconds(0);
             }
-            _mainViewModel.Splits.ForEach(i => i.SplitConditionMet = false);
+            _mainViewModel.Splits.ForEach(i =>
+            {
+                i.IsSplitConditionMet = false;
+                i.IsDisabled = false;
+            });
         }
 
         /// <summary>
@@ -78,7 +81,6 @@ namespace SoulSplitter
             if (_isRunning)
             {
                 _isRunning = false;
-                Debug.WriteLine($"Set is running false: {_isRunning}");
                 _previousIgt = 0;
                 _currentTime = 0;
                 _previousGame = null;
@@ -86,13 +88,26 @@ namespace SoulSplitter
             }
         }
 
+        public void SplitIndexChanged(int newIndex)
+        {
+            //Undo split. Disable the split to prevent immediate re-trigger of flag splits. 
+            //This split will stay disabled during this run
+            if (newIndex < _currentSplitIndex)
+            {
+                _currentSplitIndex = newIndex;
+                var split = GetCurrentSplit()!;
+                split.IsDisabled = true;
+            }
+            _currentSplitIndex = newIndex;
+        }
+
         /// <summary>
         /// Update the timer, should be called every frame
         /// Handles auto start and blackscreen removal
         /// </summary>
-        public ResultErr<RefreshError> Update(int currentSplitIndex)
+        public ResultErr<RefreshError> Update()
         {
-            _currentSplitIndex = currentSplitIndex;
+            
             var result = _game.TryRefresh();
             if (result.IsErr)
             {
@@ -134,8 +149,7 @@ namespace SoulSplitter
             UpdateAutoSplitter();
             return Result.Ok();
         }
-
-
+        
         private SplitViewModel? GetCurrentSplit()
         {
             if (_currentSplitIndex < 0 || _currentSplitIndex >= _mainViewModel.Splits.Count)
@@ -145,8 +159,7 @@ namespace SoulSplitter
             }
             return _mainViewModel.Splits[_currentSplitIndex];
         }
-
-
+        
         private void SplitsChanged()
         {
             //trigger re-initialization of the game by setting this to null.
@@ -200,7 +213,11 @@ namespace SoulSplitter
             {
                 _isRunning = true;
                 OnAutoStart?.Invoke(this, null);
-                _mainViewModel.Splits.ForEach(i => i.SplitConditionMet = false);
+                _mainViewModel.Splits.ForEach(i =>
+                {
+                    i.IsSplitConditionMet = false;
+                    i.IsDisabled = false;
+                });
             }
 
             if (_isRunning)
@@ -228,7 +245,6 @@ namespace SoulSplitter
             }
         }
 
-
         private void UpdateAutoSplitter()
         {
             if (!_isRunning)
@@ -237,22 +253,22 @@ namespace SoulSplitter
             }
 
             var split = GetCurrentSplit();
-            if (split == null)
+            if (split == null || split.IsDisabled)
             {
                 return;
             }
 
-            if (!split.SplitConditionMet)
+            if (!split.IsSplitConditionMet)
             {
-                split.SplitConditionMet = IsSplitConditionMet(split);
+                split.IsSplitConditionMet = IsSplitConditionMet(split);
             }
 
-            if (split.SplitConditionMet)
+            if (split.IsSplitConditionMet)
             {
                 if (IsSplitTimingMet(split))
                 {
                     OnRequestSplit?.Invoke(this, null);
-                    split.SplitConditionMet = true;
+                    split.IsSplitConditionMet = false;
                 }
             }
         }

@@ -78,7 +78,7 @@ namespace SoulSplitter.Tests
             var timerMock = new Mock<ITimer>();
             var sut = new TimerAdapter(liveSplitStateMock.Object, timerMock.Object);
             sut.Update();
-            timerMock.Verify(x => x.Update(It.IsAny<int>()), Times.Once);
+            timerMock.Verify(x => x.Update(), Times.Once);
         }
 
         [TestMethod]
