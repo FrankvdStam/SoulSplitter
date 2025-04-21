@@ -52,7 +52,6 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
             Splits.Add(
                 new SplitViewModel(
                     SelectedGame!.Value,
-                    SelectedNewGamePlusLevel,
                     SelectedTimingType!.Value,
                     SelectedSplitType!.Value,
                     split,//Deep clone so that the splits collection does not get duplicate objects
@@ -87,7 +86,6 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
         private void SaveExistingSplit(object? param)
         {
             SelectedSplit!.Game = SelectedGame!.Value;
-            SelectedSplit.NewGamePlusLevel = SelectedNewGamePlusLevel;
             SelectedSplit.TimingType = SelectedTimingType!.Value;
             SelectedSplit.SplitType = SelectedSplitType!.Value;
             SelectedSplit.Description = SplitDescription;

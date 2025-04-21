@@ -65,6 +65,8 @@
                                 </CollectionViewSource.GroupDescriptions>
                             </CollectionViewSource>
 
+                            <system:Int32 x:Key="GridRowSplit">3</system:Int32>
+
                             <!-- All of these are enum event flags and can be treated the same way -->
                             <x:Array x:Key="EventFlagSplitTypes" Type="{x:Type soulMemoryEnums:SplitType}">
                                 <x:Static Member="soulMemoryEnums:SplitType.Boss" />
@@ -245,10 +247,9 @@
                         Header="{DynamicResource ExpanderHeaderAddSplit}"
                         IsExpanded="{Binding IsAddSplitPopupOpen}">
                         <Grid
-                            Height="400"
+                            Height="370"
                             IsSharedSizeScope="True">
                             <Grid.RowDefinitions>
-                                <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
@@ -264,18 +265,18 @@
                                 SelectedValue="{Binding SelectedGame}"
                                 Hint="Game"/>
 
-                            <!-- Select NG+ level -->
+                            <!-- Select NG+ level
                             <ComboBox
                                 Grid.Row="1"
                                 Margin="5"
                                 materialDesign:HintAssist.HelperText="New game level"
                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                 SelectedValue="{Binding SelectedNewGamePlusLevel}"
-                                ItemsSource="{Binding NewGamePlusLevels}"/>
+                                ItemsSource="{Binding NewGamePlusLevels}"/> -->
 
                             <!-- Select timing type -->
                             <controls:EnumListControl
-                                Grid.Row="2"
+                                Grid.Row="1"
                                 IsEnabled="{Binding IsGameSelected}"
                                 ItemsSource="{Binding TimingTypes}"
                                 SelectedValue="{Binding SelectedTimingType}"
@@ -283,7 +284,7 @@
 
                             <!-- Select split type -->
                             <controls:EnumListControl
-                                Grid.Row="3"
+                                Grid.Row="2"
                                 IsEnabled="{Binding IsGameSelected}"
                                 ItemsSource="{Binding SplitTypes}"
                                 SelectedValue="{Binding SelectedSplitType}"
@@ -293,7 +294,7 @@
 
                             <!-- Enum based event flags -->
                             <controls:EventFlagListControl
-                                Grid.Row="4"
+                                Grid.Row="{StaticResource GridRowSplit}"
                                 Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={StaticResource EventFlagSplitTypes}}"
                                 LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
                                 EventFlagType="{Binding EventFlagType}"
@@ -302,7 +303,7 @@
 
                             <!-- Custom event flags -->
                             <TextBox
-                                Grid.Row="4"
+                                Grid.Row="{StaticResource GridRowSplit}"
                                 MinWidth="120"
                                 Height="35"
                                 Margin="5"
@@ -321,7 +322,7 @@
                             <!-- Dark souls 1 bonfire -->
                             <controls:DarkSouls1BonfireControl
                                 HorizontalAlignment="Left"
-                                Grid.Row="4"
+                                Grid.Row="{StaticResource GridRowSplit}"
                                 Margin="5"
                                 Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.DarkSouls1Bonfire}}"
                                 DarkSouls1BonfireViewModel="{Binding DarkSouls1BonfireViewModel}"
@@ -329,7 +330,7 @@
 
                             <!-- standard vec3 position -->
                             <controls:PositionControl
-                                Grid.Row="4"
+                                Grid.Row="{StaticResource GridRowSplit}"
                                 Margin="5"
                                 Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Position}}"
                                 CurrentPosition="{Binding CurrentPosition}"
@@ -338,7 +339,7 @@
 
                             <!-- ER position, including map information -->
                             <controls:EldenRingPositionControl
-                                Grid.Row="4"
+                                Grid.Row="{StaticResource GridRowSplit}"
                                 Margin="5"
                                 Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.EldenRingPosition}}"
                                 
@@ -350,7 +351,7 @@
                             <!-- Attribute -->
                             <controls:AttributeControl
                                 HorizontalAlignment="Left"
-                                Grid.Row="4"
+                                Grid.Row="{StaticResource GridRowSplit}"
                                 Margin="5"
                                 Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Attribute}}"
                                 AttributeType="{Binding AttributeType}"
@@ -362,7 +363,7 @@
                                 Width="415"
                                 Margin="5"
                                 HorizontalAlignment="Left"
-                                Grid.Row="4"
+                                Grid.Row="{StaticResource GridRowSplit}"
                                 Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.DarkSouls1Item}}"
                                 ItemsSource="{Binding Source={StaticResource DarkSouls1ItemsCollectionViewSource}}" 
                                 DisplayMemberPath="Name"
@@ -389,7 +390,7 @@
 
                             <!-- Optional description -->
                             <TextBox
-                                Grid.Row="5"
+                                Grid.Row="4"
                                 Margin="5"
                                 materialDesign:TextFieldAssist.HasClearButton="True"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -398,7 +399,7 @@
 
                             <StackPanel
                                 Orientation="Horizontal"
-                                Grid.Row="6"
+                                Grid.Row="5"
                                 Margin="5, 5, 5, 5">
 
                                 <!-- Add button -->
@@ -455,7 +456,6 @@
                         ui:DataGridDragAndDropHelper.EnableRowReordering="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Game" Binding="{Binding Game, Converter={StaticResource EnumLanguageConverter}}"/>
-                            <DataGridTextColumn Header="NG+" Binding="{Binding NewGamePlusLevel}"/>
                             <DataGridTextColumn Header="Timing" Binding="{Binding TimingType, Converter={StaticResource EnumLanguageConverter}}"/>
                             <DataGridTextColumn Header="Type" Binding="{Binding SplitType, Converter={StaticResource EnumLanguageConverter}}"/>
                             <DataGridTemplateColumn Header="Split">

@@ -29,10 +29,9 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
 {
     public SplitViewModel(){}
 
-    public SplitViewModel(Game game, int newGamePlusLevel, TimingType timingType, SplitType splitType, object split, string description)
+    public SplitViewModel(Game game, TimingType timingType, SplitType splitType, object split, string description)
     {
         Game = game;
-        NewGamePlusLevel = newGamePlusLevel;
         TimingType = timingType;
         SplitType = splitType;
         Split = split;
@@ -52,14 +51,7 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
         set => SetField(ref _game, value);
     }
     private Game _game;
-
-    public int NewGamePlusLevel
-    {
-        get => _newGamePlusLevel;
-        set => SetField(ref _newGamePlusLevel, value);
-    }
-    private int _newGamePlusLevel;
-
+    
     public TimingType TimingType
     {
         get => _timingType;
@@ -102,13 +94,11 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
 
         var description = node.GetChildNodeByName(nameof(SplitViewModel.Description)).FirstChild.Value;
         var game = node.GetChildNodeByName(nameof(SplitViewModel.Game)).FirstChild.Value;
-        var newGamePlusLevel = node.GetChildNodeByName(nameof(SplitViewModel.NewGamePlusLevel)).FirstChild.Value;
         var timingType = node.GetChildNodeByName(nameof(SplitViewModel.TimingType)).FirstChild.Value;
         var splitType = node.GetChildNodeByName(nameof(SplitViewModel.SplitType)).FirstChild.Value;
 
         Description = description;
         Game = (Game)Enum.Parse(typeof(Game), game);
-        NewGamePlusLevel = int.Parse(newGamePlusLevel);
         TimingType = (TimingType)Enum.Parse(typeof(TimingType), timingType);
         SplitType = (SplitType)Enum.Parse(typeof(SplitType), splitType);
         Split = DeserializeSplitObject(node.GetChildNodeByName(nameof(SplitViewModel.Split)), SplitType);
@@ -172,7 +162,6 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
     {
         writer.WriteElementString(nameof(SplitViewModel.Description), Description);
         writer.WriteElementString(nameof(SplitViewModel.Game), Game.ToString());
-        writer.WriteElementString(nameof(SplitViewModel.NewGamePlusLevel), NewGamePlusLevel.ToString(CultureInfo.InvariantCulture));
         writer.WriteElementString(nameof(SplitViewModel.TimingType), TimingType.ToString());
         writer.WriteElementString(nameof(SplitViewModel.SplitType), SplitType.ToString());
         SerializeSplitObject(writer, SplitType, Split);

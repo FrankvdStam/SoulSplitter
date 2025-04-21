@@ -33,8 +33,10 @@ namespace SoulSplitter.Resources
         /// <inheritdoc />
         public void LoadLanguage(Language language)
         {
+            var path = $"pack://application:,,,/SoulSplitter;component/Resources/{language}/Language.xaml";
+
             _languageDictionary = new ResourceDictionary();
-            _languageDictionary.Source = new Uri($"pack://application:,,,/SoulSplitter;component/Resources/{language}/Language.xaml", UriKind.RelativeOrAbsolute);
+            _languageDictionary.Source = new Uri(path, UriKind.RelativeOrAbsolute);
 
             for (int i = 0; i < Application.Current.Resources.MergedDictionaries.Count; i++)
             {

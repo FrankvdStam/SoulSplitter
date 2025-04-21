@@ -31,6 +31,8 @@ using SoulMemory.Parameters;
 using SoulMemory.Abstractions;
 using SoulSplitter.Ui.ViewModels;
 using SoulMemory.Games.Sekiro;
+using SoulSplitter.DependencyInjection;
+using SoulSplitter.Resources;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 
@@ -43,14 +45,6 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
-            var num = -174.4948f;
-            var str = num.ToString(CultureInfo.InvariantCulture);
-            var res = float.Parse(str, CultureInfo.InvariantCulture);
-
-
-
-
-            //var a = ResourceUtils.GenerateResourceDictionaryForEventFlag(typeof(KnownFlag));
             TestUi(true);
             return;
             GameLoop<EldenRing>(
@@ -181,17 +175,22 @@ namespace cli
 
         public static void TestUi(bool withTestData = true)
         {
+            //register pack parser
+
+            var serviceProvider = GlobalServiceProvider.Instance;
+            var languageManager = serviceProvider.GetService<ILanguageManager>();
             var app = new SoulSplitter.Ui.App();
             app.InitializeComponent();
+            languageManager.LoadLanguage(Language.English);
             var mainViewModel = new MainViewModel();
             var mainWindow = new MainWindow(mainViewModel);
             app.MainWindow = mainWindow;
             mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 0, TimingType.Immediate, SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 1, TimingType.OnLoading, SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 2, TimingType.OnLoading, SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 3, TimingType.Immediate, SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, 4, TimingType.Immediate, SplitType.Flag, 15062400u, "mystery flag"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, TimingType.Immediate, SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, TimingType.OnLoading, SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, TimingType.OnLoading, SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, TimingType.Immediate, SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, TimingType.Immediate, SplitType.Flag, 15062400u, "mystery flag"));
             mainWindow.ShowDialog();
 
             mainWindow.WindowShouldHide = false;

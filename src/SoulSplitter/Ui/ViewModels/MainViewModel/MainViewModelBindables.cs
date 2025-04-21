@@ -89,14 +89,7 @@ public partial class MainViewModel
         set => SetField(ref _isAddSplitPopupOpen, value);
     }
     private bool _isAddSplitPopupOpen = false;
-
-    public int SelectedNewGamePlusLevel
-    {
-        get => _selectedNewGamePlusLevel;
-        set => SetField(ref _selectedNewGamePlusLevel, value);
-    }
-    private int _selectedNewGamePlusLevel = 0;
-
+    
     public Enum? SelectedEventFlag
     {
         get => _selectedEventFlag;
@@ -161,5 +154,4 @@ public partial class MainViewModel
     public ObservableCollection<TimingType> TimingTypes { get; set; } = new ObservableCollection<TimingType>();
     public ObservableCollection<SplitType> SplitTypes { get; set; } = new ObservableCollection<SplitType>();
     public ObservableCollection<SplitViewModel> Splits { get; set; } = new ObservableCollection<SplitViewModel>();
-    public ObservableCollection<int> NewGamePlusLevels { get; set; } = new ObservableCollection<int>(Enumerable.Range(0, 100));
 }

@@ -115,7 +115,6 @@ public partial class MainViewModel
         if (SelectedSplit != null)
         {
             SelectedGame = SelectedSplit.Game;
-            SelectedNewGamePlusLevel = SelectedSplit.NewGamePlusLevel;
             SelectedTimingType = SelectedSplit.TimingType;
             SelectedSplitType = SelectedSplit.SplitType;
             SplitDescription = SelectedSplit.Description;
