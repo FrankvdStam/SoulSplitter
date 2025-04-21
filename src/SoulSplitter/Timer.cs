@@ -55,13 +55,7 @@ namespace SoulSplitter
         public event EventHandler? OnAutoStart;
         public event EventHandler? OnRequestSplit;
         public event UpdateTimeEventHandler? OnUpdateTime;
-
-        private void RequestSplit()
-        {
-            OnRequestSplit?.Invoke(this, null);
-            _currentSplitIndex++;
-        }
-
+        
         /// <summary>
         /// Manually start the timer. Overwrites IGT to 0 if required by settings
         /// </summary>
@@ -86,7 +80,8 @@ namespace SoulSplitter
                 _isRunning = false;
                 Debug.WriteLine($"Set is running false: {_isRunning}");
                 _previousIgt = 0;
-                _currentSplitIndex = 0;
+                _currentTime = 0;
+                _previousGame = null;
                 OnUpdateTime?.Invoke(this, 0);
             }
         }
@@ -95,8 +90,9 @@ namespace SoulSplitter
         /// Update the timer, should be called every frame
         /// Handles auto start and blackscreen removal
         /// </summary>
-        public ResultErr<RefreshError> Update()
+        public ResultErr<RefreshError> Update(int currentSplitIndex)
         {
+            _currentSplitIndex = currentSplitIndex;
             var result = _game.TryRefresh();
             if (result.IsErr)
             {
@@ -256,7 +252,6 @@ namespace SoulSplitter
                 if (IsSplitTimingMet(split))
                 {
                     OnRequestSplit?.Invoke(this, null);
-                    _currentSplitIndex++;
                     split.SplitConditionMet = true;
                 }
             }

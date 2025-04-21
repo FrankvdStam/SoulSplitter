@@ -27,5 +27,5 @@ public interface ITimer
 
     void Start();
     void Reset();
-    ResultErr<RefreshError> Update();
+    ResultErr<RefreshError> Update(int currentSplitIndex);
 }

@@ -35,6 +35,7 @@ public class TimerAdapter : ITimerAdapter
         
         _liveSplitState.OnStart += OnStart;
         _liveSplitState.OnReset += OnReset;
+        
 
         _timer = timer;
         _timer.OnAutoStart += OnStart;
@@ -71,7 +72,7 @@ public class TimerAdapter : ITimerAdapter
 
     public ResultErr<RefreshError> Update()
     {
-        return _timer.Update();
+        return _timer.Update(_liveSplitState.CurrentSplitIndex);
     }
 
     public void Dispose()
