@@ -14,18 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
-using SoulMemory;
-using SoulMemory.Enums;
+using SoulMemory.Enums; 
 
 namespace SoulSplitter.Ui.ViewModels;
 
-public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
+public class SplitViewModel : NotifyPropertyChanged
 {
     public SplitViewModel(){}
 
@@ -74,145 +67,4 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
     private object _split = null!;
 
     public bool SplitConditionMet;
-
-
-    #region Serialization =======================================================================================
-
-    public XmlSchema GetSchema()
-    {
-        return null!;
-    }
-
-    public void ReadXml(XmlReader reader)
-    {
-        var xml = reader.ReadOuterXml();
-        XmlDocument xmlDocument = new XmlDocument();
-        xmlDocument.LoadXml(xml);
-        var node = xmlDocument.GetChildNodeByName(nameof(SplitViewModel));
-        
-        var description = node.GetChildNodeByName(nameof(SplitViewModel.Description)).FirstChild?.Value ?? "";
-        var game = node.GetChildNodeByName(nameof(SplitViewModel.Game)).FirstChild.Value;
-        var timingType = node.GetChildNodeByName(nameof(SplitViewModel.TimingType)).FirstChild.Value;
-        var splitType = node.GetChildNodeByName(nameof(SplitViewModel.SplitType)).FirstChild.Value;
-
-        Description = description;
-        Game = (Game)Enum.Parse(typeof(Game), game);
-        TimingType = (TimingType)Enum.Parse(typeof(TimingType), timingType);
-        SplitType = (SplitType)Enum.Parse(typeof(SplitType), splitType);
-        Split = DeserializeSplitObject(node.GetChildNodeByName(nameof(SplitViewModel.Split)), SplitType);
-    }
-
-    private object DeserializeSplitObject(XmlNode splitNode, SplitType splitType)
-    {
-        var typeAttribute = splitNode.GetAttributeByName("type").Value;
-        Type type = Type.GetType(typeAttribute + ", SoulMemory")!;
-    
-        switch (splitType)
-        {
-            case SplitType.Boss:
-            case SplitType.KnownFlag:
-            case SplitType.ItemPickup:
-            case SplitType.Bonfire:
-                return Enum.Parse(type!, splitNode.InnerText);
-    
-            case SplitType.Flag:
-                var flag = splitNode.FirstChild.Value;
-                return uint.Parse(flag, CultureInfo.InvariantCulture);
-    
-            case SplitType.Position:
-                var positionViewModel = new PositionViewModel();
-                var position = splitNode.FirstChild.GetChildNodeByName(nameof(PositionViewModel.Position));
-                var x = position.GetChildNodeByName(nameof(Vector3f.X)).FirstChild.Value;
-                var y = position.GetChildNodeByName(nameof(Vector3f.Y)).FirstChild.Value;
-                var z = position.GetChildNodeByName(nameof(Vector3f.Z)).FirstChild.Value;
-                var size = splitNode.FirstChild.GetChildNodeByName(nameof(PositionViewModel.Size)).FirstChild.Value;
-    
-                positionViewModel.Position.X = float.Parse(x, CultureInfo.InvariantCulture);
-                positionViewModel.Position.Y = float.Parse(y, CultureInfo.InvariantCulture);
-                positionViewModel.Position.Z = float.Parse(z, CultureInfo.InvariantCulture);
-                positionViewModel.Size = float.Parse(size, CultureInfo.InvariantCulture);
-    
-                return positionViewModel;
-    
-            case SplitType.Attribute:
-                var attributeViewModel = new AttributeViewModel();
-    
-                var attributeNode = splitNode.FirstChild.GetChildNodeByName(nameof(AttributeViewModel.Attribute));
-                var attributeNodeType = attributeNode.GetAttributeByName("type").Value;
-                Type attributeType = Type.GetType(attributeNodeType + ", SoulMemory")!;
-    
-                var attribute = splitNode.FirstChild.GetChildNodeByName(nameof(AttributeViewModel.Attribute)).FirstChild.Value;
-                var level = splitNode.FirstChild.GetChildNodeByName(nameof(AttributeViewModel.Level)).FirstChild.Value;
-    
-                attributeViewModel.Attribute = (Enum)Enum.Parse(attributeType!, attribute);
-                attributeViewModel.Level = int.Parse(level, CultureInfo.InvariantCulture);
-                return attributeViewModel;
-    
-            case SplitType.DarkSouls1Item:
-            case SplitType.EldenRingPosition:
-            case SplitType.DarkSouls1Bonfire:
-            default:
-                throw new NotImplementedException();
-        }
-    }
-
-    public void WriteXml(XmlWriter writer)
-    {
-        writer.WriteElementString(nameof(SplitViewModel.Description), Description);
-        writer.WriteElementString(nameof(SplitViewModel.Game), Game.ToString());
-        writer.WriteElementString(nameof(SplitViewModel.TimingType), TimingType.ToString());
-        writer.WriteElementString(nameof(SplitViewModel.SplitType), SplitType.ToString());
-        SerializeSplitObject(writer, SplitType, Split);
-    }
-
-    private void SerializeSplitObject(XmlWriter writer, SplitType splitType, object split)
-    {
-        writer.WriteStartElement(nameof(SplitViewModel.Split));
-        writer.WriteAttributeString("type", split.GetType().ToString());
-
-        switch (splitType)
-        {
-            case SplitType.Boss:
-            case SplitType.KnownFlag:
-            case SplitType.ItemPickup:
-            case SplitType.Bonfire:
-            case SplitType.Flag:
-                writer.WriteString(split.ToString());
-                break;
-
-            case SplitType.Position:
-                var position = (PositionViewModel)split;
-                writer.WriteStartElement(nameof(PositionViewModel));
-                writer.WriteStartElement(nameof(PositionViewModel.Position));
-                writer.WriteElementString(nameof(Vector3f.X), position.Position.X.ToString(CultureInfo.InvariantCulture));
-                writer.WriteElementString(nameof(Vector3f.Y), position.Position.Y.ToString(CultureInfo.InvariantCulture));
-                writer.WriteElementString(nameof(Vector3f.Z), position.Position.Z.ToString(CultureInfo.InvariantCulture));
-                writer.WriteEndElement();
-                writer.WriteElementString(nameof(PositionViewModel.Size), position.Size.ToString(CultureInfo.InvariantCulture));
-                writer.WriteEndElement();
-                break;
-
-            case SplitType.Attribute:
-                var attributeViewModel = (AttributeViewModel)split;
-                writer.WriteStartElement(nameof(AttributeViewModel));
-
-                writer.WriteStartElement(nameof(AttributeViewModel.Attribute));
-                writer.WriteAttributeString("type", attributeViewModel.Attribute.GetType().ToString());
-                writer.WriteString(attributeViewModel.Attribute.ToString());
-                writer.WriteEndElement();
-
-                writer.WriteElementString(nameof(AttributeViewModel.Level), attributeViewModel.Level.ToString(CultureInfo.InvariantCulture));
-                writer.WriteEndElement();
-                break;
-
-            case SplitType.DarkSouls1Item:
-            case SplitType.EldenRingPosition:
-            case SplitType.DarkSouls1Bonfire:
-                throw new NotImplementedException();
-        }
-
-        writer.WriteEndElement();
-    }
-
-    #endregion
 }

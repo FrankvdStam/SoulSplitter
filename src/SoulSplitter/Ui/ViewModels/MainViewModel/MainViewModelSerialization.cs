@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
@@ -37,14 +38,6 @@ public partial class MainViewModel
         var serializer = CreateXmlSerializer();
         serializer.Serialize(writer, this);
         return stringWriter.ToString();
-
-
-
-        //using var stream = new StringWriter();
-        //using var writer = XmlWriter.Create(stream, new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true });
-        //var serializer = CreateXmlSerializer();
-        //serializer.Serialize(writer, this);
-        //return writer.ToString();
     }
 
     public static MainViewModel DeserializeXml(string s)
@@ -62,21 +55,61 @@ public partial class MainViewModel
         nameof(MainViewModel.FlagTrackerViewModel),
     };
 
+    private static readonly Type[] ExtraTypes = [
+        typeof(PositionViewModel),
+        typeof(AttributeViewModel),
+    ];
+
+    private static readonly Type[] ExtraTypesWithNamespace =
+    [
+        typeof(SoulMemory.Games.DarkSouls1.Boss),
+        typeof(SoulMemory.Games.DarkSouls1.Attribute),
+        typeof(SoulMemory.Games.DarkSouls1.Bonfire),
+        typeof(SoulMemory.Games.DarkSouls1.BonfireState),
+        typeof(SoulMemory.Games.DarkSouls1.DropModType),
+        typeof(SoulMemory.Games.DarkSouls1.ItemType),
+        typeof(SoulMemory.Games.DarkSouls1.KnownFlag),
+
+        typeof(SoulMemory.Games.DarkSouls2.Boss),
+        typeof(SoulMemory.Games.DarkSouls2.Attribute),
+
+        typeof(SoulMemory.Games.DarkSouls3.Boss),
+        typeof(SoulMemory.Games.DarkSouls3.Bonfire),
+        typeof(SoulMemory.Games.DarkSouls3.Attribute),
+        typeof(SoulMemory.Games.DarkSouls3.ItemPickup),
+
+        typeof(SoulMemory.Games.Sekiro.Boss),
+        typeof(SoulMemory.Games.Sekiro.Idol),
+        typeof(SoulMemory.Games.Sekiro.Attribute),
+
+        typeof(SoulMemory.Games.EldenRing.Boss),
+        typeof(SoulMemory.Games.EldenRing.Grace),
+        typeof(SoulMemory.Games.EldenRing.ItemPickup),
+        typeof(SoulMemory.Games.EldenRing.KnownFlag),
+    ];
+
     private static XmlSerializer CreateXmlSerializer()
     {
         //Get names of fields and properties via reflection to ignore everything by default
         var properties = typeof(MainViewModel).GetProperties();
-        var fields = typeof(MainViewModel).GetFields();
         var names = properties.Select(i => i.Name).ToList();
-        names.AddRange(fields.Select(i => i.Name));
 
         //Remove only the fields we want serialized
         SerializedFields.ForEach(i => names.Remove(i));
 
         var attributeOverrides = new XmlAttributeOverrides();
         names.ForEach(name => attributeOverrides.Add(typeof(MainViewModel), name, new XmlAttributes() { XmlIgnore = true }));
+        
+        foreach (var type in ExtraTypesWithNamespace)
+        {
+            attributeOverrides.Add(type, new XmlAttributes { XmlType = new XmlTypeAttribute() { Namespace = type.Namespace } });
+        }
 
-        return new XmlSerializer(typeof(MainViewModel), attributeOverrides);
+
+        //var root = new XmlRootAttribute();
+        //root.Namespace = "SoulMemory";
+        var combinedExtraTypes = ExtraTypes.Union(ExtraTypesWithNamespace).ToArray();
+        return new XmlSerializer(typeof(MainViewModel), attributeOverrides, combinedExtraTypes, null, null);
     }
 }
 

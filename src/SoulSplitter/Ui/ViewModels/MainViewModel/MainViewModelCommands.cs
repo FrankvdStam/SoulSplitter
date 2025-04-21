@@ -70,7 +70,7 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
                     SelectedEventFlag != null || 
                     PositionViewModel != null || 
                     Flag != null || 
-                    AttributeViewModel != null ||
+                    AttributeViewModel is { Attribute: not null } ||
                     EldenRingPositionViewModel != null ||
                     DarkSouls1BonfireViewModel != null ||
                     SelectedDarkSouls1Item != null

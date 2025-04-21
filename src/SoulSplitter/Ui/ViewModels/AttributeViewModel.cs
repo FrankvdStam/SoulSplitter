@@ -29,12 +29,12 @@ namespace SoulSplitter.Ui.ViewModels
             };
         }
 
-        public Enum Attribute
+        public object Attribute
         {
             get => _attribute;
             set => SetField(ref _attribute, value);
         }
-        private Enum _attribute = null!;
+        private object _attribute = null!;
         
         public int Level
         {

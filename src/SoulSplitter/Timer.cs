@@ -289,7 +289,7 @@ namespace SoulSplitter
                     }
 
                     var attributeViewModel = (AttributeViewModel)split.Split;
-                    return readAttribute.ReadAttribute(attributeViewModel.Attribute) == attributeViewModel.Level;
+                    return readAttribute.ReadAttribute((Enum)attributeViewModel.Attribute) == attributeViewModel.Level;
 
                 case SplitType.Position:
                     if (_game is not IPlayerPosition playerPosition)
