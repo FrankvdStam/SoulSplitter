@@ -99,15 +99,14 @@ public partial class MainViewModel
 
         var attributeOverrides = new XmlAttributeOverrides();
         names.ForEach(name => attributeOverrides.Add(typeof(MainViewModel), name, new XmlAttributes() { XmlIgnore = true }));
+
+        attributeOverrides.Add(typeof(SplitViewModel), nameof(SplitViewModel.SplitConditionMet), new XmlAttributes() { XmlIgnore = true });
         
         foreach (var type in ExtraTypesWithNamespace)
         {
             attributeOverrides.Add(type, new XmlAttributes { XmlType = new XmlTypeAttribute() { Namespace = type.Namespace } });
         }
 
-
-        //var root = new XmlRootAttribute();
-        //root.Namespace = "SoulMemory";
         var combinedExtraTypes = ExtraTypes.Union(ExtraTypesWithNamespace).ToArray();
         return new XmlSerializer(typeof(MainViewModel), attributeOverrides, combinedExtraTypes, null, null);
     }

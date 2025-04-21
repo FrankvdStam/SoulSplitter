@@ -181,6 +181,7 @@ namespace cli
             var languageManager = serviceProvider.GetService<ILanguageManager>();
             var app = new SoulSplitter.Ui.App();
             app.InitializeComponent();
+
             languageManager.LoadLanguage(Language.English);
             var mainViewModel = new MainViewModel();
             var mainWindow = new MainWindow(mainViewModel);

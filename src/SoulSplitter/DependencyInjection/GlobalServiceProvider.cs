@@ -14,9 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Abstractions;
 using SoulMemory.Abstractions.Games;
-using SoulMemory.Enums;
 using SoulMemory.Games.ArmoredCore6;
 using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Games.DarkSouls2;

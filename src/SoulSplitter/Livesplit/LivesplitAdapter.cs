@@ -26,16 +26,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using SoulMemory.Abstractions.Games;
 using SoulMemory.Enums;
 using SoulSplitter.Migrations;
-using SoulMemory.Games.Sekiro;
 using SoulSplitter.Abstractions;
 using SoulSplitter.DependencyInjection;
 using SoulSplitter.Ui;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 using SoulSplitter.Utils;
+using IServiceProvider = SoulSplitter.DependencyInjection.IServiceProvider;
 
 namespace SoulSplitter.Livesplit;
 
@@ -43,42 +42,33 @@ public class LivesplitAdapter : IComponent
 {
     public const string Name = "SoulSplitter";
     private readonly ComponentMode _componentMode;
-
-    private DateTime _lastFailedRefresh = DateTime.MinValue;
-    public readonly MainWindow MainWindow;
-
-    private readonly ISoulSplitterComponent _component;
+    private readonly LiveSplitState _liveSplitState;
+    private readonly IServiceProvider _serviceProvider;
+    public MainWindow? MainWindow;
+    private ISoulSplitterComponent? _component;
 
     public LivesplitAdapter(LiveSplitState liveSplitState, ComponentMode mode)
     {
-        var serviceProvider = GlobalServiceProvider.Instance;
-
         ThrowIfInstallationInvalid();
-        _componentMode = mode;
 
+        _serviceProvider = GlobalServiceProvider.Instance;
+        _liveSplitState = liveSplitState;
+        _componentMode = mode;
 
         if (System.Windows.Application.Current == null)
         {
             var _ = new App();
         }
 
-        if (_componentMode == ComponentMode.AutoSplitter)
-        {
-            var xml = liveSplitState.Run.AutoSplitterSettings;
-            var mainViewModel = GetMainViewModelFromSettings(xml);
-            MainWindow = new MainWindow(mainViewModel);
-            System.Windows.Application.Current!.MainWindow = MainWindow;
-            var timerAdapter = new TimerAdapter(liveSplitState, new Timer(serviceProvider, MainWindow.MainViewModel));
-            _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
-        }
-        else //when in layout mode, assume timer is already running and initialized
+        //This is probably wonky. Have to fix.
+        if (_componentMode == ComponentMode.Layout)
         {
             MainWindow = (MainWindow)System.Windows.Application.Current!.MainWindow!;
             _component = new LayoutComponent(MainWindow.MainViewModel);
         }
     }
 
-    private MainViewModel GetMainViewModelFromSettings(XmlNode settings)
+    private MainViewModel GetMainViewModelFromSettings(XmlNode? settings)
     {
         if (settings == null)
         {
@@ -124,6 +114,10 @@ public class LivesplitAdapter : IComponent
     /// </summary>
     public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
     {
+        if (MainWindow == null || _component == null)
+        {
+            return;
+        }
         MainWindow.Dispatcher.Invoke(_component.Update);
     }
 
@@ -133,7 +127,7 @@ public class LivesplitAdapter : IComponent
     {
         if (_componentMode == ComponentMode.Layout && _component is ISoulSplitterLayoutComponent layoutComponent)
         {
-            MainWindow.Dispatcher.Invoke(() =>
+            MainWindow?.Dispatcher.Invoke(() =>
             {
                 layoutComponent.Draw(g, null, height, clipRegion);
                 HorizontalWidth = layoutComponent.Width;
@@ -146,7 +140,7 @@ public class LivesplitAdapter : IComponent
     {
         if (_componentMode == ComponentMode.Layout && _component is ISoulSplitterLayoutComponent layoutComponent)
         {
-            MainWindow.Dispatcher.Invoke(() =>
+            MainWindow?.Dispatcher.Invoke(() =>
             {
                 layoutComponent.Draw(g, width, null, clipRegion);
                 HorizontalWidth = layoutComponent.Width;
@@ -177,6 +171,12 @@ public class LivesplitAdapter : IComponent
     /// </summary>
     public void SetSettings(XmlNode settings)
     {
+        var mainViewModel = GetMainViewModelFromSettings(settings);
+        MainWindow = new MainWindow(mainViewModel);
+        System.Windows.Application.Current!.MainWindow = MainWindow;
+        var timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_serviceProvider, MainWindow.MainViewModel));
+        _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
+
         //SetSettings is ignored - settings are obtained in the constructor from livesplit's state object.
         return;
     }
@@ -186,14 +186,16 @@ public class LivesplitAdapter : IComponent
     /// </summary>
     public XmlNode GetSettings(XmlDocument document)
     {
-        var root = document.CreateElement("Settings");
+        var xml = "";
         MainWindow!.Dispatcher.Invoke(() =>
         {
-            var xml = MainWindow.MainViewModel.SerializeXml();
-            var fragment = document.CreateDocumentFragment();
-            fragment.InnerXml = xml;
-            root.AppendChild(fragment);
+            xml = MainWindow.MainViewModel.SerializeXml();
         });
+
+        var root = document.CreateElement("AutoSplitterSettings");
+        var fragment = document.CreateDocumentFragment();
+        fragment.InnerXml = xml;
+        root.AppendChild(fragment);
         return root;
     }
     
