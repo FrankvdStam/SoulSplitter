@@ -73,8 +73,6 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
     }
     private object _split = null!;
 
-
-    public bool SplitTriggered;
     public bool SplitConditionMet;
 
 
@@ -91,8 +89,8 @@ public class SplitViewModel : NotifyPropertyChanged, IXmlSerializable
         XmlDocument xmlDocument = new XmlDocument();
         xmlDocument.LoadXml(xml);
         var node = xmlDocument.GetChildNodeByName(nameof(SplitViewModel));
-
-        var description = node.GetChildNodeByName(nameof(SplitViewModel.Description)).FirstChild.Value;
+        
+        var description = node.GetChildNodeByName(nameof(SplitViewModel.Description)).FirstChild?.Value ?? "";
         var game = node.GetChildNodeByName(nameof(SplitViewModel.Game)).FirstChild.Value;
         var timingType = node.GetChildNodeByName(nameof(SplitViewModel.TimingType)).FirstChild.Value;
         var splitType = node.GetChildNodeByName(nameof(SplitViewModel.SplitType)).FirstChild.Value;

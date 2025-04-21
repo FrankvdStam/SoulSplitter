@@ -49,6 +49,7 @@ namespace SoulSplitter
         private Game? _previousGame;
         private IGame _game;
         private bool _isRunning;
+        private int _currentTime;
         private int _previousIgt;
 
         public event EventHandler? OnAutoStart;
@@ -72,7 +73,6 @@ namespace SoulSplitter
             {
                 _game.WriteInGameTimeMilliseconds(0);
             }
-            _mainViewModel.Splits.ForEach(i => i.SplitTriggered = false);
             _mainViewModel.Splits.ForEach(i => i.SplitConditionMet = false);
         }
 
@@ -171,6 +171,7 @@ namespace SoulSplitter
                 //Has to be first split for autostart to work
                 _previousGame = _mainViewModel.Splits.First().Game;
                 _game = GetGame(_previousGame.Value);
+                _previousIgt = 0;
                 return;
             }
 
@@ -188,6 +189,7 @@ namespace SoulSplitter
                     _game = GetGame(split.Game);
                     _game.TryRefresh();
                     _previousGame = split.Game;
+                    _previousIgt = 0;
                 }
             }
         }
@@ -202,7 +204,6 @@ namespace SoulSplitter
             {
                 _isRunning = true;
                 OnAutoStart?.Invoke(this, null);
-                _mainViewModel.Splits.ForEach(i => i.SplitTriggered = false);
                 _mainViewModel.Splits.ForEach(i => i.SplitConditionMet = false);
             }
 
@@ -223,8 +224,10 @@ namespace SoulSplitter
                 //don't update IGT when it's 0 during a quitout
                 if (igt != 0)
                 {
+                    var increment = igt - _previousIgt;
                     _previousIgt = igt;
-                    OnUpdateTime?.Invoke(this, igt);
+                    _currentTime += increment;
+                    OnUpdateTime?.Invoke(this, _currentTime);
                 }
             }
         }
