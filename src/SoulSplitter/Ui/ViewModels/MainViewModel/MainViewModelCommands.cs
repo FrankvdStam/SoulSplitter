@@ -14,13 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Media;
 using SoulMemory.Enums;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel
 {
     public partial class MainViewModel
     {
-        private object GetSplitObject()
+        private object? GetSplitObject()
         {
             return SelectedSplitType!.Value switch
             {
@@ -28,17 +32,72 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
                 SplitType.KnownFlag or
                 SplitType.ItemPickup or
                 SplitType.Bonfire => SelectedEventFlag!,
-                SplitType.Position => PositionViewModel!.Clone(),
+                SplitType.Position => PositionViewModel!.Clone(), //Deepclone to break reference with other viewmodels
                 SplitType.Flag => Flag!,
                 SplitType.Attribute => AttributeViewModel!.Clone(),
                 SplitType.EldenRingPosition => EldenRingPositionViewModel!.Clone(),
                 SplitType.DarkSouls1Bonfire => DarkSouls1BonfireViewModel!.Clone(),
                 SplitType.DarkSouls1Item => SelectedDarkSouls1Item!,
-
+                SplitType.Manual => null,
                 _ => throw new System.NotImplementedException(),
             };
         }
 
+        public void UpdateLivesplitSplits(List<string> livesplitSplits)
+        {
+            try
+            {
+                Splits.CollectionChanged -= OnSplitsChanged;
+                _livesplitSplits = livesplitSplits;
+                var difference = _livesplitSplits.Count - Splits.Count;
+                if (difference > 0)
+                {
+                    var game = Splits.Any() ? Splits.Last().Game : null;
+                    game ??= SelectedGame;
+                    game ??= Game.DarkSouls1;
+                    for (int i = 0; i < difference; i++)
+                    {
+                        Splits.Add(new SplitViewModel() { Game = game, SplitType = SplitType.Manual});
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                AddException(ex);
+            }
+            finally
+            {
+                OnSplitsChanged(null!, null!);
+                Splits.CollectionChanged += OnSplitsChanged;
+            }
+        }
+        
+        private List<string> _livesplitSplits = new List<string>();
+        
+        private void OnSplitsChanged(object sender, EventArgs args)
+        {
+            for (var i = 0; i < _livesplitSplits.Count; i++)
+            {
+                if (i < Splits.Count)
+                {
+                    Splits[i].LivesplitTitle = _livesplitSplits[i];
+                    Splits[i].BackgroundColor = new SolidColorBrush(Colors.White);
+                }
+            }
+
+            for (var i = 0; i < Splits.Count; i++)
+            {
+                if (i >= _livesplitSplits.Count)
+                {
+                    Splits[i].LivesplitTitle = "";
+                    Splits[i].BackgroundColor = new SolidColorBrush(Colors.Red);
+                }
+                else
+                {
+                    Splits[i].BackgroundColor = new SolidColorBrush(Colors.White);
+                }
+            }
+        }
 
         public RelayCommand SerializeCommand { get; set; } = null!;
 
@@ -47,21 +106,35 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
 
         private void AddSplit(object? param)
         {
-            object split = GetSplitObject();
+            if (SelectedSplitType == SplitType.Manual)
+            {
+                Splits.Add(
+                    new SplitViewModel()
+                    {
+                        Game = SelectedGame,
+                        SplitType = SplitType.Manual,
+                    });
+                return;
+            }
+
+            var split = GetSplitObject();
 
             Splits.Add(
                 new SplitViewModel(
                     SelectedGame!.Value,
                     SelectedTimingType!.Value,
                     SelectedSplitType!.Value,
-                    split,//Deep clone so that the splits collection does not get duplicate objects
+                    split,
                     SplitDescription));
         }
 
-        
-
         private bool CanAddSplit(object? param)
         {
+            if (SelectedSplitType == SplitType.Manual && SelectedGame != null)
+            {
+                return true;
+            }
+
             return
                 SelectedGame != null &&
                 SelectedTimingType != null &&
@@ -86,7 +159,7 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
         private void SaveExistingSplit(object? param)
         {
             SelectedSplit!.Game = SelectedGame!.Value;
-            SelectedSplit.TimingType = SelectedTimingType!.Value;
+            SelectedSplit.TimingType = SelectedTimingType;
             SelectedSplit.SplitType = SelectedSplitType!.Value;
             SelectedSplit.Description = SplitDescription;
             SelectedSplit.Split = GetSplitObject();

@@ -59,9 +59,17 @@ public class LivesplitAdapter : IComponent
         {
             var _ = new App();
         }
-
+        
         //This is probably wonky. Have to fix.
-        if (_componentMode == ComponentMode.Layout)
+        if (_componentMode == ComponentMode.AutoSplitter)
+        {
+            //Default initialize all state, in case no settings are provided. Livesplit will not call SetSettings.
+            MainWindow = new MainWindow(new MainViewModel());
+            System.Windows.Application.Current!.MainWindow = MainWindow;
+            var timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_serviceProvider, MainWindow.MainViewModel));
+            _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
+        }
+        else
         {
             MainWindow = (MainWindow)System.Windows.Application.Current!.MainWindow!;
             _component = new LayoutComponent(MainWindow.MainViewModel);
@@ -172,13 +180,13 @@ public class LivesplitAdapter : IComponent
     public void SetSettings(XmlNode settings)
     {
         var mainViewModel = GetMainViewModelFromSettings(settings);
+        mainViewModel.SelectedGame = LivesplitStateToGameEnum(_liveSplitState);
         MainWindow = new MainWindow(mainViewModel);
         System.Windows.Application.Current!.MainWindow = MainWindow;
         var timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_serviceProvider, MainWindow.MainViewModel));
         _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
 
-        //SetSettings is ignored - settings are obtained in the constructor from livesplit's state object.
-        return;
+        UpdateLivesplitSplits();
     }
 
     /// <summary>
@@ -206,6 +214,7 @@ public class LivesplitAdapter : IComponent
         var caller = stackTrace.GetFrame(1).GetMethod().Name;
         if (caller == "AddComponent")
         {
+            UpdateLivesplitSplits();
             MainWindow!.ShowDialog();
         }
 
@@ -232,28 +241,28 @@ public class LivesplitAdapter : IComponent
         return _customShowSettingsButton;
     }
 
-    /// <summary>
-    /// Reads the game name from livesplit and tries to write the appropriate game to the view model
-    /// </summary>
-    private void SelectGameFromLiveSplitState(LiveSplitState s)
+    private void UpdateLivesplitSplits()
     {
-        MainWindow!.Dispatcher.Invoke(() =>
-        {
-            if (!string.IsNullOrWhiteSpace(s.Run?.GameName))
-            {
-                var name = s.Run!.GameName.ToLower().Replace(" ", "");
-                MainWindow.MainViewModel.SelectedGame = name switch
-                {
-                    "darksouls" or "darksoulsremastered" => Game.DarkSouls1,
-                    "darksoulsii" => Game.DarkSouls2,
-                    "darksoulsiii" => Game.DarkSouls3,
-                    "sekiro" or "sekiro:shadowsdietwice" => Game.Sekiro,
-                    "eldenring" => Game.EldenRing,
-                    "armoredcore6" or "armoredcorevi:firesofrubicon" => Game.ArmoredCore6,
-                    _ => MainWindow.MainViewModel.SelectedGame
-                };
-            }
+        MainWindow!.Dispatcher.Invoke(() => {
+            var splits = _liveSplitState?.Run?.Select(i => i.Name)?.ToList();
+            splits ??= new List<string>(0);
+            MainWindow!.MainViewModel!.UpdateLivesplitSplits(splits);
         });
+    }
+
+    private Game LivesplitStateToGameEnum(LiveSplitState s)
+    {
+        var name = s.Run!.GameName.ToLower().Replace(" ", "");
+        return name switch
+        {
+            "darksouls" or "darksoulsremastered" => Game.DarkSouls1,
+            "darksoulsii" => Game.DarkSouls2,
+            "darksoulsiii" => Game.DarkSouls3,
+            "sekiro" or "sekiro:shadowsdietwice" => Game.Sekiro,
+            "eldenring" => Game.EldenRing,
+            "armoredcore6" or "armoredcorevi:firesofrubicon" => Game.ArmoredCore6,
+            _ => Game.DarkSouls1,
+        };
     }
 
     #endregion

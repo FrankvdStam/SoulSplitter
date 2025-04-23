@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using System.Windows.Media;
 using System.Xml.Serialization;
 using SoulMemory.Enums; 
 
@@ -23,7 +24,7 @@ public class SplitViewModel : NotifyPropertyChanged
 {
     public SplitViewModel(){}
 
-    public SplitViewModel(Game game, TimingType timingType, SplitType splitType, object split, string description)
+    public SplitViewModel(Game game, TimingType? timingType, SplitType splitType, object? split, string description)
     {
         Game = game;
         TimingType = timingType;
@@ -32,6 +33,13 @@ public class SplitViewModel : NotifyPropertyChanged
         Description = description;
     }
 
+    public string LivesplitTitle
+    {
+        get => _livesplitTitle;
+        set => SetField(ref _livesplitTitle, value);
+    }
+    private string _livesplitTitle = "";
+
     public string Description
     { 
         get => _description;
@@ -39,34 +47,41 @@ public class SplitViewModel : NotifyPropertyChanged
     }
     private string _description = null!;
 
-    public Game Game
+    public Game? Game
     {
         get => _game;
         set => SetField(ref _game, value);
     }
-    private Game _game;
+    private Game? _game;
     
-    public TimingType TimingType
+    public TimingType? TimingType
     {
         get => _timingType;
         set => SetField(ref _timingType, value);
     }
-    private TimingType _timingType;
+    private TimingType? _timingType;
 
     public SplitType SplitType
     {
         get => _splitType;
         set => SetField(ref _splitType, value);
     }
-    private SplitType _splitType;
+    private SplitType _splitType = SplitType.Manual;
 
-    public object Split
+    public object? Split
     {
         get => _split;
         set => SetField(ref _split, value);
     }
-    private object _split = null!;
+    private object? _split = null!;
 
     public bool IsSplitConditionMet = false;
     public bool IsDisabled = false;
+
+    public Brush BackgroundColor
+    {
+        get => _backgroundColor;
+        set => SetField(ref _backgroundColor, value);
+    }
+    private Brush _backgroundColor = new SolidColorBrush(Colors.White);
 }

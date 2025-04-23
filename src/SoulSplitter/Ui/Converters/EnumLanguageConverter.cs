@@ -34,7 +34,7 @@ namespace SoulSplitter.Ui.Converters
             {
                 return LanguageManager.Get(key);
             }
-            throw new NotImplementedException();
+            return null!;
         }
 
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

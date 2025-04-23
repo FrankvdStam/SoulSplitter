@@ -67,6 +67,7 @@ namespace SoulMemory.Enums
         {
             {
                 Game.DarkSouls1, [
+                    (SplitType.Manual, null),
                     (SplitType.Boss, typeof(Games.DarkSouls1.Boss)),
                     (SplitType.Position, null),
                     (SplitType.Attribute, typeof(Games.DarkSouls1.Attribute)),
@@ -78,6 +79,7 @@ namespace SoulMemory.Enums
             },
             {
                 Game.DarkSouls2, [
+                    (SplitType.Manual, null),
                     (SplitType.Boss, typeof(Games.DarkSouls2.Boss)),
                     (SplitType.Position, null),
                     (SplitType.Attribute, typeof(Games.DarkSouls2.Attribute)),
@@ -86,6 +88,7 @@ namespace SoulMemory.Enums
             },
             {
                 Game.DarkSouls3, [
+                    (SplitType.Manual, null),
                     (SplitType.Boss, typeof(Games.DarkSouls3.Boss)),
                     (SplitType.Bonfire, typeof(Games.DarkSouls3.Bonfire)),
                     (SplitType.ItemPickup, typeof(Games.DarkSouls3.ItemPickup)),
@@ -96,6 +99,7 @@ namespace SoulMemory.Enums
             },
             {
                 Game.Sekiro, [
+                    (SplitType.Manual, null),
                     (SplitType.Boss, typeof(Games.Sekiro.Boss)),
                     (SplitType.Bonfire, typeof(Games.Sekiro.Idol)),
                     (SplitType.Attribute, typeof(Games.Sekiro.Attribute)),
@@ -105,6 +109,7 @@ namespace SoulMemory.Enums
             },
             {
                 Game.EldenRing, [
+                    (SplitType.Manual, null),
                     (SplitType.Boss, typeof(Games.EldenRing.Boss)),
                     (SplitType.Bonfire, typeof(Games.EldenRing.Grace)),
                     (SplitType.ItemPickup, typeof(Games.EldenRing.ItemPickup)),
@@ -115,6 +120,7 @@ namespace SoulMemory.Enums
             },
             {
                 Game.ArmoredCore6, [
+                    (SplitType.Manual, null),
                     (SplitType.Flag, null),
                 ]
             }

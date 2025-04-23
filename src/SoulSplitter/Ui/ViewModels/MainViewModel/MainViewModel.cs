@@ -50,6 +50,8 @@ public partial class MainViewModel
         CommandOpenFlagTrackerWindow = new RelayCommand(OpenFlagTrackerWindow);
         CommandImportSettingsFromFile = new RelayCommand(ImportSettings);
         CommandExportSettingsFromFile = new RelayCommand(ExportSettings);
+
+        Splits.CollectionChanged += OnSplitsChanged;
     }
 
     #region UI logic
@@ -106,6 +108,10 @@ public partial class MainViewModel
                     AttributeType = SplitConfiguration.GetSplitType(SelectedGame!.Value, SelectedSplitType!.Value)!;
                     AttributeViewModel = new AttributeViewModel();
                     break;
+
+                case SplitType.Manual:
+                    SelectedTimingType = null;
+                    return;
             }
         }
     }

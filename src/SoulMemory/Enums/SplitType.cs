@@ -33,4 +33,6 @@ public enum SplitType
     //DS1 bonfires are some sort of linked list, all other games handle this via event flags.
     DarkSouls1Bonfire,
     Attribute,
+
+    Manual,
 }

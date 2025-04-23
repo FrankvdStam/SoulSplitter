@@ -61,15 +61,15 @@ namespace SoulSplitter.Tests
                         break;
 
                     case SplitType.Attribute:
-                        var expectedAttributeViewModel = (AttributeViewModel)expected.Split;
-                        var actualAttributeViewModel = (AttributeViewModel)actual.Split;
+                        var expectedAttributeViewModel = (AttributeViewModel)expected.Split!;
+                        var actualAttributeViewModel = (AttributeViewModel)actual.Split!;
                         Assert.AreEqual(expectedAttributeViewModel.Attribute, actualAttributeViewModel.Attribute);
                         Assert.AreEqual(expectedAttributeViewModel.Level, actualAttributeViewModel.Level);
                         break;
 
                     case SplitType.Position:
-                        var expectedPositionViewModel = (PositionViewModel)expected.Split;
-                        var actualPositionViewModel = (PositionViewModel)actual.Split;
+                        var expectedPositionViewModel = (PositionViewModel)expected.Split!;
+                        var actualPositionViewModel = (PositionViewModel)actual.Split!;
                         Assert.AreEqual(expectedPositionViewModel.Position.X, actualPositionViewModel.Position.X);
                         Assert.AreEqual(expectedPositionViewModel.Position.Y, actualPositionViewModel.Position.Y);
                         Assert.AreEqual(expectedPositionViewModel.Position.Z, actualPositionViewModel.Position.Z);

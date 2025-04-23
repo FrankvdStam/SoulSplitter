@@ -448,20 +448,27 @@
                     <DataGrid
                         ItemsSource="{Binding Splits}"
                         IsReadOnly="True"
+                        CanUserSortColumns="False"
                         AutoGenerateColumns="False"
                         VerticalScrollBarVisibility="Visible"
                         SelectedItem="{Binding SelectedSplit}"
                         SelectionUnit="FullRow"
                         SelectionMode="Single"
                         ui:DataGridDragAndDropHelper.EnableRowReordering="True">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="{Binding BackgroundColor}"/>
+                            </Style>
+                        </DataGrid.RowStyle>
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Livesplit" Binding="{Binding LivesplitTitle}" Foreground="{Binding BackgroundColor}"/>
                             <DataGridTextColumn Header="Game" Binding="{Binding Game, Converter={StaticResource EnumLanguageConverter}}"/>
                             <DataGridTextColumn Header="Timing" Binding="{Binding TimingType, Converter={StaticResource EnumLanguageConverter}}"/>
                             <DataGridTextColumn Header="Type" Binding="{Binding SplitType, Converter={StaticResource EnumLanguageConverter}}"/>
                             <DataGridTemplateColumn Header="Split">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ContentControl 
+                                        <ContentControl
                                             ContentTemplateSelector="{StaticResource SplitTypeDataTemplateSelector}"
                                             Content="{Binding Split}" />
                                     </DataTemplate>

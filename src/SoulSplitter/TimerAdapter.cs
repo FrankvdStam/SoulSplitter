@@ -78,7 +78,7 @@ public class TimerAdapter : ITimerAdapter
         if (_currentSplitIndex != _liveSplitState.CurrentSplitIndex)
         {
             _currentSplitIndex = _liveSplitState.CurrentSplitIndex;
-            _timer.SplitIndexChanged(_currentSplitIndex);
+            _timer.SplitIndexChanged(_currentSplitIndex < 0 ? 0 : _currentSplitIndex);
         }
 
         return _timer.Update();

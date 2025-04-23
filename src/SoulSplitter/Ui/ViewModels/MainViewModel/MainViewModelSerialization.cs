@@ -101,7 +101,9 @@ public partial class MainViewModel
         names.ForEach(name => attributeOverrides.Add(typeof(MainViewModel), name, new XmlAttributes() { XmlIgnore = true }));
 
         attributeOverrides.Add(typeof(SplitViewModel), nameof(SplitViewModel.IsSplitConditionMet), new XmlAttributes() { XmlIgnore = true });
+        attributeOverrides.Add(typeof(SplitViewModel), nameof(SplitViewModel.LivesplitTitle), new XmlAttributes() { XmlIgnore = true });
         attributeOverrides.Add(typeof(SplitViewModel), nameof(SplitViewModel.IsDisabled), new XmlAttributes() { XmlIgnore = true });
+        attributeOverrides.Add(typeof(SplitViewModel), nameof(SplitViewModel.BackgroundColor), new XmlAttributes() { XmlIgnore = true });
         
         foreach (var type in ExtraTypesWithNamespace)
         {

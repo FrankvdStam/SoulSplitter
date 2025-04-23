@@ -16,7 +16,6 @@
 
 using System;
 using SoulMemory.Abstractions;
-using System.Diagnostics;
 using System.Linq;
 using SoulMemory;
 using SoulMemory.Abstractions.Games;
@@ -172,14 +171,14 @@ namespace SoulSplitter
         {
             if (_previousGame == null)
             {
-                //Can't select game if there are no splits
-                if (!_mainViewModel.Splits.Any())
+                //Can't select game if there are no splits or game is null
+                if (!_mainViewModel.Splits.Any() || _mainViewModel.Splits.First().Game == null)
                 {
                     return;
                 }
                 //Has to be first split for autostart to work
                 _previousGame = _mainViewModel.Splits.First().Game;
-                _game = GetGame(_previousGame.Value);
+                _game = GetGame(_previousGame!.Value);
                 _previousIgt = 0;
                 return;
             }
@@ -188,14 +187,14 @@ namespace SoulSplitter
             if (_isRunning)
             {
                 var split = GetCurrentSplit();
-                if (split == null)
+                if (split?.Game == null)
                 {
                     return;
                 }
 
                 if (_previousGame != split.Game)
                 {
-                    _game = GetGame(split.Game);
+                    _game = GetGame(split.Game.Value);
                     _game.TryRefresh();
                     _previousGame = split.Game;
                     _previousIgt = 0;
@@ -253,19 +252,24 @@ namespace SoulSplitter
             }
 
             var split = GetCurrentSplit();
-            if (split == null || split.IsDisabled)
+            if (
+                split == null || 
+                split.Split == null ||
+                split.IsDisabled || 
+                split.SplitType == SplitType.Manual
+                )
             {
                 return;
             }
 
             if (!split.IsSplitConditionMet)
             {
-                split.IsSplitConditionMet = IsSplitConditionMet(split);
+                split.IsSplitConditionMet = IsSplitConditionMet(split.SplitType, split.Split);
             }
 
             if (split.IsSplitConditionMet)
             {
-                if (IsSplitTimingMet(split))
+                if (IsSplitTimingMet(split.TimingType!.Value))
                 {
                     OnRequestSplit?.Invoke(this, null);
                     split.IsSplitConditionMet = false;
@@ -273,42 +277,42 @@ namespace SoulSplitter
             }
         }
 
-        private bool IsSplitConditionMet(SplitViewModel split)
+        private bool IsSplitConditionMet(SplitType splitType, object split)
         {
-            switch (split.SplitType)
+            switch (splitType)
             {
                 default:
                 case SplitType.DarkSouls1Item:
                 case SplitType.DarkSouls1Bonfire:
-                    throw new ArgumentException($"Unsupported split type {split.SplitType}.");
+                    throw new ArgumentException($"Unsupported split type {splitType}.");
 
                 case SplitType.Boss:
                 case SplitType.Bonfire:
                 case SplitType.ItemPickup:
                 case SplitType.KnownFlag:
-                    var eventFlag = (uint)split.Split;
+                    var eventFlag = (uint)split;
                     return _game.ReadEventFlag(eventFlag);
 
                 case SplitType.Flag:
-                    uint flag = (uint)split.Split;
+                    uint flag = (uint)split;
                     return _game.ReadEventFlag(flag);
 
                 case SplitType.Attribute:
                     if (_game is not IReadAttribute readAttribute)
                     {
-                        throw new ArgumentException($"Unsupported split type {split.SplitType}. {_game} does not implement {nameof(IReadAttribute)}");
+                        throw new ArgumentException($"Unsupported split type {splitType}. {_game} does not implement {nameof(IReadAttribute)}");
                     }
 
-                    var attributeViewModel = (AttributeViewModel)split.Split;
+                    var attributeViewModel = (AttributeViewModel)split;
                     return readAttribute.ReadAttribute((Enum)attributeViewModel.Attribute) == attributeViewModel.Level;
 
                 case SplitType.Position:
                     if (_game is not IPlayerPosition playerPosition)
                     {
-                        throw new ArgumentException($"Unsupported split type {split.SplitType}. {_game} does not implement {nameof(IPlayerPosition)}");
+                        throw new ArgumentException($"Unsupported split type {splitType}. {_game} does not implement {nameof(IPlayerPosition)}");
                     }
 
-                    var positionViewModel = (PositionViewModel)split.Split;
+                    var positionViewModel = (PositionViewModel)split;
                     var position = playerPosition.GetPlayerPosition();
                     if (positionViewModel.Position.X + positionViewModel.Size > position.X &&
                         positionViewModel.Position.X - positionViewModel.Size < position.X &&
@@ -326,10 +330,10 @@ namespace SoulSplitter
                 case SplitType.EldenRingPosition:
                     if (_game is not IEldenRing eldenRing)
                     {
-                        throw new ArgumentException($"Unsupported split type {split.SplitType}. {_game} does not implement {nameof(IEldenRing)}");
+                        throw new ArgumentException($"Unsupported split type {splitType}. {_game} does not implement {nameof(IEldenRing)}");
                     }
 
-                    var vm = (EldenRingPositionViewModel)split.Split;
+                    var vm = (EldenRingPositionViewModel)split;
                     var currentPosition = eldenRing.GetPosition();
                     if (
                         vm.Position.Area == currentPosition.Area &&
@@ -352,9 +356,9 @@ namespace SoulSplitter
             }
         }
 
-        private bool IsSplitTimingMet(SplitViewModel split)
+        private bool IsSplitTimingMet(TimingType timingType)
         {
-            switch (split.TimingType)
+            switch (timingType)
             {
                 case TimingType.Immediate:
                     return true;
@@ -364,7 +368,7 @@ namespace SoulSplitter
                     {
                         return loading.IsLoading();
                     }
-                    throw new ArgumentException($"Unsupported timing type {split.TimingType}. {_game} does not implement {nameof(ILoading)}");
+                    throw new ArgumentException($"Unsupported timing type {timingType}. {_game} does not implement {nameof(ILoading)}");
 
 
                 case TimingType.OnBlackscreen:
@@ -372,7 +376,7 @@ namespace SoulSplitter
                     {
                         return blackscreenRemovable.IsBlackscreenActive();
                     }
-                    throw new ArgumentException($"Unsupported timing type {split.TimingType}. {_game} does not implement {nameof(IBlackscreenRemovable)}");
+                    throw new ArgumentException($"Unsupported timing type {timingType}. {_game} does not implement {nameof(IBlackscreenRemovable)}");
                      
                 case TimingType.OnWarp:
                 default:
