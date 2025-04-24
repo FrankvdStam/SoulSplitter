@@ -106,7 +106,7 @@ namespace SoulSplitter
         /// </summary>
         public ResultErr<RefreshError> Update()
         {
-            
+            UpdateActiveGame();
             var result = _game.TryRefresh();
             if (result.IsErr)
             {
@@ -143,7 +143,6 @@ namespace SoulSplitter
                 }
             });
 
-            UpdateActiveGame();
             UpdateTimer();
             UpdateAutoSplitter();
             return Result.Ok();
