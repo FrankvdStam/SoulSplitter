@@ -1,0 +1,105 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:r="clr-namespace:SoulSplitter.Resources;assembly="
+                    xmlns:soulmemory="clr-namespace:SoulMemory.Games.DarkSouls3;assembly=SoulMemory">
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.VordtOfTheBorealValley}">
+        <r:EventFlag.Name>Vordt of the Boreal Valley</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.OceirosTheConsumedKing}">
+        <r:EventFlag.Name>Oceiros, the Consumed King</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.DancerOfTheBorealValley}">
+        <r:EventFlag.Name>Dancer of the Boreal Valley</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.DragonslayerArmour}">
+        <r:EventFlag.Name>Dragonslayer Armour</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.CurseRottedGreatwood}">
+        <r:EventFlag.Name>Curse-Rotted Greatwood</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.AncientWyvern}">
+        <r:EventFlag.Name>Ancient Wyvern</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.NamelessKing}">
+        <r:EventFlag.Name>Nameless King</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.AbyssWatchers}">
+        <r:EventFlag.Name>Abyss Watchers</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.CrystalSage}">
+        <r:EventFlag.Name>Crystal Sage</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.LothricYoungerPrince}">
+        <r:EventFlag.Name>Lothric, Younger Prince</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.DeaconsOfTheDeep}">
+        <r:EventFlag.Name>Deacons of the Deep</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.AldrichDevourerOfGods}">
+        <r:EventFlag.Name>Aldrich, Devourer of Gods</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.PontiffSulyvahn}">
+        <r:EventFlag.Name>Pontiff Sulyvahn</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.HighLordWolnir}">
+        <r:EventFlag.Name>High Lord Wolnir</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.OldDemonKing}">
+        <r:EventFlag.Name>Old Demon King</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.YhormTheGiant}">
+        <r:EventFlag.Name>Yhorm the Giant</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.IudexGundyr}">
+        <r:EventFlag.Name>Iudex Gundyr</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.ChampionGundyr}">
+        <r:EventFlag.Name>Champion Gundyr</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.SoulOfCinder}">
+        <r:EventFlag.Name>Soul of Cinder</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.SisterFriede}">
+        <r:EventFlag.Name>Sister Friede</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.ChampionsGravetenderAndGravetenderGreatwolf}">
+        <r:EventFlag.Name>Champion's Gravetender and Gravetender Greatwolf</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.DemonInPainAndDemonFromBelowDemonPrince}">
+        <r:EventFlag.Name>Demon in Pain and Demon From Below / Demon Prince</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.HalflightSpearOfTheChurch}">
+        <r:EventFlag.Name>Halflight, Spear of the Church</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.DarkeaterMidir}">
+        <r:EventFlag.Name>Darkeater Midir</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.SlaveKnightGael}">
+        <r:EventFlag.Name>Slave Knight Gael</r:EventFlag.Name>
+    </r:EventFlag>
+</ResourceDictionary>

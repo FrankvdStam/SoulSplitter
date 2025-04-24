@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+                    xmlns:enums="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory">
+
+    <clr:String x:Key="{x:Static enums:Attribute.Vitality}">Vitality</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Attunement}">Attunement</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Endurance}">Endurance</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Strength}">Strength</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Dexterity}">Dexterity</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Resistance}">Resistance</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Intelligence}">Intelligence</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Faith}">Faith</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Humanity}">Humanity</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.SoulLevel}">Soul level</clr:String>
+
+</ResourceDictionary>

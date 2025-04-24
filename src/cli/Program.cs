@@ -22,14 +22,19 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using SoulSplitter.UI;
-using SoulMemory.DarkSouls1;
-using SoulMemory.EldenRing;
+using System.Windows;
+using SoulMemory.Games.DarkSouls1;
+using SoulMemory.Games.EldenRing;
 using SoulMemory;
-using SoulSplitter.UI.Generic;
+using SoulMemory.Enums;
 using SoulMemory.Parameters;
-using SoulMemory.Sekiro;
-using SoulSplitterUIv2.Ui.ViewModels;
+using SoulMemory.Abstractions;
+using SoulSplitter.Ui.ViewModels;
+using SoulMemory.Games.Sekiro;
+using SoulSplitter.DependencyInjection;
+using SoulSplitter.Resources;
+using SoulSplitter.Ui.View;
+using SoulSplitter.Ui.ViewModels.MainViewModel;
 
 #pragma warning disable CS0162
 
@@ -42,12 +47,10 @@ namespace cli
         {
             TestUi(true);
             return;
-            TestUiV2();
-            return;
             GameLoop<EldenRing>(
                 (d) =>
                 {
-                    Console.WriteLine(d.ReadNgLevel());
+                    Console.WriteLine(d.ReadNewGameLevel());
                     //var dropmod = new DropMod(d);
                     //dropmod.InitBkh();
                     //
@@ -172,93 +175,30 @@ namespace cli
 
         public static void TestUi(bool withTestData = true)
         {
-            var mainWindow = new MainWindow();
-            mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
+            //register pack parser
 
-            if (withTestData)
-            {
-                foreach (var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
-                {
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = TimingType.Immediate;
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
-                    mainWindow.MainViewModel.EldenRingViewModel.AddSplit();
-                }
-
-                var flagTrackerViewModel = mainWindow.MainViewModel.FlagTrackerViewModel;
-                flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
-                {
-                    CategoryName = "Undead burg",
-                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
-                    {
-                        new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
-                        new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false}
-                    }
-                });
-
-                flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
-                {
-                    CategoryName = "Firelink shrine",
-                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
-                    {
-                        new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
-                        new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false}
-                    }
-                });
-
-                foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
-                {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
-                }
-
-                foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
-                {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.OnLoading;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
-                }
-
-                mainWindow.MainViewModel.DarkSouls1ViewModel.CurrentPosition = new Vector3f(0.14f, 4.14f, 1523.4f);
-                
-            }
-
-            mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
-
-            mainWindow.Dispatcher.Invoke(() =>
-            {
-                mainWindow.ShowDialog();
-                mainWindow.Close();
-            });
-
-            
-        }
-
-        static void TestUiV2()
-        {
-            var app = new SoulSplitterUIv2.Ui.View.App();
+            var serviceProvider = GlobalServiceProvider.Instance;
+            var languageManager = serviceProvider.GetService<ILanguageManager>();
+            var app = new SoulSplitter.Ui.App();
             app.InitializeComponent();
 
-            var mainViewModel = app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
-            mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.Sekiro, 0, SoulSplitterUIv2.Enums.TimingType.Immediate, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.EldenRing, 99, SoulSplitterUIv2.Enums.TimingType.OnLoading, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.DarkSouls3, 12, SoulSplitterUIv2.Enums.TimingType.OnWarp, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));
+            languageManager.LoadLanguage(Language.English);
+            var mainViewModel = new MainViewModel();
+            var mainWindow = new MainWindow(mainViewModel);
+            app.MainWindow = mainWindow;
+            mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, TimingType.Immediate, SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, TimingType.OnLoading, SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, TimingType.OnLoading, SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, TimingType.Immediate, SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro, TimingType.Immediate, SplitType.Flag, 15062400u, "mystery flag"));
+            mainWindow.ShowDialog();
 
-            app.ShowMainWindow();
+            mainWindow.WindowShouldHide = false;
+            mainWindow.Close();
+            app.Shutdown();
         }
-
-
+        
         #region Validate patterns 
         public static void ValidatePatterns()
         {
@@ -307,7 +247,7 @@ namespace cli
             var ds1 = new DarkSouls1();
             while (true)
             {
-                Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
+                Console.WriteLine($"{ds1.ReadInGameTimeMilliseconds()}");
 
                 var result = ds1.TryRefresh();
                 if (result.IsErr)
@@ -337,11 +277,11 @@ namespace cli
                         }
                     }
 
-                    Test("GetAttribute", () => { ds1.GetAttribute(SoulMemory.DarkSouls1.Attribute.Strength); });
+                    Test("GetAttribute", () => { ds1.GetAttribute(SoulMemory.Games.DarkSouls1.Attribute.Strength); });
                     Test("ReadEventFlag", () => { ds1.ReadEventFlag(16); });
                     Test("IsWarpRequested", () => { ds1.IsWarpRequested(); });
                     Test("IsPlayerLoaded", () => { ds1.IsPlayerLoaded(); });
-                    Test("GetPosition", () => { ds1.GetPosition(); });
+                    Test("GetPlayerPosition", () => { ds1.GetPlayerPosition(); });
                     Test("NgCount", () => { ds1.NgCount(); });
                     Test("GetCurrentSaveSlot", () => { ds1.GetCurrentSaveSlot(); });
                     Test("ResetInventoryIndices", () => { ds1.ResetInventoryIndices(); });

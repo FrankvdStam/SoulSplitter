@@ -20,7 +20,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Input;
-using SoulSplitter.Native;
+using SoulMemory.Native;
 
 namespace SoulSplitter.Hotkeys;
 

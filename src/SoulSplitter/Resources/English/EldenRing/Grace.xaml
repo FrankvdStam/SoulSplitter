@@ -1,0 +1,1677 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:r="clr-namespace:SoulSplitter.Resources;assembly="
+                    xmlns:soulmemory="clr-namespace:SoulMemory.Games.EldenRing;assembly=SoulMemory">
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GodrickTheGrafted}">
+        <r:EventFlag.Name>Godrick the Grafted</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MargitTheFellOmen}">
+        <r:EventFlag.Name>Margit, the Fell Omen</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CastlewardTunnel}">
+        <r:EventFlag.Name>Castleward Tunnel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GatesideChamber}">
+        <r:EventFlag.Name>Gateside Chamber</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StormveilCliffside}">
+        <r:EventFlag.Name>Stormveil Cliffside</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RampartTower}">
+        <r:EventFlag.Name>Rampart Tower</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LiftsideChamber}">
+        <r:EventFlag.Name>Liftside Chamber</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SecludedCell}">
+        <r:EventFlag.Name>Secluded Cell</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StormveilMainGate}">
+        <r:EventFlag.Name>Stormveil Main Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EldenThroneLeyndellRoyalCapital}">
+        <r:EventFlag.Name>Elden Throne (Leyndell, Royal Capital)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ErdtreeSanctuaryLeyndellRoyalCapital}">
+        <r:EventFlag.Name>Erdtree Sanctuary (Leyndell, Royal Capital)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EastCapitalRampartLeyndellRoyalCapital}">
+        <r:EventFlag.Name>East Capital Rampart (Leyndell, Royal Capital)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LowerCapitalChurch}">
+        <r:EventFlag.Name>Lower Capital Church</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AvenueBalcony}">
+        <r:EventFlag.Name>Avenue Balcony</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WestCapitalRampart}">
+        <r:EventFlag.Name>West Capital Rampart</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.QueensBedchamberLeyndellRoyalCapital}">
+        <r:EventFlag.Name>Queen's Bedchamber (Leyndell, Royal Capital)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FortifiedManorFirstFloor}">
+        <r:EventFlag.Name>Fortified Manor, First Floor</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineBridgeLeyndellRoyalCapital}">
+        <r:EventFlag.Name>Divine Bridge (Leyndell, Royal Capital)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EldenThroneLeyndellAshenCapital}">
+        <r:EventFlag.Name>Elden Throne (Leyndell, Ashen Capital)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ErdtreeSanctuaryLeyndellAshenCapital}">
+        <r:EventFlag.Name>Erdtree Sanctuary (Leyndell, Ashen Capital)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EastCapitalRampartLeyndellAshenCapital}">
+        <r:EventFlag.Name>East Capital Rampart (Leyndell, Ashen Capital)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LeyndellCapitalOfAsh}">
+        <r:EventFlag.Name>Leyndell, Capital of Ash</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.QueensBedchamberLeyndellAshenCapital}">
+        <r:EventFlag.Name>Queen's Bedchamber (Leyndell, Ashen Capital)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineBridgeLeyndellAshenCapital}">
+        <r:EventFlag.Name>Divine Bridge (Leyndell, Ashen Capital)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TableOfLostGrace}">
+        <r:EventFlag.Name>Table of Lost Grace</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonkinSoldierOfNokstella}">
+        <r:EventFlag.Name>Dragonkin Soldier of Nokstella</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AinselRiverWellDepths}">
+        <r:EventFlag.Name>Ainsel River Well Depths</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AinselRiverSluiceGate}">
+        <r:EventFlag.Name>Ainsel River Sluice Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AinselRiverDownstream}">
+        <r:EventFlag.Name>Ainsel River Downstream</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AinselRiverMain}">
+        <r:EventFlag.Name>Ainsel River Main</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.NokstellaEternalCity}">
+        <r:EventFlag.Name>Nokstella, Eternal City</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LakeOfRotShoreside}">
+        <r:EventFlag.Name>Lake of Rot Shoreside</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GrandCloister}">
+        <r:EventFlag.Name>Grand Cloister</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.NokstellaWaterfallBasin}">
+        <r:EventFlag.Name>Nokstella Waterfall Basin</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GreatWaterfallBasin}">
+        <r:EventFlag.Name>Great Waterfall Basin</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MimicTear}">
+        <r:EventFlag.Name>Mimic Tear</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SiofraRiverBank}">
+        <r:EventFlag.Name>Siofra River Bank</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WorshippersWoods}">
+        <r:EventFlag.Name>Worshippers' Woods</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AncestralWoods}">
+        <r:EventFlag.Name>Ancestral Woods</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AqueductFacingCliffs}">
+        <r:EventFlag.Name>Aqueduct-Facing Cliffs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.NightsSacredGround}">
+        <r:EventFlag.Name>Night's Sacred Ground</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BelowTheWell}">
+        <r:EventFlag.Name>Below the Well</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.PrinceOfDeathsThrone}">
+        <r:EventFlag.Name>Prince of Death's Throne</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RootFacingCliffs}">
+        <r:EventFlag.Name>Root-Facing Cliffs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GreatWaterfallCrest}">
+        <r:EventFlag.Name>Great Waterfall Crest</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DeeprootDepths}">
+        <r:EventFlag.Name>Deeproot Depths</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TheNamelessEternalCity}">
+        <r:EventFlag.Name>The Nameless Eternal City</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AcrossTheRoots}">
+        <r:EventFlag.Name>Across the Roots</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AstelNaturalbornOfTheVoid}">
+        <r:EventFlag.Name>Astel, Naturalborn of the Void</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CocoonOfTheEmpyrean}">
+        <r:EventFlag.Name>Cocoon of the Empyrean</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.PalaceApproachLedgeRoad}">
+        <r:EventFlag.Name>Palace Approach Ledge-Road</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DynastyMausoleumEntrance}">
+        <r:EventFlag.Name>Dynasty Mausoleum Entrance</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DynastyMausoleumMidpoint}">
+        <r:EventFlag.Name>Dynasty Mausoleum Midpoint</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SiofraRiverWellDepths}">
+        <r:EventFlag.Name>Siofra River Well Depths</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.NokronEternalCity}">
+        <r:EventFlag.Name>Nokron, Eternal City</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MalikethTheBlackBlade}">
+        <r:EventFlag.Name>Maliketh, the Black Blade</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonlordPlacidusax}">
+        <r:EventFlag.Name>Dragonlord Placidusax</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonTempleAltar}">
+        <r:EventFlag.Name>Dragon Temple Altar</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CrumblingBeastGrave}">
+        <r:EventFlag.Name>Crumbling Beast Grave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CrumblingBeastGraveDepths}">
+        <r:EventFlag.Name>Crumbling Beast Grave Depths</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TempestFacingBalcony}">
+        <r:EventFlag.Name>Tempest-Facing Balcony</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonTemple}">
+        <r:EventFlag.Name>Dragon Temple</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonTempleTransept}">
+        <r:EventFlag.Name>Dragon Temple Transept</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonTempleLift}">
+        <r:EventFlag.Name>Dragon Temple Lift</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonTempleRooftop}">
+        <r:EventFlag.Name>Dragon Temple Rooftop</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BesideTheGreatBridge}">
+        <r:EventFlag.Name>Beside the Great Bridge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RayaLucariaGrandLibrary}">
+        <r:EventFlag.Name>Raya Lucaria Grand Library</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DebateParlor}">
+        <r:EventFlag.Name>Debate Parlor</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchOfTheCuckoo}">
+        <r:EventFlag.Name>Church of the Cuckoo</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SchoolhouseClassroom}">
+        <r:EventFlag.Name>Schoolhouse Classroom</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MaleniaGoddessOfRot}">
+        <r:EventFlag.Name>Malenia, Goddess of Rot</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.PrayerRoom}">
+        <r:EventFlag.Name>Prayer Room</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ElphaelInnerWall}">
+        <r:EventFlag.Name>Elphael Inner Wall</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DrainageChannel}">
+        <r:EventFlag.Name>Drainage Channel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HaligtreeRoots}">
+        <r:EventFlag.Name>Haligtree Roots</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HaligtreePromenade}">
+        <r:EventFlag.Name>Haligtree Promenade</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HaligtreeCanopy}">
+        <r:EventFlag.Name>Haligtree Canopy</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HaligtreeTown}">
+        <r:EventFlag.Name>Haligtree Town</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HaligtreeTownPlaza}">
+        <r:EventFlag.Name>Haligtree Town Plaza</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RykardLordOfBlasphemy}">
+        <r:EventFlag.Name>Rykard, Lord of Blasphemy</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TempleOfEiglay}">
+        <r:EventFlag.Name>Temple of Eiglay</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.VolcanoManor}">
+        <r:EventFlag.Name>Volcano Manor</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.PrisonTownChurch}">
+        <r:EventFlag.Name>Prison Town Church</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GuestHall}">
+        <r:EventFlag.Name>Guest Hall</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AudiencePathway}">
+        <r:EventFlag.Name>Audience Pathway</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AbductorVirgin}">
+        <r:EventFlag.Name>Abductor Virgin</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SubterraneanInquisitionChamber}">
+        <r:EventFlag.Name>Subterranean Inquisition Chamber</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CaveOfKnowledge}">
+        <r:EventFlag.Name>Cave of Knowledge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StrandedGraveyard}">
+        <r:EventFlag.Name>Stranded Graveyard</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FracturedMarika}">
+        <r:EventFlag.Name>Fractured Marika</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TheatreoftheDivineBeast}">
+        <r:EventFlag.Name>Theatre of the Divine Beast</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BeluratTowerSettlement}">
+        <r:EventFlag.Name>Belurat, Tower Settlement</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SmallPrivateAltar}">
+        <r:EventFlag.Name>Small Private Altar</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.Stagefront}">
+        <r:EventFlag.Name>Stagefront</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GateofDivinity}">
+        <r:EventFlag.Name>Gate of Divinity</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EnirIlimOuterWall}">
+        <r:EventFlag.Name>Enir-Ilim: Outer Wall</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FirstRise}">
+        <r:EventFlag.Name>First Rise</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SpiralRise}">
+        <r:EventFlag.Name>Spiral Rise</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CleansingChamberAnteroom}">
+        <r:EventFlag.Name>Cleansing Chamber Anteroom</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineGateFrontStaircase}">
+        <r:EventFlag.Name>Divine Gate Front Staircase</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MainGatePlaza}">
+        <r:EventFlag.Name>Main Gate Plaza</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ShadowKeepMainGate}">
+        <r:EventFlag.Name>Shadow Keep Main Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchDistrictEntrance}">
+        <r:EventFlag.Name>Church District Entrance</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SunkenChapel}">
+        <r:EventFlag.Name>Sunken Chapel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TreeWorshipPassage}">
+        <r:EventFlag.Name>Tree,Worship Passage</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TreeWorshipSanctum}">
+        <r:EventFlag.Name>Tree,Worship Sanctum</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MessmersDarkChamber}">
+        <r:EventFlag.Name>Messmer's Dark Chamber</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StorehouseFirstFloor}">
+        <r:EventFlag.Name>Storehouse, First Floor</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StorehouseFourthFloor}">
+        <r:EventFlag.Name>Storehouse, Fourth Floor</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StorehouseSeventhFloor}">
+        <r:EventFlag.Name>Storehouse, Seventh Floor</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DarkChamberEntrance}">
+        <r:EventFlag.Name>Dark Chamber Entrance</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StorehouseBackSection}">
+        <r:EventFlag.Name>Storehouse, Back Section</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StorehouseLoft}">
+        <r:EventFlag.Name>Storehouse, Loft</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WestRampart}">
+        <r:EventFlag.Name>West Rampart</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GardenofDeepPurple}">
+        <r:EventFlag.Name>Garden of Deep Purple</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StoneCoffinFissure}">
+        <r:EventFlag.Name>Stone Coffin Fissure</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FissureCross}">
+        <r:EventFlag.Name>Fissure Cross</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FissureWaypoint}">
+        <r:EventFlag.Name>Fissure Waypoint</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FissureDepths}">
+        <r:EventFlag.Name>Fissure Depths</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FingerBirthingGrounds}">
+        <r:EventFlag.Name>Finger Birthing Grounds</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DiscussionChamber}">
+        <r:EventFlag.Name>Discussion Chamber</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ManseHall}">
+        <r:EventFlag.Name>Manse Hall</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MidrasLibrary}">
+        <r:EventFlag.Name>Midra's Library</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SecondFloorChamber}">
+        <r:EventFlag.Name>Second Floor Chamber</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TombswardCatacombs}">
+        <r:EventFlag.Name>Tombsward Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ImpalersCatacombs}">
+        <r:EventFlag.Name>Impaler's Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StormfootCatacombs}">
+        <r:EventFlag.Name>Stormfoot Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RoadsEndCatacombs}">
+        <r:EventFlag.Name>Road's End Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MurkwaterCatacombs}">
+        <r:EventFlag.Name>Murkwater Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BlackKnifeCatacombs}">
+        <r:EventFlag.Name>Black Knife Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CliffbottomCatacombs}">
+        <r:EventFlag.Name>Cliffbottom Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WyndhamCatacombs}">
+        <r:EventFlag.Name>Wyndham Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SaintedHerosGrave}">
+        <r:EventFlag.Name>Sainted Hero's Grave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GelmirHerosGrave}">
+        <r:EventFlag.Name>Gelmir Hero's Grave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AurizaHerosGrave}">
+        <r:EventFlag.Name>Auriza Hero's Grave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DeathtouchedCatacombs}">
+        <r:EventFlag.Name>Deathtouched Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.UnsightlyCatacombs}">
+        <r:EventFlag.Name>Unsightly Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AurizaSideTomb}">
+        <r:EventFlag.Name>Auriza Side Tomb</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MinorErdtreeCatacombs}">
+        <r:EventFlag.Name>Minor Erdtree Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CaelidCatacombs}">
+        <r:EventFlag.Name>Caelid Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WarDeadCatacombs}">
+        <r:EventFlag.Name>War-Dead Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GiantConqueringHerosGrave}">
+        <r:EventFlag.Name>Giant-Conquering Hero's Grave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GiantsMountaintopCatacombs}">
+        <r:EventFlag.Name>Giants' Mountaintop Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ConsecratedSnowfieldCatacombs}">
+        <r:EventFlag.Name>Consecrated Snowfield Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HiddenPathToTheHaligtree}">
+        <r:EventFlag.Name>Hidden Path to the Haligtree</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MurkwaterCave}">
+        <r:EventFlag.Name>Murkwater Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EarthboreCave}">
+        <r:EventFlag.Name>Earthbore Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TombswardCave}">
+        <r:EventFlag.Name>Tombsward Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GrovesideCave}">
+        <r:EventFlag.Name>Groveside Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StillwaterCave}">
+        <r:EventFlag.Name>Stillwater Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LakesideCrystalCave}">
+        <r:EventFlag.Name>Lakeside Crystal Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AcademyCrystalCave}">
+        <r:EventFlag.Name>Academy Crystal Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SeethewaterCave}">
+        <r:EventFlag.Name>Seethewater Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.VolcanoCave}">
+        <r:EventFlag.Name>Volcano Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonbarrowCave}">
+        <r:EventFlag.Name>Dragonbarrow Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SelliaHideaway}">
+        <r:EventFlag.Name>Sellia Hideaway</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CaveOfTheForlorn}">
+        <r:EventFlag.Name>Cave of the Forlorn</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CoastalCave}">
+        <r:EventFlag.Name>Coastal Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HighroadCave}">
+        <r:EventFlag.Name>Highroad Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.PerfumersGrotto}">
+        <r:EventFlag.Name>Perfumer's Grotto</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SagesCave}">
+        <r:EventFlag.Name>Sage's Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AbandonedCave}">
+        <r:EventFlag.Name>Abandoned Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GaolCave}">
+        <r:EventFlag.Name>Gaol Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SpiritcallersCave}">
+        <r:EventFlag.Name>Spiritcaller's Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MorneTunnel}">
+        <r:EventFlag.Name>Morne Tunnel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LimgraveTunnels}">
+        <r:EventFlag.Name>Limgrave Tunnels</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RayaLucariaCrystalTunnel}">
+        <r:EventFlag.Name>Raya Lucaria Crystal Tunnel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.OldAltusTunnel}">
+        <r:EventFlag.Name>Old Altus Tunnel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AltusTunnel}">
+        <r:EventFlag.Name>Altus Tunnel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RearGaelTunnelEntrance}">
+        <r:EventFlag.Name>Rear Gael Tunnel Entrance</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SelliaCrystalTunnel}">
+        <r:EventFlag.Name>Sellia Crystal Tunnel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.YeloughAnixTunnel}">
+        <r:EventFlag.Name>Yelough Anix Tunnel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LimgraveTowerBridge}">
+        <r:EventFlag.Name>Limgrave Tower Bridge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineTowerOfLimgrave}">
+        <r:EventFlag.Name>Divine Tower of Limgrave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StudyHallEntrance}">
+        <r:EventFlag.Name>Study Hall Entrance</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LiurniaTowerBridge}">
+        <r:EventFlag.Name>Liurnia Tower Bridge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineTowerOfLiurnia}">
+        <r:EventFlag.Name>Divine Tower of Liurnia</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineTowerOfWestAltus}">
+        <r:EventFlag.Name>Divine Tower of West Altus</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SealedTunnel}">
+        <r:EventFlag.Name>Sealed Tunnel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineTowerOfWestAltusGate}">
+        <r:EventFlag.Name>Divine Tower of West Altus: Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineTowerOfCaelid}">
+        <r:EventFlag.Name>Divine Tower of Caelid</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineTowerOfCaelidCenter}">
+        <r:EventFlag.Name>Divine Tower of Caelid: Center</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineTowerOfEastAltusGate}">
+        <r:EventFlag.Name>Divine Tower of East Altus: Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DivineTowerOfEastAltus}">
+        <r:EventFlag.Name>Divine Tower of East Altus</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.IsolatedDivineTower}">
+        <r:EventFlag.Name>Isolated Divine Tower</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CathedralOfTheForsaken}">
+        <r:EventFlag.Name>Cathedral of the Forsaken</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.UndergroundRoadside}">
+        <r:EventFlag.Name>Underground Roadside</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ForsakenDepths}">
+        <r:EventFlag.Name>Forsaken Depths</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LeyndellCatacombs}">
+        <r:EventFlag.Name>Leyndell Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FrenziedFlameProscription}">
+        <r:EventFlag.Name>Frenzied Flame Proscription</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MagmaWyrm}">
+        <r:EventFlag.Name>Magma Wyrm</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RuinStrewnPrecipice}">
+        <r:EventFlag.Name>Ruin-Strewn Precipice</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RuinStrewnPrecipiceOverlook}">
+        <r:EventFlag.Name>Ruin-Strewn Precipice Overlook</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FogRiftCatacombs}">
+        <r:EventFlag.Name>Fog Rift Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ScorpionRiverCatacombs}">
+        <r:EventFlag.Name>Scorpion River Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DarklightCatacombs}">
+        <r:EventFlag.Name>Darklight Catacombs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BeluratGaol}">
+        <r:EventFlag.Name>Belurat Gaol</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BonnyGaol}">
+        <r:EventFlag.Name>Bonny Gaol</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LamentersGaol}">
+        <r:EventFlag.Name>Lamenter's Gaol</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RuinedForgeLavaIntake}">
+        <r:EventFlag.Name>Ruined Forge Lava Intake</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RuinedForgeofStarfallPast}">
+        <r:EventFlag.Name>Ruined Forge of Starfall Past</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TaylewsRuinedForge}">
+        <r:EventFlag.Name>Taylew's Ruined Forge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RivermouthCave}">
+        <r:EventFlag.Name>Rivermouth Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonsPit}">
+        <r:EventFlag.Name>Dragon's Pit</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonsPitTerminus}">
+        <r:EventFlag.Name>Dragon's Pit Terminus</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchOfElleh}">
+        <r:EventFlag.Name>Church of Elleh</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TheFirstStep}">
+        <r:EventFlag.Name>The First Step</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StormhillShack}">
+        <r:EventFlag.Name>Stormhill Shack</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ArtistsShackLimgrave}">
+        <r:EventFlag.Name>Artist's Shack (Limgrave)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ThirdChurchOfMarika}">
+        <r:EventFlag.Name>Third Church of Marika</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FortHaightWest}">
+        <r:EventFlag.Name>Fort Haight West</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AgheelLakeSouth}">
+        <r:EventFlag.Name>Agheel Lake South</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AgheelLakeNorth}">
+        <r:EventFlag.Name>Agheel Lake North</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchOfDragonCommunion}">
+        <r:EventFlag.Name>Church of Dragon Communion</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.Gatefront}">
+        <r:EventFlag.Name>Gatefront</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SeasideRuins}">
+        <r:EventFlag.Name>Seaside Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MistwoodOutskirts}">
+        <r:EventFlag.Name>Mistwood Outskirts</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MurkwaterCoast}">
+        <r:EventFlag.Name>Murkwater Coast</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.Saintsbridge}">
+        <r:EventFlag.Name>Saintsbridge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WarmastersShack}">
+        <r:EventFlag.Name>Warmaster's Shack</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SummonwaterVillageOutskirts}">
+        <r:EventFlag.Name>Summonwater Village Outskirts</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WaypointRuinsCellar}">
+        <r:EventFlag.Name>Waypoint Ruins Cellar</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchOfPilgrimage}">
+        <r:EventFlag.Name>Church of Pilgrimage</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CastleMorneRampart}">
+        <r:EventFlag.Name>Castle Morne Rampart</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.Tombsward}">
+        <r:EventFlag.Name>Tombsward</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SouthOfTheLookoutTower}">
+        <r:EventFlag.Name>South of the Lookout Tower</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AilingVillageOutskirts}">
+        <r:EventFlag.Name>Ailing Village Outskirts</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BesideTheCraterPockedGlade}">
+        <r:EventFlag.Name>Beside the Crater-Pocked Glade</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.IsolatedMerchantsShackWeepingPeninsula}">
+        <r:EventFlag.Name>Isolated Merchant's Shack (Weeping Peninsula)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BridgeOfSacrifice}">
+        <r:EventFlag.Name>Bridge of Sacrifice</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CastleMorneLift}">
+        <r:EventFlag.Name>Castle Morne Lift</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BehindTheCastle}">
+        <r:EventFlag.Name>Behind the Castle</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BesideTheRampartGaol}">
+        <r:EventFlag.Name>Beside the Rampart Gaol</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MorneMoangrave}">
+        <r:EventFlag.Name>Morne Moangrave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FourthChurchOfMarika}">
+        <r:EventFlag.Name>Fourth Church of Marika</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LakeFacingCliffs}">
+        <r:EventFlag.Name>Lake-Facing Cliffs</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LiurniaLakeShore}">
+        <r:EventFlag.Name>Liurnia Lake Shore</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LaskyarRuins}">
+        <r:EventFlag.Name>Laskyar Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ScenicIsle}">
+        <r:EventFlag.Name>Scenic Isle</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AcademyGateTown}">
+        <r:EventFlag.Name>Academy Gate Town</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SouthRayaLucariaGate}">
+        <r:EventFlag.Name>South Raya Lucaria Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MainAcademyGate}">
+        <r:EventFlag.Name>Main Academy Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EastRayaLucariaGate}">
+        <r:EventFlag.Name>East Raya Lucaria Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BellumChurch}">
+        <r:EventFlag.Name>Bellum Church</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GrandLiftOfDectus}">
+        <r:EventFlag.Name>Grand Lift of Dectus</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FootOfTheFourBelfries}">
+        <r:EventFlag.Name>Foot of the Four Belfries</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SorcerersIsle}">
+        <r:EventFlag.Name>Sorcerer's Isle</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.NorthernLiurniaLakeShore}">
+        <r:EventFlag.Name>Northern Liurnia Lake Shore</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RoadToTheManor}">
+        <r:EventFlag.Name>Road to the Manor</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MainCariaManorGate}">
+        <r:EventFlag.Name>Main Caria Manor Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SlumberingWolfsShack}">
+        <r:EventFlag.Name>Slumbering Wolf's Shack</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BoilprawnShack}">
+        <r:EventFlag.Name>Boilprawn Shack</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ArtistsShackLiurniaOfTheLakes}">
+        <r:EventFlag.Name>Artist's Shack (Liurnia of the Lakes)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RevengersShack}">
+        <r:EventFlag.Name>Revenger's Shack</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FollyonTheLake}">
+        <r:EventFlag.Name>Folly on the Lake</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.VillageOfTheAlbinaurics}">
+        <r:EventFlag.Name>Village of the Albinaurics</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LiurniaHighwayNorth}">
+        <r:EventFlag.Name>Liurnia Highway North</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GateTownBridge}">
+        <r:EventFlag.Name>Gate Town Bridge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EasternLiurniaLakeShore}">
+        <r:EventFlag.Name>Eastern Liurnia Lake Shore</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchOfVows}">
+        <r:EventFlag.Name>Church of Vows</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RuinedLabyrinth}">
+        <r:EventFlag.Name>Ruined Labyrinth</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MausoleumCompound}">
+        <r:EventFlag.Name>Mausoleum Compound</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TheFourBelfries}">
+        <r:EventFlag.Name>The Four Belfries</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RannisRise}">
+        <r:EventFlag.Name>Ranni's Rise</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RavineVeiledVillage}">
+        <r:EventFlag.Name>Ravine-Veiled Village</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ManorUpperLevel}">
+        <r:EventFlag.Name>Manor Upper Level</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ManorLowerLevel}">
+        <r:EventFlag.Name>Manor Lower Level</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RoyalMoongazingGrounds}">
+        <r:EventFlag.Name>Royal Moongazing Grounds</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GateTownNorth}">
+        <r:EventFlag.Name>Gate Town North</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EasternTableland}">
+        <r:EventFlag.Name>Eastern Tableland</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TheRavine}">
+        <r:EventFlag.Name>The Ravine</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FallenRuinsOfTheLake}">
+        <r:EventFlag.Name>Fallen Ruins of the Lake</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ConvertedTower}">
+        <r:EventFlag.Name>Converted Tower</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BehindCariaManor}">
+        <r:EventFlag.Name>Behind Caria Manor</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FrenziedFlameVillageOutskirts}">
+        <r:EventFlag.Name>Frenzied Flame Village Outskirts</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchOfInhibition}">
+        <r:EventFlag.Name>Church of Inhibition</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TempleQuarter}">
+        <r:EventFlag.Name>Temple Quarter</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EastGateBridgeTrestle}">
+        <r:EventFlag.Name>East Gate Bridge Trestle</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CrystallineWoods}">
+        <r:EventFlag.Name>Crystalline Woods</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LiurniaHighwaySouth}">
+        <r:EventFlag.Name>Liurnia Highway South</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.Jarburg}">
+        <r:EventFlag.Name>Jarburg</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RannisChamber}">
+        <r:EventFlag.Name>Ranni's Chamber</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MoonlightAltar}">
+        <r:EventFlag.Name>Moonlight Altar</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CathedralOfManusCeles}">
+        <r:EventFlag.Name>Cathedral of Manus Celes</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AltarSouth}">
+        <r:EventFlag.Name>Altar South</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AbandonedCoffin}">
+        <r:EventFlag.Name>Abandoned Coffin</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AltusPlateau}">
+        <r:EventFlag.Name>Altus Plateau</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ErdtreeGazingHill}">
+        <r:EventFlag.Name>Erdtree-Gazing Hill</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AltusHighwayJunction}">
+        <r:EventFlag.Name>Altus Highway Junction</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ForestSpanningGreatbridge}">
+        <r:EventFlag.Name>Forest-Spanning Greatbridge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RampartsidePath}">
+        <r:EventFlag.Name>Rampartside Path</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BowerOfBounty}">
+        <r:EventFlag.Name>Bower of Bounty</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RoadOfIniquitySidePath}">
+        <r:EventFlag.Name>Road of Iniquity Side Path</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WindmillVillage}">
+        <r:EventFlag.Name>Windmill Village</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.OuterWallPhantomTree}">
+        <r:EventFlag.Name>Outer Wall Phantom Tree</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MinorErdtreeChurch}">
+        <r:EventFlag.Name>Minor Erdtree Church</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HermitMerchantsShack}">
+        <r:EventFlag.Name>Hermit Merchant's Shack</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.OuterWallBattleground}">
+        <r:EventFlag.Name>Outer Wall Battleground</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WindmillHeights}">
+        <r:EventFlag.Name>Windmill Heights</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CapitalRampart}">
+        <r:EventFlag.Name>Capital Rampart</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ShadedCastleRamparts}">
+        <r:EventFlag.Name>Shaded Castle Ramparts</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ShadedCastleInnerGate}">
+        <r:EventFlag.Name>Shaded Castle Inner Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CastellansHall}">
+        <r:EventFlag.Name>Castellan's Hall</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BridgeOfIniquity}">
+        <r:EventFlag.Name>Bridge of Iniquity</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FirstMtGelmirCampsite}">
+        <r:EventFlag.Name>First Mt. Gelmir Campsite</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.NinthMtGelmirCampsite}">
+        <r:EventFlag.Name>Ninth Mt. Gelmir Campsite</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RoadOfIniquity}">
+        <r:EventFlag.Name>Road of Iniquity</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SeethewaterRiver}">
+        <r:EventFlag.Name>Seethewater River</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SeethewaterTerminus}">
+        <r:EventFlag.Name>Seethewater Terminus</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CraftsmansShack}">
+        <r:EventFlag.Name>Craftsman's Shack</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.PrimevalSorcererAzur}">
+        <r:EventFlag.Name>Primeval Sorcerer Azur</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SmolderingChurch}">
+        <r:EventFlag.Name>Smoldering Church</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RotviewBalcony}">
+        <r:EventFlag.Name>Rotview Balcony</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FortGaelNorth}">
+        <r:EventFlag.Name>Fort Gael North</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CaelemRuins}">
+        <r:EventFlag.Name>Caelem Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CathedralOfDragonCommunion}">
+        <r:EventFlag.Name>Cathedral of Dragon Communion</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CaelidHighwaySouth}">
+        <r:EventFlag.Name>Caelid Highway South</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AeoniaSwampShore}">
+        <r:EventFlag.Name>Aeonia Swamp Shore</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AstrayfromCaelidHighwayNorth}">
+        <r:EventFlag.Name>Astray from Caelid Highway North</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SmolderingWall}">
+        <r:EventFlag.Name>Smoldering Wall</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DeepSiofraWell}">
+        <r:EventFlag.Name>Deep Siofra Well</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SouthernAeoniaSwampBank}">
+        <r:EventFlag.Name>Southern Aeonia Swamp Bank</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HeartOfAeonia}">
+        <r:EventFlag.Name>Heart of Aeonia</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.InnerAeonia}">
+        <r:EventFlag.Name>Inner Aeonia</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SelliaBackstreets}">
+        <r:EventFlag.Name>Sellia Backstreets</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChairCryptOfSellia}">
+        <r:EventFlag.Name>Chair-Crypt of Sellia</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SelliaUnderStair}">
+        <r:EventFlag.Name>Sellia Under-Stair</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ImpassableGreatbridge}">
+        <r:EventFlag.Name>Impassable Greatbridge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchOfThePlague}">
+        <r:EventFlag.Name>Church of the Plague</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RedmaneCastlePlaza}">
+        <r:EventFlag.Name>Redmane Castle Plaza</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChamberOutsideThePlaza}">
+        <r:EventFlag.Name>Chamber Outside the Plaza</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.StarscourgeRadahn}">
+        <r:EventFlag.Name>Starscourge Radahn</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonbarrowWest}">
+        <r:EventFlag.Name>Dragonbarrow West</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.IsolatedMerchantsShackGreyollsDragonbarrow}">
+        <r:EventFlag.Name>Isolated Merchant's Shack (Greyoll's Dragonbarrow)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DragonbarrowFork}">
+        <r:EventFlag.Name>Dragonbarrow Fork</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FortFaroth}">
+        <r:EventFlag.Name>Fort Faroth</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BestialSanctum}">
+        <r:EventFlag.Name>Bestial Sanctum</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.LennesRise}">
+        <r:EventFlag.Name>Lenne's Rise</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FarumGreatbridge}">
+        <r:EventFlag.Name>Farum Greatbridge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ForbiddenLands}">
+        <r:EventFlag.Name>Forbidden Lands</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ZamorRuins}">
+        <r:EventFlag.Name>Zamor Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GrandLiftOfRold}">
+        <r:EventFlag.Name>Grand Lift of Rold</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AncientSnowValleyRuins}">
+        <r:EventFlag.Name>Ancient Snow Valley Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FreezingLake}">
+        <r:EventFlag.Name>Freezing Lake</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FirstChurchOfMarika}">
+        <r:EventFlag.Name>First Church of Marika</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GiantsGravepost}">
+        <r:EventFlag.Name>Giants' Gravepost</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchOfRepose}">
+        <r:EventFlag.Name>Church of Repose</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FootOfTheForge}">
+        <r:EventFlag.Name>Foot of the Forge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FireGiant}">
+        <r:EventFlag.Name>Fire Giant</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ForgeOfTheGiants}">
+        <r:EventFlag.Name>Forge of the Giants</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WhiteridgeRoad}">
+        <r:EventFlag.Name>Whiteridge Road</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.SnowValleyRuinsOverlook}">
+        <r:EventFlag.Name>Snow Valley Ruins Overlook</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CastleSolMainGate}">
+        <r:EventFlag.Name>Castle Sol Main Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchOfTheEclipse}">
+        <r:EventFlag.Name>Church of the Eclipse</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CastleSolRooftop}">
+        <r:EventFlag.Name>Castle Sol Rooftop</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ConsecratedSnowfield}">
+        <r:EventFlag.Name>Consecrated Snowfield</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.InnerConsecratedSnowfield}">
+        <r:EventFlag.Name>Inner Consecrated Snowfield</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.OrdinaLiturgicalTown}">
+        <r:EventFlag.Name>Ordina, Liturgical Town</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ApostateDerelict}">
+        <r:EventFlag.Name>Apostate Derelict</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GravesitePlain}">
+        <r:EventFlag.Name>Gravesite Plain</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ScorchedRuins}">
+        <r:EventFlag.Name>Scorched Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ThreePathCross}">
+        <r:EventFlag.Name>Three,Path Cross</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MainGateCross}">
+        <r:EventFlag.Name>Main Gate Cross</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CliffroadTerminus}">
+        <r:EventFlag.Name>Cliffroad Terminus</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GreatbridgeNorth}">
+        <r:EventFlag.Name>Greatbridge, North</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.PillarPathCross}">
+        <r:EventFlag.Name>Pillar Path Cross</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.PillarPathWaypoint}">
+        <r:EventFlag.Name>Pillar Path Waypoint</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EllacRiverCave}">
+        <r:EventFlag.Name>Ellac River Cave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CastleFront}">
+        <r:EventFlag.Name>Castle Front</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CastleEnsisCheckpoint}">
+        <r:EventFlag.Name>Castle Ensis Checkpoint</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CastleLordsChamber}">
+        <r:EventFlag.Name>Castle,Lord's Chamber</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EnsisMoongazingGrounds}">
+        <r:EventFlag.Name>Ensis Moongazing Grounds</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.EllacRiverDownstream}">
+        <r:EventFlag.Name>Ellac River Downstream</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CeruleanCoast}">
+        <r:EventFlag.Name>Cerulean Coast</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CeruleanCoastWest}">
+        <r:EventFlag.Name>Cerulean Coast West</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TheFissure}">
+        <r:EventFlag.Name>The Fissure</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FingerRuinsofRhia}">
+        <r:EventFlag.Name>Finger Ruins of Rhia</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CeruleanCoastCross}">
+        <r:EventFlag.Name>Cerulean Coast Cross</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.GrandAltarofDragonCommunion}">
+        <r:EventFlag.Name>Grand Altar of Dragon Communion</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CharosHiddenGrave}">
+        <r:EventFlag.Name>Charo's Hidden Grave</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FootoftheJaggedPeak}">
+        <r:EventFlag.Name>Foot of the Jagged Peak</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.JaggedPeakMountainside}">
+        <r:EventFlag.Name>Jagged Peak Mountainside</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.JaggedPeakSummit}">
+        <r:EventFlag.Name>Jagged Peak Summit</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RestoftheDreadDragon}">
+        <r:EventFlag.Name>Rest of the Dread Dragon</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AbyssalWoods}">
+        <r:EventFlag.Name>Abyssal Woods</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.DividedFalls}">
+        <r:EventFlag.Name>Divided Falls</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ForsakenGraveyard}">
+        <r:EventFlag.Name>Forsaken Graveyard</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.WoodlandTrail}">
+        <r:EventFlag.Name>Woodland Trail</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchRuins}">
+        <r:EventFlag.Name>Church Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HighroadCross}">
+        <r:EventFlag.Name>Highroad Cross</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MoorthRuins}">
+        <r:EventFlag.Name>Moorth Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BonnyVillage}">
+        <r:EventFlag.Name>Bonny Village</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BridgeLeadingtotheVillage}">
+        <r:EventFlag.Name>Bridge Leading to the Village</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchDistrictHighroad}">
+        <r:EventFlag.Name>Church District Highroad</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CathedralofManusMetyr}">
+        <r:EventFlag.Name>Cathedral of Manus Metyr</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ScaduAltusWest}">
+        <r:EventFlag.Name>Scadu Altus, West</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.MoorthHighwaySouth}">
+        <r:EventFlag.Name>Moorth Highway, South</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FortofReprimand}">
+        <r:EventFlag.Name>Fort of Reprimand</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.BehindtheFortofReprimand}">
+        <r:EventFlag.Name>Behind the Fort of Reprimand</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ScaduviewCross}">
+        <r:EventFlag.Name>Scaduview Cross</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AncientRuinsBase}">
+        <r:EventFlag.Name>Ancient Ruins Base</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.TempleTownRuins}">
+        <r:EventFlag.Name>Temple Town Ruins</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RavineNorth}">
+        <r:EventFlag.Name>Ravine North</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.CastleWateringHole}">
+        <r:EventFlag.Name>Castle Watering Hole</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ReclusesRiverUpstream}">
+        <r:EventFlag.Name>Recluses' River Upstream</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ReclusesRiverDownstream}">
+        <r:EventFlag.Name>Recluses' River Downstream</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.Scaduview}">
+        <r:EventFlag.Name>Scaduview</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ShadowKeepBackGate}">
+        <r:EventFlag.Name>Shadow Keep, Back Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.Hinterland}">
+        <r:EventFlag.Name>Hinterland</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.FingerstoneHill}">
+        <r:EventFlag.Name>Fingerstone Hill</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.HinterlandBridge}">
+        <r:EventFlag.Name>Hinterland Bridge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ViaductMinorTower}">
+        <r:EventFlag.Name>Viaduct Minor Tower</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RauhAncientRuinsEast}">
+        <r:EventFlag.Name>Rauh Ancient Ruins, East</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.RauhAncientRuinsWest}">
+        <r:EventFlag.Name>Rauh Ancient Ruins, West</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchoftheBudMainEntrance}">
+        <r:EventFlag.Name>Church of the Bud, Main Entrance</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.AncientRuinsGrandStairway}">
+        <r:EventFlag.Name>Ancient Ruins, Grand Stairway</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ChurchoftheBud}">
+        <r:EventFlag.Name>Church of the Bud</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Grace.ScadutreeBase}">
+        <r:EventFlag.Name>Scadutree Base</r:EventFlag.Name>
+    </r:EventFlag>
+</ResourceDictionary>

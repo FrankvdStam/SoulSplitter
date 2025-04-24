@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 namespace SoulMemory.Native;
 
 [ExcludeFromCodeCoverage]
-internal static class User32
+public static class User32
 {
     [DllImport("user32.dll")]
     private static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint processId);
@@ -35,4 +35,7 @@ internal static class User32
         GetWindowThreadProcessId(hWnd, out var pid);
         return pid;
     }
+
+    public static bool RegisterHotkey(IntPtr handle, int id, uint modifiers, uint virtualKeyCode) => NativeMethods.RegisterHotKey(handle, id, modifiers, virtualKeyCode);
+    public static bool UnregisterHotkey(IntPtr handle, int id) => NativeMethods.UnregisterHotKey(handle, id);
 }

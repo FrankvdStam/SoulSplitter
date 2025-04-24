@@ -1,0 +1,213 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:r="clr-namespace:SoulSplitter.Resources;assembly="
+                    xmlns:soulmemory="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory">
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CovenantJoinedWayOfWhite}">
+        <r:EventFlag.Name>Covenant Joined, Way of White</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CovenantJoinedPrincessGuard}">
+        <r:EventFlag.Name>Covenant Joined, Princess Guard</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CovenantJoinedWarriorOfSunlight}">
+        <r:EventFlag.Name>Covenant Joined, Warrior of Sunlight</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CovenantJoinedDarkwraith}">
+        <r:EventFlag.Name>Covenant Joined, Darkwraith</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CovenantJoinedPathOfTheDragon}">
+        <r:EventFlag.Name>Covenant Joined, Path of the Dragon</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CovenantJoinedGravelordServant}">
+        <r:EventFlag.Name>Covenant Joined, Gravelord Servant</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CovenantJoinedForestHunter}">
+        <r:EventFlag.Name>Covenant Joined, Forest Hunter</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CovenantJoinedDarkmoonBlade}">
+        <r:EventFlag.Name>Covenant Joined, Darkmoon Blade</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CovenantJoinedChaosServant}">
+        <r:EventFlag.Name>Covenant Joined, Chaos Servant</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NPCDuskRescuedFromGolem}">
+        <r:EventFlag.Name>NPC, Dusk, Rescued From Golem</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NPCDuskAvailableForSummonSaidYesAfterRescue}">
+        <r:EventFlag.Name>NPC, Dusk, Available for Summon (Said Yes After Rescue)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NPCDuskDead}">
+        <r:EventFlag.Name>NPC, Dusk, Dead</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NPCSiegmeyerDead}">
+        <r:EventFlag.Name>NPC, Siegmeyer, Dead</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NPCLautrecDead}">
+        <r:EventFlag.Name>NPC, Lautrec, Dead</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NPCOswaldDead}">
+        <r:EventFlag.Name>NPC, Oswald, Dead</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NPCShivaBodyguardDead}">
+        <r:EventFlag.Name>NPC, Shiva Bodyguard, Dead</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.BellOfAwakeningUndeadParish}">
+        <r:EventFlag.Name>Bell of Awakening, Undead Parish</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.GoughlessKalameethDeathAnimation}">
+        <r:EventFlag.Name>Goughless Kalameeth Death Animation</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CatacombsEntranceLever}">
+        <r:EventFlag.Name>Catacombs, Entrance Lever</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.BossArenaEnteredGravelordNito}">
+        <r:EventFlag.Name>Boss Arena Entered, Gravelord Nito</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.BellOfAwakeningBlighttown}">
+        <r:EventFlag.Name>Bell of Awakening, Blighttown</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CutsceneSkippedChaosWitchQuelaag}">
+        <r:EventFlag.Name>Cutscene Skipped, Chaos Witch Quelaag</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.DemonRuinsShortcutDoorToLostIzalith}">
+        <r:EventFlag.Name>Demon Ruins, Shortcut Door to Lost Izalith</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CutsceneSkippedCentipedeDemon}">
+        <r:EventFlag.Name>Cutscene Skipped, Centipede Demon</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.BossArenaEnteredBedOfChaos}">
+        <r:EventFlag.Name>Boss Arena Entered, Bed of Chaos</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.SensFortressFogGate1}">
+        <r:EventFlag.Name>Sen's Fortress, Fog Gate 1</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.SensFortressFogGate2}">
+        <r:EventFlag.Name>Sen's Fortress, Fog Gate 2</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CutsceneSkippedWarpToAnorLondo}">
+        <r:EventFlag.Name>Cutscene Skipped, Warp to Anor Londo</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.BossArenaEnteredIronGolem}">
+        <r:EventFlag.Name>Boss Arena Entered, Iron Golem</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.AnorLondoFogGateRafters}">
+        <r:EventFlag.Name>Anor Londo, Fog Gate Rafters</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.AnorLondoFogGateArchers}">
+        <r:EventFlag.Name>Anor Londo, Fog Gate Archers</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.AnorLondoDoorToGwynevere}">
+        <r:EventFlag.Name>Anor Londo, Door to Gwynevere</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.AnorLondoElevatorActive}">
+        <r:EventFlag.Name>Anor Londo, Elevator Active</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.LordvesselDarkAnorLondo}">
+        <r:EventFlag.Name>Lordvessel, Dark Anor Londo</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.LordvesselReceiveLordvesselWithGwynevereStillAlive}">
+        <r:EventFlag.Name>Lordvessel, Receive Lordvessel With Gwynevere Still Alive</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CutsceneSkippedOrnsteinAndSmough}">
+        <r:EventFlag.Name>Cutscene Skipped, Ornstein and Smough</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NewLondoRuinsSealOpened}">
+        <r:EventFlag.Name>New Londo Ruins, Seal Opened</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.DukesArchivesFogGate}">
+        <r:EventFlag.Name>Duke's Archives, Fog Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.DukesArchivesSecondLever}">
+        <r:EventFlag.Name>Duke's Archives, Second Lever</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.DukesArchivesFirstLever}">
+        <r:EventFlag.Name>Duke's Archives, First Lever</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.CutsceneSkippedSeath}">
+        <r:EventFlag.Name>Cutscene Skipped, Seath</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.BossArenaEnteredGwyn}">
+        <r:EventFlag.Name>Boss Arena Entered, Gwyn</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NorthernUndeadAsylumFogGate}">
+        <r:EventFlag.Name>Northern Undead Asylum, Fog Gate</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NorthernUndeadAsylumCellDoor}">
+        <r:EventFlag.Name>Northern Undead Asylum, Cell Door</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NorthernUndeadAsylumBigPilgrimDoor}">
+        <r:EventFlag.Name>Northern Undead Asylum, Big Pilgrim Door</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NorthernUndeadAsylumAsylumDemonDoor}">
+        <r:EventFlag.Name>Northern Undead Asylum, Asylum Demon Door</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.LordvesselReceiveLordvesselGwynevereAliveOrDead}">
+        <r:EventFlag.Name>Lordvessel, Receive Lordvessel (Gwynevere Alive or Dead)</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.DarkrootGardenCrestOfArtoriasDoor}">
+        <r:EventFlag.Name>Darkroot Garden, Crest of Artorias Door</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.DarkrootGardenSifDoor}">
+        <r:EventFlag.Name>Darkroot Garden, Sif Door</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NPCAndreTalkToForFirstTime}">
+        <r:EventFlag.Name>NPC, Andre, Talk To For First Time</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NPCCrestfallenMerchantTalkToForFirstTime}">
+        <r:EventFlag.Name>NPC, Crestfallen Merchant, Talk To For First Time</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NPCBlacksmithGiantTalkToForFirstTime}">
+        <r:EventFlag.Name>NPC, Blacksmith Giant, Talk To For First Time</r:EventFlag.Name>
+    </r:EventFlag>
+</ResourceDictionary>

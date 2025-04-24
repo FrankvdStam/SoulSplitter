@@ -1,0 +1,109 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:r="clr-namespace:SoulSplitter.Resources;assembly="
+                    xmlns:soulmemory="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory">
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.GapingDragon}">
+        <r:EventFlag.Name>Gaping Dragon</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.BellGargoyles}">
+        <r:EventFlag.Name>Bell Gargoyle</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.CrossbreedPriscilla}">
+        <r:EventFlag.Name>Crossbreed Priscilla</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.GreatGreyWolfSif}">
+        <r:EventFlag.Name>Great Grey Wolf Sif</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.Pinwheel}">
+        <r:EventFlag.Name>Pinwheel</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.Nito}">
+        <r:EventFlag.Name>Nito</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.ChaosWitchQuelaag}">
+        <r:EventFlag.Name>Chaos Witch Quelaag</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.BedOfChaos}">
+        <r:EventFlag.Name>The Bed of Chaos</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.IronGolem}">
+        <r:EventFlag.Name>Iron Golem</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.OrnsteinAndSmough}">
+        <r:EventFlag.Name>Ornstein And Smough</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.FourKings}">
+        <r:EventFlag.Name>Four Kings</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.SeathTheScaleless}">
+        <r:EventFlag.Name>Seath the Scaleless</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.GwynLordOfCinder}">
+        <r:EventFlag.Name>Gwyn Lord of Cinder</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.AsylumDemon}">
+        <r:EventFlag.Name>Asylum Demon</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.TaurusDemon}">
+        <r:EventFlag.Name>Taurus Demon</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.CapraDemon}">
+        <r:EventFlag.Name>Capra Demon</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.MoonlightButterfly}">
+        <r:EventFlag.Name>Moonlight Butterfly</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.SanctuaryGuardian}">
+        <r:EventFlag.Name>Sanctuary Guardian</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.ArtoriasTheAbysswalker}">
+        <r:EventFlag.Name>Artorias the Abysswalker</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.ManusFatherOfTheAbyss}">
+        <r:EventFlag.Name>Manus, Father of the Abyss</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.BlackDragonKalameet}">
+        <r:EventFlag.Name>Black Dragon Kalameet</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.DemonFiresage}">
+        <r:EventFlag.Name>Demon Firesage</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.CeaselessDischarge}">
+        <r:EventFlag.Name>Ceaseless Discharge</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.CentipedeDemon}">
+        <r:EventFlag.Name>Centipede Demon</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.DarkSunGwyndolindolin}">
+        <r:EventFlag.Name>Dark Sun Gwyndolin</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:Boss.StrayDemon}">
+        <r:EventFlag.Name>Stray Demon</r:EventFlag.Name>
+    </r:EventFlag>
+</ResourceDictionary>
