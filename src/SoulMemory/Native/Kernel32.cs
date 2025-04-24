@@ -112,8 +112,17 @@ public static class Kernel32
         var str = Encoding.ASCII.GetString(bytes, 0, endIndex);
         return str;
     }
-    
-    
+
+
+    public static ResultOk<MemoryBasicInformation64> GetMemoryRegion(this Process process, long address)
+    {
+        var queryEx = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)address, out var memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
+        if (queryEx == 0)
+        {
+            return Result.Err();
+        }
+        return Result.Ok(memoryBasicInformation64);
+    }
 
     public static ResultOk<List<MemoryBasicInformation64>> GetMemoryRegions(this Process process)
     {

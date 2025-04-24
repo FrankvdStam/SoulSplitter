@@ -22,7 +22,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Windows;
 using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Games.EldenRing;
 using SoulMemory;

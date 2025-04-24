@@ -30,6 +30,7 @@ using SoulMemory.Enums;
 using SoulSplitter.Migrations;
 using SoulSplitter.Abstractions;
 using SoulSplitter.DependencyInjection;
+using SoulSplitter.Resources;
 using SoulSplitter.Ui;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
@@ -58,6 +59,7 @@ public class LivesplitAdapter : IComponent
         if (System.Windows.Application.Current == null)
         {
             var _ = new App();
+            _serviceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
         }
         
         //This is probably wonky. Have to fix.

@@ -46,24 +46,33 @@ namespace SoulMemory.Games.Bloodborne
 
             try
             {
+                //Get eboot memory region
                 var ebootAddress = 0x8ffffc000;
-                var size = 0x5EC0000; //should read from shadPS4's memory map table to figure out the exact size.
-                var codeReadResult = _process!.ReadProcessMemory(ebootAddress, size);
-                if (codeReadResult.IsErr)
+                var getRegionResult = _process!.GetMemoryRegion(ebootAddress);
+                if (getRegionResult.IsErr)
                 {
-                    return Result.Err(new RefreshError(RefreshErrorReason.MainModuleNull));
+                    return Result.Err(new RefreshError(RefreshErrorReason.EbootReadFailed, "Failed to read eboot memory region"));
                 }
 
-                var bytes = codeReadResult.Unwrap();
+                //Attempt to read eboot
+                var size = (int)getRegionResult.Unwrap().RegionSize;
+                var ebootReadResult = _process!.ReadProcessMemory(ebootAddress, size);
+                if (ebootReadResult.IsErr)
+                {
+                    return Result.Err(new RefreshError(RefreshErrorReason.EbootReadFailed, $"Failed to read eboot contents. Region size: {size}"));
+                }
+
+                //scan eboot
+                var eboot = ebootReadResult.Unwrap();
 
                 {
                     var gameDataManPattern = "48 8d 05 ? ? ? ? 48 8b 00 03 88 94 00 00 00".ToBytePattern();
-                    if (!bytes.TryBoyerMooreSearch(gameDataManPattern, out long gameDataManAddress))
+                    if (!eboot.TryBoyerMooreSearch(gameDataManPattern, out long gameDataManAddress))
                     {
-                        return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed));
+                        return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, "gameDataMan pattern scan failed"));
                     }
 
-                    var address = BitConverter.ToInt32(bytes, (int)(gameDataManAddress + 3));
+                    var address = BitConverter.ToInt32(eboot, (int)(gameDataManAddress + 3));
                     var result = ebootAddress + gameDataManAddress + address + 7;
                     _gameDataMan.Initialize(_process!, true, result, 0);
                 }
@@ -71,12 +80,12 @@ namespace SoulMemory.Games.Bloodborne
                 {
                     //set event flag 023d00b0
                     var sprjEventFlagManPattern = "4c 8d 35 ? ? ? ? 49 83 3e 00 75 ? 49 8b 3f 48 8b 07 be f8 00 00 00".ToBytePattern();
-                    if (!bytes.TryBoyerMooreSearch(sprjEventFlagManPattern, out long sprjEventFlagManAddress))
+                    if (!eboot.TryBoyerMooreSearch(sprjEventFlagManPattern, out long sprjEventFlagManAddress))
                     {
-                        return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed));
+                        return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, "sprjEventFlagMan pattern scan failed"));
                     }
 
-                    var address = BitConverter.ToInt32(bytes, (int)(sprjEventFlagManAddress + 3));
+                    var address = BitConverter.ToInt32(eboot, (int)(sprjEventFlagManAddress + 3));
                     var result = ebootAddress + sprjEventFlagManAddress + address + 7;
                     _sprjEventFlagMan.Initialize(_process!, true, result, 0);
                 }
