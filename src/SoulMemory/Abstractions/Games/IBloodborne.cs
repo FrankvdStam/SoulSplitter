@@ -14,16 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Enums;
+using SoulMemory.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-public enum Game
+namespace SoulMemory.Abstractions.Games;
+
+public interface IBloodborne : IGame
 {
-    DarkSouls1 = 0,
-    DarkSouls2 = 1,
-    DarkSouls3 = 2,
-    Sekiro = 3,
-    EldenRing = 4,
-    ArmoredCore6 = 5,
-    Bloodborne = 6,
 }
-

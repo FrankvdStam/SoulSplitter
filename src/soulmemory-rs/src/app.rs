@@ -78,6 +78,7 @@ impl App
             "sekiro.exe"                => Box::new(Sekiro::new()),
             "eldenring.exe"             => Box::new(EldenRing::new()),
             "armoredcore6.exe"          => Box::new(ArmoredCore6::new()),
+            "shadps4.exe"               => Box::new(Bloodborne::new()),
             _                           => panic!("unsupported process: {}", process_name.to_lowercase()),
         };
 

@@ -16,6 +16,7 @@
 
 using SoulMemory.Abstractions.Games;
 using SoulMemory.Games.ArmoredCore6;
+using SoulMemory.Games.Bloodborne;
 using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Games.DarkSouls2;
 using SoulMemory.Games.DarkSouls3;
@@ -47,6 +48,7 @@ namespace SoulSplitter.DependencyInjection
                         serviceCollection.AddSingleton<ISekiro, Sekiro>();
                         serviceCollection.AddSingleton<IEldenRing, EldenRing>();
                         serviceCollection.AddSingleton<IArmoredCore6, ArmoredCore6>();
+                        serviceCollection.AddSingleton<IBloodborne, Bloodborne>();
 
                         _instance = serviceCollection.Build();
 

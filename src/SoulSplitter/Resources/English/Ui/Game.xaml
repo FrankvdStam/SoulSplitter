@@ -9,5 +9,6 @@
     <clr:String x:Key="{x:Static enums:Game.Sekiro}">Sekiro</clr:String>
     <clr:String x:Key="{x:Static enums:Game.EldenRing}">Elden Ring</clr:String>
     <clr:String x:Key="{x:Static enums:Game.ArmoredCore6}">Armored Core 6</clr:String>
+    <clr:String x:Key="{x:Static enums:Game.Bloodborne}">Bloodborne</clr:String>
 
 </ResourceDictionary>

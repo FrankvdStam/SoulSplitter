@@ -90,6 +90,7 @@ fn dispatched_dll_main()
 
 fn dispatched_dll_detach()
 {
+    info!("detaching");
     util::console::free_console();
 }
 

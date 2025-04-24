@@ -393,6 +393,7 @@ namespace SoulSplitter
                 Game.Sekiro => _serviceProvider.GetService<ISekiro>(),
                 Game.EldenRing => _serviceProvider.GetService<IEldenRing>(),
                 Game.ArmoredCore6 => _serviceProvider.GetService<IArmoredCore6>(),
+                Game.Bloodborne => _serviceProvider.GetService<IBloodborne>(),
                 _ => throw new Exception($"{game} not supported")
             };
         }
