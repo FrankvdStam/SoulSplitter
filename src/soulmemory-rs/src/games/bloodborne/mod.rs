@@ -41,7 +41,6 @@ impl Game for Bloodborne
                 let h = Hooker::new(set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
                 unsafe{ self.set_event_flag_hook = Some(h.hook().unwrap()) };
             }
-
         }
 
         return Ok(());
