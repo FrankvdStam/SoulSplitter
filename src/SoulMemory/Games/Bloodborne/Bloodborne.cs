@@ -28,6 +28,8 @@ namespace SoulMemory.Games.Bloodborne
         private Process? _process;
         private readonly Pointer _gameDataMan = new();
         private readonly Pointer _sprjEventFlagMan = new();
+        private readonly Pointer _worldChrMan = new();
+        private readonly Pointer _position = new();
 
         #region Refresh/init/reset ================================================================================================================================
 
@@ -37,7 +39,21 @@ namespace SoulMemory.Games.Bloodborne
 
         public TreeBuilder GetTreeBuilder()
         {
-            return new TreeBuilder();
+            var treeBuilder = new TreeBuilder();
+            treeBuilder
+                .ScanRelative("GameDataMan", "48 8d 05 ? ? ? ? 48 8b 00 03 88 94 00 00 00", 3, 7)
+                    .AddPointer(_gameDataMan, 0);
+
+            treeBuilder
+                .ScanRelative("SprjEventFlagMan", "4c 8d 35 ? ? ? ? 49 83 3e 00 75 ? 49 8b 3f 48 8b 07 be f8 00 00 00", 3, 7)
+                    .AddPointer(_sprjEventFlagMan, 0);
+
+            treeBuilder
+                .ScanRelative("WorldChrMan", "48 8d 15 ? ? ? ? 48 8b 12 48 85 d2 74 ? 83 f9 ff 74 ? bf 0e 06 00 00", 3, 7)
+                    .AddPointer(_worldChrMan)
+                    .AddPointer(_position, 0, 0x60, 0x58);
+
+            return treeBuilder;
         }
 
         private ResultErr<RefreshError> InitPointers()
@@ -46,7 +62,6 @@ namespace SoulMemory.Games.Bloodborne
 
             try
             {
-                //Get eboot memory region
                 var ebootAddress = 0x8ffffc000;
                 var getRegionResult = _process!.GetMemoryRegion(ebootAddress);
                 if (getRegionResult.IsErr)
@@ -54,40 +69,11 @@ namespace SoulMemory.Games.Bloodborne
                     return Result.Err(new RefreshError(RefreshErrorReason.EbootReadFailed, "Failed to read eboot memory region"));
                 }
 
-                //Attempt to read eboot
-                var size = (int)getRegionResult.Unwrap().RegionSize;
-                var ebootReadResult = _process!.ReadProcessMemory(ebootAddress, size);
-                if (ebootReadResult.IsErr)
+                var treeBuilder = GetTreeBuilder();
+                var result = MemoryScanner.TryResolvePointers(treeBuilder, _process, getRegionResult.Unwrap());
+                if (result.IsErr)
                 {
-                    return Result.Err(new RefreshError(RefreshErrorReason.EbootReadFailed, $"Failed to read eboot contents. Region size: {size}"));
-                }
-
-                //scan eboot
-                var eboot = ebootReadResult.Unwrap();
-
-                {
-                    var gameDataManPattern = "48 8d 05 ? ? ? ? 48 8b 00 03 88 94 00 00 00".ToBytePattern();
-                    if (!eboot.TryBoyerMooreSearch(gameDataManPattern, out long gameDataManAddress))
-                    {
-                        return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, "gameDataMan pattern scan failed"));
-                    }
-
-                    var address = BitConverter.ToInt32(eboot, (int)(gameDataManAddress + 3));
-                    var result = ebootAddress + gameDataManAddress + address + 7;
-                    _gameDataMan.Initialize(_process!, true, result, 0);
-                }
-
-                {
-                    //set event flag 023d00b0
-                    var sprjEventFlagManPattern = "4c 8d 35 ? ? ? ? 49 83 3e 00 75 ? 49 8b 3f 48 8b 07 be f8 00 00 00".ToBytePattern();
-                    if (!eboot.TryBoyerMooreSearch(sprjEventFlagManPattern, out long sprjEventFlagManAddress))
-                    {
-                        return Result.Err(new RefreshError(RefreshErrorReason.ScansFailed, "sprjEventFlagMan pattern scan failed"));
-                    }
-
-                    var address = BitConverter.ToInt32(eboot, (int)(sprjEventFlagManAddress + 3));
-                    var result = ebootAddress + sprjEventFlagManAddress + address + 7;
-                    _sprjEventFlagMan.Initialize(_process!, true, result, 0);
+                    return result;
                 }
 
                 return Result.Ok();
@@ -98,11 +84,12 @@ namespace SoulMemory.Games.Bloodborne
             }
         }
 
-
         private void ResetPointers()
         {
             _gameDataMan.Clear();
             _sprjEventFlagMan.Clear();
+            _worldChrMan.Clear();
+            _position.Clear();
         }
 
         #endregion
@@ -189,6 +176,20 @@ namespace SoulMemory.Games.Bloodborne
         public void WriteInGameTimeMilliseconds(int milliseconds)
         {
             _gameDataMan.WriteInt32(0x94, milliseconds);
+        }
+
+        public bool IsLoading()
+        {
+            return _worldChrMan.ReadInt64(0) == 0;
+        }
+
+        public Vector3f GetPlayerPosition()
+        {
+            return new Vector3f(
+                _position.ReadFloat(0x9c),
+                _position.ReadFloat(0xbc),
+                _position.ReadFloat(0xac)
+            );
         }
     }
 }

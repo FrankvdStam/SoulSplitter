@@ -58,7 +58,7 @@ namespace SoulMemory.Enums
             { Game.Sekiro,       new List<TimingType> { TimingType.Immediate, TimingType.OnLoading, TimingType.OnBlackscreen } },
             { Game.EldenRing,    new List<TimingType> { TimingType.Immediate, TimingType.OnLoading, TimingType.OnBlackscreen } },
             { Game.ArmoredCore6, new List<TimingType> { TimingType.Immediate, TimingType.OnLoading } },
-            { Game.Bloodborne,   new List<TimingType> { TimingType.Immediate } },
+            { Game.Bloodborne,   new List<TimingType> { TimingType.Immediate, TimingType.OnLoading } },
         };
 
         /// <summary>
@@ -129,6 +129,7 @@ namespace SoulMemory.Enums
                 Game.Bloodborne, [
                     (SplitType.Manual, null),
                     (SplitType.Flag, null),
+                    (SplitType.Position, null),
                 ]
             }
         };

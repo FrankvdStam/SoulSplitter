@@ -35,7 +35,6 @@ public static class Kernel32
 {
     #region Read process memory ==================================================================================================================
 
-
     public static byte[] ReadProcessMemoryNoError(this Process process, long address, int size)
     {
         var buffer = new byte[size];

@@ -21,6 +21,6 @@ using System.Text;
 
 namespace SoulMemory.Abstractions.Games;
 
-public interface IBloodborne : IGame
+public interface IBloodborne : IGame, ILoading, IPlayerPosition
 {
 }

@@ -55,8 +55,8 @@ namespace cli
                     //
                     var igtElapsed = TimeSpan.FromMilliseconds(d.ReadInGameTimeMilliseconds());
                     Console.WriteLine($"IGT: {igtElapsed}");
-                    Console.WriteLine($"Flag 1: {d.ReadEventFlag(6999)}");
-                    Console.WriteLine($"Flag 2: {d.ReadEventFlag(6899)}");
+                    Console.WriteLine($"loading: {d.IsLoading()}");
+                    Console.WriteLine($"Pos: {d.GetPlayerPosition()}");
                 }
             );
 
