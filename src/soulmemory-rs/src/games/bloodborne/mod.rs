@@ -1,10 +1,17 @@
+#![allow(dead_code)]
+#![allow(unused_imports)]
+
 use std::any::Any;
+use std::ops::Deref;
+use std::sync::{Arc, Mutex};
 use mem_rs::prelude::*;
 use crate::games::dx_version::DxVersion;
-use crate::games::{Game};
+use crate::games::{Game, GameExt};
 use crate::games::ilhook::*;
-#[cfg(target_arch = "x86_64")]
-use log::info;
+use crate::App;
+use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
+
+mod buffered_event_flags;
 
 pub struct Bloodborne
 {
@@ -12,6 +19,7 @@ pub struct Bloodborne
 
     #[allow(dead_code)]
     set_event_flag_hook: Option<HookPoint>,
+    event_flags: Arc<Mutex<Vec<EventFlag>>>,
 }
 
 impl Bloodborne
@@ -21,7 +29,8 @@ impl Bloodborne
         Bloodborne
         {
             process: Process::new("shadps4.exe"),
-            set_event_flag_hook: None
+            set_event_flag_hook: None,
+            event_flags: Arc::new(Mutex::new(Vec::new())),
         }
     }
 }
@@ -49,32 +58,26 @@ impl Game for Bloodborne
     fn get_dx_version(&self) -> DxVersion {
         DxVersion::Dx12
     }
-
     fn as_any(&self) -> &dyn Any
     {
         self
     }
     fn as_any_mut(&mut self) -> &mut dyn Any { self }
+    fn event_flags(&mut self) -> Option<Box<&mut dyn BufferedEventFlags>> { Some(Box::new(self)) }
 }
 
 #[cfg(target_arch = "x86_64")]
 unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usize)
 {
-    let event_flag_id = (*registers).rsi as u32;
-    let value = (*registers).rdx as u8;
-
-    info!("set_event_flag {} {}", event_flag_id, value);
-
-    /*
     let instance = App::get_instance();
     let app = instance.lock().unwrap();
 
-    if let Some(sekiro) = GameExt::get_game_ref::<Sekiro>(app.game.deref())
+    if let Some(bloodborne) = GameExt::get_game_ref::<Bloodborne>(app.game.deref())
     {
-        let event_flag_id = (*registers).rdx as u32;
-        let value = (*registers).r8 as u8;
+        let event_flag_id = (*registers).rsi as u32;
+        let value = (*registers).rdx as u8;
 
-        let mut guard = sekiro.event_flags.lock().unwrap();
+        let mut guard = bloodborne.event_flags.lock().unwrap();
         guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));
-    }*/
+    }
 }

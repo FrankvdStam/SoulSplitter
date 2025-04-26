@@ -23,6 +23,7 @@ mod widgets;
 mod tas;
 mod render_hooks;
 mod darkscript3;
+pub mod glow_window;
 
 use std::time::Duration;
 use std::ffi::c_void;
@@ -79,6 +80,12 @@ fn dispatched_dll_main()
 
     info!("initializing render loop");
     RenderHooks::init();
+
+    if process_name.to_lowercase().as_str() == "shadps4.exe"
+    {
+        thread::spawn(|| glow_window::run_custom_window(None));
+    }
+
 
     info!("starting main loop");
     loop

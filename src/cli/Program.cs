@@ -44,6 +44,9 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+
+            SoulMemoryRs.Launch();
+
             GameLoop<Bloodborne>(
                 (d) =>
                 {
@@ -60,7 +63,6 @@ namespace cli
                 }
             );
 
-            SoulMemoryRs.Launch();
 
             return;
 
