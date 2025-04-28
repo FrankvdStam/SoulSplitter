@@ -163,6 +163,10 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
             SelectedSplit.SplitType = SelectedSplitType!.Value;
             SelectedSplit.Description = SplitDescription;
             SelectedSplit.Split = GetSplitObject();
+
+            //Trigger CollectionChanged event when saving items
+            var index = Splits.IndexOf(SelectedSplit);
+            Splits[index] = SelectedSplit;
         }
 
         private bool CanSaveExistingSplit(object? param)

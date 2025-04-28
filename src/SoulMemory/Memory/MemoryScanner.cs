@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace SoulMemory.Memory;
@@ -162,7 +163,12 @@ public static class MemoryScanner
                 else
                 {
                     //Propogate init result upwards
-                    return initialize();
+                    var result = initialize();
+                    if (result.IsErr)
+                    {
+                        process = null;
+                    }
+                    return result;
                 }
             }
             //Process is attached, make sure it is still running

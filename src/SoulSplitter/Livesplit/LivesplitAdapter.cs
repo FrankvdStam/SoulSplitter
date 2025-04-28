@@ -66,7 +66,9 @@ public class LivesplitAdapter : IComponent
         if (_componentMode == ComponentMode.AutoSplitter)
         {
             //Default initialize all state, in case no settings are provided. Livesplit will not call SetSettings.
-            MainWindow = new MainWindow(new MainViewModel());
+            var mainViewModel = new MainViewModel();
+            mainViewModel.SelectedGame = LivesplitStateToGameEnum(_liveSplitState);
+            MainWindow = new MainWindow(mainViewModel);
             System.Windows.Application.Current!.MainWindow = MainWindow;
             var timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_serviceProvider, MainWindow.MainViewModel));
             _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
@@ -263,6 +265,7 @@ public class LivesplitAdapter : IComponent
             "sekiro" or "sekiro:shadowsdietwice" => Game.Sekiro,
             "eldenring" => Game.EldenRing,
             "armoredcore6" or "armoredcorevi:firesofrubicon" => Game.ArmoredCore6,
+            "bloodborne" => Game.Bloodborne,
             _ => Game.DarkSouls1,
         };
     }

@@ -75,7 +75,6 @@ public class DarkSouls3 : IDarkSouls3
         return treeBuilder;
     }
 
-
     private ResultErr<RefreshError> InitPointers()
     {
         try
@@ -116,8 +115,6 @@ public class DarkSouls3 : IDarkSouls3
         _sprjChrPhysicsModule.Clear();
     }
 
-
-
     public enum DarkSouls3Version
     {
         Earlier,
@@ -146,9 +143,7 @@ public class DarkSouls3 : IDarkSouls3
     {
         return _blackscreen.ReadInt32() != 0;
     }
-
-    public bool Attached => _process != null;
-
+    
     public bool IsPlayerLoaded()
     {
         return _playerIns.ReadInt64() != 0;

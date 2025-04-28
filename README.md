@@ -91,7 +91,6 @@ If you find a bug you can let me know via the above methods, or you can [submit 
 Thank you strimmers, for risking your PB's, to test my broken code!  
 - [Catalystz](https://www.twitch.tv/catalystz)  
 - [Johndisandonato](https://www.twitch.tv/johndisandonato)  
-- [Siegbruh](https://www.twitch.tv/siegbruh)  
 - [Holm](https://www.twitch.tv/holm_gg)  
 - [Pennek](https://www.twitch.tv/pennek)  
 - [Nyk_style](https://www.twitch.tv/nyk_style)  
@@ -118,6 +117,8 @@ Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions
 - Thanks [ViRazY](https://github.com/Vinjul1704) for the standalone CLI timer and many other contributions  
 - Thanks [Ducksual](https://www.twitch.tv/ducksual) for helping with DS1 dropmod
 - Thanks [AinTunez](https://github.com/AinTunez), for DarkScript3, deciphering emevd event scripts: https://github.com/AinTunez/DarkScript3 - this is the basis for building the EMEVD logger  
+- Thanks to many different people (including [vawser](https://github.com/vawser)) from the [soulsmodding](http://soulsmodding.wikidot.com/) community for DSMapStudio and all its variations, including [DSMapStudio](https://github.com/soulsmods/DSMapStudio) and [Smithbox](https://github.com/vawser/Smithbox)  
+- Thanks to many different people (including [JKAnderson](https://github.com/JKAnderson/)) from the [soulsmodding](http://soulsmodding.wikidot.com/) community for SoulsFormats and all its variations, including [SoulsFormatsNEXT](https://github.com/soulsmods/SoulsFormatsNEXT)  
 - And thanks to the [soulsmodding](http://soulsmodding.wikidot.com/) community at large, I'm standing on the shoulders of these giants
 
 I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  

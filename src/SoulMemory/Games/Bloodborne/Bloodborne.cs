@@ -66,6 +66,7 @@ namespace SoulMemory.Games.Bloodborne
                 var getRegionResult = _process!.GetMemoryRegion(ebootAddress);
                 if (getRegionResult.IsErr)
                 {
+                    _process = null;
                     return Result.Err(new RefreshError(RefreshErrorReason.EbootReadFailed, "Failed to read eboot memory region"));
                 }
 
