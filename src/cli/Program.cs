@@ -34,6 +34,12 @@ using SoulMemory.Games.Sekiro;
 using SoulSplitter.soulmemory_rs;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
+using LiveSplit.Model;
+using SoulSplitter.DependencyInjection;
+using SoulSplitter.Livesplit;
+using SoulSplitter.Resources;
+using SoulSplitter.Ui;
+using SoulSplitter;
 
 #pragma warning disable CS0162
 
@@ -44,6 +50,8 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+            TestUi();
+            return;
 
             SoulMemoryRs.Launch();
 
@@ -204,11 +212,16 @@ namespace cli
 
         public static void TestUi(bool withTestData = true)
         {
-            var app = new SoulSplitter.Ui.App();
-            app.InitializeComponent();
+
+            var serviceProvider = GlobalServiceProvider.Instance; 
+            var app = new App();
+            serviceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
+
             var mainViewModel = new MainViewModel();
             var mainWindow = new MainWindow(mainViewModel);
-            app.MainWindow = mainWindow;
+            System.Windows.Application.Current!.MainWindow = mainWindow;
+                
+            app.InitializeComponent();
             mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
             mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.Immediate, SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
             mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.OnLoading, SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
