@@ -52,15 +52,15 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
-            SoulMemoryRs.Launch();
-            return;
+            //SoulMemoryRs.Launch();
+            //return;
+            //
+            //
+            //TestUi();
+            //return;
 
 
-            TestUi();
-            return;
-
-
-            GameLoop<Bloodborne>(
+            GameLoop<DarkSouls3>(
                 (d) =>
                 {
                     //Console.WriteLine(d.ReadInGameTimeMilliseconds());
@@ -71,8 +71,6 @@ namespace cli
                     //
                     var igtElapsed = TimeSpan.FromMilliseconds(d.ReadInGameTimeMilliseconds());
                     Console.WriteLine($"IGT: {igtElapsed}");
-                    Console.WriteLine($"loading: {d.IsLoading()}");
-                    Console.WriteLine($"Pos: {d.GetPlayerPosition()}");
                 }
             );
 

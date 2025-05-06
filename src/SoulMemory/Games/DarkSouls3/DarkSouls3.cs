@@ -76,6 +76,11 @@ public class DarkSouls3 : IDarkSouls3
         //    .ScanAbsolute("emevd", "48 83 ec 28 49 8b 80 b0 00 00 00 b2 01 44 8b 08", 0)
         //        .AddPointer(_fieldArea);
 
+        //treeBuilder
+        //    .ScanAbsolute("migt", "48 83 ec 68 48 c7 44 24 20 fe ff ff ff 0f 29 74 24 50 44 0f 29 4c 24 40", 0)
+        //    .AddPointer(_fieldArea);
+        
+
         return treeBuilder;
     }
 
@@ -99,7 +104,20 @@ public class DarkSouls3 : IDarkSouls3
             };
 
             var treeBuilder = GetTreeBuilder();
-            return MemoryScanner.TryResolvePointers(treeBuilder, _process);
+            var scanResult = MemoryScanner.TryResolvePointers(treeBuilder, _process);
+            if (scanResult.IsErr)
+            {
+                return scanResult;
+            }
+
+            var injectResult = soulmods.Soulmods.Inject(_process!);
+            if (injectResult.IsErr)
+            {
+                ResetPointers();
+                return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, "soulmods injection failed"));
+            }
+
+            return Result.Ok();
         }
         catch (Exception e)
         {
