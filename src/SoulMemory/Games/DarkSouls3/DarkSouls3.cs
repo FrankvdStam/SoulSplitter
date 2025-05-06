@@ -140,7 +140,7 @@ public class DarkSouls3 : IDarkSouls3
 
     public bool IsLoading()
     {
-        return _loading.ReadInt32(-0x1) != 0;
+        return _playerIns.ReadInt64() != 0;
     }
 
     public bool IsBlackscreenActive()

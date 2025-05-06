@@ -16,7 +16,7 @@
 
 namespace SoulMemory.Abstractions.Games;
 
-public interface IDarkSouls3 : IGame, IPlayerPosition, IBlackscreenRemovable, IReadAttribute
+public interface IDarkSouls3 : IGame, IPlayerPosition, IBlackscreenRemovable, IReadAttribute, ILoading
 {
 
 }
