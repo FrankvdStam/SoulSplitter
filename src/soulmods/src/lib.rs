@@ -58,11 +58,11 @@ pub unsafe extern "system" fn DllMain(
 
 fn dispatched_dll_main()
 {
-    //if cfg!(debug_assertions)
-    //{
+    if cfg!(debug_assertions)
+    {
         init_console();
         init_log();
-    //}
+    }
 
     let process_name = Process::get_current_process_name().unwrap();
     info!("process: {}", process_name);
