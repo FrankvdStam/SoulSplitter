@@ -3,7 +3,7 @@ use serde::{Deserialize};
 
 #[allow(dead_code)]
 #[derive(Deserialize, Debug)]
-pub struct Emedf
+pub struct EmevdDefinition
 {
     pub main_classes: Vec<ClassDoc>
 }

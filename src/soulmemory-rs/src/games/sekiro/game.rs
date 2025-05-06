@@ -21,7 +21,7 @@ use hudhook::tracing::event;
 use ilhook::x64::{CallbackOption, Hooker, HookFlags, HookType, Registers};
 use log::info;
 use crate::App;
-use crate::darkscript3::sekiro_emedf::Emedf;
+use crate::darkscript3::emevd_definition::EmevdDefinition;
 use crate::games::{Game, GameExt, Sekiro};
 use crate::games::dx_version::DxVersion;
 use crate::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEmevdLogger};
@@ -87,30 +87,6 @@ impl Game for Sekiro
     }
     fn as_any_mut(&mut self) -> &mut dyn Any { self }
 }
-
-
-fn format_event(group: u32, type_: u32, emedf: &Emedf) -> String
-{
-    let item = emedf.main_classes.iter().find(|p| p.index as u32 == group);
-    if let Some(class_doc) = item
-    {
-        let item = class_doc.instrs.iter().find(|p| p.index as u32 == type_);
-        if let Some(inst_doc) = item
-        {
-            return format!("group: {} - type: {}", class_doc.name, inst_doc.name);
-        }
-        else
-        {
-            return format!("known group {} but unknown type: {}", class_doc.name, type_);
-        }
-    }
-    else
-    {
-        return format!("unknown group and type: {} {}", group, type_);
-    }
-}
-
-
 
 #[cfg(target_arch = "x86_64")]
 unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usize)

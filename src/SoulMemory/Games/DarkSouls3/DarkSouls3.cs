@@ -72,6 +72,10 @@ public class DarkSouls3 : IDarkSouls3
             .ScanRelative("FieldArea", "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10", 3, 7)
                 .AddPointer(_fieldArea);
 
+        //treeBuilder
+        //    .ScanAbsolute("emevd", "48 83 ec 28 49 8b 80 b0 00 00 00 b2 01 44 8b 08", 0)
+        //        .AddPointer(_fieldArea);
+
         return treeBuilder;
     }
 

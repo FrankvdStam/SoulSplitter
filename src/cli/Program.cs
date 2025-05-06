@@ -35,11 +35,13 @@ using SoulSplitter.soulmemory_rs;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 using LiveSplit.Model;
+using SoulMemory.Games.DarkSouls3;
 using SoulSplitter.DependencyInjection;
 using SoulSplitter.Livesplit;
 using SoulSplitter.Resources;
 using SoulSplitter.Ui;
 using SoulSplitter;
+using Bonfire = SoulMemory.Games.DarkSouls1.Bonfire;
 
 #pragma warning disable CS0162
 
@@ -50,10 +52,13 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+            SoulMemoryRs.Launch();
+            return;
+
+
             TestUi();
             return;
 
-            SoulMemoryRs.Launch();
 
             GameLoop<Bloodborne>(
                 (d) =>
@@ -242,9 +247,9 @@ namespace cli
             {
                 //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
-                //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
+                ("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
                 //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           )
-                ("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
+                //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
                 //("Armored Core 6"           , new SoulMemory.ArmoredCore6.ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
             };
 

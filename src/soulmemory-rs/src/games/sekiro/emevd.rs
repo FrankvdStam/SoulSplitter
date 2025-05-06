@@ -7,7 +7,7 @@ use ilhook::x64::Registers;
 use lazy_static::lazy_static;
 use log::info;
 use crate::App;
-use crate::darkscript3::sekiro_emedf::ArgDoc;
+use crate::darkscript3::emevd_definition::ArgDoc;
 use crate::games::{GameExt, Sekiro};
 use crate::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEmevdLogger};
 
@@ -88,8 +88,6 @@ lazy_static!
 
 unsafe fn format_args(args: &Vec<ArgDoc>, arg_struct_ptr: u64, str: &mut String)
 {
-
-
     let mut binary_index: u64 = 0;
     for i in 0..args.len()
     {
@@ -167,27 +165,3 @@ unsafe fn format_single_arg(type_: &str, arg_struct_ptr: u64, binary_index: u64,
         _ => str.push_str(format!("unsupported arg type {}", type_).as_str())
     }
 }
-
-/*
-private static readonly Dictionary<string, int> Types = new Dictionary<string, int>()
-{
-["byte"] = 0,
-["ushort"] = 1,
-["uint"] = 2,
-["sbyte"] = 3,
-["short"] = 4,
-["int"] = 5,
-["float"] = 6,
-};
-private static readonly Dictionary<int, string> RevTypes = Types.ToDictionary(e => e.Value, e => e.Key);
-private static readonly Dictionary<string, int> Widths = new()
-{
-["byte"] = 1,
-["ushort"] = 2,
-["uint"] = 4,
-["sbyte"] = 1,
-["short"] = 2,
-["int"] = 4,
-["float"] = 4,
-};
-*/

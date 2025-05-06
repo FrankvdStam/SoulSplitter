@@ -2,7 +2,7 @@ use std::{fmt, mem};
 use std::fmt::Display;
 use std::sync::{Arc, Mutex};
 use chrono::{DateTime, Local};
-use crate::darkscript3::sekiro_emedf::Emedf;
+use crate::darkscript3::emevd_definition::EmevdDefinition;
 
 pub struct BufferedEmevdCall
 {
@@ -46,5 +46,5 @@ pub trait BufferedEmevdLogger
         return buffer;
     }
 
-    fn get_game_emevd_definitions(&self) -> &Emedf;
+    fn get_game_emevd_definitions(&self) -> &EmevdDefinition;
 }

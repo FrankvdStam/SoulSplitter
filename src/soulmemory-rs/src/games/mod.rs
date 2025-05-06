@@ -19,7 +19,7 @@ mod dark_souls_prepare_to_die_edition;
 mod dark_souls_remastered;
 mod dark_souls_2_vanilla;
 mod dark_souls_2_scholar_of_the_first_sin;
-mod dark_souls_3;
+pub mod darksouls3;
 pub mod sekiro;
 mod elden_ring;
 mod armored_core_6;
@@ -43,16 +43,13 @@ mod ilhook
     pub use ilhook::x64::{CallbackOption, Hooker, HookFlags, HookPoint, HookType, Registers};
 }
 
-
-
 pub use game::Game;
 pub use game_ext::GameExt;
-
 pub use dark_souls_prepare_to_die_edition::DarkSoulsPrepareToDieEdition;
 pub use dark_souls_remastered::DarkSoulsRemastered;
 pub use dark_souls_2_vanilla::DarkSouls2Vanilla;
 pub use dark_souls_2_scholar_of_the_first_sin::DarkSouls2ScholarOfTheFirstSin;
-pub use dark_souls_3::DarkSouls3;
+pub use darksouls3::DarkSouls3;
 pub use sekiro::Sekiro;
 pub use elden_ring::EldenRing;
 pub use armored_core_6::ArmoredCore6;

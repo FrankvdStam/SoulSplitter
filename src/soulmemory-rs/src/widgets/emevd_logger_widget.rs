@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 use imgui::{TreeNodeFlags, Ui};
-use crate::darkscript3::sekiro_emedf::Emedf;
+use crate::darkscript3::emevd_definition::EmevdDefinition;
 use crate::games::*;
 use crate::games::traits::buffered_emevd_logger::BufferedEmevdCall;
 use crate::widgets::widget::Widget;
@@ -30,7 +30,7 @@ pub struct EmevdLoggerWidget
 
 impl EmevdLoggerWidget
 {
-    pub fn handle_buffered_events(&mut self, buffer: &Vec<BufferedEmevdCall>, emedf: &Emedf)
+    pub fn handle_buffered_events(&mut self, buffer: &Vec<BufferedEmevdCall>, emedf: &EmevdDefinition)
     {
         //process
         for event in buffer
@@ -60,7 +60,7 @@ impl EmevdLoggerWidget
         }
     }
 
-    pub fn init(&mut self, emedf: &Emedf)
+    pub fn init(&mut self, emedf: &EmevdDefinition)
     {
         if self.init
         {

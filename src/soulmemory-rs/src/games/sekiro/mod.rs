@@ -31,7 +31,8 @@ use std::sync::{Arc, Mutex};
 use log::info;
 use mem_rs::prelude::*;
 use crate::App;
-use crate::darkscript3::sekiro_emedf::Emedf;
+use crate::darkscript3::emevd_definition::EmevdDefinition;
+use crate::darkscript3::load_emevd;
 use crate::games::{ChrDbgFlag, GameExt, GetSetChrDbgFlags};
 use crate::games::dx_version::DxVersion;
 use crate::games::game::Game;
@@ -41,7 +42,12 @@ use crate::games::traits::buffered_emevd_logger::*;
 use crate::util::vector3f::Vector3f;
 use crate::games::ilhook::*;
 
+
+static EMEVD_JSON: &str = include_str!("../../../../../darkscript3/sekiro-common.emedf.json");
+
 type FnGetEventFlag = fn(event_flag_man: u64, event_flag: u32) -> u8;
+
+
 
 
 pub struct Sekiro
@@ -57,7 +63,7 @@ pub struct Sekiro
     emevd_event_hook: Option<HookPoint>,
 
     menu_man: Pointer,
-    emedf: Emedf,
+    emevd_definition: EmevdDefinition,
     emevd_buffer: Arc<Mutex<Vec<BufferedEmevdCall>>>,
 }
 
@@ -77,7 +83,7 @@ impl Sekiro
             emevd_event_hook: None,
 
             menu_man: Pointer::default(),
-            emedf: load_emevd(),
+            emevd_definition: load_emevd(EMEVD_JSON),
             emevd_buffer: Arc::new(Mutex::new(Vec::new())),
         }
     }
@@ -88,12 +94,3 @@ impl Sekiro
         self.menu_man.write_u32_rel(Some(0x23c), 1);
     }
 }
-
-
-pub fn load_emevd() -> Emedf
-{
-    let json = include_str!("../../../../../darkscript3/ds3-common.emedf.json");
-    let deserialized: Emedf = serde_json::from_str(json).unwrap();
-    return deserialized;
-}
-

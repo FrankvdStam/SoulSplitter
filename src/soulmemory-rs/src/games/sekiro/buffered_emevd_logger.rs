@@ -16,7 +16,7 @@
 
 use std::mem;
 use std::sync::{Arc, Mutex};
-use crate::darkscript3::sekiro_emedf::Emedf;
+use crate::darkscript3::emevd_definition::EmevdDefinition;
 use crate::games::Sekiro;
 use crate::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEmevdLogger};
 
@@ -26,8 +26,8 @@ impl BufferedEmevdLogger for Sekiro
         &self.emevd_buffer
     }
 
-    fn get_game_emevd_definitions(&self) -> &Emedf
+    fn get_game_emevd_definitions(&self) -> &EmevdDefinition
     {
-        return &self.emedf;
+        return &self.emevd_definition;
     }
 }
