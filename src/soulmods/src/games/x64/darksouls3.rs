@@ -61,7 +61,7 @@ pub fn init_darksouls3()
         let mut process = Process::new("darksoulsiii.exe");
         process.refresh().unwrap();
 
-        //let fn_increment_igt_address = process.scan_abs("igt", "48 83 ec 68 48 c7 44 24 20 fe ff ff ff 0f 29 74 24 50 44 0f 29 4c 24 40", 0, Vec::new()).unwrap().get_base_address();
+        //let fn_increment_igt_address = process.scan_abs("igt", "f3 48 0f 2c c0 01 81 ? 00 00 00 48 8b 05 ? ? ? ? 81 b8 ? 00 00 00 18 a0 93 d6", 0, Vec::new()).unwrap().get_base_address();
         //info!("increment IGT at 0x{:x}", fn_increment_igt_address);
         //INCREMENT_IGT = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
@@ -100,26 +100,22 @@ pub fn init_darksouls3()
 
 //unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
 //{
-//    //copied from ER. Needs to be adjusted for ER.
-//    let mut frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
-//    let frame_delta2 = std::mem::transmute::<u32, f32>((*registers).xmm1 as u32);
-//    info!("fd: {} {}", frame_delta, frame_delta2);
-//    //convert to milliseconds
-//    frame_delta = frame_delta * 1000f32;
-//    frame_delta = frame_delta * 0.96f32; //scale to IGT
+//    let frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
+//    let mut corrected_frame_delta = frame_delta;
 //
 //    //Rather than casting, like the game does, make the behavior explicit by flooring
-//    let mut floored_frame_delta = frame_delta.floor();
+//    let floored_frame_delta = frame_delta.floor();
 //    let remainder = frame_delta - floored_frame_delta;
 //    IGT_BUFFER = IGT_BUFFER + remainder;
 //
 //    if IGT_BUFFER > 1.0f32
 //    {
 //        IGT_BUFFER = IGT_BUFFER - 1f32;
-//        floored_frame_delta += 1f32;
+//        corrected_frame_delta += 1f32;
 //    }
 //
-//    (*registers).xmm1 = std::mem::transmute::<f32, u32>(floored_frame_delta) as u128;
+//    (*registers).xmm0 = std::mem::transmute::<f32, u32>(corrected_frame_delta) as u128;
+//    info!("frame delta: {} igt buffer: {} corrected frame delta: {}", frame_delta, IGT_BUFFER, corrected_frame_delta);
 //}
 
 // FPS patch
