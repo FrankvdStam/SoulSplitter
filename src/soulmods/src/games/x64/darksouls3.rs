@@ -66,36 +66,36 @@ pub fn init_darksouls3()
         //INCREMENT_IGT = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
 
-//        // AoB scan for FPS patch
-//        let fn_fps_address = process.scan_abs("fps", "f3 0f 58 93 64 02 00 00 41 0f 2f d4", 0, Vec::new()).unwrap().get_base_address();
-//        info!("FPS at 0x{:x}", fn_fps_address);
-//
-//        // Enable FPS patch
-//        FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
-//
-//
-//        // AoB scan for FPS history patch
-//        let fn_fps_history_address = process.scan_abs("fps history", "48 89 04 cb 0f b6 83 78 02 00 00", 0, Vec::new()).unwrap().get_base_address();
-//        info!("FPS history at 0x{:x}", fn_fps_history_address);
-//
-//        // Enable FPS history patch
-//        FPS_HISTORY_HOOK = Some(Hooker::new(fn_fps_history_address, HookType::JmpBack(fps_history), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
-//
-//
-//        // AoB scan for FPS custom limit patch
-//        let fn_fps_custom_limit_address = process.scan_abs("fps custom limit", "f3 44 0f 10 2d ? ? ? ? 44 38 a3 58 03 00 00", 0, Vec::new()).unwrap().get_base_address();
-//        info!("FPS custom limit at 0x{:x}", fn_fps_custom_limit_address);
-//
-//        // Enable FPS custom limit patch
-//        FPS_CUSTOM_LIMIT_HOOK = Some(Hooker::new(fn_fps_custom_limit_address, HookType::JmpBack(fps_custom_limit), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
-//
-//
-//        // AoB scan for frame advance patch
-//        let fn_frame_advance_address = process.scan_abs("frame_advance", "e8 ? ? ? ? 84 c0 74 41 90 48", 10, Vec::new()).unwrap().get_base_address();
-//        info!("Frame advance at 0x{:x}", fn_frame_advance_address);
-//
-//        // Enable frame advance patch
-//        FRAME_ADVANCE_HOOK = Some(Hooker::new(fn_frame_advance_address, HookType::JmpBack(frame_advance), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        // AoB scan for FPS patch
+        let fn_fps_address = process.scan_abs("fps", "f3 0f 58 93 64 02 00 00 41 0f 2f d4", 0, Vec::new()).unwrap().get_base_address();
+        info!("FPS at 0x{:x}", fn_fps_address);
+
+        // Enable FPS patch
+        FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+
+        // AoB scan for FPS history patch
+        let fn_fps_history_address = process.scan_abs("fps history", "48 89 04 cb 0f b6 83 78 02 00 00", 0, Vec::new()).unwrap().get_base_address();
+        info!("FPS history at 0x{:x}", fn_fps_history_address);
+
+        // Enable FPS history patch
+        FPS_HISTORY_HOOK = Some(Hooker::new(fn_fps_history_address, HookType::JmpBack(fps_history), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+
+        // AoB scan for FPS custom limit patch
+        let fn_fps_custom_limit_address = process.scan_abs("fps custom limit", "f3 44 0f 10 2d ? ? ? ? 44 38 a3 58 03 00 00", 0, Vec::new()).unwrap().get_base_address();
+        info!("FPS custom limit at 0x{:x}", fn_fps_custom_limit_address);
+
+        // Enable FPS custom limit patch
+        FPS_CUSTOM_LIMIT_HOOK = Some(Hooker::new(fn_fps_custom_limit_address, HookType::JmpBack(fps_custom_limit), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+
+        // AoB scan for frame advance patch
+        let fn_frame_advance_address = process.scan_abs("frame_advance", "e8 ? ? ? ? 84 c0 74 41 90 48", 10, Vec::new()).unwrap().get_base_address();
+        info!("Frame advance at 0x{:x}", fn_frame_advance_address);
+
+        // Enable frame advance patch
+        FRAME_ADVANCE_HOOK = Some(Hooker::new(fn_frame_advance_address, HookType::JmpBack(frame_advance), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
     }
 }
 

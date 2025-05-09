@@ -48,13 +48,27 @@ namespace SoulSplitter
         private Game? _previousGame;
         private IGame _game;
         private bool _isRunning;
-        private int _currentTime;
+        private int _currentIgt;
         private int _previousIgt;
+        private int _multiGameIgt;
+        private bool _previousAreCreditsRolling = false;
+        private int _currentSaveSlot;
 
         public event EventHandler? OnAutoStart;
         public event EventHandler? OnRequestSplit;
         public event UpdateTimeEventHandler? OnUpdateTime;
-        
+
+        /// <summary>
+        /// Latch in which saveslot is used for this game/run
+        /// </summary>
+        private void LatchCurrentSaveSlot()
+        {
+            if (_game is ISavefileTime savefileTime)
+            {
+                _currentSaveSlot = savefileTime.GetCurrentSaveSlot();
+            }
+        }
+
         /// <summary>
         /// Manually start the timer. Overwrites IGT to 0 if required by settings
         /// </summary>
@@ -65,6 +79,9 @@ namespace SoulSplitter
             {
                 _game.WriteInGameTimeMilliseconds(0);
             }
+
+            LatchCurrentSaveSlot();
+
             _mainViewModel.Splits.ForEach(i =>
             {
                 i.IsSplitConditionMet = false;
@@ -81,8 +98,11 @@ namespace SoulSplitter
             {
                 _isRunning = false;
                 _previousIgt = 0;
-                _currentTime = 0;
+                _currentIgt = 0;
+                _multiGameIgt = 0;
+                _currentSaveSlot = -1;
                 _previousGame = null;
+                _previousAreCreditsRolling = false;
                 OnUpdateTime?.Invoke(this, 0);
             }
         }
@@ -179,6 +199,7 @@ namespace SoulSplitter
                 _previousGame = _mainViewModel.Splits.First().Game;
                 _game = GetGame(_previousGame!.Value);
                 _previousIgt = 0;
+                _multiGameIgt = 0;
                 return;
             }
 
@@ -197,6 +218,8 @@ namespace SoulSplitter
                     _game.TryRefresh();
                     _previousGame = split.Game;
                     _previousIgt = 0;
+                    _multiGameIgt = _currentIgt;
+                    LatchCurrentSaveSlot();
                 }
             }
         }
@@ -204,10 +227,10 @@ namespace SoulSplitter
         private void UpdateTimer()
         {
             //Debug.WriteLine($"Timer: {_isRunning}");
-            var igt = _game.ReadInGameTimeMilliseconds();
+            _currentIgt = _game.ReadInGameTimeMilliseconds();
             if (!_isRunning &&
                 _mainViewModel.StartAutomatically &&
-                igt is > 0 and < 150)
+                _currentIgt is > 0 and < 150)
             {
                 _isRunning = true;
                 OnAutoStart?.Invoke(this, null);
@@ -223,22 +246,44 @@ namespace SoulSplitter
                 if (
                     _game is IBlackscreenRemovable blackscreenRemovable &&
                     blackscreenRemovable.IsBlackscreenActive() &&
-                    igt != 0 &&                                             //Igt timer has starter
-                    igt > _previousIgt &&                                   //Igt has increased since previous frame
-                    igt < _previousIgt + 1000)                              //Igt has not increased by more than 1 second
+                    _currentIgt != 0 &&                                             //Igt timer has starter
+                    _currentIgt > _previousIgt &&                                   //Igt has increased since previous frame
+                    _currentIgt < _previousIgt + 1000)                              //Igt has not increased by more than 1 second
                 {
                     //During blackscreen, overwrite the incremented timer value with the last known good IGT value.
-                    _game.WriteInGameTimeMilliseconds(_previousIgt);
+                    _game.WriteInGameTimeMilliseconds(_multiGameIgt + _currentIgt);
                     return; //Don't invoke UpdateTime event during black screen
                 }
 
-                //don't update IGT when it's 0 during a quitout
-                if (igt != 0)
+                if (_game is ISavefileTime savefileTime)
                 {
-                    var increment = igt - _previousIgt;
-                    _previousIgt = igt;
-                    _currentTime += increment;
-                    OnUpdateTime?.Invoke(this, _currentTime);
+                    var areCreditsRolling = savefileTime.AreCreditsRolling();
+
+                    if (
+                        //Detect going from a savefile to the main menu
+                        //Only do this once to prevent save file reading race conditions
+                        (_currentIgt == 0 && _previousIgt != 0) ||
+                        
+                        //When the credits are active, show savefile time as well
+                        (areCreditsRolling && !_previousAreCreditsRolling)
+                        )
+                    {
+                        var saveFileTime = savefileTime.GetSaveFileGameTimeMilliseconds(savefileTime.GetSaveFileLocation()!, _currentSaveSlot);
+                        _currentIgt = saveFileTime;
+                        //only trigger reading savefile once
+                        _previousIgt = 0;
+                        _previousAreCreditsRolling = false;
+                        OnUpdateTime?.Invoke(this, _multiGameIgt + _currentIgt);
+                        return;
+                    }
+                    _previousAreCreditsRolling = areCreditsRolling;
+                }
+
+                //don't update IGT when it's 0 during a quitout
+                if (_currentIgt != 0)
+                {
+                    _previousIgt = _currentIgt;
+                    OnUpdateTime?.Invoke(this, _multiGameIgt + _currentIgt);
                 }
             }
         }

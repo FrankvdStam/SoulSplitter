@@ -14,27 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Games.DarkSouls1;
-using SoulMemory.Games.DarkSouls1.Parameters;
-using System;
-using System.Collections.Generic;
+namespace SoulMemory.Abstractions;
 
-namespace SoulMemory.Abstractions.Games;
-
-public interface IDarkSouls1 : IGame, IPlayerPosition, ISavefileTime
+public interface ISavefileTime
 {
-    int GetAttribute(SoulMemory.Games.DarkSouls1.Attribute attribute);
-    bool IsWarpRequested();
-    bool IsPlayerLoaded();
-    int NgCount();
-    void ResetInventoryIndices();
-    List<Item> GetInventory();
-    BonfireState GetBonfireState(Bonfire bonfire);
-    void WriteWeaponDescription(uint weaponId, string description);
-    void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor);
-    void SetLoadingScreenItem(int index, uint item);
-
-#if DEBUG
-    object GetTestValue();
-#endif
+    int GetCurrentSaveSlot();
+    string? GetSaveFileLocation();
+    int GetSaveFileGameTimeMilliseconds(string path, int slot);
+    bool AreCreditsRolling();
 }
