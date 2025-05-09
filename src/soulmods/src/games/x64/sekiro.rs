@@ -23,6 +23,7 @@ use log::info;
 
 use crate::util::GLOBAL_VERSION;
 
+static mut IGT_HOOK: Option<HookPoint> = None;
 static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
@@ -46,6 +47,8 @@ pub static mut SEKIRO_FRAME_ADVANCE_ENABLED: bool = false;
 pub static mut SEKIRO_FRAME_RUNNING: bool = false;
 
 
+pub static mut IGT_BUFFER: f32 = 0.0f32;
+
 #[allow(unused_assignments)]
 pub fn init_sekiro()
 {
@@ -57,6 +60,9 @@ pub fn init_sekiro()
         let mut process = Process::new("sekiro.exe");
         process.refresh().unwrap();
 
+        let igt_increment_address = process.scan_abs("igt", "f3 48 0f 2c c0 01 81 9c 00 00 00 48 8b 05 ? ? ? ? 81 b8 9c 00 00 00 18 a0 93 d6 76 ? c7 80 9c 00 00 00 18 a0 93 d6", 0, Vec::new()).unwrap().get_base_address();
+        info!("igt increment at 0x{:x}", igt_increment_address);
+        IGT_HOOK = Some(Hooker::new(igt_increment_address, HookType::JmpBack(increment_igt_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
         // AoB scan for FPS patch
         let fn_fps_address = process.scan_abs("fps", "f3 0f 58 93 64 02 00 00 41 0f 2f d4", 0, Vec::new()).unwrap().get_base_address();
@@ -90,6 +96,29 @@ pub fn init_sekiro()
         FRAME_ADVANCE_HOOK = Some(Hooker::new(fn_frame_advance_address, HookType::JmpBack(frame_advance), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
     }
 }
+
+
+//igt fix
+unsafe extern "win64" fn increment_igt_hook_fn(registers: *mut Registers, _:usize)
+{
+    let frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
+    let mut corrected_frame_delta = frame_delta;
+
+    //Rather than casting, like the game does, make the behavior explicit by flooring
+    let floored_frame_delta = frame_delta.floor();
+    let remainder = frame_delta - floored_frame_delta;
+    IGT_BUFFER = IGT_BUFFER + remainder;
+
+    if IGT_BUFFER > 1.0f32
+    {
+        IGT_BUFFER = IGT_BUFFER - 1f32;
+        corrected_frame_delta += 1f32;
+    }
+
+    (*registers).xmm0 = std::mem::transmute::<f32, u32>(corrected_frame_delta) as u128;
+    //info!("frame delta: {} igt buffer: {} corrected frame delta: {}", frame_delta, IGT_BUFFER, corrected_frame_delta);
+}
+
 
 // FPS patch
 // Sets the calculated frame delta to always be the target frame delta.

@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+#[allow(dead_code)]
+
 use std::{thread, time::Duration};
 
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
@@ -27,10 +29,9 @@ static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 static mut FRAME_ADVANCE_HOOK: Option<HookPoint> = None;
+//static mut INCREMENT_IGT: Option<HookPoint> = None;
 
-static mut INCREMENT_IGT: Option<HookPoint> = None;
-
-static mut IGT_BUFFER: f32 = 0.0f32;
+//static mut IGT_BUFFER: f32 = 0.0f32;
 
 #[no_mangle]
 #[used]
@@ -60,11 +61,9 @@ pub fn init_darksouls3()
         let mut process = Process::new("darksoulsiii.exe");
         process.refresh().unwrap();
 
-
         //let fn_increment_igt_address = process.scan_abs("igt", "48 83 ec 68 48 c7 44 24 20 fe ff ff ff 0f 29 74 24 50 44 0f 29 4c 24 40", 0, Vec::new()).unwrap().get_base_address();
         //info!("increment IGT at 0x{:x}", fn_increment_igt_address);
         //INCREMENT_IGT = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
-
 
         // AoB scan for FPS patch
         let fn_fps_address = process.scan_abs("fps", "f3 0f 58 93 64 02 00 00 41 0f 2f d4", 0, Vec::new()).unwrap().get_base_address();
@@ -99,6 +98,30 @@ pub fn init_darksouls3()
     }
 }
 
+//unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
+//{
+//    //copied from ER. Needs to be adjusted for ER.
+//    let mut frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
+//    let frame_delta2 = std::mem::transmute::<u32, f32>((*registers).xmm1 as u32);
+//    info!("fd: {} {}", frame_delta, frame_delta2);
+//    //convert to milliseconds
+//    frame_delta = frame_delta * 1000f32;
+//    frame_delta = frame_delta * 0.96f32; //scale to IGT
+//
+//    //Rather than casting, like the game does, make the behavior explicit by flooring
+//    let mut floored_frame_delta = frame_delta.floor();
+//    let remainder = frame_delta - floored_frame_delta;
+//    IGT_BUFFER = IGT_BUFFER + remainder;
+//
+//    if IGT_BUFFER > 1.0f32
+//    {
+//        IGT_BUFFER = IGT_BUFFER - 1f32;
+//        floored_frame_delta += 1f32;
+//    }
+//
+//    (*registers).xmm1 = std::mem::transmute::<f32, u32>(floored_frame_delta) as u128;
+//}
+
 // FPS patch
 // Sets the calculated frame delta to always be the target frame delta.
 // It also sets the previous frames timestamp to be the current one minus the target frame delta.
@@ -132,29 +155,6 @@ unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
     }
 }
 
-unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
-{
-    //copied from ER. Needs to be adjusted for ER.
-    let mut frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
-    let mut frame_delta2 = std::mem::transmute::<u32, f32>((*registers).xmm1 as u32);
-    info!("fd: {} {}", frame_delta, frame_delta2);
-    //convert to milliseconds
-    frame_delta = frame_delta * 1000f32;
-    frame_delta = frame_delta * 0.96f32; //scale to IGT
-
-    //Rather than casting, like the game does, make the behavior explicit by flooring
-    let mut floored_frame_delta = frame_delta.floor();
-    let remainder = frame_delta - floored_frame_delta;
-    IGT_BUFFER = IGT_BUFFER + remainder;
-
-    if IGT_BUFFER > 1.0f32
-    {
-        IGT_BUFFER = IGT_BUFFER - 1f32;
-        floored_frame_delta += 1f32;
-    }
-
-    (*registers).xmm1 = std::mem::transmute::<f32, u32>(floored_frame_delta) as u128;
-}
 
 // FPS history patch
 // Similar to the FPS patch, this sets the difference between the previous and current frames timestamps to the target frame delta.
