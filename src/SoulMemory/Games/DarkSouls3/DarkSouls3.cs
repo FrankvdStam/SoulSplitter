@@ -73,16 +73,8 @@ public class DarkSouls3 : IDarkSouls3
             .ScanRelative("FieldArea", "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10", 3, 7)
                 .AddPointer(_fieldArea);
 
-        var sb = new StringBuilder();
-        for (var i = 0; i < 1000; i++)
-        {
-            sb.Append("00 ");
-        }
-
-        var cave = sb.ToString();
-
         treeBuilder
-            .ScanAbsolute("cave", cave, 0)
+            .ScanAbsolute("call igt", "85 ? 7f ? b2 ? 33 c9 e8 ? ? ? ? c6 83 ? ? ? ? ? f3 0f 10 47 ? e8", 0)
             .AddPointer(_fieldArea);
 
 

@@ -85,7 +85,7 @@ internal static class NativeMethods
     [DllImport("kernel32.dll")]
     internal static extern bool CloseHandle(IntPtr hObject);
 
-    [DllImport("kernel32.dll")]
+    [DllImport("kernel32.dll", SetLastError = true)]
     internal static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint flAllocationType, uint flProtect);
 
     [DllImport("kernel32.dll")]

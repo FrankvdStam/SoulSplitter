@@ -22,7 +22,7 @@ use std::ffi::c_void;
 use std::slice;
 use iced_x86::{Decoder, DecoderOptions, FlowControl, Formatter, Instruction, IntelFormatter, InstructionBlock, BlockEncoder, BlockEncoderOptions};
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
-
+use iced_x86::code_asm::*;
 
 use log::info;
 use windows::Win32::Foundation::GetLastError;
@@ -59,79 +59,6 @@ pub static mut DS3_FRAME_RUNNING: bool = false;
 //original size is 799, for safety incremented to 1000
 const IGT_CODE_SIZE: usize = 1000;
 
-#[no_mangle]
-#[used]
-pub static mut INCREMENT_IGT_FUNCTION_COPY: [u8; IGT_CODE_SIZE] = [0; IGT_CODE_SIZE];
-
-
-
-
-
-
-
-fn allocate_in_range(mut min: usize, max: usize, size: usize) -> Result<usize, ()>
-{
-
-    //https://stackoverflow.com/questions/54729401/allocating-memory-within-a-2gb-range
-
-    let mut si = SYSTEM_INFO::default();
-    unsafe { GetSystemInfo(&mut si) };
-
-    let increment = (si.dwAllocationGranularity - 1) as usize;
-    let mask = !increment;
-
-    while min < max
-    {
-        let mut mbi = MEMORY_BASIC_INFORMATION::default();
-        let query_result = unsafe { VirtualQuery(Some(min as *const c_void), &mut mbi, size) };
-
-        if query_result == 0
-        {
-            return Err(());
-        }
-
-        min = mbi.BaseAddress as usize + mbi.RegionSize;
-        if mbi.State == MEM_FREE
-        {
-            let address = (mbi.BaseAddress as usize + increment) & mask;
-            let alloc_result = unsafe { VirtualAlloc(Some(VirtualAlloc as *const c_void), size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE) as usize };
-            if alloc_result != 0
-            {
-                info!("allocated successfully at 0{:x}", alloc_result);
-                return Ok(alloc_result);
-            }
-
-            info!("allocation failed at 0x{:x}", address);
-        }
-    }
-
-    //::MEMORY_BASIC_INFORMATION mbi;
-    //do
-    //{
-    //if (!VirtualQuery((void*)min, &mbi, sizeof(mbi))) return NULL;
-    //
-    //min = (UINT_PTR)mbi.BaseAddress + mbi.RegionSize;
-    //
-    //if (mbi.State == MEM_FREE)
-    //{
-    //addr = ((UINT_PTR)mbi.BaseAddress + add) & mask;
-    //
-    //if (addr < min && dwSize <= (min - addr))
-    //{
-    //if (addr = (UINT_PTR)VirtualAlloc((PVOID)addr, dwSize, MEM_COMMIT|MEM_RESERVE, PAGE_EXECUTE_READWRITE))
-    //return (PVOID)addr;
-    //}
-//}
-
-
-//} while (min < max);
-
-//return NULL;
-    return Err(());
-}
-
-
-
 #[allow(unused_assignments)]
 pub fn init_darksouls3()
 {
@@ -146,6 +73,9 @@ pub fn init_darksouls3()
         //create copy of arxan protected function
         let fn_increment_igt_function_address = process.scan_abs("igt_fn", "48 83 ec 68 48 c7 44 24 20 fe ff ff ff 0f 29 74 24 50", 0, Vec::new()).unwrap().get_base_address();
         info!("increment_igt_function at 0x{:x}", fn_increment_igt_function_address);
+
+        let call_increment_igt = process.scan_abs("call igt_fn", "85 ? 7f ? b2 ? 33 c9 e8 ? ? ? ? c6 83 ? ? ? ? ? f3 0f 10 47 ? e8", 26, Vec::new()).unwrap().get_base_address();
+        info!("call igt function at 0x{:x}", call_increment_igt);
 
         let igt_code_slice: &[u8] = slice::from_raw_parts(fn_increment_igt_function_address as *const u8, IGT_CODE_SIZE);
         //let mut igt_function_bytes: [u8; IGT_CODE_SIZE] = [0; IGT_CODE_SIZE];
@@ -183,34 +113,9 @@ pub fn init_darksouls3()
         info!("executable base address: 0{:x}", module.base_address);
 
 
-        allocate_near_target(module.base_address, 2_000_000_000usize, required_byte_size);
-
-        //let alloc_result = VirtualAlloc(Some(0xf81c0000 as *const c_void), required_byte_size, MEM_COMMIT|MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-        //println!("alloc address: {}", alloc_result as usize);
-        //if alloc_result as usize == 0
-        //{
-        //    let err = GetLastError();
-        //    println!("{:?}", err);
-        //}
-
-        /*
-        let gigabyte = 2_000_000_000usize;
-        let address = match allocate_in_range(module.base_address - gigabyte, module.base_address + gigabyte, required_byte_size)
-        {
-            Ok(address) => address,
-            Err(()) => panic!("failed to allocate near module base"),
-        };
-
-*/
+        let testy = allocate_near_target(module.base_address, 1_000_000_000usize, required_byte_size).unwrap();
 
 
-
-
-        let increment_igt_function_copy_address = INCREMENT_IGT_FUNCTION_COPY.as_ptr() as usize;
-        info!("increment_igt_function copy at 0x{:x}", increment_igt_function_copy_address);
-
-
-        let testy = module.base_address + 0x500;
 
 
         let block = InstructionBlock::new(&orig_instructions, testy as u64);
@@ -226,11 +131,10 @@ pub fn init_darksouls3()
         for i in 0..result.code_buffer.len()
         {
             ptr::write_volatile((testy + i) as *mut u8, result.code_buffer[i]);
-            INCREMENT_IGT_FUNCTION_COPY[i] = result.code_buffer[i];
         }
 
-
-
+        let mut a = CodeAssembler::new(64)?;
+        a.call();
 
 //        // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
 //        // For fastest code, see `SpecializedFormatter` which is ~3.3x faster. Use it if formatting

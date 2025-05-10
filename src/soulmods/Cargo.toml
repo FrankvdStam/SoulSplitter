@@ -12,7 +12,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 ilhook = "2.1.0"
-iced-x86 = "1.21.0"
+iced-x86 = { version = "1.21.0", features = ["code_asm"] }
 
 mem-rs = "0.2.1"
 #mem-rs = { path="C:/projects/mem-rs" }

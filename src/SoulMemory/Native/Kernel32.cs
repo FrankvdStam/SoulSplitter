@@ -181,9 +181,34 @@ public static class Kernel32
 
     public static ResultOk<IntPtr> AllocNearMainModule(this Process process, int range, uint size)
     {
+        var processHandle = NativeMethods.OpenProcess(ProcessAccessFlags.All, false, process.Id);
+
         ulong target = (ulong)process.MainModule.BaseAddress.ToInt64();
         ulong minAddress = target - (ulong)range;
         ulong maxAddress = target + (ulong)range;
+
+        var systemInfo = new SystemInfo();
+        NativeMethods.GetSystemInfo(out systemInfo);
+
+        ulong address = minAddress;
+        while (address < maxAddress)
+        {
+            var allocResult = NativeMethods.VirtualAllocEx(processHandle, (IntPtr)address, (IntPtr)size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+            if (allocResult != IntPtr.Zero)
+            {
+                Console.WriteLine($"Alloc success at {allocResult}");
+                //return Result.Ok(alloc_result);
+            }
+            else
+            {
+                int error = Marshal.GetLastWin32Error();
+                Console.WriteLine($"Alloc error at {address}: {error}");
+            }
+
+            address += systemInfo.AllocationGranularity;
+        }
+
+
 
         var regions = process.GetMemoryRegions();
         var suitableRegions = regions.Where(i =>
@@ -192,12 +217,24 @@ public static class Kernel32
             i.BaseAddress < maxAddress)
             .ToList();
 
+        foreach (var region in suitableRegions)
+        {
+            var asd = NativeMethods.VirtualAllocEx(processHandle, (IntPtr)process.MainModule.BaseAddress - 0x10000, (IntPtr)size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+            var allocResult = NativeMethods.VirtualAllocEx(processHandle, (IntPtr)region.BaseAddress+ 0x100, (IntPtr)size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+            if (allocResult != IntPtr.Zero)
+            {
+                Console.WriteLine($"Alloc success at {allocResult}");
+                //return Result.Ok(alloc_result);
+            }
+            else
+            {
+                int error = Marshal.GetLastWin32Error();
+                Console.WriteLine($"Alloc error at {region.BaseAddress}: {error}");
+            }
+        }
 
 
 
-
-        var systemInfo = new SystemInfo();
-        NativeMethods.GetSystemInfo(out systemInfo);
 
         var increment = systemInfo.AllocationGranularity;
         var mask = ~increment;
