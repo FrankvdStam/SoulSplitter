@@ -21,6 +21,7 @@ using SoulMemory.Native.Structs;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using static SoulMemory.Native.Kernel32;
 
 namespace SoulMemory.Native;
 
@@ -89,4 +90,7 @@ internal static class NativeMethods
 
     [DllImport("kernel32.dll")]
     internal static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint dwFreeType);
+
+    [DllImport("kernel32.dll", SetLastError = false)]
+    internal static extern void GetSystemInfo(out SystemInfo info);
 }

@@ -36,6 +36,7 @@ using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 using LiveSplit.Model;
 using SoulMemory.Games.DarkSouls3;
+using SoulMemory.Native;
 using SoulSplitter.DependencyInjection;
 using SoulSplitter.Livesplit;
 using SoulSplitter.Resources;
@@ -52,7 +53,8 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
-            ValidatePatterns();return;
+
+
             //SoulMemoryRs.Launch();
             //return;
             //
@@ -61,9 +63,12 @@ namespace cli
             //return;
 
 
+
             GameLoop<DarkSouls3>(
                 (d) =>
                 {
+                    d.GetProcess().AllocNearMainModule(799);
+
                     //Console.WriteLine(d.ReadInGameTimeMilliseconds());
                     //var dropmod = new DropMod(d);
                     //dropmod.InitBkh();

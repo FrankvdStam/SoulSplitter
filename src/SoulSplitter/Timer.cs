@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics;
 using SoulMemory.Abstractions;
 using System.Linq;
 using SoulMemory;
@@ -251,7 +252,7 @@ namespace SoulSplitter
                     _currentIgt < _previousIgt + 1000)                              //Igt has not increased by more than 1 second
                 {
                     //During blackscreen, overwrite the incremented timer value with the last known good IGT value.
-                    _game.WriteInGameTimeMilliseconds(_multiGameIgt + _currentIgt);
+                    _game.WriteInGameTimeMilliseconds(_previousIgt);
                     return; //Don't invoke UpdateTime event during black screen
                 }
 

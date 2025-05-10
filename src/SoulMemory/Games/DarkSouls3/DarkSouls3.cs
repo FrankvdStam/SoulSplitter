@@ -112,12 +112,13 @@ public class DarkSouls3 : IDarkSouls3
                 return scanResult;
             }
 
+            /*
             var injectResult = soulmods.Soulmods.Inject(_process!);
             if (injectResult.IsErr)
             {
                 ResetPointers();
                 return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, "soulmods injection failed"));
-            }
+            }*/
 
             return Result.Ok();
         }

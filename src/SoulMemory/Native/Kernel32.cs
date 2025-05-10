@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -182,6 +183,45 @@ public static class Kernel32
     #endregion
 
     #region Allocations ==================================================================================================================
+
+    public static ResultOk<IntPtr> AllocNearMainModule(this Process process, uint size)
+    {
+        var systemInfo = new SystemInfo();
+        NativeMethods.GetSystemInfo(out systemInfo);
+
+        var increment = systemInfo.AllocationGranularity;
+        var mask = ~increment;
+
+
+        var range = 2_000_000_000;
+        var min = (ulong)(process.MainModule.BaseAddress.ToInt64() - range);
+        var max = (ulong)(process.MainModule.BaseAddress.ToInt64() + range);
+        
+        while (min < max)
+        {
+            var mbi = new MemoryBasicInformation64();
+            var result = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)min, out mbi, size);
+
+            if (result == 0)
+            {
+                return Result.Err();
+            }
+
+            min = mbi.BaseAddress + mbi.RegionSize;
+            if (mbi.State == MEM_FREE)
+            {
+                var address = (mbi.BaseAddress + increment) & mask;
+                var alloc_result = NativeMethods.VirtualAllocEx(process.Handle, (IntPtr)address, (IntPtr)size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+                if (alloc_result != IntPtr.Zero)
+                {
+                    return Result.Ok(alloc_result);
+                }
+            }
+        }
+
+
+        return Result.Err();
+    }
 
 
    
@@ -381,6 +421,8 @@ public static class Kernel32
     public const uint MEM_COMMIT = 0x00001000;
     public const uint MEM_RESERVE = 0x00002000;
     public const uint MEM_RELEASE = 0x00008000;
+    public const uint MEM_FREE = 0x10000;
+
 
     public const int PROCESS_CREATE_THREAD = 0x0002;
     public const int PROCESS_QUERY_INFORMATION = 0x0400;
@@ -391,6 +433,4 @@ public static class Kernel32
     public const int LIST_MODULES_32BIT = 0x01;
     public const int LIST_MODULES_64BIT = 0x02;
     public const int LIST_MODULES_ALL = 0x03;
-
-
 }

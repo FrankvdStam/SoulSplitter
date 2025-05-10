@@ -16,12 +16,19 @@
 
 #[allow(dead_code)]
 
-use std::{thread, time::Duration};
-
-use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 use mem_rs::prelude::*;
+use std::{thread, time::Duration};
+use std::ffi::c_void;
+use std::slice;
+use iced_x86::{Decoder, DecoderOptions, FlowControl, Formatter, Instruction, IntelFormatter, InstructionBlock, BlockEncoder, BlockEncoderOptions};
+use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
+
 
 use log::info;
+use windows::Win32::Foundation::GetLastError;
+use windows::Win32::System::Memory::{MEM_COMMIT, MEM_FREE, MEM_RESERVE, MEMORY_BASIC_INFORMATION, PAGE_EXECUTE_READWRITE, VirtualAlloc, VirtualQuery};
+use windows::Win32::System::SystemInformation::{GetSystemInfo, SYSTEM_INFO};
+use windows::Win32::System::Threading::GetCurrentProcess;
 
 use crate::util::GLOBAL_VERSION;
 
@@ -49,6 +56,78 @@ pub static mut DS3_FRAME_ADVANCE_ENABLED: bool = false;
 #[used]
 pub static mut DS3_FRAME_RUNNING: bool = false;
 
+//original size is 799, for safety incremented to 1000
+const IGT_CODE_SIZE: usize = 1000;
+
+#[no_mangle]
+#[used]
+pub static mut INCREMENT_IGT_FUNCTION_COPY: [u8; IGT_CODE_SIZE] = [0; IGT_CODE_SIZE];
+
+
+
+
+fn allocate_in_range(mut min: usize, max: usize, size: usize) -> Result<usize, ()>
+{
+
+    //https://stackoverflow.com/questions/54729401/allocating-memory-within-a-2gb-range
+
+    let mut si = SYSTEM_INFO::default();
+    unsafe { GetSystemInfo(&mut si) };
+
+    let increment = (si.dwAllocationGranularity - 1) as usize;
+    let mask = !increment;
+
+    while min < max
+    {
+        let mut mbi = MEMORY_BASIC_INFORMATION::default();
+        let query_result = unsafe { VirtualQuery(Some(min as *const c_void), &mut mbi, size) };
+
+        if query_result == 0
+        {
+            return Err(());
+        }
+
+        min = mbi.BaseAddress as usize + mbi.RegionSize;
+        if mbi.State == MEM_FREE
+        {
+            let address = (mbi.BaseAddress as usize + increment) & mask;
+            let alloc_result = unsafe { VirtualAlloc(Some(VirtualAlloc as *const c_void), size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE) as usize };
+            if alloc_result != 0
+            {
+                info!("allocated successfully at 0{:x}", alloc_result);
+                return Ok(alloc_result);
+            }
+
+            info!("allocation failed at 0x{:x}", address);
+        }
+    }
+
+    //::MEMORY_BASIC_INFORMATION mbi;
+    //do
+    //{
+    //if (!VirtualQuery((void*)min, &mbi, sizeof(mbi))) return NULL;
+    //
+    //min = (UINT_PTR)mbi.BaseAddress + mbi.RegionSize;
+    //
+    //if (mbi.State == MEM_FREE)
+    //{
+    //addr = ((UINT_PTR)mbi.BaseAddress + add) & mask;
+    //
+    //if (addr < min && dwSize <= (min - addr))
+    //{
+    //if (addr = (UINT_PTR)VirtualAlloc((PVOID)addr, dwSize, MEM_COMMIT|MEM_RESERVE, PAGE_EXECUTE_READWRITE))
+    //return (PVOID)addr;
+    //}
+//}
+
+
+//} while (min < max);
+
+//return NULL;
+    return Err(());
+}
+
+
 
 #[allow(unused_assignments)]
 pub fn init_darksouls3()
@@ -60,6 +139,162 @@ pub fn init_darksouls3()
         // Get DS3 process
         let mut process = Process::new("darksoulsiii.exe");
         process.refresh().unwrap();
+
+        //create copy of arxan protected function
+        let fn_increment_igt_function_address = process.scan_abs("igt_fn", "48 83 ec 68 48 c7 44 24 20 fe ff ff ff 0f 29 74 24 50", 0, Vec::new()).unwrap().get_base_address();
+        info!("increment_igt_function at 0x{:x}", fn_increment_igt_function_address);
+
+        let igt_code_slice: &[u8] = slice::from_raw_parts(fn_increment_igt_function_address as *const u8, IGT_CODE_SIZE);
+        //let mut igt_function_bytes: [u8; IGT_CODE_SIZE] = [0; IGT_CODE_SIZE];
+        //igt_function_bytes.clone_from_slice(igt_code_slice);
+
+        let mut decoder = Decoder::with_ip(64, &igt_code_slice, fn_increment_igt_function_address as u64, DecoderOptions::NONE);
+
+        let mut formatter = IntelFormatter::new();
+        let mut output = String::new();
+        let mut required_byte_size: usize = 0;
+        let mut orig_instructions: Vec<Instruction> = Vec::new();
+        for instr in &mut decoder
+        {
+            output.clear();
+            formatter.format(&instr, &mut output);
+            info!("{}", output);
+
+            required_byte_size += instr.len();
+            orig_instructions.push(instr);
+
+            match instr.flow_control() {
+                FlowControl::Return => break,
+                _ => {}
+            };
+        }
+        println!("disassembled instructions size: {}", orig_instructions.len());
+
+        let modules = Process::get_process_modules(GetCurrentProcess());
+        let module = match modules.iter().find(|i| i.name.to_lowercase() == "darksoulsiii.exe")
+        {
+            None => panic!("failed to find executable base address"),
+            Some(module) => module
+        };
+
+        info!("executable base address: 0{:x}", module.base_address);
+
+        let alloc_result = VirtualAlloc(Some(0xf81c0000 as *const c_void), required_byte_size, MEM_COMMIT|MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+        println!("alloc address: {}", alloc_result as usize);
+        if alloc_result as usize == 0
+        {
+            let err = GetLastError();
+            println!("{:?}", err);
+        }
+
+        /*
+        let gigabyte = 2_000_000_000usize;
+        let address = match allocate_in_range(module.base_address - gigabyte, module.base_address + gigabyte, required_byte_size)
+        {
+            Ok(address) => address,
+            Err(()) => panic!("failed to allocate near module base"),
+        };
+
+*/
+
+
+
+
+        let increment_igt_function_copy_address = INCREMENT_IGT_FUNCTION_COPY.as_ptr() as usize;
+        info!("increment_igt_function copy at 0x{:x}", increment_igt_function_copy_address);
+
+
+        let block = InstructionBlock::new(&orig_instructions, 0xf81c0000 as u64);
+        // This method can also encode more than one block but that's rarely needed, see above comment.
+        let result = match BlockEncoder::encode(decoder.bitness(), block, BlockEncoderOptions::NONE) {
+            Err(err) => panic!("{}", err),
+            Ok(result) => result,
+        };
+
+
+
+
+
+
+        println!("code buffer: {:x?}", result.code_buffer);
+        for i in 0..result.code_buffer.len()
+        {
+            INCREMENT_IGT_FUNCTION_COPY[i] = result.code_buffer[i];
+        }
+
+
+
+
+//        // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
+//        // For fastest code, see `SpecializedFormatter` which is ~3.3x faster. Use it if formatting
+//        // speed is more important than being able to re-assemble formatted instructions.
+//
+//
+//        // Change some options, there are many more
+//        formatter.options_mut().set_digit_separator("`");
+//        formatter.options_mut().set_first_operand_char_index(10);
+//
+//        // String implements FormatterOutput
+//        let mut output = String::new();
+//
+//        // Initialize this outside the loop because decode_out() writes to every field
+//        let mut instruction = Instruction::default();
+//
+//
+//        const HEXBYTES_COLUMN_BYTE_LENGTH: usize = 10;
+//
+//        // The decoder also implements Iterator/IntoIterator so you could use a for loop:
+//        //      for instruction in &mut decoder { /* ... */ }
+//        // or collect():
+//        //      let instructions: Vec<_> = decoder.into_iter().collect();
+//        // but can_decode()/decode_out() is a little faster:
+//        while decoder.can_decode() {
+//            // There's also a decode() method that returns an instruction but that also
+//            // means it copies an instruction (40 bytes):
+//            //     instruction = decoder.decode();
+//            decoder.decode_out(&mut instruction);
+//
+//            // Format the instruction ("disassemble" it)
+//            output.clear();
+//            formatter.format(&instruction, &mut output);
+//
+//            // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
+//            print!("{:016X} ", instruction.ip());
+//            let start_index = (instruction.ip() - increment_igt_function_copy_address as u64) as usize;
+//            let instr_bytes = &igt_function_bytes[start_index..start_index + instruction.len()];
+//            for b in instr_bytes.iter() {
+//                print!("{:02X}", b);
+//            }
+//            if instr_bytes.len() < HEXBYTES_COLUMN_BYTE_LENGTH {
+//                for _ in 0..HEXBYTES_COLUMN_BYTE_LENGTH - instr_bytes.len() {
+//                    print!("  ");
+//                }
+//            }
+//            println!(" {}", output);
+//        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //for n in 0..IGT_CODE_SIZE
+        //{
+        //    let byte = std::ptr::read_volatile(fn_increment_igt_function_address + n);
+        //    std::ptr::write_volatile(&increment_igt_func_copy + , timestamp_previous);
+        //}
+//
+
 
         //let fn_increment_igt_address = process.scan_abs("igt", "f3 48 0f 2c c0 01 81 ? 00 00 00 48 8b 05 ? ? ? ? 81 b8 ? 00 00 00 18 a0 93 d6", 0, Vec::new()).unwrap().get_base_address();
         //info!("increment IGT at 0x{:x}", fn_increment_igt_address);
