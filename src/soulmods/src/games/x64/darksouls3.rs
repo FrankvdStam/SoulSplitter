@@ -25,6 +25,7 @@ use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPo
 use iced_x86::code_asm::*;
 
 use log::info;
+use mem_rs::helpers::{scan, to_pattern};
 use windows::Win32::Foundation::GetLastError;
 use windows::Win32::System::Memory::{MEM_COMMIT, MEM_FREE, MEM_RESERVE, MEMORY_BASIC_INFORMATION, PAGE_EXECUTE_READWRITE, VirtualAlloc, VirtualQuery};
 use windows::Win32::System::SystemInformation::{GetSystemInfo, SYSTEM_INFO};
@@ -36,9 +37,9 @@ static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 static mut FRAME_ADVANCE_HOOK: Option<HookPoint> = None;
-//static mut INCREMENT_IGT: Option<HookPoint> = None;
+static mut INCREMENT_IGT: Option<HookPoint> = None;
 
-//static mut IGT_BUFFER: f32 = 0.0f32;
+static mut IGT_BUFFER: f32 = 0.0f32;
 
 #[no_mangle]
 #[used]
@@ -74,10 +75,13 @@ pub fn init_darksouls3()
         let fn_increment_igt_function_address = process.scan_abs("igt_fn", "48 83 ec 68 48 c7 44 24 20 fe ff ff ff 0f 29 74 24 50", 0, Vec::new()).unwrap().get_base_address();
         info!("increment_igt_function at 0x{:x}", fn_increment_igt_function_address);
 
-        let call_increment_igt = process.scan_abs("call igt_fn", "85 ? 7f ? b2 ? 33 c9 e8 ? ? ? ? c6 83 ? ? ? ? ? f3 0f 10 47 ? e8", 26, Vec::new()).unwrap().get_base_address();
+        let call_increment_igt = process.scan_abs("call igt_fn", "85 ? 7f ? b2 ? 33 c9 e8 ? ? ? ? c6 83 ? ? ? ? ? f3 0f 10 47 ? e8", 25, Vec::new()).unwrap().get_base_address();
         info!("call igt function at 0x{:x}", call_increment_igt);
 
         let igt_code_slice: &[u8] = slice::from_raw_parts(fn_increment_igt_function_address as *const u8, IGT_CODE_SIZE);
+        let igt_hook_offset = scan(igt_code_slice, &to_pattern("f3 48 0f 2c c0")).unwrap();
+
+
         //let mut igt_function_bytes: [u8; IGT_CODE_SIZE] = [0; IGT_CODE_SIZE];
         //igt_function_bytes.clone_from_slice(igt_code_slice);
 
@@ -113,12 +117,12 @@ pub fn init_darksouls3()
         info!("executable base address: 0{:x}", module.base_address);
 
 
-        let testy = allocate_near_target(module.base_address, 1_000_000_000usize, required_byte_size).unwrap();
+        let replaced_igt_func = allocate_near_target(module.base_address, 1_000_000_000usize, required_byte_size).unwrap();
 
 
 
 
-        let block = InstructionBlock::new(&orig_instructions, testy as u64);
+        let block = InstructionBlock::new(&orig_instructions, replaced_igt_func as u64);
         // This method can also encode more than one block but that's rarely needed, see above comment.
         let result = match BlockEncoder::encode(decoder.bitness(), block, BlockEncoderOptions::NONE) {
             Err(err) => panic!("{}", err),
@@ -127,14 +131,29 @@ pub fn init_darksouls3()
 
 
         println!("code buffer: {:x?}", result.code_buffer);
-        println!("writing to: {:x?}", testy);
+        println!("writing to: {:x?}", replaced_igt_func);
         for i in 0..result.code_buffer.len()
         {
-            ptr::write_volatile((testy + i) as *mut u8, result.code_buffer[i]);
+            ptr::write_volatile((replaced_igt_func + i) as *mut u8, result.code_buffer[i]);
         }
 
-        let mut a = CodeAssembler::new(64)?;
-        a.call();
+        let mut a = CodeAssembler::new(64).unwrap();
+        a.call(replaced_igt_func as u64).unwrap();
+
+        let result = a.assemble(call_increment_igt as u64).unwrap();
+        println!("assembled call instr: {:x?}", result);
+
+        //patch the callsite
+        for  i in 0..result.len()
+        {
+            ptr::write_volatile((call_increment_igt + i) as *mut u8, result[i]);
+        }
+
+        //now hook the replaced function
+        INCREMENT_IGT = Some(Hooker::new(replaced_igt_func + igt_hook_offset, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+
+
 
 //        // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
 //        // For fastest code, see `SpecializedFormatter` which is ~3.3x faster. Use it if formatting
@@ -244,25 +263,25 @@ pub fn init_darksouls3()
     }
 }
 
-//unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
-//{
-//    let frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
-//    let mut corrected_frame_delta = frame_delta;
-//
-//    //Rather than casting, like the game does, make the behavior explicit by flooring
-//    let floored_frame_delta = frame_delta.floor();
-//    let remainder = frame_delta - floored_frame_delta;
-//    IGT_BUFFER = IGT_BUFFER + remainder;
-//
-//    if IGT_BUFFER > 1.0f32
-//    {
-//        IGT_BUFFER = IGT_BUFFER - 1f32;
-//        corrected_frame_delta += 1f32;
-//    }
-//
-//    (*registers).xmm0 = std::mem::transmute::<f32, u32>(corrected_frame_delta) as u128;
-//    info!("frame delta: {} igt buffer: {} corrected frame delta: {}", frame_delta, IGT_BUFFER, corrected_frame_delta);
-//}
+unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
+{
+    let frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
+    let mut corrected_frame_delta = frame_delta;
+
+    //Rather than casting, like the game does, make the behavior explicit by flooring
+    let floored_frame_delta = frame_delta.floor();
+    let remainder = frame_delta - floored_frame_delta;
+    IGT_BUFFER = IGT_BUFFER + remainder;
+
+    if IGT_BUFFER > 1.0f32
+    {
+        IGT_BUFFER = IGT_BUFFER - 1f32;
+        corrected_frame_delta += 1f32;
+    }
+
+    (*registers).xmm0 = std::mem::transmute::<f32, u32>(corrected_frame_delta) as u128;
+    info!("frame delta: {} igt buffer: {} corrected frame delta: {}", frame_delta, IGT_BUFFER, corrected_frame_delta);
+}
 
 // FPS patch
 // Sets the calculated frame delta to always be the target frame delta.

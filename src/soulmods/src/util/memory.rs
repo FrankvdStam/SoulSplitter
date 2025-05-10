@@ -2,6 +2,7 @@ use std::cmp::min;
 use std::ffi::c_void;
 use log::info;
 use windows::Win32::System::Memory::{MEM_COMMIT, MEM_FREE, MEM_RESERVE, MEMORY_BASIC_INFORMATION, PAGE_EXECUTE_READWRITE, VirtualAlloc, VirtualQuery};
+use windows::Win32::System::SystemInformation::{GetSystemInfo, SYSTEM_INFO};
 
 //pub fn get_memory_regions() -> Vec<MEMORY_BASIC_INFORMATION>
 //{
@@ -20,6 +21,9 @@ use windows::Win32::System::Memory::{MEM_COMMIT, MEM_FREE, MEM_RESERVE, MEMORY_B
 
 pub fn allocate_near_target(target: usize, range: usize, size: usize) -> Result<usize, ()>
 {
+    let mut system_info = SYSTEM_INFO::default();
+    unsafe{ GetSystemInfo(&mut system_info); }
+
     let min_address = target - range;
     let max_address = target + range;
 
@@ -32,6 +36,7 @@ pub fn allocate_near_target(target: usize, range: usize, size: usize) -> Result<
         {
             return Ok(alloc_result);
         }
+        address = address + system_info.dwAllocationGranularity as usize;
     }
     return Err(());
 }
