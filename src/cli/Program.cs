@@ -53,6 +53,7 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+            //ValidatePatterns();return;
 
 
             //SoulMemoryRs.Launch();
@@ -67,7 +68,7 @@ namespace cli
             GameLoop<DarkSouls3>(
                 (d) =>
                 {
-                    d.GetProcess().AllocNearMainModule(799);
+                    d.GetProcess().AllocNearMainModule(2_000_000_000, 799);
 
                     //Console.WriteLine(d.ReadInGameTimeMilliseconds());
                     //var dropmod = new DropMod(d);

@@ -16,6 +16,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Text;
 using SoulMemory.Abstractions.Games;
 using SoulMemory.Memory;
 using Pointer = SoulMemory.Memory.Pointer;
@@ -72,6 +73,17 @@ public class DarkSouls3 : IDarkSouls3
             .ScanRelative("FieldArea", "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10", 3, 7)
                 .AddPointer(_fieldArea);
 
+        var sb = new StringBuilder();
+        for (var i = 0; i < 1000; i++)
+        {
+            sb.Append("00 ");
+        }
+
+        var cave = sb.ToString();
+
+        treeBuilder
+            .ScanAbsolute("cave", cave, 0)
+            .AddPointer(_fieldArea);
 
 
         //treeBuilder
@@ -112,13 +124,13 @@ public class DarkSouls3 : IDarkSouls3
                 return scanResult;
             }
 
-            /*
+            
             var injectResult = soulmods.Soulmods.Inject(_process!);
             if (injectResult.IsErr)
             {
                 ResetPointers();
                 return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, "soulmods injection failed"));
-            }*/
+            }
 
             return Result.Ok();
         }

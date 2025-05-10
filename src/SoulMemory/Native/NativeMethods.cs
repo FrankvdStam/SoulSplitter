@@ -93,4 +93,7 @@ internal static class NativeMethods
 
     [DllImport("kernel32.dll", SetLastError = false)]
     internal static extern void GetSystemInfo(out SystemInfo info);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    public static extern IntPtr OpenProcess(ProcessAccessFlags processAccess, bool bInheritHandle, int processId);
 }

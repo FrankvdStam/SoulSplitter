@@ -17,7 +17,7 @@
 #[allow(dead_code)]
 
 use mem_rs::prelude::*;
-use std::{thread, time::Duration};
+use std::{ptr, thread, time::Duration};
 use std::ffi::c_void;
 use std::slice;
 use iced_x86::{Decoder, DecoderOptions, FlowControl, Formatter, Instruction, IntelFormatter, InstructionBlock, BlockEncoder, BlockEncoderOptions};
@@ -30,7 +30,7 @@ use windows::Win32::System::Memory::{MEM_COMMIT, MEM_FREE, MEM_RESERVE, MEMORY_B
 use windows::Win32::System::SystemInformation::{GetSystemInfo, SYSTEM_INFO};
 use windows::Win32::System::Threading::GetCurrentProcess;
 
-use crate::util::GLOBAL_VERSION;
+use crate::util::{allocate_near_target, GLOBAL_VERSION};
 
 static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
@@ -62,6 +62,9 @@ const IGT_CODE_SIZE: usize = 1000;
 #[no_mangle]
 #[used]
 pub static mut INCREMENT_IGT_FUNCTION_COPY: [u8; IGT_CODE_SIZE] = [0; IGT_CODE_SIZE];
+
+
+
 
 
 
@@ -179,13 +182,16 @@ pub fn init_darksouls3()
 
         info!("executable base address: 0{:x}", module.base_address);
 
-        let alloc_result = VirtualAlloc(Some(0xf81c0000 as *const c_void), required_byte_size, MEM_COMMIT|MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-        println!("alloc address: {}", alloc_result as usize);
-        if alloc_result as usize == 0
-        {
-            let err = GetLastError();
-            println!("{:?}", err);
-        }
+
+        allocate_near_target(module.base_address, 2_000_000_000usize, required_byte_size);
+
+        //let alloc_result = VirtualAlloc(Some(0xf81c0000 as *const c_void), required_byte_size, MEM_COMMIT|MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+        //println!("alloc address: {}", alloc_result as usize);
+        //if alloc_result as usize == 0
+        //{
+        //    let err = GetLastError();
+        //    println!("{:?}", err);
+        //}
 
         /*
         let gigabyte = 2_000_000_000usize;
@@ -204,7 +210,10 @@ pub fn init_darksouls3()
         info!("increment_igt_function copy at 0x{:x}", increment_igt_function_copy_address);
 
 
-        let block = InstructionBlock::new(&orig_instructions, 0xf81c0000 as u64);
+        let testy = module.base_address + 0x500;
+
+
+        let block = InstructionBlock::new(&orig_instructions, testy as u64);
         // This method can also encode more than one block but that's rarely needed, see above comment.
         let result = match BlockEncoder::encode(decoder.bitness(), block, BlockEncoderOptions::NONE) {
             Err(err) => panic!("{}", err),
@@ -212,13 +221,11 @@ pub fn init_darksouls3()
         };
 
 
-
-
-
-
         println!("code buffer: {:x?}", result.code_buffer);
+        println!("writing to: {:x?}", testy);
         for i in 0..result.code_buffer.len()
         {
+            ptr::write_volatile((testy + i) as *mut u8, result.code_buffer[i]);
             INCREMENT_IGT_FUNCTION_COPY[i] = result.code_buffer[i];
         }
 

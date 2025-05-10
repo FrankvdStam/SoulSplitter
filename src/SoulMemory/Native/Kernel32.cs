@@ -124,28 +124,23 @@ public static class Kernel32
         return Result.Ok(memoryBasicInformation64);
     }
 
-    public static ResultOk<List<MemoryBasicInformation64>> GetMemoryRegions(this Process process)
+    public static List<MemoryBasicInformation64> GetMemoryRegions(this Process process)
     {
-        if (process.MainModule == null)
-        {
-            return Result.Err();
-        }
-
         var result = new List<MemoryBasicInformation64>();
-        var maxAddress = (process.MainModule.BaseAddress + process.MainModule.ModuleMemorySize).ToInt64();
-        var address = process.MainModule.BaseAddress.ToInt64();
-
-        while (address < maxAddress)
+        var processHandle = NativeMethods.OpenProcess(ProcessAccessFlags.All, false, process.Id);
+        if (processHandle != IntPtr.Zero)
         {
-            var queryEx = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)address, out var memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
-            if (queryEx == 0)
+            long address = 0;
+
+            while (NativeMethods.VirtualQueryEx(processHandle, (IntPtr)address, out var memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64))) != 0)
             {
-                return Result.Err();
+                result.Add(memoryBasicInformation64);
+                address += (long)memoryBasicInformation64.RegionSize;
             }
-            result.Add(memoryBasicInformation64);
-            address = (long)memoryBasicInformation64.BaseAddress + (long)memoryBasicInformation64.RegionSize;
         }
-        return Result.Ok(result);
+        NativeMethods.CloseHandle(processHandle);
+        return result;
+
     }
     #endregion
 
@@ -184,8 +179,23 @@ public static class Kernel32
 
     #region Allocations ==================================================================================================================
 
-    public static ResultOk<IntPtr> AllocNearMainModule(this Process process, uint size)
+    public static ResultOk<IntPtr> AllocNearMainModule(this Process process, int range, uint size)
     {
+        ulong target = (ulong)process.MainModule.BaseAddress.ToInt64();
+        ulong minAddress = target - (ulong)range;
+        ulong maxAddress = target + (ulong)range;
+
+        var regions = process.GetMemoryRegions();
+        var suitableRegions = regions.Where(i =>
+            i.State == MEM_FREE &&
+            i.BaseAddress > minAddress &&
+            i.BaseAddress < maxAddress)
+            .ToList();
+
+
+
+
+
         var systemInfo = new SystemInfo();
         NativeMethods.GetSystemInfo(out systemInfo);
 
@@ -193,30 +203,32 @@ public static class Kernel32
         var mask = ~increment;
 
 
-        var range = 2_000_000_000;
+        //var range = 2_000_000_000;
         var min = (ulong)(process.MainModule.BaseAddress.ToInt64() - range);
         var max = (ulong)(process.MainModule.BaseAddress.ToInt64() + range);
         
         while (min < max)
         {
             var mbi = new MemoryBasicInformation64();
-            var result = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)min, out mbi, size);
+            var result = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)min, out mbi, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
 
             if (result == 0)
             {
                 return Result.Err();
             }
 
-            min = mbi.BaseAddress + mbi.RegionSize;
+            
             if (mbi.State == MEM_FREE)
             {
-                var address = (mbi.BaseAddress + increment) & mask;
-                var alloc_result = NativeMethods.VirtualAllocEx(process.Handle, (IntPtr)address, (IntPtr)size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+                //var address = (mbi.BaseAddress + increment) & mask;
+                var alloc_result = NativeMethods.VirtualAllocEx(process.Handle, (IntPtr)min, (IntPtr)size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
                 if (alloc_result != IntPtr.Zero)
                 {
-                    return Result.Ok(alloc_result);
+                    Console.WriteLine($"Alloc success at {alloc_result}");
+                    //return Result.Ok(alloc_result);
                 }
             }
+            min = mbi.BaseAddress + mbi.RegionSize;
         }
 
 
