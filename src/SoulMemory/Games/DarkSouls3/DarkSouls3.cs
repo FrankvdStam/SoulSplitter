@@ -74,7 +74,7 @@ public class DarkSouls3 : IDarkSouls3
                 .AddPointer(_fieldArea);
 
         treeBuilder
-            .ScanAbsolute("call igt", "85 ? 7f ? b2 ? 33 c9 e8 ? ? ? ? c6 83 ? ? ? ? ? f3 0f 10 47 ? e8", 0)
+            .ScanAbsolute("call igt", "0f 28 74 24 50 44 0f 28 4c 24 40 48 83 c4 ? c3", 0)
             .AddPointer(_fieldArea);
 
 

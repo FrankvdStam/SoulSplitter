@@ -113,9 +113,9 @@ public class Sekiro : ISekiro
             .ScanAbsolute("NoLogo", "b9 c8 0a 00 00 e8 ? ? ? ? 48 ? ? 48 ? ? ? ? ? ? ? 48 ? ? ? 30 48 ? ? ? ? 48", 0)
                 .AddPointer(_noLogo);
 
-        treeBuilder
-            .ScanAbsolute("igt", "f3 48 0f 2c c0 01 81 9c 00 00 00 48 8b 05 ? ? ? ? 81 b8 9c 00 00 00 18 a0 93 d6 76 ? c7 80 9c 00 00 00 18 a0 93 d6", 0)
-            .AddPointer(_noLogo);
+        //treeBuilder
+        //    .ScanAbsolute("igt", "f3 48 0f 2c c0 01 81 9c 00 00 00 48 8b 05 ? ? ? ? 81 b8 9c 00 00 00 18 a0 93 d6 76 ? c7 80 9c 00 00 00 18 a0 93 d6", 0)
+        //    .AddPointer(_noLogo);
 
 
         //
