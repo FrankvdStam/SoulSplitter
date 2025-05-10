@@ -53,8 +53,8 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
-            ValidatePatterns();
-            return;
+            //ValidatePatterns();
+            //return;
 
 
             //SoulMemoryRs.Launch();
