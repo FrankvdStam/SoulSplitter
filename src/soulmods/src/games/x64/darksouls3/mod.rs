@@ -15,7 +15,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 mod migt;
-mod fps;
 
 #[allow(dead_code)]
 
@@ -64,7 +63,8 @@ pub fn init_darksouls3()
             process.refresh().unwrap();
 
             ds3_init_migt(&process);
-
+            
+            
             // AoB scan for FPS patch
             let fn_fps_address = process.scan_abs("fps", "f3 0f 58 93 64 02 00 00 41 0f 2f d4", 0, Vec::new()).unwrap().get_base_address();
             info!("FPS at 0x{:x}", fn_fps_address);

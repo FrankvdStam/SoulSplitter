@@ -74,9 +74,8 @@ public class DarkSouls3 : IDarkSouls3
                 .AddPointer(_fieldArea);
 
         //treeBuilder
-        //    .ScanAbsolute("call igt", "0f 28 74 24 50 44 0f 28 4c 24 40 48 83 c4 ? c3", 0)
+        //    .ScanAbsolute("SetTargetFrameDelta start", "E8 ? ? ? ? 48 8B 05 ? ? ? ? 48 85 C0 75 ? 4C 8D 0D ? ? ? ? 4C 8D 05 ? ? ? ? BA", 0)
         //    .AddPointer(_fieldArea);
-
 
         //treeBuilder
         //    .ScanAbsolute("emevd", "48 83 ec 28 49 8b 80 b0 00 00 00 b2 01 44 8b 08", 0)

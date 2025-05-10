@@ -1,26 +1,16 @@
-use std::{ptr, slice};
-use iced_x86::code_asm::CodeAssembler;
+use std::{slice};
 use ilhook::x64::{CallbackOption, HookFlags, HookPoint, HookType, Hooker, Registers};
 use log::info;
 use mem_rs::helpers::{scan, to_pattern};
 use mem_rs::prelude::*;
-use windows::Win32::System::Threading::GetCurrentProcess;
-use crate::util::{Assembler, Memory};
+use crate::util::{Assembler};
 
 static mut INCREMENT_IGT: Option<HookPoint> = None;
 
 static mut IGT_BUFFER: f32 = 0.0f32;
 
 pub fn ds3_init_migt(process: &Process)
-{
-    let modules = unsafe{ Process::get_process_modules(GetCurrentProcess()) };
-    let module = match modules.iter().find(|i| i.name.to_lowercase() == "darksoulsiii.exe")
-    {
-        None => panic!("failed to find executable base address"),
-        Some(module) => module
-    };
-    info!("executable base address: 0{:x}", module.base_address);
-    
+{    
     //scan for relevant code
     let game_increment_igt_fn_address = process.scan_abs("igt_fn", "48 83 ec 68 48 c7 44 24 20 fe ff ff ff 0f 29 74 24 50", 0, Vec::new()).unwrap().get_base_address();
     let game_increment_igt_fn_address_end = process.scan_abs("igt_fn_end", "0f 28 74 24 50 44 0f 28 4c 24 40 48 83 c4 ? c3", 16, Vec::new()).unwrap().get_base_address();
