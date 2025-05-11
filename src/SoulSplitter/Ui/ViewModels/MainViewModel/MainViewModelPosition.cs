@@ -46,7 +46,7 @@ public partial class MainViewModel
         get => _currentEldenRingPosition;
         set => SetField(ref _currentEldenRingPosition, value);
     }
-    private Position _currentEldenRingPosition = new Position { Area = 10, Block = 11, Region = 12, Size = 13, X = 1.1f, Y = 2.2f, Z = 3.3f };
+    private Position _currentEldenRingPosition = new Position();
 
     public EldenRingPositionViewModel? EldenRingPositionViewModel
     {

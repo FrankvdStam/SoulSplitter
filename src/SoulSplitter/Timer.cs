@@ -139,7 +139,7 @@ namespace SoulSplitter
                 //if the timer is not running and the selected split is position, populate the UI with
                 //a position read from the game. This can't be read from _game since that will be the first split's game
                 //instead fetch it from the selected split's game.
-                if (!_isRunning && _mainViewModel.SelectedSplitType == SplitType.Position)
+                if (!_isRunning && _mainViewModel.SelectedSplitType is SplitType.Position or SplitType.EldenRingPosition)
                 {
                     //_game is bound to the first split or the current active split.
                     var game = GetGame(_mainViewModel.SelectedGame!.Value);

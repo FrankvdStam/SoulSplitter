@@ -4,7 +4,7 @@ use iced_x86::code_asm::CodeAssembler;
 use log::info;
 use crate::util::Memory;
 
-pub struct Assembler{}
+pub struct Assembler;
 
 impl Assembler
 {
