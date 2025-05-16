@@ -53,8 +53,8 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
-            ValidatePatterns();
-            return;
+            //ValidatePatterns();
+            //return;
 
 
             //SoulMemoryRs.Launch();
@@ -66,7 +66,7 @@ namespace cli
 
 
 
-            GameLoop<DarkSouls3>(
+            GameLoop<Bloodborne>(
                 (d) =>
                 {
                     //d.GetProcess().AllocNearMainModule(2_000_000_000, 799);

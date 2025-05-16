@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Threading;
 using SoulMemory.Native;
 using SoulMemory.Abstractions.Games;
+using SoulMemory.soulmods;
 
 namespace SoulMemory.Games.Bloodborne
 {
@@ -70,11 +71,24 @@ namespace SoulMemory.Games.Bloodborne
                     return Result.Err(new RefreshError(RefreshErrorReason.EbootReadFailed, "Failed to read eboot memory region"));
                 }
 
+                //process is running, but the rom is not yet loaded, causing the memory region to be quite big
+                if (getRegionResult.Unwrap().RegionSize > 500 * 1000 * 1000)
+                {
+                    return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning));
+                }
+
                 var treeBuilder = GetTreeBuilder();
                 var result = MemoryScanner.TryResolvePointers(treeBuilder, _process, getRegionResult.Unwrap());
                 if (result.IsErr)
                 {
                     return result;
+                }
+
+                var soulmodsResult = Soulmods.Inject(_process!);
+                if (soulmodsResult.IsErr)
+                {
+                    _gameDataMan.Clear();
+                    return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, "Failed to launch soulmods"));
                 }
 
                 return Result.Ok();

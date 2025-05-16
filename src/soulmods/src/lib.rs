@@ -75,6 +75,7 @@ fn dispatched_dll_main()
         "darksoulsiii.exe" => init_darksouls3(),
         "eldenring.exe" => init_eldenring(),
         "sekiro.exe" => init_sekiro(),
+        "shadps4.exe" => init_bloodborne(),
         _ => info!("no supported process found")
     }
 }
