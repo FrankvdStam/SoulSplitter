@@ -96,6 +96,8 @@ Thank you strimmers, for risking your PB's, to test my broken code!
 - [Nyk_style](https://www.twitch.tv/nyk_style)  
 - [Maarionete](https://www.twitch.tv/maarionete)  
 - [Moochyy](https://www.twitch.tv/moochyy_)  
+- [KEMIST](https://www.twitch.tv/kemist_c10h15n)  
+- [Ramonchi_5](https://www.twitch.tv/ramonchi_5)  
   
 Thank you all!
 
@@ -107,6 +109,7 @@ Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions
 
 - Thanks Pav, for the Elden Ring cheat engine table
 - Thanks [Johndisandonato](https://github.com/veeenu), pretty much always willing to exhange some ideas about tech stuff
+- Thanks [vswarte](https://github.com/vswarte), soundboarding ideas, borrowing a lot of technical knowledge from these games
 - [Yapped](https://github.com/vawser/Yapped-Rune-Bear) helped speed up mapping event flags to bosses and graces
 - Uses the excellent [material design](https://materialdesigninxaml.net/) library by James Willock
 - Thanks [Nordgaren](https://github.com/Nordgaren/)
