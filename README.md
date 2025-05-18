@@ -88,6 +88,28 @@ If you find a bug you can let me know via the above methods, or you can [submit 
 
 # Credits
 
+This repository is based on the collective work an efforts of the [soulsmodding](http://soulsmodding.wikidot.com/) community. Without the resources, intelligence and tools provided by this community, this repository would not exist.
+
+- Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions to the speedrunning community
+    - writing the initial MIGT code injection for Elden Ring
+    - writing the original Sekiro plugin, which features have been included
+    - OG ds3 plugin, together with [Jiiks](https://github.com/Jiiks/)
+- Thanks Pav, for the Elden Ring cheat engine table
+- Thanks [Johndisandonato](https://github.com/veeenu), pretty much always willing to exhange some ideas about tech stuff
+- Thanks [vswarte](https://github.com/vswarte), soundboarding ideas, borrowing a lot of technical knowledge from these games
+- [Yapped](https://github.com/vawser/Yapped-Rune-Bear) helped speed up mapping event flags to bosses and graces
+- Uses the excellent [material design](https://materialdesigninxaml.net/) library by James Willock
+- Thanks [Nordgaren](https://github.com/Nordgaren/) for soundboarding
+- Thanks thefifthmatt for all the hard work on figuring out how the [ER map system](http://soulsmodding.wikidot.com/reference:elden-ring-map-list) works, insane effort!
+- Thanks [CapitaineToinon](https://github.com/CapitaineToinon/LiveSplit.DarkSoulsIGT) for letting me use his DS1 timer code + inventory index reset code!
+- Thanks [Blade](https://github.com/bladecoding/DarkSouls3RemoveIntroScreens) for the nologo code!
+- Thanks [Uberhalit](https://github.com/uberhalit) for the [Sekiro savefile mod](https://github.com/uberhalit/SimpleSekiroSavegameHelper) from his tool
+- Thanks [ViRazY](https://github.com/Vinjul1704) for the standalone CLI timer and many other contributions  
+- Thanks [Ducksual](https://www.twitch.tv/ducksual) for helping with DS1 dropmod
+- Thanks [AinTunez](https://github.com/AinTunez), for DarkScript3, deciphering emevd event scripts: https://github.com/AinTunez/DarkScript3 - this is the basis for building the EMEVD logger  
+- Thanks to many different people (including [vawser](https://github.com/vawser)) from the [soulsmodding](http://soulsmodding.wikidot.com/) community for DSMapStudio and all its variations, including [DSMapStudio](https://github.com/soulsmods/DSMapStudio) and [Smithbox](https://github.com/vawser/Smithbox)  
+- Thanks to many different people (including [JKAnderson](https://github.com/JKAnderson/)) from the [soulsmodding](http://soulsmodding.wikidot.com/) community for SoulsFormats and all its variations, including [SoulsFormatsNEXT](https://github.com/soulsmods/SoulsFormatsNEXT)  
+
 Thank you strimmers, for risking your PB's, to test my broken code!  
 - [Catalystz](https://www.twitch.tv/catalystz)  
 - [Johndisandonato](https://www.twitch.tv/johndisandonato)  
@@ -98,31 +120,6 @@ Thank you strimmers, for risking your PB's, to test my broken code!
 - [Moochyy](https://www.twitch.tv/moochyy_)  
 - [KEMIST](https://www.twitch.tv/kemist_c10h15n)  
 - [Ramonchi_5](https://www.twitch.tv/ramonchi_5)  
-  
-Thank you all!
-
-Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions to the speedrunning community:  
-- writing the initial MIGT code injection for Elden Ring
-- writing the original Sekiro plugin, which features have been included
-- OG ds3 plugin, together with [Jiiks](https://github.com/Jiiks/)
-<br/>
-
-- Thanks Pav, for the Elden Ring cheat engine table
-- Thanks [Johndisandonato](https://github.com/veeenu), pretty much always willing to exhange some ideas about tech stuff
-- Thanks [vswarte](https://github.com/vswarte), soundboarding ideas, borrowing a lot of technical knowledge from these games
-- [Yapped](https://github.com/vawser/Yapped-Rune-Bear) helped speed up mapping event flags to bosses and graces
-- Uses the excellent [material design](https://materialdesigninxaml.net/) library by James Willock
-- Thanks [Nordgaren](https://github.com/Nordgaren/)
-- Thanks thefifthmatt for all the hard work on figuring out how the [ER map system](http://soulsmodding.wikidot.com/reference:elden-ring-map-list) works, insane effort!
-- Thanks [CapitaineToinon](https://github.com/CapitaineToinon/LiveSplit.DarkSoulsIGT) for letting me use his DS1 timer code + inventory index reset code!
-- Thanks [Blade](https://github.com/bladecoding/DarkSouls3RemoveIntroScreens) for the nologo code!
-- Thanks [Uberhalit](https://github.com/uberhalit) for the [Sekiro savefile mod](https://github.com/uberhalit/SimpleSekiroSavegameHelper) from his tool
-- Thanks [ViRazY](https://github.com/Vinjul1704) for the standalone CLI timer and many other contributions  
-- Thanks [Ducksual](https://www.twitch.tv/ducksual) for helping with DS1 dropmod
-- Thanks [AinTunez](https://github.com/AinTunez), for DarkScript3, deciphering emevd event scripts: https://github.com/AinTunez/DarkScript3 - this is the basis for building the EMEVD logger  
-- Thanks to many different people (including [vawser](https://github.com/vawser)) from the [soulsmodding](http://soulsmodding.wikidot.com/) community for DSMapStudio and all its variations, including [DSMapStudio](https://github.com/soulsmods/DSMapStudio) and [Smithbox](https://github.com/vawser/Smithbox)  
-- Thanks to many different people (including [JKAnderson](https://github.com/JKAnderson/)) from the [soulsmodding](http://soulsmodding.wikidot.com/) community for SoulsFormats and all its variations, including [SoulsFormatsNEXT](https://github.com/soulsmods/SoulsFormatsNEXT)  
-- And thanks to the [soulsmodding](http://soulsmodding.wikidot.com/) community at large, I'm standing on the shoulders of these giants
 
 I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
 

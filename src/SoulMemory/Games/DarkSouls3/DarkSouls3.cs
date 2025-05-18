@@ -114,7 +114,6 @@ public class DarkSouls3 : IDarkSouls3
             {
                 return scanResult;
             }
-
             
             var injectResult = soulmods.Soulmods.Inject(_process!);
             if (injectResult.IsErr)

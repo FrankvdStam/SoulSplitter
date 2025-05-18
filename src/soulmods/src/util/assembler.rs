@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+
+
 use std::ptr;
 use iced_x86::{BlockEncoder, BlockEncoderOptions, Decoder, DecoderOptions, Formatter, Instruction, InstructionBlock, IntelFormatter};
 use iced_x86::code_asm::CodeAssembler;
@@ -22,6 +24,7 @@ use crate::util::Memory;
 
 pub struct Assembler;
 
+#[allow(dead_code)]
 impl Assembler
 {
     ///Copy and relocate a function with a single caller to avoid arxan anti-tamper from removing code hooks

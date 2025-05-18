@@ -22,4 +22,6 @@ mod assembler;
 pub use version::*;
 pub use globals::*;
 pub use memory::*;
+
+#[allow(unused_imports)]
 pub use assembler::*;
