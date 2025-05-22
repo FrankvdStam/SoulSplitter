@@ -15,12 +15,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using SoulMemory.Abstractions.Games;
 using SoulMemory.Memory;
-using SoulMemory.Native;
 
 namespace SoulMemory.Games.Sekiro;
 

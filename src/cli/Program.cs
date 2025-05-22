@@ -53,6 +53,9 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+            var igt = 3599999000;
+            var timeSpan = TimeSpan.FromMilliseconds(igt);
+
             //ValidatePatterns();
             //return;
 
@@ -66,7 +69,7 @@ namespace cli
 
 
 
-            GameLoop<Bloodborne>(
+            GameLoop<DarkSouls1>(
                 (d) =>
                 {
                     //d.GetProcess().AllocNearMainModule(2_000_000_000, 799);
