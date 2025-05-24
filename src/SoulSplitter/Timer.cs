@@ -18,6 +18,7 @@ using System;
 using System.Diagnostics;
 using SoulMemory.Abstractions;
 using System.Linq;
+using System.Windows.Controls.Primitives;
 using SoulMemory;
 using SoulMemory.Abstractions.Games;
 using SoulMemory.Enums;
@@ -27,6 +28,7 @@ using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 using SoulSplitter.Utils;
 using IServiceProvider = SoulSplitter.DependencyInjection.IServiceProvider;
+using SoulMemory.Games.DarkSouls1;
 
 namespace SoulSplitter
 {
@@ -40,10 +42,12 @@ namespace SoulSplitter
             _game = serviceProvider.GetService<ISekiro>();
             _mainViewModel = mainViewModel;
             mainViewModel.Splits.CollectionChanged += (o, e) => SplitsChanged();
+            _previousDropmodType = _mainViewModel.DropModType;
         }
 
         private readonly IServiceProvider _serviceProvider;
         private readonly MainViewModel _mainViewModel;
+        private DropMod? _dropMod;
 
         private int _currentSplitIndex = 0;
         private Game? _previousGame;
@@ -54,6 +58,10 @@ namespace SoulSplitter
         private int _multiGameIgt;
         private bool _previousAreCreditsRolling = false;
         private int _currentSaveSlot;
+        private bool _isWarpRequested;
+        private bool _isWarping;
+        private bool _warpHasPlayerBeenUnloaded;
+        private DropModType _previousDropmodType;
 
         public event EventHandler? OnAutoStart;
         public event EventHandler? OnRequestSplit;
@@ -104,6 +112,9 @@ namespace SoulSplitter
                 _currentSaveSlot = -1;
                 _previousGame = null;
                 _previousAreCreditsRolling = false;
+                _isWarpRequested = false;
+                _isWarping = false;
+                _warpHasPlayerBeenUnloaded = false;
                 OnUpdateTime?.Invoke(this, 0);
             }
         }
@@ -131,6 +142,7 @@ namespace SoulSplitter
             var result = _game.TryRefresh();
             if (result.IsErr)
             {
+                _dropMod = null;
                 return result;
             }
 
@@ -165,10 +177,12 @@ namespace SoulSplitter
             });
 
             UpdateTimer();
+            TrackWarps();
             UpdateAutoSplitter();
+            UpdateDropMod();
             return Result.Ok();
         }
-        
+
         private SplitViewModel? GetCurrentSplit()
         {
             if (_currentSplitIndex < 0 || _currentSplitIndex >= _mainViewModel.Splits.Count)
@@ -178,7 +192,7 @@ namespace SoulSplitter
             }
             return _mainViewModel.Splits[_currentSplitIndex];
         }
-        
+
         private void SplitsChanged()
         {
             //trigger re-initialization of the game by setting this to null.
@@ -424,6 +438,12 @@ namespace SoulSplitter
                     throw new ArgumentException($"Unsupported timing type {timingType}. {_game} does not implement {nameof(IBlackscreenRemovable)}");
                      
                 case TimingType.OnWarp:
+                    if (_game is IDarkSouls1 darkSouls1)
+                    {
+                        return !darkSouls1.IsPlayerLoaded() && _isWarping;
+                    }
+                    throw new ArgumentException($"Unsupported timing type {timingType}. {_game} does not implement {nameof(IDarkSouls1)}");
+
                 default:
                     throw new ArgumentException();
             }
@@ -442,6 +462,95 @@ namespace SoulSplitter
                 Game.Bloodborne => _serviceProvider.GetService<IBloodborne>(),
                 _ => throw new Exception($"{game} not supported")
             };
+        }
+
+
+        
+        private void TrackWarps()
+        {
+            //Track warps - the game handles warps before the loading screen starts.
+            //That's why they have to be tracked while playing, and then resolved on the next loading screen
+
+            if (_game is IDarkSouls1 darkSouls1)
+            {
+                if (!_isWarpRequested)
+                {
+                    _isWarpRequested = darkSouls1.IsWarpRequested();
+                    return;
+                }
+
+                var isPlayerLoaded = darkSouls1.IsPlayerLoaded();
+
+                //Warp is requested - wait for loading screen
+                if (_isWarpRequested)
+                {
+                    if (!_warpHasPlayerBeenUnloaded)
+                    {
+                        if (!isPlayerLoaded)
+                        {
+                            _warpHasPlayerBeenUnloaded = true;
+                        }
+                    }
+                    else
+                    {
+                        _isWarping = true;
+                    }
+
+                    if (_isWarping && isPlayerLoaded)
+                    {
+                        _isWarping = false;
+                        _warpHasPlayerBeenUnloaded = false;
+                        _isWarpRequested = false;
+                    }
+                }
+            }
+        }
+
+        private void UpdateDropMod()
+        {
+            if (_game is IDarkSouls1 darkSouls1)
+            {
+                if (_previousDropmodType != _mainViewModel.DropModType && _mainViewModel.DropModType == DropModType.None)
+                {
+                    darkSouls1.GetProcess()!.Kill();
+                    _previousDropmodType = _mainViewModel.DropModType;
+                    return;
+                }
+
+                _previousDropmodType = _mainViewModel.DropModType;
+
+                //check init request
+                if (_mainViewModel.DropModType != DropModType.None && _dropMod == null)
+                {
+                    _dropMod = new DropMod(darkSouls1);
+                    switch (_mainViewModel.DropModType)
+                    {
+                        default:
+                            throw new InvalidOperationException($"Invalid DropModType {_mainViewModel.DropModType}");
+
+                        case DropModType.AnyPercent:
+                            _dropMod.InitBkh();
+                            break;
+
+                        case DropModType.AllAchievements:
+                            _dropMod.InitAllAchievements();
+                            break;
+                    }
+                }
+
+                //update
+                switch (_mainViewModel.DropModType)
+                {
+                    default:
+                    case DropModType.None:
+                    case DropModType.AnyPercent:
+                        break;
+
+                    case DropModType.AllAchievements:
+                        _dropMod!.UpdateAllAchievements();
+                        break;
+                }
+            }
         }
     }
 }
