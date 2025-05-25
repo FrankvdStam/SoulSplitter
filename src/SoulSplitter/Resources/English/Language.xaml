@@ -33,5 +33,7 @@
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/Sekiro/Attribute.xaml" />
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/Sekiro/Idol.xaml" />
 
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/Bloodborne/Attribute.xaml" />
+
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

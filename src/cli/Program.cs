@@ -42,6 +42,7 @@ using SoulSplitter.Livesplit;
 using SoulSplitter.Resources;
 using SoulSplitter.Ui;
 using SoulSplitter;
+using Attribute = SoulMemory.Games.Sekiro.Attribute;
 using Bonfire = SoulMemory.Games.DarkSouls1.Bonfire;
 
 #pragma warning disable CS0162
@@ -53,6 +54,7 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+            TestUi();
             var igt = 3599999000;
             var timeSpan = TimeSpan.FromMilliseconds(igt);
 
@@ -66,7 +68,20 @@ namespace cli
             //
             //TestUi();
             //return;
+            GameLoop<Bloodborne>((b) =>
+            {
+                void DoIt(Enum e)
+                {
+                    Console.WriteLine($"{e.ToString()}: {b.ReadAttribute(e)}");
+                }
 
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Vitality);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Endurance);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Strength);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Skill);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Bloodtinge);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Arcane);
+            });
 
 
             GameLoop<DarkSouls1>(

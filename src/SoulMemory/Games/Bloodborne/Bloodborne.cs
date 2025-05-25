@@ -28,6 +28,7 @@ namespace SoulMemory.Games.Bloodborne
     {
         private Process? _process;
         private readonly Pointer _gameDataMan = new();
+        private readonly Pointer _playerGameData = new();
         private readonly Pointer _sprjEventFlagMan = new();
         private readonly Pointer _worldChrMan = new();
         private readonly Pointer _position = new();
@@ -43,7 +44,8 @@ namespace SoulMemory.Games.Bloodborne
             var treeBuilder = new TreeBuilder();
             treeBuilder
                 .ScanRelative("GameDataMan", "48 8d 05 ? ? ? ? 48 8b 00 03 88 94 00 00 00", 3, 7)
-                    .AddPointer(_gameDataMan, 0);
+                    .AddPointer(_gameDataMan, 0)
+                    .AddPointer(_playerGameData, 0, 0);
 
             treeBuilder
                 .ScanRelative("SprjEventFlagMan", "4c 8d 35 ? ? ? ? 49 83 3e 00 75 ? 49 8b 3f 48 8b 07 be f8 00 00 00", 3, 7)
@@ -102,6 +104,7 @@ namespace SoulMemory.Games.Bloodborne
         private void ResetPointers()
         {
             _gameDataMan.Clear();
+            _playerGameData.Clear();
             _sprjEventFlagMan.Clear();
             _worldChrMan.Clear();
             _position.Clear();
@@ -205,6 +208,12 @@ namespace SoulMemory.Games.Bloodborne
                 _position.ReadFloat(0xbc),
                 _position.ReadFloat(0xac)
             );
+        }
+
+        public int ReadAttribute(Enum attribute)
+        {
+            var bloodborneAttribute = (Attribute)attribute;
+            return _playerGameData.ReadInt32((long)bloodborneAttribute);
         }
     }
 }

@@ -130,6 +130,7 @@ namespace SoulMemory.Enums
                     (SplitType.Manual, null),
                     (SplitType.Flag, null),
                     (SplitType.Position, null),
+                    (SplitType.Attribute, typeof(Games.Bloodborne.Attribute)),
                 ]
             }
         };

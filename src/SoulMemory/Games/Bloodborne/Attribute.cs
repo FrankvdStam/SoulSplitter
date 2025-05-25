@@ -14,13 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulMemory.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SoulMemory.Abstractions.Games;
-
-public interface IBloodborne : IGame, ILoading, IPlayerPosition, IReadAttribute
+namespace SoulMemory.Games.Bloodborne
 {
+    public enum Attribute
+    {
+        Vitality = 0x90,
+        Endurance = 0x98,
+        Strength = 0xA8,
+        Skill = 0xB0,
+        Bloodtinge = 0xB8,
+        Arcane = 0xC0,
+        Level = 0xE0,
+        Insight = 0xE4,
+
+    }
 }
