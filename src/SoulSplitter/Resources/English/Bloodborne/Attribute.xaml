@@ -9,7 +9,8 @@
     <clr:String x:Key="{x:Static enums:Attribute.Skill}">Skill</clr:String>
     <clr:String x:Key="{x:Static enums:Attribute.Bloodtinge}">Bloodtinge</clr:String>
     <clr:String x:Key="{x:Static enums:Attribute.Arcane}">Arcane</clr:String>
-    <clr:String x:Key="{x:Static enums:Attribute.Level}">Level</clr:String>
     <clr:String x:Key="{x:Static enums:Attribute.Insight}">Insight</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Level}">Level</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.BloodEchoes}">Blood Echoes</clr:String>
 
 </ResourceDictionary>

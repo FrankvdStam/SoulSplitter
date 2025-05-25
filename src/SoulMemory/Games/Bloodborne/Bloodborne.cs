@@ -45,7 +45,7 @@ namespace SoulMemory.Games.Bloodborne
             treeBuilder
                 .ScanRelative("GameDataMan", "48 8d 05 ? ? ? ? 48 8b 00 03 88 94 00 00 00", 3, 7)
                     .AddPointer(_gameDataMan, 0)
-                    .AddPointer(_playerGameData, 0, 0);
+                    .AddPointer(_playerGameData, 0, 0x8);
 
             treeBuilder
                 .ScanRelative("SprjEventFlagMan", "4c 8d 35 ? ? ? ? 49 83 3e 00 75 ? 49 8b 3f 48 8b 07 be f8 00 00 00", 3, 7)
@@ -212,8 +212,12 @@ namespace SoulMemory.Games.Bloodborne
 
         public int ReadAttribute(Enum attribute)
         {
-            var bloodborneAttribute = (Attribute)attribute;
-            return _playerGameData.ReadInt32((long)bloodborneAttribute);
+            if (!IsLoading())
+            {
+                var bloodborneAttribute = (Attribute)attribute;
+                return _playerGameData.ReadInt32((long)bloodborneAttribute);
+            }
+            return 0;
         }
     }
 }

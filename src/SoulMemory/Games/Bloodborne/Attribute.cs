@@ -18,14 +18,14 @@ namespace SoulMemory.Games.Bloodborne
 {
     public enum Attribute
     {
-        Vitality = 0x90,
-        Endurance = 0x98,
-        Strength = 0xA8,
-        Skill = 0xB0,
-        Bloodtinge = 0xB8,
-        Arcane = 0xC0,
-        Level = 0xE0,
-        Insight = 0xE4,
-
+        Vitality = 0x40,
+        Endurance = 0x48,
+        Strength = 0x58,
+        Skill = 0x60,
+        Bloodtinge = 0x68,
+        Arcane = 0x70,
+        Insight = 0x84,
+        Level = 0x90,
+        BloodEchoes = 0x94,
     }
 }

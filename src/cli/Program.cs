@@ -54,7 +54,7 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
-            TestUi();
+            //TestUi();
             var igt = 3599999000;
             var timeSpan = TimeSpan.FromMilliseconds(igt);
 
@@ -81,6 +81,8 @@ namespace cli
                 DoIt(SoulMemory.Games.Bloodborne.Attribute.Skill);
                 DoIt(SoulMemory.Games.Bloodborne.Attribute.Bloodtinge);
                 DoIt(SoulMemory.Games.Bloodborne.Attribute.Arcane);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Level);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Insight);
             });
 
 
