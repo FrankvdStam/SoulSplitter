@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-use std::{thread, time::Duration};
+use std::{ptr, thread, time::Duration};
 
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 use mem_rs::prelude::*;
@@ -49,6 +49,8 @@ pub static mut SEKIRO_FRAME_RUNNING: bool = false;
 
 pub static mut IGT_BUFFER: f32 = 0.0f32;
 
+pub static mut FADE_MAN_ADDRESS: usize = 0usize;
+
 #[allow(unused_assignments)]
 pub fn init_sekiro()
 {
@@ -60,6 +62,9 @@ pub fn init_sekiro()
         let mut process = Process::new("sekiro.exe");
         process.refresh().unwrap();
 
+        FADE_MAN_ADDRESS = process.scan_rel("fadeMan", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7, Vec::new()).unwrap().get_base_address();
+        info!("FadeMan at 0x{:x}", FADE_MAN_ADDRESS);
+        
         let igt_increment_address = process.scan_abs("igt", "f3 48 0f 2c c0 01 81 9c 00 00 00 48 8b 05 ? ? ? ? 81 b8 9c 00 00 00 18 a0 93 d6 76 ? c7 80 9c 00 00 00 18 a0 93 d6", 0, Vec::new()).unwrap().get_base_address();
         info!("igt increment at 0x{:x}", igt_increment_address);
         IGT_HOOK = Some(Hooker::new(igt_increment_address, HookType::JmpBack(increment_igt_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
@@ -101,9 +106,21 @@ pub fn init_sekiro()
 //igt fix
 unsafe extern "win64" fn increment_igt_hook_fn(registers: *mut Registers, _:usize)
 {
+    if FADE_MAN_ADDRESS != 0
+    {
+        let fade_man1 = ptr::read(FADE_MAN_ADDRESS as *const usize);
+        let fade_man2 = ptr::read((fade_man1 + 0x8) as *const usize);
+        let fading = ptr::read((fade_man2 + 0x2dc) as *const i32);
+        if fading != 0
+        {
+            (*registers).xmm0 = std::mem::transmute::<f32, u32>(0f32) as u128;
+        }
+        //info!("0x{:x} 0x{:x} 0x{:x} - {}", FADE_MAN_ADDRESS, fade_man1, fade_man2, fading);
+    }
+
     let frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
     let mut corrected_frame_delta = frame_delta;
-
+    
     //Rather than casting, like the game does, make the behavior explicit by flooring
     let floored_frame_delta = frame_delta.floor();
     let remainder = frame_delta - floored_frame_delta;

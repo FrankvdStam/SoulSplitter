@@ -41,6 +41,7 @@ unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
 {
     let frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
     let mut corrected_frame_delta = frame_delta;
+    corrected_frame_delta = corrected_frame_delta * 0.96f32; //scale to igt
 
     //Rather than casting, like the game does, make the behavior explicit by flooring
     let floored_frame_delta = frame_delta.floor();

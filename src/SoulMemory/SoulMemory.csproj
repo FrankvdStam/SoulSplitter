@@ -39,14 +39,14 @@
       <Content Include="soulmods\x64\soulmods_x64.dll">
           <PackagePath>contentFiles\any\any</PackagePath>
           <BuildAction>None</BuildAction>
-          <CopyToOutputDirectory>IfDifferent</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
           <PackageCopyToOutput>True</PackageCopyToOutput>
           <TargetPath>soulmods_x64.dll</TargetPath>
       </Content>
       <Content Include="soulmods\x86\soulmods_x86.dll">
           <PackagePath>contentFiles\any\any</PackagePath>
           <BuildAction>None</BuildAction>
-          <CopyToOutputDirectory>IfDifferent</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
           <PackageCopyToOutput>True</PackageCopyToOutput>
           <TargetPath>soulmods_x86.dll</TargetPath>
       </Content>

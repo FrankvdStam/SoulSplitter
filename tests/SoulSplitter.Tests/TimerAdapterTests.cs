@@ -24,6 +24,7 @@ using LiveSplit.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SoulSplitter.Abstractions;
+using SoulSplitter.Timer;
 using LayoutSettings = LiveSplit.Options.LayoutSettings;
 
 namespace SoulSplitter.Tests

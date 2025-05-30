@@ -54,6 +54,12 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
+
+            GameLoop<Sekiro>((s) =>
+            {
+                s.ReadInGameTimeMilliseconds();
+            });
+
             //TestUi();
             var igt = 3599999000;
             var timeSpan = TimeSpan.FromMilliseconds(igt);

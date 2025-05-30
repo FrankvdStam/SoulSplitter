@@ -56,19 +56,19 @@
 
     <ItemGroup>
         <ContentWithTargetPath Include="soulmemory-rs\x64\launcher.exe">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <TargetPath>launcher_x64.exe</TargetPath>
         </ContentWithTargetPath>
         <ContentWithTargetPath Include="soulmemory-rs\x86\launcher.exe">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <TargetPath>launcher_x86.exe</TargetPath>
         </ContentWithTargetPath>
         <ContentWithTargetPath Include="soulmemory-rs\x64\soulmemory_rs.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <TargetPath>soulmemory_rs_x64.dll</TargetPath>
         </ContentWithTargetPath>
         <ContentWithTargetPath Include="soulmemory-rs\x86\soulmemory_rs.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <TargetPath>soulmemory_rs_x86.dll</TargetPath>
         </ContentWithTargetPath>
         <EmbeddedResource Include="soulsplitter.ico" />

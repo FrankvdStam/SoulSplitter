@@ -31,6 +31,7 @@ using SoulSplitter.Migrations;
 using SoulSplitter.Abstractions;
 using SoulSplitter.DependencyInjection;
 using SoulSplitter.Resources;
+using SoulSplitter.Timer;
 using SoulSplitter.Ui;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
@@ -70,7 +71,7 @@ public class LivesplitAdapter : IComponent
             mainViewModel.SelectedGame = LivesplitStateToGameEnum(_liveSplitState);
             MainWindow = new MainWindow(mainViewModel);
             System.Windows.Application.Current!.MainWindow = MainWindow;
-            var timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_serviceProvider, MainWindow.MainViewModel));
+            var timerAdapter = new TimerAdapter(_liveSplitState, new Timer.Timer(_serviceProvider, MainWindow.MainViewModel));
             _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
         }
         else
@@ -187,7 +188,7 @@ public class LivesplitAdapter : IComponent
         mainViewModel.SelectedGame = LivesplitStateToGameEnum(_liveSplitState);
         MainWindow = new MainWindow(mainViewModel);
         System.Windows.Application.Current!.MainWindow = MainWindow;
-        var timerAdapter = new TimerAdapter(_liveSplitState, new Timer(_serviceProvider, MainWindow.MainViewModel));
+        var timerAdapter = new TimerAdapter(_liveSplitState, new Timer.Timer(_serviceProvider, MainWindow.MainViewModel));
         _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
 
         UpdateLivesplitSplits();

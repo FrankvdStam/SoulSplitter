@@ -15,10 +15,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Diagnostics;
 using SoulMemory.Abstractions;
 using System.Linq;
-using System.Windows.Controls.Primitives;
 using SoulMemory;
 using SoulMemory.Abstractions.Games;
 using SoulMemory.Enums;
@@ -30,7 +28,7 @@ using SoulSplitter.Utils;
 using IServiceProvider = SoulSplitter.DependencyInjection.IServiceProvider;
 using SoulMemory.Games.DarkSouls1;
 
-namespace SoulSplitter
+namespace SoulSplitter.Timer
 {
     public delegate void UpdateTimeEventHandler(object? sender, int milliseconds);
 
@@ -259,6 +257,7 @@ namespace SoulSplitter
             if (_isRunning)
             {
                 if (
+                    _game is not ISekiro &&
                     _game is IBlackscreenRemovable blackscreenRemovable &&
                     blackscreenRemovable.IsBlackscreenActive() &&
                     _currentIgt != 0 &&                                             //Igt timer has starter
@@ -277,10 +276,10 @@ namespace SoulSplitter
                     if (
                         //Detect going from a savefile to the main menu
                         //Only do this once to prevent save file reading race conditions
-                        (_currentIgt == 0 && _previousIgt != 0) ||
-                        
+                        _currentIgt == 0 && _previousIgt != 0 ||
+
                         //When the credits are active, show savefile time as well
-                        (areCreditsRolling && !_previousAreCreditsRolling)
+                        areCreditsRolling && !_previousAreCreditsRolling
                         )
                     {
                         var saveFileTime = savefileTime.GetSaveFileGameTimeMilliseconds(savefileTime.GetSaveFileLocation()!, _currentSaveSlot);
@@ -312,9 +311,9 @@ namespace SoulSplitter
 
             var split = GetCurrentSplit();
             if (
-                split == null || 
+                split == null ||
                 split.Split == null ||
-                split.IsDisabled || 
+                split.IsDisabled ||
                 split.SplitType == SplitType.Manual
                 )
             {
@@ -436,7 +435,7 @@ namespace SoulSplitter
                         return blackscreenRemovable.IsBlackscreenActive();
                     }
                     throw new ArgumentException($"Unsupported timing type {timingType}. {_game} does not implement {nameof(IBlackscreenRemovable)}");
-                     
+
                 case TimingType.OnWarp:
                     if (_game is IDarkSouls1 darkSouls1)
                     {
@@ -465,7 +464,7 @@ namespace SoulSplitter
         }
 
 
-        
+
         private void TrackWarps()
         {
             //Track warps - the game handles warps before the loading screen starts.

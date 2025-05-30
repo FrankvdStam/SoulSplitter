@@ -19,7 +19,7 @@ using SoulMemory;
 using SoulSplitter.Abstractions;
 using System;
 
-namespace SoulSplitter;
+namespace SoulSplitter.Timer;
 
 /// <summary>
 /// Adapter to connect the soulmemory timer with livesplit's interface
@@ -32,10 +32,10 @@ public class TimerAdapter : ITimerAdapter
 
         TimerModel = new TimerModel();
         TimerModel.CurrentState = _liveSplitState;
-        
+
         _liveSplitState.OnStart += OnStart;
         _liveSplitState.OnReset += OnReset;
-        
+
 
         _timer = timer;
         _timer.OnAutoStart += OnStart;
