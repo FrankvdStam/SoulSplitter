@@ -74,6 +74,7 @@ fn dispatched_dll_main()
         "darksoulsii.exe" => init_scholar(),
         "darksoulsiii.exe" => init_darksouls3(),
         "eldenring.exe" => init_eldenring(),
+        "nightreign.exe" => init_nightreign(),
         "sekiro.exe" => init_sekiro(),
         _ => info!("no supported process found")
     }

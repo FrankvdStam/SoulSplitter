@@ -18,4 +18,5 @@ pub(crate) mod armoredcore6;
 pub(crate) mod darksouls2scholarofthefirstsin;
 pub(crate) mod darksouls3;
 pub(crate) mod eldenring;
+pub(crate) mod nightreign;
 pub(crate) mod sekiro;
