@@ -36,6 +36,7 @@ using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
 using LiveSplit.Model;
 using SoulMemory.Games.DarkSouls3;
+using SoulMemory.Games.Nightreign;
 using SoulMemory.Native;
 using SoulSplitter.DependencyInjection;
 using SoulSplitter.Livesplit;
@@ -55,10 +56,14 @@ namespace cli
         private static void Main(string[] args)
         {
 
-            GameLoop<Sekiro>((s) =>
+            GameLoop<Nightreign>((n) =>
             {
-                s.ReadInGameTimeMilliseconds();
+                var time = TimeSpan.FromMilliseconds(n.ReadInGameTimeMilliseconds());
+                Console.WriteLine(time);
             });
+
+
+
 
             //TestUi();
             var igt = 3599999000;

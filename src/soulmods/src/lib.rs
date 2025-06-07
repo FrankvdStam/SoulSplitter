@@ -76,6 +76,7 @@ fn dispatched_dll_main()
         "eldenring.exe" => init_eldenring(),
         "sekiro.exe" => init_sekiro(),
         "shadps4.exe" => init_bloodborne(),
+        "nightreign.exe" => init_nightreign(),
         _ => info!("no supported process found")
     }
 }

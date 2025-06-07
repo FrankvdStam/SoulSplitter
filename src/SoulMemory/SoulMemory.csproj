@@ -75,21 +75,21 @@
   <Target Name="CargoDebug">
       <Message Text="Building soulmods x64, debug mode" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target x86_64-pc-windows-msvc" />
-      <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\debug\soulmods.dll" DestinationFiles="soulmods\x64\soulmods_x64.dll" Retries="1" ContinueOnError="true"/>
+      <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\debug\soulmods.dll" DestinationFiles="soulmods\x64\soulmods_x64.dll" Retries="1" ContinueOnError="true" />
 
       <Message Text="Building soulmods x86, debug mode" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target=i686-pc-windows-msvc" />
-      <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\debug\soulmods.dll" DestinationFiles="soulmods\x86\soulmods_x86.dll" Retries="1" ContinueOnError="true"/>
+      <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\debug\soulmods.dll" DestinationFiles="soulmods\x86\soulmods_x86.dll" Retries="1" ContinueOnError="true" />
   </Target>
 
   <Target Name="CargoRelease">
       <Message Text="Building soulmods x64, release mode" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target x86_64-pc-windows-msvc --release" />
-      <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x64\soulmods_x64.dll" Retries="1" ContinueOnError="true"/>
+      <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x64\soulmods_x64.dll" Retries="1" ContinueOnError="true" />
 
       <Message Text="Building soulmods x86, release mode" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target=i686-pc-windows-msvc  --release" />
-      <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x86\soulmods_x86.dll" Retries="1" ContinueOnError="true"/>
+      <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x86\soulmods_x86.dll" Retries="1" ContinueOnError="true" />
   </Target>
 
 </Project>

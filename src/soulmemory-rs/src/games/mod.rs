@@ -28,7 +28,7 @@ pub mod dx_version;
 mod game;
 mod game_ext;
 mod bloodborne;
-
+mod Nighreign;
 
 #[cfg(target_arch = "x86")]
 mod ilhook
