@@ -139,6 +139,13 @@ public partial class MainViewModel
     }
     private bool _overwriteIgtOnStart;
 
+    public bool SekiroDisableCutscenes
+    {
+        get => _sekiroDisableCutscenes;
+        set => SetField(ref _sekiroDisableCutscenes, value);
+    }
+    private bool _sekiroDisableCutscenes;
+
     public DropModType DropModType
     {
         get => _dropModType;

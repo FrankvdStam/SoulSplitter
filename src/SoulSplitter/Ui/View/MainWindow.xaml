@@ -512,6 +512,16 @@
                         IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.AllAchievements}}"
                         ToolTip="Dynamically changes droprates based on what you still need in the run"
                         GroupName="DropModRadioButtonGroup">All achievements</RadioButton>
+
+                    <Separator/>
+
+                    <Label Content="Illegal mods"/>
+
+                    <CheckBox
+                        Margin="5"
+                        Content="Disable cutscenes in Sekiro"
+                        IsChecked="{Binding SekiroDisableCutscenes}"/>
+
                 </StackPanel>
             </TabItem>
         </TabControl>

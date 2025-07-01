@@ -459,6 +459,7 @@ namespace SoulSplitter.Timer
                 Game.EldenRing => _serviceProvider.GetService<IEldenRing>(),
                 Game.ArmoredCore6 => _serviceProvider.GetService<IArmoredCore6>(),
                 Game.Bloodborne => _serviceProvider.GetService<IBloodborne>(),
+                Game.Nightreign => _serviceProvider.GetService<INightreign>(),
                 _ => throw new Exception($"{game} not supported")
             };
         }
@@ -502,6 +503,28 @@ namespace SoulSplitter.Timer
                         _isWarpRequested = false;
                     }
                 }
+            }
+        }
+
+        private bool _previousSekiroDisableCutscenes = false;
+
+        private void UpdateSekiroDisableCutscenes()
+        {
+            //detect change
+            if (_game is ISekiro sekiro)
+            {
+                if (_mainViewModel.SekiroDisableCutscenes != _previousSekiroDisableCutscenes)
+                {
+                    if (_mainViewModel.SekiroDisableCutscenes)
+                    {
+                        //sekiro.
+                    }
+                    else
+                    {
+                        sekiro.GetProcess()?.Kill();
+                    }
+                }
+            _previousSekiroDisableCutscenes = _mainViewModel.SekiroDisableCutscenes;
             }
         }
 

@@ -24,7 +24,7 @@ using SoulMemory.Games.EldenRing;
 
 #pragma warning disable CS0162
 
-namespace CliTimer;
+namespace SoulSplitter.CliTimer;
 
 internal class Program
 {

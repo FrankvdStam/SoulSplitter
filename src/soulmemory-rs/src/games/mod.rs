@@ -15,20 +15,20 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 pub mod traits;
-mod dark_souls_prepare_to_die_edition;
-mod dark_souls_remastered;
-mod dark_souls_2_vanilla;
-mod dark_souls_2_scholar_of_the_first_sin;
+pub mod dark_souls_prepare_to_die_edition;
+pub mod dark_souls_remastered;
+pub mod dark_souls_2_vanilla;
+pub mod dark_souls_2_scholar_of_the_first_sin;
 pub mod darksouls3;
 pub mod sekiro;
-mod elden_ring;
-mod armored_core_6;
-mod mock_game;
+pub mod elden_ring;
+pub mod armored_core_6;
+pub mod mock_game;
 pub mod dx_version;
-mod game;
-mod game_ext;
-mod bloodborne;
-mod Nighreign;
+pub mod game;
+pub mod game_ext;
+pub mod bloodborne;
+pub mod nightreign;
 
 #[cfg(target_arch = "x86")]
 mod ilhook

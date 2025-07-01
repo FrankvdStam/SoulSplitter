@@ -14,12 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulMemory.Abstractions.Games;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 
-public interface ISekiro : IGame, IBlackscreenRemovable, IPlayerPosition, IReadAttribute, ILoading
+namespace SoulSplitter.Build
 {
-    bool IsPlayerLoaded();
-    void WriteEventFlag(uint eventFlagId, bool eventFlagValue);
-    void DisableCutscenes();
+    public static class Utils
+    {
+        public static void Debug()
+        {
+            //taskkill /f /t /im msbuild.exe
+            //taskkill /pid 15520 /F
+            if (!Debugger.IsAttached)
+            {
+                Debugger.Launch();
+            }
+        }
+    }
 }
-

@@ -39,6 +39,7 @@ public class Sekiro : ISekiro
     private readonly Pointer _cSTutorialDialogLoadBuffer = new();
     private readonly Pointer _noLogo = new();
     private readonly Pointer _playerGameData = new();
+    private readonly Pointer _disableCutscenes = new();
     
     #region Refresh/init/reset ================================================================================================================================
 
@@ -153,7 +154,9 @@ public class Sekiro : ISekiro
                 _igt.Clear();
                 return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, "Soulmods injection failed"));
             }
-            
+
+            _disableCutscenes.Initialize(_process!, true, soulmodsInjectResult.Unwrap()["SEKIRO_DISABLE_CUTSCENES_ENABLED"]);
+
             return Result.Ok();
         }
         catch (Exception e)
@@ -178,6 +181,7 @@ public class Sekiro : ISekiro
         _cSMenuTutorialDialogLoadBuffer.Clear();
         _noLogo.Clear();
         _playerGameData.Clear();
+        _disableCutscenes.Clear();
     }
 
     #endregion
@@ -219,7 +223,12 @@ public class Sekiro : ISekiro
         //0x2dc best candidate so far.
         return _fadeSystem.ReadInt32(0x2dc) != 0;
     }
-    
+
+    public void DisableCutscenes()
+    {
+        _disableCutscenes.WriteBool(0, true);
+    }
+
     #region event flags ================================================================================================================
 
     public void WriteEventFlag(uint eventFlagId, bool eventFlagValue)

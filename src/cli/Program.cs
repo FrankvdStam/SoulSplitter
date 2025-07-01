@@ -48,15 +48,16 @@ using Bonfire = SoulMemory.Games.DarkSouls1.Bonfire;
 
 #pragma warning disable CS0162
 
-namespace cli
+namespace SoulSplitter.cli
 {
     internal class Program
     {
         [STAThread]
         private static void Main(string[] args)
         {
+            //SoulMemoryRs.Launch();
 
-            GameLoop<Nightreign>((n) =>
+            GameLoop<Sekiro>((n) =>
             {
                 var time = TimeSpan.FromMilliseconds(n.ReadInGameTimeMilliseconds());
                 Console.WriteLine(time);

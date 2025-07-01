@@ -47,7 +47,7 @@ impl Game for Sekiro
 
                 let set_event_flag_address = self.process.scan_abs("set_event_flag", "40 55 41 54 41 55 41 56 48 83 ec 58 80 b9 28 02 00 00 00 45 0f b6 e1 45 0f b6 e8 44 8b f2 48 8b e9", 0, Vec::new())?.get_base_address();
                 let get_event_flag_address = self.process.scan_abs("get_event_flag", "40 53 48 83 ec 20 80 b9 28 02 00 00 00 8b da", 0, Vec::new())?.get_base_address();
-                let emevd_events_address = self.process.scan_abs("emevd_events", "40 53 56 57 48 81 ec 40 01 00 00 48 c7 44 24 20 fe ff ff ff 0f 29 b4 24 30 01 00 00", 0, Vec::new())?.get_base_address();
+                let emevd_events_address = self.process.scan_abs("emevd_events", "24 20 fe ff ff ff 0f 29 b4 24 30 01 00 00", 14, Vec::new())?.get_base_address();
                 self.fn_get_event_flag = mem::transmute(get_event_flag_address);
 
                 info!("event_flag_man base address: 0x{:x}", self.event_flag_man.get_base_address());

@@ -15,7 +15,7 @@ pub fn init_nightreign()
         let mut process = Process::new("nightreign.exe");
         process.refresh().unwrap();
 
-        let fn_increment_igt_address = process.scan_abs("increment igt", "f3 0f 59 05 48 fd 01 03 48 8b 0d ? ? ? ? f3 48 0f 2c c0", 0, Vec::new()).unwrap().get_base_address();
+        let fn_increment_igt_address = process.scan_abs("increment igt", "f3 0f 59 05 48 fd 01 03 48 8b 0d ? ? ? ? f3 48 0f 2c c0", 8, Vec::new()).unwrap().get_base_address();
         info!("increment IGT at 0x{:x}", fn_increment_igt_address);
         
         IGT_HOOK = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());

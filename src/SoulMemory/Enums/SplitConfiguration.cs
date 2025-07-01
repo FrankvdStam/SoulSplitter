@@ -59,6 +59,7 @@ namespace SoulMemory.Enums
             { Game.EldenRing,    new List<TimingType> { TimingType.Immediate, TimingType.OnLoading, TimingType.OnBlackscreen } },
             { Game.ArmoredCore6, new List<TimingType> { TimingType.Immediate, TimingType.OnLoading } },
             { Game.Bloodborne,   new List<TimingType> { TimingType.Immediate, TimingType.OnLoading } },
+            { Game.Nightreign,   new List<TimingType> { TimingType.Immediate } },
         };
 
         /// <summary>
@@ -132,7 +133,12 @@ namespace SoulMemory.Enums
                     (SplitType.Position, null),
                     (SplitType.Attribute, typeof(Games.Bloodborne.Attribute)),
                 ]
-            }
+            },
+            {
+            Game.Nightreign, [
+                (SplitType.Manual, null)
+            ]
+        }
         };
     }
 }

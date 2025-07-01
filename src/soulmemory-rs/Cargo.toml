@@ -1,5 +1,6 @@
 [package]
 name = "soulmemory-rs"
+version = "2.0.30"
 edition = "2021"
 authors = ["Frank van der Stam"]
 description = "Injectable UI with event flag loging"

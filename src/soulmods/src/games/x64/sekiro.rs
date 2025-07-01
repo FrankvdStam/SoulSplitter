@@ -28,7 +28,8 @@ static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 static mut FRAME_ADVANCE_HOOK: Option<HookPoint> = None;
-
+static mut EMEVD_EVENT_HOOK: Option<HookPoint> = None;
+static mut HANDLE_FADE_HOOK: Option<HookPoint> = None;
 
 #[no_mangle]
 #[used]
@@ -45,6 +46,7 @@ pub static mut SEKIRO_FRAME_ADVANCE_ENABLED: bool = false;
 #[no_mangle]
 #[used]
 pub static mut SEKIRO_FRAME_RUNNING: bool = false;
+
 
 
 pub static mut IGT_BUFFER: f32 = 0.0f32;
@@ -99,9 +101,32 @@ pub fn init_sekiro()
 
         // Enable frame advance patch
         FRAME_ADVANCE_HOOK = Some(Hooker::new(fn_frame_advance_address, HookType::JmpBack(frame_advance), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+        let emevd_events_address = process.scan_abs("emevd_events", "24 20 fe ff ff ff 0f 29 b4 24 30 01 00 00", 0, Vec::new()).unwrap().get_base_address() - 14;
+        info!("emevd at 0x{:x}", emevd_events_address);
+        EMEVD_EVENT_HOOK = Some(Hooker::new(emevd_events_address, HookType::JmpBack(emevd_event_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+
+
+        HANDLE_FADE_HOOK = Some(Hooker::new(0x140f26ed0, HookType::JmpBack(handle_fade_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
     }
 }
 
+unsafe extern "win64" fn handle_fade_hook_fn(registers: *mut Registers, _:usize)
+{
+    let fade_plate_ptr = (*registers).rcx;
+    let remo_related_ptr = (*registers).rdx;
+    let fd4time_ptr = (*registers).r8;
+
+    info!("{} {} {}", fade_plate_ptr, remo_related_ptr, fd4time_ptr);
+
+    let time = ptr::read((fd4time_ptr + 0x8) as *const f32);
+    let remote_related_time = ptr::read((remo_related_ptr ) as *const f32);
+    let fade_plate_time = ptr::read((fade_plate_ptr + 0x38) as *const f32);
+
+    info!("{} {} {}", time, remote_related_time, fade_plate_time);
+}
 
 //igt fix
 unsafe extern "win64" fn increment_igt_hook_fn(registers: *mut Registers, _:usize)
@@ -222,5 +247,52 @@ unsafe extern "win64" fn frame_advance(_registers: *mut Registers, _:usize)
         while !SEKIRO_FRAME_RUNNING && SEKIRO_FRAME_ADVANCE_ENABLED {
             thread::sleep(Duration::from_micros(10));
         }
+    }
+}
+
+
+#[no_mangle]
+#[used]
+pub static mut SEKIRO_DISABLE_CUTSCENES_ENABLED: bool = true;
+
+unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:usize)
+{
+    if !SEKIRO_DISABLE_CUTSCENES_ENABLED
+    {
+        return;
+    }
+
+    let sprj_emk_event_ins_ptr = (*registers).r8;
+    let event_type_ptr = ptr::read((sprj_emk_event_ins_ptr + 0xb0) as *const u64);
+    let event_group = ptr::read(event_type_ptr as *const u64) as u32;
+    let event_type = ptr::read((event_type_ptr + 0x4) as *const u64) as u32;
+    let event_id = ptr::read((sprj_emk_event_ins_ptr + 0x28) as *const u64) as u32;
+    let arg_struct_ptr = ptr::read((sprj_emk_event_ins_ptr + 0xb8) as *const u64);
+
+    //if arg struct ptr is null, it is impossible to overwrite arguments
+    if arg_struct_ptr == 0
+    {
+        return;
+    }
+    
+    //SetMenuFade
+    if event_group == 2003 && event_type == 82 
+    {
+        info!("{} {} {}, SetMenuFade - replacing with ClearSpEffect", event_group, event_type, event_id);
+        ptr::write((event_type_ptr + 0x0) as *mut *const u64, 2004 as *const u64);
+        ptr::write((event_type_ptr + 0x4) as *mut *const u64, 21 as *const u64);
+        ptr::write((arg_struct_ptr + 0x0) as *mut *const u32, 10000 as *const u32);
+        ptr::write((arg_struct_ptr + 0x4) as *mut *const u32, 4700 as *const u32);
+    }
+
+    if event_group == 2002 && (
+        event_type == 1  || //PlayCutsceneToAll
+        event_type == 3  || //PlayCutsceneToPlayer
+        event_type == 04 || //PlayCutsceneAndWarpPlayer
+        event_type == 13    //PlayCutsceneAndWarpPlayerWithLighting200213
+    )
+    {
+        info!("{} {} {} - replacing cutscene ID", event_group, event_type, event_id);
+        ptr::write((arg_struct_ptr + 0x0) as *mut *const i32, 1 as *const i32);
     }
 }

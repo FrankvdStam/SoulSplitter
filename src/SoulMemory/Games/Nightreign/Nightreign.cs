@@ -15,15 +15,13 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
-using SoulMemory.Abstractions;
+using SoulMemory.Abstractions.Games;
 using SoulMemory.Memory;
 
 namespace SoulMemory.Games.Nightreign
 {
-    public class Nightreign : IGame
+    public class Nightreign : INightreign
     {
         private Process? _process;
         private readonly Pointer _igt = new();
@@ -38,8 +36,7 @@ namespace SoulMemory.Games.Nightreign
         {
             var treeBuilder = new TreeBuilder();
             treeBuilder
-                .ScanRelative("FD4Time",
-                    "48 8b 0d ? ? ? ? f3 48 0f 2c c0 01 81 f0 00 00 00", 3, 7)
+                .ScanRelative("GameDataMan", "48 8b 0d ? ? ? ? 4c 8b 89 ? ? ? ? 4d 85 c9", 3, 7)
                     .AddPointer(_igt, 0, 0xf0);
             return treeBuilder;
         }

@@ -1,4 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+    <UsingTask
+        TaskName="SoulSplitter.Build.ReplaceTomlVersion"
+        AssemblyFile="../SoulSplitter.Build/bin/x64/Debug/netstandard2.0/SoulSplitter.Build.dll" />
+
     <PropertyGroup>
         <TargetFramework>net481</TargetFramework>
         <PlatformTarget>x64</PlatformTarget>
@@ -74,6 +79,10 @@
         <EmbeddedResource Include="soulsplitter.ico" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Resources\English\Nightreign\" />
+    </ItemGroup>
+
     <Target Name="Copy release artifacts" AfterTargets="Build" Condition="$(SolutionName) == 'SoulSplitter' And $(Configuration) == 'Release'">
         <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\SoulSplitter.dll" />
         <Copy DestinationFolder="..\..\Components" SourceFiles="$(OutputPath)\SoulMemory.dll" />
@@ -111,6 +120,9 @@
 
     <Target Name="CargoDebug">
         <Message Text="Building soulmemory-rs x64, debug mode" Importance="high" />
+        <ReplaceTomlVersion
+            TomlPath="../soulmods/Cargo.toml" 
+            Version="$(PackageVersion)"/>
         <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs          --target x86_64-pc-windows-msvc" />
         <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs-launcher --target x86_64-pc-windows-msvc" />
         <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\debug\soulmemory_rs.dll" DestinationFiles="soulmemory-rs\x64\soulmemory_rs.dll" />

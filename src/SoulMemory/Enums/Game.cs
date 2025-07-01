@@ -25,5 +25,6 @@ public enum Game
     EldenRing = 4,
     ArmoredCore6 = 5,
     Bloodborne = 6,
+    Nightreign = 7,
 }
 
