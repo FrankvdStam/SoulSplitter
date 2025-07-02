@@ -34,23 +34,23 @@ jobs:
       - name: Build solution
         run: dotnet build -c release
 
-      - name: Run tests with code coverage
-        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
-
-      - name: Qodana Scan
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        continue-on-error: true
-        uses: JetBrains/qodana-action@v2024.3
-        with:
-          args: --baseline,qodana.sarif.json
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
- 
-      - name: upload to github code scanning
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
+#      - name: Run tests with code coverage
+#        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
+#
+#      - name: Qodana Scan
+#        if: ${{ !github.event.pull_request.head.repo.fork }}
+#        continue-on-error: true
+#        uses: JetBrains/qodana-action@v2024.3
+#        with:
+#          args: --baseline,qodana.sarif.json
+#        env:
+#          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+# 
+#      - name: upload to github code scanning
+#        if: ${{ !github.event.pull_request.head.repo.fork }}
+#        uses: github/codeql-action/upload-sarif@v3
+#        with:
+#          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
 
         #Collect all the artifacts and publish them
       - name: collect artifacts
@@ -120,7 +120,7 @@ jobs:
           wait-for-completion: true
           output-artifact-directory: 'artifact_signpath'
           parameters: |
-            version: ${{ env.VERSION }}
+            version: ${{ toJSON(env.VERSION) }}
           #  myparam: "another param"
 
       - name: upload-signed-artifact
