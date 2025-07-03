@@ -517,10 +517,10 @@
 
                     <Label Content="Illegal mods"/>
 
-                    <CheckBox
-                        Margin="5"
+                    <Button
+                        HorizontalAlignment="Left"
                         Content="Disable cutscenes in Sekiro"
-                        IsChecked="{Binding SekiroDisableCutscenes}"/>
+                        Command="{Binding DisableCutscenesCommand}"/>
 
                 </StackPanel>
             </TabItem>

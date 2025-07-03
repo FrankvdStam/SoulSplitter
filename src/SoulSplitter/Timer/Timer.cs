@@ -37,7 +37,7 @@ namespace SoulSplitter.Timer
         public Timer(IServiceProvider serviceProvider, MainViewModel mainViewModel)
         {
             _serviceProvider = serviceProvider;
-            _game = serviceProvider.GetService<ISekiro>();
+            mainViewModel.Game = serviceProvider.GetService<ISekiro>(); //TODO: should this be loading sekiro by default?
             _mainViewModel = mainViewModel;
             mainViewModel.Splits.CollectionChanged += (o, e) => SplitsChanged();
             _previousDropmodType = _mainViewModel.DropModType;
@@ -49,7 +49,6 @@ namespace SoulSplitter.Timer
 
         private int _currentSplitIndex = 0;
         private Game? _previousGame;
-        private IGame _game;
         private bool _isRunning;
         private int _currentIgt;
         private int _previousIgt;
@@ -70,7 +69,7 @@ namespace SoulSplitter.Timer
         /// </summary>
         private void LatchCurrentSaveSlot()
         {
-            if (_game is ISavefileTime savefileTime)
+            if (_mainViewModel.Game is ISavefileTime savefileTime)
             {
                 _currentSaveSlot = savefileTime.GetCurrentSaveSlot();
             }
@@ -84,7 +83,7 @@ namespace SoulSplitter.Timer
             _isRunning = true;
             if (_mainViewModel.OverwriteIgtOnStart)
             {
-                _game.WriteInGameTimeMilliseconds(0);
+                _mainViewModel.Game!.WriteInGameTimeMilliseconds(0);
             }
 
             LatchCurrentSaveSlot();
@@ -137,7 +136,7 @@ namespace SoulSplitter.Timer
         public ResultErr<RefreshError> Update()
         {
             UpdateActiveGame();
-            var result = _game.TryRefresh();
+            var result = _mainViewModel.Game!.TryRefresh();
             if (result.IsErr)
             {
                 _dropMod = null;
@@ -154,7 +153,7 @@ namespace SoulSplitter.Timer
                     //_game is bound to the first split or the current active split.
                     var game = GetGame(_mainViewModel.SelectedGame!.Value);
                     //only update if required
-                    if (game != _game)
+                    if (game != _mainViewModel.Game)
                     {
                         if (game.TryRefresh().IsErr)
                         {
@@ -210,7 +209,7 @@ namespace SoulSplitter.Timer
                 }
                 //Has to be first split for autostart to work
                 _previousGame = _mainViewModel.Splits.First().Game;
-                _game = GetGame(_previousGame!.Value);
+                _mainViewModel.Game = GetGame(_previousGame!.Value);
                 _previousIgt = 0;
                 _multiGameIgt = 0;
                 return;
@@ -227,8 +226,8 @@ namespace SoulSplitter.Timer
 
                 if (_previousGame != split.Game)
                 {
-                    _game = GetGame(split.Game.Value);
-                    _game.TryRefresh();
+                    _mainViewModel.Game = GetGame(split.Game.Value);
+                    _mainViewModel.Game.TryRefresh();
                     _previousGame = split.Game;
                     _previousIgt = 0;
                     _multiGameIgt = _currentIgt;
@@ -240,7 +239,7 @@ namespace SoulSplitter.Timer
         private void UpdateTimer()
         {
             //Debug.WriteLine($"Timer: {_isRunning}");
-            _currentIgt = _game.ReadInGameTimeMilliseconds();
+            _currentIgt = _mainViewModel.Game!.ReadInGameTimeMilliseconds();
             if (!_isRunning &&
                 _mainViewModel.StartAutomatically &&
                 _currentIgt is > 0 and < 150)
@@ -257,19 +256,19 @@ namespace SoulSplitter.Timer
             if (_isRunning)
             {
                 if (
-                    _game is not ISekiro &&
-                    _game is IBlackscreenRemovable blackscreenRemovable &&
+                    _mainViewModel.Game is not ISekiro &&
+                    _mainViewModel.Game is IBlackscreenRemovable blackscreenRemovable &&
                     blackscreenRemovable.IsBlackscreenActive() &&
                     _currentIgt != 0 &&                                             //Igt timer has starter
                     _currentIgt > _previousIgt &&                                   //Igt has increased since previous frame
                     _currentIgt < _previousIgt + 1000)                              //Igt has not increased by more than 1 second
                 {
                     //During blackscreen, overwrite the incremented timer value with the last known good IGT value.
-                    _game.WriteInGameTimeMilliseconds(_previousIgt);
+                    _mainViewModel.Game.WriteInGameTimeMilliseconds(_previousIgt);
                     return; //Don't invoke UpdateTime event during black screen
                 }
 
-                if (_game is ISavefileTime savefileTime)
+                if (_mainViewModel.Game is ISavefileTime savefileTime)
                 {
                     var areCreditsRolling = savefileTime.AreCreditsRolling();
 
@@ -349,25 +348,25 @@ namespace SoulSplitter.Timer
                 case SplitType.ItemPickup:
                 case SplitType.KnownFlag:
                     var eventFlag = (uint)split;
-                    return _game.ReadEventFlag(eventFlag);
+                    return _mainViewModel.Game!.ReadEventFlag(eventFlag);
 
                 case SplitType.Flag:
                     uint flag = (uint)split;
-                    return _game.ReadEventFlag(flag);
+                    return _mainViewModel.Game!.ReadEventFlag(flag);
 
                 case SplitType.Attribute:
-                    if (_game is not IReadAttribute readAttribute)
+                    if (_mainViewModel.Game is not IReadAttribute readAttribute)
                     {
-                        throw new ArgumentException($"Unsupported split type {splitType}. {_game} does not implement {nameof(IReadAttribute)}");
+                        throw new ArgumentException($"Unsupported split type {splitType}. {_mainViewModel.Game} does not implement {nameof(IReadAttribute)}");
                     }
 
                     var attributeViewModel = (AttributeViewModel)split;
                     return readAttribute.ReadAttribute((Enum)attributeViewModel.Attribute) == attributeViewModel.Level;
 
                 case SplitType.Position:
-                    if (_game is not IPlayerPosition playerPosition)
+                    if (_mainViewModel.Game is not IPlayerPosition playerPosition)
                     {
-                        throw new ArgumentException($"Unsupported split type {splitType}. {_game} does not implement {nameof(IPlayerPosition)}");
+                        throw new ArgumentException($"Unsupported split type {splitType}. {_mainViewModel.Game} does not implement {nameof(IPlayerPosition)}");
                     }
 
                     var positionViewModel = (PositionViewModel)split;
@@ -386,9 +385,9 @@ namespace SoulSplitter.Timer
                     return false;
 
                 case SplitType.EldenRingPosition:
-                    if (_game is not IEldenRing eldenRing)
+                    if (_mainViewModel.Game is not IEldenRing eldenRing)
                     {
-                        throw new ArgumentException($"Unsupported split type {splitType}. {_game} does not implement {nameof(IEldenRing)}");
+                        throw new ArgumentException($"Unsupported split type {splitType}. {_mainViewModel.Game} does not implement {nameof(IEldenRing)}");
                     }
 
                     var vm = (EldenRingPositionViewModel)split;
@@ -422,26 +421,26 @@ namespace SoulSplitter.Timer
                     return true;
 
                 case TimingType.OnLoading:
-                    if (_game is ILoading loading)
+                    if (_mainViewModel.Game is ILoading loading)
                     {
                         return loading.IsLoading();
                     }
-                    throw new ArgumentException($"Unsupported timing type {timingType}. {_game} does not implement {nameof(ILoading)}");
+                    throw new ArgumentException($"Unsupported timing type {timingType}. {_mainViewModel.Game} does not implement {nameof(ILoading)}");
 
 
                 case TimingType.OnBlackscreen:
-                    if (_game is IBlackscreenRemovable blackscreenRemovable)
+                    if (_mainViewModel.Game is IBlackscreenRemovable blackscreenRemovable)
                     {
                         return blackscreenRemovable.IsBlackscreenActive();
                     }
-                    throw new ArgumentException($"Unsupported timing type {timingType}. {_game} does not implement {nameof(IBlackscreenRemovable)}");
+                    throw new ArgumentException($"Unsupported timing type {timingType}. {_mainViewModel.Game} does not implement {nameof(IBlackscreenRemovable)}");
 
                 case TimingType.OnWarp:
-                    if (_game is IDarkSouls1 darkSouls1)
+                    if (_mainViewModel.Game is IDarkSouls1 darkSouls1)
                     {
                         return !darkSouls1.IsPlayerLoaded() && _isWarping;
                     }
-                    throw new ArgumentException($"Unsupported timing type {timingType}. {_game} does not implement {nameof(IDarkSouls1)}");
+                    throw new ArgumentException($"Unsupported timing type {timingType}. {_mainViewModel.Game} does not implement {nameof(IDarkSouls1)}");
 
                 default:
                     throw new ArgumentException();
@@ -471,7 +470,7 @@ namespace SoulSplitter.Timer
             //Track warps - the game handles warps before the loading screen starts.
             //That's why they have to be tracked while playing, and then resolved on the next loading screen
 
-            if (_game is IDarkSouls1 darkSouls1)
+            if (_mainViewModel.Game is IDarkSouls1 darkSouls1)
             {
                 if (!_isWarpRequested)
                 {
@@ -505,32 +504,10 @@ namespace SoulSplitter.Timer
                 }
             }
         }
-
-        private bool _previousSekiroDisableCutscenes = false;
-
-        private void UpdateSekiroDisableCutscenes()
-        {
-            //detect change
-            if (_game is ISekiro sekiro)
-            {
-                if (_mainViewModel.SekiroDisableCutscenes != _previousSekiroDisableCutscenes)
-                {
-                    if (_mainViewModel.SekiroDisableCutscenes)
-                    {
-                        //sekiro.
-                    }
-                    else
-                    {
-                        sekiro.GetProcess()?.Kill();
-                    }
-                }
-            _previousSekiroDisableCutscenes = _mainViewModel.SekiroDisableCutscenes;
-            }
-        }
-
+        
         private void UpdateDropMod()
         {
-            if (_game is IDarkSouls1 darkSouls1)
+            if (_mainViewModel.Game is IDarkSouls1 darkSouls1)
             {
                 if (_previousDropmodType != _mainViewModel.DropModType && _mainViewModel.DropModType == DropModType.None)
                 {

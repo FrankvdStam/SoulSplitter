@@ -35,7 +35,7 @@ namespace SoulSplitter.Build
 
         public override bool Execute()
         {
-            Utils.Debug();
+            //Utils.Debug();
 
             var workingDirectory = Directory.GetCurrentDirectory();
             var tomlPath = Path.Combine(workingDirectory, TomlPath);
@@ -48,6 +48,7 @@ namespace SoulSplitter.Build
                 {
                     lines[i] = $"version = \"{Version}\"";
                     Log.LogMessage($"Replaced version on line {i}");
+                    File.WriteAllLines(tomlPath, lines);
                     result = true;
                     break;
                 }
@@ -59,7 +60,6 @@ namespace SoulSplitter.Build
                 return false;
             }
 
-            File.WriteAllLines(tomlPath, lines);
             return true;
         }
     }

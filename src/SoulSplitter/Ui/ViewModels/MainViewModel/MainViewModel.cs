@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using SoulMemory.Abstractions;
 using SoulSplitter.DependencyInjection;
 using SoulMemory.Enums;
 using SoulSplitter.Resources;
@@ -25,6 +26,8 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel;
 public partial class MainViewModel
 {
     private readonly ILanguageManager _languageManager;
+
+    public IGame? Game = null;
 
     /// <summary>
     /// Parameterless constructor for serializing
@@ -50,6 +53,7 @@ public partial class MainViewModel
         CommandOpenFlagTrackerWindow = new RelayCommand(OpenFlagTrackerWindow);
         CommandImportSettingsFromFile = new RelayCommand(ImportSettings);
         CommandExportSettingsFromFile = new RelayCommand(ExportSettings);
+        DisableCutscenesCommand = new RelayCommand(DisableCutscenes);
 
         Splits.CollectionChanged += OnSplitsChanged;
     }

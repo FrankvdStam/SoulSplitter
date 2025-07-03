@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
+using SoulMemory.Abstractions.Games;
 using SoulMemory.Enums;
 
 namespace SoulSplitter.Ui.ViewModels.MainViewModel
@@ -54,7 +55,7 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
                 {
                     var game = Splits.Any() ? Splits.Last().Game : null;
                     game ??= SelectedGame;
-                    game ??= Game.DarkSouls1;
+                    game ??= SoulMemory.Enums.Game.DarkSouls1;
                     for (int i = 0; i < difference; i++)
                     {
                         Splits.Add(new SplitViewModel() { Game = game, SplitType = SplitType.Manual});
@@ -192,6 +193,20 @@ namespace SoulSplitter.Ui.ViewModels.MainViewModel
         private bool CanRemoveSplit(object? param)
         {
             return SelectedSplit != null;
+        }
+
+        #endregion
+
+        #region Sekiro disable cutscenes ========================================================================================
+
+        public RelayCommand DisableCutscenesCommand { get; set; }
+
+        public void DisableCutscenes(object? param)
+        {
+            if (Game is ISekiro sekiro)
+            {
+                sekiro.DisableCutscenes();
+            }
         }
 
         #endregion
