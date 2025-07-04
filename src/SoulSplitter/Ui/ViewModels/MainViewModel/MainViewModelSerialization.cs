@@ -93,7 +93,9 @@ public partial class MainViewModel
     {
         //Get names of fields and properties via reflection to ignore everything by default
         var properties = typeof(MainViewModel).GetProperties();
+        var fields = typeof(MainViewModel).GetFields();
         var names = properties.Select(i => i.Name).ToList();
+        names.AddRange(fields.Select(i => i.Name));
 
         //Remove only the fields we want serialized
         SerializedFields.ForEach(i => names.Remove(i));

@@ -108,7 +108,7 @@ pub fn init_sekiro()
 
 
 
-        HANDLE_FADE_HOOK = Some(Hooker::new(0x140f26ed0, HookType::JmpBack(handle_fade_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        //HANDLE_FADE_HOOK = Some(Hooker::new(0x140f26ed0, HookType::JmpBack(handle_fade_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
     }
 }
@@ -253,7 +253,7 @@ unsafe extern "win64" fn frame_advance(_registers: *mut Registers, _:usize)
 
 #[no_mangle]
 #[used]
-pub static mut SEKIRO_DISABLE_CUTSCENES_ENABLED: bool = true;
+pub static mut SEKIRO_DISABLE_CUTSCENES_ENABLED: bool = false;
 
 unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:usize)
 {
