@@ -1,6 +1,6 @@
 [package]
 name = "soulmods"
-version = "2.0.31"
+version = "2.0.32"
 edition = "2021"
 authors = ["Frank van der Stam"]
 description = "Injectable game modifications use in speedruns"
@@ -39,3 +39,5 @@ features = [
     "Win32_UI_Input_XboxController",
 ]
 
+[build-dependencies]
+roxmltree = "0.20.0"

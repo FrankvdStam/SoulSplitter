@@ -255,6 +255,28 @@ public class Pointer
 
         return Encoding.Unicode.GetString(data);
     }
+
+    public string ReadString(Encoding encoding, out int length, int maxSize = 1000, long? offset = null)
+    {
+        var data = ReadMemory(offset, maxSize);
+        length = 0;
+        for (var i = 1; i < data.Length; i++)
+        {
+            if (data[i] == 0)
+            {
+                length = i;
+                break;
+            }
+        }
+
+        var testy = new byte[6];
+        Array.Copy(data, testy, 6);
+        var asdf = Encoding.ASCII.GetString(testy);
+
+        return encoding.GetString(data);
+    }
+
+
     #endregion
 
     #region Write

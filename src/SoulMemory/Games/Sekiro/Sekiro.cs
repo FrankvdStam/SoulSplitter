@@ -16,6 +16,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Text;
 using System.Threading;
 using SoulMemory.Abstractions.Games;
 using SoulMemory.Memory;
@@ -156,7 +157,10 @@ public class Sekiro : ISekiro
             }
 
             _disableCutscenes.Initialize(_process!, true, soulmodsInjectResult.Unwrap()["SEKIRO_DISABLE_CUTSCENES_ENABLED"]);
-
+            //_disableCutscenes.Clear();
+            //_disableCutscenes.Initialize(_process!, true, soulmodsInjectResult.Unwrap()["SOULMODS_VERSION"], 0, 0);
+            //var asd = _disableCutscenes.ReadString(Encoding.ASCII, out int len);
+            
             return Result.Ok();
         }
         catch (Exception e)

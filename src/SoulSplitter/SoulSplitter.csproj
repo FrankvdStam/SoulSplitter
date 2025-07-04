@@ -119,10 +119,9 @@
     </Target>
 
     <Target Name="CargoDebug">
+        <ReplaceTomlVersion TomlPath="../soulmemory-rs/Cargo.toml" Version="$(PackageVersion)"/>
+
         <Message Text="Building soulmemory-rs x64, debug mode" Importance="high" />
-        <ReplaceTomlVersion
-            TomlPath="../soulmods/Cargo.toml" 
-            Version="$(PackageVersion)"/>
         <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs          --target x86_64-pc-windows-msvc" />
         <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs-launcher --target x86_64-pc-windows-msvc" />
         <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\debug\soulmemory_rs.dll" DestinationFiles="soulmemory-rs\x64\soulmemory_rs.dll" />
@@ -136,6 +135,8 @@
     </Target>
 
     <Target Name="CargoRelease">
+        <ReplaceTomlVersion TomlPath="../soulmemory-rs/Cargo.toml" Version="$(PackageVersion)"/>
+
         <Message Text="Building soulmemory-rs x64, release mode" Importance="high" />
         <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs          --target x86_64-pc-windows-msvc  --release" />
         <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmemory-rs-launcher --target x86_64-pc-windows-msvc  --release" />

@@ -21,6 +21,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using SoulMemory.Games.DarkSouls1;
 using SoulMemory.Games.EldenRing;
@@ -55,6 +56,13 @@ namespace SoulSplitter.cli
         [STAThread]
         private static void Main(string[] args)
         {
+            var data = new byte[]{56, 109, 161, 125, 248, 127};
+
+            var str1 = Encoding.ASCII.GetString(data);
+            var str2 = Encoding.UTF8.GetString(data);
+            var str3 = Encoding.Unicode.GetString(data);
+
+
             //SoulMemoryRs.Launch();
 
             GameLoop<Sekiro>((n) =>

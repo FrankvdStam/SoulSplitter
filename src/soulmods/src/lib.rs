@@ -30,7 +30,7 @@ use windows::Win32::System::SystemServices::{ DLL_PROCESS_ATTACH, DLL_PROCESS_DE
 use crate::console::init_console;
 use crate::logger::init_log;
 use log::info;
-use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version};
+use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version, SOULMODS_VERSION};
 
 
 
@@ -65,6 +65,7 @@ fn dispatched_dll_main()
     }
 
     let process_name = Process::get_current_process_name().unwrap();
+    info!("soulmods version {}", SOULMODS_VERSION);
     info!("process: {}", process_name);
 
     #[cfg(target_arch = "x86_64")]

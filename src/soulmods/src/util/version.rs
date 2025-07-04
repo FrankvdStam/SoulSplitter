@@ -22,6 +22,10 @@ use std::cmp::Ordering;
 use windows::core::PCWSTR;
 use windows::Win32::Storage::FileSystem::{GET_FILE_VERSION_INFO_FLAGS, GetFileVersionInfoExW, GetFileVersionInfoSizeW, VerQueryValueW, VS_FIXEDFILEINFO};
 
+#[no_mangle]
+#[used]
+pub static SOULMODS_VERSION: &'static str = env!("VERSION");
+
 pub struct Version
 {
     pub major: u16,
