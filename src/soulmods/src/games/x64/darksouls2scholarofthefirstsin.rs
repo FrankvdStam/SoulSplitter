@@ -39,7 +39,7 @@ pub struct MorphemeMessageBuffer
     buffer: [MorphemeMessage; 10],
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn GetQueuedDarkSouls2MorphemeMessages2(morpheme_message_buffer: &mut MorphemeMessageBuffer)
 {
     unsafe
@@ -61,7 +61,7 @@ pub extern "C" fn GetQueuedDarkSouls2MorphemeMessages2(morpheme_message_buffer: 
 }
 
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn GetQueuedDarkSouls2MorphemeMessages(raw_pointer: *mut u32)
 {
     unsafe
@@ -120,27 +120,29 @@ pub fn init_scholar()
         MORPHEME_QUEUE = Some(Arc::new(Mutex::new(dequeue)));
 
         let send_morpheme_message_address = SCHOLAR.as_ref().unwrap().scan_abs("send_morpheme_message", "48 89 6c 24 10 48 89 74 24 18 48 89 7c 24 20 41 56 48 83 ec 20 48 8b 01 44 8b 4a 0c", 0, Vec::new()).unwrap().get_base_address();
-
-        unsafe extern "win64" fn send_morpheme_message_hook_fn(registers: *mut Registers, _:usize)
-        {
-            let morpheme_message = (*registers).rdx;
-
-            let mut buffer = [0; 4];
-            SCHOLAR.as_ref().unwrap().read_memory_abs((morpheme_message + 12) as usize, &mut buffer);
-            let message_id = u32::from_ne_bytes(buffer);
-
-            if message_id == 30
-            {
-                let network_ptr = (*registers).rcx;
-                let network = SCHOLAR.as_mut().unwrap().create_pointer(network_ptr as usize, vec![0x18, 0x6c978]);
-                let event_action_category = network.read_u32_rel(Some(0x10));
-                info!("network {} message_id {} eventActionCategory {}", network_ptr, message_id, event_action_category);
-
-                let mut guard = MORPHEME_QUEUE.as_mut().unwrap().lock().unwrap();
-                guard.push_back(MorphemeMessage{message_id, event_action_category});
-            }
-        }
-
         SEND_MORPHEME_HOOK = Some(Hooker::new(send_morpheme_message_address, HookType::JmpBack(send_morpheme_message_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+    }
+}
+
+unsafe extern "win64" fn send_morpheme_message_hook_fn(registers: *mut Registers, _:usize)
+{
+    unsafe
+    {
+        let morpheme_message = (*registers).rdx;
+
+        let mut buffer = [0; 4];
+        SCHOLAR.as_ref().unwrap().read_memory_abs((morpheme_message + 12) as usize, &mut buffer);
+        let message_id = u32::from_ne_bytes(buffer);
+
+        if message_id == 30
+        {
+            let network_ptr = (*registers).rcx;
+            let network = SCHOLAR.as_mut().unwrap().create_pointer(network_ptr as usize, vec![0x18, 0x6c978]);
+            let event_action_category = network.read_u32_rel(Some(0x10));
+            info!("network {} message_id {} eventActionCategory {}", network_ptr, message_id, event_action_category);
+
+            let mut guard = MORPHEME_QUEUE.as_mut().unwrap().lock().unwrap();
+            guard.push_back(MorphemeMessage{message_id, event_action_category});
+        }
     }
 }

@@ -39,7 +39,7 @@ pub use app::App;
 
 static mut HMODULE: HINSTANCE = HINSTANCE(std::ptr::null_mut());
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[allow(non_snake_case)]
 pub unsafe extern "system" fn DllMain(
     module: HINSTANCE,

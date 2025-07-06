@@ -47,19 +47,19 @@ static mut FPS_OFFSETS: FpsOffsets = FpsOffsets {
     timestamp_current: 0x0,
 };
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut ER_FPS_PATCH_ENABLED: bool = false;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut ER_FPS_CUSTOM_LIMIT: f32 = 0.0f32;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut ER_FRAME_ADVANCE_ENABLED: bool = false;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut ER_FRAME_RUNNING: bool = false;
 
@@ -153,23 +153,26 @@ pub fn init_eldenring()
 
 unsafe extern "win64" fn increment_igt(registers: *mut Registers, _:usize)
 {
-    let mut frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
-    //convert to milliseconds
-    frame_delta = frame_delta * 1000f32;
-    frame_delta = frame_delta * 0.96f32; //scale to IGT
-
-    //Rather than casting, like the game does, make the behavior explicit by flooring
-    let mut floored_frame_delta = frame_delta.floor();
-    let remainder = frame_delta - floored_frame_delta;
-    IGT_BUFFER = IGT_BUFFER + remainder;
-
-    if IGT_BUFFER > 1.0f32
+    unsafe
     {
-        IGT_BUFFER = IGT_BUFFER - 1f32;
-        floored_frame_delta += 1f32;
-    }
+        let mut frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
+        //convert to milliseconds
+        frame_delta = frame_delta * 1000f32;
+        frame_delta = frame_delta * 0.96f32; //scale to IGT
 
-    (*registers).xmm1 = std::mem::transmute::<f32, u32>(floored_frame_delta) as u128;
+        //Rather than casting, like the game does, make the behavior explicit by flooring
+        let mut floored_frame_delta = frame_delta.floor();
+        let remainder = frame_delta - floored_frame_delta;
+        IGT_BUFFER = IGT_BUFFER + remainder;
+
+        if IGT_BUFFER > 1.0f32
+        {
+            IGT_BUFFER = IGT_BUFFER - 1f32;
+            floored_frame_delta += 1f32;
+        }
+
+        (*registers).xmm1 = std::mem::transmute::<f32, u32>(floored_frame_delta) as u128;
+    }
 }
 
 // FPS patch
@@ -179,27 +182,30 @@ unsafe extern "win64" fn increment_igt(registers: *mut Registers, _:usize)
 // A second patch, "FPS history" below, is required in addition to this one to ensure accuracy.
 unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
 {
-    if ER_FPS_PATCH_ENABLED
+    unsafe
     {
-        let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
+        if ER_FPS_PATCH_ENABLED
+        {
+            let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
-        let ptr_target_frame_delta = ptr_flipper.offset(FPS_OFFSETS.target_frame_delta) as *mut f32; // Target frame delta - Set in a switch/case at the start
-        let ptr_timestamp_previous = ptr_flipper.offset(FPS_OFFSETS.timestamp_previous) as *mut u64; // Previous frames timestamp
-        let ptr_timestamp_current = ptr_flipper.offset(FPS_OFFSETS.timestamp_current) as *mut u64; // Current frames timestamp
-        let ptr_frame_delta = ptr_flipper.offset(FPS_OFFSETS.frame_delta) as *mut f32; // Current frames frame delta
+            let ptr_target_frame_delta = ptr_flipper.offset(FPS_OFFSETS.target_frame_delta) as *mut f32; // Target frame delta - Set in a switch/case at the start
+            let ptr_timestamp_previous = ptr_flipper.offset(FPS_OFFSETS.timestamp_previous) as *mut u64; // Previous frames timestamp
+            let ptr_timestamp_current = ptr_flipper.offset(FPS_OFFSETS.timestamp_current) as *mut u64; // Current frames timestamp
+            let ptr_frame_delta = ptr_flipper.offset(FPS_OFFSETS.frame_delta) as *mut f32; // Current frames frame delta
 
-        // Read target frame data, the current timestamp and then calculate the timestamp diff at stable FPS
-        let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
-        let timestamp_current = std::ptr::read_volatile(ptr_timestamp_current);
-        let timestamp_diff = (target_frame_delta * 10000000.0) as i32;
+            // Read target frame data, the current timestamp and then calculate the timestamp diff at stable FPS
+            let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
+            let timestamp_current = std::ptr::read_volatile(ptr_timestamp_current);
+            let timestamp_diff = (target_frame_delta * 10000000.0) as i32;
 
-        // Calculate the previous timestamp, as well as the frame delta
-        let timestamp_previous = timestamp_current - (timestamp_diff as u64);
-        let frame_delta = (timestamp_diff as f32) / 10000000.0;
+            // Calculate the previous timestamp, as well as the frame delta
+            let timestamp_previous = timestamp_current - (timestamp_diff as u64);
+            let frame_delta = (timestamp_diff as f32) / 10000000.0;
 
-        // Write values back
-        std::ptr::write_volatile(ptr_timestamp_previous, timestamp_previous);
-        std::ptr::write_volatile(ptr_frame_delta, frame_delta);
+            // Write values back
+            std::ptr::write_volatile(ptr_timestamp_previous, timestamp_previous);
+            std::ptr::write_volatile(ptr_frame_delta, frame_delta);
+        }
     }
 }
 
@@ -208,15 +214,18 @@ unsafe extern "win64" fn fps(registers: *mut Registers, _:usize)
 // This gets stored in an array with 32 elements, possibly for calculating FPS averages.
 unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
 {
-    if ER_FPS_PATCH_ENABLED
+    unsafe
     {
-        let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
+        if ER_FPS_PATCH_ENABLED
+        {
+            let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
 
-        let ptr_target_frame_delta = ptr_flipper.offset(FPS_OFFSETS.target_frame_delta) as *mut f32; // Target frame delta - Set in a switch/case at the start
+            let ptr_target_frame_delta = ptr_flipper.offset(FPS_OFFSETS.target_frame_delta) as *mut f32; // Target frame delta - Set in a switch/case at the start
 
-        // Read the target frame delta and write back the calculated frame delta timestamp
-        let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
-        (*registers).rax = (target_frame_delta * 10000000.0) as u64;
+            // Read the target frame delta and write back the calculated frame delta timestamp
+            let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
+            (*registers).rax = (target_frame_delta * 10000000.0) as u64;
+        }
     }
 }
 
@@ -226,21 +235,24 @@ unsafe extern "win64" fn fps_history(registers: *mut Registers, _:usize)
 // This does not allow you to go above the stock FPS limit. It is purely a QoL patch to improve glitch consistency, not an FPS unlocker.
 unsafe extern "win64" fn fps_custom_limit(registers: *mut Registers, _:usize)
 {
-    if ER_FPS_PATCH_ENABLED && ER_FPS_CUSTOM_LIMIT > 0.0f32
+    unsafe
     {
-        let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
-
-        let ptr_target_frame_delta = ptr_flipper.offset(FPS_OFFSETS.target_frame_delta) as *mut f32; // Target frame delta - Set in a switch/case at the start
-
-        // Read the stock target frame delta and calculate the custom target frame delta
-        let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
-        let custom_target_frame_delta = 1.0f32 / ER_FPS_CUSTOM_LIMIT;
-
-        // Make sure the custom target frame delta is higher than the stock one, in order to avoid going above the stock FPS limit
-        if custom_target_frame_delta > target_frame_delta
+        if ER_FPS_PATCH_ENABLED && ER_FPS_CUSTOM_LIMIT > 0.0f32
         {
-            // Write values back
-            std::ptr::write_volatile(ptr_target_frame_delta, custom_target_frame_delta);
+            let ptr_flipper = (*registers).rbx as *const u8; // Flipper struct - Contains all the stuff we need
+
+            let ptr_target_frame_delta = ptr_flipper.offset(FPS_OFFSETS.target_frame_delta) as *mut f32; // Target frame delta - Set in a switch/case at the start
+
+            // Read the stock target frame delta and calculate the custom target frame delta
+            let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
+            let custom_target_frame_delta = 1.0f32 / ER_FPS_CUSTOM_LIMIT;
+
+            // Make sure the custom target frame delta is higher than the stock one, in order to avoid going above the stock FPS limit
+            if custom_target_frame_delta > target_frame_delta
+            {
+                // Write values back
+                std::ptr::write_volatile(ptr_target_frame_delta, custom_target_frame_delta);
+            }
         }
     }
 }
@@ -248,12 +260,15 @@ unsafe extern "win64" fn fps_custom_limit(registers: *mut Registers, _:usize)
 // Frame advance patch
 unsafe extern "win64" fn frame_advance(_registers: *mut Registers, _:usize)
 {
-    if ER_FRAME_ADVANCE_ENABLED
+    unsafe
     {
-        ER_FRAME_RUNNING = false;
+        if ER_FRAME_ADVANCE_ENABLED
+        {
+            ER_FRAME_RUNNING = false;
 
-        while !ER_FRAME_RUNNING && ER_FRAME_ADVANCE_ENABLED {
-            thread::sleep(Duration::from_micros(10));
+            while !ER_FRAME_RUNNING && ER_FRAME_ADVANCE_ENABLED {
+                thread::sleep(Duration::from_micros(10));
+            }
         }
     }
 }

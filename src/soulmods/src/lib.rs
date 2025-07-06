@@ -34,7 +34,7 @@ use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version, SOULMODS_VERSION};
 
 
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[allow(non_snake_case)]
 pub unsafe extern "system" fn DllMain(
     module: HINSTANCE,
@@ -42,18 +42,21 @@ pub unsafe extern "system" fn DllMain(
     _reserved: c_void,
 ) -> BOOL
 {
-    if call_reason == DLL_PROCESS_ATTACH
+    unsafe
     {
-        GLOBAL_HMODULE = module;
-        GLOBAL_VERSION = Version::from_file_version_info(env::current_exe().unwrap());
-        thread::spawn(dispatched_dll_main);
-    }
+        if call_reason == DLL_PROCESS_ATTACH
+        {
+            GLOBAL_HMODULE = module;
+            GLOBAL_VERSION = Version::from_file_version_info(env::current_exe().unwrap());
+            thread::spawn(dispatched_dll_main);
+        }
 
-    if call_reason == DLL_PROCESS_DETACH
-    {
-    }
+        if call_reason == DLL_PROCESS_DETACH
+        {
+        }
 
-    BOOL(1)
+        BOOL(1)
+    }
 }
 
 fn dispatched_dll_main()

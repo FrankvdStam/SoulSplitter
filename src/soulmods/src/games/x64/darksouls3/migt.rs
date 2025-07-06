@@ -51,21 +51,24 @@ pub fn ds3_init_migt(process: &Process)
 
 unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
 {
-    let frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
-    let mut corrected_frame_delta = frame_delta;
-    corrected_frame_delta = corrected_frame_delta * 0.96f32; //scale to IGT
-    
-    //Rather than casting, like the game does, make the behavior explicit by flooring
-    let floored_frame_delta = frame_delta.floor();
-    let remainder = frame_delta - floored_frame_delta;
-    IGT_BUFFER = IGT_BUFFER + remainder;
-
-    if IGT_BUFFER > 1.0f32
+    unsafe
     {
-        IGT_BUFFER = IGT_BUFFER - 1f32;
-        corrected_frame_delta += 1f32;
-    }
+        let frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
+        let mut corrected_frame_delta = frame_delta;
+        corrected_frame_delta = corrected_frame_delta * 0.96f32; //scale to IGT
 
-    (*registers).xmm0 = std::mem::transmute::<f32, u32>(corrected_frame_delta) as u128;
-    info!("frame delta: {} igt buffer: {} corrected frame delta: {}", frame_delta, IGT_BUFFER, corrected_frame_delta);
+        //Rather than casting, like the game does, make the behavior explicit by flooring
+        let floored_frame_delta = frame_delta.floor();
+        let remainder = frame_delta - floored_frame_delta;
+        IGT_BUFFER = IGT_BUFFER + remainder;
+
+        if IGT_BUFFER > 1.0f32
+        {
+            IGT_BUFFER = IGT_BUFFER - 1f32;
+            corrected_frame_delta += 1f32;
+        }
+
+        (*registers).xmm0 = std::mem::transmute::<f32, u32>(corrected_frame_delta) as u128;
+        //info!("frame delta: {} igt buffer: {} corrected frame delta: {}", frame_delta, IGT_BUFFER, corrected_frame_delta);
+    }
 }
