@@ -24,12 +24,13 @@ mod util;
 use std::ffi::c_void;
 use std::{env, thread};
 use mem_rs::prelude::Process;
-use windows::Win32::Foundation::{BOOL, HINSTANCE};
+use windows::Win32::Foundation::{HINSTANCE};
 use windows::Win32::System::SystemServices::{ DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 
 use crate::console::init_console;
 use crate::logger::init_log;
 use log::info;
+use windows::core::BOOL;
 use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version, SOULMODS_VERSION};
 
 
