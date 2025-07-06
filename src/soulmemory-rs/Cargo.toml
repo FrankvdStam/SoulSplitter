@@ -42,7 +42,7 @@ raw-window-handle = "0.6.0"
 winit = { version = "0.30", features = ["rwh_06"] }
 
 [dependencies.windows]
-version = "0.58.0"
+version = "0.61.3"
 features = [
     "Win32_Foundation",
     "Win32_System_Memory",
