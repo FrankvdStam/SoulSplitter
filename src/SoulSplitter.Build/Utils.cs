@@ -26,7 +26,6 @@ namespace SoulSplitter.Build
         public static void Debug()
         {
             //taskkill /f /t /im msbuild.exe
-            //taskkill /pid 15520 /F
             if (!Debugger.IsAttached)
             {
                 Debugger.Launch();

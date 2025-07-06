@@ -33,7 +33,7 @@ imgui = { version = "0.12.0", features = ["tables-api"] }
 imgui-glow-renderer = "0.13.0"
 imgui-winit-support = "0.13.0"
 
-glow = "0.16"
+glow = "0.14"
 
 glutin = "0.32"
 glutin-winit = "0.5"
