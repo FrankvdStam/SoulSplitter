@@ -30,7 +30,8 @@ use std::ffi::c_void;
 use std::{panic, thread};
 use log::{error, info, LevelFilter};
 use mem_rs::prelude::*;
-use windows::Win32::Foundation::{BOOL, HINSTANCE};
+use windows::core::BOOL;
+use windows::Win32::Foundation::HINSTANCE;
 use windows::Win32::System::SystemServices::{DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 use crate::render_hooks::RenderHooks;
 

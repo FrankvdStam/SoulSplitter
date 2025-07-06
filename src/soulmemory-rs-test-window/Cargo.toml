@@ -30,7 +30,7 @@ rand = "0.9.0"
 chrono = "0.4.40"
 
 [dependencies.windows]
-version = "0.58.0"
+version = "0.61.3"
 features = [
     "Win32_Foundation",
     "Win32_System_Memory",
