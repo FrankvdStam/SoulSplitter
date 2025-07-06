@@ -74,12 +74,12 @@ impl Game for Bloodborne
     fn get_dx_version(&self) -> DxVersion {
         DxVersion::Dx12
     }
+    fn event_flags(&mut self) -> Option<Box<&mut dyn BufferedEventFlags>> { Some(Box::new(self)) }
     fn as_any(&self) -> &dyn Any
     {
         self
     }
     fn as_any_mut(&mut self) -> &mut dyn Any { self }
-    fn event_flags(&mut self) -> Option<Box<&mut dyn BufferedEventFlags>> { Some(Box::new(self)) }
 }
 
 #[cfg(target_arch = "x86_64")]
@@ -90,8 +90,8 @@ unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usi
 
     if let Some(bloodborne) = GameExt::get_game_ref::<Bloodborne>(app.game.deref())
     {
-        let event_flag_id = (*registers).rsi as u32;
-        let value = (*registers).rdx as u8;
+        let event_flag_id = unsafe{ (*registers).rsi as u32 };
+        let value = unsafe{ (*registers).rdx as u8 };
 
         let mut guard = bloodborne.event_flags.lock().unwrap();
         guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));

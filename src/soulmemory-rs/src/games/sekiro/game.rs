@@ -78,8 +78,8 @@ impl Game for Sekiro
     fn get_dx_version(&self) -> DxVersion {
         DxVersion::Dx11
     }
-    fn event_flags(&mut self) -> Option<Box<&mut dyn BufferedEventFlags>> { Some(Box::new(self)) }
     fn player_position(&mut self) -> Option<Box<&mut dyn PlayerPosition>>{ Some(Box::new(self)) }
+    fn event_flags(&mut self) -> Option<Box<&mut dyn BufferedEventFlags>> { Some(Box::new(self)) }
     fn buffered_emevd_logger(&mut self) -> Option<Box<&mut dyn BufferedEmevdLogger>>{ Some(Box::new(self)) }
     fn as_any(&self) -> &dyn Any
     {
@@ -96,8 +96,8 @@ unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usi
 
     if let Some(sekiro) = GameExt::get_game_ref::<Sekiro>(app.game.deref())
     {
-        let event_flag_id = (*registers).rdx as u32;
-        let value = (*registers).r8 as u8;
+        let event_flag_id = unsafe{ (*registers).rdx as u32 };
+        let value = unsafe{ (*registers).r8 as u8 };
 
         let mut guard = sekiro.event_flags.lock().unwrap();
         guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));

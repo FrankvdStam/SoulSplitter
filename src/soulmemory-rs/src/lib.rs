@@ -47,9 +47,10 @@ pub unsafe extern "system" fn DllMain(
     _reserved: c_void,
 ) -> BOOL
 {
+
     if call_reason == DLL_PROCESS_ATTACH
     {
-        HMODULE = module;
+        unsafe{ HMODULE = module };
         thread::spawn(dispatched_dll_main);
     }
 

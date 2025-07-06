@@ -170,8 +170,8 @@ unsafe extern "cdecl" fn capture_the_flag(reg:*mut Registers, _:usize)
 
     if let Some(ptde) = GameExt::get_game_ref::<DarkSoulsPrepareToDieEdition>(app.game.deref())
     {
-        let value           = get_stack_u8((*reg).esp, 0x8);
-        let event_flag_id   = get_stack_u32((*reg).esp, 0x4);
+        let value           = unsafe{ get_stack_u8((*reg).esp, 0x8) };
+        let event_flag_id   = unsafe{ get_stack_u32((*reg).esp, 0x4) };
 
         let mut guard = ptde.event_flags.lock().unwrap();
         guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));

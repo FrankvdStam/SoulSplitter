@@ -113,8 +113,8 @@ unsafe extern "cdecl" fn set_event_flag_hook_fn(registers: *mut Registers, _:usi
 
     if let Some(vanilla) = GameExt::get_game_ref::<DarkSouls2Vanilla>(app.game.deref())
     {
-        let value           = get_stack_u8((*registers).esp, 0x8);
-        let event_flag_id   = get_stack_u32((*registers).esp, 0x4);
+        let value           = unsafe{ get_stack_u8((*registers).esp, 0x8)};
+        let event_flag_id   = unsafe{get_stack_u32((*registers).esp, 0x4)};
 
         let mut guard = vanilla.event_flags.lock().unwrap();
         guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));

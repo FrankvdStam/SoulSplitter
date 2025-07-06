@@ -25,7 +25,7 @@ use crate::tas::toggle_mode::ToggleMode;
 
 //TODO: convert these to windows-rs
 #[link(name = "kernel32")]
-extern "stdcall" {
+unsafe extern "stdcall" {
     //fn LoadLibraryA(lp_proc_name: *const u8) -> HMODULE;
     fn GetProcAddress(h_module: *const c_void, lp_proc_name: *const u8) -> *const c_void;
     fn GetModuleHandleA(lp_module_name: *const u8) -> HINSTANCE;

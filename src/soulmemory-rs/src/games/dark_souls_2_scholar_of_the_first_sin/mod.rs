@@ -120,8 +120,8 @@ unsafe extern "win64" fn read_event_flag_hook_fn(registers: *mut Registers, _:us
 
     if let Some(scholar) = GameExt::get_game_ref::<DarkSouls2ScholarOfTheFirstSin>(app.game.deref())
     {
-        let event_flag_id = (*registers).rdx as u32;
-        let value = (*registers).r8 as u8;
+        let event_flag_id = unsafe{ (*registers).rdx as u32 };
+        let value = unsafe{ (*registers).r8 as u8 };
 
         let mut guard = scholar.event_flags.lock().unwrap();
         guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));

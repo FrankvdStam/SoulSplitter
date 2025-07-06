@@ -164,8 +164,8 @@ unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usi
 
     if let Some(vanilla) = GameExt::get_game_ref::<DarkSoulsRemastered>(app.game.deref())
     {
-        let event_flag_id = (*registers).rdx as u32;
-        let value = (*registers).r8 as u8;
+        let event_flag_id = unsafe{ (*registers).rdx as u32 };
+        let value = unsafe{ (*registers).r8 as u8 };
 
         let mut guard = vanilla.event_flags.lock().unwrap();
         guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));
@@ -175,17 +175,17 @@ unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usi
 #[cfg(target_arch = "x86_64")]
 unsafe extern "win64" fn xinput_get_state_hook_fn(registers: *mut Registers, ori_func_ptr: usize, _: usize) -> usize
 {
-    let original_func: XInputGetState = mem::transmute(ori_func_ptr);
+    let original_func: XInputGetState = unsafe{ mem::transmute(ori_func_ptr) };
 
     let instance = App::get_instance();
     let app = instance.lock().unwrap();
 
     if let Some(dsr) = GameExt::get_game_ref::<DarkSoulsRemastered>(app.game.deref())
     {
-        let dw_user_index = (*registers).rcx as u32;
-        let p_state = (*registers).rdx as *mut XINPUT_STATE;
+        let dw_user_index = unsafe{ (*registers).rcx as u32};
+        let p_state = unsafe{ (*registers).rdx as *mut XINPUT_STATE};
 
-        let res = original_func(dw_user_index, p_state);
+        let res = unsafe{ original_func(dw_user_index, p_state) };
         tas_ai_toggle(dsr.ai_timer_toggle_mode, dsr.get_ai_timer_value(), dsr.ai_timer_toggle_threshold, p_state);
         return res as usize;
     }

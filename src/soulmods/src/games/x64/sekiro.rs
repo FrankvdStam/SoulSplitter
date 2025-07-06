@@ -110,10 +110,7 @@ pub fn init_sekiro()
         info!("emevd at 0x{:x}", emevd_events_address);
         EMEVD_EVENT_HOOK = Some(Hooker::new(emevd_events_address, HookType::JmpBack(emevd_event_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
-
-
         //HANDLE_FADE_HOOK = Some(Hooker::new(0x140f26ed0, HookType::JmpBack(handle_fade_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
-
     }
 }
 

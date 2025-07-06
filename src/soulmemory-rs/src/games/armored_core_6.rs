@@ -147,8 +147,8 @@ unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usi
 
     if let Some(game) = GameExt::get_game_ref::<ArmoredCore6>(app.game.deref())
     {
-        let event_flag_id = (*registers).rdx as u32;
-        let value = (*registers).r8 as u8;
+        let event_flag_id = unsafe{ (*registers).rdx as u32 };
+        let value = unsafe{ (*registers).r8 as u8 };
 
         let mut guard = game.event_flags.lock().unwrap();
         guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));
