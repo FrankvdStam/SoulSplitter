@@ -34,23 +34,23 @@ jobs:
       - name: Build solution
         run: dotnet build -c release
 
-#      - name: Run tests with code coverage
-#        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
-#
-#      - name: Qodana Scan
-#        if: ${{ !github.event.pull_request.head.repo.fork }}
-#        continue-on-error: true
-#        uses: JetBrains/qodana-action@v2024.3
-#        with:
-#          args: --baseline,qodana.sarif.json
-#        env:
-#          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-# 
-#      - name: upload to github code scanning
-#        if: ${{ !github.event.pull_request.head.repo.fork }}
-#        uses: github/codeql-action/upload-sarif@v3
-#        with:
-#          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
+      - name: Run tests with code coverage
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
+
+      - name: Qodana Scan
+        if: ${{ !github.event.pull_request.head.repo.fork }}
+        continue-on-error: true
+        uses: JetBrains/qodana-action@v2024.3
+        with:
+          args: --baseline,qodana.sarif.json
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+ 
+      - name: upload to github code scanning
+        if: ${{ !github.event.pull_request.head.repo.fork }}
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
 
         #Collect all the artifacts and publish them
       - name: collect artifacts
@@ -77,54 +77,32 @@ jobs:
             copy src\CliTimer\bin\x64\release\net481\soulmods_x86.dll                    artifact\CliTimer
             copy src\CliTimer\bin\x64\release\net481\soulmods_x64.dll                    artifact\CliTimer
 
-      - name: sign artifacts
+      - name: publish unsigned artifacts
         if: ${{ !github.event.pull_request.head.repo.fork }}
-        run: |
-            $bytes = [Convert]::FromBase64String("${{SECRETS.CERT_PFX_BASE64}}")
-            [IO.File]::WriteAllBytes("SoulSplitter.pfx", $bytes)
-            $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\SoulSplitter.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\SoulMemory.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmods_x86.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmods_x64.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmemory_rs_x86.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmemory_rs_x64.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\launcher_x86.exe"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\launcher_x64.exe"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\CliTimer.exe"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\SoulMemory.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\soulmods_x86.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\soulmods_x64.dll"
-
-      - name: Publish SoulSplitter
-        if: ${{ !github.event.pull_request.head.repo.fork }}
+        id: upload-unsigned-artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.VERSION }}
           path: artifact
 
-      - name: upload-unsigned-artifact
-        id: upload-unsigned-artifact
-        uses: actions/upload-artifact@v4
-        with: 
-          path: artifact\SoulSplitter.dll
-
-      - id: optional_step_id
+      - name: sign artifacts with signpath
+        id: optional_step_id
         uses: signpath/github-action-submit-signing-request@v1.1
         with:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
           organization-id: 187fb143-2898-4637-81fe-4f4cb599f1ff
           project-slug: SoulSplitter
-          signing-policy-slug: test-signing
+          signing-policy-slug: test-signing          
           github-artifact-id: ${{ steps.upload-unsigned-artifact.outputs.artifact-id }}
           wait-for-completion: true
           output-artifact-directory: artifact_signpath
           parameters: |
             version: ${{ toJSON(env.VERSION) }}
-          #  myparam: "another param"
 
-      - name: upload-signed-artifact
-        id: upload-signed-artifact
+      - name: publish signed artifacts
+        if: ${{ !github.event.pull_request.head.repo.fork }}
+        id: upload-unsigned-artifact
         uses: actions/upload-artifact@v4
-        with: 
-          path: artifact_signpath\SoulSplitter.dll
+        with:
+          name: ${{ env.VERSION }}
+          path: artifact_signpath
