@@ -101,7 +101,6 @@ jobs:
 
       - name: publish signed artifacts
         if: ${{ !github.event.pull_request.head.repo.fork }}
-        id: upload-unsigned-artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.VERSION }}
