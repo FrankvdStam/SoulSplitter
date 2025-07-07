@@ -37,15 +37,15 @@ jobs:
       - name: Run tests with code coverage
         run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
 
-#      - name: qodana scan
-#        if: ${{ !github.event.pull_request.head.repo.fork }}
-#        continue-on-error: true
-#        uses: JetBrains/qodana-action@v2024.3
-#        with:
-#          args: --baseline,qodana.sarif.json
-#        env:
-#          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-# 
+      - name: qodana scan
+        if: ${{ !github.event.pull_request.head.repo.fork }}
+        continue-on-error: true
+        uses: JetBrains/qodana-action@v2024.3
+        with:
+          args: --baseline,qodana.sarif.json
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+ 
 #      - name: upload qodana scan to github code scanning
 #        if: ${{ !github.event.pull_request.head.repo.fork }}
 #        uses: github/codeql-action/upload-sarif@v3
@@ -87,7 +87,6 @@ jobs:
 
       - name: sign artifacts with signpath
         if: ${{ !github.event.pull_request.head.repo.fork }}
-        id: optional_step_id
         uses: signpath/github-action-submit-signing-request@v1.1
         with:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
