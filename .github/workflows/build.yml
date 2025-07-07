@@ -55,9 +55,9 @@ jobs:
         #Collect all the artifacts and publish them
       - name: collect artifacts
         run: |
-            mkdir artifact
-            mkdir artifact_signpath
-            mkdir artifact\CliTimer
+            mkdir unsigned-artifact
+            mkdir unsigned-artifact\CliTimer
+            mkdir signed-artifact
             copy src\SoulSplitter\bin\x64\Release\net481\SoulSplitter.dll                unsigned-artifact
             copy src\SoulSplitter\bin\x64\Release\net481\SoulMemory.dll                  unsigned-artifact
             copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignColors.dll        unsigned-artifact
