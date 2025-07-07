@@ -113,9 +113,9 @@ jobs:
         uses: signpath/github-action-submit-signing-request@v1.1
         with:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-          organization-id: e4b5c324-0242-45b6-82b1-7c73a47afca3
+          organization-id: 187fb143-2898-4637-81fe-4f4cb599f1ff
           project-slug: SoulSplitter
-          signing-policy-slug: Test
+          signing-policy-slug: test_certificate_2025
           github-artifact-id: ${{ steps.upload-unsigned-artifact.outputs.artifact-id }}
           wait-for-completion: true
           output-artifact-directory: artifact_signpath
