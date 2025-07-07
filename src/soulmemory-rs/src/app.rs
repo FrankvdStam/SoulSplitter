@@ -25,6 +25,7 @@ use crate::widgets::chr_dbg_flags_widget::ChrDbgFlagsWidget;
 use crate::widgets::event_flag_widget::EventFlagWidget;
 use crate::widgets::misc_widget::MiscWidget;
 use crate::games::*;
+use crate::util::WINDOW_TITLE_STR;
 use crate::widgets::emevd_logger_widget::EmevdLoggerWidget;
 
 pub struct App
@@ -196,9 +197,10 @@ impl App
         //style.tab_rounding                            = 4f32;
     }
 
+
     pub fn render(&mut self, ui: &mut Ui)
     {
-        ui.window("soulmemory-rs")
+        ui.window(WINDOW_TITLE_STR)
             //.flags(WindowFlags::NO_COLLAPSE | WindowFlags::NO_SCROLLBAR)
             .position([50.0f32, 50.0f32], Condition::Appearing)
             .size([500.0, 800.0], Condition::Appearing)
@@ -231,3 +233,4 @@ impl Default for App
 }
 
 static mut APP: Option<Arc<Mutex<App>>> = None;
+

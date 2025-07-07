@@ -67,8 +67,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\qodana_main.yml = .github\workflows\qodana_main.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulSplitter.Build", "src\SoulSplitter.Build\SoulSplitter.Build.csproj", "{F7384B91-156E-4927-AF05-D29AA11C1936}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,14 +123,6 @@ Global
 		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}.Release|Any CPU.Build.0 = Release|x64
 		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}.Release|x64.ActiveCfg = Release|x64
 		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}.Release|x64.Build.0 = Release|x64
-		{F7384B91-156E-4927-AF05-D29AA11C1936}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{F7384B91-156E-4927-AF05-D29AA11C1936}.Debug|Any CPU.Build.0 = Debug|x64
-		{F7384B91-156E-4927-AF05-D29AA11C1936}.Debug|x64.ActiveCfg = Debug|x64
-		{F7384B91-156E-4927-AF05-D29AA11C1936}.Debug|x64.Build.0 = Debug|x64
-		{F7384B91-156E-4927-AF05-D29AA11C1936}.Release|Any CPU.ActiveCfg = Release|x64
-		{F7384B91-156E-4927-AF05-D29AA11C1936}.Release|Any CPU.Build.0 = Release|x64
-		{F7384B91-156E-4927-AF05-D29AA11C1936}.Release|x64.ActiveCfg = Release|x64
-		{F7384B91-156E-4927-AF05-D29AA11C1936}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,7 +135,6 @@ Global
 		{13D6FF7F-E774-424C-940C-C76FF98D8916} = {FCB71284-721B-4845-AF63-F80DD168D949}
 		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
 		{569FD53B-198F-47CD-8F30-118FE8FB1FD5} = {60F4497F-439A-48DB-885A-066E00CC945E}
-		{F7384B91-156E-4927-AF05-D29AA11C1936} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C356BE2C-9585-4CCF-A852-29C6DFCCD5A5}

@@ -19,6 +19,11 @@ pub(crate) mod console;
 pub(crate) mod server;
 pub mod vector3f;
 
+#[unsafe(no_mangle)]
+#[used]
+pub static SOULMEMORY_RS_VERSION: &'static str = env!("VERSION");
+pub const WINDOW_TITLE_STR: &'static str = concat!("soulmemory-rs ", env!("VERSION"));
+
 pub unsafe fn get_stack_u32(esp: u32, offset: usize) -> u32
 {
     unsafe { *((esp as usize + offset) as *mut u32) }

@@ -1,6 +1,5 @@
 [package]
 name = "soulmemory-rs"
-version = "2.0.32"
 edition = "2024"
 authors = ["Frank van der Stam"]
 description = "Injectable UI with event flag loging"
@@ -56,3 +55,6 @@ features = [
     "Win32_UI_Input_XboxController",
     "Win32_UI_Input_KeyboardAndMouse"
 ]
+
+[build-dependencies]
+roxmltree = "0.20.0"

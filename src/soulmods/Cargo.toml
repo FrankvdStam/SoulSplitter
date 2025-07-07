@@ -1,6 +1,5 @@
 [package]
 name = "soulmods"
-version = "2.0.32"
 edition = "2024"
 authors = ["Frank van der Stam"]
 description = "Injectable game modifications use in speedruns"
