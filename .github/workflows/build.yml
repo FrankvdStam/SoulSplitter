@@ -58,34 +58,35 @@ jobs:
             mkdir artifact
             mkdir artifact_signpath
             mkdir artifact\CliTimer
-            copy src\SoulSplitter\bin\x64\Release\net481\SoulSplitter.dll                artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\SoulMemory.dll                  artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignColors.dll        artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignThemes.Wpf.dll    artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\Microsoft.Xaml.Behaviors.dll    artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x86.dll                artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x64.dll                artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x86.dll           artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x64.dll           artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\launcher_x86.exe                artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\launcher_x64.exe                artifact
-            copy LICENSE                                                                 artifact
-            copy src\SoulMemory\bin\x64\Release\*.nupkg                                  artifact
-            copy src\CliTimer\bin\x64\release\net481\CliTimer.exe                        artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\CliTimer.exe.config                 artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\SoulMemory.dll                      artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\soulmods_x86.dll                    artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\soulmods_x64.dll                    artifact\CliTimer
+            copy src\SoulSplitter\bin\x64\Release\net481\SoulSplitter.dll                unsigned-artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\SoulMemory.dll                  unsigned-artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignColors.dll        unsigned-artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignThemes.Wpf.dll    unsigned-artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\Microsoft.Xaml.Behaviors.dll    unsigned-artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x86.dll                unsigned-artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x64.dll                unsigned-artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x86.dll           unsigned-artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x64.dll           unsigned-artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\launcher_x86.exe                unsigned-artifact
+            copy src\SoulSplitter\bin\x64\Release\net481\launcher_x64.exe                unsigned-artifact
+            copy LICENSE                                                                 unsigned-artifact
+            copy src\SoulMemory\bin\x64\Release\*.nupkg                                  unsigned-artifact
+            copy src\CliTimer\bin\x64\release\net481\CliTimer.exe                        unsigned-artifact\CliTimer
+            copy src\CliTimer\bin\x64\release\net481\CliTimer.exe.config                 unsigned-artifact\CliTimer
+            copy src\CliTimer\bin\x64\release\net481\SoulMemory.dll                      unsigned-artifact\CliTimer
+            copy src\CliTimer\bin\x64\release\net481\soulmods_x86.dll                    unsigned-artifact\CliTimer
+            copy src\CliTimer\bin\x64\release\net481\soulmods_x64.dll                    unsigned-artifact\CliTimer
 
       - name: publish unsigned artifacts
         if: ${{ !github.event.pull_request.head.repo.fork }}
         id: upload-unsigned-artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.VERSION }}
-          path: artifact
+          name: unsigned-artifact
+          path: unsigned-artifact
 
       - name: sign artifacts with signpath
+        if: ${{ !github.event.pull_request.head.repo.fork }}
         id: optional_step_id
         uses: signpath/github-action-submit-signing-request@v1.1
         with:
@@ -95,7 +96,7 @@ jobs:
           signing-policy-slug: test-signing          
           github-artifact-id: ${{ steps.upload-unsigned-artifact.outputs.artifact-id }}
           wait-for-completion: true
-          output-artifact-directory: artifact_signpath
+          output-artifact-directory: signed-artifact
           parameters: |
             version: ${{ toJSON(env.VERSION) }}
 
@@ -104,4 +105,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.VERSION }}
-          path: artifact_signpath
+          path: signed-artifact
