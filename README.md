@@ -127,11 +127,13 @@ I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been
 </p>
 
 <br/>
+<br/>
 
 Free code signing provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)
-<p align="center">
+<p align="left">
     <img src="resources/signpath_logo.svg" width="300"/>
 </p>
+<br/>
 
 
 Check out this [visualization of the git history](https://www.youtube.com/watch?v=2u7MwySLOUE), made with [Gource](https://gource.io/)
