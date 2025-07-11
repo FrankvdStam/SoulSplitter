@@ -29,7 +29,6 @@ using SoulMemory;
 using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
-using SoulSplitterUIv2.Ui.ViewModels;
 
 #pragma warning disable CS0162
 
@@ -41,8 +40,6 @@ namespace cli
         private static void Main(string[] args)
         {
             TestUi(true);
-            return;
-            TestUiV2();
             return;
             GameLoop<EldenRing>(
                 (d) =>
@@ -244,20 +241,7 @@ namespace cli
 
             
         }
-
-        static void TestUiV2()
-        {
-            var app = new SoulSplitterUIv2.Ui.View.App();
-            app.InitializeComponent();
-
-            var mainViewModel = app.MainWindow!.DataContext as SoulSplitterUIv2.Ui.ViewModels.MainViewModel;
-            mainViewModel!.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.Sekiro, 0, SoulSplitterUIv2.Enums.TimingType.Immediate, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.EldenRing.Boss.SanguineNobleWrithebloodRuinsAltusPlateau, "asdf"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.EldenRing, 99, SoulSplitterUIv2.Enums.TimingType.OnLoading, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.EldenRing.Boss.CommanderONeilEastAeoniaSwampCaelid, "peepo"));
-            mainViewModel.Splits.Add(new SoulSplitterUIv2.Ui.ViewModels.SplitViewModel(SoulSplitterUIv2.Enums.Game.DarkSouls3, 12, SoulSplitterUIv2.Enums.TimingType.OnWarp, SoulSplitterUIv2.Enums.SplitType.Boss, SoulMemory.EldenRing.Boss.GodskinApostleDivineTowerOfCaelidCaelid, "1234"));
-
-            app.ShowMainWindow();
-        }
-
+        
 
         #region Validate patterns 
         public static void ValidatePatterns()
