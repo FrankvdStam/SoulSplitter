@@ -77,7 +77,7 @@ jobs:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
           organization-id: 187fb143-2898-4637-81fe-4f4cb599f1ff
           project-slug: SoulSplitter
-          signing-policy-slug: test-signing          
+          signing-policy-slug: release-signing
           github-artifact-id: ${{ steps.upload-unsigned-artifact.outputs.artifact-id }}
           wait-for-completion: true
           output-artifact-directory: signed-artifact
