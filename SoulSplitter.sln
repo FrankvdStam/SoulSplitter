@@ -65,11 +65,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\debug.yml = .github\workflows\debug.yml
 		.github\workflows\issues.yml = .github\workflows\issues.yml
 		.github\workflows\qodana_main.yml = .github\workflows\qodana_main.yml
+		.github\workflows\sign.yml = .github\workflows\sign.yml
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulSplitterUIv2.Tests", "tests\SoulSplitterUIv2.Tests\SoulSplitterUIv2.Tests.csproj", "{B791CE69-0C56-48BA-A4AE-D8356BF64E40}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulSplitterUIv2", "src\SoulSplitterUIv2\SoulSplitterUIv2.csproj", "{37467C95-F0FD-442D-A210-FBC623443352}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,14 +98,6 @@ Global
 		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}.Debug|x64.Build.0 = Debug|x64
 		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}.Release|x64.ActiveCfg = Release|x64
 		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3}.Release|x64.Build.0 = Release|x64
-		{B791CE69-0C56-48BA-A4AE-D8356BF64E40}.Debug|x64.ActiveCfg = Debug|x64
-		{B791CE69-0C56-48BA-A4AE-D8356BF64E40}.Debug|x64.Build.0 = Debug|x64
-		{B791CE69-0C56-48BA-A4AE-D8356BF64E40}.Release|x64.ActiveCfg = Release|x64
-		{B791CE69-0C56-48BA-A4AE-D8356BF64E40}.Release|x64.Build.0 = Release|x64
-		{37467C95-F0FD-442D-A210-FBC623443352}.Debug|x64.ActiveCfg = Debug|x64
-		{37467C95-F0FD-442D-A210-FBC623443352}.Debug|x64.Build.0 = Debug|x64
-		{37467C95-F0FD-442D-A210-FBC623443352}.Release|x64.ActiveCfg = Release|x64
-		{37467C95-F0FD-442D-A210-FBC623443352}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,8 +110,6 @@ Global
 		{13D6FF7F-E774-424C-940C-C76FF98D8916} = {FCB71284-721B-4845-AF63-F80DD168D949}
 		{F7482938-4DEE-4BEB-BBA7-D9AE696404F3} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
 		{569FD53B-198F-47CD-8F30-118FE8FB1FD5} = {60F4497F-439A-48DB-885A-066E00CC945E}
-		{B791CE69-0C56-48BA-A4AE-D8356BF64E40} = {FCB71284-721B-4845-AF63-F80DD168D949}
-		{37467C95-F0FD-442D-A210-FBC623443352} = {DAF9C4D1-2E17-44C9-BC7B-0F26EDBE97E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C356BE2C-9585-4CCF-A852-29C6DFCCD5A5}
