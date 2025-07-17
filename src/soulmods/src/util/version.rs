@@ -50,7 +50,7 @@ impl Version
             let get_file_version_info_result = GetFileVersionInfoExW(
                 GET_FILE_VERSION_INFO_FLAGS(0x02),
                 pcwstr,
-                0,
+                Some(0),
                 file_version_info_size,
                 buffer.as_mut_ptr() as *mut c_void
             );
