@@ -65,6 +65,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\debug.yml = .github\workflows\debug.yml
 		.github\workflows\issues.yml = .github\workflows\issues.yml
 		.github\workflows\qodana_main.yml = .github\workflows\qodana_main.yml
+		.github\workflows\sign.yml = .github\workflows\sign.yml
 	EndProjectSection
 EndProject
 Global

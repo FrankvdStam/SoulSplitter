@@ -36,68 +36,18 @@ jobs:
 
       - name: Run tests with code coverage
         run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
-
-      - name: Qodana Scan
+      
+      - name: qodana scan
         if: ${{ !github.event.pull_request.head.repo.fork }}
         continue-on-error: true
-        uses: JetBrains/qodana-action@v2024.3
+        uses: JetBrains/qodana-action@v2025.1
         with:
           args: --baseline,qodana.sarif.json
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
  
-      - name: upload to github code scanning
+      - name: upload qodana scan to github code scanning
         if: ${{ !github.event.pull_request.head.repo.fork }}
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
-
-        #Collect all the artifacts and publish them
-      - name: collect artifacts
-        run: |
-            mkdir artifact
-            mkdir artifact\CliTimer
-            copy src\SoulSplitter\bin\x64\Release\net481\SoulSplitter.dll                artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\SoulMemory.dll                  artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignColors.dll        artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignThemes.Wpf.dll    artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\Microsoft.Xaml.Behaviors.dll    artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x86.dll                artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x64.dll                artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x86.dll           artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x64.dll           artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\launcher_x86.exe                artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\launcher_x64.exe                artifact
-            copy LICENSE                                                                 artifact
-            copy src\SoulMemory\bin\x64\Release\*.nupkg                                  artifact
-            copy src\CliTimer\bin\x64\release\net481\CliTimer.exe                        artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\CliTimer.exe.config                 artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\SoulMemory.dll                      artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\soulmods_x86.dll                    artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\soulmods_x64.dll                    artifact\CliTimer
-
-      - name: sign artifacts
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        run: |
-            $bytes = [Convert]::FromBase64String("${{SECRETS.CERT_PFX_BASE64}}")
-            [IO.File]::WriteAllBytes("SoulSplitter.pfx", $bytes)
-            $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\SoulSplitter.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\SoulMemory.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmods_x86.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmods_x64.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmemory_rs_x86.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\soulmemory_rs_x64.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\launcher_x86.exe"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\launcher_x64.exe"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\CliTimer.exe"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\SoulMemory.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\soulmods_x86.dll"
-            & $signtool sign /fd sha256 /f SoulSplitter.pfx /d "SoulSplitter" /t http://timestamp.digicert.com "artifact\CliTimer\soulmods_x64.dll"
-
-      - name: Publish SoulSplitter
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.VERSION }}
-          path: artifact

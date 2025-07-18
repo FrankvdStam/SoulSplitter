@@ -121,10 +121,19 @@ Thank you strimmers, for risking your PB's, to test my broken code!
 - [KEMIST](https://www.twitch.tv/kemist_c10h15n)  
 - [Ramonchi_5](https://www.twitch.tv/ramonchi_5)  
 
-I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
+<br/><br/>
+Free code signing provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)
+  
+<p align="left">
+    <img src="resources/signpath_logo.svg" width="300"/>
+</p>
 
-<p align="center">
+<br/><br/>
+I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
+  
+<p align="left">
     <img src="https://github.com/devicons/devicon/blob/master/icons/jetbrains/jetbrains-original.svg" width="300"/>
 </p>
 
+<br/><br/>
 Check out this [visualization of the git history](https://www.youtube.com/watch?v=2u7MwySLOUE), made with [Gource](https://gource.io/)

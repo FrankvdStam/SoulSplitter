@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.8.5">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="changed"/>
+            <file path="Components/SoulSplitter.dll"                status="changed"/>
+            <file path="Components/soulmods_x86.dll"                status="changed"/>
+            <file path="Components/soulmods_x64.dll"                status="changed"/>
+            <file path="Components/soulmemory_rs_x86.dll"           status="changed"/>
+            <file path="Components/soulmemory_rs_x64.dll"           status="changed"/>
+            <file path="Components/launcher_x86.exe"                status="changed"/>
+            <file path="Components/launcher_x64.exe"                status="changed"/>
+        </files>
+        <changelog>
+            <change>Elden Ring: (Thanks soarqin!) Add some type of items in DLC, e.g. rune arcs and greases.</change>
+            <change>Elden Ring: (Thanks soarqin!) Add all guaranteed unique drops from normal/elite enemies.</change>
+            <change>Elden Ring: (Thanks soarqin!) Add all shop items in limited quantity.</change>
+            <change>Elden Ring: (Thanks soarqin!) Remove unused items.</change>
+            <change>Elden Ring: (Thanks soarqin!) Remove known flags with wrong descriptions, which are already in item pickups table.</change>
+            <change>Elden Ring: (Thanks soarqin!) Correct wrong item descriptions, e.g. Meteorite Staff.</change>
+            <change>All: Code signing by signpath. Hopefully this fixes windows defender issues.</change>
+        </changelog>
+    </update>
     <update version="1.8.4">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed"/>
