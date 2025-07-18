@@ -524,6 +524,57 @@
 
                 </StackPanel>
             </TabItem>
+
+            <!-- 
+            <TabItem Header ="Hotkeys">
+                <ItemsControl 
+                    ItemsSource="{Binding Hotkeys}"
+                    Grid.Row="3">
+
+                    <ItemsControl.Resources>
+                        <DataTemplate 
+                            x:Key="RemoveFpsPatchDataTemplate" 
+                            DataType="{x:Type eldenRing:FpsPatchHotkey}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox Grid.Column="0" Text="{Binding Hotkey, Converter={StaticResource HotkeyToStringConverter} }"/>
+                                <TextBox Grid.Column="1" Text="Remove FPS patch"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.Resources>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Action}" Value="{x:Static eldenRing:FpsPatchHotkeyAction.RemoveFpsPatch}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource RemoveFpsPatchDataTemplate}"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox Grid.Column="0" Text="{Binding Hotkey, Converter={StaticResource HotkeyToStringConverter} }"/>
+                                <TextBox Grid.Column="1" Text="{Binding Fps}"/>
+
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+
+                </ItemsControl>
+            </TabItem>
+            -->
+            
         </TabControl>
     </Grid>
 </Window>

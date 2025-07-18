@@ -25,7 +25,8 @@
     xmlns:converters="clr-namespace:SoulSplitter.Ui.Converters"
     xmlns:resources="clr-namespace:SoulSplitter.Resources"
     xmlns:view="clr-namespace:SoulSplitter.Ui.View"
-    xmlns:controls="clr-namespace:SoulSplitter.Ui.View.Controls" xmlns:validation="clr-namespace:SoulSplitter.Ui.Validation"
+    xmlns:controls="clr-namespace:SoulSplitter.Ui.View.Controls"
+    xmlns:validation="clr-namespace:SoulSplitter.Ui.Validation"
     Margin="5"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch">
