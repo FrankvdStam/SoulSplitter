@@ -62,25 +62,37 @@ pub fn init_darksouls3()
         let fn_fps_address = process.scan_abs("fps", "f3 0f 10 88 68 02 00 00 48 8d 3d", 0, Vec::new()).unwrap().get_base_address();
         info!("FPS at 0x{:x}", fn_fps_address);
 
-        // Enable FPS patch
-        FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
-
-
         // AoB scan for FPS custom limit patch
         let fn_fps_custom_limit_address = process.scan_abs("fps custom limit", "48 8b c8 e8 ? ? ? ? 48 8b 05 ? ? ? ? 48 85 c0 75 26 4c 8d 0d ? ? ? ? 4c 8d 05 ? ? ? ? ba b1 00 00 00 48 8d 0d ? ? ? ? e8 ? ? ? ? 48 8b 05 ? ? ? ? f3 0f 10 88 68 02 00 00 48 8d 3d", 0, Vec::new()).unwrap().get_base_address();
         info!("FPS custom limit at 0x{:x}", fn_fps_custom_limit_address);
-
-        // Enable FPS custom limit patch
-        FPS_CUSTOM_LIMIT_HOOK = Some(Hooker::new(fn_fps_custom_limit_address, HookType::JmpBack(fps_custom_limit), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
-    
 
         // AoB scan for frame advance patch
         let fn_frame_advance_address = process.scan_abs("frame_advance", "e8 ? ? ? ? 84 c0 74 41 90 48", 10, Vec::new()).unwrap().get_base_address();
         info!("Frame advance at 0x{:x}", fn_frame_advance_address);
 
+
         // Enable frame advance patch
         FRAME_ADVANCE_HOOK = Some(Hooker::new(fn_frame_advance_address, HookType::JmpBack(frame_advance), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
+
+        // Temporarily turn on frame-advance while patching the FPS function..
+        DS3_FRAME_ADVANCE_ENABLED = true;
+        DS3_FRAME_RUNNING = true;
+
+        while DS3_FRAME_RUNNING {
+            thread::sleep(Duration::from_micros(10));
+        }
+
+
+        // Enable FPS patch
+        FPS_HOOK = Some(Hooker::new(fn_fps_address, HookType::JmpBack(fps), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+        // Enable FPS custom limit patch
+        FPS_CUSTOM_LIMIT_HOOK = Some(Hooker::new(fn_fps_custom_limit_address, HookType::JmpBack(fps_custom_limit), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+
+        // Turn off frame-advance again..
+        DS3_FRAME_ADVANCE_ENABLED = false;
     }
 }
 
@@ -177,7 +189,6 @@ unsafe extern "win64" fn fps_custom_limit(registers: *mut Registers, _:usize)
 
 
         // Read the stock target frame delta and calculate the custom target frame delta
-        let target_frame_delta = std::ptr::read_volatile(ptr_target_frame_delta);
         let custom_target_frame_delta = 1.0f32 / DS3_FPS_CUSTOM_LIMIT;
 
 

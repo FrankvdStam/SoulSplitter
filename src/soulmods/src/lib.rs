@@ -33,6 +33,9 @@ use log::info;
 use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version};
 
 
+#[no_mangle]
+#[used]
+pub static mut SOULMODS_INITIALIZED: bool = false;
 
 #[no_mangle]
 #[allow(non_snake_case)]
@@ -78,4 +81,6 @@ fn dispatched_dll_main()
         "sekiro.exe" => init_sekiro(),
         _ => info!("no supported process found")
     }
+
+    unsafe { SOULMODS_INITIALIZED = true };
 }
