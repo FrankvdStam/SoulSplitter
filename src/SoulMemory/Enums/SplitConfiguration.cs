@@ -136,7 +136,8 @@ namespace SoulMemory.Enums
             },
             {
             Game.Nightreign, [
-                (SplitType.Manual, null)
+                (SplitType.Manual, null),
+                (SplitType.Flag, null),
             ]
         }
         };

@@ -25,6 +25,7 @@ use crate::widgets::chr_dbg_flags_widget::ChrDbgFlagsWidget;
 use crate::widgets::event_flag_widget::EventFlagWidget;
 use crate::widgets::misc_widget::MiscWidget;
 use crate::games::*;
+use crate::games::nightreign::Nightreign;
 use crate::util::WINDOW_TITLE_STR;
 use crate::widgets::emevd_logger_widget::EmevdLoggerWidget;
 
@@ -80,6 +81,7 @@ impl App
             "eldenring.exe"             => Box::new(EldenRing::new()),
             "armoredcore6.exe"          => Box::new(ArmoredCore6::new()),
             "shadps4.exe"               => Box::new(Bloodborne::new()),
+            "nightreign.exe"            => Box::new(Nightreign::new()),
             _                           => panic!("unsupported process: {}", process_name.to_lowercase()),
         };
 
