@@ -21,69 +21,44 @@ pub mod game;
 pub mod game_ext;
 pub mod mock_game;
 
-#[cfg(target_arch = "x86")]
-pub mod dark_souls_prepare_to_die_edition;
-#[cfg(target_arch = "x86")]
-pub mod dark_souls_2_vanilla;
-
-#[cfg(target_arch = "x86_64")]
-pub mod dark_souls_remastered;
-#[cfg(target_arch = "x86_64")]
-pub mod dark_souls_2_scholar_of_the_first_sin;
-#[cfg(target_arch = "x86_64")]
-pub mod darksouls3;
-#[cfg(target_arch = "x86_64")]
-pub mod sekiro;
-#[cfg(target_arch = "x86_64")]
-pub mod elden_ring;
-#[cfg(target_arch = "x86_64")]
-pub mod armored_core_6;
-#[cfg(target_arch = "x86_64")]
-pub mod bloodborne;
-#[cfg(target_arch = "x86_64")]
-pub mod nightreign;
-
-
 
 #[cfg(target_arch = "x86")]
-mod ilhook
+mod x86;
+
+#[cfg(target_arch = "x86")]
+pub use
 {
-    #[allow(unused_imports)]
-    pub use ilhook::x86::{CallbackOption, Hooker, HookFlags, HookPoint, HookType, Registers};
-}
+    crate::games::x86::dark_souls_prepare_to_die_edition::*,
+    crate::games::x86::dark_souls_2_vanilla::*,
+};
+
+#[cfg(target_arch = "x86_64")]
+mod x64;
+
+#[cfg(target_arch = "x86_64")]
+pub use
+{
+    crate::games::x64::dark_souls_remastered::*,
+    crate::games::x64::armored_core_6::*,
+    crate::games::x64::dark_souls_2_scholar_of_the_first_sin::*,
+    crate::games::x64::darksouls3::*,
+    crate::games::x64::elden_ring::*,
+    crate::games::x64::sekiro::*,
+    crate::games::x64::bloodborne::*,
+    crate::games::x64::nightreign::*,
+};
+
 
 #[cfg(target_arch = "x86_64")]
 mod ilhook
 {
-    pub use ilhook::x64::{CallbackOption, Hooker, HookFlags, HookPoint, HookType, Registers};
+    pub use ilhook::x64::{CallbackOption, HookFlags, HookPoint, HookType, Hooker, Registers};
 }
 
 pub use game::Game;
 pub use game_ext::GameExt;
 pub use mock_game::MockGame;
 
-#[cfg(target_arch = "x86")]
-pub use dark_souls_prepare_to_die_edition::DarkSoulsPrepareToDieEdition;
-#[cfg(target_arch = "x86")]
-pub use dark_souls_2_vanilla::DarkSouls2Vanilla;
-
-
-#[cfg(target_arch = "x86_64")]
-pub use dark_souls_remastered::DarkSoulsRemastered;
-#[cfg(target_arch = "x86_64")]
-pub use dark_souls_2_scholar_of_the_first_sin::DarkSouls2ScholarOfTheFirstSin;
-#[cfg(target_arch = "x86_64")]
-pub use darksouls3::DarkSouls3;
-#[cfg(target_arch = "x86_64")]
-pub use sekiro::Sekiro;
-#[cfg(target_arch = "x86_64")]
-pub use elden_ring::EldenRing;
-#[cfg(target_arch = "x86_64")]
-pub use armored_core_6::ArmoredCore6;
-#[cfg(target_arch = "x86_64")]
-pub use bloodborne::Bloodborne;
-#[cfg(target_arch = "x86_64")]
-pub use nightreign::Nightreign;
 
 pub type ChrDbgFlag = (u32, String, bool);
 

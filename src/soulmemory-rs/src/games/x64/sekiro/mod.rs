@@ -43,7 +43,7 @@ use crate::util::vector3f::Vector3f;
 use crate::games::ilhook::*;
 
 
-static EMEVD_JSON: &str = include_str!("../../../../../darkscript3/sekiro-common.emedf.json");
+static EMEVD_JSON: &str = include_str!("../../../../../../darkscript3/sekiro-common.emedf.json");
 
 pub struct Sekiro
 {

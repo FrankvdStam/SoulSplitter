@@ -73,7 +73,7 @@ impl Game for DarkSouls2ScholarOfTheFirstSin
 
                 self.fn_get_event_flag = mem::transmute(get_event_flag_address);
 
-                let h = Hooker::new(set_event_flag_address, HookType::JmpBack(crate::games::dark_souls_2_scholar_of_the_first_sin::read_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+                let h = Hooker::new(set_event_flag_address, HookType::JmpBack(crate::games::x64::dark_souls_2_scholar_of_the_first_sin::read_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
                 self.set_event_flag_hook = Some(h.hook().unwrap());
 
                 info!("event_flag_man base address: 0x{:x}", self.event_flag_man.get_base_address());

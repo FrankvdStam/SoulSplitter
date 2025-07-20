@@ -68,36 +68,34 @@ impl App
     {
         //Init the game we're injected in
 
-
-        #[allow(unreachable_patterns)]
+        #[cfg(target_arch = "x86")]
         let game: Box<dyn Game> = match process_name.to_lowercase().as_str()
         {
-            _                           => panic!("unsupported process: {}", process_name.to_lowercase()),
             "mockgame.exe"              => Box::new(MockGame::new()),
 
-            #[cfg(target_arch = "x86")]
             "darksouls.exe"             => Box::new(DarkSoulsPrepareToDieEdition::new()),
-            #[cfg(target_arch = "x86")]
             "darksoulsii.exe"           => Box::new(DarkSouls2Vanilla::new()),
 
-            #[cfg(target_arch = "x86_64")]
+            _                           => panic!("unsupported process: {}", process_name.to_lowercase()),
+        };
+
+        #[cfg(target_arch = "x86_64")]
+        let game: Box<dyn Game> = match process_name.to_lowercase().as_str()
+        {
+            "mockgame.exe"              => Box::new(MockGame::new()),
+
             "darksoulsremastered.exe"   => Box::new(DarkSoulsRemastered::new()),
-            #[cfg(target_arch = "x86_64")]
             "darksoulsii.exe"           => Box::new(DarkSouls2ScholarOfTheFirstSin::new()),
-            #[cfg(target_arch = "x86_64")]
             "darksoulsiii.exe"          => Box::new(DarkSouls3::new()),
-            #[cfg(target_arch = "x86_64")]
             "sekiro.exe"                => Box::new(Sekiro::new()),
-            #[cfg(target_arch = "x86_64")]
             "eldenring.exe"             => Box::new(EldenRing::new()),
-            #[cfg(target_arch = "x86_64")]
             "armoredcore6.exe"          => Box::new(ArmoredCore6::new()),
-            #[cfg(target_arch = "x86_64")]
             "shadps4.exe"               => Box::new(Bloodborne::new()),
-            #[cfg(target_arch = "x86_64")]
             "nightreign.exe"            => Box::new(Nightreign::new()),
 
+            _                           => panic!("unsupported process: {}", process_name.to_lowercase()),
         };
+
 
         //get drawable widgets
         //let widgets = game.get_widgets();

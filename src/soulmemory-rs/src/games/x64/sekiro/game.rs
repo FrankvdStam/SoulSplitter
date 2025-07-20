@@ -28,7 +28,7 @@ use crate::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEme
 use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
 use crate::games::traits::player_position::PlayerPosition;
 
-use crate::games::sekiro::emevd::emevd_event_hook_fn;
+use crate::games::x64::sekiro::emevd::emevd_event_hook_fn;
 
 impl Game for Sekiro
 {

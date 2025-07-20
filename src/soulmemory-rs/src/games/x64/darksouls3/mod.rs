@@ -37,7 +37,7 @@ use crate::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEme
 mod buffered_emevd_logger;
 mod buffered_event_flags;
 
-static EMEVD_JSON: &str = include_str!("../../../../../darkscript3/ds3-common.emedf.json");
+static EMEVD_JSON: &str = include_str!("../../../../../../darkscript3/ds3-common.emedf.json");
 
 pub struct DarkSouls3
 {
