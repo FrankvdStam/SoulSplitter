@@ -19,6 +19,8 @@ use std::fmt::Display;
 use std::sync::{Arc, Mutex};
 use chrono::{DateTime, Local};
 
+pub type FnGetEventFlag = fn(event_flag_man: u64, event_flag: u32) -> u8;
+
 #[derive(Clone, Copy)]
 pub struct  EventFlag
 {

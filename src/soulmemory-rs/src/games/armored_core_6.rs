@@ -25,12 +25,10 @@ use ilhook::x64::{CallbackOption, Hooker, HookFlags, HookPoint, HookType, Regist
 use log::info;
 use mem_rs::prelude::*;
 use crate::App;
-use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
+use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag, FnGetEventFlag};
 use crate::games::dx_version::DxVersion;
 use crate::games::game::Game;
 use crate::games::GameExt;
-
-type FnGetEventFlag = fn(event_flag_man: u64, event_flag: u32) -> u8;
 
 pub struct ArmoredCore6
 {
@@ -73,9 +71,6 @@ impl BufferedEventFlags for ArmoredCore6
     }
 }
 
-
-
-
 impl Game for ArmoredCore6
 {
     fn refresh(&mut self) -> Result<(), String>
@@ -92,12 +87,8 @@ impl Game for ArmoredCore6
                 let get_event_flag_address = self.process.scan_abs("get_event_flag", "44 8b 41 1c 44 8b da 33 d2 41 8b c3 41 f7 f0 4c 8b d1 45 33 c9 44 0f af c0", 0, Vec::new())?.get_base_address();
                 self.fn_get_event_flag = mem::transmute(get_event_flag_address);
 
-                #[cfg(target_arch = "x86_64")]
-                {
-                    let h = Hooker::new(self.set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
-                    self.set_event_flag_hook = Some(h.hook().unwrap());
-                }
-
+                let h = Hooker::new(self.set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+                self.set_event_flag_hook = Some(h.hook().unwrap());
 
                 info!("event_flag_man base address: 0x{:x}", self.virtual_memory_flag.get_base_address());
                 info!("set event flag address     : 0x{:x}", self.set_event_flag_address);
@@ -114,11 +105,8 @@ impl Game for ArmoredCore6
                     let hookpoint = self.set_event_flag_hook.take();
                     hookpoint.unwrap().unhook().unwrap();
 
-                    #[cfg(target_arch = "x86_64")]
-                    {
-                        let h = Hooker::new(self.set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
-                        self.set_event_flag_hook = Some(h.hook().unwrap());
-                    }
+                    let h = Hooker::new(self.set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+                    self.set_event_flag_hook = Some(h.hook().unwrap());
                 }
 
                 self.process.refresh()?;
@@ -139,7 +127,6 @@ impl Game for ArmoredCore6
     fn as_any_mut(&mut self) -> &mut dyn Any { self }
 }
 
-#[cfg(target_arch = "x86_64")]
 unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usize)
 {
     let instance = App::get_instance();

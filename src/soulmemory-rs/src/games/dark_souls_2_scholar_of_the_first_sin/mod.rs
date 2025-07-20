@@ -30,13 +30,7 @@ use mem_rs::prelude::Process;
 use crate::App;
 use crate::games::dx_version::DxVersion;
 use crate::games::{Game, GameExt};
-use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
-
-#[cfg(target_arch = "x86")]//This version exists only to make things compile easily for x86
-type FnGetEventFlag = unsafe extern "thiscall" fn(event_flag_man: u64, event_flag: u32) -> u8;
-
-#[cfg(target_arch = "x86_64")]
-type FnGetEventFlag = unsafe extern "win64" fn(event_flag_man: u64, event_flag: u32) -> u8;
+use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag, FnGetEventFlag};
 
 pub struct DarkSouls2ScholarOfTheFirstSin
 {
@@ -52,12 +46,6 @@ impl DarkSouls2ScholarOfTheFirstSin
 {
     pub fn new() -> Self
     {
-        #[cfg(target_arch = "x86")]//This version exists only to make things compile easily for x86
-        unsafe extern "thiscall" fn empty(_: u64, _: u32) -> u8 { 0 }
-
-        #[cfg(target_arch = "x86_64")]
-        unsafe extern "win64" fn empty(_: u64, _: u32) -> u8 { 0 }
-
         DarkSouls2ScholarOfTheFirstSin
         {
             process: Process::new("darksoulsii.exe"),
@@ -65,7 +53,7 @@ impl DarkSouls2ScholarOfTheFirstSin
             event_flag_man: Default::default(),
             event_flags: Arc::new(Mutex::new(vec![])),
             set_event_flag_hook: None,
-            fn_get_event_flag: empty,
+            fn_get_event_flag: |_,_|{0},
         }
     }
 }
@@ -85,11 +73,8 @@ impl Game for DarkSouls2ScholarOfTheFirstSin
 
                 self.fn_get_event_flag = mem::transmute(get_event_flag_address);
 
-                #[cfg(target_arch = "x86_64")]
-                {
-                    let h = Hooker::new(set_event_flag_address, HookType::JmpBack(crate::games::dark_souls_2_scholar_of_the_first_sin::read_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
-                    self.set_event_flag_hook = Some(h.hook().unwrap());
-                }
+                let h = Hooker::new(set_event_flag_address, HookType::JmpBack(crate::games::dark_souls_2_scholar_of_the_first_sin::read_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+                self.set_event_flag_hook = Some(h.hook().unwrap());
 
                 info!("event_flag_man base address: 0x{:x}", self.event_flag_man.get_base_address());
                 info!("get event flag address     : 0x{:x}", get_event_flag_address);
@@ -112,7 +97,6 @@ impl Game for DarkSouls2ScholarOfTheFirstSin
     fn as_any_mut(&mut self) -> &mut dyn Any { self }
 }
 
-#[cfg(target_arch = "x86_64")]
 unsafe extern "win64" fn read_event_flag_hook_fn(registers: *mut Registers, _:usize)
 {
     let instance = App::get_instance();

@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+
 pub(crate) mod log;
 pub(crate) mod console;
 pub(crate) mod server;
@@ -24,11 +25,14 @@ pub mod vector3f;
 pub static SOULMEMORY_RS_VERSION: &'static str = env!("VERSION");
 pub const WINDOW_TITLE_STR: &'static str = concat!("soulmemory-rs ", env!("VERSION"));
 
+
+#[allow(dead_code)]
 pub unsafe fn get_stack_u32(esp: u32, offset: usize) -> u32
 {
     unsafe { *((esp as usize + offset) as *mut u32) }
 }
 
+#[allow(dead_code)]
 pub unsafe fn get_stack_u8(esp: u32, offset: usize) -> u8
 {
     unsafe {  *((esp as usize + offset) as *mut u8) }

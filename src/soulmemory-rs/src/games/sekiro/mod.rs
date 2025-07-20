@@ -37,18 +37,13 @@ use crate::games::{ChrDbgFlag, GameExt, GetSetChrDbgFlags};
 use crate::games::dx_version::DxVersion;
 use crate::games::game::Game;
 use crate::games::traits::player_position::PlayerPosition;
-use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
+use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag, FnGetEventFlag};
 use crate::games::traits::buffered_emevd_logger::*;
 use crate::util::vector3f::Vector3f;
 use crate::games::ilhook::*;
 
 
 static EMEVD_JSON: &str = include_str!("../../../../../darkscript3/sekiro-common.emedf.json");
-
-type FnGetEventFlag = fn(event_flag_man: u64, event_flag: u32) -> u8;
-
-
-
 
 pub struct Sekiro
 {

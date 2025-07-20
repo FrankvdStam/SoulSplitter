@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+#![allow(dead_code)]
+
 use std::collections::HashMap;
 use lazy_static::lazy_static;
 use crate::darkscript3::emevd_definition::{ArgDoc, EmevdDefinition};

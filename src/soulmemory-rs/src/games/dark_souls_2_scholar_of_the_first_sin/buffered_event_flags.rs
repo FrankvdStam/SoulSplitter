@@ -29,7 +29,7 @@ impl BufferedEventFlags for DarkSouls2ScholarOfTheFirstSin
     fn get_event_flag_state(&self, event_flag: u32) -> bool
     {
         let event_flag_man_address = self.event_flag_man.read_u64_rel(None);
-        let result = unsafe{ (self.fn_get_event_flag)(event_flag_man_address, event_flag)};
+        let result = (self.fn_get_event_flag)(event_flag_man_address, event_flag);
         return result == 1;
     }
 }

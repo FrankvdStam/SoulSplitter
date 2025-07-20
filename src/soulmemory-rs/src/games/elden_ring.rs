@@ -24,13 +24,11 @@ use std::sync::{Arc, Mutex};
 use log::info;
 use mem_rs::prelude::*;
 use crate::App;
-use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
+use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag, FnGetEventFlag};
 use crate::games::dx_version::DxVersion;
 use crate::games::game::Game;
 use crate::games::GameExt;
 use crate::games::ilhook::*;
-
-type FnGetEventFlag = fn(event_flag_man: u64, event_flag: u32) -> u8;
 
 pub struct EldenRing
 {
@@ -87,11 +85,8 @@ impl Game for EldenRing
                 let get_event_flag_address = self.process.scan_abs("get_event_flag", "44 8b 41 1c 44 8b da 33 d2 41 8b c3 41 f7 f0", 0, Vec::new())?.get_base_address();
                 self.fn_get_event_flag = mem::transmute(get_event_flag_address);
 
-                #[cfg(target_arch = "x86_64")]
-                {
-                    let h = Hooker::new(set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
-                    self.set_event_flag_hook = Some(h.hook().unwrap());
-                }
+                let h = Hooker::new(set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+                self.set_event_flag_hook = Some(h.hook().unwrap());
 
                 info!("event_flag_man base address: 0x{:x}", self.virtual_memory_flag.get_base_address());
                 info!("set event flag address     : 0x{:x}", set_event_flag_address);
@@ -117,7 +112,6 @@ impl Game for EldenRing
     fn as_any_mut(&mut self) -> &mut dyn Any { self }
 }
 
-#[cfg(target_arch = "x86_64")]
 unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usize)
 {
     let instance = App::get_instance();

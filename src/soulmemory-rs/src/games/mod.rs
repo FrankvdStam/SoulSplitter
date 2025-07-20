@@ -15,20 +15,35 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 pub mod traits;
-pub mod dark_souls_prepare_to_die_edition;
-pub mod dark_souls_remastered;
-pub mod dark_souls_2_vanilla;
-pub mod dark_souls_2_scholar_of_the_first_sin;
-pub mod darksouls3;
-pub mod sekiro;
-pub mod elden_ring;
-pub mod armored_core_6;
-pub mod mock_game;
+
 pub mod dx_version;
 pub mod game;
 pub mod game_ext;
+pub mod mock_game;
+
+#[cfg(target_arch = "x86")]
+pub mod dark_souls_prepare_to_die_edition;
+#[cfg(target_arch = "x86")]
+pub mod dark_souls_2_vanilla;
+
+#[cfg(target_arch = "x86_64")]
+pub mod dark_souls_remastered;
+#[cfg(target_arch = "x86_64")]
+pub mod dark_souls_2_scholar_of_the_first_sin;
+#[cfg(target_arch = "x86_64")]
+pub mod darksouls3;
+#[cfg(target_arch = "x86_64")]
+pub mod sekiro;
+#[cfg(target_arch = "x86_64")]
+pub mod elden_ring;
+#[cfg(target_arch = "x86_64")]
+pub mod armored_core_6;
+#[cfg(target_arch = "x86_64")]
 pub mod bloodborne;
+#[cfg(target_arch = "x86_64")]
 pub mod nightreign;
+
+
 
 #[cfg(target_arch = "x86")]
 mod ilhook
@@ -45,16 +60,30 @@ mod ilhook
 
 pub use game::Game;
 pub use game_ext::GameExt;
-pub use dark_souls_prepare_to_die_edition::DarkSoulsPrepareToDieEdition;
-pub use dark_souls_remastered::DarkSoulsRemastered;
-pub use dark_souls_2_vanilla::DarkSouls2Vanilla;
-pub use dark_souls_2_scholar_of_the_first_sin::DarkSouls2ScholarOfTheFirstSin;
-pub use darksouls3::DarkSouls3;
-pub use sekiro::Sekiro;
-pub use elden_ring::EldenRing;
-pub use armored_core_6::ArmoredCore6;
-pub use bloodborne::Bloodborne;
 pub use mock_game::MockGame;
+
+#[cfg(target_arch = "x86")]
+pub use dark_souls_prepare_to_die_edition::DarkSoulsPrepareToDieEdition;
+#[cfg(target_arch = "x86")]
+pub use dark_souls_2_vanilla::DarkSouls2Vanilla;
+
+
+#[cfg(target_arch = "x86_64")]
+pub use dark_souls_remastered::DarkSoulsRemastered;
+#[cfg(target_arch = "x86_64")]
+pub use dark_souls_2_scholar_of_the_first_sin::DarkSouls2ScholarOfTheFirstSin;
+#[cfg(target_arch = "x86_64")]
+pub use darksouls3::DarkSouls3;
+#[cfg(target_arch = "x86_64")]
+pub use sekiro::Sekiro;
+#[cfg(target_arch = "x86_64")]
+pub use elden_ring::EldenRing;
+#[cfg(target_arch = "x86_64")]
+pub use armored_core_6::ArmoredCore6;
+#[cfg(target_arch = "x86_64")]
+pub use bloodborne::Bloodborne;
+#[cfg(target_arch = "x86_64")]
+pub use nightreign::Nightreign;
 
 pub type ChrDbgFlag = (u32, String, bool);
 

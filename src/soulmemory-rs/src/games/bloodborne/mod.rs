@@ -59,13 +59,9 @@ impl Game for Bloodborne
         {
             self.process.refresh()?;
 
-            #[cfg(target_arch = "x86_64")]
-            {
-                //TODO: setup proper AOB scan
-                let set_event_flag_address= 0x9013CBCC0;
-                let h = Hooker::new(set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
-                unsafe{ self.set_event_flag_hook = Some(h.hook().unwrap()) };
-            }
+            let set_event_flag_address= 0x9013CBCC0;
+            let h = Hooker::new(set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+            unsafe{ self.set_event_flag_hook = Some(h.hook().unwrap()) };
         }
 
         return Ok(());

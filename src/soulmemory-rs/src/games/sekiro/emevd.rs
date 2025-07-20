@@ -28,7 +28,6 @@ use crate::darkscript3::emevd_format_event;
 use crate::games::{GameExt, Sekiro};
 use crate::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEmevdLogger};
 
-#[cfg(target_arch = "x86_64")]
 pub unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:usize)
 {
     unsafe

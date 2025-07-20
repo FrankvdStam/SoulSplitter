@@ -30,12 +30,7 @@ use crate::games::{Game, GameExt};
 use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
 use crate::util::{get_stack_u32, get_stack_u8};
 
-#[cfg(target_arch = "x86")]
 type FnGetEventFlag = unsafe extern "thiscall" fn(event_flag_man: u32, event_flag: u32) -> u8;
-
-//This version exists only to make things compile easily for x64
-#[cfg(target_arch = "x86_64")]
-type FnGetEventFlag = unsafe extern "win64" fn(event_flag_man: u32, event_flag: u32) -> u8;
 
 pub struct DarkSouls2Vanilla
 {
@@ -53,9 +48,6 @@ impl DarkSouls2Vanilla
     {
         #[cfg(target_arch = "x86")]
         unsafe extern "thiscall" fn empty(_: u32, _: u32) -> u8 { 0 }
-
-        #[cfg(target_arch = "x86_64")]
-        unsafe extern "win64" fn empty(_: u32, _: u32) -> u8 { 0 }
 
         DarkSouls2Vanilla
         {

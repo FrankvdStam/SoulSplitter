@@ -28,7 +28,6 @@ use crate::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEme
 use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
 use crate::games::traits::player_position::PlayerPosition;
 
-#[cfg(target_arch = "x86_64")]
 use crate::games::sekiro::emevd::emevd_event_hook_fn;
 
 impl Game for Sekiro
@@ -58,14 +57,12 @@ impl Game for Sekiro
                 info!("get event flag address     : 0x{:x}", get_event_flag_address);
                 info!("emevd events               : 0x{:x}", emevd_events_address);
 
-                #[cfg(target_arch = "x86_64")]
-                {
-                    let h = Hooker::new(set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
-                    self.set_event_flag_hook = Some(h.hook().unwrap());
+                let h = Hooker::new(set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+                self.set_event_flag_hook = Some(h.hook().unwrap());
 
-                    let h = Hooker::new(emevd_events_address, HookType::JmpBack(emevd_event_hook_fn), CallbackOption::None, 0, HookFlags::empty());
-                    self.emevd_event_hook = Some(h.hook().unwrap());
-                }
+                let h = Hooker::new(emevd_events_address, HookType::JmpBack(emevd_event_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+                self.emevd_event_hook = Some(h.hook().unwrap());
+
             }
         }
         else
@@ -88,7 +85,6 @@ impl Game for Sekiro
     fn as_any_mut(&mut self) -> &mut dyn Any { self }
 }
 
-#[cfg(target_arch = "x86_64")]
 unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usize)
 {
     let instance = App::get_instance();

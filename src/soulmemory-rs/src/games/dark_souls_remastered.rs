@@ -33,10 +33,8 @@ use crate::games::GameExt;
 use crate::games::ilhook::*;
 use crate::tas::tas::{get_xinput_get_state_fn_address, tas_ai_toggle, XInputGetState};
 use crate::tas::toggle_mode::ToggleMode;
-use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
+use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag, FnGetEventFlag};
 
-
-type FnGetEventFlag = fn(event_flag_man: u64, event_flag: u32) -> u8;
 pub struct DarkSoulsRemastered
 {
     process: Process,

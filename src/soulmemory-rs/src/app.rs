@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+
 use std::sync::{Arc, Mutex};
 use windows::Win32::Foundation::HINSTANCE;
 use imgui::{Condition, Context, Ui};
@@ -25,7 +26,6 @@ use crate::widgets::chr_dbg_flags_widget::ChrDbgFlagsWidget;
 use crate::widgets::event_flag_widget::EventFlagWidget;
 use crate::widgets::misc_widget::MiscWidget;
 use crate::games::*;
-use crate::games::nightreign::Nightreign;
 use crate::util::WINDOW_TITLE_STR;
 use crate::widgets::emevd_logger_widget::EmevdLoggerWidget;
 
@@ -67,22 +67,36 @@ impl App
     pub fn new(process_name: &String, hmodule: HINSTANCE) -> Self
     {
         //Init the game we're injected in
+
+
+        #[allow(unreachable_patterns)]
         let game: Box<dyn Game> = match process_name.to_lowercase().as_str()
         {
+            _                           => panic!("unsupported process: {}", process_name.to_lowercase()),
             "mockgame.exe"              => Box::new(MockGame::new()),
+
+            #[cfg(target_arch = "x86")]
             "darksouls.exe"             => Box::new(DarkSoulsPrepareToDieEdition::new()),
-            #[cfg(target_arch = "x86_64")]
-            "darksoulsii.exe"           => Box::new(DarkSouls2ScholarOfTheFirstSin::new()),
             #[cfg(target_arch = "x86")]
             "darksoulsii.exe"           => Box::new(DarkSouls2Vanilla::new()),
+
+            #[cfg(target_arch = "x86_64")]
             "darksoulsremastered.exe"   => Box::new(DarkSoulsRemastered::new()),
+            #[cfg(target_arch = "x86_64")]
+            "darksoulsii.exe"           => Box::new(DarkSouls2ScholarOfTheFirstSin::new()),
+            #[cfg(target_arch = "x86_64")]
             "darksoulsiii.exe"          => Box::new(DarkSouls3::new()),
+            #[cfg(target_arch = "x86_64")]
             "sekiro.exe"                => Box::new(Sekiro::new()),
+            #[cfg(target_arch = "x86_64")]
             "eldenring.exe"             => Box::new(EldenRing::new()),
+            #[cfg(target_arch = "x86_64")]
             "armoredcore6.exe"          => Box::new(ArmoredCore6::new()),
+            #[cfg(target_arch = "x86_64")]
             "shadps4.exe"               => Box::new(Bloodborne::new()),
+            #[cfg(target_arch = "x86_64")]
             "nightreign.exe"            => Box::new(Nightreign::new()),
-            _                           => panic!("unsupported process: {}", process_name.to_lowercase()),
+
         };
 
         //get drawable widgets
