@@ -47,7 +47,7 @@ impl ArmoredCore6
     {
         ArmoredCore6
         {
-            process: Process::new("armoredcore6.exe"),
+            process: Process::new_with_memory_type("armoredcore6.exe", MemoryType::Direct),
 
             event_flags: Arc::new(Mutex::new(Vec::new())),
             virtual_memory_flag: Pointer::default(),

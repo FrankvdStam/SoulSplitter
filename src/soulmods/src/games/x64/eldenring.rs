@@ -72,7 +72,7 @@ pub fn init_eldenring()
         info!("version: {}", GLOBAL_VERSION);
         
         // Get ER process
-        let mut process = Process::new("eldenring.exe");
+        let mut process = Process::new_with_memory_type("eldenring.exe", MemoryType::Direct);
         process.refresh().unwrap();
 
         // AoB scan for timer patch

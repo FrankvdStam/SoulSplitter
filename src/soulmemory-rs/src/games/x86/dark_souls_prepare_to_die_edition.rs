@@ -21,6 +21,7 @@ use log::info;
 use mem_rs::pointer::Pointer;
 use mem_rs::prelude::{Process, ReadWrite};
 use ilhook::x86::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
+use mem_rs::memory::MemoryType;
 use crate::App;
 use crate::games::dx_version::DxVersion;
 use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
@@ -42,7 +43,7 @@ impl DarkSoulsPrepareToDieEdition
     {
         DarkSoulsPrepareToDieEdition
         {
-            process: Process::new("darksouls.exe"),
+            process: Process::new_with_memory_type("darksouls.exe", MemoryType::Direct),
             event_flag_man: Pointer::default(),
             event_flags: Arc::new(Mutex::new(Vec::new())),
             set_event_flag_hook: None,

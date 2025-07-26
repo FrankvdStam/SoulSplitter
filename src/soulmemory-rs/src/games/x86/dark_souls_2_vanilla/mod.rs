@@ -22,8 +22,7 @@ use std::ops::Deref;
 use std::sync::{Arc, Mutex};
 use ilhook::x86::{CallbackOption, Hooker, HookFlags, HookPoint, HookType, Registers};
 use log::info;
-use mem_rs::pointer::Pointer;
-use mem_rs::prelude::Process;
+use mem_rs::prelude::*;
 use crate::App;
 use crate::games::dx_version::DxVersion;
 use crate::games::{Game, GameExt};
@@ -46,12 +45,11 @@ impl DarkSouls2Vanilla
 {
     pub fn new() -> Self
     {
-        #[cfg(target_arch = "x86")]
         unsafe extern "thiscall" fn empty(_: u32, _: u32) -> u8 { 0 }
 
         DarkSouls2Vanilla
         {
-            process: Process::new("darksoulsii.exe"),
+            process: Process::new_with_memory_type("darksoulsii.exe", MemoryType::Direct),
 
             event_flag_man: Default::default(),
             event_flags: Arc::new(Mutex::new(vec![])),

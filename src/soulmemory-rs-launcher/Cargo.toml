@@ -10,5 +10,5 @@ license-file = "../../LICENSE"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-mem-rs = "0.2.1"
+mem-rs = "0.2.2"
 #mem-rs = { path="C:/projects/mem-rs" }

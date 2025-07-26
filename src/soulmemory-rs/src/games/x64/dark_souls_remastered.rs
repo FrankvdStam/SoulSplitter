@@ -59,7 +59,7 @@ impl DarkSoulsRemastered
     {
         DarkSoulsRemastered
         {
-            process: Process::new("DarkSoulsRemastered.exe"),
+            process: Process::new_with_memory_type("DarkSoulsRemastered.exe", MemoryType::Direct),
 
             ai_timer: Pointer::default(),
             game_data_man: Pointer::default(),

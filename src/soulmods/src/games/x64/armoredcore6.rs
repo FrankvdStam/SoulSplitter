@@ -26,7 +26,7 @@ pub fn init_armoredcore6()
 {
     unsafe
     {
-        let mut process = Process::new("armoredcore6.exe");
+        let mut process = Process::new_with_memory_type("armoredcore6.exe", MemoryType::Direct);
         process.refresh().unwrap();
         let fn_increment_igt_address = process.scan_abs("increment igt", "48 83 ec 58 48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0", 0, Vec::new()).unwrap().get_base_address();
 

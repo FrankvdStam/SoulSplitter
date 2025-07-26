@@ -65,7 +65,7 @@ pub fn init_sekiro()
         info!("version: {}", GLOBAL_VERSION);
         
         // Get Sekiro process
-        let mut process = Process::new("sekiro.exe");
+        let mut process = Process::new_with_memory_type("sekiro.exe", MemoryType::Direct);
         process.refresh().unwrap();
 
         FADE_MAN_ADDRESS = process.scan_rel("fadeMan", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7, Vec::new()).unwrap().get_base_address();

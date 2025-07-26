@@ -58,7 +58,7 @@ impl DarkSouls3
     {
         DarkSouls3
         {
-            process: Process::new("darksoulsiii.exe"),
+            process: Process::new_with_memory_type("darksoulsiii.exe", MemoryType::Direct),
 
             event_flags: Arc::new(Mutex::new(Vec::new())),
             event_flag_man: Pointer::default(),

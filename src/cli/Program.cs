@@ -39,6 +39,7 @@ using LiveSplit.Model;
 using SoulMemory.Games.DarkSouls3;
 using SoulMemory.Games.Nightreign;
 using SoulMemory.Native;
+using SoulMemory.soulmods;
 using SoulSplitter.DependencyInjection;
 using SoulSplitter.Livesplit;
 using SoulSplitter.Resources;
@@ -56,6 +57,14 @@ namespace SoulSplitter.cli
         [STAThread]
         private static void Main(string[] args)
         {
+            SoulMemoryRs.Launch();
+
+            GameLoop<Bloodborne>((g) =>
+            {
+                var time = TimeSpan.FromMilliseconds(g.ReadInGameTimeMilliseconds());
+                Console.WriteLine(time);
+            });
+
             TestUi();
             return;
 
@@ -68,11 +77,7 @@ namespace SoulSplitter.cli
 
             //SoulMemoryRs.Launch();
 
-            GameLoop<Sekiro>((n) =>
-            {
-                var time = TimeSpan.FromMilliseconds(n.ReadInGameTimeMilliseconds());
-                Console.WriteLine(time);
-            });
+            
 
 
 

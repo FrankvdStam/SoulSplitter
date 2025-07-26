@@ -17,6 +17,7 @@
 using SoulMemory.Memory;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using SoulMemory.Native;
 using SoulMemory.Abstractions.Games;
@@ -65,7 +66,23 @@ namespace SoulMemory.Games.Bloodborne
 
             try
             {
-                var ebootAddress = 0x8ffffc000;
+                //Eboot address is exported by shadps4 starting from v10
+                var exports = _process!.GetModuleExports(_process!.MainModule!.ModuleName);
+                var ebootExport = exports.Where(i => i.Key.ToLowerInvariant().Contains("g_eboot_address")).ToList();
+                if (ebootExport.Count != 1)
+                {
+                    return Result.Err(new RefreshError(RefreshErrorReason.EbootReadFailed, $"Failed to read eboot address export from shadPS4"));
+                }
+
+                var ebootExportAddress = ebootExport.Single().Value;
+                var ebootAddress = _process.ReadMemory<long>(ebootExportAddress).Unwrap();
+
+                //Rom not yet loaded, eboot still 0
+                if (ebootAddress == 0)
+                {
+                    return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning));
+                }
+
                 var getRegionResult = _process!.GetMemoryRegion(ebootAddress);
                 if (getRegionResult.IsErr)
                 {
@@ -86,6 +103,7 @@ namespace SoulMemory.Games.Bloodborne
                     return result;
                 }
 
+                
                 var soulmodsResult = Soulmods.Inject(_process!);
                 if (soulmodsResult.IsErr)
                 {

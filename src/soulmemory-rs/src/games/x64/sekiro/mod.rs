@@ -68,7 +68,7 @@ impl Sekiro
     {
         Sekiro
         {
-            process: Process::new("sekiro.exe"),
+            process: Process::new_with_memory_type("sekiro.exe", MemoryType::Direct),
             event_flags: Arc::new(Mutex::new(Vec::new())),
             event_flag_man: Pointer::default(),
             position: Pointer::default(),

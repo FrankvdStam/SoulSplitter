@@ -59,7 +59,7 @@ pub fn init_darksouls3()
             info!("version: {}", GLOBAL_VERSION);
 
             // Get DS3 process
-            let mut process = Process::new("darksoulsiii.exe");
+            let mut process = Process::new_with_memory_type("darksoulsiii.exe", MemoryType::Direct);
             process.refresh().unwrap();
 
             ds3_init_migt(&process);

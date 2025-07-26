@@ -25,6 +25,7 @@ use std::ops::Deref;
 use std::sync::{Arc, Mutex};
 use ilhook::x64::{CallbackOption, Hooker, HookFlags, HookPoint, HookType, Registers};
 use log::info;
+use mem_rs::memory::MemoryType;
 use mem_rs::pointer::Pointer;
 use mem_rs::prelude::Process;
 use crate::App;
@@ -48,7 +49,7 @@ impl DarkSouls2ScholarOfTheFirstSin
     {
         DarkSouls2ScholarOfTheFirstSin
         {
-            process: Process::new("darksoulsii.exe"),
+            process: Process::new_with_memory_type("darksoulsii.exe", MemoryType::Direct),
 
             event_flag_man: Default::default(),
             event_flags: Arc::new(Mutex::new(vec![])),

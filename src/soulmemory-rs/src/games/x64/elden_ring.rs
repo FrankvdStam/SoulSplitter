@@ -47,7 +47,7 @@ impl EldenRing
     {
         EldenRing
         {
-            process: Process::new("eldenring.exe"),
+            process: Process::new_with_memory_type("eldenring.exe", MemoryType::Direct),
 
             event_flags: Arc::new(Mutex::new(Vec::new())),
             virtual_memory_flag: Pointer::default(),

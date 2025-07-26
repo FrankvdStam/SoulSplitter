@@ -415,6 +415,8 @@ public static class Kernel32
 
     public static Dictionary<string, long> GetModuleExports(this Process process, string hModuleName)
     {
+        var functions = new Dictionary<string, long>();
+
         var modules = process.GetModulesViaSnapshot();
         var module = modules.First(i => i.szModule.ToLowerInvariant() == hModuleName.ToLowerInvariant());
 
@@ -437,13 +439,17 @@ public static class Kernel32
             exportTableAddress = moduleImageNtHeaders.OptionalHeader.ExportTable.VirtualAddress;
         }
 
+        if (exportTableAddress == 0)
+        {
+            return functions;
+        }
+
         var exportTable = process.ReadMemory<IMAGE_EXPORT_DIRECTORY>(module.modBaseAddr.ToInt64() + exportTableAddress).Unwrap();
 
         var nameOffsetTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfNames;
         var ordinalTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfNameOrdinals;
         var functionOffsetTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfFunctions;
 
-        var functions = new Dictionary<string, long>();
         for (var i = 0; i < exportTable.NumberOfNames; i++)
         {
             //Function name offset is an array of 4byte numbers

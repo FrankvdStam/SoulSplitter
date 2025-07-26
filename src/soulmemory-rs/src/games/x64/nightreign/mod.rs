@@ -22,6 +22,7 @@ use std::ops::Deref;
 use std::sync::{Arc, Mutex};
 use ilhook::x64::{CallbackOption, HookFlags, HookPoint, HookType, Hooker, Registers};
 use log::info;
+use mem_rs::memory::MemoryType;
 use mem_rs::pointer::Pointer;
 use mem_rs::prelude::{Process, ReadWrite};
 use crate::App;
@@ -45,7 +46,7 @@ impl Nightreign
     {
         Nightreign
         {
-            process: Process::new("nightreign.exe"),
+            process: Process::new_with_memory_type("nightreign.exe", MemoryType::Direct),
 
             event_flags: Arc::new(Mutex::new(Vec::new())),
             event_flag_man: Pointer::default(),

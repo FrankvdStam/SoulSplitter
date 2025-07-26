@@ -112,7 +112,7 @@ pub fn init_scholar()
 {
     unsafe
     {
-        SCHOLAR = Some(Process::new("darksoulsii.exe"));
+        SCHOLAR = Some(Process::new_with_memory_type("darksoulsii.exe", MemoryType::Direct));
         SCHOLAR.as_mut().unwrap().refresh().unwrap();
         let mut dequeue = VecDeque::new();
         dequeue.push_back(MorphemeMessage{ message_id: 31, event_action_category: 151 });

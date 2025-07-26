@@ -14,7 +14,7 @@ crate-type = ["cdylib"]
 ilhook = "2.1.2"
 iced-x86 = { version = "1.21.0", features = ["code_asm"] }
 
-mem-rs = "0.2.1"
+mem-rs = "0.2.2"
 #mem-rs = { path="C:/projects/mem-rs" }
 lazy_static = "1.4.0"
 

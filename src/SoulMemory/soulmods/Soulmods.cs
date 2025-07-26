@@ -58,13 +58,25 @@ public static class Soulmods
         var soulmodsModuleName = process.SoulmodsModuleName();
         var path = Path.Combine(dir, soulmodsModuleName);
 
-        process.InjectDll(path);
-
+        //potentially its already injecting, if this is the case we re-use it
         if (process.Modules.Cast<ProcessModule>().Any(processModule => processModule.ModuleName == soulmodsModuleName))
         {
             _soulmodsExports = process.GetModuleExports(soulmodsModuleName);
             return Result.Ok(_soulmodsExports);
         }
+
+        //If not, inject
+        process.InjectDll(path);
+
+        //Make sure it is in the module list now
+        if (process.Modules.Cast<ProcessModule>().Any(processModule => processModule.ModuleName == soulmodsModuleName))
+        {
+            _soulmodsExports = process.GetModuleExports(soulmodsModuleName);
+            return Result.Ok(_soulmodsExports);
+        }
+
+        var test = process.Modules.Cast<ProcessModule>().ToList();
+        var a = test.Where(i => i.ModuleName.ToLowerInvariant().Contains("soul")).ToList();
         return Result.Err();
     }
 

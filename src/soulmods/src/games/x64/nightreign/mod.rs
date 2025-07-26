@@ -12,7 +12,7 @@ pub fn init_nightreign()
     unsafe
     {
         info!("version: {}", GLOBAL_VERSION);
-        let mut process = Process::new("nightreign.exe");
+        let mut process = Process::new_with_memory_type("nightreign.exe", MemoryType::Direct);
         process.refresh().unwrap();
 
         let fn_increment_igt_address = process.scan_abs("increment igt", "f3 0f 59 05 48 fd 01 03 48 8b 0d ? ? ? ? f3 48 0f 2c c0", 8, Vec::new()).unwrap().get_base_address();
