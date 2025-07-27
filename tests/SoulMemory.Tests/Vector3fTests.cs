@@ -45,7 +45,7 @@ public class Vector3fTests
     public void Clone()
     {
         var original = new Vector3f(1.1f, 2.2f, 3.3f);
-        var vec = original.Clone();
+        var vec = (Vector3f)original.Clone();
         Assert.AreEqual(1.1f, vec.X);
         Assert.AreEqual(2.2f, vec.Y);
         Assert.AreEqual(3.3f, vec.Z);

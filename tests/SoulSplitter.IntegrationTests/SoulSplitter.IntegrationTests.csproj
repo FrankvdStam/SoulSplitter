@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <PlatformTarget>x64</PlatformTarget>
+        <LangVersion>13</LangVersion>
+        <Nullable>enable</Nullable>
+        <UseWindowsForms>true</UseWindowsForms>
+        <UseWPF>true</UseWPF>
+        <Platforms>x64</Platforms>
+        <SonarQubeExclude>true</SonarQubeExclude>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      <NoWarn>1701;1702;NU1702</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      <NoWarn>1701;1702;NU1702</NoWarn>
+    </PropertyGroup>
+
+    
+    <ItemGroup>
+        <PackageReference Include="coverlet.msbuild" Version="6.0.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
+        <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+        <PackageReference Include="Microsoft.CodeCoverage" Version="17.12.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+        <PackageReference Include="Moq" Version="4.20.72" />
+        <PackageReference Include="MSTest.TestAdapter" Version="3.7.1" />
+        <PackageReference Include="MSTest.TestFramework" Version="3.7.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\SoulSplitter\SoulSplitter.csproj" />
+      <ProjectReference Include="..\SoulSplitter.TestHarness\SoulSplitter.TestHarness.csproj" />
+      <Reference Include="LiveSplit.Core">
+          <HintPath>..\..\packages\LiveSplit.Core.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="DarkSouls1\" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:clr="clr-namespace:System;assembly=mscorlib">
+
+    <clr:String x:Key="ExpanderHeaderAddSplit">Configure split</clr:String>
+    <clr:String x:Key="ButtonToolTipAddSplit">Add split</clr:String>
+    <clr:String x:Key="ButtonToolTipSaveExistingSplit">Save selected split</clr:String>
+
+</ResourceDictionary>

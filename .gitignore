@@ -367,8 +367,12 @@ tests/SoulSplitter.Tests/coverage.opencover.xml
 src/SoulMemory/soulmods/x64/soulmods_x64.dll
 src/SoulMemory/soulmods/x86/soulmods_x86.dll
 
+src/SoulMemory/soulmods/x64/
+src/SoulMemory/soulmods/x86/
+
 src/SoulSplitter/soulmemory-rs/x64/soulmemory_rs.dll
 src/SoulSplitter/soulmemory-rs/x64/launcher.exe
 
 src/SoulSplitter/soulmemory-rs/x86/soulmemory_rs.dll
 src/SoulSplitter/soulmemory-rs/x86/launcher.exe
+

@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+                    xmlns:enums="clr-namespace:SoulMemory.Games.Bloodborne;assembly=SoulMemory">
+
+    <clr:String x:Key="{x:Static enums:Attribute.Vitality}">Vitality</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Endurance}">Endurance</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Strength}">Strength</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Skill}">Skill</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Bloodtinge}">Bloodtinge</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Arcane}">Arcane</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Insight}">Insight</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.Level}">Level</clr:String>
+    <clr:String x:Key="{x:Static enums:Attribute.BloodEchoes}">Blood Echoes</clr:String>
+
+</ResourceDictionary>

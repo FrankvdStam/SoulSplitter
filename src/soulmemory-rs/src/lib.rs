@@ -23,13 +23,15 @@ mod widgets;
 mod tas;
 mod render_hooks;
 mod darkscript3;
+pub mod glow_window;
 
 use std::time::Duration;
 use std::ffi::c_void;
 use std::{panic, thread};
 use log::{error, info, LevelFilter};
 use mem_rs::prelude::*;
-use windows::Win32::Foundation::{BOOL, HINSTANCE};
+use windows::core::BOOL;
+use windows::Win32::Foundation::HINSTANCE;
 use windows::Win32::System::SystemServices::{DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 use crate::render_hooks::RenderHooks;
 
@@ -38,7 +40,7 @@ pub use app::App;
 
 static mut HMODULE: HINSTANCE = HINSTANCE(std::ptr::null_mut());
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[allow(non_snake_case)]
 pub unsafe extern "system" fn DllMain(
     module: HINSTANCE,
@@ -46,9 +48,10 @@ pub unsafe extern "system" fn DllMain(
     _reserved: c_void,
 ) -> BOOL
 {
+
     if call_reason == DLL_PROCESS_ATTACH
     {
-        HMODULE = module;
+        unsafe{ HMODULE = module };
         thread::spawn(dispatched_dll_main);
     }
 
@@ -80,6 +83,12 @@ fn dispatched_dll_main()
     info!("initializing render loop");
     RenderHooks::init();
 
+    if process_name.to_lowercase().as_str() == "shadps4.exe"
+    {
+        thread::spawn(|| glow_window::run_custom_window(None));
+    }
+
+
     info!("starting main loop");
     loop
     {
@@ -90,6 +99,7 @@ fn dispatched_dll_main()
 
 fn dispatched_dll_detach()
 {
+    info!("detaching");
     util::console::free_console();
 }
 

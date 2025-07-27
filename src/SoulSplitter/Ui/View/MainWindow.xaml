@@ -1,0 +1,580 @@
+﻿<!-- This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+     Copyright (c) 2022 Frank van der Stam.
+     https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
+     
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, version 3.
+     
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+     General Public License for more details.
+     
+     You should have received a copy of the GNU General Public License
+     along with this program. If not, see<http://www.gnu.org/licenses/> .  -->
+
+<Window x:Class="SoulSplitter.Ui.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:resources="clr-namespace:SoulSplitter.Resources"
+    xmlns:view="clr-namespace:SoulSplitter.Ui.View"
+    xmlns:mainViewModel="clr-namespace:SoulSplitter.Ui.ViewModels.MainViewModel"
+    xmlns:converters="clr-namespace:SoulSplitter.Ui.Converters"
+    xmlns:soulMemoryEnums="clr-namespace:SoulMemory.Enums;assembly=SoulMemory"
+    xmlns:ui="clr-namespace:SoulSplitter.Ui"
+    xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:controls="clr-namespace:SoulSplitter.Ui.View.Controls"
+    xmlns:viewModels="clr-namespace:SoulSplitter.Ui.ViewModels" xmlns:validation="clr-namespace:SoulSplitter.Ui.Validation"
+    xmlns:darkSouls1="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory"
+    Title="{Binding Version, StringFormat=SoulSplitter version {0}}"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextElement.FontWeight="Regular"
+    TextElement.FontSize="13"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    Width="1200"
+    Height="800"
+    Icon="../../soulsplitter.ico"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    d:DataContext="{d:DesignInstance Type=mainViewModel:MainViewModel, IsDesignTimeCreatable=False}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" SecondaryColor="Indigo" />
+                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/Language.xaml" />
+                       
+                        <ResourceDictionary>
+                            <converters:EnumLanguageConverter                   x:Key="EnumLanguageConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
+                            <converters:EnumEventFlagConverter                  x:Key="EnumEventFlagConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
+                            <converters:SplitTypeVisibilityConverter            x:Key="SplitTypeVisibilityConverter"/>
+                            <converters:DropModTypeConverter                    x:Key="DropModTypeConverter"/>
+                            <converters:DarkSouls1ItemTypeToNameConverter       x:Key="DarkSouls1ItemTypeToNameConverter"/>
+
+                            <CollectionViewSource Source="{Binding DarkSouls1Items}" x:Key="DarkSouls1ItemsCollectionViewSource">
+                                <CollectionViewSource.GroupDescriptions>
+                                    <PropertyGroupDescription PropertyName="Category"/>
+                                </CollectionViewSource.GroupDescriptions>
+                            </CollectionViewSource>
+
+                            <system:Int32 x:Key="GridRowSplit">3</system:Int32>
+
+                            <!-- All of these are enum event flags and can be treated the same way -->
+                            <x:Array x:Key="EventFlagSplitTypes" Type="{x:Type soulMemoryEnums:SplitType}">
+                                <x:Static Member="soulMemoryEnums:SplitType.Boss" />
+                                <x:Static Member="soulMemoryEnums:SplitType.Bonfire" />
+                                <x:Static Member="soulMemoryEnums:SplitType.ItemPickup" />
+                                <x:Static Member="soulMemoryEnums:SplitType.KnownFlag" />
+                            </x:Array>
+
+                            <DataTemplate DataType="{x:Type system:Enum}" x:Key="EventFlagDataTemplate">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.Name}, StringFormat={}name: {0}}"/>
+                                    <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.NumericFlag}, StringFormat={}Flag: {0}}"/>
+                                    <TextBlock Text="{Binding ., Converter={StaticResource EnumEventFlagConverter}, ConverterParameter={x:Static converters:EnumEventFlagConverterTarget.Description}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type system:Enum}" x:Key="EnumDataTemplate">
+                                <TextBlock Text="{Binding ., Converter={StaticResource EnumLanguageConverter}}"/>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type viewModels:PositionViewModel}" x:Key="PositionViewModelDataTemplate">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Position.X, StringFormat={}X: {0}}"/>
+                                    <TextBlock Text="{Binding Position.Y, StringFormat={}Y: {0}}"/>
+                                    <TextBlock Text="{Binding Position.Z, StringFormat={}Z: {0}}"/>
+                                    <TextBlock Text="{Binding Size, StringFormat={}Size: {0}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type system:Int32}" x:Key="FlagDataTemplate">
+                                <TextBlock Text="{Binding .}"/>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type viewModels:AttributeViewModel}" x:Key="AttributeViewModelDataTemplate">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Attribute, Converter={StaticResource EnumLanguageConverter}, StringFormat={}Attribute: {0}}"/>
+                                    <TextBlock Text="{Binding Level, StringFormat={}Level: {0}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type viewModels:EldenRingPositionViewModel}" x:Key="EldenRingPositionViewModelDataTemplate">
+                                <TextBlock Text="{Binding .}"/>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type viewModels:DarkSouls1BonfireViewModel}" x:Key="DarkSouls1BonfireViewModelDataTemplate">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Bonfire, Converter={StaticResource EnumLanguageConverter}, StringFormat={}Bonfire: {0}}"/>
+                                    <TextBlock Text="{Binding BonfireState, Converter={StaticResource EnumLanguageConverter}, StringFormat={}State: {0}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type darkSouls1:ItemType}" x:Key="DarkSouls1ItemTypeDataTemplate">
+                                <TextBlock Text="{Binding ., Converter={StaticResource DarkSouls1ItemTypeToNameConverter}}"/>
+                            </DataTemplate>
+
+                            <ui:SplitTypeDataTemplateSelector
+                                x:Key="SplitTypeDataTemplateSelector"
+                                LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
+                                EventFlagDataTemplate="{StaticResource EventFlagDataTemplate}"
+                                EnumDataTemplate="{StaticResource EnumDataTemplate}"
+                                PositionViewModelDataTemplate="{StaticResource PositionViewModelDataTemplate}"
+                                FlagDataTemplate="{StaticResource FlagDataTemplate}"
+                                AttributeViewModelDataTemplate="{StaticResource AttributeViewModelDataTemplate}"
+                                EldenRingPositionViewModelDataTemplate="{StaticResource EldenRingPositionViewModelDataTemplate}"
+                                DarkSouls1BonfireViewModelDataTemplate="{StaticResource DarkSouls1BonfireViewModelDataTemplate}"
+                                DarkSouls1ItemTypeDataTemplate="{StaticResource DarkSouls1ItemTypeDataTemplate}"
+                            />
+                        </ResourceDictionary>
+
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:ColorZone
+            Mode="PrimaryMid"
+            materialDesign:ElevationAssist.Elevation="Dp4" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <ToolBar
+                ToolBarTray.IsLocked="True"
+                ClipToBounds="False"
+
+                Foreground="White"
+                Background="{DynamicResource MaterialDesign.Brush.Primary}">
+                <Menu
+                    Foreground="White">
+                    <MenuItem
+                        Header="File"
+                        Background="{DynamicResource MaterialDesign.Brush.Primary}">
+                        <MenuItem 
+                            Background="{DynamicResource MaterialDesign.Brush.Primary}"
+                            Header="Import settings" 
+                            Command="{Binding CommandImportSettingsFromFile}"
+                            Icon="{materialDesign:PackIcon Kind=FolderOpen}" 
+                            ToolTip="Import soulsplitter settings from file"/>
+
+                        <MenuItem 
+                            Background="{DynamicResource MaterialDesign.Brush.Primary}"
+                            Header="Export settings"
+                            Command="{Binding CommandExportSettingsFromFile}"
+                            Icon="{materialDesign:PackIcon Kind=ContentSave}" 
+                            ToolTip="Export soulsplitter settings to file"/>
+                    </MenuItem>
+                </Menu>
+
+                <Button
+                    Foreground="White"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    FontWeight="Normal"
+                    FontSize="15"
+                    Content="Help" 
+                    Command="{Binding CommandTroubleShooting}"
+                    ToolTip="Open help page"/>
+
+                <materialDesign:Badged
+                    BadgePlacementMode="Right"
+                    BadgeBackground="{Binding BadgeBackgroundBrush}"
+                    BadgeForeground="{Binding BadgeForegroundBrush}"
+                    Badge="{Binding ErrorCount}"
+                    ToolBar.OverflowMode="Never">
+                    <Button
+                        Foreground="White"
+                        Content="Errors"
+                        FontWeight="Normal"
+                        FontSize="15"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        ToolTip="Show error window" 
+                        Command="{Binding CommandShowErrors}"/>
+                </materialDesign:Badged>
+
+                <Button
+                    Foreground="White"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    FontWeight="Normal"
+                    FontSize="15"
+                    Content="Homepage" 
+                    Command="{Binding CommandOpenHomepage}"
+                    ToolTip="Open homepage"/>
+
+                <Menu
+                    Padding="3,0,0,0"
+                    Foreground="White">
+                    <MenuItem
+                        Header="Tools"
+                        Background="{DynamicResource MaterialDesign.Brush.Primary}">
+                        <MenuItem 
+                            Header="Event flag tracker" 
+                            Command="{Binding CommandOpenFlagTrackerWindow}"
+                            Icon="{materialDesign:PackIcon Kind=OrderBoolAscendingVariant}"
+                            ToolTip="Track event flag completion and translate it to a percentage. Stream friendly"/>
+                        <MenuItem
+                            Header="Event flag logger" 
+                            Command="{Binding CommandRunEventFlagLogger}"
+                            Icon="{materialDesign:PackIcon Kind=Console}"
+                            ToolTip="Open the event flag logger"/>
+                    </MenuItem>
+                </Menu>
+            </ToolBar>
+        </materialDesign:ColorZone>
+
+
+        <TabControl
+            Grid.Row="1"
+            materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+            Style="{StaticResource MaterialDesignFilledTabControl}">
+            <TabItem Header ="Splits">
+                <DockPanel>
+                    <Expander
+                        materialDesign:ExpanderAssist.ExpanderButtonPosition="Start"
+                        DockPanel.Dock="Top"
+                        HorizontalAlignment="Stretch"
+                        Header="{DynamicResource ExpanderHeaderAddSplit}"
+                        IsExpanded="{Binding IsAddSplitPopupOpen}">
+                        <Grid
+                            Height="370"
+                            IsSharedSizeScope="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition MinHeight="70"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- Select game -->
+                            <controls:EnumListControl
+                                Grid.Row="0"
+                                EnumType="soulMemoryEnums:Game"
+                                SelectedValue="{Binding SelectedGame}"
+                                Hint="Game"/>
+
+                            <!-- Select NG+ level
+                            <ComboBox
+                                Grid.Row="1"
+                                Margin="5"
+                                materialDesign:HintAssist.HelperText="New game level"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                SelectedValue="{Binding SelectedNewGamePlusLevel}"
+                                ItemsSource="{Binding NewGamePlusLevels}"/> -->
+
+                            <!-- Select timing type -->
+                            <controls:EnumListControl
+                                Grid.Row="1"
+                                IsEnabled="{Binding IsGameSelected}"
+                                ItemsSource="{Binding TimingTypes}"
+                                SelectedValue="{Binding SelectedTimingType}"
+                                Hint="Timing"/>
+
+                            <!-- Select split type -->
+                            <controls:EnumListControl
+                                Grid.Row="2"
+                                IsEnabled="{Binding IsGameSelected}"
+                                ItemsSource="{Binding SplitTypes}"
+                                SelectedValue="{Binding SelectedSplitType}"
+                                Hint="Type"/>
+
+                            <!-- split types ============================================================================================================= -->
+
+                            <!-- Enum based event flags -->
+                            <controls:EventFlagListControl
+                                Grid.Row="{StaticResource GridRowSplit}"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={StaticResource EventFlagSplitTypes}}"
+                                LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"
+                                EventFlagType="{Binding EventFlagType}"
+                                SelectedEventFlag="{Binding SelectedEventFlag, Mode=TwoWay}"
+                                Hint="Split"/>
+
+                            <!-- Custom event flags -->
+                            <TextBox
+                                Grid.Row="{StaticResource GridRowSplit}"
+                                MinWidth="120"
+                                Height="35"
+                                Margin="5"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Flag}}"
+                                HorizontalAlignment="Left"
+                                materialDesign:HintAssist.Hint="Flag">
+                                <TextBox.Text>
+                                    <Binding Path="Flag">
+                                        <Binding.ValidationRules>
+                                            <validation:TextToNumberValidation NumericType="Uint" IsRequired="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <!-- Dark souls 1 bonfire -->
+                            <controls:DarkSouls1BonfireControl
+                                HorizontalAlignment="Left"
+                                Grid.Row="{StaticResource GridRowSplit}"
+                                Margin="5"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.DarkSouls1Bonfire}}"
+                                DarkSouls1BonfireViewModel="{Binding DarkSouls1BonfireViewModel}"
+                            />
+
+                            <!-- standard vec3 position -->
+                            <controls:PositionControl
+                                Grid.Row="{StaticResource GridRowSplit}"
+                                Margin="5"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Position}}"
+                                CurrentPosition="{Binding CurrentPosition}"
+                                PositionViewModel="{Binding PositionViewModel, Mode=TwoWay}"
+                                />
+
+                            <!-- ER position, including map information -->
+                            <controls:EldenRingPositionControl
+                                Grid.Row="{StaticResource GridRowSplit}"
+                                Margin="5"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.EldenRingPosition}}"
+                                
+                                
+                                CurrentEldenRingPosition="{Binding CurrentEldenRingPosition}"
+                                EldenRingPositionViewModel="{Binding EldenRingPositionViewModel, Mode=TwoWay}"
+                            />
+
+                            <!-- Attribute -->
+                            <controls:AttributeControl
+                                HorizontalAlignment="Left"
+                                Grid.Row="{StaticResource GridRowSplit}"
+                                Margin="5"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.Attribute}}"
+                                AttributeType="{Binding AttributeType}"
+                                AttributeViewModel="{Binding AttributeViewModel}"
+                                />
+
+                            <!-- Dark souls 1 item -->
+                            <controls:FilteredComboBox
+                                Width="415"
+                                Margin="5"
+                                HorizontalAlignment="Left"
+                                Grid.Row="{StaticResource GridRowSplit}"
+                                Visibility="{Binding SelectedSplitType, Converter={StaticResource SplitTypeVisibilityConverter}, ConverterParameter={x:Static soulMemoryEnums:SplitType.DarkSouls1Item}}"
+                                ItemsSource="{Binding Source={StaticResource DarkSouls1ItemsCollectionViewSource}}" 
+                                DisplayMemberPath="Name"
+                                SelectedValuePath="ItemType"
+                                SelectedValue="{Binding SelectedDarkSouls1Item}"
+                                materialDesign:HintAssist.HelperText="which"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                IsEditable="True" 
+                                IsTextSearchEnabled="False" 
+                                StaysOpenOnEdit="True">
+                                <ComboBox.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Height="30" Background="{DynamicResource MaterialDesign.Brush.Secondary}" TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding Path=Name}"/>
+                                            </DataTemplate>
+                                        </GroupStyle.HeaderTemplate>
+                                    </GroupStyle>
+                                </ComboBox.GroupStyle>
+                            </controls:FilteredComboBox>
+
+                            <!-- ============================================================================================================= -->
+
+
+                            <!-- Optional description -->
+                            <TextBox
+                                Grid.Row="4"
+                                Margin="5"
+                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                materialDesign:HintAssist.Hint="Description"
+                                Text="{Binding SplitDescription}"/>
+
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="5"
+                                Margin="5, 5, 5, 5">
+
+                                <!-- Add button -->
+                                <Button
+                                    Margin="5"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                    ToolTip="{DynamicResource ButtonToolTipAddSplit}"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding AddSplitCommand}">
+                                    <materialDesign:PackIcon
+                                        Kind="Plus"
+                                        Height="30"
+                                        Width="30" />
+                                </Button>
+
+                                <!-- save existing button -->
+                                <Button
+                                    Margin="5"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                    ToolTip="{DynamicResource ButtonToolTipSaveExistingSplit}"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding SaveExistingSplitCommand}">
+                                    <materialDesign:PackIcon
+                                        Kind="Floppy"
+                                        Height="30"
+                                        Width="30" />
+                                </Button>
+
+                                <!-- Remove button -->
+                                <Button
+                                    Margin="5"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                    ToolTip="{DynamicResource ButtonToolTipRemoveSplit}"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding RemoveSplitCommand}">
+                                    <materialDesign:PackIcon
+                                        Kind="Minus"
+                                        Height="30"
+                                        Width="30" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Expander>
+
+                    <!-- active splits -->
+                    <DataGrid
+                        ItemsSource="{Binding Splits}"
+                        IsReadOnly="True"
+                        CanUserSortColumns="False"
+                        AutoGenerateColumns="False"
+                        VerticalScrollBarVisibility="Visible"
+                        SelectedItem="{Binding SelectedSplit}"
+                        SelectionUnit="FullRow"
+                        SelectionMode="Single"
+                        ui:DataGridDragAndDropHelper.EnableRowReordering="True">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="{Binding BackgroundColor}"/>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Livesplit" Binding="{Binding LivesplitTitle}" Foreground="{Binding BackgroundColor}"/>
+                            <DataGridTextColumn Header="Game" Binding="{Binding Game, Converter={StaticResource EnumLanguageConverter}}"/>
+                            <DataGridTextColumn Header="Timing" Binding="{Binding TimingType, Converter={StaticResource EnumLanguageConverter}}"/>
+                            <DataGridTextColumn Header="Type" Binding="{Binding SplitType, Converter={StaticResource EnumLanguageConverter}}"/>
+                            <DataGridTemplateColumn Header="Split">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ContentControl
+                                            ContentTemplateSelector="{StaticResource SplitTypeDataTemplateSelector}"
+                                            Content="{Binding Split}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header ="Settings">
+                <StackPanel>
+                    <CheckBox 
+                        Margin="5" 
+                        Content="Start automatically" 
+                        IsChecked="{Binding StartAutomatically}"/>
+
+                    <CheckBox
+                        Margin="5"
+                        Content="Overwrite IGT with 0:00 when the timer starts (for NG+ saves/mortal journey)"
+                        IsChecked="{Binding OverwriteIgtOnStart}"/>
+
+                    <Separator/>
+
+                    <Label Content="Dropmod settings"/>
+
+                    <RadioButton 
+                        Margin="5"                
+                        IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.None}}"
+                        GroupName="DropModRadioButtonGroup">None</RadioButton>
+
+                    <RadioButton 
+                        Margin="5"
+                        IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.AnyPercent}}"
+                        ToolTip="Sets the droprate of the BKH to 100%"
+                        GroupName="DropModRadioButtonGroup">Any%</RadioButton>
+
+                    <RadioButton 
+                        Margin="5" 
+                        IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.AllAchievements}}"
+                        ToolTip="Dynamically changes droprates based on what you still need in the run"
+                        GroupName="DropModRadioButtonGroup">All achievements</RadioButton>
+
+                    <Separator/>
+
+                    <Label Content="Illegal mods"/>
+
+                    <Button
+                        HorizontalAlignment="Left"
+                        Content="Disable cutscenes in Sekiro"
+                        Command="{Binding DisableCutscenesCommand}"/>
+
+                </StackPanel>
+            </TabItem>
+
+            <!-- 
+            <TabItem Header ="Hotkeys">
+                <ItemsControl 
+                    ItemsSource="{Binding Hotkeys}"
+                    Grid.Row="3">
+
+                    <ItemsControl.Resources>
+                        <DataTemplate 
+                            x:Key="RemoveFpsPatchDataTemplate" 
+                            DataType="{x:Type eldenRing:FpsPatchHotkey}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox Grid.Column="0" Text="{Binding Hotkey, Converter={StaticResource HotkeyToStringConverter} }"/>
+                                <TextBox Grid.Column="1" Text="Remove FPS patch"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.Resources>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Action}" Value="{x:Static eldenRing:FpsPatchHotkeyAction.RemoveFpsPatch}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource RemoveFpsPatchDataTemplate}"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox Grid.Column="0" Text="{Binding Hotkey, Converter={StaticResource HotkeyToStringConverter} }"/>
+                                <TextBox Grid.Column="1" Text="{Binding Fps}"/>
+
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+
+                </ItemsControl>
+            </TabItem>
+            -->
+            
+        </TabControl>
+    </Grid>
+</Window>

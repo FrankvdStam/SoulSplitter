@@ -73,5 +73,6 @@ public enum RefreshErrorReason
     ProcessExited,
     MainModuleNull,
     AccessDenied,
-    ModLoadFailed
+    ModLoadFailed,
+    EbootReadFailed,
 }

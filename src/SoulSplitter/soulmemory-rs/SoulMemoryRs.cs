@@ -35,7 +35,9 @@ public static class SoulMemoryRs
             "darksoulsiii",
             "sekiro",
             "eldenring",
-            "armoredcore6"
+            "armoredcore6",
+            "shadps4",
+            "nightreign",
         };
 
         var process = Process.GetProcesses().FirstOrDefault(p => games.Contains(p.ProcessName.ToLower()));

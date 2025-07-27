@@ -30,4 +30,9 @@ public struct MemoryBasicInformation64
     public int Protect;
     public int Type;
     public int __alignment2;
+
+    public override string ToString()
+    {
+        return $"0x{BaseAddress:x8} 0x{RegionSize:x8}";
+    }
 }
