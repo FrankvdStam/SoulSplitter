@@ -34,6 +34,10 @@ use windows::core::BOOL;
 use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version, SOULMODS_VERSION};
 
 
+#[unsafe(no_mangle)]
+#[used]
+pub static mut SOULMODS_INITIALIZED: bool = false;
+
 
 #[unsafe(no_mangle)]
 #[allow(non_snake_case)]
@@ -84,4 +88,6 @@ fn dispatched_dll_main()
         "nightreign.exe" => init_nightreign(),
         _ => info!("no supported process found")
     }
+
+    unsafe { SOULMODS_INITIALIZED = true };
 }
