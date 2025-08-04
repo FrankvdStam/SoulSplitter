@@ -20,7 +20,6 @@ using System.Runtime.CompilerServices;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
 using SoulSplitter.Livesplit;
-using SoulSplitter.Ui.View;
 using SoulSplitter.Utils;
 
 

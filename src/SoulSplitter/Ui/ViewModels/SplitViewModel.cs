@@ -15,7 +15,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Windows.Media;
-using System.Xml.Serialization;
 using SoulMemory.Enums; 
 
 namespace SoulSplitter.Ui.ViewModels;

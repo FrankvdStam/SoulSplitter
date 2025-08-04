@@ -16,11 +16,7 @@
 
 using SoulMemory.Enums;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Documents;
 using SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Utils;
 

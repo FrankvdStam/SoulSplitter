@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows.Automation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SoulMemory;
 using SoulMemory.Enums;
@@ -9,7 +7,6 @@ using SoulSplitter.DependencyInjection;
 using SoulSplitter.Resources;
 using SoulSplitter.Ui.ViewModels;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
-using SoulSplitter.Utils;
 using Attribute = SoulMemory.Games.Sekiro.Attribute;
 
 namespace SoulSplitter.Tests

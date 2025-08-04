@@ -32,20 +32,12 @@ using SoulMemory.Abstractions;
 using SoulMemory.Games.Bloodborne;
 using SoulSplitter.Ui.ViewModels;
 using SoulMemory.Games.Sekiro;
-using SoulSplitter.soulmemory_rs;
 using SoulSplitter.Ui.View;
 using SoulSplitter.Ui.ViewModels.MainViewModel;
-using LiveSplit.Model;
 using SoulMemory.Games.DarkSouls3;
-using SoulMemory.Games.Nightreign;
-using SoulMemory.Native;
-using SoulMemory.soulmods;
 using SoulSplitter.DependencyInjection;
-using SoulSplitter.Livesplit;
 using SoulSplitter.Resources;
 using SoulSplitter.Ui;
-using SoulSplitter;
-using Attribute = SoulMemory.Games.Sekiro.Attribute;
 using Bonfire = SoulMemory.Games.DarkSouls1.Bonfire;
 
 #pragma warning disable CS0162
