@@ -54,6 +54,8 @@ public partial class MainViewModel
         nameof(MainViewModel.Splits),
         nameof(MainViewModel.FlagTrackerViewModel),
         nameof(MainViewModel.DropModType),
+        nameof(MainViewModel.StartAutomatically),
+        nameof(MainViewModel.OverwriteIgtOnStart),
     };
 
     private static readonly Type[] ExtraTypes = [
