@@ -22,14 +22,15 @@ mod games;
 mod util;
 
 use std::ffi::c_void;
-use std::{env, thread};
+use std::{env, panic, thread};
+use std::process::exit;
 use mem_rs::prelude::Process;
 use windows::Win32::Foundation::{HINSTANCE};
 use windows::Win32::System::SystemServices::{ DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 
 use crate::console::init_console;
 use crate::logger::init_log;
-use log::info;
+use log::{error, info};
 use windows::core::BOOL;
 use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version, SOULMODS_VERSION};
 
@@ -71,6 +72,13 @@ fn dispatched_dll_main()
         init_console();
         init_log();
     }
+
+    //Redirect panics
+    panic::set_hook(Box::new(|i| {
+        error!("panic");
+        error!("{}", i);
+        exit(-1);
+    }));
 
     let process_name = Process::get_current_process_name().unwrap();
     info!("soulmods version {}", SOULMODS_VERSION);

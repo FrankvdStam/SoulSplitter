@@ -57,9 +57,8 @@ namespace SoulSplitter.cli
         [STAThread]
         private static void Main(string[] args)
         {
-            SoulMemoryRs.Launch();
 
-            GameLoop<Bloodborne>((g) =>
+            GameLoop<DarkSouls3>((g) =>
             {
                 var time = TimeSpan.FromMilliseconds(g.ReadInGameTimeMilliseconds());
                 Console.WriteLine(time);
