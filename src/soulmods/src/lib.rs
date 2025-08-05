@@ -70,8 +70,9 @@ fn dispatched_dll_main()
     if cfg!(debug_assertions)
     {
         init_console();
-        init_log();
     }
+
+    init_log();
 
     //Redirect panics
     panic::set_hook(Box::new(|i| {

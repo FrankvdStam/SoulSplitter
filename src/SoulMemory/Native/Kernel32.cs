@@ -338,31 +338,31 @@ public static class Kernel32
 
     
 
-    // To avoid cleaning the list,
-    // the number of modules is returned with a tuple
-    public static (IntPtr[] List, uint Length) GetProcessModules(this Process process)
-    {
-        uint arraySize = 256;
-        var processMods = new IntPtr[arraySize];
-        var arrayBytesSize = arraySize * (uint)IntPtr.Size;
-        uint bytesCopied = 0;
-
-        // Loop until all modules are listed
-        // See: https://docs.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-enumprocessmodules#:~:text=If%20lpcbNeeded%20is%20greater%20than%20cb%2C%20increase%20the%20size%20of%20the%20array%20and%20call%20EnumProcessModules%20again.
-        // Stops if:
-        //   - EnumProcessModulesEx return 0 (call failed)
-        //   - All modules are listed
-        //   - The next size of the list is greater than uint.MaxValue
-        while (NativeMethods.EnumProcessModulesEx(process.Handle, processMods, arrayBytesSize, out bytesCopied, ListModules.LIST_MODULES_ALL) &&
-               arrayBytesSize == bytesCopied && arraySize <= uint.MaxValue - 128)
-        {
-            arraySize += 128;
-            processMods = new IntPtr[arraySize];
-            arrayBytesSize = arraySize * (uint)IntPtr.Size;
-        }
-
-        return (List: processMods, Length: bytesCopied >> 2);
-    }
+    //// To avoid cleaning the list,
+    //// the number of modules is returned with a tuple
+    //public static (IntPtr[] List, uint Length) GetProcessModules(this Process process)
+    //{
+    //    uint arraySize = 256;
+    //    var processMods = new IntPtr[arraySize];
+    //    var arrayBytesSize = arraySize * (uint)IntPtr.Size;
+    //    uint bytesCopied = 0;
+    //
+    //    // Loop until all modules are listed
+    //    // See: https://docs.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-enumprocessmodules#:~:text=If%20lpcbNeeded%20is%20greater%20than%20cb%2C%20increase%20the%20size%20of%20the%20array%20and%20call%20EnumProcessModules%20again.
+    //    // Stops if:
+    //    //   - EnumProcessModulesEx return 0 (call failed)
+    //    //   - All modules are listed
+    //    //   - The next size of the list is greater than uint.MaxValue
+    //    while (NativeMethods.EnumProcessModulesEx(process.Handle, processMods, arrayBytesSize, out bytesCopied, ListModules.LIST_MODULES_ALL) &&
+    //           arrayBytesSize == bytesCopied && arraySize <= uint.MaxValue - 128)
+    //    {
+    //        arraySize += 128;
+    //        processMods = new IntPtr[arraySize];
+    //        arrayBytesSize = arraySize * (uint)IntPtr.Size;
+    //    }
+    //
+    //    return (List: processMods, Length: bytesCopied >> 2);
+    //}
 
 
     // get the parent process given a pid

@@ -14,13 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulMemory.Native;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using SoulMemory.Native;
 
 namespace SoulMemory.soulmods;
 
@@ -59,7 +59,8 @@ public static class Soulmods
         var path = Path.Combine(dir, soulmodsModuleName);
 
         //potentially its already injecting, if this is the case we re-use it
-        if (process.Modules.Cast<ProcessModule>().Any(processModule => processModule.ModuleName == soulmodsModuleName))
+        var modules = process.GetModulesViaSnapshot();
+        if (modules.Any(processModule => processModule.szModule == soulmodsModuleName))
         {
             _soulmodsExports = process.GetModuleExports(soulmodsModuleName);
             return Result.Ok(_soulmodsExports);
@@ -69,14 +70,13 @@ public static class Soulmods
         process.InjectDll(path);
 
         //Make sure it is in the module list now
-        if (process.Modules.Cast<ProcessModule>().Any(processModule => processModule.ModuleName == soulmodsModuleName))
+        modules = process.GetModulesViaSnapshot();
+        if (modules.Any(processModule => processModule.szModule == soulmodsModuleName))
         {
             _soulmodsExports = process.GetModuleExports(soulmodsModuleName);
             return Result.Ok(_soulmodsExports);
         }
 
-        var test = process.Modules.Cast<ProcessModule>().ToList();
-        var a = test.Where(i => i.ModuleName.ToLowerInvariant().Contains("soul")).ToList();
         return Result.Err();
     }
 
