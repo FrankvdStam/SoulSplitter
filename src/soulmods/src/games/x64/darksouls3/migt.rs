@@ -49,7 +49,7 @@ pub fn ds3_init_migt(process: &Process)
     unsafe { INCREMENT_IGT = Some(Hooker::new(copy_relocated_increment_igt_fn_address + igt_hook_offset, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap()) };
 }
 
-unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
+pub unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
 {
     unsafe
     {

@@ -20,6 +20,7 @@ mod logger;
 mod console;
 mod games;
 mod util;
+mod tests;
 
 use std::ffi::c_void;
 use std::{env, panic, thread};

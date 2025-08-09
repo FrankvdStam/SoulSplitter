@@ -20,13 +20,4 @@
 mod x64;
 
 #[cfg(target_arch = "x86_64")]
-pub use
-{
-    crate::games::x64::armoredcore6::init_armoredcore6,
-    crate::games::x64::darksouls2scholarofthefirstsin::init_scholar,
-    crate::games::x64::darksouls3::init_darksouls3,
-    crate::games::x64::eldenring::init_eldenring,
-    crate::games::x64::sekiro::init_sekiro,
-    crate::games::x64::bloodborne::init_bloodborne,
-    crate::games::x64::nightreign::init_nightreign,
-};
+pub use x64::*;

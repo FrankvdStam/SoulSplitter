@@ -80,7 +80,7 @@ pub fn init_eldenring()
         info!("increment IGT at 0x{:x}", fn_increment_igt_address);
 
         // Enable timer patch
-        IGT_HOOK = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        IGT_HOOK = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
         // AoBs for FPS patches
         let mut fps_aob = "";
@@ -151,7 +151,7 @@ pub fn init_eldenring()
     }
 }
 
-unsafe extern "win64" fn increment_igt(registers: *mut Registers, _:usize)
+pub unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
 {
     unsafe
     {
@@ -170,7 +170,7 @@ unsafe extern "win64" fn increment_igt(registers: *mut Registers, _:usize)
             IGT_BUFFER = IGT_BUFFER - 1f32;
             floored_frame_delta += 1f32;
         }
-
+        //println!("ER hook before: {} scaled: {} buffer {} after {}", before, frame_delta, IGT_BUFFER, floored_frame_delta);
         (*registers).xmm1 = std::mem::transmute::<f32, u32>(floored_frame_delta) as u128;
     }
 }

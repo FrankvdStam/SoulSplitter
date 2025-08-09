@@ -31,11 +31,11 @@ pub fn init_armoredcore6()
         let fn_increment_igt_address = process.scan_abs("increment igt", "48 83 ec 58 48 c7 44 24 20 fe ff ff ff 0f 29 74 24 40 0f 28 f0", 0, Vec::new()).unwrap().get_base_address();
 
         info!("increment IGT at 0x{:x}", fn_increment_igt_address);
-        IGT_HOOK = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        IGT_HOOK = Some(Hooker::new(fn_increment_igt_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
     }
 }
 
-unsafe extern "win64" fn increment_igt(registers: *mut Registers, _:usize)
+pub unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
 {
     unsafe
     {

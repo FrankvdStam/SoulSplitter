@@ -75,7 +75,7 @@ pub fn init_nightreign()
     }
 }
 
-unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
+pub unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
 {
     unsafe
     {
@@ -85,8 +85,8 @@ unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
         //Rather than casting, like the game does, make the behavior explicit by flooring
         let mut floored_frame_delta = frame_delta.floor();
         let remainder = frame_delta - floored_frame_delta;
-        IGT_BUFFER = IGT_BUFFER + remainder;
 
+        IGT_BUFFER = IGT_BUFFER + remainder;
         if IGT_BUFFER > 1.0f32
         {
             IGT_BUFFER = IGT_BUFFER - 1f32;

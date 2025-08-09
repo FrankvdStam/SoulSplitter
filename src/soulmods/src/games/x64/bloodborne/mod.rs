@@ -64,7 +64,7 @@ pub fn init_bloodborne()
     unsafe { INCREMENT_IGT = Some(Hooker::new(igt_increment_fn_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap()) };
 }
 
-unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
+pub unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
 {
     unsafe
     {

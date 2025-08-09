@@ -134,7 +134,7 @@ unsafe extern "win64" fn handle_fade_hook_fn(registers: *mut Registers, _:usize)
 }
 
 //igt fix
-unsafe extern "win64" fn increment_igt_hook_fn(registers: *mut Registers, _:usize)
+pub unsafe extern "win64" fn increment_igt_hook_fn(registers: *mut Registers, _:usize)
 {
     unsafe
     {
