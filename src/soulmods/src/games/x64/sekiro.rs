@@ -16,12 +16,15 @@
 
 
 
-use std::{ptr, thread, time::Duration};
+use std::{ptr, thread, time::Duration, mem, ffi::c_void};
 
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 use mem_rs::prelude::*;
+use mem_rs::helpers::*;
 
 use log::info;
+
+use windows::Win32::UI::Input::XboxController::*;
 
 use crate::util::GLOBAL_VERSION;
 
@@ -31,6 +34,7 @@ static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 static mut FRAME_ADVANCE_HOOK: Option<HookPoint> = None;
 static mut EMEVD_EVENT_HOOK: Option<HookPoint> = None;
+static mut XINPUT_HOOK: Option<HookPoint> = None;
 
 #[allow(dead_code)]
 static mut HANDLE_FADE_HOOK: Option<HookPoint> = None;
@@ -51,11 +55,33 @@ pub static mut SEKIRO_FRAME_ADVANCE_ENABLED: bool = false;
 #[used]
 pub static mut SEKIRO_FRAME_RUNNING: bool = false;
 
+#[unsafe(no_mangle)]
+#[used]
+pub static mut SEKIRO_XINPUT_PATCH_ENABLED: bool = false;
+
+#[unsafe(no_mangle)]
+#[used]
+pub static mut SEKIRO_XINPUT_STATE: XINPUT_STATE = XINPUT_STATE {
+    dwPacketNumber: 0,
+    Gamepad: XINPUT_GAMEPAD {
+        wButtons: XINPUT_GAMEPAD_BUTTON_FLAGS(0),
+        bLeftTrigger: 0,
+        bRightTrigger: 0,
+        sThumbLX: 0,
+        sThumbLY: 0,
+        sThumbRX: 0,
+        sThumbRY: 0,
+    }
+};
 
 
 pub static mut IGT_BUFFER: f32 = 0.0f32;
 
 pub static mut FADE_MAN_ADDRESS: usize = 0usize;
+
+
+pub type XInputGetState = unsafe extern "system" fn(dw_user_index: u32, p_state: *mut XINPUT_STATE) -> u32;
+
 
 #[allow(unused_assignments)]
 pub fn init_sekiro()
@@ -111,6 +137,15 @@ pub fn init_sekiro()
         EMEVD_EVENT_HOOK = Some(Hooker::new(emevd_events_address, HookType::JmpBack(emevd_event_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
         //HANDLE_FADE_HOOK = Some(Hooker::new(0x140f26ed0, HookType::JmpBack(handle_fade_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+
+
+        // Find XInputGetState function in XINPUT1_3.dll
+        let xinput_module = process.get_modules().iter().find(|m| m.name == "XINPUT1_3.dll").cloned().expect("Couldn't find XINPUT1_3.dll");
+        let xinput_fn_addr = xinput_module.get_exports().iter().find(|e| e.0 == "XInputGetState").expect("Couldn't find XInputGetState").1;
+        info!("XInputGetState at 0x{:x}", xinput_fn_addr);
+
+        // Hook XInputGetState
+        XINPUT_HOOK = Some(Hooker::new(xinput_fn_addr, HookType::Retn(xinput_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
     }
 }
 
@@ -318,4 +353,22 @@ unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:usize)
             ptr::write((arg_struct_ptr + 0x0) as *mut *const i32, 1 as *const i32);
         }
     }
+}
+
+
+pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr: usize, _: usize) -> usize {
+    
+    let dw_user_index = (*registers).rcx as u32;
+    let p_state = (*registers).rdx as *mut XINPUT_STATE;
+
+    if !SEKIRO_XINPUT_PATCH_ENABLED {
+        let orig_func: XInputGetState = mem::transmute(orig_func_ptr);
+        return orig_func(dw_user_index, p_state) as usize;
+    }
+
+    (*p_state) = SEKIRO_XINPUT_STATE;
+
+    // ERROR_SUCCESS = 0x0
+    // ERROR_DEVICE_NOT_CONNECTED = 0x48F
+    return 0x0;
 }
