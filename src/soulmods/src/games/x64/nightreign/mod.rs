@@ -1,10 +1,10 @@
-use std::{thread, time::Duration, mem, ffi::c_void};
+use std::thread;
+use std::time::Duration;
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 use mem_rs::prelude::*;
 use log::info;
 
 use crate::util::GLOBAL_VERSION;
-
 
 static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
@@ -28,10 +28,8 @@ pub static mut NR_FRAME_ADVANCE_ENABLED: bool = false;
 #[used]
 pub static mut NR_FRAME_RUNNING: bool = false;
 
-
 static mut IGT_BUFFER: f32 = 0.0f32;
 static mut IGT_HOOK: Option<HookPoint> = None;
-
 
 pub fn init_nightreign()
 {
