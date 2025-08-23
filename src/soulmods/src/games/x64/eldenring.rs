@@ -34,7 +34,7 @@ struct FpsOffsets
     timestamp_current: isize,
 }
 
-static mut IGT_BUFFER: f32 = 0.0f32;
+pub(crate) static mut IGT_BUFFER: f32 = 0.0f32;
 static mut IGT_HOOK: Option<HookPoint> = None;
 
 static mut FPS_HOOK: Option<HookPoint> = None;

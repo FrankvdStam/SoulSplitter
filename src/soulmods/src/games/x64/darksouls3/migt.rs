@@ -23,7 +23,7 @@ use crate::util::{Assembler};
 
 static mut INCREMENT_IGT: Option<HookPoint> = None;
 
-static mut IGT_BUFFER: f32 = 0.0f32;
+pub(crate) static mut IGT_BUFFER: f32 = 0.0f32;
 
 pub fn ds3_init_migt(process: &Process)
 {    

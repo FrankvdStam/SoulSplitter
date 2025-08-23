@@ -15,6 +15,9 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 mod migt;
+pub use migt::increment_igt_hook;
+pub(crate) use migt::IGT_BUFFER;
+
 
 #[allow(dead_code)]
 

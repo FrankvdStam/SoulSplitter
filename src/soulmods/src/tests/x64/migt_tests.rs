@@ -1,116 +1,229 @@
 use std::time::Duration;
-use ilhook::x64::Registers;
 use crate::tests::x64::empty_registers;
 use crate::tests::utils::*;
+use rand::prelude::*;
+
+//==============================================================================================================================
+//single frame calculation for games
+
+fn reset_igt_buffers()
+{
+    unsafe
+    {
+        crate::games::darksouls3::IGT_BUFFER = 0.0f32;
+        crate::games::sekiro::IGT_BUFFER = 0.0f32;
+        crate::games::eldenring::IGT_BUFFER = 0.0f32;
+        crate::games::nightreign::IGT_BUFFER = 0.0f32;
+        crate::games::bloodborne::IGT_BUFFER = 0.0f32;
+    }
+}
+
+///Runs a single cycle of stock IGT with a given frame delta
+fn single_frame_stock_increment_igt(frame_delta: f32) -> u32
+{
+    return frame_delta.floor() as u32;
+}
+
+///Runs a single cycle of dark souls 3 IGT with a given frame delta
+fn single_frame_darksouls3_increment_igt(frame_delta: f32) -> u32
+{
+    let mut registers = empty_registers();
+    registers.xmm0 = f32::to_bits(frame_delta) as u128;
+    unsafe{ crate::games::darksouls3::increment_igt_hook(&mut registers, 0) };
+    let result = f32::from_bits(registers.xmm0 as u32);
+    return result as u32;
+}
+
+///Runs a single cycle of sekiro IGT with a given frame delta
+fn single_frame_sekiro_increment_igt(frame_delta: f32) -> u32
+{
+    let mut registers = empty_registers();
+    registers.xmm0 = f32::to_bits(frame_delta) as u128;
+    unsafe{ crate::games::sekiro::increment_igt_hook(&mut registers, 0) };
+    let result = f32::from_bits(registers.xmm0 as u32);
+    return result as u32;
+}
+
+
+///Runs a single cycle of eldenring IGT with a given frame delta
+fn single_frame_eldenring_increment_igt(frame_delta: f32) -> u32
+{
+    let mut registers = empty_registers();
+    registers.xmm0 = f32::to_bits(frame_delta / 1000f32) as u128;
+    unsafe{ crate::games::eldenring::increment_igt_hook(&mut registers, 0) };
+    let result = f32::from_bits(registers.xmm1 as u32);
+    return result as u32;
+}
+
+///Runs a single cycle of nightreign IGT with a given frame delta
+fn single_frame_nightreign_increment_igt(frame_delta: f32) -> u32
+{
+    let mut registers = empty_registers();
+    registers.xmm0 = f32::to_bits(frame_delta) as u128;
+    unsafe{ crate::games::nightreign::increment_igt_hook(&mut registers, 0) };
+    let result = f32::from_bits(registers.xmm0 as u32);
+    return result as u32;
+}
+
+///Runs a single cycle of dark souls 3 IGT with a given frame delta
+fn single_frame_bloodborne_increment_igt(frame_delta: f32) -> u32
+{
+    let mut registers = empty_registers();
+    registers.xmm0 = f32::to_bits(frame_delta) as u128;
+    unsafe{ crate::games::bloodborne::increment_igt_hook(&mut registers, 0) };
+    let result = f32::from_bits(registers.xmm0 as u32);
+    return result as u32;
+}
+
+
+struct TimeState
+{
+    real_time_ms: f64,
+    stock_igt_ms: u32,
+    dark_souls3_migt_ms: u32,
+    sekiro_migt_ms: u32,
+    bloodborne_migt_ms: u32,
+    elden_ring_migt_ms: u32,
+    nightreign_migt_ms: u32,
+}
+
+impl TimeState
+{
+    fn new() -> Self
+    {
+        TimeState
+        {
+            real_time_ms: 0.0f64,
+            stock_igt_ms: 0,
+            dark_souls3_migt_ms: 0,
+            sekiro_migt_ms: 0,
+            elden_ring_migt_ms: 0,
+            nightreign_migt_ms: 0,
+            bloodborne_migt_ms: 0,
+        }
+    }
+
+    fn print(&self)
+    {
+        println!("==== milliseconds ====");
+        println!("real time                     : {}", self.real_time_ms);
+        println!("real time scaled              : {}", self.real_time_ms * 0.96f64);
+        println!("stock IGT                     : {}", self.stock_igt_ms);
+        println!("dark souls 3 MIGT             : {}", self.dark_souls3_migt_ms);
+        println!("elden ring MIGT               : {}", self.elden_ring_migt_ms);
+        println!("nightreign MIGT               : {}", self.nightreign_migt_ms);
+        println!("bloodborne MIGT               : {}", self.bloodborne_migt_ms);
+        println!("sekiro MIGT                   : {}", self.sekiro_migt_ms);
+        println!();
+        println!("==== timestamps ====");
+        println!("real time                     : {}", FormattableDuration(Duration::from_millis(self.real_time_ms as u64)));
+        println!("real time scaled              : {}", FormattableDuration(Duration::from_millis((self.real_time_ms * 0.96f64).floor() as u64)));
+        println!("stock IGT                     : {}", FormattableDuration(Duration::from_millis(self.stock_igt_ms as u64)));
+        println!("dark souls 3 MIGT             : {}", FormattableDuration(Duration::from_millis(self.dark_souls3_migt_ms as u64)));
+        println!("elden ring MIGT               : {}", FormattableDuration(Duration::from_millis(self.elden_ring_migt_ms as u64)));
+        println!("nightreign MIGT               : {}", FormattableDuration(Duration::from_millis(self.nightreign_migt_ms as u64)));
+        println!("bloodborne MIGT               : {}", FormattableDuration(Duration::from_millis(self.bloodborne_migt_ms as u64)));
+        println!("sekiro MIGT                   : {}", FormattableDuration(Duration::from_millis(self.sekiro_migt_ms as u64)));
+    }
+}
+
+///calculates a single cycle for all available games/time values
+fn single_cycle_increment_values(time_state: &mut TimeState, frame_delta: f64)
+{
+    let frame_delta_f32 = frame_delta as f32;
+
+    time_state.real_time_ms = time_state.real_time_ms + frame_delta;
+    time_state.stock_igt_ms = time_state.stock_igt_ms + single_frame_stock_increment_igt(frame_delta_f32);
+    time_state.dark_souls3_migt_ms = time_state.dark_souls3_migt_ms + single_frame_darksouls3_increment_igt(frame_delta_f32);
+    time_state.sekiro_migt_ms = time_state.sekiro_migt_ms + single_frame_sekiro_increment_igt(frame_delta_f32);
+    time_state.elden_ring_migt_ms = time_state.elden_ring_migt_ms + single_frame_eldenring_increment_igt(frame_delta_f32);
+    time_state.nightreign_migt_ms = time_state.nightreign_migt_ms + single_frame_nightreign_increment_igt(frame_delta_f32);
+    time_state.bloodborne_migt_ms = time_state.bloodborne_migt_ms + single_frame_bloodborne_increment_igt(frame_delta_f32);
+}
+
+//==============================================================================================================================
+
+#[test]
+pub fn stable_framerate_migt_test()
+{
+    reset_igt_buffers();
+
+    //60 frames p/s, 60 seconds, 60 minutes, for 10 hours
+    let total_time_ms = 1000 * 60 * 60 * 10;
+
+    //let frame_delta_f64 = 1f64/60f64;
+    let frame_delta_f64 = 1f64/60f64 * 1000f64;
+
+    //calculated amount of frames that will be rendered at this framerate
+    let total_frames = total_time_ms as f64 / frame_delta_f64;
+
+    //expected time from a pure calculation, without accumulating floating point errors
+    let calculated_total_time = total_frames as f64 * frame_delta_f64;
+    let calculated_total_time_with_scaling = calculated_total_time * 0.96f64;
+
+    let mut time_state = TimeState::new();
+
+    for _ in 0..total_frames as usize
+    {
+        single_cycle_increment_values(&mut time_state, frame_delta_f64);
+    }
+
+    println!("frames: {}", total_frames);
+    println!("calculated total time         : {}", calculated_total_time);
+    println!("calculated total time scaled  : {}", calculated_total_time_with_scaling);
+    time_state.print();
+    println!();
+
+
+    let tolerance = 7 * 1000u32;
+    let real_time_scaled_ms = (time_state.real_time_ms * 0.96f64).floor() as u32;
+    let expected_range_real_time_scaled_ms = real_time_scaled_ms - tolerance..real_time_scaled_ms + tolerance;
+    let expected_range_real_time_ms = time_state.real_time_ms.floor() as u32 - tolerance..time_state.real_time_ms.floor() as u32 + tolerance;
+
+    println!("{:?}", expected_range_real_time_scaled_ms);
+
+    assert!(expected_range_real_time_scaled_ms.contains(&time_state.dark_souls3_migt_ms));
+    assert!(expected_range_real_time_scaled_ms.contains(&time_state.elden_ring_migt_ms));
+    assert!(expected_range_real_time_scaled_ms.contains(&time_state.nightreign_migt_ms));
+    assert!(expected_range_real_time_scaled_ms.contains(&time_state.bloodborne_migt_ms));
+    assert!(expected_range_real_time_ms.contains(&time_state.sekiro_migt_ms));
+}
 
 
 
 #[test]
-pub fn migt_tests()
+pub fn extremely_unstable_framerate_migt_test()
 {
-    //migt_test_stable_framerate((1f32/60f32) * 1000f32, 34099780);
-    //migt_test_stable_framerate(16.99999f32, 34099780);
+    reset_igt_buffers();
 
+    let mut rng = rand::rng();
 
-    let millis = 1000 * 60 * 60 * 10;
-    //let millis = 1000;
-    //let millis = 187176;
+    //60 frames p/s, 60 seconds, 60 minutes, for 10 hours
+    let total_time_ms = 1000 * 60 * 60 * 10;
 
-    migt_test_stable_framerate((1f32/60f32) * 1000f32, millis);
-    migt_test_stable_framerate(16.99999f32, millis);
-    migt_test_stable_framerate(16.1000f32, millis);
+    let mut total_frames = 0;
+    let mut time_state = TimeState::new();
 
-
-
-    //migt_test_stable_framerate((1f32/60f32) * 1000f32, 1000 * 60 * 60 * 10);
-    //migt_test_stable_framerate(16.99999f32, 1000 * 60 * 60 * 10);
-    //migt_test_stable_framerate(16.00001f32, 1000 * 60 * 60 * 10);
-}
-
-pub fn migt_test_stable_framerate(frame_delta: f32, total_duration_millis: u32)
-{
-    let target_duration = Duration::from_millis(total_duration_millis as u64);
-    println!("testing MIGT with frame delta: {} target duration: {}", frame_delta, FormattableDuration(target_duration));
-
-    let mut real_millis_passed = 0.0f32;
-    let mut stock_millis_passed = 0;
-    let mut eldenring_millis_passed = 0;
-    let mut nightreign_millis_passed = 0;
-    let mut cycles = 0;
-    //let frame_delta = (1f32/60f32) * 1000f32;
-
-    //run for 10 hours
-    while (real_millis_passed.floor() as u32) < total_duration_millis
-    //for x in 0..12
+    while time_state.real_time_ms < total_time_ms as f64
     {
-        cycles = cycles + 1;
-        real_millis_passed = real_millis_passed + frame_delta;
-
-        stock_millis_passed = stock_millis_passed + single_cycle_stock_increment_igt(frame_delta);
-        eldenring_millis_passed = eldenring_millis_passed + single_cycle_eldenring_increment_igt(frame_delta);
-        //nightreign_millis_passed = nightreign_millis_passed + single_cycle_nightreign_increment_igt(frame_delta);
-
-        if real_millis_passed.floor() as u32 > 1000
-        {
-            if eldenring_millis_passed < (real_millis_passed.floor() as u32 + 1000) && eldenring_millis_passed  > (real_millis_passed.floor() as u32 - 1000)
-            {
-                //in bounds
-            }
-            else
-            {
-                panic!("out of bounds {}", real_millis_passed);
-            }
-        }
-
-    let expected_time_passed = Duration::from_millis((real_millis_passed  * 0.96f32) as u64);
-    let real_time_passed = Duration::from_millis(real_millis_passed.round() as u64);
-    let stock_igt_passed = Duration::from_millis(stock_millis_passed as u64);
-    let eldenring_igt_passed = Duration::from_millis(eldenring_millis_passed as u64);
-    //let nightreign_igt_passed = Duration::from_millis(nightreign_millis_passed as u64);
-
-    println!("cycles: {}", cycles);
-    println!("stock IGT passed       : {} millis: {}", FormattableDuration(stock_igt_passed), stock_igt_passed.as_millis());
-    println!("real time passed       : {} millis: {}", FormattableDuration(real_time_passed), real_time_passed.as_millis());
-    println!("expected corrected time: {} millis: {}", FormattableDuration(expected_time_passed), expected_time_passed.as_millis());
-    println!("eldenring IGT passed   : {} millis: {}", FormattableDuration(eldenring_igt_passed), eldenring_igt_passed.as_millis());
-    //println!("nightreign IGT passed  : {} millis: {}", FormattableDuration(nightreign_igt_passed), nightreign_igt_passed.as_millis());
-
-}
-}
-
-
-
-
-
-///Runs a single cycle of stock IGT with a given frame delta
-fn single_cycle_stock_increment_igt(frame_delta: f32) -> u32
-{
-    //not much point in fully emulating stock IGT behavior through registers and transmutes.
-    return frame_delta.floor() as u32;
-}
-
-///Runs a single cycle of eldenring IGT with a given frame delta
-fn single_cycle_eldenring_increment_igt(frame_delta: f32) -> u32
-{
-    unsafe
-    {
-        let mut registers = empty_registers();
-        registers.xmm0 = f32::to_bits(frame_delta / 1000f32) as u128;
-        crate::games::eldenring::increment_igt_hook(&mut registers, 0);
-        let result = f32::from_bits(registers.xmm1 as u32);
-        return result as u32;
+        let frame_delta_f64 = rng.random_range(30.0f64..=60.0f64);
+        single_cycle_increment_values(&mut time_state, frame_delta_f64);
+        total_frames = total_frames + 1;
     }
-}
 
-///Runs a single cycle of nightreign IGT with a given frame delta
-fn single_cycle_nightreign_increment_igt(frame_delta: f32) -> u32
-{
-    unsafe
-    {
-        let mut registers = empty_registers();
-        registers.xmm0 = f32::to_bits(frame_delta) as u128;
-        crate::games::nightreign::increment_igt_hook(&mut registers, 0);
-        let result = f32::from_bits(registers.xmm0 as u32);
-        return result as u32;
-    }
+    println!("frames              : {}", total_frames);
+    println!();
+    time_state.print();
+    println!();
+
+    let tolerance = 20 * 1000u32;
+    let real_time_scaled_ms = (time_state.real_time_ms * 0.96f64).floor() as u32;
+    let expected_range_real_time_scaled_ms = real_time_scaled_ms - tolerance..real_time_scaled_ms + tolerance;
+    let expected_range_real_time_ms = time_state.real_time_ms.floor() as u32 - tolerance..time_state.real_time_ms.floor() as u32 + tolerance;
+
+    assert!(expected_range_real_time_scaled_ms.contains(&time_state.dark_souls3_migt_ms));
+    assert!(expected_range_real_time_scaled_ms.contains(&time_state.elden_ring_migt_ms));
+    assert!(expected_range_real_time_scaled_ms.contains(&time_state.nightreign_migt_ms));
+    assert!(expected_range_real_time_scaled_ms.contains(&time_state.bloodborne_migt_ms));
+    assert!(expected_range_real_time_ms.contains(&time_state.sekiro_migt_ms));
 }

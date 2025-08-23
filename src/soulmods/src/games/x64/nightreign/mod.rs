@@ -28,7 +28,7 @@ pub static mut NR_FRAME_ADVANCE_ENABLED: bool = false;
 #[used]
 pub static mut NR_FRAME_RUNNING: bool = false;
 
-static mut IGT_BUFFER: f32 = 0.0f32;
+pub(crate) static mut IGT_BUFFER: f32 = 0.0f32;
 static mut IGT_HOOK: Option<HookPoint> = None;
 
 pub fn init_nightreign()

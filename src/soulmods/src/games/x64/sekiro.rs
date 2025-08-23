@@ -98,7 +98,7 @@ pub fn init_sekiro()
         
         let igt_increment_address = process.scan_abs("igt", "f3 48 0f 2c c0 01 81 9c 00 00 00 48 8b 05 ? ? ? ? 81 b8 9c 00 00 00 18 a0 93 d6 76 ? c7 80 9c 00 00 00 18 a0 93 d6", 0, Vec::new()).unwrap().get_base_address();
         info!("igt increment at 0x{:x}", igt_increment_address);
-        IGT_HOOK = Some(Hooker::new(igt_increment_address, HookType::JmpBack(increment_igt_hook_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        IGT_HOOK = Some(Hooker::new(igt_increment_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
         // AoB scan for FPS patch
         let fn_fps_address = process.scan_abs("fps", "f3 0f 58 93 64 02 00 00 41 0f 2f d4", 0, Vec::new()).unwrap().get_base_address();
@@ -168,7 +168,7 @@ unsafe extern "win64" fn handle_fade_hook_fn(registers: *mut Registers, _:usize)
 }
 
 //igt fix
-pub unsafe extern "win64" fn increment_igt_hook_fn(registers: *mut Registers, _:usize)
+pub unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usize)
 {
     unsafe
     {
