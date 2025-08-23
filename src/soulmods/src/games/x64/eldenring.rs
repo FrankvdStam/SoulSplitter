@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-use std::{thread, time::Duration, mem, ffi::c_void};
+use std::{thread, time::Duration, mem};
 
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 use mem_rs::prelude::*;
@@ -189,7 +189,7 @@ pub unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usi
 {
     unsafe
     {
-        let mut frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
+        let mut frame_delta = f32::from_bits((*registers).xmm0 as u32);
         //convert to milliseconds
         frame_delta = frame_delta * 1000f32;
         frame_delta = frame_delta * 0.96f32; //scale to IGT
@@ -205,7 +205,7 @@ pub unsafe extern "win64" fn increment_igt_hook(registers: *mut Registers, _:usi
             floored_frame_delta += 1f32;
         }
         //println!("ER hook before: {} scaled: {} buffer {} after {}", before, frame_delta, IGT_BUFFER, floored_frame_delta);
-        (*registers).xmm1 = std::mem::transmute::<f32, u32>(floored_frame_delta) as u128;
+        (*registers).xmm1 = f32::to_bits(floored_frame_delta) as u128;
     }
 }
 
@@ -308,7 +308,7 @@ unsafe extern "win64" fn frame_advance(_registers: *mut Registers, _:usize)
 }
 
 
-pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr: usize, _: usize) -> usize {
+pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr: usize, _: usize) -> usize { unsafe {
     
     let dw_user_index = (*registers).rcx as u32;
     let p_state = (*registers).rdx as *mut XINPUT_STATE;
@@ -323,4 +323,4 @@ pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr:
     // ERROR_SUCCESS = 0x0
     // ERROR_DEVICE_NOT_CONNECTED = 0x48F
     return 0x0;
-}
+}}

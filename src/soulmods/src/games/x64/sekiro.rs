@@ -16,11 +16,10 @@
 
 
 
-use std::{ptr, thread, time::Duration, mem, ffi::c_void};
+use std::{ptr, thread, time::Duration, mem};
 
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 use mem_rs::prelude::*;
-use mem_rs::helpers::*;
 
 use log::info;
 
@@ -180,12 +179,12 @@ pub unsafe extern "win64" fn increment_igt_hook_fn(registers: *mut Registers, _:
             let fading = ptr::read((fade_man2 + 0x2dc) as *const i32);
             if fading != 0
             {
-                (*registers).xmm0 = std::mem::transmute::<f32, u32>(0f32) as u128;
+                (*registers).xmm0 = f32::to_bits(0f32) as u128;
             }
             //info!("0x{:x} 0x{:x} 0x{:x} - {}", FADE_MAN_ADDRESS, fade_man1, fade_man2, fading);
         }
 
-        let frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
+        let frame_delta = f32::from_bits((*registers).xmm0 as u32);
         let mut corrected_frame_delta = frame_delta;
 
         //Rather than casting, like the game does, make the behavior explicit by flooring
@@ -199,7 +198,7 @@ pub unsafe extern "win64" fn increment_igt_hook_fn(registers: *mut Registers, _:
             corrected_frame_delta += 1f32;
         }
 
-        (*registers).xmm0 = std::mem::transmute::<f32, u32>(corrected_frame_delta) as u128;
+        (*registers).xmm0 = f32::to_bits(corrected_frame_delta) as u128;
         //info!("frame delta: {} igt buffer: {} corrected frame delta: {}", frame_delta, IGT_BUFFER, corrected_frame_delta);
     }
 }
@@ -356,7 +355,7 @@ unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:usize)
 }
 
 
-pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr: usize, _: usize) -> usize {
+pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr: usize, _: usize) -> usize { unsafe {
     
     let dw_user_index = (*registers).rcx as u32;
     let p_state = (*registers).rdx as *mut XINPUT_STATE;
@@ -371,4 +370,4 @@ pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr:
     // ERROR_SUCCESS = 0x0
     // ERROR_DEVICE_NOT_CONNECTED = 0x48F
     return 0x0;
-}
+}}

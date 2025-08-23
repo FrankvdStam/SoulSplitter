@@ -19,7 +19,7 @@ mod migt;
 #[allow(dead_code)]
 
 use mem_rs::prelude::*;
-use std::{thread, time::Duration, mem, ffi::c_void};
+use std::{thread, time::Duration, mem};
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 
 use log::info;
@@ -266,7 +266,7 @@ unsafe extern "win64" fn frame_advance(_registers: *mut Registers, _:usize)
 }
 
 
-pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr: usize, _: usize) -> usize {
+pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr: usize, _: usize) -> usize { unsafe {
     
     let dw_user_index = (*registers).rcx as u32;
     let p_state = (*registers).rdx as *mut XINPUT_STATE;
@@ -281,4 +281,4 @@ pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr:
     // ERROR_SUCCESS = 0x0
     // ERROR_DEVICE_NOT_CONNECTED = 0x48F
     return 0x0;
-}
+}}
