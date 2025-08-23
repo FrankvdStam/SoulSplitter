@@ -95,9 +95,9 @@ fn single_cycle_eldenring_increment_igt(frame_delta: f32) -> u32
     unsafe
     {
         let mut registers = empty_registers();
-        registers.xmm0 = std::mem::transmute::<f32, u32>(frame_delta / 1000f32) as u128;
+        registers.xmm0 = f32::to_bits(frame_delta / 1000f32) as u128;
         crate::games::eldenring::increment_igt_hook(&mut registers, 0);
-        let result = std::mem::transmute::<u32, f32>(registers.xmm1 as u32);
+        let result = f32::from_bits(registers.xmm1 as u32);
         return result as u32;
     }
 }
@@ -108,9 +108,9 @@ fn single_cycle_nightreign_increment_igt(frame_delta: f32) -> u32
     unsafe
     {
         let mut registers = empty_registers();
-        registers.xmm0 = std::mem::transmute::<f32, u32>(frame_delta) as u128;
+        registers.xmm0 = f32::to_bits(frame_delta) as u128;
         crate::games::nightreign::increment_igt_hook(&mut registers, 0);
-        let result = std::mem::transmute::<u32, f32>(registers.xmm0 as u32);
+        let result = f32::from_bits(registers.xmm0 as u32);
         return result as u32;
     }
 }
