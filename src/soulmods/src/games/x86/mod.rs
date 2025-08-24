@@ -14,19 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-#[allow(static_mut_refs)]
+pub(crate) mod darksouls1;
 
-#[cfg(target_arch = "x86_64")]
-mod x64;
-
-#[cfg(target_arch = "x86_64")]
-pub use x64::*;
-
-
-#[allow(static_mut_refs)]
-
-#[cfg(target_arch = "x86")]
-mod x86;
-
-#[cfg(target_arch = "x86")]
-pub use x86::*;
+pub use darksouls1::*;
