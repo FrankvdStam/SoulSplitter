@@ -129,11 +129,4 @@ Free code signing provided by [SignPath.io](https://about.signpath.io/), certifi
 </p>
 
 <br/><br/>
-I use Clion and Resharper from jetbrains to develop SoulSplitter. They have been giving me a free opensource license to use all their products for non-comercial use for a couple years now. Totally awesome, thanks Jetbrains!  
-  
-<p align="left">
-    <img src="https://github.com/devicons/devicon/blob/master/icons/jetbrains/jetbrains-original.svg" width="300"/>
-</p>
-
-<br/><br/>
 Check out this [visualization of the git history](https://www.youtube.com/watch?v=2u7MwySLOUE), made with [Gource](https://gource.io/)
