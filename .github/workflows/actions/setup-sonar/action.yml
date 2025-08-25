@@ -1,0 +1,35 @@
+name: Setup sonarqube scanning
+description: Setup sonarqube scanning
+
+runs:
+  using: "composite"
+  steps:
+      #setup sonarscanner
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'microsoft'
+        java-version: '17'
+        java-package: jdk
+    
+    - name: Cache SonarQube packages
+      uses: actions/cache@v1
+      with:
+        path: ~\sonar\cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+    
+    - name: Cache SonarQube scanner
+      id: cache-sonar-scanner
+      uses: actions/cache@v1
+      with:
+        path: .\.sonar\scanner
+        key: ${{ runner.os }}-sonar-scanner
+        restore-keys: ${{ runner.os }}-sonar-scanner
+    
+    - name: Install SonarQube scanner
+      if: ${{ steps.cache-sonar-scanner.outputs.cache-hit != 'true' }}
+      shell: powershell
+      run: |
+        New-Item -Path .\.sonar\scanner -ItemType Directory
+        dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
