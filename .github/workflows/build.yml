@@ -66,7 +66,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.projectVersion=${{ env.VERSION }}  /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=tests/**/*.xml
+          mkdir .sonarqube
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /v:${{ env.VERSION }}  /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=tests/**/*.xml
           dotnet build -c release
           dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
