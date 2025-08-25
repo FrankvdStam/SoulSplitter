@@ -30,20 +30,13 @@ jobs:
 
       - name: dotnet restore
         run: dotnet restore
-        
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'microsoft'
-          java-version: '17'
-          java-package: jdk
     
-      - name: Cache SonarQube packages
-        uses: actions/cache@v4
-        with:
-          path: ~\sonar\cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+     #- name: Cache SonarQube packages
+     #  uses: actions/cache@v4
+     #  with:
+     #    path: ~\sonar\cache
+     #    key: ${{ runner.os }}-sonar
+     #    restore-keys: ${{ runner.os }}-sonar
       
       - name: Cache SonarQube scanner
         id: cache-sonar-scanner
@@ -66,10 +59,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /d:sonar.projectVersion=${{ env.VERSION }}  /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=tests/**/*.xml
+          cargo install cargo-tarpaulin
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /v:${{ env.VERSION }}  /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=tests/**/*.xml /d:sonar.rust.lcov.reportPaths=tests/**/*.info /d:sonar.rust.cargo.manifestPaths="src/soulmemory-rs/Cargo.toml,src/soulmods/Cargo.toml"
           dotnet build -c release
           dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
+          cargo tarpaulin --out lcov --output-dir tests/rust
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-          
-      - name: Run rust tests
-        run: cargo test
