@@ -67,7 +67,7 @@ jobs:
         shell: powershell
         run: |
           #mkdir .sonarqube
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /v:${{ env.VERSION }}  /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=tests/**/*.xml
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /v:${{ env.VERSION }}  /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=tests/**/*.xml /d:sonar.rust.cargo.manifestPaths="src/soulmemory-rs/Cargo.toml,src/soulmods/Cargo.toml"
           dotnet build -c release
           dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
