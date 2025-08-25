@@ -18,8 +18,8 @@
 
 <p align="center">
     <a href="https://github.com/FrankvdStam/SoulSplitter/actions">
-        <img src="https://img.shields.io/github/actions/workflow/status/FrankvdStam/SoulSplitter/qodana_main.yml?branch=main"/>
-    </a>
+        <img src="https://img.shields.io/github/actions/workflow/status/FrankvdStam/SoulSplitter/build.yml?branch=main"/>
+    </a>   
     <a href="https://www.nuget.org/packages/SoulMemory/">
         <img src="https://img.shields.io/nuget/v/SoulMemory"/>
     </a>
@@ -31,6 +31,13 @@
     </a>
     <a href="https://ko-fi.com/wasted1">
         <img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg"/>
+    </a>
+    <br/>
+    <a href="https://sonarqube.wastedcloud.nl">
+        <img src="https://sonarqube.wastedcloud.nl/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=alert_status&token=dcf5066558434982e851acb72b72235195d99b6e">
+    </a>
+    <a href="https://sonarqube.wastedcloud.nl">
+        <img src="https://sonarqube.wastedcloud.nl/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=coverage&token=dcf5066558434982e851acb72b72235195d99b6e">
     </a>
 </p>
 
