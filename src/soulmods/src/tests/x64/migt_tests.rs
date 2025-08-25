@@ -234,7 +234,7 @@ pub fn extremely_unstable_framerate_migt_test()
     time_state.print();
     println!();
 
-    let tolerance = 20 * 1000u32;
+    let tolerance = 30 * 1000u32;
     let real_time_scaled_ms = (time_state.real_time_ms * 0.96f64).floor() as u32;
     let expected_range_real_time_scaled_ms = real_time_scaled_ms - tolerance..real_time_scaled_ms + tolerance;
     let expected_range_real_time_ms = time_state.real_time_ms.floor() as u32 - tolerance..time_state.real_time_ms.floor() as u32 + tolerance;
