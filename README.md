@@ -23,8 +23,8 @@
     <a href="https://www.nuget.org/packages/SoulMemory/">
         <img src="https://img.shields.io/nuget/v/SoulMemory"/>
     </a>
-     <a href="https://discord.com/users/281116269921566721">
-        <img src="https://img.shields.io/badge/-Discord-blue"/>
+    <a href="https://discord.gg/CEuyqQrrmP">
+        <img src="https://img.shields.io/discord/1359073517840105603"/>
     </a>
     <a href="https://www.youtube.com/@1wasted">
         <img src="https://img.shields.io/badge/-YouTube-red"/>
@@ -40,6 +40,7 @@
         <img src="https://sonarqube.wastedcloud.nl/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=coverage&token=dcf5066558434982e851acb72b72235195d99b6e">
     </a>
 </p>
+
 
 # Features
 
