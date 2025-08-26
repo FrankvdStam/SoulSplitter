@@ -1,6 +1,10 @@
 name: build
 on:
   pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 env:
   CARGO_TERM_COLOR: always
@@ -31,23 +35,30 @@ jobs:
       - name: dotnet restore
         run: dotnet restore
 
-      - name: Build solution
-        run: dotnet build -c release
-
-      - name: Run tests with code coverage
-        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
+      - name: Cache SonarQube scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
       
-      - name: qodana scan
+      - name: Install SonarQube scanner
+        if: ${{ steps.cache-sonar-scanner.outputs.cache-hit != 'true' }}
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+        
+      - name: Build and analyze
         if: ${{ !github.event.pull_request.head.repo.fork }}
-        continue-on-error: true
-        uses: JetBrains/qodana-action@v2025.1
-        with:
-          args: --baseline,qodana.sarif.json
         env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
- 
-      - name: upload qodana scan to github code scanning
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: powershell
+        run: |
+          cargo install cargo-tarpaulin
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa" /v:${{ env.VERSION }}  /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=tests/**/*.xml /d:sonar.rust.lcov.reportPaths=tests/**/*.info /d:sonar.rust.cargo.manifestPaths="src/soulmemory-rs/Cargo.toml,src/soulmods/Cargo.toml"
+          dotnet build -c release
+          dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
+          cargo tarpaulin --out lcov --output-dir tests/rust
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
