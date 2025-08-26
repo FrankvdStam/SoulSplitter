@@ -139,7 +139,7 @@ Free code signing provided by [SignPath.io](https://about.signpath.io/), certifi
 I use a self hosted free opensource sonarqube instance to ensure code quality
   
 </p>
-    <img src="https://github.com/devicons/devicon/blob/master/icons/sonarqube/sonarqube-original-wordmark.svg" title="sonarqube" alt="sonarqube"/>
+    <img src="https://github.com/devicons/devicon/blob/master/icons/sonarqube/sonarqube-plain-wordmark.svg" title="sonarqube" alt="sonarqube" width="300"/>
 </p>
 
 <br/><br/>
