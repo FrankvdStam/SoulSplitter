@@ -52,8 +52,8 @@ jobs:
             copy src\SoulSplitter\bin\x64\Release\net481\launcher_x64.exe                unsigned-artifact
             copy LICENSE                                                                 unsigned-artifact
             copy src\SoulMemory\bin\x64\Release\*.nupkg                                  unsigned-artifact
-            copy src\CliTimer\bin\x64\release\net481\CliTimer.exe                        unsigned-artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\CliTimer.exe.config                 unsigned-artifact\CliTimer
+            copy src\CliTimer\bin\x64\release\net481\SoulSplitter.CliTimer.exe           unsigned-artifact\CliTimer
+            copy src\CliTimer\bin\x64\release\net481\SoulSplitter.CliTimer.exe.config    unsigned-artifact\CliTimer
             copy src\CliTimer\bin\x64\release\net481\SoulMemory.dll                      unsigned-artifact\CliTimer
             copy src\CliTimer\bin\x64\release\net481\soulmods_x86.dll                    unsigned-artifact\CliTimer
             copy src\CliTimer\bin\x64\release\net481\soulmods_x64.dll                    unsigned-artifact\CliTimer

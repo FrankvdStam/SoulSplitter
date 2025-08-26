@@ -1,0 +1,206 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:r="clr-namespace:SoulSplitter.Resources;assembly="
+                    xmlns:soulmemory="clr-namespace:SoulMemory.Games.EldenRing;assembly=SoulMemory">
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NewGame}">
+        <r:EventFlag.Name>New Game 50</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NewGame1}">
+        <r:EventFlag.Name>New Game +1 51</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NewGame2}">
+        <r:EventFlag.Name>New Game +2 52</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NewGame3}">
+        <r:EventFlag.Name>New Game +3 53</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NewGame4}">
+        <r:EventFlag.Name>New Game +4 54</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NewGame5}">
+        <r:EventFlag.Name>New Game +5 55</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NewGame6}">
+        <r:EventFlag.Name>New Game +6 56</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NewGame7}">
+        <r:EventFlag.Name>New Game +7 57</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NewGame8}">
+        <r:EventFlag.Name>New Game +8 58</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.GameStarts}">
+        <r:EventFlag.Name>Game Starts 100</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.ReachesStrandedGraveyard}">
+        <r:EventFlag.Name>Reaches Stranded Graveyard 101</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.ReachesLimgraveOpenField}">
+        <r:EventFlag.Name>Reaches Limgrave Open Field 102</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.ReachesRoundtable}">
+        <r:EventFlag.Name>Reaches Roundtable 105</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.TouchestheFrenziedFlame}">
+        <r:EventFlag.Name>Touches the Frenzied Flame 108</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.BurnstheErdtreeatForgeoftheGiants}">
+        <r:EventFlag.Name>Burns the Erdtree at Forge of the Giants 110</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.SawEndingScene}">
+        <r:EventFlag.Name>Saw Ending Scene 120</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.Gets1stGreatRune}">
+        <r:EventFlag.Name>Gets 1st Great Rune 181</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.Gets2ndGreatRune}">
+        <r:EventFlag.Name>Gets 2nd Great Rune 182</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.Gets3rdGreatRune}">
+        <r:EventFlag.Name>Gets 3rd Great Rune 183</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.Gets4thGreatRune}">
+        <r:EventFlag.Name>Gets 4th Great Rune 184</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.Gets5thGreatRune}">
+        <r:EventFlag.Name>Gets 5th Great Rune 185</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.Gets6thGreatRune}">
+        <r:EventFlag.Name>Gets 6th Great Rune 186</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.Gets7thGreatRune}">
+        <r:EventFlag.Name>Gets 7th Great Rune 187</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.MeetsMelina}">
+        <r:EventFlag.Name>Meets Melina 951</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.SawEndingScene2}">
+        <r:EventFlag.Name>Saw Ending Scene 2 6010</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NormalEndingA}">
+        <r:EventFlag.Name>Normal Ending A 9400</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NormalEndingB}">
+        <r:EventFlag.Name>Normal Ending B 9401</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NormalEndingC}">
+        <r:EventFlag.Name>Normal Ending C 9402</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.NormalEndingD}">
+        <r:EventFlag.Name>Normal Ending D 9403</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.RanniEndingA}">
+        <r:EventFlag.Name>Ranni Ending A 9404</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.RanniEndingB}">
+        <r:EventFlag.Name>Ranni Ending B 9405</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.FrenziedFlameEndingA}">
+        <r:EventFlag.Name>Frenzied Flame Ending A 9406</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.FrenziedFlameEndingB}">
+        <r:EventFlag.Name>Frenzied Flame Ending B 9407</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.RadahnFestivalPreparation}">
+        <r:EventFlag.Name>Radahn Festival: Preparation 9410</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.RadahnFestivalBegins}">
+        <r:EventFlag.Name>Radahn Festival: Begins 9411</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.RadahnFestivalAftermath}">
+        <r:EventFlag.Name>Radahn Festival: Aftermath 9412</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.RadahnFestivalEnds}">
+        <r:EventFlag.Name>Radahn Festival: Ends 9413</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.FrenziedFlameEyes}">
+        <r:EventFlag.Name>Frenzied Flame Eyes 9431</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.DragonEyes}">
+        <r:EventFlag.Name>Dragon Eyes 9433</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.GetsFlasksofCrimsonCeruleanTears}">
+        <r:EventFlag.Name>Gets Flasks of Crimson/Cerulean Tears 60000</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.GetsFlaskofWondrousPhysick}">
+        <r:EventFlag.Name>Gets Flask of Wondrous Physick 60020</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.UnlocksFunctionRidingTorrent}">
+        <r:EventFlag.Name>Unlocks Function: Riding Torrent 60100</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.UnlocksFunctionSummoningSpirits}">
+        <r:EventFlag.Name>Unlocks Function: Summoning Spirits 60110</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.UnlocksFunctionCrafting}">
+        <r:EventFlag.Name>Unlocks Function: Crafting 60120</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.UnlocksFunctionApplyingAshesofWartoArmaments}">
+        <r:EventFlag.Name>Unlocks Function: Applying Ashes of War to Armaments 60130</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.UnlocksFunctionArmorAlterations}">
+        <r:EventFlag.Name>Unlocks Function: Armor Alterations 60140</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.UnlocksFunctionDemigodsArmorAlterations}">
+        <r:EventFlag.Name>Unlocks Function: Demigods' Armor Alterations 60150</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.UnlocksUndergroundMap}">
+        <r:EventFlag.Name>Unlocks Underground Map 62001</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.TakesDectusLift}">
+        <r:EventFlag.Name>Takes Dectus Lift 1038500500</r:EventFlag.Name>
+    </r:EventFlag>
+
+    <r:EventFlag x:Key="{x:Static soulmemory:KnownFlag.TakeGoldLift}">
+        <r:EventFlag.Name>Takes Rold Lift 1050542200</r:EventFlag.Name>
+    </r:EventFlag>
+
+</ResourceDictionary>

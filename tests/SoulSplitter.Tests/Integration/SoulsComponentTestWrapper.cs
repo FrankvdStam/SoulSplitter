@@ -14,37 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Xml;
-using LiveSplit.Model;
-using LiveSplit.UI;
-using Moq;
-
 namespace SoulSplitter.Tests.Integration
 {
-    public class SoulsComponentTestWrapper
-    {
-        private readonly SoulComponent _soulComponent;
-        public readonly Mock<LiveSplitState> MockLiveSplitState;
-        public readonly Mock<IRun> MockIRun;
-
-        public SoulsComponentTestWrapper(string xml, string gameName)
-        {
-            MockIRun = new Mock<IRun>();
-            MockIRun
-                .Setup(i => i.GameName)
-                .Returns(gameName);
-
-            MockLiveSplitState = new Mock<LiveSplitState>(MockIRun.Object, null!, null!, null!, null!);
-
-            _soulComponent = new SoulComponent(MockLiveSplitState.Object, shouldThrowOnInvalidInstallation: false);
-            var doc = new XmlDocument();
-            doc.LoadXml(xml);
-            _soulComponent.SetSettings(doc);
-        }
-
-        public void Update()
-        {
-            _soulComponent.Update(null!, MockLiveSplitState.Object, 0.0f, 0.0f, LayoutMode.Horizontal);
-        }
-    }
+    //public class SoulsComponentTestWrapper
+    //{
+    //    private readonly SoulComponent _soulComponent;
+    //    public readonly Mock<LiveSplitState> MockLiveSplitState;
+    //    public readonly Mock<IRun> MockIRun;
+    //
+    //    public SoulsComponentTestWrapper(string xml, string gameName)
+    //    {
+    //        MockIRun = new Mock<IRun>();
+    //        MockIRun
+    //            .Setup(i => i.GameName)
+    //            .Returns(gameName);
+    //
+    //        MockLiveSplitState = new Mock<LiveSplitState>(MockIRun.Object, null!, null!, null!, null!);
+    //
+    //        _soulComponent = new SoulComponent(MockLiveSplitState.Object, shouldThrowOnInvalidInstallation: false);
+    //        var doc = new XmlDocument();
+    //        doc.LoadXml(xml);
+    //        _soulComponent.SetSettings(doc);
+    //    }
+    //
+    //    public void Update()
+    //    {
+    //        _soulComponent.Update(null!, MockLiveSplitState.Object, 0.0f, 0.0f, LayoutMode.Horizontal);
+    //    }
+    //}
 }

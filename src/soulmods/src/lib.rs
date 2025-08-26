@@ -20,21 +20,28 @@ mod logger;
 mod console;
 mod games;
 mod util;
+mod tests;
 
 use std::ffi::c_void;
-use std::{env, thread};
+use std::{env, panic, thread};
+use std::process::exit;
 use mem_rs::prelude::Process;
-use windows::Win32::Foundation::{BOOL, HINSTANCE};
+use windows::Win32::Foundation::{HINSTANCE};
 use windows::Win32::System::SystemServices::{ DLL_PROCESS_ATTACH, DLL_PROCESS_DETACH};
 
 use crate::console::init_console;
 use crate::logger::init_log;
-use log::info;
-use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version};
+use log::{error, info};
+use windows::core::BOOL;
+use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version, SOULMODS_VERSION};
 
 
+#[unsafe(no_mangle)]
+#[used]
+pub static mut SOULMODS_INITIALIZED: bool = false;
 
-#[no_mangle]
+
+#[unsafe(no_mangle)]
 #[allow(non_snake_case)]
 pub unsafe extern "system" fn DllMain(
     module: HINSTANCE,
@@ -42,18 +49,21 @@ pub unsafe extern "system" fn DllMain(
     _reserved: c_void,
 ) -> BOOL
 {
-    if call_reason == DLL_PROCESS_ATTACH
+    unsafe
     {
-        GLOBAL_HMODULE = module;
-        GLOBAL_VERSION = Version::from_file_version_info(env::current_exe().unwrap());
-        thread::spawn(dispatched_dll_main);
-    }
+        if call_reason == DLL_PROCESS_ATTACH
+        {
+            GLOBAL_HMODULE = module;
+            GLOBAL_VERSION = Version::from_file_version_info(env::current_exe().unwrap());
+            thread::spawn(dispatched_dll_main);
+        }
 
-    if call_reason == DLL_PROCESS_DETACH
-    {
-    }
+        if call_reason == DLL_PROCESS_DETACH
+        {
+        }
 
-    BOOL(1)
+        BOOL(1)
+    }
 }
 
 fn dispatched_dll_main()
@@ -61,10 +71,19 @@ fn dispatched_dll_main()
     if cfg!(debug_assertions)
     {
         init_console();
-        init_log();
     }
 
+    init_log();
+
+    //Redirect panics
+    panic::set_hook(Box::new(|i| {
+        error!("panic");
+        error!("{}", i);
+        exit(-1);
+    }));
+
     let process_name = Process::get_current_process_name().unwrap();
+    info!("soulmods version {}", SOULMODS_VERSION);
     info!("process: {}", process_name);
 
     #[cfg(target_arch = "x86_64")]
@@ -75,6 +94,10 @@ fn dispatched_dll_main()
         "darksoulsiii.exe" => init_darksouls3(),
         "eldenring.exe" => init_eldenring(),
         "sekiro.exe" => init_sekiro(),
+        "shadps4.exe" => init_bloodborne(),
+        "nightreign.exe" => init_nightreign(),
         _ => info!("no supported process found")
     }
+
+    unsafe { SOULMODS_INITIALIZED = true };
 }

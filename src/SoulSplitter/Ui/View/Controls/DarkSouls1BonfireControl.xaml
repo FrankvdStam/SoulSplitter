@@ -1,0 +1,59 @@
+﻿<!-- This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+     Copyright (c) 2022 Frank van der Stam.
+     https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
+     
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, version 3.
+     
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+     General Public License for more details.
+     
+     You should have received a copy of the GNU General Public License
+     along with this program. If not, see<http://www.gnu.org/licenses/> .  -->
+
+<UserControl
+    x:Class="SoulSplitter.Ui.View.Controls.DarkSouls1BonfireControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:darkSouls1="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory"
+    xmlns:converters="clr-namespace:SoulSplitter.Ui.Converters"
+    xmlns:resources="clr-namespace:SoulSplitter.Resources"
+    xmlns:view="clr-namespace:SoulSplitter.Ui.View"
+    xmlns:controls="clr-namespace:SoulSplitter.Ui.View.Controls" xmlns:validation="clr-namespace:SoulSplitter.Ui.Validation"
+    Margin="5"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" SecondaryColor="Indigo" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SoulSplitter;component/Resources/English/Language.xaml" />
+                <ResourceDictionary>
+                    <converters:EnumLanguageConverter x:Key="EnumLanguageConverter" LanguageManager="{view:ServiceProviderSource Type=resources:ILanguageManager}"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel 
+        Orientation="Horizontal">
+        <controls:EnumListControl
+            Width="120"
+            EnumType="darkSouls1:Bonfire"
+            SelectedValue="{Binding DarkSouls1BonfireViewModel.Bonfire, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
+        <controls:EnumListControl
+            Width="120"
+            EnumType="darkSouls1:BonfireState"
+            SelectedValue="{Binding DarkSouls1BonfireViewModel.BonfireState, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+    </StackPanel>
+</UserControl>

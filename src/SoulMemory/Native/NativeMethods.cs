@@ -27,6 +27,12 @@ namespace SoulMemory.Native;
 [ExcludeFromCodeCoverage]
 internal static class NativeMethods
 {
+    [DllImport("user32.dll")]
+    internal static extern bool RegisterHotKey(IntPtr handle, int id, uint modifiers, uint virtualKeyCode);
+
+    [DllImport("user32.dll")]
+    internal static extern bool UnregisterHotKey(IntPtr handle, int id);
+
     [DllImport("kernel32.dll", SetLastError = true)]
     internal static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
 
@@ -78,9 +84,15 @@ internal static class NativeMethods
     [DllImport("kernel32.dll")]
     internal static extern bool CloseHandle(IntPtr hObject);
 
-    [DllImport("kernel32.dll")]
+    [DllImport("kernel32.dll", SetLastError = true)]
     internal static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint flAllocationType, uint flProtect);
 
     [DllImport("kernel32.dll")]
     internal static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint dwFreeType);
+
+    [DllImport("kernel32.dll", SetLastError = false)]
+    internal static extern void GetSystemInfo(out SystemInfo info);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    public static extern IntPtr OpenProcess(ProcessAccessFlags processAccess, bool bInheritHandle, int processId);
 }

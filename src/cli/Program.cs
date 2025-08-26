@@ -21,30 +21,123 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
-using SoulSplitter.UI;
-using SoulMemory.DarkSouls1;
-using SoulMemory.EldenRing;
+using SoulMemory.Games.DarkSouls1;
+using SoulMemory.Games.EldenRing;
 using SoulMemory;
-using SoulSplitter.UI.Generic;
+using SoulMemory.Enums;
 using SoulMemory.Parameters;
-using SoulMemory.Sekiro;
+using SoulMemory.Abstractions;
+using SoulMemory.Games.Bloodborne;
+using SoulSplitter.Ui.ViewModels;
+using SoulMemory.Games.Sekiro;
+using SoulSplitter.Ui.View;
+using SoulSplitter.Ui.ViewModels.MainViewModel;
+using SoulMemory.Games.DarkSouls3;
+using SoulSplitter.DependencyInjection;
+using SoulSplitter.Resources;
+using SoulSplitter.Ui;
+using Bonfire = SoulMemory.Games.DarkSouls1.Bonfire;
 
 #pragma warning disable CS0162
 
-namespace cli
+namespace SoulSplitter.cli
 {
     internal class Program
     {
         [STAThread]
         private static void Main(string[] args)
         {
+
+            GameLoop<DarkSouls3>((g) =>
+            {
+                var time = TimeSpan.FromMilliseconds(g.ReadInGameTimeMilliseconds());
+                Console.WriteLine(time);
+            });
+
+            TestUi();
+            return;
+
+            var data = new byte[]{56, 109, 161, 125, 248, 127};
+
+            var str1 = Encoding.ASCII.GetString(data);
+            var str2 = Encoding.UTF8.GetString(data);
+            var str3 = Encoding.Unicode.GetString(data);
+
+
+            //SoulMemoryRs.Launch();
+
+            
+
+
+
+
+            //TestUi();
+            var igt = 3599999000;
+            var timeSpan = TimeSpan.FromMilliseconds(igt);
+
+            //ValidatePatterns();
+            //return;
+
+
+            //SoulMemoryRs.Launch();
+            //return;
+            //
+            //
+            //TestUi();
+            //return;
+            GameLoop<Bloodborne>((b) =>
+            {
+                void DoIt(Enum e)
+                {
+                    Console.WriteLine($"{e.ToString()}: {b.ReadAttribute(e)}");
+                }
+
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Vitality);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Endurance);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Strength);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Skill);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Bloodtinge);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Arcane);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Level);
+                DoIt(SoulMemory.Games.Bloodborne.Attribute.Insight);
+            });
+
+
+            GameLoop<DarkSouls1>(
+                (d) =>
+                {
+                    //d.GetProcess().AllocNearMainModule(2_000_000_000, 799);
+
+                    //Console.WriteLine(d.ReadInGameTimeMilliseconds());
+                    //var dropmod = new DropMod(d);
+                    //dropmod.InitBkh();
+                    //
+                    //
+                    //
+                    var igtElapsed = TimeSpan.FromMilliseconds(d.ReadInGameTimeMilliseconds());
+                    Console.WriteLine($"IGT: {igtElapsed}");
+                }
+            );
+
+
+            return;
+
+            var num = -174.4948f;
+            var str = num.ToString(CultureInfo.InvariantCulture);
+            var res = float.Parse(str, CultureInfo.InvariantCulture);
+
+
+
+
+            //var a = ResourceUtils.GenerateResourceDictionaryForEventFlag(typeof(KnownFlag));
             TestUi(true);
             return;
             GameLoop<EldenRing>(
                 (d) =>
                 {
-                    Console.WriteLine(d.ReadNgLevel());
+                    Console.WriteLine(d.ReadNewGameLevel());
                     //var dropmod = new DropMod(d);
                     //dropmod.InitBkh();
                     //
@@ -58,9 +151,9 @@ namespace cli
             ValidatePatterns();return;
 
             TestUi();
-            //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });
-            //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
-            //GlobalHotKey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
+            //GlobalHotkey.RegisterHotKey(ModifierKeys.Alt, Key.A, () =>{ Debug.WriteLine("A"); });
+            //GlobalHotkey.RegisterHotKey(ModifierKeys.Alt, Key.S, () =>{ Debug.WriteLine("S"); });
+            //GlobalHotkey.RegisterHotKey(ModifierKeys.Alt, Key.D, () =>{ Debug.WriteLine("D"); });
 
             var er = new EldenRing();
             er.TryRefresh();
@@ -169,80 +262,29 @@ namespace cli
 
         public static void TestUi(bool withTestData = true)
         {
-            var mainWindow = new MainWindow();
-            mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
 
-            if (withTestData)
-            {
-                foreach (var boss in (SoulMemory.EldenRing.Boss[])Enum.GetValues(typeof(SoulMemory.EldenRing.Boss)))
-                {
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitTimingType = TimingType.Immediate;
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitType = SoulSplitter.Splits.EldenRing.EldenRingSplitType.Boss;
-                    mainWindow.MainViewModel.EldenRingViewModel.NewSplitBoss = boss;
-                    mainWindow.MainViewModel.EldenRingViewModel.AddSplit();
-                }
+            var serviceProvider = GlobalServiceProvider.Instance; 
+            var app = new App();
+            serviceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
 
-                var flagTrackerViewModel = mainWindow.MainViewModel.FlagTrackerViewModel;
-                flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
-                {
-                    CategoryName = "Undead burg",
-                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
-                    {
-                        new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
-                        new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false}
-                    }
-                });
-
-                flagTrackerViewModel.EventFlagCategories.Add(new FlagTrackerCategoryViewModel
-                {
-                    CategoryName = "Firelink shrine",
-                    EventFlags = new System.Collections.ObjectModel.ObservableCollection<FlagDescription>()
-                    {
-                        new FlagDescription{ Flag = 162,  Description = "stuff",      State = true},
-                        new FlagDescription{ Flag = 3213, Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 31,   Description = "more stuff", State = true},
-                        new FlagDescription{ Flag = 5231, Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 124,  Description = "more stuff", State = false},
-                        new FlagDescription{ Flag = 415,  Description = "more stuff", State = false}
-                    }
-                });
-
-                foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
-                {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.Immediate;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
-                }
-
-                foreach (var boss in (SoulMemory.DarkSouls1.Boss[])Enum.GetValues(typeof(SoulMemory.DarkSouls1.Boss)))
-                {
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitTimingType = TimingType.OnLoading;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitType = SplitType.Boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.NewSplitValue = boss;
-                    mainWindow.MainViewModel.DarkSouls1ViewModel.AddSplitCommand.Execute(null);
-                }
-
-                mainWindow.MainViewModel.DarkSouls1ViewModel.CurrentPosition = new Vector3f(0.14f, 4.14f, 1523.4f);
+            var mainViewModel = new MainViewModel();
+            var mainWindow = new MainWindow(mainViewModel);
+            System.Windows.Application.Current!.MainWindow = mainWindow;
                 
-            }
+            app.InitializeComponent();
+            mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.Immediate, SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.OnLoading, SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.OnLoading, SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.Immediate, SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
+            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.Immediate, SplitType.Flag, 15062400u, "mystery flag"));
+            mainWindow.ShowDialog();
 
-            mainWindow.MainViewModel.SelectedGame = Game.DarkSouls1;
-
-            mainWindow.Dispatcher.Invoke(() =>
-            {
-                mainWindow.ShowDialog();
-                mainWindow.Close();
-            });
-
-            
+            mainWindow.WindowShouldHide = false;
+            mainWindow.Close();
+            app.Shutdown();
         }
         
-
         #region Validate patterns 
         public static void ValidatePatterns()
         {
@@ -250,9 +292,9 @@ namespace cli
             {
                 //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
-                //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
+                ("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
                 //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           )
-                ("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
+                //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
                 //("Armored Core 6"           , new SoulMemory.ArmoredCore6.ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
             };
 
@@ -291,7 +333,7 @@ namespace cli
             var ds1 = new DarkSouls1();
             while (true)
             {
-                Console.WriteLine($"{ds1.GetInGameTimeMilliseconds()}");
+                Console.WriteLine($"{ds1.ReadInGameTimeMilliseconds()}");
 
                 var result = ds1.TryRefresh();
                 if (result.IsErr)
@@ -321,11 +363,11 @@ namespace cli
                         }
                     }
 
-                    Test("GetAttribute", () => { ds1.GetAttribute(SoulMemory.DarkSouls1.Attribute.Strength); });
+                    Test("GetAttribute", () => { ds1.GetAttribute(SoulMemory.Games.DarkSouls1.Attribute.Strength); });
                     Test("ReadEventFlag", () => { ds1.ReadEventFlag(16); });
                     Test("IsWarpRequested", () => { ds1.IsWarpRequested(); });
                     Test("IsPlayerLoaded", () => { ds1.IsPlayerLoaded(); });
-                    Test("GetPosition", () => { ds1.GetPosition(); });
+                    Test("GetPlayerPosition", () => { ds1.GetPlayerPosition(); });
                     Test("NgCount", () => { ds1.NgCount(); });
                     Test("GetCurrentSaveSlot", () => { ds1.GetCurrentSaveSlot(); });
                     Test("ResetInventoryIndices", () => { ds1.ResetInventoryIndices(); });

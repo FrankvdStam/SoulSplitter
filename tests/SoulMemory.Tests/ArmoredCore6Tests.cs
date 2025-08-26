@@ -16,6 +16,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SoulMemory.Games.ArmoredCore6;
 using SoulMemory.MemoryV2.Memory;
 using SoulMemory.MemoryV2.PointerTreeBuilder;
 using SoulMemory.MemoryV2.Process;
@@ -39,7 +40,7 @@ public class ArmoredCore6Tests
         processHookMock.Setup(i => i.PointerTreeBuilder).Returns(new PointerTreeBuilder());
         processHookMock.Setup(i => i.TryRefresh()).Returns(Result.Err(new RefreshError(refreshError)));
 
-        var ac6 = new ArmoredCore6.ArmoredCore6(processHookMock.Object);
+        var ac6 = new ArmoredCore6(processHookMock.Object);
         Assert.AreEqual(refreshError, ac6.TryRefresh().GetErr().Reason);
 
         processHookMock.Setup(i => i.TryRefresh()).Returns(Result.Ok());
@@ -53,7 +54,7 @@ public class ArmoredCore6Tests
         processHookMock.Setup(i => i.PointerTreeBuilder).Returns(new PointerTreeBuilder());
         processHookMock.Setup(i => i.TryRefresh()).Returns(Result.Ok());
 
-        var ac6 = new ArmoredCore6.ArmoredCore6(processHookMock.Object);
+        var ac6 = new ArmoredCore6(processHookMock.Object);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
     }
     
@@ -63,14 +64,14 @@ public class ArmoredCore6Tests
         var mock = new ProcessHookMock();
         mock.SetPointer("FD4Time", 0, 0x7FF46F5C04B0);
         
-        var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+        var ac6 = new ArmoredCore6(mock);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         mock.WriteInt32(0x7FF46F5C04B0 + 0x114, 504123);
-        Assert.AreEqual(504123, ac6.GetInGameTimeMilliseconds());
+        Assert.AreEqual(504123, ac6.ReadInGameTimeMilliseconds());
 
         mock.WriteInt32(0x7FF46F5C04B0 + 0x114, 31535);
-        Assert.AreEqual(31535, ac6.GetInGameTimeMilliseconds());
+        Assert.AreEqual(31535, ac6.ReadInGameTimeMilliseconds());
     }
 
     [TestMethod]
@@ -79,14 +80,14 @@ public class ArmoredCore6Tests
         var mock = new ProcessHookMock();
         mock.SetPointer("FD4Time", 0, 0x7FF46F5C04B0);
 
-        var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+        var ac6 = new ArmoredCore6(mock);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         ac6.WriteInGameTimeMilliseconds(40);
-        Assert.AreEqual(40, ac6.GetInGameTimeMilliseconds());
+        Assert.AreEqual(40, ac6.ReadInGameTimeMilliseconds());
 
         ac6.WriteInGameTimeMilliseconds(70);
-        Assert.AreEqual(70, ac6.GetInGameTimeMilliseconds());
+        Assert.AreEqual(70, ac6.ReadInGameTimeMilliseconds());
     }
 
     [TestMethod]
@@ -95,7 +96,7 @@ public class ArmoredCore6Tests
         var mock = new ProcessHookMock();
         mock.SetPointer("CSMenuMan", 0, 0x7FF46F5C04B0);
 
-        var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+        var ac6 = new ArmoredCore6(mock);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         mock.WriteInt32(0x7FF46F5C04B0 + 0x8e4, 1);
@@ -138,7 +139,7 @@ public class ArmoredCore6Tests
         
         //Category read will return with error, resulting in false evaluation of the flag
 
-        var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+        var ac6 = new ArmoredCore6(mock);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         Assert.IsFalse(ac6.ReadEventFlag(2103505405));
@@ -165,7 +166,7 @@ public class ArmoredCore6Tests
         
         //Pointers resolve to the same address, read will return with error, resulting in false evaluation of the flag
 
-        var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+        var ac6 = new ArmoredCore6(mock);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         Assert.IsFalse(ac6.ReadEventFlag(2103505405));
@@ -195,7 +196,7 @@ public class ArmoredCore6Tests
         //early exit
         mock.WriteInt32(currentElementPtr + 0x28, 2);
         
-        var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+        var ac6 = new ArmoredCore6(mock);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         Assert.IsFalse(ac6.ReadEventFlag(2103505405));
@@ -227,7 +228,7 @@ public class ArmoredCore6Tests
 
         mock.WriteInt32(calculatedPtr + 50, 0);
 
-        var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+        var ac6 = new ArmoredCore6(mock);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         Assert.IsFalse(ac6.ReadEventFlag(2103505405));
@@ -260,7 +261,7 @@ public class ArmoredCore6Tests
         
         mock.WriteInt32(calculatedPtr + 50, 4);
 
-        var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+        var ac6 = new ArmoredCore6(mock);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         Assert.IsTrue(ac6.ReadEventFlag(2103505405));
@@ -299,7 +300,7 @@ public class ArmoredCore6Tests
         var calculatePtr = (10 * 10) + 0x7FF46FA00000;
         mock.WriteInt32(calculatePtr + 50, 4);
 
-        var ac6 = new ArmoredCore6.ArmoredCore6(mock);
+        var ac6 = new ArmoredCore6(mock);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 
         Assert.IsTrue(ac6.ReadEventFlag(2103505405));

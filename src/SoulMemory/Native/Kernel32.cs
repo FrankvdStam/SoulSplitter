@@ -35,7 +35,6 @@ public static class Kernel32
 {
     #region Read process memory ==================================================================================================================
 
-
     public static byte[] ReadProcessMemoryNoError(this Process process, long address, int size)
     {
         var buffer = new byte[size];
@@ -112,31 +111,35 @@ public static class Kernel32
         var str = Encoding.ASCII.GetString(bytes, 0, endIndex);
         return str;
     }
-    
-    
 
-    public static ResultOk<List<MemoryBasicInformation64>> GetMemoryRegions(this Process process)
+
+    public static ResultOk<MemoryBasicInformation64> GetMemoryRegion(this Process process, long address)
     {
-        if (process.MainModule == null)
+        var queryEx = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)address, out var memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
+        if (queryEx == 0)
         {
             return Result.Err();
         }
+        return Result.Ok(memoryBasicInformation64);
+    }
 
+    public static List<MemoryBasicInformation64> GetMemoryRegions(this Process process)
+    {
         var result = new List<MemoryBasicInformation64>();
-        var maxAddress = (process.MainModule.BaseAddress + process.MainModule.ModuleMemorySize).ToInt64();
-        var address = process.MainModule.BaseAddress.ToInt64();
-
-        while (address < maxAddress)
+        var processHandle = NativeMethods.OpenProcess(ProcessAccessFlags.All, false, process.Id);
+        if (processHandle != IntPtr.Zero)
         {
-            var queryEx = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)address, out var memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
-            if (queryEx == 0)
+            long address = 0;
+
+            while (NativeMethods.VirtualQueryEx(processHandle, (IntPtr)address, out var memoryBasicInformation64, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64))) != 0)
             {
-                return Result.Err();
+                result.Add(memoryBasicInformation64);
+                address += (long)memoryBasicInformation64.RegionSize;
             }
-            result.Add(memoryBasicInformation64);
-            address = (long)memoryBasicInformation64.BaseAddress + (long)memoryBasicInformation64.RegionSize;
         }
-        return Result.Ok(result);
+        NativeMethods.CloseHandle(processHandle);
+        return result;
+
     }
     #endregion
 
@@ -174,6 +177,99 @@ public static class Kernel32
     #endregion
 
     #region Allocations ==================================================================================================================
+
+    public static ResultOk<IntPtr> AllocNearMainModule(this Process process, int range, uint size)
+    {
+        var processHandle = NativeMethods.OpenProcess(ProcessAccessFlags.All, false, process.Id);
+
+        ulong target = (ulong)process.MainModule.BaseAddress.ToInt64();
+        ulong minAddress = target - (ulong)range;
+        ulong maxAddress = target + (ulong)range;
+
+        var systemInfo = new SystemInfo();
+        NativeMethods.GetSystemInfo(out systemInfo);
+
+        ulong address = minAddress;
+        while (address < maxAddress)
+        {
+            var allocResult = NativeMethods.VirtualAllocEx(processHandle, (IntPtr)address, (IntPtr)size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+            if (allocResult != IntPtr.Zero)
+            {
+                Console.WriteLine($"Alloc success at {allocResult}");
+                //return Result.Ok(alloc_result);
+            }
+            else
+            {
+                int error = Marshal.GetLastWin32Error();
+                Console.WriteLine($"Alloc error at {address}: {error}");
+            }
+
+            address += systemInfo.AllocationGranularity;
+        }
+
+
+
+        var regions = process.GetMemoryRegions();
+        var suitableRegions = regions.Where(i =>
+            i.State == MEM_FREE &&
+            i.BaseAddress > minAddress &&
+            i.BaseAddress < maxAddress)
+            .ToList();
+
+        foreach (var region in suitableRegions)
+        {
+            var asd = NativeMethods.VirtualAllocEx(processHandle, (IntPtr)process.MainModule.BaseAddress - 0x10000, (IntPtr)size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+            var allocResult = NativeMethods.VirtualAllocEx(processHandle, (IntPtr)region.BaseAddress+ 0x100, (IntPtr)size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+            if (allocResult != IntPtr.Zero)
+            {
+                Console.WriteLine($"Alloc success at {allocResult}");
+                //return Result.Ok(alloc_result);
+            }
+            else
+            {
+                int error = Marshal.GetLastWin32Error();
+                Console.WriteLine($"Alloc error at {region.BaseAddress}: {error}");
+            }
+        }
+
+
+
+
+        var increment = systemInfo.AllocationGranularity;
+        var mask = ~increment;
+
+
+        //var range = 2_000_000_000;
+        var min = (ulong)(process.MainModule.BaseAddress.ToInt64() - range);
+        var max = (ulong)(process.MainModule.BaseAddress.ToInt64() + range);
+        
+        while (min < max)
+        {
+            var mbi = new MemoryBasicInformation64();
+            var result = NativeMethods.VirtualQueryEx(process.Handle, (IntPtr)min, out mbi, (uint)Marshal.SizeOf(typeof(MemoryBasicInformation64)));
+
+            if (result == 0)
+            {
+                return Result.Err();
+            }
+
+            
+            if (mbi.State == MEM_FREE)
+            {
+                //var address = (mbi.BaseAddress + increment) & mask;
+                var alloc_result = NativeMethods.VirtualAllocEx(process.Handle, (IntPtr)min, (IntPtr)size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+                if (alloc_result != IntPtr.Zero)
+                {
+                    Console.WriteLine($"Alloc success at {alloc_result}");
+                    //return Result.Ok(alloc_result);
+                }
+            }
+            min = mbi.BaseAddress + mbi.RegionSize;
+        }
+
+
+        return Result.Err();
+    }
 
 
    
@@ -242,31 +338,31 @@ public static class Kernel32
 
     
 
-    // To avoid cleaning the list,
-    // the number of modules is returned with a tuple
-    public static (IntPtr[] List, uint Length) GetProcessModules(this Process process)
-    {
-        uint arraySize = 256;
-        var processMods = new IntPtr[arraySize];
-        var arrayBytesSize = arraySize * (uint)IntPtr.Size;
-        uint bytesCopied = 0;
-
-        // Loop until all modules are listed
-        // See: https://docs.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-enumprocessmodules#:~:text=If%20lpcbNeeded%20is%20greater%20than%20cb%2C%20increase%20the%20size%20of%20the%20array%20and%20call%20EnumProcessModules%20again.
-        // Stops if:
-        //   - EnumProcessModulesEx return 0 (call failed)
-        //   - All modules are listed
-        //   - The next size of the list is greater than uint.MaxValue
-        while (NativeMethods.EnumProcessModulesEx(process.Handle, processMods, arrayBytesSize, out bytesCopied, ListModules.LIST_MODULES_ALL) &&
-               arrayBytesSize == bytesCopied && arraySize <= uint.MaxValue - 128)
-        {
-            arraySize += 128;
-            processMods = new IntPtr[arraySize];
-            arrayBytesSize = arraySize * (uint)IntPtr.Size;
-        }
-
-        return (List: processMods, Length: bytesCopied >> 2);
-    }
+    //// To avoid cleaning the list,
+    //// the number of modules is returned with a tuple
+    //public static (IntPtr[] List, uint Length) GetProcessModules(this Process process)
+    //{
+    //    uint arraySize = 256;
+    //    var processMods = new IntPtr[arraySize];
+    //    var arrayBytesSize = arraySize * (uint)IntPtr.Size;
+    //    uint bytesCopied = 0;
+    //
+    //    // Loop until all modules are listed
+    //    // See: https://docs.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-enumprocessmodules#:~:text=If%20lpcbNeeded%20is%20greater%20than%20cb%2C%20increase%20the%20size%20of%20the%20array%20and%20call%20EnumProcessModules%20again.
+    //    // Stops if:
+    //    //   - EnumProcessModulesEx return 0 (call failed)
+    //    //   - All modules are listed
+    //    //   - The next size of the list is greater than uint.MaxValue
+    //    while (NativeMethods.EnumProcessModulesEx(process.Handle, processMods, arrayBytesSize, out bytesCopied, ListModules.LIST_MODULES_ALL) &&
+    //           arrayBytesSize == bytesCopied && arraySize <= uint.MaxValue - 128)
+    //    {
+    //        arraySize += 128;
+    //        processMods = new IntPtr[arraySize];
+    //        arrayBytesSize = arraySize * (uint)IntPtr.Size;
+    //    }
+    //
+    //    return (List: processMods, Length: bytesCopied >> 2);
+    //}
 
 
     // get the parent process given a pid
@@ -318,6 +414,8 @@ public static class Kernel32
 
     public static Dictionary<string, long> GetModuleExports(this Process process, string hModuleName)
     {
+        var functions = new Dictionary<string, long>();
+
         var modules = process.GetModulesViaSnapshot();
         var module = modules.First(i => i.szModule.ToLowerInvariant() == hModuleName.ToLowerInvariant());
 
@@ -340,13 +438,17 @@ public static class Kernel32
             exportTableAddress = moduleImageNtHeaders.OptionalHeader.ExportTable.VirtualAddress;
         }
 
+        if (exportTableAddress == 0)
+        {
+            return functions;
+        }
+
         var exportTable = process.ReadMemory<IMAGE_EXPORT_DIRECTORY>(module.modBaseAddr.ToInt64() + exportTableAddress).Unwrap();
 
         var nameOffsetTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfNames;
         var ordinalTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfNameOrdinals;
         var functionOffsetTable = module.modBaseAddr.ToInt64() + exportTable.AddressOfFunctions;
 
-        var functions = new Dictionary<string, long>();
         for (var i = 0; i < exportTable.NumberOfNames; i++)
         {
             //Function name offset is an array of 4byte numbers
@@ -373,6 +475,8 @@ public static class Kernel32
     public const uint MEM_COMMIT = 0x00001000;
     public const uint MEM_RESERVE = 0x00002000;
     public const uint MEM_RELEASE = 0x00008000;
+    public const uint MEM_FREE = 0x10000;
+
 
     public const int PROCESS_CREATE_THREAD = 0x0002;
     public const int PROCESS_QUERY_INFORMATION = 0x0400;
@@ -383,6 +487,4 @@ public static class Kernel32
     public const int LIST_MODULES_32BIT = 0x01;
     public const int LIST_MODULES_64BIT = 0x02;
     public const int LIST_MODULES_ALL = 0x03;
-
-
 }

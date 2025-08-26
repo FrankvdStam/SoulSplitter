@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+                    xmlns:enums="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory">
+
+    <clr:String x:Key="{x:Static enums:BonfireState.Discovered}">Discovered</clr:String>
+    <clr:String x:Key="{x:Static enums:BonfireState.Unlocked}">Unlocked</clr:String>
+    <clr:String x:Key="{x:Static enums:BonfireState.Kindled1}">Kindled 1</clr:String>
+    <clr:String x:Key="{x:Static enums:BonfireState.Kindled2}">Kindled 2</clr:String>
+    <clr:String x:Key="{x:Static enums:BonfireState.Kindled3}">Kindled 3</clr:String>
+    <clr:String x:Key="{x:Static enums:BonfireState.Unknown}">Not discovered</clr:String>
+
+</ResourceDictionary>
+ 

@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:clr="clr-namespace:System;assembly=mscorlib">
+
+    <clr:String x:Key="Language">Dutch</clr:String>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Ui.xaml"/>
+        <ResourceDictionary Source="../English/Sekiro/Boss.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using SoulMemory;
+using SoulMemory.Abstractions;
 using SoulMemory.Memory;
 
 namespace SoulSplitter.Tests.Mocks
@@ -27,7 +28,12 @@ namespace SoulSplitter.Tests.Mocks
         public Dictionary<uint, bool> EventFlags = new Dictionary<uint, bool>();
 
 
-        public int GetInGameTimeMilliseconds()
+        public int ReadInGameTimeMilliseconds()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteInGameTimeMilliseconds(int milliseconds)
         {
             throw new NotImplementedException();
         }

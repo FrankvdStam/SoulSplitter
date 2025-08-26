@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using SoulMemory.Native;
+using SoulMemory.Native.Structs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,21 +32,32 @@ public static class MemoryScanner
     /// <summary>
     /// Resolve pointers to their correct address by scanning for patterns in a running process
     /// </summary>
-    /// <param name="treeBuilder"></param>
-    /// <param name="process"></param>
-    /// <param name="errors"></param>
-    /// <returns></returns>
-    /// <exception cref="Exception"></exception>
-    public static ResultErr<RefreshError> TryResolvePointers(TreeBuilder treeBuilder, Process? process)
+    public static ResultErr<RefreshError> TryResolvePointers(TreeBuilder treeBuilder, Process? process, MemoryBasicInformation64? scanRegion = null)
     {
-        if (process?.MainModule == null)
+        byte[] bytes;
+        long baseAddress;
+
+        if (process == null)
         {
-            return Result.Err(new RefreshError(RefreshErrorReason.MainModuleNull, "Main module is null. Try running as admin."));
+            return Result.Err(new RefreshError(RefreshErrorReason.ProcessNotRunning, "Process not running, can't scan"));
         }
 
-        //Gather some information about the process that can be reused throughout the resolving process
-        var baseAddress = process.MainModule.BaseAddress.ToInt64();
-        var bytes = process.ReadProcessMemory(baseAddress, process.MainModule.ModuleMemorySize).Unwrap();
+        if (scanRegion == null)
+        {
+            if (process?.MainModule == null)
+            {
+                return Result.Err(new RefreshError(RefreshErrorReason.MainModuleNull, "Main module is null. Try running as admin."));
+            }
+
+            baseAddress = process.MainModule.BaseAddress.ToInt64();
+            bytes = process.ReadProcessMemory(baseAddress, process.MainModule.ModuleMemorySize).Unwrap();
+        }
+        else
+        {
+            baseAddress = (long)scanRegion.Value.BaseAddress;
+            bytes = process.ReadProcessMemory(baseAddress, (int)scanRegion.Value.RegionSize).Unwrap();
+        }
+
         var is64Bit = process.Is64Bit().Unwrap();
 
         //Resolve nodes with the above data
@@ -150,7 +162,12 @@ public static class MemoryScanner
                 else
                 {
                     //Propogate init result upwards
-                    return initialize();
+                    var result = initialize();
+                    if (result.IsErr)
+                    {
+                        process = null;
+                    }
+                    return result;
                 }
             }
             //Process is attached, make sure it is still running

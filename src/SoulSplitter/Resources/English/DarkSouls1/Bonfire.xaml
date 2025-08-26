@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+                    xmlns:soulmemory="clr-namespace:SoulMemory.Games.DarkSouls1;assembly=SoulMemory">
+
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.Depths}">Depths</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.UndeadBurgSunlightAltar}">Undead Burg - Sunlight Altar</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.UndeadBurg}">Undead Burg</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.UndeadParishAndre}">Undead Parish</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.FirelinkShrine}">Firelink Shrine</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.PaintedWorldOfAriamis}">Painted World of Ariamis</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.DarkrootGarden}">Darkroot Garden</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.ChasmOfTheAbyss}">Chasm of the Abyss</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.OolacileSanctuary}">Oolacile - Sanctuary</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.OolacileTownship}">Oolacile - Township</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.OolacileSanctuaryGarden}">Oolacile - Sanctuary Garden</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.OolacileTownshipDungeon}">Oolacile - Township Dungeon</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.Catacombs1}">Catacombs 1 (necromancer)</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.Catacombs2}">Catacombs 2 (illusory wall)</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.TombOfTheGiantsAltarOfTheGravelord}">Tomb of the Giants - Altar of the Gravelord</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.TombOfTheGiants2}">Tomb of the Giants - 2</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.TombOfTheGiantsPatches}">Tomb of the Giants - 1 (patches)</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.AshLakeDragon}">Ash Lake - Stone Dragon</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.AshLake}">Ash Lake</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.TheGreatHollow}">The Great Hollow</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.DaughterOfChaos}">Quelaag's Domain - DaughterOfChaos</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.BlighttownSwamp}">Blighttown Swamp</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.BlighttownCatwalk}">Blighttown Catwalk</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.LostIzalithHeartOfChaos}">Lost Izalith Heart of Chaos</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.LostIzalith2}">Lost Izalith - 2 (illusory wall)</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.DemonRuinsEntrance}">Demon Ruins - Entrance</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.DemonRuinsStaircase}">Demon Ruins - Staircase</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.DemonRuinsCatacombs}">Demon Ruins - Catacombs</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.LostIzalithLavaPits}">Lost Izalith - Lava Pits</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.SensFortress}">Sen's Fortress</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.AnorLondoChamberOfThePrincess}">Anor Londo Chamber of the Princess</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.AnorLondo}">Anor Londo</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.AnorLondoResidence}">Anor Londo Residence</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.AnorLondoDarkmoonTomb}">Anor Londo Darkmoon Tomb</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.TheAbyss}">The Abyss</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.DarkrootBasin}">Darkroot Basin</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.CrystalCave}">Crystal Cave</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.DukesArchives3}">The Duke's Archives 3 (balcony)</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.DukesArchives2}">The Duke's Archives 2 (prison cell)</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.DukesArchives1}">The Duke's Archives 1 (entrance)</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.FirelinkAltarLordvessel}">Firelink Altar - Lordvessel</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.UndeadAsylumCourtyard}">Undead Asylum - Courtyard</clr:String>
+    <clr:String x:Key="{x:Static soulmemory:Bonfire.UndeadAsylumInterior}">Undead Asylum - Interior</clr:String>
+
+</ResourceDictionary>

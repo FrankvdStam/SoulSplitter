@@ -5,7 +5,6 @@
         <LangVersion>13</LangVersion>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
-        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
         <Title>SoulSplitter</Title>
         <Authors>Frank v.d. Stam</Authors>
         <PackageProjectUrl>https://github.com/FrankvdStam/SoulSplitter</PackageProjectUrl>
@@ -51,31 +50,32 @@
             <HintPath>..\..\packages\UpdateManager.dll</HintPath>
         </Reference>
         <Reference Include="System.Windows.Forms" />
-        <Reference Include="System.Drawing">
-            <Aliases>SystemDrawing</Aliases>
-        </Reference>
         <Reference Include="WindowsBase" />
         <Reference Include="WindowsFormsIntegration" />
     </ItemGroup>
 
     <ItemGroup>
         <ContentWithTargetPath Include="soulmemory-rs\x64\launcher.exe">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <TargetPath>launcher_x64.exe</TargetPath>
         </ContentWithTargetPath>
         <ContentWithTargetPath Include="soulmemory-rs\x86\launcher.exe">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <TargetPath>launcher_x86.exe</TargetPath>
         </ContentWithTargetPath>
         <ContentWithTargetPath Include="soulmemory-rs\x64\soulmemory_rs.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <TargetPath>soulmemory_rs_x64.dll</TargetPath>
         </ContentWithTargetPath>
         <ContentWithTargetPath Include="soulmemory-rs\x86\soulmemory_rs.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <TargetPath>soulmemory_rs_x86.dll</TargetPath>
         </ContentWithTargetPath>
         <EmbeddedResource Include="soulsplitter.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources\English\Nightreign\" />
     </ItemGroup>
 
     <Target Name="Copy release artifacts" AfterTargets="Build" Condition="$(SolutionName) == 'SoulSplitter' And $(Configuration) == 'Release'">
@@ -93,17 +93,18 @@
     </Target>
 
     <Target Name="Copy debug artifacts to livesplit's debug folder" AfterTargets="Build" Condition="$(SolutionName) == 'LiveSplit'">
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulSplitter.dll" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulMemory.dll" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignColors.dll" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\Microsoft.Xaml.Behaviors.dll" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmemory_rs_x64.dll" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmemory_rs_x86.dll" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmods_x64.dll" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmods_x86.dll" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\launcher_x64.exe" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\launcher_x86.exe" />
+        <Message Text="Copy files to livesplit dir" Importance="high" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulSplitter.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulMemory.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignColors.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\Microsoft.Xaml.Behaviors.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmemory_rs_x64.dll" Retries="1" ContinueOnError="true" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmemory_rs_x86.dll" Retries="1" ContinueOnError="true" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmods_x64.dll" Retries="1" ContinueOnError="true" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\soulmods_x86.dll" Retries="1" ContinueOnError="true" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\launcher_x64.exe" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\launcher_x86.exe" />
         <!--<Copy SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.xml" DestinationFolder="..\..\..\LiveSplit\LiveSplit\bin\Debug\Components"/>-->
     </Target>
 

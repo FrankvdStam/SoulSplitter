@@ -14,26 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace SoulSplitter.Tests.Integration
 {
     
-    [TestClass]
-    public class ArmoredCore6
-    {
-        [TestInitialize]
-        public void Init()
-        {
-            _soulsComponentTestWrapper = new SoulsComponentTestWrapper(XmlData.ExampleSplits, "Armored Core VI: Fires of Rubicon");
-        }
-
-        private SoulsComponentTestWrapper _soulsComponentTestWrapper = null!;
-
-        //[TestMethod]
-        public void Testy()
-        {
-            _soulsComponentTestWrapper.Update();
-        }
-    }
+    //[TestClass]
+    //public class ArmoredCore6
+    //{
+    //    [TestInitialize]
+    //    public void Init()
+    //    {
+    //        _soulsComponentTestWrapper = new SoulsComponentTestWrapper(XmlData.ExampleSplits, "Armored Core VI: Fires of Rubicon");
+    //    }
+    //
+    //    private SoulsComponentTestWrapper _soulsComponentTestWrapper = null!;
+    //
+    //    //[TestMethod]
+    //    public void Testy()
+    //    {
+    //        _soulsComponentTestWrapper.Update();
+    //    }
+    //}
 }

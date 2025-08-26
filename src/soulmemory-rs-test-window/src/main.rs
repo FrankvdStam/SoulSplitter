@@ -22,57 +22,24 @@ use soulmemory_rs::games::{GameExt, MockGame};
 use rand::{random, Rng};
 use soulmemory_rs::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEmevdLogger};
 use soulmemory_rs::games::traits::buffered_event_flags::EventFlag;
-
-mod support;
+use soulmemory_rs::glow_window;
 
 fn main()
 {
     App::init(&String::from("mockgame.exe"), HINSTANCE(std::ptr::null_mut()));
-    let instance = App::get_instance();
-    let mut app = instance.lock().unwrap();
-
-    let mut system = support::init("test window");
-    app.render_initialize(&mut system.imgui);
-
-    //Have to drop these out of scope to not lock the render loop later on
-    drop(app);
-    drop(instance);
-
     init_data();
-
-    system.main_loop(render_fun);
+    glow_window::run_custom_window(Some(&mut draw_controls));
 }
-
-
-fn render_fun(run: &mut bool, ui: &mut Ui)
-{
-    let instance = App::get_instance();
-    let mut app = instance.lock().unwrap();
-
-    app.refresh().unwrap();
-    app.render(ui);
-
-    draw_controls(ui, &mut app);
-    ui.show_demo_window(run);
-}
-
-pub struct UiState
-{
-    event_flag_clicked: bool,
-    emevd_log_clicked: bool,
-}
-
-static mut UI_STATE: UiState = UiState
-{
-    event_flag_clicked: true,
-    emevd_log_clicked: false,
-};
 
 fn draw_controls(ui: &mut Ui, app: &mut App)
 {
+    let _ = app.refresh();
+
+    ui.show_demo_window(&mut true);
+
     ui.window("Controls")
         .size([500.0,800.0], Condition::Appearing)
-        .position([500.0f32, 50.0f32], Condition::Appearing)
+        .position([600.0f32, 50.0f32], Condition::Appearing)
         .build(||
     {
         if ui.collapsing_header("event flags", TreeNodeFlags::DEFAULT_OPEN)
@@ -97,67 +64,48 @@ fn draw_controls(ui: &mut Ui, app: &mut App)
                 }
             }
         }
-
-        #[allow(static_mut_refs)]
-        let ui_state: &mut UiState = unsafe{&mut UI_STATE};
-
-        ui.columns(2, "columnsId", true);
-
-        if ui.button("event flags", )
-        {
-            ui_state.event_flag_clicked = true;
-            ui_state.emevd_log_clicked = false;
-        }
-
-        if ui.button("emevd log")
-        {
-            ui_state.event_flag_clicked = false;
-            ui_state.emevd_log_clicked = true;
-        }
-
-
-        ui.next_column();
-
-        if ui_state.event_flag_clicked
-        {
-            ui.text("event flags");
-        }
-
-        if ui_state.emevd_log_clicked
-        {
-            ui.text("emevd log");
-        }
-
-
-
-
-        /*
-        if ui.collapsing_header("position", TreeNodeFlags::empty())
-        {
-            ui.text("x:");
-            ui.text("y:");
-            ui.text("z:");
-        }
-
-        */
     });
 }
 
 fn get_random_emevd_event(mock_game: &MockGame) -> BufferedEmevdCall
 {
-    let emevd = mock_game.get_game_emevd_definitions();
+    let mut log =  String::new();
+    let emedf = mock_game.get_game_emevd_definitions();
     let mut rng = rand::rng();
-    let group = rng.random_range(0..emevd.main_classes.len());
-    let type_ = if emevd.main_classes[group].instrs.len() > 0
+    let event_id = rng.random_range(0..15000000);
+    let group = rng.random_range(0..emedf.main_classes.len());
+    let type_ = if emedf.main_classes[group].instrs.len() > 0
     {
-        rng.random_range(0..emevd.main_classes[group].instrs.len())
+        rng.random_range(0..emedf.main_classes[group].instrs.len())
     }
     else
     {
         0
     };
 
-    return BufferedEmevdCall::new(chrono::offset::Local::now(), group as u32, type_ as u32);
+    let item = emedf.main_classes.iter().find(|p| p.index as u32 == group as u32);
+    if let Some(class_doc) = item
+    {
+        log.push_str(class_doc.name.as_str());
+
+        let item = class_doc.instrs.iter().find(|p| p.index as u32 == type_ as u32 );
+        if let Some(inst_doc) = item
+        {
+            log.push(' ');
+            log.push_str(inst_doc.name.as_str());
+        }
+        else
+        {
+            log.push_str("unknown type");
+        }
+    }
+    else
+    {
+        log.push_str("unknown group");
+    }
+
+    log.push_str(format!("{} - {} [{}] ", event_id, group, type_).as_str());
+    return BufferedEmevdCall::new(chrono::offset::Local::now(), event_id as u32, group as u32, type_ as u32, log);
 }
 
 fn init_data()
@@ -181,3 +129,4 @@ fn init_data()
         }
     }
 }
+

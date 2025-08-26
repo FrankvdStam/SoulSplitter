@@ -1,0 +1,176 @@
+﻿// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+// Copyright (c) 2022 Frank van der Stam.
+// https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, version 3.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+using SoulMemory.Abstractions;
+using SoulSplitter.DependencyInjection;
+using SoulMemory.Enums;
+using SoulSplitter.Resources;
+using SoulSplitter.Utils;
+
+namespace SoulSplitter.Ui.ViewModels.MainViewModel;
+
+public partial class MainViewModel
+{
+    private readonly ILanguageManager _languageManager;
+
+    public IGame? Game = null;
+
+    /// <summary>
+    /// Parameterless constructor for serializing
+    /// </summary>
+    public MainViewModel() : this(GlobalServiceProvider.Instance.GetService<ILanguageManager>())
+    {
+
+    }
+
+    public MainViewModel(ILanguageManager languageManager)
+    {
+        _languageManager = languageManager;
+        AddSplitCommand = new RelayCommand(AddSplit, CanAddSplit);
+        RemoveSplitCommand = new RelayCommand(RemoveSplit, CanRemoveSplit);
+        SaveExistingSplitCommand = new RelayCommand(SaveExistingSplit, CanSaveExistingSplit);
+
+        CommandTroubleShooting = new RelayCommand(OpenTroubleshootingWebpage);
+        CommandOpenHomepage = new RelayCommand(ShowHomepage);
+        CommandRunEventFlagLogger = new RelayCommand(RunEventFlagLogger);
+        CommandClearErrors = new RelayCommand(ClearErrors, (_) => Errors.Count > 0);
+        CommandAddError = new RelayCommand(AddErrorCommand);
+        CommandShowErrors = new RelayCommand(ShowErrorWindow);
+        CommandOpenFlagTrackerWindow = new RelayCommand(OpenFlagTrackerWindow);
+        CommandImportSettingsFromFile = new RelayCommand(ImportSettings);
+        CommandExportSettingsFromFile = new RelayCommand(ExportSettings);
+        DisableCutscenesCommand = new RelayCommand(DisableCutscenes);
+
+        Splits.CollectionChanged += OnSplitsChanged;
+    }
+
+    #region UI logic
+
+    private void OnSelectedGameChanged()
+    {
+        IsGameSelected = SelectedGame != null;
+        SelectedTimingType = null;
+        SelectedSplitType = null;
+        ClearSplit();
+
+        TimingTypes.Clear();
+        SplitTypes.Clear();
+
+        if (IsGameSelected)
+        {
+            TimingTypes.AddRange(SplitConfiguration.GetSupportedTimingTypes(SelectedGame!.Value));
+            SplitTypes.AddRange(SplitConfiguration.GetSupportedSplitTypes(SelectedGame!.Value));
+        }
+    }
+
+    private void OnSelectedSplitTypeChanged()
+    {
+        ClearSplit();
+        if (SelectedSplitType != null)
+        {
+            switch (SelectedSplitType)
+            {
+                case SplitType.Boss:
+                case SplitType.KnownFlag:
+                case SplitType.ItemPickup:
+                case SplitType.Bonfire:
+                    EventFlagType = SplitConfiguration.GetSplitType(SelectedGame!.Value, SelectedSplitType!.Value)!;
+                    break;
+
+                case SplitType.Flag:
+                    Flag = 0;
+                    break;
+
+                case SplitType.DarkSouls1Bonfire:
+                    DarkSouls1BonfireViewModel = new DarkSouls1BonfireViewModel();
+                    break;
+                    
+                case SplitType.Position:
+                    PositionViewModel = new PositionViewModel();
+                    break;
+
+                case SplitType.EldenRingPosition:
+                    EldenRingPositionViewModel = new EldenRingPositionViewModel();
+                    break;
+
+                
+                case SplitType.Attribute:
+                    AttributeType = SplitConfiguration.GetSplitType(SelectedGame!.Value, SelectedSplitType!.Value)!;
+                    AttributeViewModel = new AttributeViewModel();
+                    break;
+
+                case SplitType.Manual:
+                    SelectedTimingType = null;
+                    return;
+            }
+        }
+    }
+
+    private void OnSelectedSplitChanged()
+    {
+        if (SelectedSplit != null)
+        {
+            SelectedGame = SelectedSplit.Game;
+            SelectedTimingType = SelectedSplit.TimingType;
+            SelectedSplitType = SelectedSplit.SplitType;
+            SplitDescription = SelectedSplit.Description;
+
+            switch (SelectedSplit.Split)
+            {
+                case Enum e:
+                    SelectedEventFlag = e;
+                    break;
+
+                case uint u:
+                    Flag = u;
+                    break;
+                    
+                case DarkSouls1BonfireViewModel darkSouls1BonfireViewModel:
+                    DarkSouls1BonfireViewModel = (DarkSouls1BonfireViewModel)darkSouls1BonfireViewModel.Clone();
+                    break;
+
+                case PositionViewModel positionViewModel:
+                    PositionViewModel = (PositionViewModel)positionViewModel.Clone();
+                    break;
+
+                case EldenRingPositionViewModel eldenRingPositionViewModel:
+                    EldenRingPositionViewModel = (EldenRingPositionViewModel)eldenRingPositionViewModel.Clone();
+                    break;
+
+                case AttributeViewModel attributeViewModel:
+                    AttributeViewModel = (AttributeViewModel)attributeViewModel.Clone();
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Clears only the split object - event flag, boss position, etc.
+    /// </summary>
+    private void ClearSplit()
+    {
+        SelectedEventFlag = null;
+        PositionViewModel = null;
+        Flag = null;
+        AttributeViewModel = null;
+        EldenRingPositionViewModel = null;
+        DarkSouls1BonfireViewModel = null;
+        SelectedDarkSouls1Item = null;
+    }
+
+    #endregion
+}

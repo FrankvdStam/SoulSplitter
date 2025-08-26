@@ -16,15 +16,15 @@
 
 using System;
 using System.Threading;
-using SoulMemory.DarkSouls1;
-using SoulMemory.DarkSouls2;
-using SoulMemory.DarkSouls3;
-using SoulMemory.Sekiro;
-using SoulMemory.EldenRing;
+using SoulMemory.Games.DarkSouls1;
+using SoulMemory.Games.DarkSouls2;
+using SoulMemory.Games.DarkSouls3;
+using SoulMemory.Games.Sekiro;
+using SoulMemory.Games.EldenRing;
 
 #pragma warning disable CS0162
 
-namespace CliTimer;
+namespace SoulSplitter.CliTimer;
 
 internal class Program
 {
@@ -100,7 +100,7 @@ internal class Program
             }
 
             // Get ingame time
-            var currentIgt = ds1.GetInGameTimeMilliseconds();
+            var currentIgt = ds1.ReadInGameTimeMilliseconds();
             if (currentIgt != 0)
             {
                 inGameTime = currentIgt;
@@ -148,7 +148,7 @@ internal class Program
             }
 
             // Get ingame time
-            var currentIgt = ds2.GetInGameTimeMilliseconds();
+            var currentIgt = ds2.ReadInGameTimeMilliseconds();
             if (currentIgt != 0)
             {
                 inGameTime = currentIgt;
@@ -196,8 +196,8 @@ internal class Program
             }
 
             // Get ingame time and blackscreen state
-            var currentIgt = ds3.GetInGameTimeMilliseconds();
-            var blackscreenActive = ds3.BlackscreenActive();
+            var currentIgt = ds3.ReadInGameTimeMilliseconds();
+            var blackscreenActive = ds3.IsBlackscreenActive();
 
             // Blackscreens / meme loading screens - timer is running, but game is actually loading
             if (currentIgt != 0 && currentIgt > inGameTime && currentIgt < inGameTime + 1000 && blackscreenActive)
@@ -254,7 +254,7 @@ internal class Program
             }
 
             // Get ingame time and blackscreen state
-            var currentIgt = sekiro.GetInGameTimeMilliseconds();
+            var currentIgt = sekiro.ReadInGameTimeMilliseconds();
             var blackscreenActive = sekiro.IsBlackscreenActive();
 
             // Blackscreens / meme loading screens - timer is running, but game is actually loading
@@ -312,7 +312,7 @@ internal class Program
             }
 
             // Get ingame time and blackscreen state
-            var currentIgt = er.GetInGameTimeMilliseconds();
+            var currentIgt = er.ReadInGameTimeMilliseconds();
             var blackscreenActive = er.IsBlackscreenActive();
 
             // Blackscreens / meme loading screens - timer is running, but game is actually loading
