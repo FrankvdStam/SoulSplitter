@@ -18,13 +18,13 @@
 
 <p align="center">
     <a href="https://github.com/FrankvdStam/SoulSplitter/actions">
-        <img src="https://img.shields.io/github/actions/workflow/status/FrankvdStam/SoulSplitter/qodana_main.yml?branch=main"/>
-    </a>
+        <img src="https://img.shields.io/github/actions/workflow/status/FrankvdStam/SoulSplitter/build.yml?branch=main"/>
+    </a>   
     <a href="https://www.nuget.org/packages/SoulMemory/">
         <img src="https://img.shields.io/nuget/v/SoulMemory"/>
     </a>
-     <a href="https://discord.com/users/281116269921566721">
-        <img src="https://img.shields.io/badge/-Discord-blue"/>
+    <a href="https://discord.gg/CEuyqQrrmP">
+        <img src="https://img.shields.io/discord/1359073517840105603"/>
     </a>
     <a href="https://www.youtube.com/@1wasted">
         <img src="https://img.shields.io/badge/-YouTube-red"/>
@@ -32,7 +32,15 @@
     <a href="https://ko-fi.com/wasted1">
         <img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg"/>
     </a>
+    <br/>
+    <a href="https://sonarqube.wastedcloud.nl">
+        <img src="https://sonarqube.wastedcloud.nl/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=alert_status&token=dcf5066558434982e851acb72b72235195d99b6e">
+    </a>
+    <a href="https://sonarqube.wastedcloud.nl">
+        <img src="https://sonarqube.wastedcloud.nl/api/project_badges/measure?project=FrankvdStam_SoulSplitter_AYT9tJW7QlZ0fhD27xsa&metric=coverage&token=dcf5066558434982e851acb72b72235195d99b6e">
+    </a>
 </p>
+
 
 # Features
 
@@ -88,29 +96,18 @@ If you find a bug you can let me know via the above methods, or you can [submit 
 
 # Credits
 
-Thank you strimmers, for risking your PB's, to test my broken code!  
-- [Catalystz](https://www.twitch.tv/catalystz)  
-- [Johndisandonato](https://www.twitch.tv/johndisandonato)  
-- [Siegbruh](https://www.twitch.tv/siegbruh)  
-- [Holm](https://www.twitch.tv/holm_gg)  
-- [Pennek](https://www.twitch.tv/pennek)  
-- [Nyk_style](https://www.twitch.tv/nyk_style)  
-- [Maarionete](https://www.twitch.tv/maarionete)  
-- [Moochyy](https://www.twitch.tv/moochyy_)  
-  
-Thank you all!
+This repository is based on the collective work an efforts of the [soulsmodding](http://soulsmodding.wikidot.com/) community. Without the resources, intelligence and tools provided by this community, this repository would not exist.
 
-Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions to the speedrunning community:  
-- writing the initial MIGT code injection for Elden Ring
-- writing the original Sekiro plugin, which features have been included
-- OG ds3 plugin, together with [Jiiks](https://github.com/Jiiks/)
-<br/>
-
+- Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions to the speedrunning community
+    - writing the initial MIGT code injection for Elden Ring
+    - writing the original Sekiro plugin, which features have been included
+    - OG ds3 plugin, together with [Jiiks](https://github.com/Jiiks/)
 - Thanks Pav, for the Elden Ring cheat engine table
 - Thanks [Johndisandonato](https://github.com/veeenu), pretty much always willing to exhange some ideas about tech stuff
+- Thanks [vswarte](https://github.com/vswarte), soundboarding ideas, borrowing a lot of technical knowledge from these games
 - [Yapped](https://github.com/vawser/Yapped-Rune-Bear) helped speed up mapping event flags to bosses and graces
 - Uses the excellent [material design](https://materialdesigninxaml.net/) library by James Willock
-- Thanks [Nordgaren](https://github.com/Nordgaren/)
+- Thanks [Nordgaren](https://github.com/Nordgaren/) for soundboarding
 - Thanks thefifthmatt for all the hard work on figuring out how the [ER map system](http://soulsmodding.wikidot.com/reference:elden-ring-map-list) works, insane effort!
 - Thanks [CapitaineToinon](https://github.com/CapitaineToinon/LiveSplit.DarkSoulsIGT) for letting me use his DS1 timer code + inventory index reset code!
 - Thanks [Blade](https://github.com/bladecoding/DarkSouls3RemoveIntroScreens) for the nologo code!
@@ -118,13 +115,31 @@ Special thanks to [B3LYP](https://github.com/pawREP), for his many contributions
 - Thanks [ViRazY](https://github.com/Vinjul1704) for the standalone CLI timer and many other contributions  
 - Thanks [Ducksual](https://www.twitch.tv/ducksual) for helping with DS1 dropmod
 - Thanks [AinTunez](https://github.com/AinTunez), for DarkScript3, deciphering emevd event scripts: https://github.com/AinTunez/DarkScript3 - this is the basis for building the EMEVD logger  
-- And thanks to the [soulsmodding](http://soulsmodding.wikidot.com/) community at large, I'm standing on the shoulders of these giants
+- Thanks to many different people (including [vawser](https://github.com/vawser)) from the [soulsmodding](http://soulsmodding.wikidot.com/) community for DSMapStudio and all its variations, including [DSMapStudio](https://github.com/soulsmods/DSMapStudio) and [Smithbox](https://github.com/vawser/Smithbox)  
+- Thanks to many different people (including [JKAnderson](https://github.com/JKAnderson/)) from the [soulsmodding](http://soulsmodding.wikidot.com/) community for SoulsFormats and all its variations, including [SoulsFormatsNEXT](https://github.com/soulsmods/SoulsFormatsNEXT)  
+
+Thank you strimmers, for risking your PB's, to test my broken code!  
+- [Catalystz](https://www.twitch.tv/catalystz)  
+- [Johndisandonato](https://www.twitch.tv/johndisandonato)  
+- [Holm](https://www.twitch.tv/holm_gg)  
+- [Pennek](https://www.twitch.tv/pennek)  
+- [Nyk_style](https://www.twitch.tv/nyk_style)  
+- [Maarionete](https://www.twitch.tv/maarionete)  
+- [Moochyy](https://www.twitch.tv/moochyy_)  
+- [KEMIST](https://www.twitch.tv/kemist_c10h15n)  
+- [Ramonchi_5](https://www.twitch.tv/ramonchi_5)  
 
 <br/><br/>
 Free code signing provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)
   
 <p align="left">
     <img src="resources/signpath_logo.svg" width="300"/>
+</p>
+  
+I use a self hosted free opensource sonarqube instance to ensure code quality
+  
+</p>
+    <img src="https://github.com/devicons/devicon/blob/master/icons/sonarqube/sonarqube-plain-wordmark.svg" title="sonarqube" alt="sonarqube" width="300"/>
 </p>
 
 <br/><br/>
