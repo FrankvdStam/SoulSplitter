@@ -1,6 +1,10 @@
 name: build
 on:
   pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 env:
   CARGO_TERM_COLOR: always
@@ -30,14 +34,7 @@ jobs:
 
       - name: dotnet restore
         run: dotnet restore
-    
-     #- name: Cache SonarQube packages
-     #  uses: actions/cache@v4
-     #  with:
-     #    path: ~\sonar\cache
-     #    key: ${{ runner.os }}-sonar
-     #    restore-keys: ${{ runner.os }}-sonar
-      
+
       - name: Cache SonarQube scanner
         id: cache-sonar-scanner
         uses: actions/cache@v4
