@@ -135,6 +135,12 @@ Free code signing provided by [SignPath.io](https://about.signpath.io/), certifi
 <p align="left">
     <img src="resources/signpath_logo.svg" width="300"/>
 </p>
+  
+I use a self hosted free opensource sonarqube instance to ensure code quality
+  
+</p>
+    <img src="https://github.com/devicons/devicon/blob/master/icons/sonarqube/sonarqube-original-wordmark.svg" title="sonarqube" alt="sonarqube"/>
+</p>
 
 <br/><br/>
 Check out this [visualization of the git history](https://www.youtube.com/watch?v=2u7MwySLOUE), made with [Gource](https://gource.io/)
