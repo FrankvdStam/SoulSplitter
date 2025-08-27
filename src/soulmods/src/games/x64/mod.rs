@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 pub(crate) mod armoredcore6;
+pub(crate) mod darksouls1remastered;
 pub(crate) mod darksouls2scholarofthefirstsin;
 pub(crate) mod darksouls3;
 pub(crate) mod eldenring;
@@ -23,6 +24,7 @@ pub(crate) mod bloodborne;
 pub(crate) mod nightreign;
 
 pub use armoredcore6::*;
+pub use darksouls1remastered::*;
 pub use darksouls2scholarofthefirstsin::*;
 pub use darksouls3::*;
 pub use eldenring::*;

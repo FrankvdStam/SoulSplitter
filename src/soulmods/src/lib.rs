@@ -90,6 +90,7 @@ fn dispatched_dll_main()
     match process_name.to_lowercase().as_str()
     {
         "armoredcore6.exe" => init_armoredcore6(),
+        "darksoulsremastered.exe" => init_darksouls1remastered(),
         "darksoulsii.exe" => init_scholar(),
         "darksoulsiii.exe" => init_darksouls3(),
         "eldenring.exe" => init_eldenring(),
