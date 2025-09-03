@@ -29,6 +29,7 @@ using SoulMemory;
 using SoulSplitter.UI.Generic;
 using SoulMemory.Parameters;
 using SoulMemory.Sekiro;
+using System.Text;
 
 #pragma warning disable CS0162
 
@@ -39,13 +40,92 @@ namespace cli
         [STAThread]
         private static void Main(string[] args)
         {
-            TestUi(true);
+            
+
+            var sb = new StringBuilder();
+            sb.Append(27901000);
+            sb.Append(',');
+            sb.Append(1105000);
+            sb.Append(',');
+            sb.Append(27901000);
+            sb.Append(',');
+            sb.Append(1105000);
+            sb.Append(',');
+            sb.Append(27900100);
+            sb.Append(','); 
+            sb.Append(355000);
+            sb.Append(',');
+            sb.Append(27900000);
+            sb.Append(',');
+            sb.Append(310000);
+            sb.Append(',');
+            sb.Append(28100000);
+            sb.Append(','); 
+            sb.Append(855000);
+            sb.Append(','); 
+            sb.Append(25002100);
+            sb.Append(',');
+            sb.Append(1200000);
+            sb.Append(','); 
+            sb.Append(25600200);
+            sb.Append(','); 
+            sb.Append(601000);
+            sb.Append(','); 
+            sb.Append(53500100);
+            sb.Append(','); 
+            sb.Append(1103000);
+            sb.Append(',');
+            sb.Append(1105000);
+            sb.Append(',');
+            sb.Append(27901000);
+            sb.Append(',');
+            sb.Append(1105000);
+            sb.Append(',');
+            sb.Append(27900100);
+            sb.Append(',');
+            sb.Append(355000);
+            sb.Append(',');
+            sb.Append(27900000);
+            sb.Append(',');
+            sb.Append(310000);
+            sb.Append(',');
+            sb.Append(28100000);
+            sb.Append(',');
+            sb.Append(855000);
+            sb.Append(',');
+            sb.Append(25002100);
+            sb.Append(',');
+            sb.Append(1200000);
+            sb.Append(',');
+            sb.Append(25600200);
+            sb.Append(',');
+            sb.Append(601000);
+            sb.Append(',');
+            sb.Append(53500100);
+            sb.Append(',');
+            sb.Append(1103000);
+
+            Console.WriteLine(sb.ToString().Count());
+            Console.WriteLine(sb.ToString());
+
+            var bytes = Encoding.ASCII.GetBytes(sb.ToString());
+            var base64 = System.Convert.ToBase64String(bytes);
+            Console.WriteLine(base64.Count());
+            Console.WriteLine(base64);
             return;
-            GameLoop<EldenRing>(
+
+            //TestUi(true);
+            //return;
+            DropMod dropmod = null;
+            GameLoop<DarkSouls1>(
                 (d) =>
                 {
-                    Console.WriteLine(d.ReadNgLevel());
-                    //var dropmod = new DropMod(d);
+                    Console.WriteLine(d.GetInGameTimeMilliseconds());
+                    if (dropmod == null)
+                    {
+                        dropmod = new DropMod(d);
+                        dropmod.InitBkh();
+                    }
                     //dropmod.InitBkh();
                     //
                     //
