@@ -23,7 +23,7 @@ public class DropMod(IDarkSouls1 darkSouls)
 {
     public void InitBkh()
     {
-        darkSouls.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\nBlack Knight Ultra GreatSword\nBlack Knight Greatsword\nLarge Club\nShort Bow\nBalder Knight Rapier\n\n\n\n");
+        darkSouls.WriteWeaponDescription(1105000, "Dropmod!\n\nAffected:\nBlack Knight Halberd\nBlack Knight Ultra GreatSword\nBlack Knight Greatsword\nLarge Club\nShort Bow\nBalder Knight Rapier\nGargoyle's Halberd\n\n\n");
         for (var i = 0; i < 62; i++)
         {
             darkSouls.SetLoadingScreenItem(i, 1105000);
@@ -34,6 +34,7 @@ public class DropMod(IDarkSouls1 darkSouls)
         GuaranteeDrop(28100000, 855000);  //large club
         GuaranteeDrop(25002100, 1200000); //Short Bow (affects asylum & painted world
         GuaranteeDrop(25600200, 601000);  //Balder knight rapier
+        GuaranteeDrop(53500100, 1103000); //gargoyle's halberd
     }
 
     public void InitAllAchievements()
