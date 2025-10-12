@@ -1,15 +1,13 @@
-use std::thread;
-use std::time::Duration;
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 use mem_rs::prelude::*;
 use log::info;
 
 use crate::util::GLOBAL_VERSION;
 
+
 static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_HISTORY_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
-static mut FRAME_ADVANCE_HOOK: Option<HookPoint> = None;
 
 
 #[unsafe(no_mangle)]
@@ -20,16 +18,10 @@ pub static mut NR_FPS_PATCH_ENABLED: bool = false;
 #[used]
 pub static mut NR_FPS_CUSTOM_LIMIT: f32 = 0.0f32;
 
-#[unsafe(no_mangle)]
-#[used]
-pub static mut NR_FRAME_ADVANCE_ENABLED: bool = false;
-
-#[unsafe(no_mangle)]
-#[used]
-pub static mut NR_FRAME_RUNNING: bool = false;
 
 pub(crate) static mut IGT_BUFFER: f32 = 0.0f32;
 static mut IGT_HOOK: Option<HookPoint> = None;
+
 
 pub fn init_nightreign()
 {
@@ -64,14 +56,6 @@ pub fn init_nightreign()
 
         // Enable FPS custom limit patch
         FPS_CUSTOM_LIMIT_HOOK = Some(Hooker::new(fn_fps_custom_limit_address, HookType::JmpBack(fps_custom_limit), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
-
-
-        // AoB scan for frame advance patch
-        let fn_frame_advance_address = process.scan_abs("frame_advance", "e8 ? ? ? ? e8 ? ? ? ? 84 c0 74 4f", 21, Vec::new()).unwrap().get_base_address();
-        info!("Frame advance at 0x{:x}", fn_frame_advance_address);
-
-        // Enable frame advance patch
-        FRAME_ADVANCE_HOOK = Some(Hooker::new(fn_frame_advance_address, HookType::JmpBack(frame_advance), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
     }
 }
 
@@ -174,22 +158,6 @@ unsafe extern "win64" fn fps_custom_limit(registers: *mut Registers, _:usize)
             {
                 // Write values back
                 std::ptr::write_volatile(ptr_target_frame_delta, custom_target_frame_delta);
-            }
-        }
-    }
-}
-
-// Frame advance patch
-unsafe extern "win64" fn frame_advance(_registers: *mut Registers, _:usize)
-{
-    unsafe
-    {
-        if NR_FRAME_ADVANCE_ENABLED
-        {
-            NR_FRAME_RUNNING = false;
-
-            while !NR_FRAME_RUNNING && NR_FRAME_ADVANCE_ENABLED {
-                thread::sleep(Duration::from_micros(10));
             }
         }
     }

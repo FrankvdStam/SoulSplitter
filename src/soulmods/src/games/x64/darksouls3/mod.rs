@@ -15,26 +15,22 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 mod migt;
-pub use migt::increment_igt_hook;
-pub(crate) use migt::IGT_BUFFER;
 
 
 #[allow(dead_code)]
 
 use mem_rs::prelude::*;
-use std::{thread, time::Duration, mem};
+use std::{thread, time::Duration};
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 
 use log::info;
 use crate::games::x64::darksouls3::migt::ds3_init_migt;
 use crate::util::*;
 
-use windows::Win32::UI::Input::XboxController::*;
 
 static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 static mut FRAME_ADVANCE_HOOK: Option<HookPoint> = None;
-static mut XINPUT_HOOK: Option<HookPoint> = None;
 
 
 #[unsafe(no_mangle)]
@@ -52,28 +48,6 @@ pub static mut DS3_FRAME_ADVANCE_ENABLED: bool = false;
 #[unsafe(no_mangle)]
 #[used]
 pub static mut DS3_FRAME_RUNNING: bool = false;
-
-#[unsafe(no_mangle)]
-#[used]
-pub static mut DS3_XINPUT_PATCH_ENABLED: bool = false;
-
-#[unsafe(no_mangle)]
-#[used]
-pub static mut DS3_XINPUT_STATE: XINPUT_STATE = XINPUT_STATE {
-    dwPacketNumber: 0,
-    Gamepad: XINPUT_GAMEPAD {
-        wButtons: XINPUT_GAMEPAD_BUTTON_FLAGS(0),
-        bLeftTrigger: 0,
-        bRightTrigger: 0,
-        sThumbLX: 0,
-        sThumbLY: 0,
-        sThumbRX: 0,
-        sThumbRY: 0,
-    }
-};
-
-
-pub type XInputGetState = unsafe extern "system" fn(dw_user_index: u32, p_state: *mut XINPUT_STATE) -> u32;
 
 
 #[allow(unused_assignments)]
@@ -124,15 +98,6 @@ pub fn init_darksouls3()
 
         // Turn off frame-advance again..
         DS3_FRAME_ADVANCE_ENABLED = false;
-
-
-        // Find XInputGetState function in XINPUT1_3.dll
-        let xinput_module = process.get_modules().iter().find(|m| m.name == "XINPUT1_3.dll").cloned().expect("Couldn't find XINPUT1_3.dll");
-        let xinput_fn_addr = xinput_module.get_exports().iter().find(|e| e.0 == "XInputGetState").expect("Couldn't find XInputGetState").1;
-        info!("XInputGetState at 0x{:x}", xinput_fn_addr);
-
-        // Hook XInputGetState
-        XINPUT_HOOK = Some(Hooker::new(xinput_fn_addr, HookType::Retn(xinput_fn), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
     }
 }
 
@@ -267,21 +232,3 @@ unsafe extern "win64" fn frame_advance(_registers: *mut Registers, _:usize)
         }
     }
 }
-
-
-pub unsafe extern "win64" fn xinput_fn(registers: *mut Registers, orig_func_ptr: usize, _: usize) -> usize { unsafe {
-    
-    let dw_user_index = (*registers).rcx as u32;
-    let p_state = (*registers).rdx as *mut XINPUT_STATE;
-
-    if !DS3_XINPUT_PATCH_ENABLED {
-        let orig_func: XInputGetState = mem::transmute(orig_func_ptr);
-        return orig_func(dw_user_index, p_state) as usize;
-    }
-
-    (*p_state) = DS3_XINPUT_STATE;
-
-    // ERROR_SUCCESS = 0x0
-    // ERROR_DEVICE_NOT_CONNECTED = 0x48F
-    return 0x0;
-}}
