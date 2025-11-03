@@ -1,6 +1,6 @@
 [package]
 name = "soulmemory-rs-launcher"
-edition = "2021"
+edition = "2024"
 authors = ["Frank van der Stam"]
 description = "launcher and injector for soulmemory-rs"
 homepage = "https://github.com/FrankvdStam/SoulSplitter"

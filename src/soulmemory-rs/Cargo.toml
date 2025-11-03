@@ -1,17 +1,18 @@
 [package]
 name = "soulmemory-rs"
-edition = "2021"
+edition = "2024"
 authors = ["Frank van der Stam"]
 description = "Injectable UI with event flag loging"
 homepage = "https://github.com/FrankvdStam/SoulSplitter"
 repository = "https://github.com/FrankvdStam/SoulSplitter"
 license-file = "../../LICENSE"
+rust-version = "1.88.0"
 
 [lib]
 crate-type = ["lib", "cdylib"]
 
 [dependencies]
-ilhook = "= 2.1.2"
+ilhook = "= 2.1.3"
 
 mem-rs = "0.2.1"
 #mem-rs = { path="C:/projects/mem-rs" }
