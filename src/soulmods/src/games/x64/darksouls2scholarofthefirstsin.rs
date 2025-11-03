@@ -61,7 +61,7 @@ pub extern "C" fn GetQueuedDarkSouls2MorphemeMessages2(morpheme_message_buffer: 
 }
 
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn GetQueuedDarkSouls2MorphemeMessages(raw_pointer: *mut u32)
 {
     unsafe
