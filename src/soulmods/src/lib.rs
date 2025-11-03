@@ -34,7 +34,7 @@ use crate::util::{GLOBAL_HMODULE, GLOBAL_VERSION, Version};
 
 
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[allow(non_snake_case)]
 pub unsafe extern "system" fn DllMain(
     module: HINSTANCE,

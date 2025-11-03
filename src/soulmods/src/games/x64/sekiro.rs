@@ -29,19 +29,19 @@ static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 static mut FRAME_ADVANCE_HOOK: Option<HookPoint> = None;
 
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut SEKIRO_FPS_PATCH_ENABLED: bool = false;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut SEKIRO_FPS_CUSTOM_LIMIT: f32 = 0.0f32;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut SEKIRO_FRAME_ADVANCE_ENABLED: bool = false;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut SEKIRO_FRAME_RUNNING: bool = false;
 

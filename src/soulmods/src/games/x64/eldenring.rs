@@ -47,19 +47,19 @@ static mut FPS_OFFSETS: FpsOffsets = FpsOffsets {
     timestamp_current: 0x0,
 };
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut ER_FPS_PATCH_ENABLED: bool = false;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut ER_FPS_CUSTOM_LIMIT: f32 = 0.0f32;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut ER_FRAME_ADVANCE_ENABLED: bool = false;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[used]
 pub static mut ER_FRAME_RUNNING: bool = false;
 
