@@ -42,7 +42,7 @@ impl MockGame
         let mut vec = Vec::new();
         for _ in 0..200
         {
-            vec.push(EventFlag::new(chrono::offset::Local::now(), random::<u32>(), random::<u32>() % 2 == 0));
+            vec.push(EventFlag::from_state(chrono::offset::Local::now(), random::<u32>(), random::<u32>() % 2 == 0));
         }
 
         MockGame

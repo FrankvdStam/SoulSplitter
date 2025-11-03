@@ -134,7 +134,7 @@ unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usi
         let value = (*registers).r8 as u8;
 
         let mut guard = game.event_flags.lock().unwrap();
-        guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));
+        guard.push(EventFlag::from_state(chrono::offset::Local::now(), event_flag_id, value != 0));
     }
 }
 
@@ -153,6 +153,6 @@ unsafe extern "win64" fn set_event_flag_shop_hook_fn(registers: *mut Registers, 
 
         let mut guard = game.event_flags.lock().unwrap();
         // EventFlag supports only 1-bit flag with on/off now, might need to extend it to support multi-bits flags later.
-        guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));
+        guard.push(EventFlag::from_state(chrono::offset::Local::now(), event_flag_id, value != 0));
     }
 }

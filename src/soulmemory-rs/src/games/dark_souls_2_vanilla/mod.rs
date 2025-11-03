@@ -117,6 +117,6 @@ unsafe extern "cdecl" fn set_event_flag_hook_fn(registers: *mut Registers, _:usi
         let event_flag_id   = get_stack_u32((*registers).esp, 0x4);
 
         let mut guard = vanilla.event_flags.lock().unwrap();
-        guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));
+        guard.push(EventFlag::from_state(chrono::offset::Local::now(), event_flag_id, value != 0));
     }
 }

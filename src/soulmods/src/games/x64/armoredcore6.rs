@@ -35,7 +35,7 @@ pub fn init_armoredcore6()
 
         unsafe extern "win64" fn increment_igt(registers: *mut Registers, _:usize)
         {
-            let mut frame_delta = std::mem::transmute::<u32, f32>((*registers).xmm0 as u32);
+            let mut frame_delta = f32::from_bits((*registers).xmm0 as u32);
             frame_delta = frame_delta * 0.96f32;
 
             let mut frame_delta_millis = frame_delta  * 1000.0f32;
@@ -50,7 +50,7 @@ pub fn init_armoredcore6()
             }
 
             frame_delta_millis = frame_delta_millis / 1000.0f32;
-            (*registers).xmm0 = std::mem::transmute::<f32, u32>(frame_delta_millis) as u128;
+            (*registers).xmm0 = f32::to_bits(frame_delta_millis) as u128;
             //info!("fd: {} altered: {} frac: {} glob_frac: {}", frame_delta, frame_delta_millis, frac, IGT_FRAC);
         }
 

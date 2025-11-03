@@ -11,7 +11,7 @@ license-file = "../../LICENSE"
 crate-type = ["lib", "cdylib"]
 
 [dependencies]
-ilhook = "2.1.0"
+ilhook = "= 2.1.2"
 
 mem-rs = "0.2.1"
 #mem-rs = { path="C:/projects/mem-rs" }

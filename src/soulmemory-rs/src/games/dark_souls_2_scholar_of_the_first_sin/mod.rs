@@ -124,6 +124,6 @@ unsafe extern "win64" fn read_event_flag_hook_fn(registers: *mut Registers, _:us
         let value = (*registers).r8 as u8;
 
         let mut guard = scholar.event_flags.lock().unwrap();
-        guard.push(EventFlag::new(chrono::offset::Local::now(), event_flag_id, value != 0));
+        guard.push(EventFlag::from_state(chrono::offset::Local::now(), event_flag_id, value != 0));
     }
 }

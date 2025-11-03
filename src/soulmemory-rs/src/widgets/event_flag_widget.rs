@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 use imgui::{TableFlags, TreeNodeFlags, Ui};
-use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag};
+use crate::games::traits::buffered_event_flags::{BufferedEventFlags, EventFlag, EventFlagValue};
 use crate::games::*;
 use crate::widgets::widget::Widget;
 
@@ -94,14 +94,23 @@ impl EventFlagWidget
 
                         //flag val
                         ui.table_next_column();
-                        if f.state
+
+                        match f.value
                         {
-                            ui.text_colored([0.0f32, 1.0f32, 0.0f32, 1.0f32], "true")
+                            EventFlagValue::State(state) =>
+                            {
+                                if state
+                                {
+                                    ui.text_colored([0.0f32, 1.0f32, 0.0f32, 1.0f32], "true")
+                                }
+                                else
+                                {
+                                    ui.text_colored([1.0f32, 0.0f32, 0.0f32, 1.0f32], "false")
+                                }
+                            }
+                            EventFlagValue::Quantity(quantity) => ui.text_colored([1.0f32, 1.0f32, 1.0f32, 1.0f32], quantity.to_string()),
                         }
-                        else
-                        {
-                            ui.text_colored([1.0f32, 0.0f32, 0.0f32, 1.0f32], "false")
-                        }
+
                         index += 1;
                     }
                 }

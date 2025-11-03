@@ -20,23 +20,60 @@ use std::sync::{Arc, Mutex};
 use chrono::{DateTime, Local};
 
 #[derive(Clone, Copy)]
-pub struct  EventFlag
+pub enum EventFlagValue
+{
+    State(bool),
+    Quantity(i32)
+}
+
+#[derive(Clone, Copy)]
+pub struct EventFlag
 {
     pub time: DateTime<Local>,
     pub flag: u32,
-    pub state: bool,
+    pub value: EventFlagValue,
+}
+
+impl Display for EventFlagValue
+{
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result
+    {
+        match self
+        {
+            EventFlagValue::State(state) => write!(f, "{}", state),
+            EventFlagValue::Quantity(quantity) => write!(f, "{}", quantity),
+        }
+    }
 }
 
 impl Display for EventFlag
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{} - {: >10} - {}", self.time.format("%Y-%m-%d %H:%M:%S%.3f"), self.flag, self.state)
+        write!(f, "{} - {: >10} - {}", self.time.format("%Y-%m-%d %H:%M:%S%.3f"), self.flag, self.value)
     }
 }
 
 impl EventFlag
 {
-    pub fn new(time: DateTime<Local>, flag: u32, state: bool,) -> Self {EventFlag { time, flag, state } }
+    pub fn from_state(time: DateTime<Local>, flag: u32, state: bool) -> Self
+    {
+        EventFlag
+        {
+            time,
+            flag,
+            value: EventFlagValue::State(state),
+        }
+    }
+
+    pub fn from_quantity(time: DateTime<Local>, flag: u32, quantity: i32) -> Self
+    {
+        EventFlag
+        {
+            time,
+            flag,
+            value: EventFlagValue::Quantity(quantity),
+        }
+    }
 }
 
 pub trait BufferedEventFlags

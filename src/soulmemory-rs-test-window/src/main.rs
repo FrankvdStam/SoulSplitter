@@ -81,7 +81,7 @@ fn draw_controls(ui: &mut Ui, app: &mut App)
             {
                 if ui.button("raise random event flag")
                 {
-                    mock_game.raise_event_flag(EventFlag::new(chrono::offset::Local::now(), random::<u32>(), random::<u32>() % 2 == 0));
+                    mock_game.raise_event_flag(EventFlag::from_state(chrono::offset::Local::now(), random::<u32>(), random::<u32>() % 2 == 0));
                 }
             }
         }
@@ -147,6 +147,7 @@ fn get_random_emevd_event(mock_game: &MockGame) -> BufferedEmevdCall
 {
     let emevd = mock_game.get_game_emevd_definitions();
     let mut rng = rand::rng();
+    let random_id = rng.random();
     let group = rng.random_range(0..emevd.main_classes.len());
     let type_ = if emevd.main_classes[group].instrs.len() > 0
     {
@@ -157,7 +158,7 @@ fn get_random_emevd_event(mock_game: &MockGame) -> BufferedEmevdCall
         0
     };
 
-    return BufferedEmevdCall::new(chrono::offset::Local::now(), group as u32, type_ as u32);
+    return BufferedEmevdCall::new(chrono::offset::Local::now(), random_id, group as u32, type_ as u32, String::from(""));
 }
 
 fn init_data()
@@ -170,7 +171,7 @@ fn init_data()
         //event flags
         for _ in 0..200
         {
-            mock_game.raise_event_flag(EventFlag::new(chrono::offset::Local::now(), random::<u32>(), random::<u32>() % 2 == 0));
+            mock_game.raise_event_flag(EventFlag::from_state(chrono::offset::Local::now(), random::<u32>(), random::<u32>() % 2 == 0));
         }
 
         //emevd events
