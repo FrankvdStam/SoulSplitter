@@ -44,7 +44,7 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar-scanner
       
       - name: Install SonarQube scanner
-        if: ${{ steps.cache-sonar-scanner.outputs.cache-hit != 'true' }}
+        if: ${{ !github.event.pull_request.head.repo.fork && steps.cache-sonar-scanner.outputs.cache-hit != 'true' }}
         shell: powershell
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
@@ -62,3 +62,14 @@ jobs:
           dotnet test -c release -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
           #cargo tarpaulin --out lcov --output-dir tests/rust
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        
+        #for forks without access to repository secrets
+      - name: Build without analyze (
+        if: ${{ github.event.pull_request.head.repo.fork }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: powershell
+        run: |
+          dotnet build -c release
+          dotnet test -c release -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
+
