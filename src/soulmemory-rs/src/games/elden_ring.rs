@@ -31,6 +31,7 @@ use crate::games::GameExt;
 use crate::games::ilhook::*;
 
 type FnGetEventFlag = fn(event_flag_man: u64, event_flag: u32) -> u8;
+type FnGetEventQuantityFlag = fn(event_flag_man: u64, event_flag: u32, bit_count: u8) -> i32;
 
 pub struct EldenRing
 {
@@ -39,8 +40,9 @@ pub struct EldenRing
     event_flags: Arc<Mutex<Vec<EventFlag>>>,
     virtual_memory_flag: Pointer,
     fn_get_event_flag: FnGetEventFlag,
+    fn_get_event_quantity_flag: FnGetEventQuantityFlag,
     set_event_flag_hook: Option<HookPoint>,
-    set_event_flag_shop_hook: Option<HookPoint>,
+    set_event_flag_quantity_hook: Option<HookPoint>,
 
 }
 
@@ -55,8 +57,9 @@ impl EldenRing
             event_flags: Arc::new(Mutex::new(Vec::new())),
             virtual_memory_flag: Pointer::default(),
             fn_get_event_flag: |_,_|{0},
+            fn_get_event_quantity_flag: |_,_,_|{0},
             set_event_flag_hook: None,
-            set_event_flag_shop_hook: None,
+            set_event_flag_quantity_hook: None,
         }
     }
 }
@@ -72,6 +75,13 @@ impl BufferedEventFlags for EldenRing
         let result = (self.fn_get_event_flag)(self.virtual_memory_flag.read_u64_rel(None), event_flag);
         return result == 1;
     }
+
+    // Note: We should define this function in BufferedEventFlags first to make it available for implementation.
+    //       But other games are not ready for this function, just leave it commented for now.
+    // fn get_event_flag_quantity(&self, event_flag: u32, bit_count: u8) -> i32 {
+    //     let result = (self.fn_get_event_quantity_flag)(self.virtual_memory_flag.read_u64_rel(None), event_flag, bit_count);
+    //     return result;
+    // }
 }
 
 impl Game for EldenRing
@@ -86,21 +96,25 @@ impl Game for EldenRing
                 self.virtual_memory_flag = self.process.scan_rel("VirtualMemoryFlag", "44 89 7c 24 28 4c 8b 25 ? ? ? ? 4d 85 e4", 3, 7, vec![0x5])?;
 
                 let set_event_flag_address = self.process.scan_abs("set_event_flag", "48 89 5c 24 08 44 8b 49 1c 44 8b d2 33 d2 41 8b c2 41 f7 f1 41 8b d8 4c 8b d9", 0, Vec::new())?.get_base_address();
-                let set_event_flag_shop_address = self.process.scan_abs("set_event_flag_shop", "48 83 ec 38 44 8b 51 1c 44 8b da 41 8b c3 33 d2", 0, Vec::new())?.get_base_address();
+                let set_event_flag_quantity_address = self.process.scan_abs("set_event_flag_quantity", "48 83 ec 38 44 8b 51 1c 44 8b da 41 8b c3 33 d2", 0, Vec::new())?.get_base_address();
                 let get_event_flag_address = self.process.scan_abs("get_event_flag", "44 8b 41 1c 44 8b da 33 d2 41 8b c3 41 f7 f0", 0, Vec::new())?.get_base_address();
+                let get_event_flag_quantity_address = self.process.scan_abs("get_event_flag_quantity", "48 83 ec 38 44 8b 51 1c 44 8b da 41 8b c3 44 89", 0, Vec::new())?.get_base_address();
                 self.fn_get_event_flag = mem::transmute(get_event_flag_address);
+                self.fn_get_event_quantity_flag = mem::transmute(get_event_flag_quantity_address);
 
                 #[cfg(target_arch = "x86_64")]
                 {
                     let h = Hooker::new(set_event_flag_address, HookType::JmpBack(set_event_flag_hook_fn), CallbackOption::None, 0, HookFlags::empty());
                     self.set_event_flag_hook = Some(h.hook().unwrap());
-                    let h2 = Hooker::new(set_event_flag_shop_address, HookType::JmpBack(set_event_flag_shop_hook_fn), CallbackOption::None, 0, HookFlags::empty());
-                    self.set_event_flag_shop_hook = Some(h2.hook().unwrap());
+                    let h2 = Hooker::new(set_event_flag_quantity_address, HookType::JmpBack(set_event_flag_quantity_hook_fn), CallbackOption::None, 0, HookFlags::empty());
+                    self.set_event_flag_quantity_hook = Some(h2.hook().unwrap());
                 }
 
-                info!("event_flag_man base address: 0x{:x}", self.virtual_memory_flag.get_base_address());
-                info!("set event flag address     : 0x{:x}", set_event_flag_address);
-                info!("get event flag address     : 0x{:x}", get_event_flag_address);
+                info!("event_flag_man base address    : 0x{:x}", self.virtual_memory_flag.get_base_address());
+                info!("set event flag address         : 0x{:x}", set_event_flag_address);
+                info!("set event flag quantity address: 0x{:x}", set_event_flag_quantity_address);
+                info!("get event flag address         : 0x{:x}", get_event_flag_address);
+                info!("get event flag quantity address: 0x{:x}", get_event_flag_quantity_address);
             }
         }
         else
@@ -139,7 +153,7 @@ unsafe extern "win64" fn set_event_flag_hook_fn(registers: *mut Registers, _:usi
 }
 
 #[cfg(target_arch = "x86_64")]
-unsafe extern "win64" fn set_event_flag_shop_hook_fn(registers: *mut Registers, _:usize)
+unsafe extern "win64" fn set_event_flag_quantity_hook_fn(registers: *mut Registers, _:usize)
 {
     let instance = App::get_instance();
     let app = instance.lock().unwrap();
@@ -147,12 +161,11 @@ unsafe extern "win64" fn set_event_flag_shop_hook_fn(registers: *mut Registers, 
     if let Some(game) = GameExt::get_game_ref::<EldenRing>(app.game.deref())
     {
         let event_flag_id = (*registers).rdx as u32;
-        // It seems like r8 is bit width or max value of the flag here, need more research.
-        // r9 is the actual value for sure.
-        let value = (*registers).r9 as u8;
+        // r8: bit width of the flag.
+        // r9: quantity.
+        let value = (*registers).r9 as i32;
 
         let mut guard = game.event_flags.lock().unwrap();
-        // EventFlag supports only 1-bit flag with on/off now, might need to extend it to support multi-bits flags later.
-        guard.push(EventFlag::from_state(chrono::offset::Local::now(), event_flag_id, value != 0));
+        guard.push(EventFlag::from_quantity(chrono::offset::Local::now(), event_flag_id, value));
     }
 }
