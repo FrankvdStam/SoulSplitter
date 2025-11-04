@@ -30,8 +30,8 @@ jobs:
             echo "VERSION=$version" >> $env:GITHUB_ENV
 
       - name: setup rust
-      - uses: actions-rust-lang/setup-rust-toolchain@v1
-      - run: cargo version
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        run: cargo version
 
       - name: setup dotnet
         uses: actions/setup-dotnet@v3
