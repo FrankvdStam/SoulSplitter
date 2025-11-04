@@ -66,8 +66,6 @@ jobs:
         #for forks without access to repository secrets
       - name: Build without analyze (
         if: ${{ github.event.pull_request.head.repo.fork }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: powershell
         run: |
           dotnet build -c release
