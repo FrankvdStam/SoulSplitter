@@ -1,6 +1,7 @@
 use std::fmt::{Display, Formatter};
 use std::time::Duration;
 
+#[allow(dead_code)] //kill false positive warning about this struct not being constructed.
 pub struct FormattableDuration(pub Duration);
 
 impl Display for FormattableDuration

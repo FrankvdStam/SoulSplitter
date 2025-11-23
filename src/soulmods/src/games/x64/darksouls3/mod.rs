@@ -32,6 +32,11 @@ static mut FPS_HOOK: Option<HookPoint> = None;
 static mut FPS_CUSTOM_LIMIT_HOOK: Option<HookPoint> = None;
 static mut FRAME_ADVANCE_HOOK: Option<HookPoint> = None;
 
+//used by tests
+#[allow(unused_imports)]
+pub use migt::IGT_BUFFER;
+#[allow(unused_imports)]
+pub use migt::increment_igt_hook;
 
 #[unsafe(no_mangle)]
 #[used]
