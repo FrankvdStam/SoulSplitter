@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="2.0.40">
+        <files>
+            <file path="Components/SoulMemory.dll"                  status="Removed"/>
+            <file path="Components/SoulSplitter.dll"                status="Removed"/>
+            <file path="Components/soulmods_x86.dll"                status="Removed"/>
+            <file path="Components/soulmods_x64.dll"                status="Removed"/>
+            <file path="Components/soulmemory_rs_x86.dll"           status="Removed"/>
+            <file path="Components/soulmemory_rs_x64.dll"           status="Removed"/>
+            <file path="Components/launcher_x86.exe"                status="Removed"/>
+            <file path="Components/launcher_x64.exe"                status="Removed"/>
+
+            <file path="Components/SoulSplitter.Plugin.dll"                         status="Added"/>
+            <file path="Components/SoulSplitter.SoulMemory.dll"                     status="Added"/>
+            <file path="Components/soulsplitter.soulmods.x64.dll"                   status="Added"/>
+            <file path="Components/soulsplitter.soulmods.x86.dll"                   status="Added"/>
+            <file path="Components/soulsplitter.soulmemory_rs.x64.dll"              status="Added"/>
+            <file path="Components/soulsplitter.soulmemory_rs.x86.dll"              status="Added"/>
+            <file path="Components/soulsplitter.soulmemory-rs.launcher.x64.exe"     status="Added"/>
+            <file path="Components/soulsplitter.soulmemory-rs.launcher.x86.exe"     status="Added"/>
+        </files>
+        <changelog>
+            <change>First soulsplitter 2 release through livesplit</change>
+        </changelog>
+    </update>
 	<update version="1.8.6">
         <files>
             <file path="Components/SoulMemory.dll"                  status="changed"/>
