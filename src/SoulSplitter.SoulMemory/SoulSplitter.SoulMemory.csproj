@@ -36,22 +36,6 @@
     <NoWarn>1701;1702;NU5100</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-      <Content Include="soulmods\x64\soulmods_x64.dll">
-          <PackagePath>contentFiles\any\any</PackagePath>
-          <BuildAction>None</BuildAction>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-          <PackageCopyToOutput>True</PackageCopyToOutput>
-          <TargetPath>soulmods_x64.dll</TargetPath>
-      </Content>
-      <Content Include="soulmods\x86\soulmods_x86.dll">
-          <PackagePath>contentFiles\any\any</PackagePath>
-          <BuildAction>None</BuildAction>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-          <PackageCopyToOutput>True</PackageCopyToOutput>
-          <TargetPath>soulmods_x86.dll</TargetPath>
-      </Content>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +52,22 @@
         <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+    <ItemGroup>
+        <Content Include="soulmods\x64\soulsplitter.soulmods.x64.dll">
+            <PackagePath>contentFiles\any\any</PackagePath>
+            <BuildAction>None</BuildAction>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <PackageCopyToOutput>True</PackageCopyToOutput>
+            <TargetPath>soulsplitter.soulmods.x64.dll</TargetPath>
+        </Content>
+        <Content Include="soulmods\x86\soulsplitter.soulmods.x86.dll">
+            <PackagePath>contentFiles\any\any</PackagePath>
+            <BuildAction>None</BuildAction>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <PackageCopyToOutput>True</PackageCopyToOutput>
+            <TargetPath>soulsplitter.soulmods.x86.dll</TargetPath>
+        </Content>
+    </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
       <CallTarget Targets="CargoRelease" Condition="'$(Configuration)'=='Release'" />
       <CallTarget Targets="CargoDebug" Condition="'$(Configuration)'=='Debug'" />
@@ -75,21 +75,21 @@
   <Target Name="CargoDebug">
       <Message Text="Building soulmods x64, debug mode" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target x86_64-pc-windows-msvc" />
-      <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\debug\soulmods.dll" DestinationFiles="soulmods\x64\soulmods_x64.dll" Retries="1" ContinueOnError="true" />
+      <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\debug\soulmods.dll" DestinationFiles="soulmods\x64\soulsplitter.soulmods.x64.dll" Retries="1" ContinueOnError="true" />
 
       <Message Text="Building soulmods x86, debug mode" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target=i686-pc-windows-msvc" />
-      <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\debug\soulmods.dll" DestinationFiles="soulmods\x86\soulmods_x86.dll" Retries="1" ContinueOnError="true" />
+      <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\debug\soulmods.dll" DestinationFiles="soulmods\x86\soulsplitter.soulmods.x86.dll" Retries="1" ContinueOnError="true" />
   </Target>
 
   <Target Name="CargoRelease">
       <Message Text="Building soulmods x64, release mode" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target x86_64-pc-windows-msvc --release" />
-      <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x64\soulmods_x64.dll" Retries="1" ContinueOnError="true" />
+      <Copy SourceFiles="..\..\target\x86_64-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x64\soulsplitter.soulmods.x64.dll" Retries="1" ContinueOnError="true" />
 
       <Message Text="Building soulmods x86, release mode" Importance="high" />
       <Exec Command="cargo build --manifest-path ../../Cargo.toml --package soulmods --target=i686-pc-windows-msvc  --release" />
-      <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x86\soulmods_x86.dll" Retries="1" ContinueOnError="true" />
+      <Copy SourceFiles="..\..\target\i686-pc-windows-msvc\release\soulmods.dll" DestinationFiles="soulmods\x86\soulsplitter.soulmods.x86.dll" Retries="1" ContinueOnError="true" />
   </Target>
 
 </Project>

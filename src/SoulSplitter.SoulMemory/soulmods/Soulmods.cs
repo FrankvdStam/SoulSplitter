@@ -49,7 +49,7 @@ public static class Soulmods
 {
     private static string SoulmodsModuleName(this Process process)
     {
-        return process.Is64Bit().Unwrap() ? "soulmods_x64.dll" : "soulmods_x86.dll";
+        return process.Is64Bit().Unwrap() ? "soulsplitter.soulmods.x64.dll" : "soulsplitter.soulmods.x86.dll";
     }
 
     public static ResultOk<Dictionary<string, long>> Inject(Process process)

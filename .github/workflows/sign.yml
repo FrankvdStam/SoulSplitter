@@ -39,24 +39,24 @@ jobs:
             mkdir unsigned-artifact
             mkdir unsigned-artifact\CliTimer
             mkdir signed-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\SoulSplitter.dll                unsigned-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\SoulMemory.dll                  unsigned-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignColors.dll        unsigned-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\MaterialDesignThemes.Wpf.dll    unsigned-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\Microsoft.Xaml.Behaviors.dll    unsigned-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x86.dll                unsigned-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmods_x64.dll                unsigned-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x86.dll           unsigned-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\soulmemory_rs_x64.dll           unsigned-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\launcher_x86.exe                unsigned-artifact
-            copy src\SoulSplitter\bin\x64\Release\net481\launcher_x64.exe                unsigned-artifact
-            copy LICENSE                                                                 unsigned-artifact
-            copy src\SoulMemory\bin\x64\Release\*.nupkg                                  unsigned-artifact
-            copy src\CliTimer\bin\x64\release\net481\SoulSplitter.CliTimer.exe           unsigned-artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\SoulSplitter.CliTimer.exe.config    unsigned-artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\SoulMemory.dll                      unsigned-artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\soulmods_x86.dll                    unsigned-artifact\CliTimer
-            copy src\CliTimer\bin\x64\release\net481\soulmods_x64.dll                    unsigned-artifact\CliTimer
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\SoulSplitter.Plugin.dll                     unsigned-artifact
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\SoulSplitter.SoulMemory.dll                 unsigned-artifact
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\MaterialDesignColors.dll                    unsigned-artifact
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\MaterialDesignThemes.Wpf.dll                unsigned-artifact
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\Microsoft.Xaml.Behaviors.dll                unsigned-artifact
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\soulsplitter.soulmemory_rs.x64.dll          unsigned-artifact
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\soulsplitter.soulmemory_rs.x86.dll          unsigned-artifact
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\soulsplitter.soulmods.x64.dll               unsigned-artifact
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\soulsplitter.soulmods.x86.dll               unsigned-artifact
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\soulsplitter.soulmemory-rs.launcher.x64.exe unsigned-artifact
+            copy src\SoulSplitter.Plugin\bin\x64\Release\net481\soulsplitter.soulmemory-rs.launcher.x86.exe unsigned-artifact
+            copy LICENSE                                                                                    unsigned-artifact
+            copy src\SoulSplitter.SoulMemory\bin\x64\Release\*.nupkg                                        unsigned-artifact
+            copy src\SoulSplitter.CliTimer\bin\x64\release\net481\SoulSplitter.CliTimer.exe                 unsigned-artifact\CliTimer
+            copy src\SoulSplitter.CliTimer\bin\x64\release\net481\SoulSplitter.CliTimer.exe.config          unsigned-artifact\CliTimer
+            copy src\SoulSplitter.CliTimer\bin\x64\release\net481\SoulSplitter.SoulMemory.dll               unsigned-artifact\CliTimer
+            copy src\SoulSplitter.CliTimer\bin\x64\release\net481\soulsplitter.soulmods.x64.dll             unsigned-artifact\CliTimer
+            copy src\SoulSplitter.CliTimer\bin\x64\release\net481\soulsplitter.soulmods.x86.dll             unsigned-artifact\CliTimer
 
       - name: publish unsigned artifacts
         id: upload-unsigned-artifact
