@@ -48,7 +48,7 @@ fn draw_controls(ui: &mut Ui, app: &mut App)
             {
                 if ui.button("raise random event flag")
                 {
-                    mock_game.raise_event_flag(EventFlag::new(chrono::offset::Local::now(), random::<u32>(), random::<u32>() % 2 == 0));
+                    mock_game.raise_event_flag(EventFlag::from_state(chrono::offset::Local::now(), random::<u32>(), random::<u32>() % 2 == 0));
                 }
             }
         }
@@ -118,7 +118,7 @@ fn init_data()
         //event flags
         for _ in 0..200
         {
-            mock_game.raise_event_flag(EventFlag::new(chrono::offset::Local::now(), random::<u32>(), random::<u32>() % 2 == 0));
+            mock_game.raise_event_flag(EventFlag::from_state(chrono::offset::Local::now(), random::<u32>(), random::<u32>() % 2 == 0));
         }
 
         //emevd events
