@@ -39,7 +39,7 @@ public class LivesplitAdapterFactory : IComponentFactory
 
     public string XMLURL => $"{UpdateURL}/Components/Updates.xml";
 
-    public string UpdateURL => "https://raw.githubusercontent.com/FrankvdStam/SoulSplitter/main/";
+    public string UpdateURL => "https://raw.githubusercontent.com/FrankvdStam/SoulSplitter/release/";
 
     public Version Version => VersionHelper.Version;
 
