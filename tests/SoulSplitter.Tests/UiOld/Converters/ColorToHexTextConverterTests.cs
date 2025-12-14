@@ -17,9 +17,9 @@
 using System;
 using System.Windows.Media;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulSplitter.Ui.Converters;
+using SoulSplitter.Plugin.Ui.Converters;
 
-namespace SoulSplitter.Tests.UI.Converters
+namespace SoulSplitter.Plugin.Tests.UiOld.Converters
 {
     [TestClass]
     public class ColorToHexTextConverterTests

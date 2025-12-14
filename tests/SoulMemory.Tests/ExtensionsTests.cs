@@ -18,7 +18,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Xml;
 
-namespace SoulMemory.Tests;
+namespace SoulSplitter.SoulMemory.Tests;
 
 [TestClass]
 public class ExtensionsTests

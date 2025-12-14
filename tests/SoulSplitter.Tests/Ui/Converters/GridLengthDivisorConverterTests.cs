@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulSplitter.Ui.Converters;
+using SoulSplitter.Plugin.Ui.Converters;
 
-namespace SoulSplitter.Tests.Ui.Converters
+namespace SoulSplitter.Plugin.Tests.Ui.Converters
 {
     [TestClass]
     public class GridLengthDivisorConverterTests

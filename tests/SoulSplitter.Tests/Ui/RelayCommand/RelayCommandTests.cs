@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SoulSplitter.Tests.Ui.RelayCommand
+namespace SoulSplitter.Plugin.Tests.Ui.RelayCommand
 {
     [TestClass]
     public class RelayCommandTests
@@ -8,7 +8,7 @@ namespace SoulSplitter.Tests.Ui.RelayCommand
         [TestMethod]
         public void RelayCommand_Can_Execute_Null_Should_Be_True()
         {
-            var relayCommand = new SoulSplitter.Ui.RelayCommand((p) => { });
+            var relayCommand = new SoulSplitter.Plugin.Ui.RelayCommand((p) => { });
             Assert.IsTrue(relayCommand.CanExecute(null));
             Assert.IsTrue(relayCommand.CanExecute(new object()));
         }
@@ -18,7 +18,7 @@ namespace SoulSplitter.Tests.Ui.RelayCommand
         {
             var parameter = new object();
             var canExecuteCalled = false;
-            var relayCommand = new SoulSplitter.Ui.RelayCommand((p) => { }, (p) =>
+            var relayCommand = new SoulSplitter.Plugin.Ui.RelayCommand((p) => { }, (p) =>
             {
                 canExecuteCalled = true;
                 Assert.AreEqual(parameter, p);
@@ -33,7 +33,7 @@ namespace SoulSplitter.Tests.Ui.RelayCommand
         {
             var parameter = new object();
             var executeCalled = false;
-            var relayCommand = new SoulSplitter.Ui.RelayCommand(
+            var relayCommand = new SoulSplitter.Plugin.Ui.RelayCommand(
                 (p) =>
                 {
                     executeCalled = true;

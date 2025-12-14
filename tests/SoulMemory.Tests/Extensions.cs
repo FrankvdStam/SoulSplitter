@@ -16,7 +16,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SoulMemory.Tests;
+namespace SoulSplitter.SoulMemory.Tests;
 
 public static class Extensions
 {

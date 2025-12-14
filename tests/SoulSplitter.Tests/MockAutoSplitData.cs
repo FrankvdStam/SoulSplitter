@@ -16,7 +16,7 @@
 
 //using SoulSplitter.Splits.DarkSouls1;
 //using SoulSplitter.Tests.UI;
-//using SoulSplitter.UiOld.Generic;
+//using SoulSplitter.Plugin.UiOld.Generic;
 //using System.Collections.Generic;
 
 //namespace SoulSplitter.Tests
@@ -79,7 +79,7 @@
 
 //        private static void AddDarkSouls1Split(object viewModel, TimingType timingType, SplitType splitType, object split)
 //        {
-//            var darkSouls1ViewModel = (SoulSplitter.UiOld.DarkSouls1.DarkSouls1ViewModel)viewModel;
+//            var darkSouls1ViewModel = (SoulSplitter.Plugin.UiOld.DarkSouls1.DarkSouls1ViewModel)viewModel;
 //            darkSouls1ViewModel.NewSplitTimingType = timingType;
 //            darkSouls1ViewModel.NewSplitType = splitType;
 

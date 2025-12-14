@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulMemory.Games.DarkSouls1;
-using SoulSplitter.Resources;
-using SoulSplitter.Ui.ViewModels;
+using SoulSplitter.Plugin.Resources;
+using SoulSplitter.Plugin.Ui.ViewModels;
+using SoulSplitter.SoulMemory.Games.DarkSouls1;
 
-namespace SoulSplitter.Tests.Ui.View.SplitControls
+namespace SoulSplitter.Plugin.Tests.Ui.View.SplitControls
 {
     [TestClass]
     public class EventFlagViewModelTests

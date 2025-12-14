@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulSplitter.Resources;
-using SoulSplitter.Ui.Converters;
 using System.Globalization;
 using System;
-using SoulMemory.Enums;
+using SoulSplitter.Plugin.Resources;
+using SoulSplitter.SoulMemory.Enums;
+using SoulSplitter.Plugin.Ui.Converters;
 
-namespace SoulSplitter.Tests.Ui.Converters
+namespace SoulSplitter.Plugin.Tests.Ui.Converters
 {
     [TestClass]
     public class EnumLanguageConverterTests

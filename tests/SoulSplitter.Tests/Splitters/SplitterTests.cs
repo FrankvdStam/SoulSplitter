@@ -18,8 +18,8 @@
 //using SoulMemory;
 //using SoulMemory.Games.DarkSouls1;
 //using SoulSplitter.Splitters;
-//using SoulSplitter.UiOld;
-//using SoulSplitter.UiOld.Generic;
+//using SoulSplitter.Plugin.UiOld;
+//using SoulSplitter.Plugin.UiOld.Generic;
 //using System;
 //using System.Linq;
 //using Microsoft.VisualStudio.TestTools.UnitTesting;

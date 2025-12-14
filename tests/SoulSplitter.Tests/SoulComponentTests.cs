@@ -16,7 +16,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SoulSplitter.Tests
+namespace SoulSplitter.Plugin.Tests
 {
     [TestClass]
     //[Apartment(ApartmentState.STA)]

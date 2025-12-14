@@ -1,4 +1,4 @@
-﻿namespace SoulSplitter.Tests.DependencyInjection
+﻿namespace SoulSplitter.Plugin.Tests.DependencyInjection
 {
     public interface ILogger
     {

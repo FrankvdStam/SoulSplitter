@@ -23,11 +23,11 @@ using LiveSplit.Options;
 using LiveSplit.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulSplitter.Abstractions;
-using SoulSplitter.Timer;
+using SoulSplitter.Plugin.Abstractions;
+using SoulSplitter.Plugin.Timer;
 using LayoutSettings = LiveSplit.Options.LayoutSettings;
 
-namespace SoulSplitter.Tests
+namespace SoulSplitter.Plugin.Tests
 {
     [TestClass]
     public class TimerAdapterTests

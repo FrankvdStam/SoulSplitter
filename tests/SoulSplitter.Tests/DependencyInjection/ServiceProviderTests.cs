@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulSplitter.DependencyInjection;
+using SoulSplitter.Plugin.DependencyInjection;
 
-namespace SoulSplitter.Tests.DependencyInjection
+namespace SoulSplitter.Plugin.Tests.DependencyInjection
 {
     [TestClass]
     public class ServiceProviderTests

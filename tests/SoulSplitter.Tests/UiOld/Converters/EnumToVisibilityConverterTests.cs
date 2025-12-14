@@ -17,7 +17,7 @@
 //using System;
 //using System.Linq;
 //using System.Windows;
-//using SoulSplitter.Ui.Converters;
+//using SoulSplitter.Plugin.Ui.Converters;
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 

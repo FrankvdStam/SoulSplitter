@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulMemory.Enums;
-using SoulSplitter.Resources;
-using SoulSplitter.Ui.ViewModels.MainViewModel;
+using SoulSplitter.Plugin.Resources;
+using SoulSplitter.SoulMemory.Enums;
+using SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
 
-namespace SoulSplitter.Tests.Ui.ViewModel
+namespace SoulSplitter.Plugin.Tests.Ui.ViewModel
 {
     [TestClass]
     public class MainViewModelTests

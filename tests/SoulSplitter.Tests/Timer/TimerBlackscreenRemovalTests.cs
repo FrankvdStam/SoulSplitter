@@ -18,8 +18,8 @@
 //using Moq;
 //using SoulMemory;
 //using SoulMemory.Abstractions.Games;
-//using SoulSplitter.Resources;
-//using SoulSplitter.Ui.ViewModels.MainViewModel;
+//using SoulSplitter.Plugin.Resources;
+//using SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
 //
 //namespace SoulSplitter.Tests.Timer
 //{

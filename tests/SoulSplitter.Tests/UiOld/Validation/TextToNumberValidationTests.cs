@@ -14,12 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulSplitter.Ui.Validation;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SoulSplitter.Plugin.Ui.Validation;
 
-namespace SoulSplitter.Tests.UI.Validation
+namespace SoulSplitter.Plugin.Tests.UiOld.Validation
 {
     [TestClass]
     public class TextToNumberValidationTests

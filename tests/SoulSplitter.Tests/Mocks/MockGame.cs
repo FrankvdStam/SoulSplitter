@@ -17,11 +17,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using SoulMemory;
-using SoulMemory.Abstractions;
-using SoulMemory.Memory;
+using SoulSplitter.SoulMemory;
+using SoulSplitter.SoulMemory.Abstractions;
+using SoulSplitter.SoulMemory.Memory;
 
-namespace SoulSplitter.Tests.Mocks
+namespace SoulSplitter.Plugin.Tests.Mocks
 {
     public class MockGame : IGame
     {

@@ -16,13 +16,14 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulMemory.Games.ArmoredCore6;
-using SoulMemory.MemoryV2.Memory;
-using SoulMemory.MemoryV2.PointerTreeBuilder;
-using SoulMemory.MemoryV2.Process;
-using SoulMemory.Tests.Mocks;
+using SoulSplitter.SoulMemory.Games.ArmoredCore6;
+using SoulSplitter.SoulMemory.MemoryV2.PointerTreeBuilder;
+using SoulSplitter.SoulMemory.MemoryV2.Process;
+using static SoulSplitter.SoulMemory.MemoryV2.Memory.MemoryExtensions;
+using SoulSplitter.SoulMemory.MemoryV2;
+using SoulSplitter.SoulMemory.Tests.Mocks;
 
-namespace SoulMemory.Tests;
+namespace SoulSplitter.SoulMemory.Tests;
 
 [TestClass]
 public class ArmoredCore6Tests
@@ -63,7 +64,7 @@ public class ArmoredCore6Tests
     {
         var mock = new ProcessHookMock();
         mock.SetPointer("FD4Time", 0, 0x7FF46F5C04B0);
-        
+
         var ac6 = new ArmoredCore6(mock);
         Assert.IsTrue(ac6.TryRefresh().IsOk);
 

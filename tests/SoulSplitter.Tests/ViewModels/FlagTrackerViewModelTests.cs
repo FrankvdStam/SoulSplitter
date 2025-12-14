@@ -16,10 +16,10 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulSplitter.Tests.Mocks;
-using SoulSplitter.Ui.ViewModels;
+using SoulSplitter.Plugin.Tests.Mocks;
+using SoulSplitter.Plugin.Ui.ViewModels;
 
-namespace SoulSplitter.Tests.ViewModels
+namespace SoulSplitter.Plugin.Tests.ViewModels
 {
     [TestClass]
     public class FlagTrackerViewModelTests

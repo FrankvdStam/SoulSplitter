@@ -1,15 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulMemory;
-using SoulMemory.Enums;
-using SoulMemory.Games.Sekiro;
-using SoulSplitter.DependencyInjection;
-using SoulSplitter.Resources;
-using SoulSplitter.Ui.ViewModels;
-using SoulSplitter.Ui.ViewModels.MainViewModel;
-using Attribute = SoulMemory.Games.Sekiro.Attribute;
+using SoulSplitter.Plugin.DependencyInjection;
+using SoulSplitter.Plugin.Resources;
+using SoulSplitter.Plugin.Ui.ViewModels;
+using SoulSplitter.SoulMemory.Enums;
+using SoulSplitter.SoulMemory.Games.Sekiro;
+using SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
+using Attribute = SoulSplitter.SoulMemory.Games.Sekiro.Attribute;
+using SoulSplitter.SoulMemory;
 
-namespace SoulSplitter.Tests
+namespace SoulSplitter.Plugin.Tests
 {
     [TestClass]
     public class SerializationTests

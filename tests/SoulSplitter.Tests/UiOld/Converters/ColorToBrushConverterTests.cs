@@ -17,9 +17,9 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Windows.Media;
-using SoulSplitter.Ui.Converters;
+using SoulSplitter.Plugin.Ui.Converters;
 
-namespace SoulSplitter.Tests.Ui.Converters
+namespace SoulSplitter.Plugin.Tests.UiOld.Converters
 {
     [TestClass]
     public class ColorToBrushConverterTests

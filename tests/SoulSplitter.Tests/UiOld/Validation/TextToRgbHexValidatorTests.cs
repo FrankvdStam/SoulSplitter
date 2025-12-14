@@ -15,9 +15,9 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulSplitter.Ui.Validation;
+using SoulSplitter.Plugin.Ui.Validation;
 
-namespace SoulSplitter.Tests.UI.Validation
+namespace SoulSplitter.Plugin.Tests.UiOld.Validation
 {
     [TestClass]
     public class TextToRgbHexValidatorTests

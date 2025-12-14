@@ -16,10 +16,10 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulMemory.Enums;
-using SoulSplitter.Ui.Converters;
+using SoulSplitter.Plugin.Ui.Converters;
+using SoulSplitter.SoulMemory.Enums;
 
-namespace SoulSplitter.Tests.UI.Converters
+namespace SoulSplitter.Plugin.Tests.UiOld.Converters
 {
     [TestClass]
     public class GameToSelectedIndexConverterTests

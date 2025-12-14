@@ -2,12 +2,12 @@
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulMemory.Enums;
-using SoulMemory.Games.DarkSouls1;
-using SoulSplitter.Resources;
-using SoulSplitter.Ui.Converters;
+using SoulSplitter.Plugin.Resources;
+using SoulSplitter.Plugin.Ui.Converters;
+using SoulSplitter.SoulMemory.Enums;
+using SoulSplitter.SoulMemory.Games.DarkSouls1;
 
-namespace SoulSplitter.Tests.Ui.Converters
+namespace SoulSplitter.Plugin.Tests.Ui.Converters
 {
     [TestClass]
     public class EnumEventFlagConverterTests

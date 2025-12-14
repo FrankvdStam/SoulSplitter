@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using SoulSplitter.Resources;
 using System.IO.Packaging;
 using System.Windows;
-using SoulMemory.Enums;
+using SoulSplitter.Plugin.Resources;
+using SoulSplitter.SoulMemory.Enums;
 
-namespace SoulSplitter.Tests.Resources
+namespace SoulSplitter.Plugin.Tests.Resources
 {
     [TestClass]
     public class LanguageManagerTests
@@ -30,7 +30,7 @@ namespace SoulSplitter.Tests.Resources
             
         
             var languageDictionary = new ResourceDictionary();
-            languageDictionary.Source = new Uri($"pack://application:,,,/SoulSplitter;component/Resources/{Language.English}/Language.xaml", UriKind.RelativeOrAbsolute);
+            languageDictionary.Source = new Uri($"pack://application:,,,/SoulSplitter.Plugin;component/Resources/{Language.English}/Language.xaml", UriKind.RelativeOrAbsolute);
             Application.Current.Resources.MergedDictionaries.Add(languageDictionary);
         
             ILanguageManager languageManager = new LanguageManager();
