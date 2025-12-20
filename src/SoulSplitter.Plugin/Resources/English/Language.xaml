@@ -6,6 +6,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter.Plugin;component/Resources/English/Ui/Ui.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/SoulSplitter.Plugin;component/Resources/English/Ui/HotkeyAction.xaml" />
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter.Plugin;component/Resources/English/Ui/Game.xaml" />
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter.Plugin;component/Resources/English/Ui/SplitType.xaml" />
         <ResourceDictionary Source="pack://application:,,,/SoulSplitter.Plugin;component/Resources/English/Ui/TimingType.xaml" />

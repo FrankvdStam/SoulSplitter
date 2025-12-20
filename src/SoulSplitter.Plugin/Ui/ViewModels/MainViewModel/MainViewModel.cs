@@ -55,6 +55,9 @@ public partial class MainViewModel
         CommandImportSettingsFromFile = new RelayCommand(ImportSettings);
         CommandExportSettingsFromFile = new RelayCommand(ExportSettings);
         DisableCutscenesCommand = new RelayCommand(DisableCutscenes);
+        CommandHotkeyCompleted = new RelayCommand(HotkeyCompleted);
+        CommandAddHotkey = new RelayCommand(AddHotkey, CanAddHotkey);
+        CommandRemoveHotkey = new RelayCommand(RemoveHotkey, CanRemoveHotkey);
 
         Splits.CollectionChanged += OnSplitsChanged;
     }

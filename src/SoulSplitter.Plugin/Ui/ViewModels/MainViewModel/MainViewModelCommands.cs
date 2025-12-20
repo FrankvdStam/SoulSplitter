@@ -211,5 +211,12 @@ namespace SoulSplitter.Plugin.Ui.ViewModels.MainViewModel
         }
 
         #endregion
+
+        #region Hotkeys ========================================================================================
+        public RelayCommand CommandHotkeyCompleted { get; set; }
+        public RelayCommand CommandAddHotkey { get; set; }
+        public RelayCommand CommandRemoveHotkey { get; set; }
+
+        #endregion
     }
 }

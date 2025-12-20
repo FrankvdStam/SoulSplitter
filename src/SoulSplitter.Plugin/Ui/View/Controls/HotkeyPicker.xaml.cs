@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulSplitter.Plugin.Ui;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -35,11 +35,20 @@ namespace SoulSplitter.Plugin.Ui.View.Controls
             public Key Key;
         }
 
-        public RelayCommand HotkeyCompletedCommand { get; set; } = null!;
+        public static readonly DependencyProperty CommandHotkeyCompletedDependencyProperty =
+            DependencyProperty.Register(nameof(CommandHotkeyCompleted), typeof(RelayCommand), typeof(HotkeyPicker),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
+
+        public RelayCommand CommandHotkeyCompleted 
+        {
+            get => (RelayCommand)GetValue(CommandHotkeyCompletedDependencyProperty);
+            set => SetValue(CommandHotkeyCompletedDependencyProperty, value); 
+        }
 
         private bool _isActive = false;
-        private ModifierKeys _modifierKeys = ModifierKeys.None;
-        private Key _key = Key.None;
+        private ModifierKeys _modifierKeys;
+        private Key _key;
+
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (_isActive)
@@ -70,7 +79,7 @@ namespace SoulSplitter.Plugin.Ui.View.Controls
                         textBox.Text += e.Key;
                         _key = e.Key;
 
-                        HotkeyCompletedCommand?.Execute(new HotkeyCompletedParameter
+                        CommandHotkeyCompleted?.Execute(new HotkeyCompletedParameter
                         {
                             Sender = this,
                             Key = _key,

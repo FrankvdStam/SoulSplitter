@@ -522,59 +522,69 @@
                         Content="Disable cutscenes in Sekiro"
                         Command="{Binding DisableCutscenesCommand}"/>
 
+                    <Separator/>
+
+                    <Label Content="Hotkeys"/>
+
+                    <DataGrid
+                        ItemsSource="{Binding Hotkeys}"
+                        IsReadOnly="True"
+                        CanUserSortColumns="False"
+                        AutoGenerateColumns="False"
+                        VerticalScrollBarVisibility="Visible"
+                        SelectedItem="{Binding SelectedHotkey}"
+                        SelectionUnit="FullRow"
+                        SelectionMode="Single"
+                        ui:DataGridDragAndDropHelper.EnableRowReordering="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Key" Binding="{Binding Hotkey}"/>
+                            <DataGridTextColumn Header="Action" Binding="{Binding HotkeyAction, Converter={StaticResource EnumLanguageConverter}}"/>
+                            <DataGridTextColumn Header="Parameter" Binding="{Binding Parameter}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel
+                         Orientation="Horizontal"
+                         Grid.Row="5"
+                         Margin="5, 5, 5, 5">
+
+                        <controls:HotkeyPicker
+                            CommandHotkeyCompleted="{Binding CommandHotkeyCompleted}"/>
+
+                        <controls:EnumListControl
+                            SelectedValue="{Binding SelectedHotkeyAction}" 
+                            EnumType="viewModels:HotkeyAction"/>
+
+                        <TextBox 
+                            Text="{Binding SelectedFpsPatchValue}"/>
+
+                        <!-- Add button -->
+                        <Button
+                             Margin="5"
+                             Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                             HorizontalAlignment="Left"
+                             Command="{Binding CommandAddHotkey}">
+                            <materialDesign:PackIcon
+                                 Kind="Plus"
+                                 Height="30"
+                                 Width="30" />
+                        </Button>
+
+                        <!-- Remove button -->
+                        <Button
+                             Margin="5"
+                             Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                             HorizontalAlignment="Left"
+                             Command="{Binding CommandRemoveHotkey}">
+                            <materialDesign:PackIcon
+                                 Kind="Minus"
+                                 Height="30"
+                                 Width="30" />
+                        </Button>
+                    </StackPanel>
+
                 </StackPanel>
             </TabItem>
-
-            <!-- 
-            <TabItem Header ="Hotkeys">
-                <ItemsControl 
-                    ItemsSource="{Binding Hotkeys}"
-                    Grid.Row="3">
-
-                    <ItemsControl.Resources>
-                        <DataTemplate 
-                            x:Key="RemoveFpsPatchDataTemplate" 
-                            DataType="{x:Type eldenRing:FpsPatchHotkey}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <TextBox Grid.Column="0" Text="{Binding Hotkey, Converter={StaticResource HotkeyToStringConverter} }"/>
-                                <TextBox Grid.Column="1" Text="Remove FPS patch"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.Resources>
-
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-
-                            <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding Action}" Value="{x:Static eldenRing:FpsPatchHotkeyAction.RemoveFpsPatch}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource RemoveFpsPatchDataTemplate}"/>
-                                </DataTrigger>
-                            </DataTemplate.Triggers>
-
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <TextBox Grid.Column="0" Text="{Binding Hotkey, Converter={StaticResource HotkeyToStringConverter} }"/>
-                                <TextBox Grid.Column="1" Text="{Binding Fps}"/>
-
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-
-
-                </ItemsControl>
-            </TabItem>
-            -->
-            
         </TabControl>
     </Grid>
 </Window>

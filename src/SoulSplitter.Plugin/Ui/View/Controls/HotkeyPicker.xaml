@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mainViewModel="clr-namespace:SoulSplitter.Plugin.Ui.ViewModels.MainViewModel"
-             xmlns:converters="clr-namespace:SoulSplitter.Plugin.Ui.Converters" xmlns:view="clr-namespace:SoulSplitter.Plugin.Ui.View"
+             xmlns:converters="clr-namespace:SoulSplitter.Plugin.Ui.Converters"
+             xmlns:view="clr-namespace:SoulSplitter.Plugin.Ui.View"
              xmlns:resources="clr-namespace:SoulSplitter.Plugin.Resources"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance mainViewModel:MainViewModel, IsDesignTimeCreatable=True}">
@@ -28,5 +29,7 @@
         IsReadOnly="True"
         PreviewMouseDown="OnPreviewMouseDown"
         PreviewKeyDown="OnPreviewKeyDown"
-        PreviewLostKeyboardFocus="OnPreviewLostKeyboardFocus"/>
+        PreviewLostKeyboardFocus="OnPreviewLostKeyboardFocus"
+        materialDesign:HintAssist.HelperText="Click and press key to assign a hotkey"
+        MinWidth="180"/>
 </UserControl>

@@ -49,7 +49,7 @@ namespace SoulSplitter.cli
         [STAThread]
         private static void Main(string[] args)
         {
-            ValidatePatterns();
+            //ValidatePatterns();
 
 
             TestUi();

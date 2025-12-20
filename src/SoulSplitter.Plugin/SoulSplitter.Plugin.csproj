@@ -23,6 +23,9 @@
         <PackageIcon>../../Resources/soulsplitter.png</PackageIcon>
         <Platforms>x64</Platforms>
     </PropertyGroup>
+    <ItemGroup>
+      <Page Remove="Resources\English\Ui\HotkeyAction.xaml" />
+    </ItemGroup>
    
     <ItemGroup>
         <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
@@ -86,6 +89,9 @@
         <Resource Include="Resources\English\Sekiro\Attribute.xaml" />
         <Resource Include="Resources\English\Sekiro\Boss.xaml" />
         <Resource Include="Resources\English\Sekiro\Idol.xaml" />
+        <Resource Include="Resources\English\Ui\HotkeyAction.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Resource>
         <Resource Include="Resources\English\Ui\Game.xaml" />
         <Resource Include="Resources\English\Ui\SplitType.xaml" />
         <Resource Include="Resources\English\Ui\Ui.xaml" />

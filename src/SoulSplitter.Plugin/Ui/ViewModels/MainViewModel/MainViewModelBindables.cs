@@ -142,7 +142,6 @@ public partial class MainViewModel
         set => SetField(ref _dropModType, value);
     }
     private DropModType _dropModType = DropModType.None;
-
     public DarkSouls1BonfireViewModel? DarkSouls1BonfireViewModel
     {
         get => _darkSouls1BonfireViewModel;

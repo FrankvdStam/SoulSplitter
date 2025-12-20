@@ -14,23 +14,39 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Windows.Input;
+using SoulSplitter.Plugin.Hotkeys;
 
-namespace SoulSplitter.Plugin.Hotkeys
+namespace SoulSplitter.Plugin.Ui.ViewModels
 {
-    public class Hotkey
+    public enum HotkeyAction
     {
-        public ModifierKeys Modifiers { get; set; } = ModifierKeys.None;
-        public Key Key { get; set; }
+        FpsPatchDisable,
+        FpsPatchSetFpsValue,
+    }
 
-
-        public override string ToString()
+    public class HotkeyViewModel : NotifyPropertyChanged
+    {
+        public Hotkey Hotkey
         {
-            if(Modifiers == ModifierKeys.None)
-            {
-                return Key.ToString();
-            }
-            return $"{Modifiers} + {Key}";
+            get => _hotkey;
+            set => SetField(ref _hotkey, value);
         }
+        private Hotkey _hotkey = null!;
+
+        public HotkeyAction HotkeyAction
+        {
+            get => _hotkeyAction;
+            set => SetField(ref _hotkeyAction, value);
+        }
+        private HotkeyAction _hotkeyAction;
+
+        public object? Parameter
+        {
+            get => _parameter;
+            set => SetField(ref _parameter, value);
+        }
+        private object? _parameter = null;
+
+        public int? Id;
     }
 }
