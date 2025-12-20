@@ -18,18 +18,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{622B105C-C5BF-49B3-BEBD-FC5845B27CA0}"
 	ProjectSection(SolutionItems) = preProject
-		Components\launcher_x64.exe = Components\launcher_x64.exe
-		Components\launcher_x86.exe = Components\launcher_x86.exe
 		Components\MaterialDesignColors.dll = Components\MaterialDesignColors.dll
 		Components\MaterialDesignThemes.Wpf.dll = Components\MaterialDesignThemes.Wpf.dll
 		Components\MaterialDesignThemes.Wpf.xml = Components\MaterialDesignThemes.Wpf.xml
 		Components\Microsoft.Xaml.Behaviors.dll = Components\Microsoft.Xaml.Behaviors.dll
-		Components\SoulMemory.dll = Components\SoulMemory.dll
-		Components\soulmemory_rs_x64.dll = Components\soulmemory_rs_x64.dll
-		Components\soulmemory_rs_x86.dll = Components\soulmemory_rs_x86.dll
-		Components\soulmods_x64.dll = Components\soulmods_x64.dll
-		Components\soulmods_x86.dll = Components\soulmods_x86.dll
-		Components\SoulSplitter.dll = Components\SoulSplitter.dll
+		Components\SoulSplitter.Plugin.dll = Components\SoulSplitter.Plugin.dll
+		Components\soulsplitter.soulmemory-rs.launcher.x64.exe = Components\soulsplitter.soulmemory-rs.launcher.x64.exe
+		Components\soulsplitter.soulmemory-rs.launcher.x86.exe = Components\soulsplitter.soulmemory-rs.launcher.x86.exe
+		Components\SoulSplitter.SoulMemory.dll = Components\SoulSplitter.SoulMemory.dll
+		Components\soulsplitter.soulmemory_rs.x64.dll = Components\soulsplitter.soulmemory_rs.x64.dll
+		Components\soulsplitter.soulmemory_rs.x86.dll = Components\soulsplitter.soulmemory_rs.x86.dll
+		Components\soulsplitter.soulmods.x64.dll = Components\soulsplitter.soulmods.x64.dll
+		Components\soulsplitter.soulmods.x86.dll = Components\soulsplitter.soulmods.x86.dll
 		Components\Updates.xml = Components\Updates.xml
 	EndProjectSection
 EndProject
