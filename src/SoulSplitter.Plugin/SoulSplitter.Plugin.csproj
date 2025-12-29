@@ -156,7 +156,7 @@
 
     <Target Name="Copy debug artifacts to livesplit's debug folder" AfterTargets="Build" Condition="$(SolutionName) == 'LiveSplit'">
         <Message Text="Copy files to livesplit dir" Importance="high" />
-        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulSplitter.Plugin.dll.dll" />
+        <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulSplitter.Plugin.dll" />
         <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\SoulSplitter.SoulMemory.dll" />
         <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignColors.dll" />
         <Copy DestinationFolder="..\..\..\LiveSplit\bin\Debug\Components" SourceFiles="$(OutputPath)\MaterialDesignThemes.Wpf.dll" />

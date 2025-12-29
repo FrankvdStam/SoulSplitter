@@ -52,11 +52,13 @@ namespace SoulSplitter.cli
             //ValidatePatterns();
 
 
-            TestUi();
+            DropModBkh();
             return;
+            //TestUi();
+            //return;
 
 
-            GameLoop<DarkSouls3>((g) =>
+            GameLoop<DarkSouls1>((g) =>
             {
                 var time = TimeSpan.FromMilliseconds(g.ReadInGameTimeMilliseconds());
                 Console.WriteLine(time);

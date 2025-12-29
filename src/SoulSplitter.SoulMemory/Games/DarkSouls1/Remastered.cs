@@ -552,11 +552,20 @@ public class Remastered : IDarkSouls1
 
         var dataOffset = weaponDescriptionsPointer.ReadInt32(0x14);
         var textOffset = weaponDescriptionsPointer.ReadInt32(dataOffset + weaponDescription.DataOffset * 4);
-        weaponDescriptionsPointer.ReadUnicodeString(out var length, offset: textOffset);
 
+        //the buffer in the game, depending on what language is used, may not fit the whole text.
+        //hence we use the length that can be read from the game
+        weaponDescriptionsPointer.ReadUnicodeString(out var length, offset: textOffset);
         var buffer = Encoding.Unicode.GetBytes(description);
         var bytes = new byte[length];
-        Array.Copy(buffer, bytes, buffer.Length);
+
+        Array.Copy(buffer, bytes, length);
+        //if the buffer fits, the end bytes with be 0x00, which terminates the string in unicode
+        //if the buffer does not fit, it may not, and then the weapon description of the next item may show up after the current description
+        //Explicitly setting them to 0 fixes that. Length < 2 may cause issues.
+        bytes[length - 1] = 0;
+        bytes[length - 2] = 0;
+
         weaponDescriptionsPointer.WriteBytes(textOffset, bytes);
     }
 }
