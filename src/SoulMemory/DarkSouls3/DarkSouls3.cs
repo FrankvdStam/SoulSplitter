@@ -17,6 +17,7 @@
 using System;
 using System.Diagnostics;
 using SoulMemory.Memory;
+using SoulMemory.Native;
 using Pointer = SoulMemory.Memory.Pointer;
 
 namespace SoulMemory.DarkSouls3;
@@ -33,6 +34,7 @@ public class DarkSouls3 : IGame
     private readonly Pointer _sprjEventFlagMan = new();
     private readonly Pointer _fieldArea = new();
     private readonly Pointer _sprjChrPhysicsModule = new();
+    private readonly Pointer _noLogo = new();
     private long _igtOffset;
 
     public Process? GetProcess() => _process;
@@ -71,6 +73,10 @@ public class DarkSouls3 : IGame
             .ScanRelative("FieldArea", "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10", 3, 7)
                 .AddPointer(_fieldArea);
 
+        treeBuilder
+            .ScanAbsolute("NoLogo", "89 75 c7 40 38 75 77 ? ? 48 89 31", 7)
+                .AddPointer(_noLogo);
+
         return treeBuilder;
     }
 
@@ -95,7 +101,12 @@ public class DarkSouls3 : IGame
             };
 
             var treeBuilder = GetTreeBuilder();
-            return MemoryScanner.TryResolvePointers(treeBuilder, _process);
+            var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
+            if (result.IsOk)
+            {
+                ApplyNoLogo();
+            }
+            return result;
         }
         catch (Exception e)
         {
@@ -113,6 +124,7 @@ public class DarkSouls3 : IGame
         _sprjEventFlagMan.Clear();
         _fieldArea.Clear();
         _sprjChrPhysicsModule.Clear();
+        _noLogo.Clear();
     }
 
 
@@ -171,6 +183,13 @@ public class DarkSouls3 : IGame
             _sprjChrPhysicsModule.ReadFloat(0x84),
             _sprjChrPhysicsModule.ReadFloat(0x88)
         );
+    }
+
+    private void ApplyNoLogo()
+    {
+        _process!.NtSuspendProcess();
+        _noLogo.WriteBytes(null, [0x90, 0x90]);
+        _process!.NtResumeProcess();
     }
 
     #region Read attributes
