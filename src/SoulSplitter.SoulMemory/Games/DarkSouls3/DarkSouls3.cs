@@ -14,10 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Diagnostics;
 using SoulSplitter.SoulMemory.Abstractions.Games;
 using SoulSplitter.SoulMemory.Memory;
+using SoulSplitter.SoulMemory.Native;
+using System;
+using System.Diagnostics;
 using Pointer = SoulSplitter.SoulMemory.Memory.Pointer;
 
 namespace SoulSplitter.SoulMemory.Games.DarkSouls3;
@@ -34,6 +35,7 @@ public class DarkSouls3 : IDarkSouls3
     private readonly Pointer _sprjEventFlagMan = new();
     private readonly Pointer _fieldArea = new();
     private readonly Pointer _sprjChrPhysicsModule = new();
+    private readonly Pointer _noLogo = new();
     private long _igtOffset;
 
     public Process? GetProcess() => _process;
@@ -72,18 +74,9 @@ public class DarkSouls3 : IDarkSouls3
             .ScanRelative("FieldArea", "4c 8b 3d ? ? ? ? 8b 45 87 83 f8 ff 74 69 48 8d 4d 8f 48 89 4d 9f 89 45 8f 48 8d 55 8f 49 8b 4f 10", 3, 7)
                 .AddPointer(_fieldArea);
 
-        //treeBuilder
-        //    .ScanAbsolute("SetTargetFrameDelta start", "E8 ? ? ? ? 48 8B 05 ? ? ? ? 48 85 C0 75 ? 4C 8D 0D ? ? ? ? 4C 8D 05 ? ? ? ? BA", 0)
-        //    .AddPointer(_fieldArea);
-
-        //treeBuilder
-        //    .ScanAbsolute("emevd", "48 83 ec 28 49 8b 80 b0 00 00 00 b2 01 44 8b 08", 0)
-        //        .AddPointer(_fieldArea);
-
-        //treeBuilder
-        //    .ScanAbsolute("migt", "f3 48 0f 2c c0 01 81 ? 00 00 00 48 8b 05 ? ? ? ? 81 b8 ? 00 00 00 18 a0 93 d6", 0)
-        //    .AddPointer(_fieldArea);
-
+        treeBuilder
+            .ScanAbsolute("NoLogo", "89 75 c7 40 38 75 77 ? ? 48 89 31", 7)
+                .AddPointer(_noLogo);
 
         return treeBuilder;
     }
@@ -113,14 +106,15 @@ public class DarkSouls3 : IDarkSouls3
             {
                 return scanResult;
             }
-            
+
+            ApplyNoLogo();
+
             var injectResult = soulmods.Soulmods.Inject(_process!);
             if (injectResult.IsErr)
             {
                 ResetPointers();
                 return Result.Err(new RefreshError(RefreshErrorReason.ModLoadFailed, "soulmods injection failed"));
             }
-
             return Result.Ok();
         }
         catch (Exception e)
@@ -139,6 +133,7 @@ public class DarkSouls3 : IDarkSouls3
         _sprjEventFlagMan.Clear();
         _fieldArea.Clear();
         _sprjChrPhysicsModule.Clear();
+        _noLogo.Clear();
     }
 
     public enum DarkSouls3Version
@@ -193,6 +188,13 @@ public class DarkSouls3 : IDarkSouls3
             _sprjChrPhysicsModule.ReadFloat(0x84),
             _sprjChrPhysicsModule.ReadFloat(0x88)
         );
+    }
+
+    private void ApplyNoLogo()
+    {
+        _process!.NtSuspendProcess();
+        _noLogo.WriteBytes(null, [0x90, 0x90]);
+        _process!.NtResumeProcess();
     }
 
     #region Read attributes
