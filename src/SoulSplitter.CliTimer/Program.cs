@@ -14,12 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulSplitter.Plugin.DependencyInjection;
+using SoulSplitter.Plugin.Resources;
+using SoulSplitter.Plugin.Ui;
+using SoulSplitter.Plugin.Ui.View;
+using SoulSplitter.Plugin.Ui.ViewModels;
+using SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
+using SoulSplitter.SoulMemory.Abstractions.Games;
+using SoulSplitter.SoulMemory.Enums;
 using SoulSplitter.SoulMemory.Games.DarkSouls1;
 using SoulSplitter.SoulMemory.Games.DarkSouls2;
 using SoulSplitter.SoulMemory.Games.DarkSouls3;
 using SoulSplitter.SoulMemory.Games.EldenRing;
 using SoulSplitter.SoulMemory.Games.Sekiro;
 using System;
+using System.Security.Cryptography;
 using System.Threading;
 
 #pragma warning disable CS0162
@@ -28,7 +37,58 @@ namespace SoulSplitter.CliTimer;
 
 internal class Program
 {
-    private static void Main(string[] _)
+    private static void Main(string[] args)
+    {
+        var serviceProvider = GlobalServiceProvider.Instance;
+
+        var mainViewModel = new MainViewModel();
+        mainViewModel.StartAutomatically = true;
+        mainViewModel.Game = serviceProvider.GetService<IEldenRing>();
+        mainViewModel.Splits.Add(new SplitViewModel(Game.EldenRing, TimingType.Immediate, SplitType.Manual, null, ""));
+        var timer = new Plugin.Timer.Timer(serviceProvider, mainViewModel);
+
+        // Set the cursor invisible, because we don't want to see it over the timer
+        Console.CursorVisible = false;
+        var inGameTime = 0;
+        var hadError = false;
+
+
+        timer.OnUpdateTime += (sender, millis) =>
+        {
+            inGameTime = millis;
+        };
+
+        while (true)
+        {
+            // Refresh, display errors if there are any
+            var result = timer.Update();
+            if (result.IsErr)
+            {
+                var err = result.GetErr();
+                Console.WriteLine(err.ToString());
+                Console.SetCursorPosition(0, Console.CursorTop - (int)Math.Ceiling(err.ToString().Length / (float)Console.WindowWidth));
+                hadError = true;
+                continue;
+            }
+            else if (hadError)
+            {
+                Console.Write(new string(' ', Console.BufferWidth));
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+                hadError = false;
+            }
+
+            // Finally format the current time and output it
+            var ts = TimeSpan.FromMilliseconds(inGameTime);
+            Console.WriteLine($"{(int)ts.TotalHours:D2}" + ts.ToString(@"\:mm\:ss\.fff"));
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
+
+            Thread.Sleep(16);
+        }
+        timer.Update();
+    }
+
+
+    private static void Main2(string[] _)
     {
         // Re-enable the cursor and move down a line on CTRL + C, in order to properly clean up timer stuff
         Console.CancelKeyPress += (object _, ConsoleCancelEventArgs _) =>

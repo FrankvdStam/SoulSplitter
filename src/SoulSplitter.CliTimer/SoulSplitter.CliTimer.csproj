@@ -18,6 +18,7 @@
         <SonarQubeExclude>true</SonarQubeExclude>
     </PropertyGroup>
     <ItemGroup>
+      <ProjectReference Include="..\SoulSplitter.Plugin\SoulSplitter.Plugin.csproj" />
       <ProjectReference Include="..\SoulSplitter.SoulMemory\SoulSplitter.SoulMemory.csproj" />
     </ItemGroup>
 </Project>
