@@ -39,6 +39,7 @@ using SoulSplitter.SoulMemory.Games.Bloodborne;
 using SoulSplitter.SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Plugin.Ui.ViewModels;
 using SoulSplitter.SoulMemory;
+using SoulSplitter.SoulMemory.Games.Nightreign;
 
 #pragma warning disable CS0162
 
@@ -49,6 +50,21 @@ namespace SoulSplitter.cli
         [STAThread]
         private static void Main(string[] args)
         {
+
+            GameLoop<Nightreign>((g) =>
+            {
+                var versionString = g.GetProcess()?.MainModule?.FileVersionInfo.ProductVersion ?? "Read failed";
+                if (!Version.TryParse(versionString, out var v))
+                {
+                    Console.WriteLine($"Failed to read or parse version {versionString}");
+                }
+                else
+                {
+                    Console.WriteLine("version: " + g.GetVersion(v));
+                }
+            });
+
+            return;
             //ValidatePatterns();
 
 

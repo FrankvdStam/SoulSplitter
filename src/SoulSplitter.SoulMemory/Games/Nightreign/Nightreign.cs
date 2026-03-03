@@ -14,10 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Diagnostics;
 using SoulSplitter.SoulMemory.Abstractions.Games;
 using SoulSplitter.SoulMemory.Memory;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using static SoulSplitter.SoulMemory.Games.EldenRing.EldenRing;
 
 namespace SoulSplitter.SoulMemory.Games.Nightreign
 {
@@ -27,6 +30,64 @@ namespace SoulSplitter.SoulMemory.Games.Nightreign
         private readonly Pointer _igt = new();
         private readonly Pointer _eventFlagMan = new();
 
+        private long _igtOffset;
+
+        #region version ================================================================================================
+
+        private readonly List<(NightreignVersion nightreignVersion, Version version)> _versions =
+        [
+            (NightreignVersion.V1_01_0, new Version(1, 1, 0, 0)),
+            (NightreignVersion.V1_01_1, new Version(1, 1, 1, 0)),
+            (NightreignVersion.V1_01_2, new Version(1, 1, 2, 0)),
+            (NightreignVersion.V1_01_3, new Version(1, 1, 3, 0)),
+            (NightreignVersion.V1_01_4, new Version(1, 1, 4, 0)),
+            (NightreignVersion.V1_01_5, new Version(1, 1, 5, 0)),
+
+            (NightreignVersion.V1_02_0, new Version(1, 2, 0, 0)),
+            (NightreignVersion.V1_02_1, new Version(1, 2, 1, 0)),
+            (NightreignVersion.V1_02_2, new Version(1, 2, 2, 0)),
+            (NightreignVersion.V1_02_3, new Version(1, 2, 3, 0)),
+            (NightreignVersion.V1_02_4, new Version(1, 2, 4, 0)),
+
+            (NightreignVersion.V1_03_0, new Version(1, 3, 0, 0)),
+            (NightreignVersion.V1_03_1, new Version(1, 3, 1, 0)),
+            (NightreignVersion.V1_03_2, new Version(1, 3, 2, 0)),
+        ];
+
+        public enum NightreignVersion
+        {
+            V1_01_0,
+            V1_01_1,
+            V1_01_2,
+            V1_01_3,
+            V1_01_4,
+            V1_01_5,
+
+            V1_02_0,
+            V1_02_1,
+            V1_02_2,
+            V1_02_3,
+            V1_02_4,
+
+            V1_03_0,
+            V1_03_1,
+            V1_03_2,
+
+            Unknown
+        };
+
+        public NightreignVersion GetVersion(Version v)
+        {
+            var version = _versions.FirstOrDefault(i => i.version.CompareTo(v) == 0);
+            if (version.version == null)
+            {
+                return NightreignVersion.Unknown;
+            }
+
+            return version.nightreignVersion;
+        }
+
+        #endregion
 
         #region Refresh/init/reset ================================================================================================
         public Process? GetProcess() => _process;
@@ -38,7 +99,7 @@ namespace SoulSplitter.SoulMemory.Games.Nightreign
             var treeBuilder = new TreeBuilder();
             treeBuilder
                 .ScanRelative("GameDataMan", "48 8b 0d ? ? ? ? 4c 8b 89 ? ? ? ? 4d 85 c9", 3, 7)
-                    .AddPointer(_igt, 0, 0xf0);
+                    .AddPointer(_igt, 0, _igtOffset);
 
             treeBuilder
                 .ScanRelative("EventFlagMan", "48 8b 35 ? ? ? ? 0f b6 e8 48 85 f6", 3, 7)
@@ -47,10 +108,46 @@ namespace SoulSplitter.SoulMemory.Games.Nightreign
             return treeBuilder;
         }
 
+        private void InitializeOffsets(Version v)
+        {
+            var version = GetVersion(v);
+            switch (version)
+            {
+                case NightreignVersion.V1_01_0:
+                case NightreignVersion.V1_01_1:
+                case NightreignVersion.V1_01_2:
+                case NightreignVersion.V1_01_3:
+                case NightreignVersion.V1_01_4:
+                case NightreignVersion.V1_01_5:
+                case NightreignVersion.V1_02_0:
+                case NightreignVersion.V1_02_1:
+                case NightreignVersion.V1_02_2:
+                case NightreignVersion.V1_02_3:
+                case NightreignVersion.V1_02_4:
+                    _igtOffset = 0xf0;
+                    break;
+
+                case NightreignVersion.V1_03_0:
+                case NightreignVersion.V1_03_1:
+                case NightreignVersion.V1_03_2:
+                case NightreignVersion.Unknown:
+                    _igtOffset = 0xf8;
+                    break;
+            }
+        }
+
         private ResultErr<RefreshError> InitPointers()
         {
             try
             {
+                var versionString = _process?.MainModule?.FileVersionInfo.ProductVersion ?? "Read failed";
+                if (!Version.TryParse(versionString, out var v))
+                {
+                    return Result.Err(new RefreshError(RefreshErrorReason.UnknownException, $"Unable to determine game version: {versionString}"));
+                }
+
+                InitializeOffsets(v);
+
                 var treeBuilder = GetTreeBuilder();
                 var result = MemoryScanner.TryResolvePointers(treeBuilder, _process);
                 if (result.IsErr)
