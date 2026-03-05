@@ -48,8 +48,8 @@ public static class SoulMemoryRs
 
         var x64 = process.Is64Bit().Unwrap();
         var basePath = Path.GetDirectoryName(typeof(Soulmods).Assembly.Location)!;
-        var launcherPath = Path.Combine(basePath, $"{(x64 ? "launcher_x64.exe" : "launcher_x86.exe")}");
-        var dllPath = Path.Combine(basePath, $"{(x64 ? "soulmemory_rs_x64.dll" : "soulmemory_rs_x86.dll")}");
+        var launcherPath = Path.Combine(basePath, $"{(x64 ? "soulsplitter.soulmemory-rs.launcher.x64.exe" : "soulsplitter.soulmemory-rs.launcher.x86.exe")}");
+        var dllPath = Path.Combine(basePath, $"{(x64 ? "soulsplitter.soulmemory_rs.x64.dll" : "soulsplitter.soulmemory_rs.x64.dll")}");
         var args = $"--processname={process.ProcessName} --dllpath=\"{dllPath}\"";
 
         Process.Start(launcherPath, args);

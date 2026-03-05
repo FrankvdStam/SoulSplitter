@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using static SoulSplitter.SoulMemory.Games.EldenRing.EldenRing;
 
 namespace SoulSplitter.SoulMemory.Games.Nightreign
 {
@@ -104,6 +103,9 @@ namespace SoulSplitter.SoulMemory.Games.Nightreign
             treeBuilder
                 .ScanRelative("EventFlagMan", "48 8b 35 ? ? ? ? 0f b6 e8 48 85 f6", 3, 7)
                 .AddPointer(_eventFlagMan, 0);
+
+            //treeBuilder
+            //    .ScanAbsolute("emevd", "48 89 5c 24 08 57 48 83 ec 20 49 8b 80 c0 00 00 00", 0);
 
             return treeBuilder;
         }

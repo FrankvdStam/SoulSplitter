@@ -55,11 +55,12 @@ pub struct Sekiro
     chr_dbg_flags: Pointer,
     fn_get_event_flag: FnGetEventFlag,
     set_event_flag_hook: Option<HookPoint>,
-    emevd_event_hook: Option<HookPoint>,
 
     menu_man: Pointer,
+
     emevd_definition: EmevdDefinition,
     emevd_buffer: Arc<Mutex<Vec<BufferedEmevdCall>>>,
+    emevd_event_hook: Option<HookPoint>,
 }
 
 impl Sekiro

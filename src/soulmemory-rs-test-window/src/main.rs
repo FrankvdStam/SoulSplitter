@@ -20,6 +20,7 @@ use windows::Win32::Foundation::HINSTANCE;
 use soulmemory_rs::App;
 use soulmemory_rs::games::{GameExt, MockGame};
 use rand::{random, Rng};
+use soulmemory_rs::darkscript3::load_emevd;
 use soulmemory_rs::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEmevdLogger};
 use soulmemory_rs::games::traits::buffered_event_flags::EventFlag;
 use soulmemory_rs::glow_window;

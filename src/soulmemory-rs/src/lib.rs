@@ -22,7 +22,7 @@ pub mod games;
 mod widgets;
 mod tas;
 mod render_hooks;
-mod darkscript3;
+pub mod darkscript3;
 pub mod glow_window;
 
 use std::time::Duration;

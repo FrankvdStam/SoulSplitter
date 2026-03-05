@@ -40,6 +40,7 @@ using SoulSplitter.SoulMemory.Games.DarkSouls1;
 using SoulSplitter.Plugin.Ui.ViewModels;
 using SoulSplitter.SoulMemory;
 using SoulSplitter.SoulMemory.Games.Nightreign;
+using SoulSplitter.soulmemory_rs;
 
 #pragma warning disable CS0162
 
@@ -50,6 +51,12 @@ namespace SoulSplitter.cli
         [STAThread]
         private static void Main(string[] args)
         {
+            var nr = new Nightreign();
+            nr.TryRefresh();
+
+            SoulMemoryRs.Launch();
+
+            return;
 
             GameLoop<Nightreign>((g) =>
             {
@@ -313,10 +320,11 @@ namespace SoulSplitter.cli
             {
                 //("Dark Souls PTDE"      , new Ptde()        , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ptde"             ),
                 //("Dark Souls Remastered", new Remastered()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DSR"              ),
-                ("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
+                //("Dark Souls 3"         , new DarkSouls3()  , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\DS3\executables"  ),
                 //("Sekiro"               , new Sekiro()      , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\Sekiro"           )
                 //("Elden Ring"           , new EldenRing()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\eldenring"        ),
                 //("Armored Core 6"           , new SoulMemory.ArmoredCore6.ArmoredCore6()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\ac6"        ),
+                ("Nightreign"           , new SoulMemory.Games.Nightreign.Nightreign()   , @"C:\Users\Frank\Desktop\dark souls\runtime dumps\nightreign"        ),
             };
 
             foreach (var validatable in validatables)
