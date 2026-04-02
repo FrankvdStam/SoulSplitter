@@ -51,10 +51,26 @@ namespace SoulSplitter.cli
         [STAThread]
         private static void Main(string[] args)
         {
+            TestUi();
+
             var nr = new Nightreign();
             nr.TryRefresh();
 
             SoulMemoryRs.Launch();
+
+            GameLoop<Nightreign>((g) =>
+            {
+                Console.WriteLine($"{g.IsBossHealthBarVisible()} - {g.ReadEventFlag(18002800)}");
+                
+            });
+
+
+            ValidatePatterns();
+            return;
+
+            
+
+            
 
             return;
 

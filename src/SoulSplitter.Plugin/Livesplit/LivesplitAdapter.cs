@@ -277,17 +277,17 @@ public class LivesplitAdapter : IComponent
 
     private readonly List<string> _installedFiles =
     [
-        "SoulSplitter.dll",
-        "SoulMemory.dll",
+        "SoulSplitter.Plugin.dll",
+        "SoulSplitter.SoulMemory.dll",
         "MaterialDesignColors.dll",
         "MaterialDesignThemes.Wpf.dll",
         "Microsoft.Xaml.Behaviors.dll",
-        "soulmods_x64.dll",
-        "soulmods_x86.dll",
-        "soulmemory_rs_x64.dll",
-        "soulmemory_rs_x86.dll",
-        "launcher_x64.exe",
-        "launcher_x86.exe"
+        "SoulSplitter.soulmods.x64.dll",
+        "SoulSplitter.soulmods.x86.dll",
+        "SoulSplitter.soulmemory_rs.x64.dll",
+        "SoulSplitter.soulmemory_rs.x86.dll",
+        "SoulSplitter.soulmemory-rs.launcher.x64.exe",
+        "SoulSplitter.soulmemory-rs.launcher.x86.exe"
     ];
 
     private void ThrowIfInstallationInvalid()

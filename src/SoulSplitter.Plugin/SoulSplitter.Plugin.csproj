@@ -24,6 +24,7 @@
         <Platforms>x64</Platforms>
     </PropertyGroup>
     <ItemGroup>
+      <Page Remove="Resources\English\Nightreign\Boss.xaml" />
       <Page Remove="Resources\English\Ui\HotkeyAction.xaml" />
     </ItemGroup>
    
@@ -86,6 +87,9 @@
         <Resource Include="Resources\English\EldenRing\ItemPickup.xaml" />
         <Resource Include="Resources\English\EldenRing\KnownFlag.xaml" />
         <Resource Include="Resources\English\Language.xaml" />
+        <Resource Include="Resources\English\Nightreign\Boss.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Resource>
         <Resource Include="Resources\English\Sekiro\Attribute.xaml" />
         <Resource Include="Resources\English\Sekiro\Boss.xaml" />
         <Resource Include="Resources\English\Sekiro\Idol.xaml" />

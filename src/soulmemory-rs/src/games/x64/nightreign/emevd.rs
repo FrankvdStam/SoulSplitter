@@ -27,6 +27,7 @@ pub unsafe extern "win64" fn emevd_event_hook_fn(registers: *mut Registers, _:us
 
                 let mut guard = nightreign.emevd_buffer.lock().unwrap();
                 guard.push(BufferedEmevdCall::new(chrono::offset::Local::now(), event_id, event_group, event_type, s));
+                //info!("{}", BufferedEmevdCall::new(chrono::offset::Local::now(), event_id, event_group, event_type, s));
             }
         }
 }

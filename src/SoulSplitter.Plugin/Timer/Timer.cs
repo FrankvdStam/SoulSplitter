@@ -442,6 +442,13 @@ namespace SoulSplitter.Plugin.Timer
                     }
                     throw new ArgumentException($"Unsupported timing type {timingType}. {_mainViewModel.Game} does not implement {nameof(IDarkSouls1)}");
 
+                case TimingType.OnBossHealthbarDisappearing:
+                    if (_mainViewModel.Game is INightreign nightreign)
+                    {
+                        return nightreign.IsBossHealthBarVisible();
+                    }
+                    throw new ArgumentException($"Unsupported timing type {timingType}. {_mainViewModel.Game} does not implement {nameof(INightreign.IsBossHealthBarVisible)}");
+
                 default:
                     throw new ArgumentException();
             }

@@ -22,4 +22,5 @@ public enum TimingType
     OnLoading,
     OnBlackscreen,
     OnWarp,
+    OnBossHealthbarDisappearing,
 }

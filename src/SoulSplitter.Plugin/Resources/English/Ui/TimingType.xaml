@@ -6,4 +6,5 @@
     <clr:String x:Key="{x:Static enums:TimingType.OnLoading}">On loading</clr:String>
     <clr:String x:Key="{x:Static enums:TimingType.OnBlackscreen}">On blackscreen</clr:String>
     <clr:String x:Key="{x:Static enums:TimingType.OnWarp}">On warp</clr:String>
+    <clr:String x:Key="{x:Static enums:TimingType.OnBossHealthbarDisappearing}">On boss healthbar disappearing</clr:String>
 </ResourceDictionary>

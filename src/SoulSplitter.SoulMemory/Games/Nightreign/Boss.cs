@@ -14,10 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-namespace SoulSplitter.SoulMemory.Abstractions.Games
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SoulSplitter.SoulMemory.Games.Nightreign
 {
-    public interface INightreign : IGame
+    public enum Boss : uint
     {
-        public bool IsBossHealthBarVisible();
+        Nightlord = 18002800,
     }
 }

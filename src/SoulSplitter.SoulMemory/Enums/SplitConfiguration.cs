@@ -60,7 +60,7 @@ namespace SoulSplitter.SoulMemory.Enums
             { Game.EldenRing,    new List<TimingType> { TimingType.Immediate, TimingType.OnLoading, TimingType.OnBlackscreen } },
             { Game.ArmoredCore6, new List<TimingType> { TimingType.Immediate, TimingType.OnLoading } },
             { Game.Bloodborne,   new List<TimingType> { TimingType.Immediate, TimingType.OnLoading } },
-            { Game.Nightreign,   new List<TimingType> { TimingType.Immediate } },
+            { Game.Nightreign,   new List<TimingType> { TimingType.Immediate, TimingType.OnBossHealthbarDisappearing } },
         };
 
         /// <summary>
@@ -136,11 +136,12 @@ namespace SoulSplitter.SoulMemory.Enums
                 ]
             },
             {
-            Game.Nightreign, [
-                (SplitType.Manual, null),
-                (SplitType.Flag, null),
-            ]
-        }
+                Game.Nightreign, [
+                    (SplitType.Manual, null),
+                    (SplitType.Boss, typeof(Games.Nightreign.Boss)),
+                    (SplitType.Flag, null),
+                ]
+            }
         };
     }
 }

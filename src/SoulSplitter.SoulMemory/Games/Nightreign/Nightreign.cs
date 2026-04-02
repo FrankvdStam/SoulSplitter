@@ -28,8 +28,10 @@ namespace SoulSplitter.SoulMemory.Games.Nightreign
         private Process? _process;
         private readonly Pointer _igt = new();
         private readonly Pointer _eventFlagMan = new();
+        private readonly Pointer _gameMan = new();
 
         private long _igtOffset;
+        private long _bossHealthBarVisibleOffset;
 
         #region version ================================================================================================
 
@@ -101,8 +103,16 @@ namespace SoulSplitter.SoulMemory.Games.Nightreign
                     .AddPointer(_igt, 0, _igtOffset);
 
             treeBuilder
-                .ScanRelative("EventFlagMan", "48 8b 35 ? ? ? ? 0f b6 e8 48 85 f6", 3, 7)
-                .AddPointer(_eventFlagMan, 0);
+                .ScanRelative("CSFD4VirtualMemoryFlag", "48 8b 35 ? ? ? ? 0f b6 e8 48 85 f6", 3, 7)
+                    .AddPointer(_eventFlagMan, 0);
+
+            treeBuilder
+               .ScanRelative("GameMan", "48 8b 05 ? ? ? ? 48 85 c0 74 07 c6 80 ? 00 00 00 01 c3", 3, 7)
+                    .AddPointer(_gameMan, 0);
+
+            
+
+            //nightreign.exe + 0x3c078d0 0x0 0xfc
 
             //treeBuilder
             //    .ScanAbsolute("emevd", "48 89 5c 24 08 57 48 83 ec 20 49 8b 80 c0 00 00 00", 0);
@@ -127,6 +137,7 @@ namespace SoulSplitter.SoulMemory.Games.Nightreign
                 case NightreignVersion.V1_02_3:
                 case NightreignVersion.V1_02_4:
                     _igtOffset = 0xf0;
+                    _bossHealthBarVisibleOffset = 0xf4;
                     break;
 
                 case NightreignVersion.V1_03_0:
@@ -134,6 +145,7 @@ namespace SoulSplitter.SoulMemory.Games.Nightreign
                 case NightreignVersion.V1_03_2:
                 case NightreignVersion.Unknown:
                     _igtOffset = 0xf8;
+                    _bossHealthBarVisibleOffset = 0xfc;
                     break;
             }
         }
@@ -181,9 +193,16 @@ namespace SoulSplitter.SoulMemory.Games.Nightreign
         private void ResetPointers()
         {
             _igt.Clear();
+            _eventFlagMan.Clear();
+            _gameMan.Clear();
         }
         
         #endregion
+
+        public bool IsBossHealthBarVisible()
+        {
+            return _gameMan.ReadBool(_bossHealthBarVisibleOffset);
+        }
 
         public bool ReadEventFlag(uint eventFlagId)
         {
