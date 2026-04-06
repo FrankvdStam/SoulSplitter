@@ -295,8 +295,8 @@ public class LivesplitAdapter : IComponent
         var assemblyPath = Assembly.GetAssembly(typeof(LivesplitAdapter)).Location;
         var directory = Path.GetDirectoryName(assemblyPath)!;
 
-        var files = Directory.EnumerateFiles(directory).Select(i => Path.GetFileName(i)!).ToList();
-        var missing = _installedFiles.Except(files).ToList();
+        var files = Directory.EnumerateFiles(directory).Select(i => Path.GetFileName(i)!.ToLower()).ToList();
+        var missing = _installedFiles.Select(i => i.ToLower()).Except(files).ToList();
 
         if (missing.Any())
         {
