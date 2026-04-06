@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
-	<update version="2.0.42">
+    <update version="2.0.43">
+        <files>
+            <file path="Components/SoulSplitter.Plugin.dll"                         status="changed"/>
+            <file path="Components/SoulSplitter.SoulMemory.dll"                     status="changed"/>
+            <file path="Components/soulsplitter.soulmods.x64.dll"                   status="changed"/>
+            <file path="Components/soulsplitter.soulmods.x86.dll"                   status="changed"/>
+            <file path="Components/soulsplitter.soulmemory_rs.x64.dll"              status="changed"/>
+            <file path="Components/soulsplitter.soulmemory_rs.x86.dll"              status="changed"/>
+            <file path="Components/soulsplitter.soulmemory-rs.launcher.x64.exe"     status="changed"/>
+            <file path="Components/soulsplitter.soulmemory-rs.launcher.x86.exe"     status="changed"/>
+        </files>
+        <changelog>
+            <change>Fixed filecheck bug</change>
+        </changelog>
+    </update>
+    <update version="2.0.42">
         <files>
             <file path="Components/SoulSplitter.Plugin.dll"                         status="changed"/>
             <file path="Components/SoulSplitter.SoulMemory.dll"                     status="changed"/>
