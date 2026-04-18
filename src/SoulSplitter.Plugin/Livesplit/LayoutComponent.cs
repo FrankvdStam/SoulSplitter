@@ -38,7 +38,7 @@ public class LayoutComponent : ISoulSplitterLayoutComponent
 
     public void Draw(Graphics g, float? width, float? height, Region clipRegion)
     {
-        string drawString = _mainViewModel.Flag.ToString();
+        string drawString = _mainViewModel.Splits.Count.ToString();
         var drawFont = new Font("Arial", 16);
         var drawBrush = new SolidBrush(System.Drawing.Color.Red);
         var drawFormat = new StringFormat();

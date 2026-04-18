@@ -14,8 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using LiveSplit.Model;
 using SoulSplitter.Plugin.Resources;
+using SoulSplitter.Plugin.Timer;
 using SoulSplitter.Plugin.Ui.View;
+using SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
 using SoulSplitter.SoulMemory.Abstractions.Games;
 using SoulSplitter.SoulMemory.Games.ArmoredCore6;
 using SoulSplitter.SoulMemory.Games.Bloodborne;
@@ -51,6 +54,9 @@ namespace SoulSplitter.Plugin.DependencyInjection
                         serviceCollection.AddSingleton<IArmoredCore6, ArmoredCore6>();
                         serviceCollection.AddSingleton<IBloodborne, Bloodborne>();
                         serviceCollection.AddSingleton<INightreign, Nightreign>();
+                        serviceCollection.AddSingleton<MainViewModel>();
+                        serviceCollection.AddSingleton<MainWindow>();
+                        serviceCollection.AddSingleton<Timer.Timer>();
 
                         _instance = serviceCollection.Build();
 

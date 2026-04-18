@@ -38,6 +38,11 @@ namespace SoulSplitter.Plugin.DependencyInjection
         /// <exception cref="ServiceProviderException"></exception>
         public object GetService(Type serviceType)
         {
+            if (serviceType is IServiceProvider)
+            {
+                return this;
+            }
+
             if (!_serviceDescriptors.TryGetValue(serviceType, out ServiceDescriptor serviceDescriptor))
             {
                 throw new ServiceProviderException($"{serviceType} is not registered");

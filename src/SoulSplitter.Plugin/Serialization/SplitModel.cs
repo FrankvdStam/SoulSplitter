@@ -30,8 +30,32 @@ public class SplitModel
         Game = game;
         TimingType = timingType;
         SplitType = splitType;
-        Split = split;
         Description = description;
+
+        Split = split switch
+        {
+            AttributeViewModel attributeViewModel => new AttributeModel(attributeViewModel),
+            uint flag => new FlagModel(flag),
+            _ => split
+        };
+    }
+
+    public SplitViewModel CreateSplitsViewModel()
+    {
+        return new SplitViewModel
+        {
+            Game = Game,
+            TimingType = TimingType,
+            SplitType = SplitType,
+            Description = Description,
+
+            Split = Split switch
+            {
+                AttributeModel attributeModel => new AttributeViewModel { Attribute = attributeModel.Attribute, Level = attributeModel.Level },
+                FlagModel flagModel => flagModel.Flag,
+                _ => Split
+            }
+        };       
     }
 
     public SplitModel(){ }
@@ -39,6 +63,30 @@ public class SplitModel
     public Game Game { get; set; }
     public TimingType? TimingType { get; set; }
     public SplitType SplitType { get; set; }
+
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls1.Boss),         Namespace = "DarkSouls1"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls1.Bonfire),      Namespace = "DarkSouls1"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls1.BonfireState), Namespace = "DarkSouls1"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls1.DropModType),  Namespace = "DarkSouls1"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls1.ItemType),     Namespace = "DarkSouls1"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls1.KnownFlag),    Namespace = "DarkSouls1"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls1.Item),         Namespace = "DarkSouls1"   )]
+    [XmlElement(Type = typeof(DarkSouls1BonfireViewModel),               Namespace = "DarkSouls1"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls2.Boss),         Namespace = "DarkSouls2"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls3.Boss),         Namespace = "DarkSouls3"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls3.Bonfire),      Namespace = "DarkSouls3"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.DarkSouls3.ItemPickup),   Namespace = "DarkSouls3"   )]
+    [XmlElement(Type = typeof(SoulMemory.Games.Sekiro.Boss),             Namespace = "Sekiro"       )]
+    [XmlElement(Type = typeof(SoulMemory.Games.Sekiro.Idol),             Namespace = "Sekiro"       )]
+    [XmlElement(Type = typeof(SoulMemory.Games.EldenRing.Boss),          Namespace = "EldenRing"    )]
+    [XmlElement(Type = typeof(SoulMemory.Games.EldenRing.Grace),         Namespace = "EldenRing"    )]
+    [XmlElement(Type = typeof(SoulMemory.Games.EldenRing.ItemPickup),    Namespace = "EldenRing"    )]
+    [XmlElement(Type = typeof(SoulMemory.Games.EldenRing.KnownFlag),     Namespace = "EldenRing"    )]
+    [XmlElement(Type = typeof(SoulMemory.Games.Nightreign.Boss),         Namespace = "Nightreign"   )]
+    [XmlElement(Type = typeof(AttributeModel)                                                       )]
+    [XmlElement(Type = typeof(PositionViewModel)                                                    )]
+    [XmlElement(Type = typeof(EldenRingPositionViewModel)                                           )]
+    [XmlElement(Type = typeof(FlagModel)                                                            )]
     public object? Split { get; set; }
-    public string Description { get; set; }
+    public string Description { get; set; } = null!;
 }
