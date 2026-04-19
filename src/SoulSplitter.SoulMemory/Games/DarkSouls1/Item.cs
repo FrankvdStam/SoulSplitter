@@ -21,15 +21,27 @@ using System.Diagnostics.CodeAnalysis;
 namespace SoulSplitter.SoulMemory.Games.DarkSouls1;
 
 [ExcludeFromCodeCoverage]
-public class Item(string name, int id, ItemType itemType, ItemCategory category, int stackLimit, ItemUpgrade upgrade)
+public class Item
 {
-    public string Name { get; } = name;
-    public int Id { get; } = id;
-    public ItemType ItemType { get; } = itemType;
-    public ItemCategory Category { get; } = category;
-    public int StackLimit { get; } = stackLimit;
+    public Item(){ }
+
+    public Item(string name, int id, ItemType itemType, ItemCategory category, int stackLimit, ItemUpgrade upgrade)
+    {
+        Name = name;
+        Id = id;
+        ItemType = itemType;
+        Category = category;
+        StackLimit = stackLimit;
+        Upgrade = upgrade; 
+    }
+
+    public string Name { get; set; } = null!;
+    public int Id { get; set; }
+    public ItemType ItemType { get; set; }
+    public ItemCategory Category { get; set; }
+    public int StackLimit { get; set; }
     public int Quantity { get; set; }
-    public ItemUpgrade Upgrade { get; } = upgrade;
+    public ItemUpgrade Upgrade { get; set; }
     public ItemInfusion Infusion { get; set; }
     public int UpgradeLevel { get; set; }
 

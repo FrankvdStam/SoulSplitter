@@ -14,27 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using SoulSplitter.Plugin.Serialization;
-using SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
-using SoulSplitter.Plugin.Utils;
-using System;
-using System.Xml;
+namespace SoulSplitter.Plugin.Serialization;
 
-namespace SoulSplitter.Plugin.Migrations;
-
-internal static class Migrator
+//This class wraps the event flag.
+//When a new enum is added and serialized, it tends to get serialized as uint when allowing uints on the split object.
+//By having an explicit flagmodel, there is no need to allow uints.
+//That causes hard exceptions during serialization, which is preferred over later runtime issues.
+public class FlagModel
 {
-    public static void Migrate(XmlNode settings)
-    {
-        var version = new Version(settings.GetChildNodeByName("MainViewModel").GetChildNodeByName("Version").InnerText);
+    public FlagModel() { }
+    public FlagModel(uint flag) { Flag = flag; }
 
-        if(version.Major == 2 && version.Build == 43)
-        {
-            var mainViewModel = MainViewModel.DeserializeXml(settings.InnerXml);
-            var serializedModel = new SerializedModel(mainViewModel);
-            var xml = serializedModel.SerializeXml();
-            settings.InnerXml = xml;
-        }
-
-    }
+    public uint Flag { get; set; } = 0;
 }
