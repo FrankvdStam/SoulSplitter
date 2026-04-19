@@ -14,29 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Drawing;
-using System.Windows.Forms;
 using LiveSplit.Model;
 using LiveSplit.UI;
 using LiveSplit.UI.Components;
-using System;
-using System.Collections.Generic;
-using System.Xml;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+using SoulSplitter.Plugin.Abstractions;
+using SoulSplitter.Plugin.DependencyInjection;
+using SoulSplitter.Plugin.Migrations;
+using SoulSplitter.Plugin.Resources;
+using SoulSplitter.Plugin.Serialization;
+using SoulSplitter.Plugin.Timer;
 using SoulSplitter.Plugin.Ui;
 using SoulSplitter.Plugin.Ui.View;
 using SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
-using IServiceProvider = SoulSplitter.Plugin.DependencyInjection.IServiceProvider;
-using SoulSplitter.Plugin.Migrations;
-using SoulSplitter.Plugin.Abstractions;
-using SoulSplitter.Plugin.DependencyInjection;
 using SoulSplitter.Plugin.Utils;
-using SoulSplitter.Plugin.Resources;
 using SoulSplitter.SoulMemory.Enums;
-using SoulSplitter.Plugin.Timer;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Windows.Forms;
+using System.Xml;
+using IServiceProvider = SoulSplitter.Plugin.DependencyInjection.IServiceProvider;
 
 namespace SoulSplitter.Plugin.Livesplit;
 
@@ -46,8 +48,8 @@ public class LivesplitAdapter : IComponent
     private readonly ComponentMode _componentMode;
     private readonly LiveSplitState _liveSplitState;
     private readonly IServiceProvider _serviceProvider;
-    public MainWindow? MainWindow;
-    private ISoulSplitterComponent? _component;
+    private readonly ISoulSplitterComponent _component;
+    public readonly MainWindow MainWindow;
 
     public LivesplitAdapter(LiveSplitState liveSplitState, ComponentMode mode)
     {
@@ -57,26 +59,24 @@ public class LivesplitAdapter : IComponent
         _liveSplitState = liveSplitState;
         _componentMode = mode;
 
+        MainWindow = _serviceProvider.GetService<MainWindow>();
+        MainWindow.MainViewModel.SelectedGame = LivesplitStateToGameEnum(_liveSplitState);
+
         if (System.Windows.Application.Current == null)
         {
             var _ = new App();
-            _serviceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
+            System.Windows.Application.Current!.MainWindow = MainWindow;
         }
-        
+        _serviceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
+
         //This is probably wonky. Have to fix.
         if (_componentMode == ComponentMode.AutoSplitter)
         {
-            //Default initialize all state, in case no settings are provided. Livesplit will not call SetSettings.
-            var mainViewModel = new MainViewModel();
-            mainViewModel.SelectedGame = LivesplitStateToGameEnum(_liveSplitState);
-            MainWindow = new MainWindow(mainViewModel);
-            System.Windows.Application.Current!.MainWindow = MainWindow;
             var timerAdapter = new TimerAdapter(_liveSplitState, new Timer.Timer(_serviceProvider, MainWindow.MainViewModel));
             _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
         }
         else
         {
-            MainWindow = (MainWindow)System.Windows.Application.Current!.MainWindow!;
             _component = new LayoutComponent(MainWindow.MainViewModel);
         }
     }
@@ -120,6 +120,37 @@ public class LivesplitAdapter : IComponent
         if (deserializationException != null) { mainViewModel.AddException(deserializationException); }
 
         return mainViewModel;
+    }
+
+    private void MigrateSettingsAndDeserialize(XmlNode? settings)
+    {
+        var xml = settings?.InnerXml;
+        if (xml == null || string.IsNullOrWhiteSpace(xml))
+        {
+            return;
+        }
+
+        //try to migrate; if it fails we can still try to deserialize
+        try
+        {
+            Migrator.Migrate(settings!);
+            xml = settings!.InnerXml;
+        }
+        catch (Exception me)
+        {
+            MainWindow.MainViewModel.AddException(me);
+        }
+
+        //try to deserialize; if it fails we can initialize a new instance
+        try
+        {
+            var serializedModel = SerializedModel.Deserialize(xml);
+            serializedModel.FillMainViewModel(MainWindow.MainViewModel);
+        }
+        catch (Exception de)
+        {
+            MainWindow.MainViewModel.AddException(de);
+        }
     }
 
     /// <summary>
@@ -184,12 +215,14 @@ public class LivesplitAdapter : IComponent
     /// </summary>
     public void SetSettings(XmlNode settings)
     {
-        var mainViewModel = GetMainViewModelFromSettings(settings);
-        mainViewModel.SelectedGame = LivesplitStateToGameEnum(_liveSplitState);
-        MainWindow = new MainWindow(mainViewModel);
-        System.Windows.Application.Current!.MainWindow = MainWindow;
-        var timerAdapter = new TimerAdapter(_liveSplitState, new Timer.Timer(_serviceProvider, MainWindow.MainViewModel));
-        _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
+        MigrateSettingsAndDeserialize(settings);
+
+        //var mainViewModel = GetMainViewModelFromSettings(settings);
+        //mainViewModel.SelectedGame = LivesplitStateToGameEnum(_liveSplitState);
+        //MainWindow = new MainWindow(mainViewModel);
+        //System.Windows.Application.Current!.MainWindow = MainWindow;
+        //var timerAdapter = new TimerAdapter(_liveSplitState, new Timer.Timer(_serviceProvider, MainWindow.MainViewModel));
+        //_component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
 
         UpdateLivesplitSplits();
     }
@@ -199,17 +232,25 @@ public class LivesplitAdapter : IComponent
     /// </summary>
     public XmlNode GetSettings(XmlDocument document)
     {
-        var xml = "";
-        MainWindow!.Dispatcher.Invoke(() =>
-        {
-            xml = MainWindow.MainViewModel.SerializeXml();
-        });
+        var serializedModel = new SerializedModel(MainWindow.MainViewModel);
+        var xml = SerializedModel.Serialize(serializedModel);
 
-        var root = document.CreateElement("AutoSplitterSettings");
-        var fragment = document.CreateDocumentFragment();
-        fragment.InnerXml = xml;
-        root.AppendChild(fragment);
-        return root;
+        var doc = new XmlDocument();
+        doc.LoadXml(xml);
+        return doc.DocumentElement;
+
+
+        //var xml = "";
+        //MainWindow!.Dispatcher.Invoke(() =>
+        //{
+        //    xml = MainWindow.MainViewModel.SerializeXml();
+        //});
+        //
+        ////var root = document.CreateElement("AutoSplitterSettings");
+        //var fragment = document.CreateDocumentFragment();
+        //fragment.InnerXml = xml;
+        //root.AppendChild(fragment);
+        //return root;
     }
     
     private Button? _customShowSettingsButton;

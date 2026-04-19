@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulSplitter.SoulMemory.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,6 @@ namespace SoulSplitter.Plugin.DependencyInjection
         /// <param name="customConstructor"></param>
         public void AddService<TService, TImplementation>(Lifetime lifetime, Func<IServiceProvider, object>? customConstructor)
         {
-            
             var descriptor = new ServiceDescriptor()
             {
                 ServiceType = typeof(TService),
@@ -60,11 +60,14 @@ namespace SoulSplitter.Plugin.DependencyInjection
 
         private static ConstructorInfo ResolveConstructor(Dictionary<Type, ServiceDescriptor> services, ServiceDescriptor serviceDescriptor)
         {
+            var resolvableServices = new Dictionary<Type, ServiceDescriptor>(services); //deepcopy
+            resolvableServices.Add(typeof(IServiceProvider), null!); //IServiceProvider is always resolvable in any constructor
+
             var constructors = serviceDescriptor.ImplementationType.GetConstructors(BindingFlags.CreateInstance | BindingFlags.Public | BindingFlags.Instance | BindingFlags.OptionalParamBinding);
             foreach (var constructor in constructors)
             {
                 var parameters = constructor.GetParameters();
-                if (parameters.All(p => services.ContainsKey(p.ParameterType)))
+                if (parameters.All(p => resolvableServices.ContainsKey(p.ParameterType)))
                 {
                     return constructor;
                 }
