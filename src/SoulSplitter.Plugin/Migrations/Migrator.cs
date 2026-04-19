@@ -14,6 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using SoulSplitter.Plugin.Serialization;
+using SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
+using SoulSplitter.Plugin.Utils;
 using System;
 using System.Xml;
 
@@ -24,6 +27,14 @@ internal static class Migrator
     public static void Migrate(XmlNode settings)
     {
         var version = new Version(settings.GetChildNodeByName("MainViewModel").GetChildNodeByName("Version").InnerText);
-        //No further migrations exist yet
+
+        if(version.Major == 2 && version.Build == 43)
+        {
+            var mainViewModel = MainViewModel.DeserializeXml(settings.InnerXml);
+            var serializedModel = new SerializedModel(mainViewModel);
+            var xml = serializedModel.SerializeXml();
+            settings.InnerXml = xml;
+        }
+
     }
 }

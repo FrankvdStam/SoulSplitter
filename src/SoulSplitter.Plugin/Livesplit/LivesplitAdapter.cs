@@ -134,6 +134,7 @@ public class LivesplitAdapter : IComponent
         try
         {
             Migrator.Migrate(settings!);
+            xml = settings!.InnerXml;
         }
         catch (Exception me)
         {
