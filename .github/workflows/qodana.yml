@@ -1,0 +1,69 @@
+name: qodana
+
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: build
+    runs-on: windows-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: get version
+        run: |
+            $version = select-xml -path "Directory.Build.props" -xpath "//PropertyGroup//Version" | Select-Object  -ExpandProperty Node | Select-Object -ExpandProperty '#text'
+            echo "VERSION=$version" >> $env:GITHUB_ENV
+
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v3
+
+      - name: dotnet restore
+        run: dotnet restore
+
+      - name: Build solution
+        run: dotnet build -c release
+
+      - name: Run tests with code coverage
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=../../.qodana/code-coverage/ /p:CoverletOutputFormat=lcov
+
+
+  #    - name: 'Qodana Scan'
+  #      uses: JetBrains/qodana-action@v2025.3
+  #      with:
+  #        pr-mode: false
+  #      env:
+  #        QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+  #        QODANA_ENDPOINT: 'https://qodana.cloud'
+
+      - name: qodana scan
+        if: ${{ !github.event.pull_request.head.repo.fork }}
+        continue-on-error: true
+        uses: JetBrains/qodana-action@v2025.3
+        with:
+          args: --baseline
+          #,qodana.sarif.json
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+          QODANA_ENDPOINT: 'https://qodana.cloud'
+ 
+     # - name: upload qodana scan to github code scanning
+     #   if: ${{ !github.event.pull_request.head.repo.fork }}
+     #   uses: github/codeql-action/upload-sarif@v3
+     #   with:
+     #     sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
