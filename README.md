@@ -1,4 +1,4 @@
-<h1 align="center">
+ <h1 align="center">
   <br>
   <img src="resources/soulsplitter.png" width="350"/><br>
   SoulSplitter
