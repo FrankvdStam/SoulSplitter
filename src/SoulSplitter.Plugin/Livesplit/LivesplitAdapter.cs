@@ -59,25 +59,45 @@ public class LivesplitAdapter : IComponent
         _liveSplitState = liveSplitState;
         _componentMode = mode;
 
-        MainWindow = _serviceProvider.GetService<MainWindow>();
-        MainWindow.MainViewModel.SelectedGame = LivesplitStateToGameEnum(_liveSplitState);
-
-        if (System.Windows.Application.Current == null)
+        //init language first
+        try
         {
-            var _ = new App();
+            if (System.Windows.Application.Current == null)
+            {
+                var _ = new App();
+            }
+            _serviceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);            
+        }
+        catch(Exception e)
+        {
+            MessageBox.Show($"SoulSplitter loading language failed \r\n\r\n {e.ToString()}");
+            throw;
+        }
+
+        try
+        {
+            MainWindow = _serviceProvider.GetService<MainWindow>();
+            MainWindow.MainViewModel.SelectedGame = LivesplitStateToGameEnum(_liveSplitState);
+        }
+        catch(Exception e)
+        {
+            MessageBox.Show($"MainWindow init failed \r\n\r\n {e.ToString()}");
+        }
+
+        if (System.Windows.Application.Current!.MainWindow != MainWindow)
+        {
             System.Windows.Application.Current!.MainWindow = MainWindow;
         }
-        _serviceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
 
         //This is probably wonky. Have to fix.
         if (_componentMode == ComponentMode.AutoSplitter)
         {
-            var timerAdapter = new TimerAdapter(_liveSplitState, new Timer.Timer(_serviceProvider, MainWindow.MainViewModel));
+            var timerAdapter = new TimerAdapter(_liveSplitState, new Timer.Timer(_serviceProvider, MainWindow!.MainViewModel));
             _component = new TimerComponent(timerAdapter, MainWindow.MainViewModel);
         }
         else
         {
-            _component = new LayoutComponent(MainWindow.MainViewModel);
+            _component = new LayoutComponent(MainWindow!.MainViewModel);
         }
     }
 

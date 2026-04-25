@@ -26,15 +26,7 @@ internal static class Migrator
 {
     public static void Migrate(XmlNode settings)
     {
-        var version = new Version(settings.GetChildNodeByName("MainViewModel").GetChildNodeByName("Version").InnerText);
-
-        if(version.Major == 2 && version.Build == 43)
-        {
-            var mainViewModel = MainViewModel.DeserializeXml(settings.InnerXml);
-            var serializedModel = new SerializedModel(mainViewModel);
-            var xml = serializedModel.SerializeXml();
-            settings.InnerXml = xml;
-        }
+        //var version = new Version(settings.GetChildNodeByName("MainViewModel").GetChildNodeByName("Version").InnerText);        
 
     }
 }

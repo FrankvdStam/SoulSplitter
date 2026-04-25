@@ -14,14 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SoulSplitter.SoulMemory.Games.Nightreign
+namespace SoulSplitter.SoulMemory.Games.Nightreign;
+
+public enum Boss : uint
 {
-    public enum Boss : uint
-    {
-        Nightlord = 18002800,
-    }
+    Nightlord = 18002800,
 }

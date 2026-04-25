@@ -1,9 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:r="clr-namespace:SoulSplitter.Plugin.Resources;assembly=SoulSplitter.Plugin"
-                    xmlns:soulmemory="clr-namespace:SoulSplitter.SoulMemory.Games.Nightreign;assembly=SoulSplitter.SoulMemory">
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:r="clr-namespace:SoulSplitter.Plugin.Resources;assembly=SoulSplitter.Plugin"
+                xmlns:soulmemory="clr-namespace:SoulSplitter.SoulMemory.Games.Nightreign;assembly=SoulSplitter.SoulMemory">
 
     <r:EventFlag x:Key="{x:Static soulmemory:Boss.Nightlord}">
         <r:EventFlag.Name>Nightlord</r:EventFlag.Name>
     </r:EventFlag>
+    
 </ResourceDictionary>

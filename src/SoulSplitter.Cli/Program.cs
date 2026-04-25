@@ -68,9 +68,9 @@ namespace SoulSplitter.cli
             ValidatePatterns();
             return;
 
-            
 
-            
+
+           
 
             return;
 
