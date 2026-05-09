@@ -255,22 +255,11 @@ public class LivesplitAdapter : IComponent
         var serializedModel = new SerializedModel(MainWindow.MainViewModel);
         var xml = SerializedModel.Serialize(serializedModel);
 
-        var doc = new XmlDocument();
-        doc.LoadXml(xml);
-        return doc.DocumentElement;
-
-
-        //var xml = "";
-        //MainWindow!.Dispatcher.Invoke(() =>
-        //{
-        //    xml = MainWindow.MainViewModel.SerializeXml();
-        //});
-        //
-        ////var root = document.CreateElement("AutoSplitterSettings");
-        //var fragment = document.CreateDocumentFragment();
-        //fragment.InnerXml = xml;
-        //root.AppendChild(fragment);
-        //return root;
+        var root = document.CreateElement("AutoSplitterSettings");
+        var fragment = document.CreateDocumentFragment();
+        fragment.InnerXml = xml;
+        root.AppendChild(fragment);
+        return root;
     }
     
     private Button? _customShowSettingsButton;

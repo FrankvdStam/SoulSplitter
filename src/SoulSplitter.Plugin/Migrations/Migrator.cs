@@ -26,7 +26,19 @@ internal static class Migrator
 {
     public static void Migrate(XmlNode settings)
     {
-        //var version = new Version(settings.GetChildNodeByName("MainViewModel").GetChildNodeByName("Version").InnerText);        
+        if(settings.DoesChildNodeExists("MainViewModel"))
+        {
+            Pre43(settings);
+            return;
+        }
+    }
 
+    private static void Pre43(XmlNode settings)
+    {       
+        var xml = settings.GetChildNodeByName("MainViewModel")!.OuterXml;
+        var mainViewModel = MainViewModel.DeserializeXml(xml);
+        var serializedModel = new SerializedModel(mainViewModel);
+        var newXml = serializedModel.SerializeXml();
+        settings.InnerXml = newXml;        
     }
 }

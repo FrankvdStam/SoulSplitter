@@ -21,7 +21,12 @@ namespace SoulSplitter.Plugin.Migrations;
 
 internal static class XmlExtensions
 {
-    public static XmlNode GetChildNodeByName(this XmlNode node, string childName)
+    public static bool DoesChildNodeExists(this XmlNode node, string name)
+    {
+        return GetChildNodeByName(node, name) != null;
+    }
+
+    public static XmlNode? GetChildNodeByName(this XmlNode node, string childName)
     {
         var lower = childName.ToLower();
         foreach (XmlNode child in node.ChildNodes)
@@ -31,18 +36,6 @@ internal static class XmlExtensions
                 return child;
             }
         }
-        throw new ArgumentException($"{childName} not found");
-    }
-
-    public static void ForEachChildNodeByName(this XmlNode node, string childName, Action<XmlNode> action)
-    {
-        var lower = childName.ToLower();
-        foreach (XmlNode child in node.ChildNodes)
-        {
-            if (child.LocalName.ToLower() == lower)
-            {
-                action(child);
-            }
-        }
+        return null;
     }
 }
