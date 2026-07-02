@@ -51,6 +51,14 @@ namespace SoulSplitter.cli
         [STAThread]
         private static void Main(string[] args)
         {
+            GameLoop<DarkSouls1>((g) =>
+            {
+                g.WriteInGameTimeMilliseconds(0);
+
+                //Console.WriteLine($"{g.IsBossHealthBarVisible()} - {g.ReadEventFlag(18002800)}");
+
+            });
+
             TestUi();
 
             var nr = new Nightreign();

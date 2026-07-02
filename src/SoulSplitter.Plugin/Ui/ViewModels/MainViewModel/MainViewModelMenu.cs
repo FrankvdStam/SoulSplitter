@@ -21,6 +21,8 @@ using SoulSplitter.Plugin.Ui;
 using SoulSplitter.Plugin.Ui.ViewModels;
 using SoulSplitter.soulmemory_rs;
 using SoulSplitter.Plugin.Ui.View;
+using SoulSplitter.Plugin.Serialization;
+using System.IO;
 
 namespace SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
 
@@ -110,6 +112,9 @@ public partial class MainViewModel
                 return;
             }
 
+            var xml = File.ReadAllText(openFileDialog.FileName);
+            var serializedModel = SerializedModel.Deserialize(xml);
+            serializedModel.FillMainViewModel(this);
         });
     }
 
@@ -128,8 +133,9 @@ public partial class MainViewModel
                 return;
             }
 
-            //var xml = Serialize();
-            //File.WriteAllText(saveFileDialog.FileName, xml);
+            var serializedModel = new SerializedModel(this);
+            var xml = SerializedModel.Serialize(serializedModel);
+            File.WriteAllText(saveFileDialog.FileName, xml);
         });
     }
     #endregion
