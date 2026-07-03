@@ -124,7 +124,7 @@ public class Sekiro : ISekiro
 
     private ResultErr<RefreshError> InitPointers()
     {
-        Thread.Sleep(3000); //Give sekiro some time to boot
+        Thread.Sleep(5000); //Give sekiro some time to boot
 
         try
         {

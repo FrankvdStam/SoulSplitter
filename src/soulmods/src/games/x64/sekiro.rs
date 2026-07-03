@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-use std::ptr;
+use std::{ptr, thread, time};
 
 use ilhook::x64::{Hooker, HookType, Registers, CallbackOption, HookFlags, HookPoint};
 use mem_rs::prelude::*;
@@ -54,17 +54,37 @@ pub fn init_sekiro()
     unsafe
     {
         info!("version: {}", GLOBAL_VERSION);
-        
-        // Get Sekiro process
-        let mut process = Process::new_with_memory_type("sekiro.exe", MemoryType::Direct);
-        process.refresh().unwrap();
 
-        FADE_MAN_ADDRESS = process.scan_rel("fadeMan", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7, Vec::new()).unwrap().get_base_address();
-        info!("FadeMan at 0x{:x}", FADE_MAN_ADDRESS);
-        
-        let igt_increment_address = process.scan_abs("igt", "f3 48 0f 2c c0 01 81 9c 00 00 00 48 8b 05 ? ? ? ? 81 b8 9c 00 00 00 18 a0 93 d6 76 ? c7 80 9c 00 00 00 18 a0 93 d6", 0, Vec::new()).unwrap().get_base_address();
-        info!("igt increment at 0x{:x}", igt_increment_address);
-        IGT_HOOK = Some(Hooker::new(igt_increment_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
+        let mut process;
+
+        //first hook, game might still be initializing. Retry on error until hook is successful
+        'first_hook: loop
+        {
+            //reinit process each time to force refresh internal cache
+            process = Process::new_with_memory_type("sekiro.exe", MemoryType::Direct);
+            process.refresh().unwrap();
+
+            FADE_MAN_ADDRESS = process.scan_rel("fadeMan", "48 89 35 ? ? ? ? 48 8b c7 48 8b 4d 27 48 33 cc", 3, 7, Vec::new()).unwrap().get_base_address();
+            info!("FadeMan at 0x{:x}", FADE_MAN_ADDRESS);
+
+            let igt_increment_address = process.scan_abs("igt", "f3 48 0f 2c c0 01 81 9c 00 00 00 48 8b 05 ? ? ? ? 81 b8 9c 00 00 00 18 a0 93 d6 76 ? c7 80 9c 00 00 00 18 a0 93 d6", 0, Vec::new()).unwrap().get_base_address();
+            info!("igt increment at 0x{:x}", igt_increment_address);
+
+            let igt_hook_result = Hooker::new(igt_increment_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook();
+
+            if igt_hook_result.is_err()
+            {
+                info!("igt hook failed {}, retry after 1 second, refresh cache", igt_hook_result.err().unwrap());
+                thread::sleep(time::Duration::from_millis(1000));
+            }
+            else
+            {
+                IGT_HOOK = Some(igt_hook_result.unwrap());
+                break 'first_hook;
+            }
+        }
+
+        //IGT_HOOK = Some(Hooker::new(igt_increment_address, HookType::JmpBack(increment_igt_hook), CallbackOption::None, 0, HookFlags::empty()).hook().unwrap());
 
         // AoB scan for FPS patch
         let fn_fps_address = process.scan_abs("fps", "f3 0f 58 93 64 02 00 00 41 0f 2f d4", 0, Vec::new()).unwrap().get_base_address();
