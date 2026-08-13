@@ -1,4 +1,4 @@
-﻿// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
 // Copyright (c) 2022 Frank van der Stam.
 // https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
 //
@@ -55,6 +55,8 @@ public class LivesplitAdapter : IComponent
     {
         ThrowIfInstallationInvalid();
 
+        var isActive = liveSplitState?.Run?.IsAutoSplitterActive() ?? false;
+
         _serviceProvider = GlobalServiceProvider.Instance;
         _liveSplitState = liveSplitState;
         _componentMode = mode;
@@ -99,6 +101,8 @@ public class LivesplitAdapter : IComponent
         {
             _component = new LayoutComponent(MainWindow!.MainViewModel);
         }
+
+        _references.Add(_referenceId);
     }
 
     private MainViewModel GetMainViewModelFromSettings(XmlNode? settings)
@@ -222,8 +226,18 @@ public class LivesplitAdapter : IComponent
     public float PaddingBottom => 0;
     public float PaddingLeft => 0;
     public float PaddingRight => 0;
+
+    private Guid _referenceId = Guid.NewGuid();
+
+    private static List<Guid> _references = new List<Guid>();
     public void Dispose()
     {
+        _references.Remove(_referenceId);
+        if(_references.Any())
+        {
+            MainWindow.MainViewModel.Reset();
+        }
+
         //GC.SuppressFinalize(this);
     }
     #endregion
