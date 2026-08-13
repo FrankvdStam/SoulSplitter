@@ -1,4 +1,4 @@
-﻿// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
 // Copyright (c) 2022 Frank van der Stam.
 // https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
 //
@@ -14,13 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using SoulSplitter.Plugin.Ui.ViewModels;
 using SoulSplitter.Plugin.DependencyInjection;
 using SoulSplitter.Plugin.Resources;
+using SoulSplitter.Plugin.Ui.ViewModels;
 using SoulSplitter.Plugin.Utils;
-using SoulSplitter.SoulMemory.Enums;
 using SoulSplitter.SoulMemory.Abstractions;
+using SoulSplitter.SoulMemory.Enums;
+using System;
+using System.Linq;
 
 namespace SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
 
@@ -60,6 +61,15 @@ public partial class MainViewModel
         CommandRemoveHotkey = new RelayCommand(RemoveHotkey, CanRemoveHotkey);
 
         Splits.CollectionChanged += OnSplitsChanged;
+    }
+
+    public void Reset()
+    {
+        DropModType = SoulSplitter.SoulMemory.Games.DarkSouls1.DropModType.None;
+        StartAutomatically = true;
+        OverwriteIgtOnStart = false;
+        FlagTrackerViewModel = new();
+        Splits.Clear();
     }
 
     #region UI logic
