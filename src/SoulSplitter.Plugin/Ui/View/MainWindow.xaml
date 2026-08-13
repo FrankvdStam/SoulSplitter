@@ -497,7 +497,7 @@
                     <Label Content="Dropmod settings"/>
 
                     <RadioButton 
-                        Margin="5"                
+                        Margin="5"
                         IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.None}}"
                         GroupName="DropModRadioButtonGroup">None</RadioButton>
 
@@ -512,6 +512,12 @@
                         IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.AllAchievements}}"
                         ToolTip="Dynamically changes droprates based on what you still need in the run"
                         GroupName="DropModRadioButtonGroup">All achievements</RadioButton>
+
+                    <RadioButton 
+                        Margin="5" 
+                        IsChecked="{Binding DropModType, Mode=TwoWay, Converter={StaticResource ResourceKey=DropModTypeConverter}, ConverterParameter={x:Static darkSouls1:DropModType.LadderwarpDragonToothAnyPercent}}"
+                        ToolTip="Set the droprate of the short bow, rapier and throwing knife to 100%"
+                        GroupName="DropModRadioButtonGroup">Ladderwarp dragon tooth any percent</RadioButton>
 
                     <Separator/>
 

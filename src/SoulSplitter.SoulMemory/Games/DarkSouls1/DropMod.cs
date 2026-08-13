@@ -65,6 +65,40 @@ public class DropMod(IDarkSouls1 darkSouls)
         }
     }
 
+    public void InitLadderwarpDragonToothAnyPercent()
+    {
+        darkSouls.WriteWeaponDescription(854000, "Dropmod!\n\nAffected:\nShort Bow/Rapier/Throwing knife\n\n\n\n\n\n\n\n\n\n");
+
+        for (var i = 0; i < 62; i++)
+        {
+            darkSouls.SetLoadingScreenItem(i, 854000);
+        }
+
+        //shortbow painted world/undead asylum
+        darkSouls.WriteItemLotParam(25002100, lot =>
+        {
+            lot.LotItemBasePoint01 = 0;
+            lot.LotItemBasePoint02 = 100;
+        });
+
+        //Rapier undead burg
+        darkSouls.WriteItemLotParam(25600200, lot =>
+        {
+            lot.LotItemBasePoint01 = 0;
+            lot.LotItemBasePoint02 = 100;
+            lot.LotItemBasePoint03 = 0;
+        });
+
+        //Painting guardian throwing knife
+        darkSouls.WriteItemLotParam(24000000, lot =>
+        {
+            lot.LotItemBasePoint01 = 0;
+            lot.LotItemBasePoint02 = 0;
+            lot.LotItemBasePoint03 = 0;
+            lot.LotItemBasePoint04 = 100;
+        });
+    }
+
     public void UpdateAllAchievements()
     {
         var items = darkSouls.GetInventory();

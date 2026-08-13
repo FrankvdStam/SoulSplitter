@@ -20,5 +20,6 @@ public enum DropModType
 {
     None,
     AnyPercent,
-    AllAchievements
+    AllAchievements,
+    LadderwarpDragonToothAnyPercent,
 }

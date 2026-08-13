@@ -51,15 +51,48 @@ namespace SoulSplitter.cli
         [STAThread]
         private static void Main(string[] args)
         {
+            TestUi();
+            return;
             GameLoop<DarkSouls1>((g) =>
-            {
-                g.WriteInGameTimeMilliseconds(0);
+            {   //
+                //g.WriteItemLotParam(25000200, lot =>
+                //{
+                //    lot.LotItemBasePoint01 = 0;
+                //    lot.LotItemBasePoint02 = 100;
+                //});
 
-                //Console.WriteLine($"{g.IsBossHealthBarVisible()} - {g.ReadEventFlag(18002800)}");
+                //shortbow painted world/undead asylum
+                g.WriteItemLotParam(25002100, lot =>
+                {
+                    lot.LotItemBasePoint01 = 0;
+                    lot.LotItemBasePoint02 = 100;
+                });
+
+                //Rapier undead burg
+                g.WriteItemLotParam(25600200, lot =>
+                {
+                    lot.LotItemBasePoint01 = 0;
+                    lot.LotItemBasePoint02 = 100;
+                    lot.LotItemBasePoint03 = 0;
+                });
+
+                //Painting guardian throwing knife
+                g.WriteItemLotParam(24000000, lot =>
+                {
+                    lot.LotItemBasePoint01 = 0;
+                    lot.LotItemBasePoint02 = 0;
+                    lot.LotItemBasePoint03 = 10;
+                    lot.LotItemBasePoint04 = 100;
+                });
+                
+
+
+
+
+                Console.WriteLine($"{g.ReadInGameTimeMilliseconds()}");
 
             });
 
-            TestUi();
 
             var nr = new Nightreign();
             nr.TryRefresh();

@@ -538,6 +538,10 @@ namespace SoulSplitter.Plugin.Timer
                             _dropMod.InitBkh();
                             break;
 
+                        case DropModType.LadderwarpDragonToothAnyPercent:
+                            _dropMod.InitLadderwarpDragonToothAnyPercent();
+                            break;
+
                         case DropModType.AllAchievements:
                             _dropMod.InitAllAchievements();
                             break;
@@ -550,6 +554,7 @@ namespace SoulSplitter.Plugin.Timer
                     default:
                     case DropModType.None:
                     case DropModType.AnyPercent:
+                    case DropModType.LadderwarpDragonToothAnyPercent:
                         break;
 
                     case DropModType.AllAchievements:
