@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="2.0.49">
+        <files>
+            <file path="Components/SoulSplitter.Plugin.dll"                         status="changed"/>
+            <file path="Components/SoulSplitter.SoulMemory.dll"                     status="changed"/>
+            <file path="Components/soulsplitter.soulmods.x64.dll"                   status="changed"/>
+            <file path="Components/soulsplitter.soulmods.x86.dll"                   status="changed"/>
+            <file path="Components/soulsplitter.soulmemory_rs.x64.dll"              status="changed"/>
+            <file path="Components/soulsplitter.soulmemory_rs.x86.dll"              status="changed"/>
+            <file path="Components/soulsplitter.soulmemory-rs.launcher.x64.exe"     status="changed"/>
+            <file path="Components/soulsplitter.soulmemory-rs.launcher.x86.exe"     status="changed"/>
+        </files>
+        <changelog>
+            <change>DS1: Added dropmod for shortbow/rapier/throwing knife</change>
+            <change>Small fix in the settings interaction with livesplit</change>
+        </changelog>
+    </update>
     <update version="2.0.48">
         <files>
             <file path="Components/SoulSplitter.Plugin.dll"                         status="changed"/>
