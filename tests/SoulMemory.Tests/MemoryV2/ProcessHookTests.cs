@@ -16,9 +16,9 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SoulMemory.MemoryV2.Process;
+using SoulSplitter.SoulMemory.MemoryV2.Process;
 
-namespace SoulMemory.Tests.MemoryV2;
+namespace SoulSplitter.SoulMemory.Tests.MemoryV2;
 
 [TestClass]
 public class ProcessHookTests

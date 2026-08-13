@@ -14,6 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+#![allow(unused_imports)]
+#![allow(unused_variables)]
+
 use crate::widgets::widget::Widget;
 use imgui::{TreeNodeFlags, Ui};
 use windows::Win32::UI::Input::KeyboardAndMouse::VK_OEM_5;
@@ -29,6 +32,7 @@ impl MiscWidget
 {
     pub fn new() -> Self { MiscWidget{}}
 
+    #[cfg(target_arch = "x86_64")]
     fn render_misc_sekiro(&mut self, sekiro: &mut Sekiro, ui: &Ui)
     {
         if ui.button("quitout") || ui.io().keys_down[VK_OEM_5.0 as usize]
@@ -42,6 +46,7 @@ impl Widget for MiscWidget
 {
     fn render(&mut self, game: &mut Box<dyn Game>, ui: &Ui)
     {
+        #[cfg(target_arch = "x86_64")]
         if let Some(sekiro) = GameExt::get_game_mut::<Sekiro>(game.deref_mut())
         {
             if ui.collapsing_header("misc", TreeNodeFlags::FRAMED)

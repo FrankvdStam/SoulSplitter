@@ -1,5 +1,21 @@
+// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+// Copyright (c) 2022 Frank van der Stam.
+// https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, version 3.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 use windows::Win32::Foundation::HINSTANCE;
 use crate::util::Version;
 
-pub static mut GLOBAL_HMODULE: HINSTANCE = HINSTANCE(0);
+pub static mut GLOBAL_HMODULE: HINSTANCE = HINSTANCE(std::ptr::null_mut());
 pub static mut GLOBAL_VERSION: Version = Version { major: 0, minor: 0, build: 0, revision: 0 };

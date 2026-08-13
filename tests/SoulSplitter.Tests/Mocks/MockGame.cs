@@ -17,17 +17,23 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using SoulMemory;
-using SoulMemory.Memory;
+using SoulSplitter.SoulMemory;
+using SoulSplitter.SoulMemory.Abstractions;
+using SoulSplitter.SoulMemory.Memory;
 
-namespace SoulSplitter.Tests.Mocks
+namespace SoulSplitter.Plugin.Tests.Mocks
 {
     public class MockGame : IGame
     {
         public Dictionary<uint, bool> EventFlags = new Dictionary<uint, bool>();
 
 
-        public int GetInGameTimeMilliseconds()
+        public int ReadInGameTimeMilliseconds()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteInGameTimeMilliseconds(int milliseconds)
         {
             throw new NotImplementedException();
         }

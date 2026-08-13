@@ -1,0 +1,2 @@
+pub mod dark_souls_prepare_to_die_edition;
+pub mod dark_souls_2_vanilla;

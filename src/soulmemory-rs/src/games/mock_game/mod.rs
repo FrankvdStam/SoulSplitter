@@ -17,8 +17,8 @@
 use std::any::Any;
 use std::sync::{Arc, Mutex};
 use rand::random;
-use crate::darkscript3::sekiro_emedf::Emedf;
-use crate::games;
+use crate::darkscript3::emevd_definition::EmevdDefinition;
+use crate::darkscript3::load_emevd;
 use crate::games::game::Game;
 use crate::games::dx_version::DxVersion;
 use crate::games::traits::buffered_emevd_logger::{BufferedEmevdCall, BufferedEmevdLogger};
@@ -32,7 +32,7 @@ pub struct MockGame
 {
     event_flags: Arc<Mutex<Vec<EventFlag>>>,
     emevd_buffer: Arc<Mutex<Vec<BufferedEmevdCall>>>,
-    emedf: Emedf,
+    emevd_definition: EmevdDefinition,
 }
 
 impl MockGame
@@ -49,7 +49,7 @@ impl MockGame
         {
             event_flags: Arc::new(Mutex::new(vec)),
             emevd_buffer: Arc::new(Mutex::new(Vec::new())),
-            emedf: games::sekiro::load_emevd(), //use sekiro emevd for now
+            emevd_definition: load_emevd(include_str!("../../../../../darkscript3/ds3-common.emedf.json")), //use sekiro emevd for now
         }
     }
 

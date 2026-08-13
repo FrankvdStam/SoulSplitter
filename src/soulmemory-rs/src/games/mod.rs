@@ -15,47 +15,50 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 pub mod traits;
-mod dark_souls_prepare_to_die_edition;
-mod dark_souls_remastered;
-mod dark_souls_2_vanilla;
-mod dark_souls_2_scholar_of_the_first_sin;
-mod dark_souls_3;
-pub mod sekiro;
-mod elden_ring;
-mod armored_core_6;
-mod mock_game;
+
 pub mod dx_version;
-mod game;
-mod game_ext;
+pub mod game;
+pub mod game_ext;
+pub mod mock_game;
 
 
 #[cfg(target_arch = "x86")]
-mod ilhook
+mod x86;
+
+#[cfg(target_arch = "x86")]
+pub use
 {
-    #[allow(unused_imports)]
-    pub use ilhook::x86::{CallbackOption, Hooker, HookFlags, HookPoint, HookType, Registers};
-}
+    crate::games::x86::dark_souls_prepare_to_die_edition::*,
+    crate::games::x86::dark_souls_2_vanilla::*,
+};
+
+#[cfg(target_arch = "x86_64")]
+mod x64;
+
+#[cfg(target_arch = "x86_64")]
+pub use
+{
+    crate::games::x64::dark_souls_remastered::*,
+    crate::games::x64::armored_core_6::*,
+    crate::games::x64::dark_souls_2_scholar_of_the_first_sin::*,
+    crate::games::x64::darksouls3::*,
+    crate::games::x64::elden_ring::*,
+    crate::games::x64::sekiro::*,
+    crate::games::x64::bloodborne::*,
+    crate::games::x64::nightreign::*,
+};
+
 
 #[cfg(target_arch = "x86_64")]
 mod ilhook
 {
-    pub use ilhook::x64::{CallbackOption, Hooker, HookFlags, HookPoint, HookType, Registers};
+    pub use ilhook::x64::{CallbackOption, HookFlags, HookPoint, HookType, Hooker, Registers};
 }
-
-
 
 pub use game::Game;
 pub use game_ext::GameExt;
-
-pub use dark_souls_prepare_to_die_edition::DarkSoulsPrepareToDieEdition;
-pub use dark_souls_remastered::DarkSoulsRemastered;
-pub use dark_souls_2_vanilla::DarkSouls2Vanilla;
-pub use dark_souls_2_scholar_of_the_first_sin::DarkSouls2ScholarOfTheFirstSin;
-pub use dark_souls_3::DarkSouls3;
-pub use sekiro::Sekiro;
-pub use elden_ring::EldenRing;
-pub use armored_core_6::ArmoredCore6;
 pub use mock_game::MockGame;
+
 
 pub type ChrDbgFlag = (u32, String, bool);
 

@@ -1,0 +1,26 @@
+﻿using System;
+
+namespace SoulSplitter.Plugin.Tests.DependencyInjection
+{
+    public class BusinessClass : IBusinessClass
+    {
+        private readonly ILogger _logger;
+
+        public BusinessClass(ILogger logger)
+        {
+            _logger = logger;
+        }
+
+        public void DoBusinessLogic()
+        {
+            _logger.Log("Doing business logic");
+        }
+
+
+        public Action DisposeCallback { get; set; } = null!;
+        public void Dispose()
+        {
+            DisposeCallback?.Invoke();
+        }
+    }
+}
