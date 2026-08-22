@@ -142,13 +142,9 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
+    <DockPanel>
         <materialDesign:ColorZone
+            DockPanel.Dock="Top"
             Mode="PrimaryMid"
             materialDesign:ElevationAssist.Elevation="Dp4" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <ToolBar
@@ -235,6 +231,7 @@
 
 
         <TabControl
+            DockPanel.Dock="Top"
             Grid.Row="1"
             materialDesign:ColorZoneAssist.Mode="PrimaryLight"
             Style="{StaticResource MaterialDesignFilledTabControl}">
@@ -588,9 +585,8 @@
                                  Width="30" />
                         </Button>
                     </StackPanel>
-
                 </StackPanel>
             </TabItem>
         </TabControl>
-    </Grid>
+    </DockPanel>
 </Window>

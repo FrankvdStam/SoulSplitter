@@ -30,13 +30,8 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <DockPanel>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
             <CheckBox
                 Content="Ignore 'process not running' errors"
                 IsChecked="{Binding IgnoreProcessNotRunningErrors}"/>
@@ -55,6 +50,7 @@
         </DockPanel>
 
         <DataGrid
+            DockPanel.Dock="Top"
             Grid.Row="1"
             ItemsSource="{Binding Errors}"
             CanUserAddRows="False"
@@ -75,5 +71,5 @@
             </DataGrid.Columns>
         </DataGrid>
         
-    </Grid>
+    </DockPanel>
 </Window>
