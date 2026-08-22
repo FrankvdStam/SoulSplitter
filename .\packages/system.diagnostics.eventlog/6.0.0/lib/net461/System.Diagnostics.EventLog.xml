@@ -1,0 +1,391 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>System.Diagnostics.EventLog</name>
+    </assembly>
+    <members>
+        <member name="T:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembersAttribute">
+             <summary>
+             Indicates that certain members on a specified <see cref="T:System.Type"/> are accessed dynamically,
+             for example through <see cref="N:System.Reflection"/>.
+             </summary>
+             <remarks>
+             This allows tools to understand which members are being accessed during the execution
+             of a program.
+            
+             This attribute is valid on members whose type is <see cref="T:System.Type"/> or <see cref="T:System.String"/>.
+            
+             When this attribute is applied to a location of type <see cref="T:System.String"/>, the assumption is
+             that the string represents a fully qualified type name.
+            
+             When this attribute is applied to a class, interface, or struct, the members specified
+             can be accessed dynamically on <see cref="T:System.Type"/> instances returned from calling
+             <see cref="M:System.Object.GetType"/> on instances of that class, interface, or struct.
+            
+             If the attribute is applied to a method it's treated as a special case and it implies
+             the attribute should be applied to the "this" parameter of the method. As such the attribute
+             should only be used on instance methods of types assignable to System.Type (or string, but no methods
+             will use it there).
+             </remarks>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembersAttribute.#ctor(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembersAttribute"/> class
+            with the specified member types.
+            </summary>
+            <param name="memberTypes">The types of members dynamically accessed.</param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembersAttribute.MemberTypes">
+            <summary>
+            Gets the <see cref="T:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes"/> which specifies the type
+            of members dynamically accessed.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes">
+             <summary>
+             Specifies the types of members that are dynamically accessed.
+            
+             This enumeration has a <see cref="T:System.FlagsAttribute"/> attribute that allows a
+             bitwise combination of its member values.
+             </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.None">
+            <summary>
+            Specifies no members.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicParameterlessConstructor">
+            <summary>
+            Specifies the default, parameterless public constructor.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicConstructors">
+            <summary>
+            Specifies all public constructors.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicConstructors">
+            <summary>
+            Specifies all non-public constructors.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicMethods">
+            <summary>
+            Specifies all public methods.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods">
+            <summary>
+            Specifies all non-public methods.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicFields">
+            <summary>
+            Specifies all public fields.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicFields">
+            <summary>
+            Specifies all non-public fields.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicNestedTypes">
+            <summary>
+            Specifies all public nested types.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicNestedTypes">
+            <summary>
+            Specifies all non-public nested types.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties">
+            <summary>
+            Specifies all public properties.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicProperties">
+            <summary>
+            Specifies all non-public properties.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicEvents">
+            <summary>
+            Specifies all public events.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicEvents">
+            <summary>
+            Specifies all non-public events.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.Interfaces">
+            <summary>
+            Specifies all interfaces implemented by the type.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.All">
+            <summary>
+            Specifies all members.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute">
+            <summary>
+            Suppresses reporting of a specific rule violation, allowing multiple suppressions on a
+            single code artifact.
+            </summary>
+            <remarks>
+            <see cref="T:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute"/> is different than
+            <see cref="T:System.Diagnostics.CodeAnalysis.SuppressMessageAttribute"/> in that it doesn't have a
+            <see cref="T:System.Diagnostics.ConditionalAttribute"/>. So it is always preserved in the compiled assembly.
+            </remarks>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute"/>
+            class, specifying the category of the tool and the identifier for an analysis rule.
+            </summary>
+            <param name="category">The category for the attribute.</param>
+            <param name="checkId">The identifier of the analysis rule the attribute applies to.</param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.Category">
+            <summary>
+            Gets the category identifying the classification of the attribute.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.Category"/> property describes the tool or tool analysis category
+            for which a message suppression attribute applies.
+            </remarks>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.CheckId">
+            <summary>
+            Gets the identifier of the analysis tool rule to be suppressed.
+            </summary>
+            <remarks>
+            Concatenated together, the <see cref="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.Category"/> and <see cref="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.CheckId"/>
+            properties form a unique check identifier.
+            </remarks>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.Scope">
+            <summary>
+            Gets or sets the scope of the code that is relevant for the attribute.
+            </summary>
+            <remarks>
+            The Scope property is an optional argument that specifies the metadata scope for which
+            the attribute is relevant.
+            </remarks>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.Target">
+            <summary>
+            Gets or sets a fully qualified path that represents the target of the attribute.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.Target"/> property is an optional argument identifying the analysis target
+            of the attribute. An example value is "System.IO.Stream.ctor():System.Void".
+            Because it is fully qualified, it can be long, particularly for targets such as parameters.
+            The analysis tool user interface should be capable of automatically formatting the parameter.
+            </remarks>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.MessageId">
+            <summary>
+            Gets or sets an optional argument expanding on exclusion criteria.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.MessageId"/> property is an optional argument that specifies additional
+            exclusion where the literal metadata target is not sufficiently precise. For example,
+            the <see cref="T:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute"/> cannot be applied within a method,
+            and it may be desirable to suppress a violation against a statement in the method that will
+            give a rule violation, but not against all statements in the method.
+            </remarks>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute.Justification">
+            <summary>
+            Gets or sets the justification for suppressing the code analysis message.
+            </summary>
+        </member>
+        <member name="P:System.SR.BadLogName">
+            <summary>Event log names must consist of printable characters and cannot contain \\, *, ?, or spaces</summary>
+        </member>
+        <member name="P:System.SR.CannotDeleteEqualSource">
+            <summary>The event log source '{0}' cannot be deleted, because it's equal to the log name.</summary>
+        </member>
+        <member name="P:System.SR.CantMonitorEventLog">
+            <summary>Cannot monitor EntryWritten events for this EventLog. This might be because the EventLog is on a remote machine which is not a supported scenario.</summary>
+        </member>
+        <member name="P:System.SR.CantOpenLog">
+            <summary>Cannot open log {0} on computer '{1}'. {2}</summary>
+        </member>
+        <member name="P:System.SR.CantOpenLogAccess">
+            <summary>Cannot open log for source '{0}'. You may not have write access.</summary>
+        </member>
+        <member name="P:System.SR.CantReadLogEntryAt">
+            <summary>Cannot read log entry number {0}.  The event log may be corrupt.</summary>
+        </member>
+        <member name="P:System.SR.CantRetrieveEntries">
+            <summary>Cannot retrieve all entries.</summary>
+        </member>
+        <member name="P:System.SR.DuplicateLogName">
+            <summary>Only the first eight characters of a custom log name are significant, and there is already another log on the system using the first eight characters of the name given. Name given: '{0}', name of existing log: '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.EventID">
+            <summary>Invalid eventID value '{0}'. It must be in the range between '{1}' and '{2}'.</summary>
+        </member>
+        <member name="P:System.SR.IndexOutOfBounds">
+            <summary>Index {0} is out of bounds.</summary>
+        </member>
+        <member name="P:System.SR.InitTwice">
+            <summary>Cannot initialize the same object twice.</summary>
+        </member>
+        <member name="P:System.SR.InvalidCustomerLogName">
+            <summary>The log name: '{0}' is invalid for customer log creation.</summary>
+        </member>
+        <member name="P:System.SR.InvalidParameter">
+            <summary>Invalid value '{1}' for parameter '{0}'.</summary>
+        </member>
+        <member name="P:System.SR.InvalidParameterFormat">
+            <summary>Invalid format for argument {0}.</summary>
+        </member>
+        <member name="P:System.SR.LocalLogAlreadyExistsAsSource">
+            <summary>Log {0} has already been registered as a source on the local computer.</summary>
+        </member>
+        <member name="P:System.SR.LocalRegKeyMissing">
+            <summary>Cannot open registry key {0}\\{1}\\{2}.</summary>
+        </member>
+        <member name="P:System.SR.LocalSourceAlreadyExists">
+            <summary>Source {0} already exists on the local computer.</summary>
+        </member>
+        <member name="P:System.SR.LocalSourceNotRegistered">
+            <summary>Source {0} is not registered on the local computer.</summary>
+        </member>
+        <member name="P:System.SR.LogDoesNotExists">
+            <summary>The event log '{0}' on computer '{1}' does not exist.</summary>
+        </member>
+        <member name="P:System.SR.LogEntryTooLong">
+            <summary>Log entry string is too long. A string written to the event log cannot exceed 32766 characters.</summary>
+        </member>
+        <member name="P:System.SR.LogSourceMismatch">
+            <summary>The source '{0}' is not registered in log '{1}'. (It is registered in log '{2}'.) " The Source and Log properties must be matched, or you may set Log to the empty string, and it will automatically be matched to the Source property.NoAccountInfo=Cannot obta ...</summary>
+        </member>
+        <member name="P:System.SR.MaximumKilobytesOutOfRange">
+            <summary>MaximumKilobytes must be between 64 KB and 4 GB, and must be in 64K increments.</summary>
+        </member>
+        <member name="P:System.SR.MessageNotFormatted">
+            <summary>The description for Event ID '{0}' in Source '{1}' cannot be found.  The local computer may not have the necessary registry information or message DLL files to display the message, or you may not have permission to access them.  The following information i ...</summary>
+        </member>
+        <member name="P:System.SR.MissingLog">
+            <summary>Cannot find Log {0} on computer '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.MissingLogProperty">
+            <summary>Log property value has not been specified.</summary>
+        </member>
+        <member name="P:System.SR.MissingParameter">
+            <summary>Must specify value for {0}.</summary>
+        </member>
+        <member name="P:System.SR.NeedSourceToOpen">
+            <summary>Source property was not set before opening the event log in write mode.</summary>
+        </member>
+        <member name="P:System.SR.NeedSourceToWrite">
+            <summary>Source property was not set before writing to the event log.</summary>
+        </member>
+        <member name="P:System.SR.NoCurrentEntry">
+            <summary>No current EventLog entry available, cursor is located before the first or after the last element of the enumeration.</summary>
+        </member>
+        <member name="P:System.SR.NoLogName">
+            <summary>Log to delete was not specified.</summary>
+        </member>
+        <member name="P:System.SR.ParameterTooLong">
+            <summary>The size of {0} is too big. It cannot be longer than {1} characters.</summary>
+        </member>
+        <member name="P:System.SR.PlatformNotSupported_EventLog">
+            <summary>EventLog access is not supported on this platform.</summary>
+        </member>
+        <member name="P:System.SR.RegKeyMissing">
+            <summary>Cannot open registry key {0}\\{1}\\{2} on computer '{3}'.</summary>
+        </member>
+        <member name="P:System.SR.RegKeyMissingShort">
+            <summary>Cannot open registry key {0} on computer {1}.</summary>
+        </member>
+        <member name="P:System.SR.RegKeyNoAccess">
+            <summary>Cannot open registry key {0} on computer {1}. You might not have access.</summary>
+        </member>
+        <member name="P:System.SR.RentionDaysOutOfRange">
+            <summary>'retentionDays' must be between 1 and 365 days.</summary>
+        </member>
+        <member name="P:System.SR.SomeLogsInaccessible">
+            <summary>The source was not found, but some or all event logs could not be searched.  Inaccessible logs: {0}.</summary>
+        </member>
+        <member name="P:System.SR.SomeLogsInaccessibleToCreate">
+            <summary>The source was not found, but some or all event logs could not be searched.  To create the source, you need permission to read all event logs to make sure that the new source name is unique.  Inaccessible logs: {0}.</summary>
+        </member>
+        <member name="P:System.SR.SourceAlreadyExists">
+            <summary>Source {0} already exists on the computer '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.SourceNotRegistered">
+            <summary>The source '{0}' is not registered on machine '{1}', or you do not have write access to the {2} registry key.</summary>
+        </member>
+        <member name="P:System.SR.TooManyReplacementStrings">
+            <summary>The maximum allowed number of replacement strings is 255.</summary>
+        </member>
+        <member name="P:System.SR.LogAlreadyExistsAsSource">
+            <summary>Log {0} has already been registered as a source on the local computer.</summary>
+        </member>
+        <member name="P:System.SR.NotSupported_IONonFileDevices">
+            <summary>Opening Win32 devices other than file such as COM ports, printers, disk partitions and tape drives is not supported. Avoid use of "\\\\.\\" in the path.</summary>
+        </member>
+        <member name="T:System.Runtime.Versioning.OSPlatformAttribute">
+            <summary>
+            Base type for all platform-specific API attributes.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Versioning.TargetPlatformAttribute">
+            <summary>
+            Records the platform that the project targeted.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Versioning.SupportedOSPlatformAttribute">
+             <summary>
+             Records the operating system (and minimum version) that supports an API. Multiple attributes can be
+             applied to indicate support on multiple operating systems.
+             </summary>
+             <remarks>
+             Callers can apply a <see cref="T:System.Runtime.Versioning.SupportedOSPlatformAttribute" />
+             or use guards to prevent calls to APIs on unsupported operating systems.
+            
+             A given platform should only be specified once.
+             </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.UnsupportedOSPlatformAttribute">
+            <summary>
+            Marks APIs that were removed in a given operating system version.
+            </summary>
+            <remarks>
+            Primarily used by OS bindings to indicate APIs that are only available in
+            earlier versions.
+            </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.SupportedOSPlatformGuardAttribute">
+             <summary>
+             Annotates a custom guard field, property or method with a supported platform name and optional version.
+             Multiple attributes can be applied to indicate guard for multiple supported platforms.
+             </summary>
+             <remarks>
+             Callers can apply a <see cref="T:System.Runtime.Versioning.SupportedOSPlatformGuardAttribute" /> to a field, property or method
+             and use that field, property or method in a conditional or assert statements in order to safely call platform specific APIs.
+            
+             The type of the field or property should be boolean, the method return type should be boolean in order to be used as platform guard.
+             </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.UnsupportedOSPlatformGuardAttribute">
+             <summary>
+             Annotates the custom guard field, property or method with an unsupported platform name and optional version.
+             Multiple attributes can be applied to indicate guard for multiple unsupported platforms.
+             </summary>
+             <remarks>
+             Callers can apply a <see cref="T:System.Runtime.Versioning.UnsupportedOSPlatformGuardAttribute" /> to a field, property or method
+             and use that  field, property or method in a conditional or assert statements as a guard to safely call APIs unsupported on those platforms.
+            
+             The type of the field or property should be boolean, the method return type should be boolean in order to be used as platform guard.
+             </remarks>
+        </member>
+    </members>
+</doc>

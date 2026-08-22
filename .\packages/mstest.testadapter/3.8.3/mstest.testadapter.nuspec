@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>MSTest.TestAdapter</id>
+    <version>3.8.3</version>
+    <authors>Microsoft</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>Icon.png</icon>
+    <readme>PACKAGE.md</readme>
+    <projectUrl>https://github.com/microsoft/testfx</projectUrl>
+    <description>MSTest is Microsoft supported Test Framework.
+
+      This package includes the adapter logic to discover and run tests. For access to the testing framework, install the MSTest.TestFramework package.
+
+      Supported platforms:
+      - .NET 4.6.2+
+      - .NET Core 3.1+
+      - .NET 6.0+
+      - .NET 6.0 Windows.18362+
+      - UWP 10.0.16299
+      - UWP 10.0.17763 with .NET 9</description>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>MSTest TestFramework TestAdapter VisualStudio Unittest MSTestV2 Microsoft</tags>
+    <serviceable>true</serviceable>
+    <repository type="git" url="https://github.com/microsoft/testfx" commit="5354e77dc47f233239dfddf6d2be620b9e14b171" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.Testing.Extensions.VSTestBridge" version="1.6.3" />
+        <dependency id="Microsoft.Testing.Platform.MSBuild" version="1.6.3" />
+        <dependency id="System.Threading.Tasks.Extensions" version="4.5.4" />
+      </group>
+      <group targetFramework=".NETFramework4.6.2">
+        <dependency id="Microsoft.Testing.Extensions.VSTestBridge" version="1.6.3" />
+        <dependency id="Microsoft.Testing.Platform.MSBuild" version="1.6.3" />
+        <dependency id="System.Threading.Tasks.Extensions" version="4.5.4" />
+      </group>
+      <group targetFramework="UAP10.0">
+        <dependency id="System.Threading.Tasks.Extensions" version="4.5.4" />
+      </group>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="Microsoft.Testing.Extensions.VSTestBridge" version="1.6.3" />
+        <dependency id="Microsoft.Testing.Platform.MSBuild" version="1.6.3" />
+      </group>
+      <group targetFramework="net6.0">
+        <dependency id="Microsoft.Testing.Extensions.VSTestBridge" version="1.6.3" />
+        <dependency id="Microsoft.Testing.Platform.MSBuild" version="1.6.3" />
+      </group>
+      <group targetFramework="net7.0">
+        <dependency id="Microsoft.Testing.Extensions.VSTestBridge" version="1.6.3" />
+        <dependency id="Microsoft.Testing.Platform.MSBuild" version="1.6.3" />
+      </group>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.Testing.Extensions.VSTestBridge" version="1.6.3" />
+        <dependency id="Microsoft.Testing.Platform.MSBuild" version="1.6.3" />
+      </group>
+      <group targetFramework="net9.0">
+        <dependency id="Microsoft.Testing.Extensions.VSTestBridge" version="1.6.3" />
+        <dependency id="Microsoft.Testing.Platform.MSBuild" version="1.6.3" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

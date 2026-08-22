@@ -1,9 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:clr="clr-namespace:System;assembly=mscorlib"
-                    xmlns:viewModels="clr-namespace:SoulSplitter.Plugin.Ui.ViewModels;assembly=SoulSplitter.Plugin">
-
-    <clr:String x:Key="{x:Static viewModels:HotkeyAction.FpsPatchDisable}">Disable FPS patch</clr:String>
-    <clr:String x:Key="{x:Static viewModels:HotkeyAction.FpsPatchSetFpsValue}">Enable FPS patch with a specific FPS value</clr:String>
-
-</ResourceDictionary>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MaterialDesignColors</id>
+    <version>5.2.1</version>
+    <title>Material Design Colors XAML Resources</title>
+    <authors>James Willock</authors>
+    <owners>James Willock</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>images\MaterialDesignColors.Icon.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit</projectUrl>
+    <iconUrl>http://materialdesigninxaml.net/images/MD4XAML32.png</iconUrl>
+    <description>ResourceDictionary instances containing standard Google Material Design swatches,
+      for inclusion in a XAML application.</description>
+    <releaseNotes>https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/releases</releaseNotes>
+    <copyright>Copyright 2025 James Willock/Mulholland Software Ltd</copyright>
+    <tags>WPF XAML Material Design Colour Color UI UX</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.2" />
+      <group targetFramework="net6.0" />
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+</package>

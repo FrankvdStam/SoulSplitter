@@ -353,16 +353,16 @@ namespace SoulSplitter.cli
             serviceProvider.GetService<ILanguageManager>().LoadLanguage(Language.English);
 
             var mainViewModel = new MainViewModel();
-            var mainWindow = new MainWindow(mainViewModel);
+            var mainWindow = new MainWindow();
             System.Windows.Application.Current!.MainWindow = mainWindow;
                 
             app.InitializeComponent();
             mainWindow.WindowShouldHide = false; //In livesplit, the window hides. Here it should exit.
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.Immediate, SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.OnLoading, SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.OnLoading, SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.Immediate, SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
-            mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.Immediate, SplitType.Flag, 15062400u, "mystery flag"));
+            //mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.Immediate, SplitType.Boss, SoulMemory.Games.Sekiro.Boss.HeadlessApe, "big boss"));
+            //mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.OnLoading, SplitType.Bonfire, Idol.AshinaReservoir, "rest here"));
+            //mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.OnLoading, SplitType.Attribute, new AttributeViewModel() { Attribute = SoulMemory.Games.Sekiro.Attribute.AttackPower, Level = 30 }, "Strong boi"));
+            //mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.Immediate, SplitType.Position, new PositionViewModel() { Position = new Vector3f(12.4f, 502.12f, 245.04f), Size = 5.0f }, "kekw"));
+            //mainWindow.MainViewModel.Splits.Add(new SplitViewModel(Game.Sekiro,TimingType.Immediate, SplitType.Flag, 15062400u, "mystery flag"));
             mainWindow.ShowDialog();
 
             mainWindow.WindowShouldHide = false;

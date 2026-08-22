@@ -20,7 +20,6 @@ using System.Runtime.CompilerServices;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
 using SoulSplitter.Plugin.Livesplit;
-using SoulSplitter.Plugin.Utils;
 
 [assembly: InternalsVisibleTo("SoulSplitter.Plugin.Tests")]
 [assembly: ComponentFactory(typeof(LivesplitAdapterFactory))]
@@ -29,26 +28,26 @@ namespace SoulSplitter.Plugin.Livesplit;
 
 public class LivesplitAdapterFactory : IComponentFactory
 {
-    public string ComponentName => LivesplitAdapter.Name;
+    public string ComponentName => "asdf";
 
     public string Description => "Souls games plugin for IGT/RTA with load removal";
 
     public ComponentCategory Category => ComponentCategory.Control;
 
-    public string UpdateName => LivesplitAdapter.Name;
+    public string UpdateName => "asdf";
 
     public string XMLURL => $"{UpdateURL}/Components/Updates.xml";
 
     public string UpdateURL => "https://raw.githubusercontent.com/FrankvdStam/SoulSplitter/release/";
 
-    public Version Version => VersionHelper.Version;
+    public Version Version => new Version(1, 0, 0, 0);
 
     public IComponent Create(LiveSplitState state)
     {
         //This is high quality code to detect layout/splitter mode. There is absolutely nothing wrong with this code.
-        var stackTrace = new StackTrace();
-        var caller = stackTrace.GetFrame(1).GetMethod().Name;
-        var componentMode = caller == "AddComponent" ? ComponentMode.Layout : ComponentMode.AutoSplitter;
-        return new LivesplitAdapter(state, componentMode);
+        //var stackTrace = new StackTrace();
+        //var caller = stackTrace.GetFrame(1).GetMethod().Name;
+        //var componentMode = caller == "AddComponent" ? ComponentMode.Layout : ComponentMode.AutoSplitter;
+        return new LivesplitAdapter(state);
     }
 }

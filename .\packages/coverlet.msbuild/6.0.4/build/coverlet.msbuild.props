@@ -1,0 +1,24 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <CollectCoverage Condition="$(CollectCoverage) == ''">false</CollectCoverage>
+    <Include Condition="$(Include) == ''"></Include>
+    <IncludeDirectory Condition="$(IncludeDirectory) == ''"></IncludeDirectory>
+    <Exclude Condition="$(Exclude) == ''"></Exclude>
+    <ExcludeByFile Condition="$(ExcludeByFile) == ''"></ExcludeByFile>
+    <ExcludeByAttribute Condition="$(ExcludeByAttribute) == ''"></ExcludeByAttribute>
+    <IncludeTestAssembly Condition="'$(IncludeTestAssembly)' == ''">false</IncludeTestAssembly>
+    <SingleHit Condition="'$(SingleHit)' == ''">false</SingleHit>
+    <MergeWith Condition="$(MergeWith) == ''"></MergeWith>
+    <UseSourceLink Condition="$(UseSourceLink) == ''">false</UseSourceLink>
+    <DeterministicReport Condition="$(DeterministicReport) == ''">false</DeterministicReport>
+    <CoverletOutputFormat Condition="$(CoverletOutputFormat) == ''">json</CoverletOutputFormat>
+    <CoverletOutput Condition="$(CoverletOutput) == ''">$([MSBuild]::EnsureTrailingSlash('$(MSBuildProjectDirectory)'))</CoverletOutput>
+    <Threshold Condition="$(Threshold) == ''">0</Threshold>
+    <ThresholdType Condition="$(ThresholdType) == ''">line,branch,method</ThresholdType>
+    <ThresholdStat Condition="$(ThresholdStat) == ''">minimum</ThresholdStat>
+    <ExcludeAssembliesWithoutSources Condition="$(ExcludeAssembliesWithoutSources) == ''"></ExcludeAssembliesWithoutSources>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CoverletToolsPath Condition=" '$(CoverletToolsPath)' == '' ">$(MSBuildThisFileDirectory)..\tasks\netstandard2.0\</CoverletToolsPath>
+  </PropertyGroup>
+</Project>

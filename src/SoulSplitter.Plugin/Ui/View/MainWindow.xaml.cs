@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using SoulSplitter.Plugin.Ui.ViewModels.MainViewModel;
 
 namespace SoulSplitter.Plugin.Ui.View
 {
@@ -11,14 +10,13 @@ namespace SoulSplitter.Plugin.Ui.View
     [ExcludeFromCodeCoverage]
     public partial class MainWindow : Window
     {
-        public MainWindow(MainViewModel mainViewModel)
+        public MainWindow()
         {
-            DataContext = mainViewModel;
+            //DataContext = mainViewModel;
             InitializeComponent();
             Closing += Window_Closing;
         }
 
-        public MainViewModel MainViewModel => (MainViewModel)DataContext;
 
 
         public bool WindowShouldHide = true;

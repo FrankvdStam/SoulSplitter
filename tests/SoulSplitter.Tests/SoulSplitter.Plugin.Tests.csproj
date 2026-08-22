@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SoulSplitter.Plugin\SoulSplitter.Plugin.csproj" />
     <ProjectReference Include="..\..\src\SoulSplitter.SoulMemory\SoulSplitter.SoulMemory.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,867 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Testing.Extensions.VSTestBridge</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.Capabilities.IVSTestFlattenedTestNodesReportCapability">
+            <summary>
+            A capability to indicate whether the VSTest adapter supports flattened test nodes report.
+            This corresponds to the way Visual Studio Test Explorer displays tests.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Capabilities.IVSTestFlattenedTestNodesReportCapability.IsSupported">
+            <summary>
+            Gets a value indicating whether a flag indicating whether the capability is supported.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.Capabilities.VSTestBridgeExtensionBaseCapabilities">
+            <summary>
+            The VSTest bridged test framework capabilities.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Capabilities.VSTestBridgeExtensionBaseCapabilities.Microsoft#Testing#Extensions#VSTestBridge#Capabilities#IVSTestFlattenedTestNodesReportCapability#IsSupported">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Capabilities.VSTestBridgeExtensionBaseCapabilities.Microsoft#Testing#Extensions#TrxReport#Abstractions#ITrxReportCapability#IsSupported">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Capabilities.VSTestBridgeExtensionBaseCapabilities.IsTrxEnabled">
+            <summary>
+            Gets a value indicating whether a flag indicating whether the trx report capability is enabled.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Capabilities.VSTestBridgeExtensionBaseCapabilities.Microsoft#Testing#Extensions#TrxReport#Abstractions#ITrxReportCapability#Enable">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Capabilities.VSTestBridgeExtensionBaseCapabilities.Microsoft#Testing#Platform#Capabilities#TestFramework#INamedFeatureCapability#IsSupported(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.RunSettingsCommandLineOptionsProvider">
+            <summary>
+            A command line service provider to support VSTest .runsettings files.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.RunSettingsCommandLineOptionsProvider.Uid">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.RunSettingsCommandLineOptionsProvider.Version">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.RunSettingsCommandLineOptionsProvider.DisplayName">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.RunSettingsCommandLineOptionsProvider.Description">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.RunSettingsCommandLineOptionsProvider.IsEnabledAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.RunSettingsCommandLineOptionsProvider.GetCommandLineOptions">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.RunSettingsCommandLineOptionsProvider.ValidateOptionArgumentsAsync(Microsoft.Testing.Platform.Extensions.CommandLine.CommandLineOption,System.String[])">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestCaseFilterCommandLineOptionsProvider">
+            <summary>
+            A command line service provider bringing support for the VSTest test case.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestCaseFilterCommandLineOptionsProvider.Uid">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestCaseFilterCommandLineOptionsProvider.Version">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestCaseFilterCommandLineOptionsProvider.DisplayName">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestCaseFilterCommandLineOptionsProvider.Description">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestCaseFilterCommandLineOptionsProvider.IsEnabledAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestCaseFilterCommandLineOptionsProvider.GetCommandLineOptions">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestCaseFilterCommandLineOptionsProvider.ValidateOptionArgumentsAsync(Microsoft.Testing.Platform.Extensions.CommandLine.CommandLineOption,System.String[])">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestRunParametersCommandLineOptionsProvider.Uid">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestRunParametersCommandLineOptionsProvider.Version">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestRunParametersCommandLineOptionsProvider.DisplayName">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestRunParametersCommandLineOptionsProvider.Description">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestRunParametersCommandLineOptionsProvider.IsEnabledAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestRunParametersCommandLineOptionsProvider.GetCommandLineOptions">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestRunParametersCommandLineOptionsProvider.ValidateCommandLineOptionsAsync(Microsoft.Testing.Platform.CommandLine.ICommandLineOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.CommandLine.TestRunParametersCommandLineOptionsProvider.ValidateOptionArgumentsAsync(Microsoft.Testing.Platform.Extensions.CommandLine.CommandLineOption,System.String[])">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Configurations.RunSettingsConfigurationProvider.Uid">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Configurations.RunSettingsConfigurationProvider.Version">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Configurations.RunSettingsConfigurationProvider.DisplayName">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Configurations.RunSettingsConfigurationProvider.Description">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Configurations.RunSettingsConfigurationProvider.IsEnabledAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Configurations.RunSettingsConfigurationProvider.LoadAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Configurations.RunSettingsConfigurationProvider.TryGet(System.String,System.String@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Configurations.RunSettingsConfigurationProvider.BuildAsync(Microsoft.Testing.Platform.CommandLine.CommandLineParseResult)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.Helpers.SynchronousAwaiter">
+            <summary>
+            A helper class to provide synchronous awaiter. Because of vstest sync APIs we need to wait synchronously.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.Helpers.TestApplicationBuilderExtensions">
+            <summary>
+            A set of helper methods to register the VSTest services into Microsoft Testing Platform.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Helpers.TestApplicationBuilderExtensions.AddTestCaseFilterService(Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,Microsoft.Testing.Platform.Extensions.IExtension)">
+            <summary>
+            Allows to register the VSTest filter service.
+            </summary>
+            <param name="builder">The test application builder.</param>
+            <param name="extension">The extension that will be used as the source of registration for this helper service.</param>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Helpers.TestApplicationBuilderExtensions.AddRunSettingsService(Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,Microsoft.Testing.Platform.Extensions.IExtension)">
+            <summary>
+            Allows to register the VSTest runsettings service.
+            </summary>
+            <param name="builder">The test application builder.</param>
+            <param name="extension">The extension that will be used as the source of registration for this helper service.</param>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Helpers.TestApplicationBuilderExtensions.AddTestRunParametersService(Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,Microsoft.Testing.Platform.Extensions.IExtension)">
+            <summary>
+            Allows to register the VSTest TestRunParameters service.
+            </summary>
+            <param name="builder">The test application builder.</param>
+            <param name="extension">The extension that will be used as the source of registration for this helper service.</param>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Helpers.TestApplicationBuilderExtensions.AddRunSettingsEnvironmentVariableProvider(Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,Microsoft.Testing.Platform.Extensions.IExtension)">
+            <summary>
+            Register the environment variable provider.
+            </summary>
+            <param name="builder">The test application builder.</param>
+            <param name="extension">The extension that will be used as the source of registration for this helper service.</param>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Operator">
+            <summary>
+            Operator in order of precedence.
+            Precedence(And) > Precedence(Or)
+            Precedence of OpenBrace and CloseBrace operators is not used, instead parsing code takes care of same.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition">
+            <summary>
+            Represents a condition in filter expression.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition.DefaultPropertyName">
+            <summary>
+             Default property name which will be used when filter has only property value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition.DefaultOperation">
+            <summary>
+             Default operation which will be used when filter has only property value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition.Name">
+            <summary>
+            Gets toolName of the property used in condition.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition.Value">
+            <summary>
+            Gets value for the property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition.Operation">
+            <summary>
+            Gets operation to be performed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition.Evaluate(System.Func{System.String,System.Object})">
+            <summary>
+            Evaluate this condition for testObject.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition.Parse(System.String)">
+            <summary>
+            Returns a condition object after parsing input string of format  '<![CDATA[ <propertyName>Operation<propertyValue> ]]>'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition.ValidForProperties(System.Collections.Generic.IEnumerable{System.String},System.Func{System.String,Microsoft.VisualStudio.TestPlatform.ObjectModel.TestProperty})">
+            <summary>
+            Check if condition validates any property in properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition.GetOperator(System.String)">
+            <summary>
+            Return Operation corresponding to the operationString.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Condition.GetPropertyValue(System.Func{System.String,System.Object})">
+            <summary>
+            Returns property value for Property using propertyValueProvider.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.DiscoveryContextAdapter">
+            <summary>
+            A Microsoft Testing Platform oriented implementation of the VSTest <see cref="T:Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.IDiscoveryContext"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FastFilter.ApplyRegex(System.String)">
+            <summary>
+            Apply regex matching or replacement to given value.
+            </summary>
+            <returns>For matching, returns the result of matching, null if no match found. For replacement, returns the result of replacement.</returns>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FastFilter.TryGetPropertyValue(System.String,System.Func{System.String,System.Object},System.String@,System.String[]@)">
+            <summary>
+            Returns property value for Property using propertyValueProvider.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression">
+            <summary>
+            Represents an expression tree.
+            Supports:
+                Logical Operators:  !<![CDATA[&]]>, |
+                Equality Operators: =, !=
+                Parenthesis (, ) for grouping.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression._condition">
+            <summary>
+            Condition, if expression is conditional expression.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression._left">
+            <summary>
+            Left operand, when expression is logical expression.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression._right">
+            <summary>
+            Right operand, when expression is logical expression.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression._areJoinedByAnd">
+            <summary>
+            If logical expression is using logical And <![CDATA[('&')]]>  operator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression.And(Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression)">
+            <summary>
+            Create a new filter expression 'And'ing 'this' with 'filter'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression.Or(Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression)">
+            <summary>
+            Create a new filter expression 'Or'ing 'this' with 'filter'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression.ProcessOperator(System.Collections.Generic.Stack{Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression},Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.Operator)">
+            <summary>
+            Process the given operator from the filterStack.
+            Puts back the result of operation back to filterStack.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression.ValidForProperties(System.Collections.Generic.IEnumerable{System.String},System.Func{System.String,Microsoft.VisualStudio.TestPlatform.ObjectModel.TestProperty})">
+            <summary>
+            True, if filter is valid for given set of properties.
+            When False, invalidProperties would contain properties making filter invalid.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression.Parse(System.String,Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FastFilter@)">
+            <summary>
+            Return FilterExpression after parsing the given filter expression, and a FastFilter when possible.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression.Evaluate(System.Func{System.String,System.Object})">
+            <summary>
+            Evaluate filterExpression with given propertyValueProvider.
+            </summary>
+            <param name="propertyValueProvider"> The property Value Provider.</param>
+            <returns> True if evaluation is successful. </returns>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpression.GetEmptyParenthesisPattern">
+            <remarks>
+            Pattern:<br/>
+            <code>\\(\\s*\\)</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match '('.<br/>
+            ○ Match a whitespace character atomically any number of times.<br/>
+            ○ Match ')'.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper._filterExpression">
+            <summary>
+            FilterExpression corresponding to filter criteria.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper._fastFilter">
+            <remarks>
+            Exposed for testing purpose.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper.#ctor(System.String,Microsoft.VisualStudio.TestPlatform.ObjectModel.Client.FilterOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper"/> class.
+            Initializes FilterExpressionWrapper with given filterString and options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper"/> class.
+            Initializes FilterExpressionWrapper with given filterString.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper.FilterString">
+            <summary>
+            Gets user specified filter criteria.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper.FilterOptions">
+            <summary>
+            Gets user specified additional filter options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper.ParseError">
+            <summary>
+            Gets parsing error (if any), when parsing 'FilterString' with built-in parser.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper.ValidForProperties(System.Collections.Generic.IEnumerable{System.String},System.Func{System.String,Microsoft.VisualStudio.TestPlatform.ObjectModel.TestProperty})">
+            <summary>
+            Validate if underlying filter expression is valid for given set of supported properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper.Evaluate(System.Func{System.String,System.Object})">
+            <summary>
+            Evaluate filterExpression with given propertyValueProvider.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FrameworkHandlerAdapter">
+            <summary>
+            Bridge implementation of <see cref="T:Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.IFrameworkHandle"/> that forwards calls to VSTest and Microsoft Testing Platforms.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FrameworkHandlerAdapter._frameworkHandle">
+            <remarks>
+            Not null when used in the context of VSTest.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FrameworkHandlerAdapter.EnableShutdownAfterTestRun">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FrameworkHandlerAdapter.LaunchProcessWithDebuggerAttached(System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FrameworkHandlerAdapter.RecordAttachments(System.Collections.Generic.IList{Microsoft.VisualStudio.TestPlatform.ObjectModel.AttachmentSet})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FrameworkHandlerAdapter.RecordEnd(Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase,Microsoft.VisualStudio.TestPlatform.ObjectModel.TestOutcome)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FrameworkHandlerAdapter.RecordResult(Microsoft.VisualStudio.TestPlatform.ObjectModel.TestResult)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FrameworkHandlerAdapter.RecordStart(Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FrameworkHandlerAdapter.SendMessage(Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging.TestMessageLevel,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.MessageLoggerAdapter">
+            <summary>
+            Bridge implementation of <see cref="T:Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging.IMessageLogger"/> that forwards calls to VSTest and Microsoft Testing Platforms.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.MessageLoggerAdapter._messageLogger">
+            <remarks>
+            Not null when used in the context of VSTest.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.MessageLoggerAdapter.SendMessage(Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging.TestMessageLevel,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.ObjectModelConverters">
+            <summary>
+            A set of extension methods to convert between the Microsoft Testing Platform and VSTest object models.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.ObjectModelConverters.ToTestNode(Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase,System.Boolean,Microsoft.Testing.Platform.Services.IClientInfo,System.String)">
+            <summary>
+            Converts a VSTest <see cref="T:Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase"/> to a Microsoft Testing Platform <see cref="T:Microsoft.Testing.Platform.Extensions.Messages.TestNode"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.ObjectModelConverters.ToTestNode(Microsoft.VisualStudio.TestPlatform.ObjectModel.TestResult,System.Boolean,Microsoft.Testing.Platform.Services.IClientInfo)">
+            <summary>
+            Converts a VSTest <see cref="T:Microsoft.VisualStudio.TestPlatform.ObjectModel.TestResult"/> to a Microsoft Testing Platform <see cref="T:Microsoft.Testing.Platform.Extensions.Messages.TestNode"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.RunContextAdapter">
+            <summary>
+            A Microsoft Testing Platform oriented implementation of the VSTest <see cref="T:Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.IRunContext"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.RunContextAdapter.KeepAlive">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.RunContextAdapter.InIsolation">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.RunContextAdapter.IsDataCollectionEnabled">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.RunContextAdapter.IsBeingDebugged">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.RunContextAdapter.TestRunDirectory">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.RunContextAdapter.SolutionDirectory">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.RunSettingsAdapter">
+            <summary>
+            A Microsoft Testing Platform oriented implementation of the VSTest <see cref="T:Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.IRunSettings"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.RunSettingsAdapter.SettingsXml">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.RunSettingsAdapter.GetSettings(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.TestCaseDiscoverySinkAdapter">
+            <summary>
+            Bridge implementation of <see cref="T:Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.ITestCaseDiscoverySink"/> that forwards calls to VSTest and Microsoft Testing Platforms.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.TestCaseDiscoverySinkAdapter._testCaseDiscoverySink">
+            <remarks>
+            Not null when used in the context of VSTest.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.TestCaseDiscoverySinkAdapter.SendTestCase(Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.TestCaseFilterExpression">
+            <summary>
+            Implements ITestCaseFilterExpression, providing test case filtering functionality.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.TestCaseFilterExpression._validForMatch">
+            <summary>
+            If filter Expression is valid for performing TestCase matching
+            (has only supported properties, syntax etc).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.TestCaseFilterExpression.#ctor(Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.FilterExpressionWrapper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.TestCaseFilterExpression"/> class.
+            Adapter specific filter expression.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.TestCaseFilterExpression.TestCaseFilterValue">
+            <summary>
+            Gets user specified filter criteria.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.TestCaseFilterExpression.ValidForProperties(System.Collections.Generic.IEnumerable{System.String},System.Func{System.String,Microsoft.VisualStudio.TestPlatform.ObjectModel.TestProperty})">
+            <summary>
+            Validate if underlying filter expression is valid for given set of supported properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.TestCaseFilterExpression.MatchTestCase(Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase,System.Func{System.String,System.Object})">
+            <summary>
+            Match test case with filter criteria.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest">
+            <summary>
+            A specialized discover test execution request for VSTest. It contains the VSTest specific properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest.VSTestFilter">
+            <summary>
+            Gets the VSTest filter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest.AssemblyPaths">
+            <summary>
+            Gets the paths of the assemblies to discover tests from.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest.DiscoveryContext">
+            <summary>
+            Gets the discovery context for the test discovery.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest.MessageLogger">
+            <summary>
+            Gets the message logger to log messages.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest.DiscoverySink">
+            <summary>
+            Gets the discovery sink to send discovered test cases to.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequestFactory">
+            <summary>
+            VSTest specific implementation of Microsoft Testing Platform <see cref="T:Microsoft.Testing.Platform.Requests.ITestExecutionRequestFactory"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequestFactory.Microsoft#Testing#Platform#Requests#ITestExecutionRequestFactory#CreateRequestAsync(Microsoft.Testing.Platform.TestHost.TestSessionContext)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest"/> with the given parameters.
+            </summary>
+            <param name="session">The test session context.</param>
+            <returns>An instance of <see cref="T:Microsoft.Testing.Platform.Requests.TestExecutionRequest"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequestFactory.CreateRequest(Microsoft.Testing.Platform.Requests.DiscoverTestExecutionRequest,Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase,System.String[],System.Threading.CancellationToken)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest"/> with the given parameters.
+            </summary>
+            <param name="discoverTestExecutionRequest">The discover tests request.</param>
+            <param name="adapterExtension">The adapter extension.</param>
+            <param name="testAssemblyPaths">The paths to test assemblies.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An instance of <see cref="T:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest"/>.</returns>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest">
+            <summary>
+            A specialized run test execution request for VSTest. It contains the VSTest specific properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest.#ctor(Microsoft.Testing.Platform.TestHost.TestSessionContext,Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestTestExecutionFilter,System.String[],Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.IRunContext,Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.IFrameworkHandle)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest"/> class.
+            </summary>
+            <param name="session">The test session context.</param>
+            <param name="executionFilter">The test execution filter.</param>
+            <param name="assemblyPaths">The assembly paths.</param>
+            <param name="runContext">The VSTest run context.</param>
+            <param name="frameworkHandle">The VSTest framework handle.</param>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest.VSTestFilter">
+            <summary>
+            Gets the VSTest filter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest.AssemblyPaths">
+            <summary>
+            Gets the array of assembly paths.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest.RunContext">
+            <summary>
+            Gets the VSTest run context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest.FrameworkHandle">
+            <summary>
+            Gets the VSTest framework handle.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequestFactory">
+            <summary>
+            VSTest specific implementation of Microsoft Testing Platform <see cref="T:Microsoft.Testing.Platform.Requests.ITestExecutionRequestFactory"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequestFactory.Microsoft#Testing#Platform#Requests#ITestExecutionRequestFactory#CreateRequestAsync(Microsoft.Testing.Platform.TestHost.TestSessionContext)">
+            <summary>
+            Creates a request asynchronously.
+            </summary>
+            <param name="session">The test session context.</param>
+            <returns>The <see cref="T:Microsoft.Testing.Platform.Requests.TestExecutionRequest"/> request.</returns>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequestFactory.CreateRequest(Microsoft.Testing.Platform.Requests.RunTestExecutionRequest,Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase,System.String[],System.Threading.CancellationToken)">
+            <summary>
+            Helper method to convert a <see cref="T:Microsoft.Testing.Platform.Requests.RunTestExecutionRequest"/> to a <see cref="T:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest"/>.
+            </summary>
+            <param name="runTestExecutionRequest">The request to convert.</param>
+            <param name="adapterExtension">The test adapter extension.</param>
+            <param name="testAssemblyPaths">The list of assemblies to test.</param>
+            <param name="cancellationToken">A cancellation token.</param>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestTestExecutionFilter">
+            <summary>
+            A specialized test execution filter for VSTest. It contains the VSTest specific properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestTestExecutionFilter.TestCases">
+            <summary>
+            Gets the collection of <see cref="T:Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase"/> objects.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework">
+            <summary>
+            A specialized bridged test framework base class that supports a single test session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.#ctor(Microsoft.Testing.Platform.Extensions.IExtension,System.Func{System.Collections.Generic.IEnumerable{System.Reflection.Assembly}},System.IServiceProvider,Microsoft.Testing.Platform.Capabilities.TestFramework.ITestFrameworkCapabilities)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework"/> class.
+            </summary>
+            <param name="extension">The test framework extension.</param>
+            <param name="getTestAssemblies">A function to get the list of assemblies for this session.</param>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="capabilities">The test framework capabilities.</param>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.Uid">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.DisplayName">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.IsEnabledAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.CreateTestSessionAsync(Microsoft.Testing.Platform.Extensions.TestFramework.CreateTestSessionContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.CloseTestSessionAsync(Microsoft.Testing.Platform.Extensions.TestFramework.CloseTestSessionContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.Dispose(System.Boolean)">
+            <summary>
+            The dispose pattern.
+            </summary>
+            <param name="disposing">Whether to dispose managed state.</param>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.DiscoverTestsAsync(Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest,Microsoft.Testing.Platform.Messages.IMessageBus,System.Threading.CancellationToken)">
+            <summary>
+            Discover tests asynchronously.
+            </summary>
+            <param name="request">The VSTest discovery request.</param>
+            <param name="messageBus">The message bus.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.SynchronizedDiscoverTestsAsync(Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest,Microsoft.Testing.Platform.Messages.IMessageBus,System.Threading.CancellationToken)">
+            <summary>
+            Discovers tests asynchronously with handling of concurrency.
+            </summary>
+            <param name="request">The VSTest discovery request.</param>
+            <param name="messageBus">The message bus.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.RunTestsAsync(Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest,Microsoft.Testing.Platform.Messages.IMessageBus,System.Threading.CancellationToken)">
+            <summary>
+            Runs tests asynchronously.
+            </summary>
+            <param name="request">The VSTest run request.</param>
+            <param name="messageBus">The message bus.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.SynchronizedRunTestsAsync(Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest,Microsoft.Testing.Platform.Messages.IMessageBus,System.Threading.CancellationToken)">
+            <summary>
+            Runs tests asynchronously with handling of concurrency.
+            </summary>
+            <param name="request">The VSTest run request.</param>
+            <param name="messageBus">The message bus.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.ExecuteRequestAsync(Microsoft.Testing.Platform.Requests.TestExecutionRequest,Microsoft.Testing.Platform.Messages.IMessageBus,System.Threading.CancellationToken)">
+            <summary>
+            Executes the request.
+            </summary>
+            <param name="request">The test execution request.</param>
+            <param name="messageBus">The message bus.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.NotSupportedException">Exception is thrown when the request is neither <see cref="T:Microsoft.Testing.Platform.Requests.DiscoverTestExecutionRequest"/> nor <see cref="T:Microsoft.Testing.Platform.Requests.RunTestExecutionRequest"/>.</exception>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.SynchronizedSingleSessionVSTestBridgedTestFramework.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase">
+            <summary>
+            Represents a base class for bridged test frameworks (support of Microsoft.Testing.Platform while supporting VSTest like APIs).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.#ctor(System.IServiceProvider,Microsoft.Testing.Platform.Capabilities.TestFramework.ITestFrameworkCapabilities)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase"/> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="capabilities">The test framework capabilities.</param>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.Uid">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.Version">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.DisplayName">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.DataTypesProduced">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.ServiceProvider">
+            <summary>
+            Gets the service provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.IsTrxEnabled">
+            <summary>
+            Gets a value indicating whether the TRX report is enabled.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.IsEnabledAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.ExecuteRequestAsync(Microsoft.Testing.Platform.Extensions.TestFramework.ExecuteRequestContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.CreateTestSessionAsync(Microsoft.Testing.Platform.Extensions.TestFramework.CreateTestSessionContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.CloseTestSessionAsync(Microsoft.Testing.Platform.Extensions.TestFramework.CloseTestSessionContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.ExecuteRequestAsync(Microsoft.Testing.Platform.Requests.TestExecutionRequest,Microsoft.Testing.Platform.Messages.IMessageBus,System.Threading.CancellationToken)">
+            <summary>
+            Execute the test execution request (discovery, run...).
+            </summary>
+            <param name="request">The test execution request.</param>
+            <param name="messageBus">The message bus.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.DiscoverTestsAsync(Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestDiscoverTestExecutionRequest,Microsoft.Testing.Platform.Messages.IMessageBus,System.Threading.CancellationToken)">
+            <summary>
+            Discovers tests.
+            </summary>
+            <param name="request">The VSTest discovery request.</param>
+            <param name="messageBus">The message bus.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:Microsoft.Testing.Extensions.VSTestBridge.VSTestBridgedTestFrameworkBase.RunTestsAsync(Microsoft.Testing.Extensions.VSTestBridge.Requests.VSTestRunTestExecutionRequest,Microsoft.Testing.Platform.Messages.IMessageBus,System.Threading.CancellationToken)">
+            <summary>
+            Runs the tests.
+            </summary>
+            <param name="request">The VSTest run request.</param>
+            <param name="messageBus">The message bus.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.RunsettingsFileCannotBeRead">
+            <summary>runsettings file '{0}' cannot be read</summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.RunsettingsFileDoesNotExist">
+            <summary>runsettings file '{0}' does not exist</summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.VSTestBridgedTestFrameworkSessionAlreadyCreatedErrorMessage">
+            <summary>The bridged framework supports only one session at a time. A session with UID {0} is already open.</summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.TestCaseFilterOptionDescription">
+            <summary>Filters tests using the given expression. For more information, see the Filter option details section. For more information and examples on how to use selective unit test filtering, see https://learn.microsoft.com/dotnet/core/testing/selective-unit-tests.</summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.RunSettingsOptionDescription">
+            <summary>The path, relative or absolute, to the .runsettings file. For more information and examples on how to configure test run, see https://learn.microsoft.com/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file#the-runsettings-file</summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.TestRunParameterOptionDescription">
+            <summary>Specify or override a key-value pair parameter. For more information and examples, see https://learn.microsoft.com/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file#testrunparameters</summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.TestRunParameterOptionArgumentIsNotParameter">
+            <summary>argument '{0}' is not a parameter. Parameters arguments are matching the following pattern 'key=value'.</summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.MissingRunSettingsAttribute">
+            <summary>Invalid .runsettings file, '&lt;RunSettings&gt;' attribute is missing</summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.UnsupportedRunsettingsLoggers">
+            <summary>Runsettings loggers are not supported by Microsoft.Testing.Platform and will be ignored</summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.UnsupportedRunsettingsDatacollectors">
+            <summary>Runsettings datacollectors are not supported by Microsoft.Testing.Platform and will be ignored</summary>
+        </member>
+        <member name="P:Microsoft.Testing.Extensions.VSTestBridge.Resources.ExtensionResources.UnsupportedRunconfigurationSetting">
+            <summary>Runsettings attribute '{0}' is not supported by Microsoft.Testing.Platform and will be ignored</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetEmptyParenthesisPattern_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetEmptyParenthesisPattern method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetEmptyParenthesisPattern_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetEmptyParenthesisPattern_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetEmptyParenthesisPattern_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetEmptyParenthesisPattern_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetEmptyParenthesisPattern_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetEmptyParenthesisPattern_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetEmptyParenthesisPattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetEmptyParenthesisPattern_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+    </members>
+</doc>

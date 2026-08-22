@@ -1,0 +1,309 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>coverlet.core</name>
+    </assembly>
+    <members>
+        <member name="M:Coverlet.Core.Helpers.RetryHelper.Retry(System.Action,System.Func{System.TimeSpan},System.Int32)">
+            <summary>
+            Retry a void method.
+            </summary>
+            <param name="action">The action to perform</param>
+            <param name="backoffStrategy">A function returning a Timespan defining the backoff strategy to use.</param>
+            <param name="maxAttemptCount">The maximum number of retries before bailing out. Defaults to 3.</param>
+        </member>
+        <member name="M:Coverlet.Core.Helpers.RetryHelper.Do``1(System.Func{``0},System.Func{System.TimeSpan},System.Int32)">
+            <summary>
+            Retry a method returning type T.
+            </summary>
+            <typeparam name="T">The type of the object to return</typeparam>
+            <param name="action">The action to perform</param>
+            <param name="backoffStrategy">A function returning a Timespan defining the backoff strategy to use.</param>
+            <param name="maxAttemptCount">The maximum number of retries before bailing out. Defaults to 3.</param>
+        </member>
+        <member name="T:Coverlet.Core.Instrumentation.NetstandardAwareAssemblyResolver">
+             <summary>
+             In case of testing different runtime i.e. netfx we could find netstandard.dll in folder.
+             netstandard.dll is a forward only lib, there is no IL but only forwards to "runtime" implementation.
+             For some classes implementation are in different assembly for different runtime for instance:
+            
+             For NetFx 4.7
+             // Token: 0x2700072C RID: 1836
+             .class extern forwarder System.Security.Cryptography.X509Certificates.StoreName
+             {
+                .assembly extern System
+             }
+            
+             For netcoreapp2.2
+             Token: 0x2700072C RID: 1836
+             .class extern forwarder System.Security.Cryptography.X509Certificates.StoreName
+             {
+                .assembly extern System.Security.Cryptography.X509Certificates
+             }
+            
+             There is a concrete possibility that Cecil cannot find implementation and throws StackOverflow exception https://github.com/jbevain/cecil/issues/575
+             This custom resolver check if requested lib is a "official" netstandard.dll and load once of "current runtime" with
+             correct forwards.
+             Check compares 'assembly name' and 'public key token', because versions could differ between runtimes.
+             </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.NetstandardAwareAssemblyResolver.TryWithCustomResolverOnDotNetCore(Mono.Cecil.AssemblyNameReference)">
+             <summary>
+            
+             We try to manually load assembly.
+             To work test project needs to use
+            
+             <PropertyGroup>
+                 <PreserveCompilationContext>true</PreserveCompilationContext>
+             </PropertyGroup>
+            
+             Runtime configuration file doc https://github.com/dotnet/cli/blob/master/Documentation/specs/runtime-configuration-file.md
+            
+             </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.Instrumenter.InstrumentIL(Mono.Cecil.MethodDefinition)">
+            <summary>
+            The base idea is to inject an int placeholder for every sequence point. We register source+placeholder+lines(from sequence point) for final accounting.
+            Instrumentation alg(current instruction: instruction we're analyzing):
+            1) We get all branches for the method
+            2) We get the sequence point of every instruction of method(start line/end line)
+            3) We check if current instruction is reachable and coverable
+            4) For every sequence point of an instruction we put load(int hint placeholder)+call opcode above current instruction
+            5) We patch all jump to current instruction with first injected instruction(load)
+            6) If current instruction is a target for a branch we inject again load(int hint placeholder)+call opcode above current instruction
+            7) We patch all jump to current instruction with first injected instruction(load)
+            </summary>
+        </member>
+        <member name="T:Coverlet.Core.Instrumentation.Instrumenter.CoreLibMetadataImporterProvider">
+            <summary>
+            A custom importer created specifically to allow the instrumentation of System.Private.CoreLib by
+            removing the external references to netstandard that are generated when instrumenting a typical
+            assembly.
+            </summary>
+        </member>
+        <member name="T:Coverlet.Core.Instrumentation.ModuleTrackerTemplate">
+            <summary>
+            This static class will be injected on a module being instrumented in order to direct on module hits
+            to a single location.
+            </summary>
+            <remarks>
+            As this type is going to be customized for each instrumented module it doesn't follow typical practices
+            regarding visibility of members, etc.
+            </remarks>
+        </member>
+        <member name="T:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper">
+            <summary>
+            Helper for find unreachable IL instructions.
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.UnreachableRange.StartOffset">
+            <summary>
+            Offset of first unreachable instruction.
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.UnreachableRange.EndOffset">
+            <summary>
+            Offset of last unreachable instruction.
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BasicBlock.StartOffset">
+            <summary>
+            Offset of the instruction that starts the block
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BasicBlock.TailReachable">
+            <summary>
+            Whether it is possible for control to flow past the end of the block,
+            ie. whether it's tail is reachable
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BasicBlock.BranchesTo">
+            <summary>
+            If control flows to the end of the block, where it can flow to
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BasicBlock.UnreachableAfter">
+            <summary>
+            If this block contains a call(i) to a method that does not return
+            this will be the first such call.
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BasicBlock.ExceptionBranchesTo">
+            <summary>
+            If an exception is raised in this block, where control might branch to.
+            
+            Note that this can happen even if the block's end is unreachable.
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BasicBlock.HeadReachable">
+            <summary>
+            Mutable, records whether control can flow into the block,
+            ie. whether it's head is reachable
+            </summary>
+        </member>
+        <member name="T:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BranchInstruction">
+            <summary>
+            Represents an Instruction that transitions control flow (ie. branches).
+            
+            This is _different_ from other branch types, like Branch and BranchPoint
+            because it includes unconditional branches too.
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BranchInstruction.Offset">
+            <summary>
+            Location of the branching instruction
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BranchInstruction.HasMultiTargets">
+            <summary>
+            Returns true if this branch has multiple targets.
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BranchInstruction.TargetOffset">
+            <summary>
+            Target of the branch, assuming it has a single target.
+            
+            It is illegal to access this if there are multiple targets.
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BranchInstruction.TargetOffsets">
+            <summary>
+            Targets of the branch, assuming it has multiple targets.
+            
+            It is illegal to access this if there is a single target.
+            </summary>
+        </member>
+        <member name="F:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.s_branchOpCodes">
+            <summary>
+            OpCodes that transfer control code, even if they do not
+            introduce branch points.
+            </summary>
+        </member>
+        <member name="F:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.s_unconditionalBranchOpCodes">
+            <summary>
+            OpCodes that unconditionally transfer control, so there
+            is not "fall through" branch target.
+            </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.CreateForModule(Mono.Cecil.ModuleDefinition,System.String[],Coverlet.Core.Abstractions.ILogger)">
+            <summary>
+            Build a ReachabilityHelper for the given module.
+            
+            Predetermines methods that will not return, as 
+            indicated by the presense of the given attributes.
+            </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.FindUnreachableIL(Mono.Collections.Generic.Collection{Mono.Cecil.Cil.Instruction},Mono.Collections.Generic.Collection{Mono.Cecil.Cil.ExceptionHandler})">
+            <summary>
+            Calculates which IL instructions are reachable given an instruction stream and branch points extracted from a method.
+            
+            The algorithm works like so:
+             1. determine the "blocks" that make up a function
+                * A block starts with either the start of the method, or a branch _target_
+                * blocks are "where some other code might jump to"
+                * blocks end with either another branch, another branch target, or the end of the method
+                * this means blocks contain no control flow, except (maybe) as the very last instruction
+             2. blocks have head and tail reachability
+                * a block has head reachablility if some other block that is reachable can branch to it 
+                * a block has tail reachability if it contains no calls to methods that never return
+             4. push the first block onto a stack
+             5. while the stack is not empty
+                a. pop a block off the stack
+                b. give it head reachability
+                c. if the pop'd block is tail reachable, push the blocks it can branch to onto the stack
+             6. consider each block
+                * if it is head and tail reachable, all instructions in it are reachable
+                * if it is not head reachable (regardless of tail reachability), no instructions in it are reachable
+                * if it is only head reachable, all instructions up to and including the first call to a method that does not return are reachable
+            </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.AnalyzeInstructions(Mono.Collections.Generic.Collection{Mono.Cecil.Cil.Instruction},Mono.Collections.Generic.Collection{Mono.Cecil.Cil.ExceptionHandler})">
+            <summary>
+            Analyzes the instructiona and exception handlers provided to find branches and determine if
+              it is possible for their to be unreachable code.
+            </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.GetInstructionTargets(Mono.Cecil.Cil.Instruction,Mono.Collections.Generic.Collection{Mono.Cecil.Cil.ExceptionHandler})">
+            <summary>
+            For a single instruction, determines all the places it might branch to.
+            </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.DetermineUnreachableRanges(System.Collections.Immutable.ImmutableArray{Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BasicBlock},System.Int32)">
+            <summary>
+            Calculates which ranges of IL are unreachable, given blocks which have head and tail reachability calculated.
+            </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.DetermineHeadReachability(System.Collections.Immutable.ImmutableArray{Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BasicBlock})">
+            <summary>
+            Process all the blocks and determine if their first instruction is reachable,
+            that is if they have "head reachability".
+            
+            "Tail reachability" will have already been determined in CreateBlocks.
+            </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.CreateBasicBlocks(Mono.Collections.Generic.Collection{Mono.Cecil.Cil.Instruction},Mono.Collections.Generic.Collection{Mono.Cecil.Cil.ExceptionHandler},System.Collections.Immutable.ImmutableArray{Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.BranchInstruction})">
+            <summary>
+            Create BasicBlocks from an instruction stream, exception blocks, and branches.
+            
+            Each block starts either at the start of the method, immediately after a branch or at a target for a branch,
+            and ends with another branch, another branch target, or the end of the method.
+            
+            "Tail reachability" is also calculated, which is whether the block can ever actually get past its last instruction.
+            </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.DoesNotReturn(Mono.Cecil.Cil.Instruction)">
+            <summary>
+            Returns true if the given instruction will never return, 
+            and thus subsequent instructions will never be run.
+            </summary>
+        </member>
+        <member name="M:Coverlet.Core.Instrumentation.Reachability.ReachabilityHelper.IsCall(Mono.Cecil.Cil.Instruction,Mono.Cecil.MethodReference@)">
+            <summary>
+            Returns true if the given instruction is a Call or Callvirt.
+            
+            If it is a call, extracts the MethodReference that is being called.
+            </summary>
+        </member>
+        <member name="T:Coverlet.Core.Symbols.BranchPoint">
+            <summary>
+            a branch point
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Symbols.BranchPoint.StartLine">
+            <summary>
+            Line of the branching instruction
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Symbols.BranchPoint.Path">
+            <summary>
+            A path that can be taken
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Symbols.BranchPoint.Ordinal">
+            <summary>
+            An order of the point within the method
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Symbols.BranchPoint.OffsetPoints">
+            <summary>
+            List of OffsetPoints between Offset and EndOffset (exclusive)
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Symbols.BranchPoint.Offset">
+            <summary>
+            The IL offset of the point
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Symbols.BranchPoint.EndOffset">
+            <summary>
+            Last Offset == EndOffset.
+            Can be same as Offset
+            </summary>
+        </member>
+        <member name="P:Coverlet.Core.Symbols.BranchPoint.Document">
+            <summary>
+            The url to the document if an entry was not mapped to an id
+            </summary>
+        </member>
+    </members>
+</doc>

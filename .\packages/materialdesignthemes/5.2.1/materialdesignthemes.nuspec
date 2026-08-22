@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>MaterialDesignThemes</id>
+    <version>5.2.1</version>
+    <title>Material Design Themes XAML Resources</title>
+    <authors>James Willock</authors>
+    <owners>James Willock</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>images\MaterialDesignThemes.Icon.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit</projectUrl>
+    <iconUrl>http://materialdesigninxaml.net/images/MD4XAML32.png</iconUrl>
+    <description>ResourceDictionary instances containing Material Design templates and styles for
+      WPF controls in .NET.</description>
+    <releaseNotes>https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/releases</releaseNotes>
+    <copyright>Copyright 2025 James Willock/Mulholland Software Ltd</copyright>
+    <tags>WPF XAML Material Design Theme Colour Color UI UX</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.2">
+        <dependency id="MaterialDesignColors" version="5.2.1" />
+        <dependency id="Microsoft.Xaml.Behaviors.Wpf" version="1.1.39" />
+      </group>
+      <group targetFramework="net6.0">
+        <dependency id="MaterialDesignColors" version="5.2.1" />
+        <dependency id="Microsoft.Xaml.Behaviors.Wpf" version="1.1.39" />
+      </group>
+      <group targetFramework="net8.0">
+        <dependency id="MaterialDesignColors" version="5.2.1" />
+        <dependency id="Microsoft.Xaml.Behaviors.Wpf" version="1.1.39" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

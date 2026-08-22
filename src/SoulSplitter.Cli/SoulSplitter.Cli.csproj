@@ -24,6 +24,11 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\SoulSplitter.SoulMemory\SoulSplitter.SoulMemory.csproj" />
+    </ItemGroup>
+    <!--
+    
+    <ItemGroup>
       <ProjectReference Include="..\SoulSplitter.Plugin\SoulSplitter.Plugin.csproj" />
       <ProjectReference Include="..\SoulSplitter.SoulMemory\SoulSplitter.SoulMemory.csproj" />
     </ItemGroup>
@@ -41,4 +46,6 @@
         <Reference Include="WindowsBase" />
         <Reference Include="WindowsFormsIntegration" />
     </ItemGroup>
+    
+    -->
 </Project>

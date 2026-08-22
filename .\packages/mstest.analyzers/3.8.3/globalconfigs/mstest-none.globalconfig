@@ -1,0 +1,119 @@
+# A GlobalConfig file for the 'None' MSTest analysis mode.
+
+is_global = true
+global_level = -100
+
+# MSTEST0001: Explicitly enable or disable tests parallelization
+dotnet_diagnostic.MSTEST0001.severity = none
+
+# MSTEST0002: Test classes should have valid layout
+dotnet_diagnostic.MSTEST0002.severity = none
+
+# MSTEST0003: Test methods should have valid layout
+dotnet_diagnostic.MSTEST0003.severity = none
+
+# MSTEST0004: Public types should be test classes
+dotnet_diagnostic.MSTEST0004.severity = none
+
+# MSTEST0005: Test context property should have valid layout
+dotnet_diagnostic.MSTEST0005.severity = none
+
+# MSTEST0006: Avoid '[ExpectedException]'
+dotnet_diagnostic.MSTEST0006.severity = none
+
+# MSTEST0007: [Owner] can only be set on methods marked with [TestMethod]
+dotnet_diagnostic.MSTEST0007.severity = none
+
+# MSTEST0008: TestInitialize method should have valid layout
+dotnet_diagnostic.MSTEST0008.severity = none
+
+# MSTEST0009: TestCleanup method should have valid layout
+dotnet_diagnostic.MSTEST0009.severity = none
+
+# MSTEST0010: ClassInitialize methods should have valid layout
+dotnet_diagnostic.MSTEST0010.severity = none
+
+# MSTEST0011: ClassCleanup methods should have valid layout
+dotnet_diagnostic.MSTEST0011.severity = none
+
+# MSTEST0012: AssemblyInitialize methods should have valid layout
+dotnet_diagnostic.MSTEST0012.severity = none
+
+# MSTEST0013: AssemblyCleanup methods should have valid layout
+dotnet_diagnostic.MSTEST0013.severity = none
+
+# MSTEST0014: DataRow should be valid
+dotnet_diagnostic.MSTEST0014.severity = none
+
+# MSTEST0015: Test method should not be ignored
+dotnet_diagnostic.MSTEST0015.severity = none
+
+# MSTEST0016: Test class should have test method
+dotnet_diagnostic.MSTEST0016.severity = none
+
+# MSTEST0017: Assertion arguments should be passed in the correct order
+dotnet_diagnostic.MSTEST0017.severity = none
+
+# MSTEST0018: DynamicData should be valid
+dotnet_diagnostic.MSTEST0018.severity = none
+
+# MSTEST0019: Prefer TestInitialize methods over constructors
+dotnet_diagnostic.MSTEST0019.severity = none
+
+# MSTEST0020: Prefer constructors over TestInitialize methods
+dotnet_diagnostic.MSTEST0020.severity = none
+
+# MSTEST0021: Prefer 'Dispose' over TestCleanup methods
+dotnet_diagnostic.MSTEST0021.severity = none
+
+# MSTEST0022: Prefer TestCleanup over 'Dispose' methods
+dotnet_diagnostic.MSTEST0022.severity = none
+
+# MSTEST0023: Do not negate boolean assertions
+dotnet_diagnostic.MSTEST0023.severity = none
+
+# MSTEST0024: Do not store TestContext in a static member
+dotnet_diagnostic.MSTEST0024.severity = none
+
+# MSTEST0025: Use 'Assert.Fail' instead of an always-failing assert
+dotnet_diagnostic.MSTEST0025.severity = none
+
+# MSTEST0026: Avoid conditional access in assertions
+dotnet_diagnostic.MSTEST0026.severity = none
+
+# MSTEST0029: Public methods should be test methods
+dotnet_diagnostic.MSTEST0029.severity = none
+
+# MSTEST0030: Type containing '[TestMethod]' should be marked with '[TestClass]'
+dotnet_diagnostic.MSTEST0030.severity = none
+
+# MSTEST0031: 'System.ComponentModel.DescriptionAttribute' has no effect on test methods
+dotnet_diagnostic.MSTEST0031.severity = none
+
+# MSTEST0032: Assertion condition is always true
+dotnet_diagnostic.MSTEST0032.severity = none
+
+# MSTEST0034: Use 'ClassCleanupBehavior.EndOfClass' with the '[ClassCleanup]'
+dotnet_diagnostic.MSTEST0034.severity = none
+
+# MSTEST0035: '[DeploymentItem]' can be specified only on test class or test method
+dotnet_diagnostic.MSTEST0035.severity = none
+
+# MSTEST0036: Do not use shadowing
+dotnet_diagnostic.MSTEST0036.severity = none
+
+# MSTEST0037: Use proper 'Assert' methods
+dotnet_diagnostic.MSTEST0037.severity = none
+
+# MSTEST0038: Don't use 'Assert.AreSame' or 'Assert.AreNotSame' with value types
+dotnet_diagnostic.MSTEST0038.severity = none
+
+# MSTEST0039: Use newer methods to assert exceptions
+dotnet_diagnostic.MSTEST0039.severity = none
+
+# MSTEST0040: Do not assert inside 'async void' contexts
+dotnet_diagnostic.MSTEST0040.severity = none
+
+# MSTEST0041: Use 'ConditionBaseAttribute' on test classes
+dotnet_diagnostic.MSTEST0041.severity = none
+
