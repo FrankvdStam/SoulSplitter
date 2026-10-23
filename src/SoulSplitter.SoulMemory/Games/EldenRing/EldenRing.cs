@@ -233,8 +233,9 @@ public class EldenRing : IEldenRing
         (EldenRingVersion.V1_09_1, new Version(1, 9, 1, 0)),
         //1.10 turned into 2.0.0.0 for some reason
         (EldenRingVersion.V1_10_0, new Version(2, 0, 0, 0)),
-        (EldenRingVersion.V1_10_0, new Version(2, 0, 0, 1)), //JP-only version for 1.10
+        //(EldenRingVersion.V1_10_0, new Version(2, 0, 0, 1)), //JP-only version for 1.10
         (EldenRingVersion.V1_10_1, new Version(2, 0, 1, 0)),
+        //(EldenRingVersion.V1_10_1, new Version(2, 0, 1, 1)), //JP
         (EldenRingVersion.V1_12_0, new Version(2, 2, 0, 0)),
         (EldenRingVersion.V1_12_3, new Version(2, 2, 3, 0)),
         (EldenRingVersion.V1_13_0, new Version(2, 3, 0, 0)),
@@ -282,9 +283,21 @@ public class EldenRing : IEldenRing
         Unknown
     };
 
+    //Helper func to compare ER versions.
+    //it appears fromsoft is using the last field for JP versions. 
+    //we can skip this field in the comparison
+    private static bool ErVersionCompare(Version left, Version right)
+    {
+        //int major, int minor, int build, int revision
+        return
+         left.Major == right.Major &&
+         left.Minor == right.Minor &&
+         left.Build == right.Build;
+    }
+
     public EldenRingVersion GetVersion(Version v)
     {
-        var version = _versions.FirstOrDefault(i => i.version.CompareTo(v) == 0);
+        var version = _versions.FirstOrDefault(i => ErVersionCompare(v, i.version));
         if (version.version == null)
         {
             return EldenRingVersion.Unknown;
