@@ -15,10 +15,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SoulMemory.MemoryV2;
-using SoulMemory.MemoryV2.Memory;
+using SoulSplitter.SoulMemory.MemoryV2;
+using SoulSplitter.SoulMemory.MemoryV2.Memory;
 
-namespace SoulMemory.Tests.MemoryV2;
+namespace SoulSplitter.SoulMemory.Tests.MemoryV2;
 
 [TestClass]
 public class MemoryTests

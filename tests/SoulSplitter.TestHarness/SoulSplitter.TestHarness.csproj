@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>13</LangVersion>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <Title>SoulSplitter.TestHarness</Title>
+    <Authors>Frank v.d. Stam</Authors>
+    <PackageProjectUrl>https://github.com/FrankvdStam/SoulSplitter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/FrankvdStam/SoulSplitter</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>(c) 2022 by Frank van der Stam, GPL-v3 licensed</Copyright>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.20.72" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SoulSplitter\SoulSplitter.csproj" />
+
+    <Reference Include="LiveSplit.Core">
+        <HintPath>..\..\packages\LiveSplit.Core.dll</HintPath>
+    </Reference>
+
+      <!-- this path kind of sucks, github actions might fail on this. Would be nice if targetting .net 8 is possible though.
+      Perhaps some of the harness can be moved into the soulsplitter lib for use in testing -->
+    <Reference Include="System.Windows.Forms">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\System.Windows.Forms.dll</HintPath>
+    </Reference>
+
+  </ItemGroup>
+
+</Project>
