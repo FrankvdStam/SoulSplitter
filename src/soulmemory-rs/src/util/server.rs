@@ -95,7 +95,7 @@ impl Server
                     {
                         //Receive json data
                         let mut buffer = [0; 1024];
-                        s.read(&mut buffer).unwrap();
+                        let _ = s.read(&mut buffer).unwrap();
                         let command = String::from_utf8(Vec::from(buffer)).unwrap().trim_matches(char::from(0)).to_string();
 
                         //Try to parse a received string as json

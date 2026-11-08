@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 use imgui::{TreeNodeFlags, Ui};
-use crate::darkscript3::sekiro_emedf::Emedf;
+use crate::darkscript3::emevd_definition::EmevdDefinition;
 use crate::games::*;
 use crate::games::traits::buffered_emevd_logger::BufferedEmevdCall;
 use crate::widgets::widget::Widget;
@@ -23,6 +23,8 @@ use crate::widgets::widget::Widget;
 pub struct EmevdLoggerWidget
 {
     pub log: String,
+    pub event_filter_text: String,
+    pub event_filter: Option<u32>,
     pub group_filer: Vec<bool>,
     pub auto_scroll: bool,
     pub init: bool,
@@ -30,7 +32,7 @@ pub struct EmevdLoggerWidget
 
 impl EmevdLoggerWidget
 {
-    pub fn handle_buffered_events(&mut self, buffer: &Vec<BufferedEmevdCall>, emedf: &Emedf)
+    pub fn handle_buffered_events(&mut self, buffer: &Vec<BufferedEmevdCall>, emedf: &EmevdDefinition)
     {
         //process
         for event in buffer
@@ -41,6 +43,11 @@ impl EmevdLoggerWidget
                 show = self.group_filer[group];
             }
 
+            if self.event_filter.is_some() && event.event_id != self.event_filter.unwrap()
+            {
+                show = false;
+            }
+            
             if show
             {
                 self.log.push_str(format!("{} - {}", event.time.format("%H:%M:%S"), event.log).as_str());
@@ -54,13 +61,15 @@ impl EmevdLoggerWidget
         EmevdLoggerWidget
         {
             log: String::new(),
+            event_filter_text: String::new(),
+            event_filter: None,
             group_filer: Vec::new(),
             auto_scroll: true,
             init: false,
         }
     }
 
-    pub fn init(&mut self, emedf: &Emedf)
+    pub fn init(&mut self, emedf: &EmevdDefinition)
     {
         if self.init
         {
@@ -81,7 +90,6 @@ impl Widget for EmevdLoggerWidget
     {
         if let Some(buffered_emevd_logger) = game.buffered_emevd_logger()
         {
-
             if ui.collapsing_header("emevd log", TreeNodeFlags::FRAMED)
             {
                 //get events
@@ -94,6 +102,22 @@ impl Widget for EmevdLoggerWidget
                 //render filters
                 if ui.collapsing_header("filters", TreeNodeFlags::FRAMED)
                 {
+                    ui.input_text("event ID", &mut self.event_filter_text).build();
+
+                    match self.event_filter_text.parse()
+                    {
+                        Ok(num) => self.event_filter = Some(num),
+                        Err(_) => self.event_filter = None,
+                    }
+
+                    if ui.button("clear all boxes")
+                    {
+                        for i in 0..self.group_filer.len()
+                        {
+                            self.group_filer[i] = false;
+                        }
+                    }
+                    
                     for i in 0..emedf.main_classes.len()
                     {
                         ui.checkbox(format!("{} - {}", emedf.main_classes[i].index, emedf.main_classes[i].name), &mut self.group_filer[i]);

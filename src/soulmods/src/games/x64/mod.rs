@@ -19,3 +19,13 @@ pub(crate) mod darksouls2scholarofthefirstsin;
 pub(crate) mod darksouls3;
 pub(crate) mod eldenring;
 pub(crate) mod sekiro;
+pub(crate) mod bloodborne;
+pub(crate) mod nightreign;
+
+pub use armoredcore6::*;
+pub use darksouls2scholarofthefirstsin::*;
+pub use darksouls3::*;
+pub use eldenring::*;
+pub use sekiro::*;
+pub use bloodborne::*;
+pub use nightreign::*;

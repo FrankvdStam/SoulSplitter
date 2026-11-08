@@ -15,11 +15,11 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Diagnostics;
-using SoulMemory.MemoryV2.Memory;
-using SoulMemory.MemoryV2.PointerTreeBuilder;
-using SoulMemory.MemoryV2.Process;
+using SoulSplitter.SoulMemory.MemoryV2.Memory;
+using SoulSplitter.SoulMemory.MemoryV2.PointerTreeBuilder;
+using SoulSplitter.SoulMemory.MemoryV2.Process;
 
-namespace SoulMemory.Tests.Mocks;
+namespace SoulSplitter.SoulMemory.Tests.Mocks;
 
 public class ProcessHookMock : IProcessHook
 {

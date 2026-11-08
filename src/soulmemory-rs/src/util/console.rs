@@ -14,12 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-use windows::Win32::System::Console::{AllocConsole, FreeConsole};
+use windows::Win32::System::Console::{AllocConsole, FreeConsole, GetConsoleWindow};
 
 
 pub fn init_console()
 {
-    unsafe{ let _ = AllocConsole(); };
+    unsafe
+    {
+        let console = GetConsoleWindow();
+        if console.is_invalid()
+        {
+            let _ = AllocConsole();
+        }
+    };
 }
 
 pub fn free_console()

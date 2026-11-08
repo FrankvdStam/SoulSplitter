@@ -62,3 +62,10 @@ jobs:
           dotnet test -c release -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
           #cargo tarpaulin --out lcov --output-dir tests/rust
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+      - name: Build without analyzing (
+        if: ${{ github.event.pull_request.head.repo.fork }}
+        shell: powershell
+        run: |
+          dotnet build -c release
+          dotnet test -c release -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
