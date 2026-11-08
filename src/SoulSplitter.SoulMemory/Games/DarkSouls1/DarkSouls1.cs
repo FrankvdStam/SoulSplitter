@@ -29,10 +29,14 @@ public class DarkSouls1 : IDarkSouls1
 {
     private IDarkSouls1? _darkSouls1;
     public Process? GetProcess() => _darkSouls1?.GetProcess();
+    
     public int GetAttribute(Attribute attribute) => _darkSouls1?.GetAttribute(attribute) ?? 0;
     public bool ReadEventFlag(uint eventFlagId) => _darkSouls1?.ReadEventFlag(eventFlagId) ?? false;
     public bool IsWarpRequested() => _darkSouls1?.IsWarpRequested() ?? false;
     public bool IsPlayerLoaded() => _darkSouls1?.IsPlayerLoaded() ?? false;
+    public bool IsLoading() => _darkSouls1?.IsLoading() ?? false;
+    public int ReadAttribute(Enum attribute) => _darkSouls1?.ReadAttribute(attribute) ?? -1;
+
     public Vector3f GetPlayerPosition() => _darkSouls1?.GetPlayerPosition() ?? new Vector3f(0,0,0);
     public int ReadInGameTimeMilliseconds() => _darkSouls1?.ReadInGameTimeMilliseconds() ?? 0;
     public void WriteInGameTimeMilliseconds(int milliseconds) => _darkSouls1?.WriteInGameTimeMilliseconds(milliseconds);

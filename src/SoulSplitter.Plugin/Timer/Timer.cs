@@ -340,19 +340,27 @@ namespace SoulSplitter.Plugin.Timer
             {
                 default:
                 case SplitType.DarkSouls1Item:
+                    if(_mainViewModel.Game is DarkSouls1 ds1Item && split is SoulMemory.Games.DarkSouls1.ItemType itemType)
+                    {
+                        var inventory = ds1Item.GetInventory();
+                        return inventory.Any(i => i.ItemType == itemType);
+                    }
+                    throw new ArgumentException($"SplitType {SplitType.DarkSouls1Item} while game is {_mainViewModel.Game?.GetType()} and split is {split.GetType()}");
+
                 case SplitType.DarkSouls1Bonfire:
+                    if (_mainViewModel.Game is DarkSouls1 ds1Bonfire && split is SoulMemory.Games.DarkSouls1.BonfireState bonfireState)
+                    {
+                        //_darkSouls1.GetBonfireState(s.BonfireState.Bonfire!.Value) >= s.BonfireState.State;
+                    }
                     throw new ArgumentException($"Unsupported split type {splitType}.");
 
                 case SplitType.Boss:
                 case SplitType.Bonfire:
                 case SplitType.ItemPickup:
                 case SplitType.KnownFlag:
+                case SplitType.Flag:
                     var eventFlag = (uint)split;
                     return _mainViewModel.Game!.ReadEventFlag(eventFlag);
-
-                case SplitType.Flag:
-                    uint flag = (uint)split;
-                    return _mainViewModel.Game!.ReadEventFlag(flag);
 
                 case SplitType.Attribute:
                     if (_mainViewModel.Game is not IReadAttribute readAttribute)

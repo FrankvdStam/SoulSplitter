@@ -223,7 +223,16 @@ public class Remastered : IDarkSouls1
         return treeBuilder;
     }
     #endregion
-    
+
+    public int ReadAttribute(Enum attribute)
+    {
+        if (attribute is Attribute ds1Attribute)
+        {
+            return GetAttribute(ds1Attribute);
+        }
+        return -1;
+    }
+
     public int GetAttribute(Attribute attribute) => _playerGameData.ReadInt32(0x8 + (long)attribute);
 
     public int ReadInGameTimeMilliseconds() => _gameDataMan.ReadInt32(0xa4);
@@ -237,6 +246,8 @@ public class Remastered : IDarkSouls1
     public Vector3f GetPlayerPosition() => new(_playerPos.ReadFloat(0x10), _playerPos.ReadFloat(0x14), _playerPos.ReadFloat(0x18));
 
     public int GetPlayerHealth() => _playerIns.ReadInt32(0x3e8);
+
+    public bool IsLoading() => !IsPlayerLoaded();
 
     public bool IsPlayerLoaded() => !_playerIns.IsNullPtr();
 

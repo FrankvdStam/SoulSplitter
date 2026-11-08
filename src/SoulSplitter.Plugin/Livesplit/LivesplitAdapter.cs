@@ -58,7 +58,7 @@ public class LivesplitAdapter : IComponent
         var isActive = liveSplitState?.Run?.IsAutoSplitterActive() ?? false;
 
         _serviceProvider = GlobalServiceProvider.Instance;
-        _liveSplitState = liveSplitState;
+        _liveSplitState = liveSplitState ?? null!;
         _componentMode = mode;
 
         //init language first

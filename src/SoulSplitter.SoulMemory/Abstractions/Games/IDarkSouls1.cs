@@ -21,8 +21,9 @@ using System.Collections.Generic;
 
 namespace SoulSplitter.SoulMemory.Abstractions.Games;
 
-public interface IDarkSouls1 : IGame, IPlayerPosition, ISavefileTime
+public interface IDarkSouls1 : IGame, IPlayerPosition, ISavefileTime, IReadAttribute, ILoading
 {
+    //int ReadAttribute(Enum attribute);
     int GetAttribute(SoulMemory.Games.DarkSouls1.Attribute attribute);
     bool IsWarpRequested();
     bool IsPlayerLoaded();

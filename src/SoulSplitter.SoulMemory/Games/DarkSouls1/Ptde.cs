@@ -157,11 +157,19 @@ public class Ptde : IDarkSouls1
             return RefreshError.FromException(e);
         }
     }
-    
-    #endregion
-    
-    public int GetAttribute(Attribute attribute) => _playerGameData.ReadInt32((long)attribute);
 
+    #endregion
+
+    public int ReadAttribute(Enum attribute)
+    {
+        if (attribute is Attribute ds1Attribute)
+        {
+            return GetAttribute(ds1Attribute);
+        }
+        return -1;
+    }
+    public int GetAttribute(Attribute attribute) => _playerGameData.ReadInt32((long)attribute);
+    
     public int ReadInGameTimeMilliseconds() => _gameDataMan.ReadInt32(0x68);
     public void WriteInGameTimeMilliseconds(int milliseconds) => _gameDataMan.WriteInt32(0x68, milliseconds);
 
@@ -172,6 +180,8 @@ public class Ptde : IDarkSouls1
     public Vector3f GetPlayerPosition() => new(_playerIns.ReadFloat(0xc50), _playerIns.ReadFloat(0xC58), _playerIns.ReadFloat(0xC54));
 
     public int GetPlayerHealth() => _playerIns.ReadInt32(0x2d4) ;
+
+    public bool IsLoading() => !IsPlayerLoaded();
 
     public bool IsPlayerLoaded() => !_playerIns.IsNullPtr();
 
