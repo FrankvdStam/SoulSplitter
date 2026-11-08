@@ -40,7 +40,7 @@ public class DropMod(IDarkSouls1 darkSouls)
 
     public void InitAllAchievements()
     {
-        darkSouls.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\nEye of Death\n\n\n\n\n");
+        darkSouls.WriteWeaponDescription(1004000, "Dropmod!\n\nAffected:\nBlack Knight Halberd/Sword/Greatsword/Greataxe/Shield\nSilver Knight Straight Sword/Spear/Shield\nStone Greatsword/Greatshield\nChanneler's Trident\nSouvenir of Reprisal\nEye of Death\nBlue/White/Red Titanite Chunk/Slab\n\n\n\n");
 
         for (var i = 0; i < 62; i++)
         {
@@ -164,7 +164,16 @@ public class DropMod(IDarkSouls1 darkSouls)
 
         //Catacombs
         new (ItemType.BlackKnightGreataxe, 27902000, 753000, 1474000),
-        new (ItemType.BlackKnightHalberd, 27903000, 1105000, 1474000)
+        new (ItemType.BlackKnightHalberd, 27903000, 1105000, 1474000),
+
+        //[Moonlight Butterfly - Duke's Archives] Blue Titanite Chunk, Blue Titanite Slab
+        new (ItemType.BlueTitaniteSlab, 32300100, 1080, 1040),
+        
+        //[Pinwheel - Tomb of the Giants] White Titanite Chunk, White Titanite Slab
+        new (ItemType.WhiteTitaniteSlab, 33200201, 1090, 1050),
+
+        //[Chaos Eater - Demon Ruins] Red Titanite Chunk, White Titanite Chunk, Red Titanite Slab
+        new (ItemType.RedTitaniteSlab, 32400000, 1100, 1060),
     ];
 
     private struct SwitchableDrop(ItemType switchItem, int rowId, int itemId1, int itemId2)
