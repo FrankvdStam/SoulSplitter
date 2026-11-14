@@ -64,6 +64,7 @@ public class Ptde : IDarkSouls1
     private readonly Pointer _msgMan = new();
     private readonly Pointer _loadingScreenItems = new();
     private List<ItemLotParam> _itemLotParams = [];
+    private List<NpcParam> _npcParams = [];
     private List<TextTableEntry> _weaponDescriptionsTable = [];
 
     public Process? GetProcess() => _process;
@@ -388,6 +389,19 @@ public class Ptde : IDarkSouls1
 
         var itemLotParam = _itemLotParams.Find(i => i.Id == rowId);
         accessor(itemLotParam);
+    }
+
+    public void WriteNpcParam(int rowId, Action<NpcParam> accessor)
+    {
+        if (!_npcParams.Any())
+        {
+            var paramResCap = _soloParamMan.CreatePointerFromAddress(0x2b8);
+            var headerStart = paramResCap.CreatePointerFromAddress(0x20);
+            _npcParams = ParamReader.ReadParam<NpcParam>(headerStart);
+        }
+
+        var npcParam = _npcParams.Find(i => i.Id == rowId);
+        accessor(npcParam);
     }
 
     public void WriteWeaponDescription(uint weaponId, string description)

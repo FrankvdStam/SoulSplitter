@@ -50,6 +50,7 @@ public class DarkSouls1 : IDarkSouls1
     public int GetSaveFileGameTimeMilliseconds(string path, int slot) => _darkSouls1?.GetSaveFileGameTimeMilliseconds(path, slot) ?? 0;
     public void WriteWeaponDescription(uint weaponId, string description) => _darkSouls1?.WriteWeaponDescription(weaponId, description);
     public void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor) => _darkSouls1?.WriteItemLotParam(rowId, accessor);
+    public void WriteNpcParam(int rowId, Action<NpcParam> accessor) => _darkSouls1?.WriteNpcParam(rowId, accessor);
     public void SetLoadingScreenItem(int index, uint item) => _darkSouls1?.SetLoadingScreenItem(index, item);
 
 

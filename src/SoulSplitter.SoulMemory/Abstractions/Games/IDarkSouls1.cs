@@ -33,6 +33,7 @@ public interface IDarkSouls1 : IGame, IPlayerPosition, ISavefileTime, IReadAttri
     BonfireState GetBonfireState(Bonfire bonfire);
     void WriteWeaponDescription(uint weaponId, string description);
     void WriteItemLotParam(int rowId, Action<ItemLotParam> accessor);
+    void WriteNpcParam(int rowId, Action<NpcParam> accessor);
     void SetLoadingScreenItem(int index, uint item);
 
 #if DEBUG

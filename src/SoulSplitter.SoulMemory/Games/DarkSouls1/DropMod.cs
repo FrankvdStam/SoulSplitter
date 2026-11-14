@@ -63,6 +63,20 @@ public class DropMod(IDarkSouls1 darkSouls)
         {
             GuaranteeDrop(s.RowId, s.ItemId1);
         }
+
+        
+        //darkSouls.WriteItemLotParam(32300000, lot =>
+        //{
+        //    lot.LotItemId01 = 1080; //Blue titanite slab
+        //    lot.LotItemCategory01 = 1073741824;
+        //    lot.LotItemNum01 = 1;
+        //});
+
+
+        //darkSouls.WriteNpcParam(323001, npcParam =>
+        //{
+        //    npcParam.ItemLotId1 = 32300100;
+        //});
     }
 
     public void InitLadderwarpDragonToothAnyPercent()

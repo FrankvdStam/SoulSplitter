@@ -348,9 +348,9 @@ namespace SoulSplitter.Plugin.Timer
                     throw new ArgumentException($"SplitType {SplitType.DarkSouls1Item} while game is {_mainViewModel.Game?.GetType()} and split is {split.GetType()}");
 
                 case SplitType.DarkSouls1Bonfire:
-                    if (_mainViewModel.Game is DarkSouls1 ds1Bonfire && split is SoulMemory.Games.DarkSouls1.BonfireState bonfireState)
+                    if (_mainViewModel.Game is DarkSouls1 ds1Bonfire && split is DarkSouls1BonfireViewModel darkSouls1BonfireViewModel)
                     {
-                        //_darkSouls1.GetBonfireState(s.BonfireState.Bonfire!.Value) >= s.BonfireState.State;
+                        return ds1Bonfire.GetBonfireState(darkSouls1BonfireViewModel.Bonfire) >= darkSouls1BonfireViewModel.BonfireState;
                     }
                     throw new ArgumentException($"Unsupported split type {splitType}.");
 
