@@ -17,7 +17,7 @@
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SoulSplitter.Net6.Tests
+namespace SoulSplitter.Plugin.Tests
 {
     public class TestMethodStaAttribute : TestMethodAttribute
     {

@@ -1,0 +1,66 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/.github/" />
+  <Folder Name="/.github/workflows/">
+    <File Path=".github/workflows/build.yml" />
+    <File Path=".github/workflows/issues.yml" />
+    <File Path=".github/workflows/sign.yml" />
+  </Folder>
+  <Folder Name="/Components/">
+    <File Path="Components/MaterialDesignColors.dll" />
+    <File Path="Components/MaterialDesignThemes.Wpf.dll" />
+    <File Path="Components/MaterialDesignThemes.Wpf.xml" />
+    <File Path="Components/Microsoft.Xaml.Behaviors.dll" />
+    <File Path="Components/SoulSplitter.Plugin.dll" />
+    <File Path="Components/soulsplitter.soulmemory-rs.launcher.x64.exe" />
+    <File Path="Components/soulsplitter.soulmemory-rs.launcher.x86.exe" />
+    <File Path="Components/SoulSplitter.SoulMemory.dll" />
+    <File Path="Components/soulsplitter.soulmemory_rs.x64.dll" />
+    <File Path="Components/soulsplitter.soulmemory_rs.x86.dll" />
+    <File Path="Components/soulsplitter.soulmods.x64.dll" />
+    <File Path="Components/soulsplitter.soulmods.x86.dll" />
+    <File Path="Components/Updates.xml" />
+  </Folder>
+  <Folder Name="/resources/">
+    <File Path="resources/soulsplitter.ico" />
+    <File Path="resources/soulsplitter.png" />
+    <File Path="resources/soulsplitter1.png" />
+    <File Path="resources/soulsplitter2.png" />
+    <File Path="resources/soulsplitter3.png" />
+    <File Path="resources/soulsplitter4.png" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="CapitaineToinon - COPYING" />
+    <File Path="Directory.Build.props" />
+    <File Path="LICENSE" />
+    <File Path="qodana.yaml" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/SoulSplitter.Cli/SoulSplitter.Cli.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="src/SoulSplitter.CliTimer/SoulSplitter.CliTimer.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="src/SoulSplitter.Plugin/SoulSplitter.Plugin.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="src/SoulSplitter.SoulMemory/SoulSplitter.SoulMemory.csproj">
+      <Platform Project="x64" />
+    </Project>
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SoulMemory.Tests/SoulSplitter.SoulMemory.Tests.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="tests/SoulSplitter.Tests/SoulSplitter.Plugin.Tests.csproj">
+      <Platform Project="x64" />
+    </Project>
+  </Folder>
+</Solution>

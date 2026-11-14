@@ -113,6 +113,7 @@ This repository is based on the collective work an efforts of the [soulsmodding]
 - Thanks [Blade](https://github.com/bladecoding/DarkSouls3RemoveIntroScreens) for the nologo code!
 - Thanks [Uberhalit](https://github.com/uberhalit) for the [Sekiro savefile mod](https://github.com/uberhalit/SimpleSekiroSavegameHelper) from his tool
 - Thanks [ViRazY](https://github.com/Vinjul1704) for the standalone CLI timer and many other contributions  
+- Thanks [Soarqin](https://github.com/soarqin) for multiple flag fixes, nologo and more  
 - Thanks [Ducksual](https://www.twitch.tv/ducksual) for helping with DS1 dropmod
 - Thanks [AinTunez](https://github.com/AinTunez), for DarkScript3, deciphering emevd event scripts: https://github.com/AinTunez/DarkScript3 - this is the basis for building the EMEVD logger  
 - Thanks to many different people (including [vawser](https://github.com/vawser)) from the [soulsmodding](http://soulsmodding.wikidot.com/) community for DSMapStudio and all its variations, including [DSMapStudio](https://github.com/soulsmods/DSMapStudio) and [Smithbox](https://github.com/vawser/Smithbox)  

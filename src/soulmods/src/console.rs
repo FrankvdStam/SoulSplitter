@@ -14,12 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-use windows::Win32::System::Console::{AllocConsole, FreeConsole};
+use windows::Win32::System::Console::{AllocConsole, FreeConsole, GetConsoleWindow};
 
 
 pub fn init_console()
 {
-    unsafe{ AllocConsole().unwrap() };
+    //bloodborne will already have a console attached via shadps4
+    let hwnd = unsafe{ GetConsoleWindow() };
+    if hwnd.is_invalid()
+    {
+        unsafe{ AllocConsole().unwrap() };
+    }    
 }
 
 #[allow(dead_code)]

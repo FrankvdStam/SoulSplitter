@@ -1,3 +1,19 @@
+// This file is part of the SoulSplitter distribution (https://github.com/FrankvdStam/SoulSplitter).
+// Copyright (c) 2022 Frank van der Stam.
+// https://github.com/FrankvdStam/SoulSplitter/blob/main/LICENSE
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, version 3.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 use std::ffi::c_void;
 use std::fmt::{Display, Formatter};
 use std::mem::MaybeUninit;
@@ -5,6 +21,10 @@ use std::path::PathBuf;
 use std::cmp::Ordering;
 use windows::core::PCWSTR;
 use windows::Win32::Storage::FileSystem::{GET_FILE_VERSION_INFO_FLAGS, GetFileVersionInfoExW, GetFileVersionInfoSizeW, VerQueryValueW, VS_FIXEDFILEINFO};
+
+#[unsafe(no_mangle)]
+#[used]
+pub static SOULMODS_VERSION: &'static str = env!("VERSION");
 
 pub struct Version
 {
@@ -50,7 +70,7 @@ impl Version
             let get_file_version_info_result = GetFileVersionInfoExW(
                 GET_FILE_VERSION_INFO_FLAGS(0x02),
                 pcwstr,
-                0,
+                None,
                 file_version_info_size,
                 buffer.as_mut_ptr() as *mut c_void
             );
